@@ -1,158 +1,294 @@
-import { CheckCircle } from 'lucide-react';
-import { useState } from 'react';
+import { TrendingUp } from 'lucide-react';
+import { useEffect, useMemo, useState } from 'react';
 import {
   CartesianGrid,
   ComposedChart,
   Legend,
   Line,
   ResponsiveContainer,
-  Scatter,
   Tooltip,
   XAxis,
   YAxis,
-  ZAxis,
 } from 'recharts';
+import Example from './Example';
+import Quiz, { Question } from './Quiz';
+
+const questions: Question[] = [
+  {
+    title: 'Изчислете стойността',
+    question: 'Ако f(x) = 2x + 1, намерете f(3) = ?',
+    answers: ['f(3) = 5', 'f(3) = 6', 'f(3) = 7', 'f(3) = 8'],
+    correctAnswer: 'f(3) = 7',
+  },
+];
+
+const evaluateFunction = (x: number, functionStr: string): number | null => {
+  try {
+    const expr = functionStr
+      .toLowerCase()
+      .replace(/\^/g, '**')
+      .replace(/\bsin\b/g, 'Math.sin')
+      .replace(/\bcos\b/g, 'Math.cos')
+      .replace(/\btan\b/g, 'Math.tan')
+      .replace(/\bsqrt\b/g, 'Math.sqrt')
+      .replace(/\babs\b/g, 'Math.abs')
+      .replace(/\blog\b/g, 'Math.log')
+      .replace(/\bexp\b/g, 'Math.exp')
+      .replace(/(\d)x\b/g, '$1*x') // 2x -> 2*x (use word boundary)
+      .replace(/\bx\b/g, `(${x})`); // Replace x with the value (use word boundaries, do this LAST)
+
+    const result = eval(expr);
+
+    if (typeof result !== 'number' || !isFinite(result)) return null;
+
+    return result;
+  } catch {
+    return null;
+  }
+};
 
 export default function Functions() {
-  const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
-  const [isCorrect, setIsCorrect] = useState<boolean | null>(null);
-
-  const checkAnswer = (answer: string) => {
-    setSelectedAnswer(answer);
-    setIsCorrect(answer === 'f(3) = 7');
-  };
-
-  const answers = ['f(3) = 5', 'f(3) = 6', 'f(3) = 7', 'f(3) = 8'];
-
-  // Generate data points for the function f(x) = 2x + 1
-  const generateFunctionData = () => {
-    const data = [];
-    for (let x = -3; x <= 5; x += 0.5) {
-      data.push({
-        x: x,
-        y: 2 * x + 1,
-      });
-    }
-    return data;
-  };
-
-  // Highlighted points from the example
-  const examplePoints = [
-    { x: 0, y: 1, name: 'f(0) = 1' },
-    { x: 1, y: 3, name: 'f(1) = 3' },
-    { x: 2, y: 5, name: 'f(2) = 5' },
-  ];
-
-  const functionData = generateFunctionData();
-
   return (
     <main className="flex-1 p-8 overflow-y-auto">
-      <h1 className="text-2xl font-bold mb-4 text-blue-600">Линейни функции</h1>
-      <p className="mb-4 leading-relaxed">
-        Линейна функция е функция от вида <code>f(x) = ax + b</code>, където a и
-        b са константи. Графиката на линейната функция е права линия.
-      </p>
-
-      <div className="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-md mb-6">
-        <h2 className="text-lg font-semibold mb-2">Пример</h2>
-        <p className="mb-4">Да разгледаме функцията f(x) = 2x + 1</p>
-        <ol className="list-decimal ml-6 mt-2 space-y-1 mb-4">
-          <li>За x = 0: f(0) = 2(0) + 1 = 1</li>
-          <li>За x = 1: f(1) = 2(1) + 1 = 3</li>
-          <li>За x = 2: f(2) = 2(2) + 1 = 5</li>
-        </ol>
-
-        <div className="mt-4">
-          <h3 className="text-md font-semibold mb-3">Графика на функцията</h3>
-          <ResponsiveContainer width="100%" height={300}>
-            <ComposedChart
-              data={functionData}
-              margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
-            >
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis
-                dataKey="x"
-                type="number"
-                domain={[-3, 5]}
-                label={{
-                  value: 'x',
-                  position: 'insideBottomRight',
-                  offset: -5,
-                }}
-              />
-              <YAxis
-                label={{ value: 'f(x)', angle: -90, position: 'insideLeft' }}
-              />
-              <Tooltip
-                content={({ active, payload }) => {
-                  if (active && payload && payload.length) {
-                    return (
-                      <div className="bg-white dark:bg-gray-700 p-2 border border-gray-300 dark:border-gray-600 rounded shadow">
-                        <p className="text-sm">
-                          x = {payload[0].payload.x.toFixed(1)}
-                        </p>
-                        <p className="text-sm font-semibold text-blue-600">
-                          f(x) = {payload[0].payload.y.toFixed(1)}
-                        </p>
-                      </div>
-                    );
-                  }
-                  return null;
-                }}
-              />
-              <Legend />
-              <Line
-                type="monotone"
-                dataKey="y"
-                stroke="#2563eb"
-                strokeWidth={2}
-                dot={false}
-                name="f(x) = 2x + 1"
-              />
-              <Scatter
-                data={examplePoints}
-                fill="#ef4444"
-                shape="circle"
-                name="Примерни точки"
-              >
-                <ZAxis range={[100, 100]} />
-              </Scatter>
-            </ComposedChart>
-          </ResponsiveContainer>
-        </div>
-      </div>
-
-      <div className="bg-cyan-50 dark:bg-cyan-900/30 p-6 rounded-2xl shadow-md">
-        <h2 className="text-lg font-semibold mb-2">Изчислете стойността</h2>
-        <p className="mb-3">
-          Ако <code>f(x) = 2x + 1</code>, намерете <code>f(3)</code>
-        </p>
-        <div className="space-y-2">
-          {answers.map(ans => (
-            <button
-              key={ans}
-              onClick={() => checkAnswer(ans)}
-              className={`w-full text-left px-3 py-2 rounded-lg border transition ${
-                selectedAnswer === ans
-                  ? isCorrect
-                    ? 'border-green-500 bg-green-50 dark:bg-green-900/40'
-                    : 'border-red-500 bg-red-50 dark:bg-red-900/40'
-                  : 'border-gray-300 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-700'
-              }`}
-            >
-              {ans}
-            </button>
-          ))}
-        </div>
-        {isCorrect !== null && (
-          <div
-            className={`mt-3 font-medium flex items-center gap-2 ${isCorrect ? 'text-green-600' : 'text-red-600'}`}
-          >
-            <CheckCircle size={18} />
-            {isCorrect ? 'Правилнен отговор! 🎉' : 'Опитай отново! 💩'}
-          </div>
-        )}
-      </div>
+      <h1 className="text-2xl font-bold mb-4 text-blue-600">Функции</h1>
+      <InteractiveFunctionGrapher />
+      <Example
+        description="Да разгледаме функцията f(x) = 2x + 1"
+        steps={[
+          'За x = 0: f(0) = 2(0) + 1 = 1',
+          'За x = 1: f(1) = 2(1) + 1 = 3',
+          'За x = 2: f(2) = 2(2) + 1 = 5',
+        ]}
+      />
+      <Quiz questions={questions} />
     </main>
+  );
+}
+
+function InteractiveFunctionGrapher() {
+  const [customFunction, setCustomFunction] = useState('2*x + 1');
+  const [error, setError] = useState<string | null>(null);
+  const [xMin, setXMin] = useState(-10);
+  const [xMax, setXMax] = useState(10);
+  const [debouncedFunction, setDebouncedFunction] = useState(customFunction);
+  const [debouncedXMin, setDebouncedXMin] = useState(xMin);
+  const [debouncedXMax, setDebouncedXMax] = useState(xMax);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setDebouncedFunction(customFunction);
+    }, 300);
+    return () => clearTimeout(timer);
+  }, [customFunction]);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setDebouncedXMin(xMin);
+    }, 500);
+    return () => clearTimeout(timer);
+  }, [xMin]);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setDebouncedXMax(xMax);
+    }, 500);
+    return () => clearTimeout(timer);
+  }, [xMax]);
+
+  const functionData = useMemo(() => {
+    const data = [];
+    const step = (debouncedXMax - debouncedXMin) / 100;
+    let hasError = false;
+
+    for (let x = debouncedXMin; x <= debouncedXMax; x += step) {
+      const y = evaluateFunction(x, debouncedFunction);
+      if (y === null) {
+        hasError = true;
+        break;
+      }
+      data.push({ x: parseFloat(x.toFixed(2)), y: parseFloat(y.toFixed(2)) });
+    }
+
+    if (hasError) {
+      setError('Невалидна функция. Използвайте x като променлива.');
+      return [];
+    } else {
+      setError(null);
+      return data;
+    }
+  }, [debouncedFunction, debouncedXMin, debouncedXMax]);
+
+  return (
+    <div className="bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 p-6 rounded-2xl shadow-md mb-6">
+      <div className="flex items-center gap-2 mb-4">
+        <TrendingUp className="text-blue-600" size={24} />
+        <h2 className="text-lg font-semibold">
+          Интерактивна графика на функции
+        </h2>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+        <div className="md:col-span-3">
+          <label className="block text-sm font-medium mb-2">
+            Въведете функция f(x):
+          </label>
+          <input
+            type="text"
+            value={customFunction}
+            onChange={e => setCustomFunction(e.target.value)}
+            placeholder="Например: 2*x + 1, x^2, sin(x), sqrt(x)"
+            className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700"
+          />
+          <p className="text-xs text-gray-600 dark:text-gray-400 mt-1">
+            Поддържани: +, -, *, /, ^, sin, cos, tan, sqrt, abs, log, exp
+          </p>
+        </div>
+        <div>
+          <label className="block text-sm font-medium mb-2">От x =</label>
+          <input
+            type="number"
+            value={xMin}
+            onChange={e => setXMin(Number(e.target.value))}
+            className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700"
+          />
+        </div>
+        <div>
+          <label className="block text-sm font-medium mb-2">До x =</label>
+          <input
+            type="number"
+            value={xMax}
+            onChange={e => setXMax(Number(e.target.value))}
+            className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700"
+          />
+        </div>
+        <div className="flex items-end">
+          <button
+            onClick={() => {
+              setCustomFunction('2*x + 1');
+              setXMin(-3);
+              setXMax(5);
+            }}
+            className="w-full px-4 py-2 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 rounded-lg transition"
+          >
+            Нулиране
+          </button>
+        </div>
+      </div>
+
+      {error && (
+        <div className="mb-4 p-3 bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300 rounded-lg">
+          {error}
+        </div>
+      )}
+
+      <div className="bg-white dark:bg-gray-800 p-4 rounded-xl">
+        <ResponsiveContainer width="100%" height={350}>
+          <ComposedChart
+            data={functionData}
+            margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+          >
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis
+              dataKey="x"
+              type="number"
+              domain={[debouncedXMin, debouncedXMax]}
+              label={{
+                value: 'x',
+                position: 'insideBottomRight',
+                offset: -5,
+              }}
+            />
+            <YAxis
+              label={{ value: 'f(x)', angle: -90, position: 'insideLeft' }}
+            />
+            <Tooltip
+              content={({ active, payload }) => {
+                if (active && payload && payload.length) {
+                  return (
+                    <div className="bg-white dark:bg-gray-700 p-2 border border-gray-300 dark:border-gray-600 rounded shadow">
+                      <p className="text-sm">
+                        x = {payload[0].payload.x.toFixed(2)}
+                      </p>
+                      <p className="text-sm font-semibold text-blue-600">
+                        f(x) = {payload[0].payload.y.toFixed(2)}
+                      </p>
+                    </div>
+                  );
+                }
+                return null;
+              }}
+            />
+            <Legend />
+            <Line
+              type="monotone"
+              dataKey="y"
+              stroke="#2563eb"
+              strokeWidth={2}
+              dot={false}
+              name={`f(x) = ${debouncedFunction}`}
+            />
+          </ComposedChart>
+        </ResponsiveContainer>
+      </div>
+
+      <div className="mt-4 grid grid-cols-2 md:grid-cols-4 gap-2">
+        <button
+          onClick={() => setCustomFunction('x^2')}
+          className="px-3 py-2 bg-blue-100 dark:bg-blue-900/30 hover:bg-blue-200 dark:hover:bg-blue-900/50 rounded-lg text-sm transition"
+        >
+          x²
+        </button>
+        <button
+          onClick={() => setCustomFunction('x^3')}
+          className="px-3 py-2 bg-blue-100 dark:bg-blue-900/30 hover:bg-blue-200 dark:hover:bg-blue-900/50 rounded-lg text-sm transition"
+        >
+          x³
+        </button>
+        <button
+          onClick={() => setCustomFunction('sin(x)')}
+          className="px-3 py-2 bg-blue-100 dark:bg-blue-900/30 hover:bg-blue-200 dark:hover:bg-blue-900/50 rounded-lg text-sm transition"
+        >
+          sin(x)
+        </button>
+        <button
+          onClick={() => setCustomFunction('cos(x)')}
+          className="px-3 py-2 bg-blue-100 dark:bg-blue-900/30 hover:bg-blue-200 dark:hover:bg-blue-900/50 rounded-lg text-sm transition"
+        >
+          cos(x)
+        </button>
+        <button
+          onClick={() => {
+            setCustomFunction('sqrt(x)');
+            setXMin(0);
+            setXMax(10);
+          }}
+          className="px-3 py-2 bg-blue-100 dark:bg-blue-900/30 hover:bg-blue-200 dark:hover:bg-blue-900/50 rounded-lg text-sm transition"
+        >
+          √x
+        </button>
+        <button
+          onClick={() => setCustomFunction('1/x')}
+          className="px-3 py-2 bg-blue-100 dark:bg-blue-900/30 hover:bg-blue-200 dark:hover:bg-blue-900/50 rounded-lg text-sm transition"
+        >
+          1/x
+        </button>
+        <button
+          onClick={() => setCustomFunction('abs(x)')}
+          className="px-3 py-2 bg-blue-100 dark:bg-blue-900/30 hover:bg-blue-200 dark:hover:bg-blue-900/50 rounded-lg text-sm transition"
+        >
+          |x|
+        </button>
+        <button
+          onClick={() => {
+            setCustomFunction('exp(x)');
+            setXMin(-2);
+            setXMax(3);
+          }}
+          className="px-3 py-2 bg-blue-100 dark:bg-blue-900/30 hover:bg-blue-200 dark:hover:bg-blue-900/50 rounded-lg text-sm transition"
+        >
+          eˣ
+        </button>
+      </div>
+    </div>
   );
 }
