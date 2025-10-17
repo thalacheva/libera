@@ -22,6 +22,24 @@ const questions: Question[] = [
   },
 ];
 
+export default function Functions() {
+  return (
+    <main className="flex-1 p-8 overflow-y-auto">
+      <h1 className="text-2xl font-bold mb-4 text-blue-600">Функции</h1>
+      <InteractiveFunctionGrapher />
+      <Example
+        description="Да разгледаме функцията f(x) = 2x + 1"
+        steps={[
+          'За x = 0: f(0) = 2(0) + 1 = 1',
+          'За x = 1: f(1) = 2(1) + 1 = 3',
+          'За x = 2: f(2) = 2(2) + 1 = 5',
+        ]}
+      />
+      <Quiz questions={questions} />
+    </main>
+  );
+}
+
 const evaluateFunction = (x: number, functionStr: string): number | null => {
   try {
     const expr = functionStr
@@ -46,24 +64,6 @@ const evaluateFunction = (x: number, functionStr: string): number | null => {
     return null;
   }
 };
-
-export default function Functions() {
-  return (
-    <main className="flex-1 p-8 overflow-y-auto">
-      <h1 className="text-2xl font-bold mb-4 text-blue-600">Функции</h1>
-      <InteractiveFunctionGrapher />
-      <Example
-        description="Да разгледаме функцията f(x) = 2x + 1"
-        steps={[
-          'За x = 0: f(0) = 2(0) + 1 = 1',
-          'За x = 1: f(1) = 2(1) + 1 = 3',
-          'За x = 2: f(2) = 2(2) + 1 = 5',
-        ]}
-      />
-      <Quiz questions={questions} />
-    </main>
-  );
-}
 
 function InteractiveFunctionGrapher() {
   const [customFunction, setCustomFunction] = useState('2*x + 1');
@@ -97,7 +97,7 @@ function InteractiveFunctionGrapher() {
 
   const functionData = useMemo(() => {
     const data = [];
-    const step = (debouncedXMax - debouncedXMin) / 100;
+    const step = (debouncedXMax - debouncedXMin) / 500;
     let hasError = false;
 
     for (let x = debouncedXMin; x <= debouncedXMax; x += step) {
@@ -106,7 +106,7 @@ function InteractiveFunctionGrapher() {
         hasError = true;
         break;
       }
-      data.push({ x: parseFloat(x.toFixed(2)), y: parseFloat(y.toFixed(2)) });
+      data.push({ x, y });
     }
 
     if (hasError) {
@@ -165,8 +165,8 @@ function InteractiveFunctionGrapher() {
           <button
             onClick={() => {
               setCustomFunction('2*x + 1');
-              setXMin(-3);
-              setXMax(5);
+              setXMin(-10);
+              setXMax(10);
             }}
             className="w-full px-4 py-2 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 rounded-lg transition"
           >
@@ -220,7 +220,7 @@ function InteractiveFunctionGrapher() {
             />
             <Legend />
             <Line
-              type="monotone"
+              type="natural"
               dataKey="y"
               stroke="#2563eb"
               strokeWidth={2}
@@ -267,7 +267,10 @@ function InteractiveFunctionGrapher() {
           √x
         </button>
         <button
-          onClick={() => setCustomFunction('1/x')}
+          onClick={() => {
+            setCustomFunction('1/x');
+            setXMin(0.1);
+          }}
           className="px-3 py-2 bg-blue-100 dark:bg-blue-900/30 hover:bg-blue-200 dark:hover:bg-blue-900/50 rounded-lg text-sm transition"
         >
           1/x
@@ -279,11 +282,7 @@ function InteractiveFunctionGrapher() {
           |x|
         </button>
         <button
-          onClick={() => {
-            setCustomFunction('exp(x)');
-            setXMin(-2);
-            setXMax(3);
-          }}
+          onClick={() => setCustomFunction('exp(x)')}
           className="px-3 py-2 bg-blue-100 dark:bg-blue-900/30 hover:bg-blue-200 dark:hover:bg-blue-900/50 rounded-lg text-sm transition"
         >
           eˣ
