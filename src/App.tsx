@@ -1,10 +1,10 @@
 import { BookOpen, Moon, Sun, User } from 'lucide-react';
 import { useEffect, useState } from 'react';
-import { Route, Routes } from 'react-router-dom';
-import Algebra from './Algebra';
-import Functions from './Functions';
-import Geometry from './Geometry';
-import SidebarMenu from './SidebarMenu';
+import { Navigate, Route, Routes } from 'react-router-dom';
+import Algebra from '~/Algebra';
+import Functions from '~/Functions';
+import Triangle from '~/geometry/Triangle';
+import SidebarMenu from '~/SidebarMenu';
 
 function App() {
   const [darkMode, setDarkMode] = useState(false);
@@ -50,9 +50,34 @@ function App() {
       <div className="flex flex-1 overflow-hidden">
         <SidebarMenu />
         <Routes>
-          <Route path="/" element={<Algebra />} />
-          <Route path="/functions" element={<Functions />} />
-          <Route path="/geometry" element={<Geometry />} />
+          <Route path="/" element={<Navigate to="/algebra/linear" replace />} />
+
+          {/* Algebra Routes */}
+          <Route
+            path="/algebra"
+            element={<Navigate to="/algebra/linear" replace />}
+          />
+          <Route path="/algebra/linear" element={<Algebra />} />
+          <Route path="/algebra/quadratic" element={<Algebra />} />
+          <Route path="/algebra/systems" element={<Algebra />} />
+
+          {/* Functions Routes */}
+          <Route
+            path="/functions"
+            element={<Navigate to="/functions/linear" replace />}
+          />
+          <Route path="/functions/linear" element={<Functions />} />
+          <Route path="/functions/quadratic" element={<Functions />} />
+          <Route path="/functions/exponential" element={<Functions />} />
+
+          {/* Geometry Routes */}
+          <Route
+            path="/geometry"
+            element={<Navigate to="/geometry/triangle" replace />}
+          />
+          <Route path="/geometry/triangle" element={<Triangle />} />
+          <Route path="/geometry/quadrilateral" element={<Triangle />} />
+          <Route path="/geometry/circle" element={<Triangle />} />
         </Routes>
       </div>
     </div>

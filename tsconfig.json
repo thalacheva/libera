@@ -23,6 +23,9 @@
 
     /* Path resolution */
     "baseUrl": ".",
+    "paths": {
+      "~/*": ["src/*"]
+    },
     "resolveJsonModule": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true

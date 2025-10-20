@@ -1,12 +1,18 @@
-import Example from './Example';
-import Quiz from './Quiz';
+import Example from '~/Example';
+import Quiz from '~/Quiz';
 
 export default function Geometry() {
   return (
     <main className="flex-1 p-8 overflow-y-auto">
-      <h1 className="text-2xl font-bold mb-4 text-blue-600">
+      <h1 className="text-2xl font-bold mb-4 text-blue-600">Геометрия</h1>
+      <p className="mb-4 leading-relaxed">
+        Геометрията е клон на математиката, който изучава формите, размерите и
+        свойствата на фигурите в пространството. Изберете тема от менюто за да
+        научите повече.
+      </p>
+      <h2 className="text-xl font-bold mb-3 text-blue-600 mt-6">
         Лице на правоъгълник
-      </h1>
+      </h2>
       <p className="mb-4 leading-relaxed">
         Правоъгълник е четириъгълник с четири прави ъгъла. Лицето на
         правоъгълника се изчислява по формулата <code>A = a × b</code>, където a

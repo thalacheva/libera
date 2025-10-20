@@ -10,8 +10,8 @@ import {
   XAxis,
   YAxis,
 } from 'recharts';
-import Example from './Example';
-import Quiz, { Question } from './Quiz';
+import Example from '~/Example';
+import Quiz, { Question } from '~/Quiz';
 
 const questions: Question[] = [
   {

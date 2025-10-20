@@ -1,5 +1,5 @@
-import Example from './Example';
-import Quiz from './Quiz';
+import Example from '~/Example';
+import Quiz from '~/Quiz';
 
 export default function Algebra() {
   return (
