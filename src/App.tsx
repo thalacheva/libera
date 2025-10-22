@@ -2,9 +2,11 @@ import { BookOpen, Moon, Sun, User } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import Algebra from '~/Algebra';
-import Functions from '~/Functions';
 import Triangle from '~/geometry/Triangle';
 import SidebarMenu from '~/SidebarMenu';
+import InteractiveFunctionGrapher from './functions/InteractiveFunctionGrapher';
+import LinearFunctions from './functions/LinearFunctions';
+import QuadraticFunctions from './functions/QuadraticFunctions';
 
 function App() {
   const [darkMode, setDarkMode] = useState(false);
@@ -57,9 +59,9 @@ function App() {
             <Route path="systems" element={<Algebra />} />
           </Route>
           <Route path="functions">
-            <Route path="linear" element={<Functions />} />
-            <Route path="quadratic" element={<Functions />} />
-            <Route path="exponential" element={<Functions />} />
+            <Route path="grapher" element={<InteractiveFunctionGrapher />} />
+            <Route path="linear" element={<LinearFunctions />} />
+            <Route path="quadratic" element={<QuadraticFunctions />} />
           </Route>
           <Route path="geometry">
             <Route path="triangle" element={<Triangle />} />

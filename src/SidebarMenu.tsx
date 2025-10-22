@@ -14,9 +14,9 @@ const topics = [
     name: 'Функции',
     path: '/functions',
     subtopics: [
+      { name: 'Графики на функции', path: '/grapher' },
       { name: 'Линейни функции', path: '/linear' },
       { name: 'Квадратни функции', path: '/quadratic' },
-      { name: 'Експоненциални функции', path: '/exponential' },
     ],
   },
   {
