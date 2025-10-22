@@ -91,6 +91,83 @@ export default function InteractiveTriangle({
     };
   };
 
+  // Helper function to draw accurate angle arc
+  const drawAngleArc = (
+    vertex: Point,
+    point1: Point,
+    point2: Point,
+    radius: number
+  ): string => {
+    // Calculate angles from vertex to both points
+    const angle1 = Math.atan2(point1.y - vertex.y, point1.x - vertex.x);
+    const angle2 = Math.atan2(point2.y - vertex.y, point2.x - vertex.x);
+
+    // Calculate start and end points on the arc
+    const startX = vertex.x + radius * Math.cos(angle1);
+    const startY = vertex.y + radius * Math.sin(angle1);
+    const endX = vertex.x + radius * Math.cos(angle2);
+    const endY = vertex.y + radius * Math.sin(angle2);
+
+    // Determine if we should use the large arc flag
+    let angleDiff = angle2 - angle1;
+    if (angleDiff > Math.PI) angleDiff -= 2 * Math.PI;
+    if (angleDiff < -Math.PI) angleDiff += 2 * Math.PI;
+    const largeArcFlag = Math.abs(angleDiff) > Math.PI ? 1 : 0;
+    const sweepFlag = angleDiff > 0 ? 1 : 0;
+
+    return `M ${startX},${startY} A ${radius},${radius} 0 ${largeArcFlag},${sweepFlag} ${endX},${endY}`;
+  };
+
+  // Helper function to get label position along angle bisector
+  const getAngleLabelPosition = (
+    vertex: Point,
+    point1: Point,
+    point2: Point,
+    distance: number
+  ): Point => {
+    // Calculate angles from vertex to both points
+    const angle1 = Math.atan2(point1.y - vertex.y, point1.x - vertex.x);
+    const angle2 = Math.atan2(point2.y - vertex.y, point2.x - vertex.x);
+
+    // Calculate the bisector angle
+    let angleDiff = angle2 - angle1;
+    if (angleDiff > Math.PI) angleDiff -= 2 * Math.PI;
+    if (angleDiff < -Math.PI) angleDiff += 2 * Math.PI;
+    const bisectorAngle = angle1 + angleDiff / 2;
+
+    // Position the label along the bisector
+    return {
+      x: vertex.x + distance * Math.cos(bisectorAngle),
+      y: vertex.y + distance * Math.sin(bisectorAngle),
+    };
+  };
+
+  // Helper function to calculate side label position and rotation
+  const getSideLabelTransform = (
+    point1: Point,
+    point2: Point,
+    offset: number
+  ): { x: number; y: number; angle: number } => {
+    // Midpoint of the side
+    const midX = (point1.x + point2.x) / 2;
+    const midY = (point1.y + point2.y) / 2;
+
+    // Angle of the side
+    const angle = Math.atan2(point2.y - point1.y, point2.x - point1.x);
+    const angleDeg = (angle * 180) / Math.PI;
+
+    // Perpendicular offset
+    const perpAngle = angle + Math.PI / 2;
+    const offsetX = offset * Math.cos(perpAngle);
+    const offsetY = offset * Math.sin(perpAngle);
+
+    return {
+      x: midX + offsetX,
+      y: midY + offsetY,
+      angle: angleDeg,
+    };
+  };
+
   return (
     <div className="bg-white dark:bg-gray-800 p-4 rounded-lg">
       <svg
@@ -113,49 +190,55 @@ export default function InteractiveTriangle({
           <>
             {/* Angle arcs */}
             <path
-              d={`M ${A.x + 20},${A.y} A 20,20 0 0,1 ${A.x},${A.y + 20}`}
+              d={drawAngleArc(A, B, C, 25)}
               fill="none"
               stroke="rgb(239, 68, 68)"
-              strokeWidth="1.5"
+              strokeWidth="2"
             />
             <path
-              d={`M ${B.x + 20},${B.y} A 20,20 0 0,0 ${B.x},${B.y - 20}`}
+              d={drawAngleArc(B, C, A, 25)}
               fill="none"
               stroke="rgb(34, 197, 94)"
-              strokeWidth="1.5"
+              strokeWidth="2"
             />
             <path
-              d={`M ${C.x - 20},${C.y} A 20,20 0 0,0 ${C.x},${C.y - 20}`}
+              d={drawAngleArc(C, A, B, 25)}
               fill="none"
               stroke="rgb(168, 85, 247)"
-              strokeWidth="1.5"
+              strokeWidth="2"
             />
 
             {/* Angle labels */}
             <text
-              x={A.x - 5}
-              y={A.y + 35}
+              x={getAngleLabelPosition(A, B, C, 45).x}
+              y={getAngleLabelPosition(A, B, C, 45).y}
               fontSize="14"
               fill="rgb(239, 68, 68)"
               fontWeight="bold"
+              textAnchor="middle"
+              dominantBaseline="middle"
             >
               {angleA.toFixed(0)}°
             </text>
             <text
-              x={B.x + 25}
-              y={B.y - 10}
+              x={getAngleLabelPosition(B, C, A, 45).x}
+              y={getAngleLabelPosition(B, C, A, 45).y}
               fontSize="14"
               fill="rgb(34, 197, 94)"
               fontWeight="bold"
+              textAnchor="middle"
+              dominantBaseline="middle"
             >
               {angleB.toFixed(0)}°
             </text>
             <text
-              x={C.x - 35}
-              y={C.y - 10}
+              x={getAngleLabelPosition(C, A, B, 45).x}
+              y={getAngleLabelPosition(C, A, B, 45).y}
               fontSize="14"
               fill="rgb(168, 85, 247)"
               fontWeight="bold"
+              textAnchor="middle"
+              dominantBaseline="middle"
             >
               {angleC.toFixed(0)}°
             </text>
@@ -192,7 +275,7 @@ export default function InteractiveTriangle({
 
                   {/* Exterior angle arc */}
                   <path
-                    d={`M ${C.x + 30},${C.y - 10} A 30,30 0 0,1 ${C.x + 20},${C.y + 20}`}
+                    d={drawAngleArc(C, B, D, 30)}
                     fill="none"
                     stroke="rgb(239, 68, 68)"
                     strokeWidth="2"
@@ -200,43 +283,49 @@ export default function InteractiveTriangle({
 
                   {/* Interior angles at A and B */}
                   <path
-                    d={`M ${A.x + 15},${A.y} A 15,15 0 0,1 ${A.x},${A.y + 15}`}
+                    d={drawAngleArc(A, B, C, 25)}
                     fill="none"
                     stroke="rgb(34, 197, 94)"
-                    strokeWidth="1.5"
+                    strokeWidth="2"
                   />
                   <path
-                    d={`M ${B.x + 15},${B.y} A 15,15 0 0,0 ${B.x},${B.y - 15}`}
+                    d={drawAngleArc(B, C, A, 25)}
                     fill="none"
                     stroke="rgb(168, 85, 247)"
-                    strokeWidth="1.5"
+                    strokeWidth="2"
                   />
 
                   {/* Angle labels */}
                   <text
-                    x={C.x + 35}
-                    y={C.y + 15}
+                    x={getAngleLabelPosition(C, B, D, 50).x}
+                    y={getAngleLabelPosition(C, B, D, 50).y}
                     fontSize="14"
                     fill="rgb(239, 68, 68)"
                     fontWeight="bold"
+                    textAnchor="middle"
+                    dominantBaseline="middle"
                   >
                     {(180 - angleC).toFixed(0)}° (външен)
                   </text>
                   <text
-                    x={A.x - 5}
-                    y={A.y + 30}
+                    x={getAngleLabelPosition(A, B, C, 45).x}
+                    y={getAngleLabelPosition(A, B, C, 45).y}
                     fontSize="14"
                     fill="rgb(34, 197, 94)"
                     fontWeight="bold"
+                    textAnchor="middle"
+                    dominantBaseline="middle"
                   >
                     {angleA.toFixed(0)}°
                   </text>
                   <text
-                    x={B.x + 20}
-                    y={B.y - 10}
+                    x={getAngleLabelPosition(B, C, A, 45).x}
+                    y={getAngleLabelPosition(B, C, A, 45).y}
                     fontSize="14"
                     fill="rgb(168, 85, 247)"
                     fontWeight="bold"
+                    textAnchor="middle"
+                    dominantBaseline="middle"
                   >
                     {angleB.toFixed(0)}°
                   </text>
@@ -261,33 +350,52 @@ export default function InteractiveTriangle({
         {type === 'inequality' && (
           <>
             {/* Side labels */}
-            <text
-              x={(A.x + B.x) / 2 - 30}
-              y={(A.y + B.y) / 2}
-              fontSize="14"
-              fill="rgb(239, 68, 68)"
-              fontWeight="bold"
-            >
-              c = {sideAB.toFixed(0)}
-            </text>
-            <text
-              x={(B.x + C.x) / 2}
-              y={(B.y + C.y) / 2 + 20}
-              fontSize="14"
-              fill="rgb(34, 197, 94)"
-              fontWeight="bold"
-            >
-              a = {sideBC.toFixed(0)}
-            </text>
-            <text
-              x={(C.x + A.x) / 2 + 20}
-              y={(C.y + A.y) / 2}
-              fontSize="14"
-              fill="rgb(168, 85, 247)"
-              fontWeight="bold"
-            >
-              b = {sideCA.toFixed(0)}
-            </text>
+            {(() => {
+              const labelAB = getSideLabelTransform(A, B, 20);
+              const labelBC = getSideLabelTransform(B, C, 20);
+              const labelCA = getSideLabelTransform(C, A, 20);
+
+              return (
+                <>
+                  <text
+                    x={labelAB.x}
+                    y={labelAB.y}
+                    fontSize="14"
+                    fill="rgb(239, 68, 68)"
+                    fontWeight="bold"
+                    textAnchor="middle"
+                    dominantBaseline="middle"
+                    transform={`rotate(${labelAB.angle > 90 || labelAB.angle < -90 ? labelAB.angle + 180 : labelAB.angle}, ${labelAB.x}, ${labelAB.y})`}
+                  >
+                    c = {sideAB.toFixed(0)}
+                  </text>
+                  <text
+                    x={labelBC.x}
+                    y={labelBC.y}
+                    fontSize="14"
+                    fill="rgb(34, 197, 94)"
+                    fontWeight="bold"
+                    textAnchor="middle"
+                    dominantBaseline="middle"
+                    transform={`rotate(${labelBC.angle > 90 || labelBC.angle < -90 ? labelBC.angle + 180 : labelBC.angle}, ${labelBC.x}, ${labelBC.y})`}
+                  >
+                    a = {sideBC.toFixed(0)}
+                  </text>
+                  <text
+                    x={labelCA.x}
+                    y={labelCA.y}
+                    fontSize="14"
+                    fill="rgb(168, 85, 247)"
+                    fontWeight="bold"
+                    textAnchor="middle"
+                    dominantBaseline="middle"
+                    transform={`rotate(${labelCA.angle > 90 || labelCA.angle < -90 ? labelCA.angle + 180 : labelCA.angle}, ${labelCA.x}, ${labelCA.y})`}
+                  >
+                    b = {sideCA.toFixed(0)}
+                  </text>
+                </>
+              );
+            })()}
 
             {/* Inequalities */}
             <text
