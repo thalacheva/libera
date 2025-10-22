@@ -51,33 +51,21 @@ function App() {
         <SidebarMenu />
         <Routes>
           <Route path="/" element={<Navigate to="/algebra/linear" replace />} />
-
-          {/* Algebra Routes */}
-          <Route
-            path="/algebra"
-            element={<Navigate to="/algebra/linear" replace />}
-          />
-          <Route path="/algebra/linear" element={<Algebra />} />
-          <Route path="/algebra/quadratic" element={<Algebra />} />
-          <Route path="/algebra/systems" element={<Algebra />} />
-
-          {/* Functions Routes */}
-          <Route
-            path="/functions"
-            element={<Navigate to="/functions/linear" replace />}
-          />
-          <Route path="/functions/linear" element={<Functions />} />
-          <Route path="/functions/quadratic" element={<Functions />} />
-          <Route path="/functions/exponential" element={<Functions />} />
-
-          {/* Geometry Routes */}
-          <Route
-            path="/geometry"
-            element={<Navigate to="/geometry/triangle" replace />}
-          />
-          <Route path="/geometry/triangle" element={<Triangle />} />
-          <Route path="/geometry/quadrilateral" element={<Triangle />} />
-          <Route path="/geometry/circle" element={<Triangle />} />
+          <Route path="algebra">
+            <Route path="linear" element={<Algebra />} />
+            <Route path="quadratic" element={<Algebra />} />
+            <Route path="systems" element={<Algebra />} />
+          </Route>
+          <Route path="functions">
+            <Route path="linear" element={<Functions />} />
+            <Route path="quadratic" element={<Functions />} />
+            <Route path="exponential" element={<Functions />} />
+          </Route>
+          <Route path="geometry">
+            <Route path="triangle" element={<Triangle />} />
+            <Route path="quadrilateral" element={<Triangle />} />
+            <Route path="circle" element={<Triangle />} />
+          </Route>
         </Routes>
       </div>
     </div>
