@@ -1,6 +1,12 @@
 import { TrendingUp } from 'lucide-react';
 import { useEffect, useMemo, useRef, useState } from 'react';
 
+const RANGE = { MIN: -20, MAX: 20 };
+const GRID_STEP = 5;
+const PADDING = 30;
+const RESOLUTION = 1000;
+const DEBOUNCE_DELAY = 300;
+
 const evaluateFunction = (x: number, functionStr: string): number | null => {
   try {
     const expr = functionStr
@@ -13,17 +19,22 @@ const evaluateFunction = (x: number, functionStr: string): number | null => {
       .replace(/\babs\b/g, 'Math.abs')
       .replace(/\blog\b/g, 'Math.log')
       .replace(/\bexp\b/g, 'Math.exp')
-      .replace(/(\d)x\b/g, '$1*x') // 2x -> 2*x (use word boundary)
-      .replace(/\bx\b/g, `(${x})`); // Replace x with the value (use word boundaries, do this LAST)
+      .replace(/(\d)x\b/g, '$1*x')
+      .replace(/\bx\b/g, `(${x})`);
 
     const result = eval(expr);
-
-    if (typeof result !== 'number' || !isFinite(result)) return null;
-
-    return result;
+    return typeof result === 'number' && isFinite(result) ? result : null;
   } catch {
     return null;
   }
+};
+
+const generateGridValues = (min: number, max: number, step: number) => {
+  const values = [];
+  for (let v = min; v <= max; v += step) {
+    if (v !== 0) values.push(v);
+  }
+  return values;
 };
 
 export default function InteractiveFunctionGrapher() {
@@ -33,13 +44,6 @@ export default function InteractiveFunctionGrapher() {
   const [dimensions, setDimensions] = useState({ width: 600, height: 600 });
   const containerRef = useRef<HTMLDivElement>(null);
 
-  // Fixed range for both axes
-  const xMin = -20;
-  const xMax = 20;
-  const yMin = -20;
-  const yMax = 20;
-
-  // Update dimensions on resize (square for equal axes)
   useEffect(() => {
     const updateDimensions = () => {
       if (containerRef.current) {
@@ -62,107 +66,75 @@ export default function InteractiveFunctionGrapher() {
   }, []);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setDebouncedFunction(customFunction);
-    }, 300);
+    const timer = setTimeout(
+      () => setDebouncedFunction(customFunction),
+      DEBOUNCE_DELAY
+    );
     return () => clearTimeout(timer);
   }, [customFunction]);
 
-  // Calculate function points (skip undefined values)
   const functionPoints = useMemo(() => {
     const points: Array<{ x: number; y: number }> = [];
-    const step = (xMax - xMin) / 1000; // More points for better resolution
+    const step = (RANGE.MAX - RANGE.MIN) / RESOLUTION;
     let hasValidPoint = false;
 
-    for (let x = xMin; x <= xMax; x += step) {
+    for (let x = RANGE.MIN; x <= RANGE.MAX; x += step) {
       const y = evaluateFunction(x, debouncedFunction);
-      // Skip null/undefined values (e.g., sqrt of negative, division by zero)
-      if (y !== null && isFinite(y) && y >= yMin && y <= yMax) {
+      if (y !== null && y >= RANGE.MIN && y <= RANGE.MAX) {
         points.push({ x, y });
         hasValidPoint = true;
       }
     }
 
-    if (!hasValidPoint) {
-      setError('Функцията не може да бъде изчислена в този диапазон.');
-    } else {
-      setError(null);
-    }
-
+    setError(
+      hasValidPoint
+        ? null
+        : 'Функцията не може да бъде изчислена в този диапазон.'
+    );
     return points;
-  }, [debouncedFunction, xMin, xMax, yMin, yMax]);
+  }, [debouncedFunction]);
 
-  // SVG coordinate conversion with equal scale for X and Y axes
   const { width, height } = dimensions;
-  const padding = 30; // Reduced padding for more graph space
-
-  // Calculate the scale to make both axes use the same unit length
-  const xRange = xMax - xMin; // 100 units
-  const yRange = yMax - yMin; // 100 units
-  const availableWidth = width - 2 * padding;
-  const availableHeight = height - 2 * padding;
-
-  // Since we have square dimensions and equal ranges, scale should be the same
+  const range = RANGE.MAX - RANGE.MIN;
+  const available = {
+    width: width - 2 * PADDING,
+    height: height - 2 * PADDING,
+  };
   const pixelsPerUnit = Math.min(
-    availableWidth / xRange,
-    availableHeight / yRange
+    available.width / range,
+    available.height / range
   );
-
-  // Center both dimensions
-  const actualXRange = pixelsPerUnit * xRange;
-  const actualYRange = pixelsPerUnit * yRange;
-  const xOffset = padding + (availableWidth - actualXRange) / 2;
-  const yOffset = padding + (availableHeight - actualYRange) / 2;
-
-  const scaleX = (x: number) => xOffset + ((x - xMin) / xRange) * actualXRange;
-
-  const scaleY = (y: number) =>
-    height - yOffset - ((y - yMin) / yRange) * actualYRange;
-
-  // Generate function path (handle discontinuities)
-  const generatePath = () => {
-    if (functionPoints.length === 0) return '';
-
-    const pathCommands: string[] = [];
-    const maxGap = (xMax - xMin) / 100; // If gap is > 1% of range, start new path
-
-    for (let i = 0; i < functionPoints.length; i++) {
-      const point = functionPoints[i];
-      const x = scaleX(point.x);
-      const y = scaleY(point.y);
-
-      // Start new path if this is first point or there's a gap
-      if (i === 0 || Math.abs(point.x - functionPoints[i - 1].x) > maxGap) {
-        pathCommands.push(`M ${x} ${y}`);
-      } else {
-        pathCommands.push(`L ${x} ${y}`);
-      }
-    }
-
-    return pathCommands.join(' ');
+  const actualRange = pixelsPerUnit * range;
+  const offset = {
+    x: PADDING + (available.width - actualRange) / 2,
+    y: PADDING + (available.height - actualRange) / 2,
   };
 
-  // Calculate axis positions
-  const xAxisY = scaleY(0);
-  const yAxisX = scaleX(0);
+  const scaleX = (x: number) =>
+    offset.x + ((x - RANGE.MIN) / range) * actualRange;
+  const scaleY = (y: number) =>
+    height - offset.y - ((y - RANGE.MIN) / range) * actualRange;
 
-  // Generate grid lines and labels (every 5 units)
-  const xStep = 5;
-  const yStep = 5;
+  const generatePath = () => {
+    if (!functionPoints.length) return '';
 
-  const xGridLines = [];
-  for (let x = xMin; x <= xMax; x += xStep) {
-    if (x !== 0) {
-      xGridLines.push(x);
-    }
-  }
+    const maxGap = range / 100;
+    return functionPoints
+      .map((point, i) => {
+        const x = scaleX(point.x);
+        const y = scaleY(point.y);
+        const isNewSegment =
+          i === 0 || Math.abs(point.x - functionPoints[i - 1].x) > maxGap;
+        return `${isNewSegment ? 'M' : 'L'} ${x} ${y}`;
+      })
+      .join(' ');
+  };
 
-  const yGridLines = [];
-  for (let y = yMin; y <= yMax; y += yStep) {
-    if (y !== 0) {
-      yGridLines.push(y);
-    }
-  }
+  const axes = { x: scaleY(0), y: scaleX(0) };
+  const gridLines = {
+    x: generateGridValues(RANGE.MIN, RANGE.MAX, GRID_STEP),
+    y: generateGridValues(RANGE.MIN, RANGE.MAX, GRID_STEP),
+  };
 
   return (
     <div className="bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 p-3 sm:p-6 rounded-2xl shadow-md mb-4 sm:mb-6">
@@ -173,7 +145,6 @@ export default function InteractiveFunctionGrapher() {
         </h2>
       </div>
 
-      {/* Function input - always visible */}
       <div className="mb-3">
         <label className="block text-xs sm:text-sm font-medium mb-1 sm:mb-2">
           Въведете функция f(x):
@@ -196,7 +167,6 @@ export default function InteractiveFunctionGrapher() {
         </div>
       )}
 
-      {/* Custom SVG Graph */}
       <div
         ref={containerRef}
         className="bg-white dark:bg-gray-800 p-2 sm:p-4 rounded-xl mb-3"
@@ -207,25 +177,24 @@ export default function InteractiveFunctionGrapher() {
           className="w-full"
           style={{ maxWidth: '100%' }}
         >
-          {/* Grid lines */}
-          {xGridLines.map(x => (
+          {gridLines.x.map(x => (
             <line
               key={`xgrid-${x}`}
               x1={scaleX(x)}
-              y1={padding}
+              y1={PADDING}
               x2={scaleX(x)}
-              y2={height - padding}
+              y2={height - PADDING}
               stroke="currentColor"
               strokeWidth="0.5"
               opacity="0.2"
             />
           ))}
-          {yGridLines.map(y => (
+          {gridLines.y.map(y => (
             <line
               key={`ygrid-${y}`}
-              x1={padding}
+              x1={PADDING}
               y1={scaleY(y)}
-              x2={width - padding}
+              x2={width - PADDING}
               y2={scaleY(y)}
               stroke="currentColor"
               strokeWidth="0.5"
@@ -233,32 +202,30 @@ export default function InteractiveFunctionGrapher() {
             />
           ))}
 
-          {/* Main axes (in the center) - always visible with -50 to 50 range */}
           <line
-            x1={yAxisX}
-            y1={padding}
-            x2={yAxisX}
-            y2={height - padding}
+            x1={axes.y}
+            y1={PADDING}
+            x2={axes.y}
+            y2={height - PADDING}
             stroke="currentColor"
             strokeWidth="2"
             opacity="0.8"
           />
           <line
-            x1={padding}
-            y1={xAxisY}
-            x2={width - padding}
-            y2={xAxisY}
+            x1={PADDING}
+            y1={axes.x}
+            x2={width - PADDING}
+            y2={axes.x}
             stroke="currentColor"
             strokeWidth="2"
             opacity="0.8"
           />
 
-          {/* X-axis labels */}
-          {xGridLines.map(x => (
+          {gridLines.x.map(x => (
             <text
               key={`xlabel-${x}`}
               x={scaleX(x)}
-              y={xAxisY + 15}
+              y={axes.x + 15}
               textAnchor="middle"
               fontSize="10"
               fill="currentColor"
@@ -267,12 +234,10 @@ export default function InteractiveFunctionGrapher() {
               {x}
             </text>
           ))}
-
-          {/* Y-axis labels */}
-          {yGridLines.map(y => (
+          {gridLines.y.map(y => (
             <text
               key={`ylabel-${y}`}
-              x={yAxisX - 8}
+              x={axes.y - 8}
               y={scaleY(y) + 3}
               textAnchor="end"
               fontSize="10"
@@ -283,41 +248,35 @@ export default function InteractiveFunctionGrapher() {
             </text>
           ))}
 
-          {/* Axis arrows - always visible */}
-          <>
-            <polygon
-              points={`${width - padding},${xAxisY} ${width - padding - 8},${xAxisY - 4} ${width - padding - 8},${xAxisY + 4}`}
-              fill="currentColor"
-              opacity="0.8"
-            />
-            <text
-              x={width - padding + 3}
-              y={xAxisY - 8}
-              fontSize="12"
-              fontWeight="bold"
-              fill="currentColor"
-            >
-              x
-            </text>
-          </>
-          <>
-            <polygon
-              points={`${yAxisX},${padding} ${yAxisX - 4},${padding + 8} ${yAxisX + 4},${padding + 8}`}
-              fill="currentColor"
-              opacity="0.8"
-            />
-            <text
-              x={yAxisX + 12}
-              y={padding + 4}
-              fontSize="12"
-              fontWeight="bold"
-              fill="currentColor"
-            >
-              y
-            </text>
-          </>
+          <polygon
+            points={`${width - PADDING},${axes.x} ${width - PADDING - 8},${axes.x - 4} ${width - PADDING - 8},${axes.x + 4}`}
+            fill="currentColor"
+            opacity="0.8"
+          />
+          <text
+            x={width - PADDING + 3}
+            y={axes.x - 8}
+            fontSize="12"
+            fontWeight="bold"
+            fill="currentColor"
+          >
+            x
+          </text>
+          <polygon
+            points={`${axes.y},${PADDING} ${axes.y - 4},${PADDING + 8} ${axes.y + 4},${PADDING + 8}`}
+            fill="currentColor"
+            opacity="0.8"
+          />
+          <text
+            x={axes.y + 12}
+            y={PADDING + 4}
+            fontSize="12"
+            fontWeight="bold"
+            fill="currentColor"
+          >
+            y
+          </text>
 
-          {/* Function curve */}
           {functionPoints.length > 0 && (
             <path
               d={generatePath()}
@@ -327,10 +286,9 @@ export default function InteractiveFunctionGrapher() {
             />
           )}
 
-          {/* Origin label - always visible */}
           <text
-            x={yAxisX - 8}
-            y={xAxisY + 15}
+            x={axes.y - 8}
+            y={axes.x + 15}
             fontSize="10"
             fill="currentColor"
             opacity="0.7"
@@ -340,62 +298,32 @@ export default function InteractiveFunctionGrapher() {
           </text>
         </svg>
 
-        {/* Function label */}
         <div className="mt-2 text-center text-xs sm:text-sm text-blue-600 dark:text-blue-400 font-mono">
           f(x) = {debouncedFunction}
         </div>
       </div>
 
-      {/* Preset buttons - more compact on mobile */}
-      <div className="grid grid-cols-4 sm:grid-cols-4 md:grid-cols-8 gap-1.5 sm:gap-2">
-        <button
-          onClick={() => setCustomFunction('x^2')}
-          className="px-2 py-1.5 sm:px-3 sm:py-2 bg-blue-100 dark:bg-blue-900/30 hover:bg-blue-200 dark:hover:bg-blue-900/50 rounded-lg text-xs sm:text-sm transition"
-        >
-          x²
-        </button>
-        <button
-          onClick={() => setCustomFunction('x^3')}
-          className="px-2 py-1.5 sm:px-3 sm:py-2 bg-blue-100 dark:bg-blue-900/30 hover:bg-blue-200 dark:hover:bg-blue-900/50 rounded-lg text-xs sm:text-sm transition"
-        >
-          x³
-        </button>
-        <button
-          onClick={() => setCustomFunction('sin(x)')}
-          className="px-2 py-1.5 sm:px-3 sm:py-2 bg-blue-100 dark:bg-blue-900/30 hover:bg-blue-200 dark:hover:bg-blue-900/50 rounded-lg text-xs sm:text-sm transition"
-        >
-          sin(x)
-        </button>
-        <button
-          onClick={() => setCustomFunction('cos(x)')}
-          className="px-2 py-1.5 sm:px-3 sm:py-2 bg-blue-100 dark:bg-blue-900/30 hover:bg-blue-200 dark:hover:bg-blue-900/50 rounded-lg text-xs sm:text-sm transition"
-        >
-          cos(x)
-        </button>
-        <button
-          onClick={() => setCustomFunction('sqrt(x)')}
-          className="px-2 py-1.5 sm:px-3 sm:py-2 bg-blue-100 dark:bg-blue-900/30 hover:bg-blue-200 dark:hover:bg-blue-900/50 rounded-lg text-xs sm:text-sm transition"
-        >
-          √x
-        </button>
-        <button
-          onClick={() => setCustomFunction('1/x')}
-          className="px-2 py-1.5 sm:px-3 sm:py-2 bg-blue-100 dark:bg-blue-900/30 hover:bg-blue-200 dark:hover:bg-blue-900/50 rounded-lg text-xs sm:text-sm transition"
-        >
-          1/x
-        </button>
-        <button
-          onClick={() => setCustomFunction('abs(x)')}
-          className="px-2 py-1.5 sm:px-3 sm:py-2 bg-blue-100 dark:bg-blue-900/30 hover:bg-blue-200 dark:hover:bg-blue-900/50 rounded-lg text-xs sm:text-sm transition"
-        >
-          |x|
-        </button>
-        <button
-          onClick={() => setCustomFunction('exp(x)')}
-          className="px-2 py-1.5 sm:px-3 sm:py-2 bg-blue-100 dark:bg-blue-900/30 hover:bg-blue-200 dark:hover:bg-blue-900/50 rounded-lg text-xs sm:text-sm transition"
-        >
-          eˣ
-        </button>
+      <div className="grid grid-cols-4 md:grid-cols-8 gap-1.5 sm:gap-2">
+        {[
+          { label: 'x²', fn: 'x^2' },
+          { label: 'x³', fn: 'x^3' },
+          { label: 'sin(x)', fn: 'sin(x)' },
+          { label: 'cos(x)', fn: 'cos(x)' },
+          { label: '√x', fn: 'sqrt(x)' },
+          { label: '1/x', fn: '1/x' },
+          { label: '|x|', fn: 'abs(x)' },
+          { label: 'eˣ', fn: 'exp(x)' },
+        ].map(({ label, fn }) => (
+          <button
+            key={fn}
+            onClick={() => setCustomFunction(fn)}
+            className={
+              'px-2 py-1.5 sm:px-3 sm:py-2 bg-blue-100 dark:bg-blue-900/30 hover:bg-blue-200 dark:hover:bg-blue-900/50 rounded-lg text-xs sm:text-sm transition'
+            }
+          >
+            {label}
+          </button>
+        ))}
       </div>
     </div>
   );

@@ -22,7 +22,6 @@ export default function InteractiveTriangle({
   const svgRef = useRef<SVGSVGElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  // Update dimensions and scale vertices for responsive design
   useEffect(() => {
     const updateDimensions = () => {
       if (containerRef.current) {
@@ -31,16 +30,13 @@ export default function InteractiveTriangle({
         let newHeight = 360;
 
         if (containerWidth < 640) {
-          // Mobile - use full available width with better minimum
           newWidth = Math.max(Math.min(containerWidth - 16, 500), 320);
-          newHeight = Math.floor(newWidth * 0.65); // Better aspect ratio for mobile
+          newHeight = Math.floor(newWidth * 0.65);
         } else if (containerWidth < 1024) {
-          // Tablet
           newWidth = 500;
           newHeight = 350;
         }
 
-        // Scale vertices proportionally when dimensions change
         if (dimensions.width !== newWidth || dimensions.height !== newHeight) {
           const scaleX = newWidth / dimensions.width;
           const scaleY = newHeight / dimensions.height;
@@ -86,7 +82,6 @@ export default function InteractiveTriangle({
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
 
-    // Constrain to SVG bounds (use responsive dimensions)
     const constrainedX = Math.max(20, Math.min(dimensions.width - 20, x));
     const constrainedY = Math.max(20, Math.min(dimensions.height - 20, y));
 
@@ -101,7 +96,6 @@ export default function InteractiveTriangle({
     setDraggingIndex(null);
   };
 
-  // Touch event handlers
   const handleTouchStart = (index: number, e: React.TouchEvent) => {
     e.preventDefault();
     setDraggingIndex(index);
@@ -116,7 +110,6 @@ export default function InteractiveTriangle({
     const x = touch.clientX - rect.left;
     const y = touch.clientY - rect.top;
 
-    // Constrain to SVG bounds (use responsive dimensions)
     const constrainedX = Math.max(20, Math.min(dimensions.width - 20, x));
     const constrainedY = Math.max(20, Math.min(dimensions.height - 20, y));
 
@@ -144,22 +137,18 @@ export default function InteractiveTriangle({
 
   const [A, B, C] = vertices;
 
-  // Calculate responsive scale factor for text
   const scale = dimensions.width / 550;
   const fontSize = Math.max(Math.floor(14 * scale), 10);
   const largeFontSize = Math.max(Math.floor(16 * scale), 11);
 
-  // Calculate angles
   const angleA = calculateAngle(B, A, C);
   const angleB = calculateAngle(A, B, C);
   const angleC = calculateAngle(A, C, B);
 
-  // Calculate side lengths
   const sideAB = calculateDistance(A, B);
   const sideBC = calculateDistance(B, C);
   const sideCA = calculateDistance(C, A);
 
-  // Calculate exterior angle point for theorem 2
   const getExteriorPoint = () => {
     const direction = {
       x: C.x - B.x,
@@ -173,24 +162,20 @@ export default function InteractiveTriangle({
     };
   };
 
-  // Helper function to draw accurate angle arc
   const drawAngleArc = (
     vertex: Point,
     point1: Point,
     point2: Point,
     radius: number
   ): string => {
-    // Calculate angles from vertex to both points
     const angle1 = Math.atan2(point1.y - vertex.y, point1.x - vertex.x);
     const angle2 = Math.atan2(point2.y - vertex.y, point2.x - vertex.x);
 
-    // Calculate start and end points on the arc
     const startX = vertex.x + radius * Math.cos(angle1);
     const startY = vertex.y + radius * Math.sin(angle1);
     const endX = vertex.x + radius * Math.cos(angle2);
     const endY = vertex.y + radius * Math.sin(angle2);
 
-    // Determine if we should use the large arc flag
     let angleDiff = angle2 - angle1;
     if (angleDiff > Math.PI) angleDiff -= 2 * Math.PI;
     if (angleDiff < -Math.PI) angleDiff += 2 * Math.PI;
@@ -200,45 +185,37 @@ export default function InteractiveTriangle({
     return `M ${startX},${startY} A ${radius},${radius} 0 ${largeArcFlag},${sweepFlag} ${endX},${endY}`;
   };
 
-  // Helper function to get label position along angle bisector
   const getAngleLabelPosition = (
     vertex: Point,
     point1: Point,
     point2: Point,
     distance: number
   ): Point => {
-    // Calculate angles from vertex to both points
     const angle1 = Math.atan2(point1.y - vertex.y, point1.x - vertex.x);
     const angle2 = Math.atan2(point2.y - vertex.y, point2.x - vertex.x);
 
-    // Calculate the bisector angle
     let angleDiff = angle2 - angle1;
     if (angleDiff > Math.PI) angleDiff -= 2 * Math.PI;
     if (angleDiff < -Math.PI) angleDiff += 2 * Math.PI;
     const bisectorAngle = angle1 + angleDiff / 2;
 
-    // Position the label along the bisector
     return {
       x: vertex.x + distance * Math.cos(bisectorAngle),
       y: vertex.y + distance * Math.sin(bisectorAngle),
     };
   };
 
-  // Helper function to calculate side label position and rotation
   const getSideLabelTransform = (
     point1: Point,
     point2: Point,
     offset: number
   ): { x: number; y: number; angle: number } => {
-    // Midpoint of the side
     const midX = (point1.x + point2.x) / 2;
     const midY = (point1.y + point2.y) / 2;
 
-    // Angle of the side
     const angle = Math.atan2(point2.y - point1.y, point2.x - point1.x);
     const angleDeg = (angle * 180) / Math.PI;
 
-    // Perpendicular offset
     const perpAngle = angle + Math.PI / 2;
     const offsetX = offset * Math.cos(perpAngle);
     const offsetY = offset * Math.sin(perpAngle);
@@ -276,7 +253,6 @@ export default function InteractiveTriangle({
 
         {type === 'angles' && (
           <>
-            {/* Angle arcs */}
             <path
               d={drawAngleArc(A, B, C, 25)}
               fill="none"
@@ -296,7 +272,6 @@ export default function InteractiveTriangle({
               strokeWidth="2"
             />
 
-            {/* Angle labels */}
             <text
               x={getAngleLabelPosition(A, B, C, 45 * scale).x}
               y={getAngleLabelPosition(A, B, C, 45 * scale).y}
@@ -346,7 +321,6 @@ export default function InteractiveTriangle({
 
         {type === 'exterior' && (
           <>
-            {/* Extended line for exterior angle */}
             {(() => {
               const D = getExteriorPoint();
               return (
@@ -360,16 +334,12 @@ export default function InteractiveTriangle({
                     strokeWidth="2"
                     strokeDasharray="5,5"
                   />
-
-                  {/* Exterior angle arc */}
                   <path
                     d={drawAngleArc(C, B, D, 30)}
                     fill="none"
                     stroke="rgb(239, 68, 68)"
                     strokeWidth="2"
                   />
-
-                  {/* Interior angles at A and B */}
                   <path
                     d={drawAngleArc(A, B, C, 25)}
                     fill="none"
@@ -382,8 +352,6 @@ export default function InteractiveTriangle({
                     stroke="rgb(168, 85, 247)"
                     strokeWidth="2"
                   />
-
-                  {/* Angle labels */}
                   <text
                     x={getAngleLabelPosition(C, B, D, 50 * scale).x}
                     y={getAngleLabelPosition(C, B, D, 50 * scale).y}
@@ -418,7 +386,6 @@ export default function InteractiveTriangle({
                     {angleB.toFixed(0)}°
                   </text>
 
-                  {/* Equation */}
                   <text
                     x="10"
                     y={dimensions.height - 20}
@@ -437,7 +404,6 @@ export default function InteractiveTriangle({
 
         {type === 'inequality' && (
           <>
-            {/* Side labels */}
             {(() => {
               const labelAB = getSideLabelTransform(A, B, 20);
               const labelBC = getSideLabelTransform(B, C, 20);
@@ -485,7 +451,6 @@ export default function InteractiveTriangle({
               );
             })()}
 
-            {/* Inequalities */}
             <text
               x="10"
               y={dimensions.height - 50}
