@@ -12,6 +12,7 @@ interface InteractiveTriangleProps {
 export default function InteractiveTriangle({
   type,
 }: InteractiveTriangleProps) {
+  const [dimensions, setDimensions] = useState({ width: 550, height: 360 });
   const [vertices, setVertices] = useState<Point[]>([
     { x: 200, y: 50 },
     { x: 100, y: 250 },
@@ -19,6 +20,47 @@ export default function InteractiveTriangle({
   ]);
   const [draggingIndex, setDraggingIndex] = useState<number | null>(null);
   const svgRef = useRef<SVGSVGElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  // Update dimensions and scale vertices for responsive design
+  useEffect(() => {
+    const updateDimensions = () => {
+      if (containerRef.current) {
+        const containerWidth = containerRef.current.offsetWidth;
+        let newWidth = 550;
+        let newHeight = 360;
+
+        if (containerWidth < 640) {
+          // Mobile - use full available width with better minimum
+          newWidth = Math.max(Math.min(containerWidth - 16, 500), 320);
+          newHeight = Math.floor(newWidth * 0.65); // Better aspect ratio for mobile
+        } else if (containerWidth < 1024) {
+          // Tablet
+          newWidth = 500;
+          newHeight = 350;
+        }
+
+        // Scale vertices proportionally when dimensions change
+        if (dimensions.width !== newWidth || dimensions.height !== newHeight) {
+          const scaleX = newWidth / dimensions.width;
+          const scaleY = newHeight / dimensions.height;
+
+          setVertices(prev =>
+            prev.map(v => ({
+              x: v.x * scaleX,
+              y: v.y * scaleY,
+            }))
+          );
+        }
+
+        setDimensions({ width: newWidth, height: newHeight });
+      }
+    };
+
+    updateDimensions();
+    window.addEventListener('resize', updateDimensions);
+    return () => window.removeEventListener('resize', updateDimensions);
+  }, [dimensions.width, dimensions.height]);
 
   const calculateAngle = (p1: Point, vertex: Point, p2: Point): number => {
     const angle1 = Math.atan2(p1.y - vertex.y, p1.x - vertex.x);
@@ -44,9 +86,9 @@ export default function InteractiveTriangle({
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
 
-    // Constrain to SVG bounds
-    const constrainedX = Math.max(20, Math.min(380, x));
-    const constrainedY = Math.max(20, Math.min(280, y));
+    // Constrain to SVG bounds (use responsive dimensions)
+    const constrainedX = Math.max(20, Math.min(dimensions.width - 20, x));
+    const constrainedY = Math.max(20, Math.min(dimensions.height - 20, y));
 
     setVertices(prev => {
       const newVertices = [...prev];
@@ -59,13 +101,53 @@ export default function InteractiveTriangle({
     setDraggingIndex(null);
   };
 
+  // Touch event handlers
+  const handleTouchStart = (index: number, e: React.TouchEvent) => {
+    e.preventDefault();
+    setDraggingIndex(index);
+  };
+
+  const handleTouchMove = (e: React.TouchEvent<SVGSVGElement>) => {
+    if (draggingIndex === null || !svgRef.current) return;
+
+    e.preventDefault();
+    const touch = e.touches[0];
+    const rect = svgRef.current.getBoundingClientRect();
+    const x = touch.clientX - rect.left;
+    const y = touch.clientY - rect.top;
+
+    // Constrain to SVG bounds (use responsive dimensions)
+    const constrainedX = Math.max(20, Math.min(dimensions.width - 20, x));
+    const constrainedY = Math.max(20, Math.min(dimensions.height - 20, y));
+
+    setVertices(prev => {
+      const newVertices = [...prev];
+      newVertices[draggingIndex] = { x: constrainedX, y: constrainedY };
+      return newVertices;
+    });
+  };
+
+  const handleTouchEnd = () => {
+    setDraggingIndex(null);
+  };
+
   useEffect(() => {
     const handleGlobalMouseUp = () => setDraggingIndex(null);
+    const handleGlobalTouchEnd = () => setDraggingIndex(null);
     window.addEventListener('mouseup', handleGlobalMouseUp);
-    return () => window.removeEventListener('mouseup', handleGlobalMouseUp);
+    window.addEventListener('touchend', handleGlobalTouchEnd);
+    return () => {
+      window.removeEventListener('mouseup', handleGlobalMouseUp);
+      window.removeEventListener('touchend', handleGlobalTouchEnd);
+    };
   }, []);
 
   const [A, B, C] = vertices;
+
+  // Calculate responsive scale factor for text
+  const scale = dimensions.width / 550;
+  const fontSize = Math.max(Math.floor(14 * scale), 10);
+  const largeFontSize = Math.max(Math.floor(16 * scale), 11);
 
   // Calculate angles
   const angleA = calculateAngle(B, A, C);
@@ -169,15 +251,21 @@ export default function InteractiveTriangle({
   };
 
   return (
-    <div className="bg-white dark:bg-gray-800 p-4 rounded-lg">
+    <div
+      ref={containerRef}
+      className="bg-white dark:bg-gray-800 p-4 rounded-lg"
+    >
       <svg
         ref={svgRef}
-        width="550"
-        height="360"
-        className="border border-gray-300 dark:border-gray-600 rounded cursor-move"
+        width={dimensions.width}
+        height={dimensions.height}
+        className="border border-gray-300 dark:border-gray-600 rounded cursor-move max-w-full"
         onMouseMove={handleMouseMove}
         onMouseUp={handleMouseUp}
         onMouseLeave={handleMouseUp}
+        onTouchMove={handleTouchMove}
+        onTouchEnd={handleTouchEnd}
+        style={{ touchAction: 'none' }}
       >
         <polygon
           points={`${A.x},${A.y} ${B.x},${B.y} ${C.x},${C.y}`}
@@ -210,9 +298,9 @@ export default function InteractiveTriangle({
 
             {/* Angle labels */}
             <text
-              x={getAngleLabelPosition(A, B, C, 45).x}
-              y={getAngleLabelPosition(A, B, C, 45).y}
-              fontSize="14"
+              x={getAngleLabelPosition(A, B, C, 45 * scale).x}
+              y={getAngleLabelPosition(A, B, C, 45 * scale).y}
+              fontSize={fontSize}
               fill="rgb(239, 68, 68)"
               fontWeight="bold"
               textAnchor="middle"
@@ -221,9 +309,9 @@ export default function InteractiveTriangle({
               {angleA.toFixed(0)}°
             </text>
             <text
-              x={getAngleLabelPosition(B, C, A, 45).x}
-              y={getAngleLabelPosition(B, C, A, 45).y}
-              fontSize="14"
+              x={getAngleLabelPosition(B, C, A, 45 * scale).x}
+              y={getAngleLabelPosition(B, C, A, 45 * scale).y}
+              fontSize={fontSize}
               fill="rgb(34, 197, 94)"
               fontWeight="bold"
               textAnchor="middle"
@@ -232,9 +320,9 @@ export default function InteractiveTriangle({
               {angleB.toFixed(0)}°
             </text>
             <text
-              x={getAngleLabelPosition(C, A, B, 45).x}
-              y={getAngleLabelPosition(C, A, B, 45).y}
-              fontSize="14"
+              x={getAngleLabelPosition(C, A, B, 45 * scale).x}
+              y={getAngleLabelPosition(C, A, B, 45 * scale).y}
+              fontSize={fontSize}
               fill="rgb(168, 85, 247)"
               fontWeight="bold"
               textAnchor="middle"
@@ -245,8 +333,8 @@ export default function InteractiveTriangle({
 
             <text
               x="10"
-              y="340"
-              fontSize="16"
+              y={dimensions.height - 20}
+              fontSize={largeFontSize}
               fill="currentColor"
               fontWeight="bold"
             >
@@ -297,9 +385,9 @@ export default function InteractiveTriangle({
 
                   {/* Angle labels */}
                   <text
-                    x={getAngleLabelPosition(C, B, D, 50).x}
-                    y={getAngleLabelPosition(C, B, D, 50).y}
-                    fontSize="14"
+                    x={getAngleLabelPosition(C, B, D, 50 * scale).x}
+                    y={getAngleLabelPosition(C, B, D, 50 * scale).y}
+                    fontSize={fontSize}
                     fill="rgb(239, 68, 68)"
                     fontWeight="bold"
                     textAnchor="middle"
@@ -308,9 +396,9 @@ export default function InteractiveTriangle({
                     {(180 - angleC).toFixed(0)}° (външен)
                   </text>
                   <text
-                    x={getAngleLabelPosition(A, B, C, 45).x}
-                    y={getAngleLabelPosition(A, B, C, 45).y}
-                    fontSize="14"
+                    x={getAngleLabelPosition(A, B, C, 45 * scale).x}
+                    y={getAngleLabelPosition(A, B, C, 45 * scale).y}
+                    fontSize={fontSize}
                     fill="rgb(34, 197, 94)"
                     fontWeight="bold"
                     textAnchor="middle"
@@ -319,9 +407,9 @@ export default function InteractiveTriangle({
                     {angleA.toFixed(0)}°
                   </text>
                   <text
-                    x={getAngleLabelPosition(B, C, A, 45).x}
-                    y={getAngleLabelPosition(B, C, A, 45).y}
-                    fontSize="14"
+                    x={getAngleLabelPosition(B, C, A, 45 * scale).x}
+                    y={getAngleLabelPosition(B, C, A, 45 * scale).y}
+                    fontSize={fontSize}
                     fill="rgb(168, 85, 247)"
                     fontWeight="bold"
                     textAnchor="middle"
@@ -333,8 +421,8 @@ export default function InteractiveTriangle({
                   {/* Equation */}
                   <text
                     x="10"
-                    y="340"
-                    fontSize="14"
+                    y={dimensions.height - 20}
+                    fontSize={fontSize}
                     fill="currentColor"
                     fontWeight="bold"
                   >
@@ -360,7 +448,7 @@ export default function InteractiveTriangle({
                   <text
                     x={labelAB.x}
                     y={labelAB.y}
-                    fontSize="14"
+                    fontSize={fontSize}
                     fill="rgb(239, 68, 68)"
                     fontWeight="bold"
                     textAnchor="middle"
@@ -372,7 +460,7 @@ export default function InteractiveTriangle({
                   <text
                     x={labelBC.x}
                     y={labelBC.y}
-                    fontSize="14"
+                    fontSize={fontSize}
                     fill="rgb(34, 197, 94)"
                     fontWeight="bold"
                     textAnchor="middle"
@@ -384,7 +472,7 @@ export default function InteractiveTriangle({
                   <text
                     x={labelCA.x}
                     y={labelCA.y}
-                    fontSize="14"
+                    fontSize={fontSize}
                     fill="rgb(168, 85, 247)"
                     fontWeight="bold"
                     textAnchor="middle"
@@ -400,33 +488,33 @@ export default function InteractiveTriangle({
             {/* Inequalities */}
             <text
               x="10"
-              y="315"
-              fontSize="12"
+              y={dimensions.height - 50}
+              fontSize={Math.max(Math.floor(12 * scale), 9)}
               fill="currentColor"
               fontWeight="bold"
             >
               b + c = {sideCA.toFixed(0)} + {sideAB.toFixed(0)} ={' '}
-              {(sideCA + sideAB).toFixed(0)} &lt; {sideBC.toFixed(0)} = a ✓
+              {(sideCA + sideAB).toFixed(0)} &gt; {sideBC.toFixed(0)} = a ✓
             </text>
             <text
               x="10"
-              y="330"
-              fontSize="12"
+              y={dimensions.height - 35}
+              fontSize={Math.max(Math.floor(12 * scale), 9)}
               fill="currentColor"
               fontWeight="bold"
             >
               a + b = {sideBC.toFixed(0)} + {sideCA.toFixed(0)} ={' '}
-              {(sideBC + sideCA).toFixed(0)} &lt; {sideAB.toFixed(0)} = c ✓
+              {(sideBC + sideCA).toFixed(0)} &gt; {sideAB.toFixed(0)} = c ✓
             </text>
             <text
               x="10"
-              y="345"
-              fontSize="12"
+              y={dimensions.height - 20}
+              fontSize={Math.max(Math.floor(12 * scale), 9)}
               fill="currentColor"
               fontWeight="bold"
             >
               a + c = {sideBC.toFixed(0)} + {sideAB.toFixed(0)} ={' '}
-              {(sideBC + sideAB).toFixed(0)} &lt; {sideCA.toFixed(0)} = b ✓
+              {(sideBC + sideAB).toFixed(0)} &gt; {sideCA.toFixed(0)} = b ✓
             </text>
           </>
         )}
@@ -444,31 +532,32 @@ export default function InteractiveTriangle({
             strokeWidth="2"
             className="cursor-pointer"
             onMouseDown={() => handleMouseDown(index)}
+            onTouchStart={e => handleTouchStart(index, e)}
           />
         ))}
 
         <text
-          x={A.x - 20}
-          y={A.y - 10}
-          fontSize="16"
+          x={A.x - 20 * scale}
+          y={A.y - 10 * scale}
+          fontSize={largeFontSize}
           fontWeight="bold"
           fill="currentColor"
         >
           A
         </text>
         <text
-          x={B.x - 20}
-          y={B.y + 20}
-          fontSize="16"
+          x={B.x - 20 * scale}
+          y={B.y + 20 * scale}
+          fontSize={largeFontSize}
           fontWeight="bold"
           fill="currentColor"
         >
           B
         </text>
         <text
-          x={C.x + 15}
-          y={C.y + 20}
-          fontSize="16"
+          x={C.x + 15 * scale}
+          y={C.y + 20 * scale}
+          fontSize={largeFontSize}
           fontWeight="bold"
           fill="currentColor"
         >
@@ -476,7 +565,8 @@ export default function InteractiveTriangle({
         </text>
       </svg>
       <p className="text-sm text-gray-600 dark:text-gray-400 mt-2">
-        💡 Плъзнете върховете на триъгълника, за да променяте неговата форма
+        💡 Плъзнете или докоснете върховете на триъгълника, за да променяте
+        неговата форма
       </p>
     </div>
   );

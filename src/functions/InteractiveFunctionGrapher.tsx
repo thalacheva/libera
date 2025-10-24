@@ -90,56 +90,59 @@ export default function InteractiveFunctionGrapher() {
   }, [debouncedFunction, debouncedXMin, debouncedXMax]);
 
   return (
-    <div className="bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 p-6 rounded-2xl shadow-md mb-6">
-      <div className="flex items-center gap-2 mb-4">
-        <TrendingUp className="text-blue-600" size={24} />
-        <h2 className="text-lg font-semibold">
+    <div className="bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 p-3 sm:p-6 rounded-2xl shadow-md mb-4 sm:mb-6">
+      <div className="flex items-center gap-2 mb-3 sm:mb-4">
+        <TrendingUp className="text-blue-600" size={20} />
+        <h2 className="text-base sm:text-lg font-semibold">
           Интерактивна графика на функции
         </h2>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
-        <div className="md:col-span-3">
-          <label className="block text-sm font-medium mb-2">
-            Въведете функция f(x):
-          </label>
-          <input
-            type="text"
-            value={customFunction}
-            onChange={e => setCustomFunction(e.target.value)}
-            placeholder="Например: 2*x + 1, x^2, sin(x), sqrt(x)"
-            className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700"
-          />
-          <p className="text-xs text-gray-600 dark:text-gray-400 mt-1">
-            Поддържани: +, -, *, /, ^, sin, cos, tan, sqrt, abs, log, exp
-          </p>
-        </div>
+      {/* Function input - always visible */}
+      <div className="mb-3">
+        <label className="block text-xs sm:text-sm font-medium mb-1 sm:mb-2">
+          Въведете функция f(x):
+        </label>
+        <input
+          type="text"
+          value={customFunction}
+          onChange={e => setCustomFunction(e.target.value)}
+          placeholder="Например: x^2, sin(x)"
+          className="w-full px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700"
+        />
+        <p className="text-xs text-gray-600 dark:text-gray-400 mt-1 hidden sm:block">
+          Поддържани: +, -, *, /, ^, sin, cos, tan, sqrt, abs, log, exp
+        </p>
+      </div>
+
+      {/* Range controls - compact on mobile */}
+      <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 mb-3">
         <div>
-          <label className="block text-sm font-medium mb-2">От x =</label>
+          <label className="block text-xs font-medium mb-1">От x =</label>
           <input
             type="number"
             value={xMin}
             onChange={e => setXMin(Number(e.target.value))}
-            className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700"
+            className="w-full px-2 py-1.5 text-sm border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700"
           />
         </div>
         <div>
-          <label className="block text-sm font-medium mb-2">До x =</label>
+          <label className="block text-xs font-medium mb-1">До x =</label>
           <input
             type="number"
             value={xMax}
             onChange={e => setXMax(Number(e.target.value))}
-            className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700"
+            className="w-full px-2 py-1.5 text-sm border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700"
           />
         </div>
-        <div className="flex items-end">
+        <div className="hidden sm:flex items-end">
           <button
             onClick={() => {
               setCustomFunction('2*x + 1');
               setXMin(-10);
               setXMax(10);
             }}
-            className="w-full px-4 py-2 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 rounded-lg transition"
+            className="w-full px-3 py-1.5 text-sm bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 rounded-lg transition"
           >
             Нулиране
           </button>
@@ -147,13 +150,69 @@ export default function InteractiveFunctionGrapher() {
       </div>
 
       {error && (
-        <div className="mb-4 p-3 bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300 rounded-lg">
+        <div className="mb-2 p-2 text-xs sm:text-sm bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300 rounded-lg">
           {error}
         </div>
       )}
 
-      <div className="bg-white dark:bg-gray-800 p-4 rounded-xl">
-        <ResponsiveContainer width="100%" height={350}>
+      {/* Graph - larger on mobile */}
+      <div className="bg-white dark:bg-gray-800 p-2 sm:p-4 rounded-xl mb-3">
+        <ResponsiveContainer width="100%" height={300} className="sm:hidden">
+          <ComposedChart
+            data={functionData}
+            margin={{ top: 5, right: 10, left: 0, bottom: 5 }}
+          >
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis
+              dataKey="x"
+              type="number"
+              domain={[debouncedXMin, debouncedXMax]}
+              tick={{ fontSize: 11 }}
+              label={{
+                value: 'x',
+                position: 'insideBottomRight',
+                offset: -5,
+                style: { fontSize: 12 },
+              }}
+            />
+            <YAxis
+              tick={{ fontSize: 11 }}
+              label={{
+                value: 'f(x)',
+                angle: -90,
+                position: 'insideLeft',
+                style: { fontSize: 12 },
+              }}
+            />
+            <Tooltip
+              content={({ active, payload }) => {
+                if (active && payload && payload.length) {
+                  return (
+                    <div className="bg-white dark:bg-gray-700 p-1.5 border border-gray-300 dark:border-gray-600 rounded shadow text-xs">
+                      <p>x = {payload[0].payload.x.toFixed(2)}</p>
+                      <p className="font-semibold text-blue-600">
+                        f(x) = {payload[0].payload.y.toFixed(2)}
+                      </p>
+                    </div>
+                  );
+                }
+                return null;
+              }}
+            />
+            <Line
+              type="natural"
+              dataKey="y"
+              stroke="#2563eb"
+              strokeWidth={2}
+              dot={false}
+            />
+          </ComposedChart>
+        </ResponsiveContainer>
+        <ResponsiveContainer
+          width="100%"
+          height={350}
+          className="hidden sm:block"
+        >
           <ComposedChart
             data={functionData}
             margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
@@ -202,28 +261,29 @@ export default function InteractiveFunctionGrapher() {
         </ResponsiveContainer>
       </div>
 
-      <div className="mt-4 grid grid-cols-2 md:grid-cols-4 gap-2">
+      {/* Preset buttons - more compact on mobile */}
+      <div className="grid grid-cols-4 sm:grid-cols-4 md:grid-cols-8 gap-1.5 sm:gap-2">
         <button
           onClick={() => setCustomFunction('x^2')}
-          className="px-3 py-2 bg-blue-100 dark:bg-blue-900/30 hover:bg-blue-200 dark:hover:bg-blue-900/50 rounded-lg text-sm transition"
+          className="px-2 py-1.5 sm:px-3 sm:py-2 bg-blue-100 dark:bg-blue-900/30 hover:bg-blue-200 dark:hover:bg-blue-900/50 rounded-lg text-xs sm:text-sm transition"
         >
           x²
         </button>
         <button
           onClick={() => setCustomFunction('x^3')}
-          className="px-3 py-2 bg-blue-100 dark:bg-blue-900/30 hover:bg-blue-200 dark:hover:bg-blue-900/50 rounded-lg text-sm transition"
+          className="px-2 py-1.5 sm:px-3 sm:py-2 bg-blue-100 dark:bg-blue-900/30 hover:bg-blue-200 dark:hover:bg-blue-900/50 rounded-lg text-xs sm:text-sm transition"
         >
           x³
         </button>
         <button
           onClick={() => setCustomFunction('sin(x)')}
-          className="px-3 py-2 bg-blue-100 dark:bg-blue-900/30 hover:bg-blue-200 dark:hover:bg-blue-900/50 rounded-lg text-sm transition"
+          className="px-2 py-1.5 sm:px-3 sm:py-2 bg-blue-100 dark:bg-blue-900/30 hover:bg-blue-200 dark:hover:bg-blue-900/50 rounded-lg text-xs sm:text-sm transition"
         >
           sin(x)
         </button>
         <button
           onClick={() => setCustomFunction('cos(x)')}
-          className="px-3 py-2 bg-blue-100 dark:bg-blue-900/30 hover:bg-blue-200 dark:hover:bg-blue-900/50 rounded-lg text-sm transition"
+          className="px-2 py-1.5 sm:px-3 sm:py-2 bg-blue-100 dark:bg-blue-900/30 hover:bg-blue-200 dark:hover:bg-blue-900/50 rounded-lg text-xs sm:text-sm transition"
         >
           cos(x)
         </button>
@@ -233,7 +293,7 @@ export default function InteractiveFunctionGrapher() {
             setXMin(0);
             setXMax(10);
           }}
-          className="px-3 py-2 bg-blue-100 dark:bg-blue-900/30 hover:bg-blue-200 dark:hover:bg-blue-900/50 rounded-lg text-sm transition"
+          className="px-2 py-1.5 sm:px-3 sm:py-2 bg-blue-100 dark:bg-blue-900/30 hover:bg-blue-200 dark:hover:bg-blue-900/50 rounded-lg text-xs sm:text-sm transition"
         >
           √x
         </button>
@@ -242,19 +302,19 @@ export default function InteractiveFunctionGrapher() {
             setCustomFunction('1/x');
             setXMin(0.1);
           }}
-          className="px-3 py-2 bg-blue-100 dark:bg-blue-900/30 hover:bg-blue-200 dark:hover:bg-blue-900/50 rounded-lg text-sm transition"
+          className="px-2 py-1.5 sm:px-3 sm:py-2 bg-blue-100 dark:bg-blue-900/30 hover:bg-blue-200 dark:hover:bg-blue-900/50 rounded-lg text-xs sm:text-sm transition"
         >
           1/x
         </button>
         <button
           onClick={() => setCustomFunction('abs(x)')}
-          className="px-3 py-2 bg-blue-100 dark:bg-blue-900/30 hover:bg-blue-200 dark:hover:bg-blue-900/50 rounded-lg text-sm transition"
+          className="px-2 py-1.5 sm:px-3 sm:py-2 bg-blue-100 dark:bg-blue-900/30 hover:bg-blue-200 dark:hover:bg-blue-900/50 rounded-lg text-xs sm:text-sm transition"
         >
           |x|
         </button>
         <button
           onClick={() => setCustomFunction('exp(x)')}
-          className="px-3 py-2 bg-blue-100 dark:bg-blue-900/30 hover:bg-blue-200 dark:hover:bg-blue-900/50 rounded-lg text-sm transition"
+          className="px-2 py-1.5 sm:px-3 sm:py-2 bg-blue-100 dark:bg-blue-900/30 hover:bg-blue-200 dark:hover:bg-blue-900/50 rounded-lg text-xs sm:text-sm transition"
         >
           eˣ
         </button>
