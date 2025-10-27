@@ -3,11 +3,7 @@ import { useEffect, useState } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { Circle, Quadrangle, Triangle } from '~/geometry';
 import SidebarMenu from '~/SidebarMenu';
-import {
-  LinearEquations,
-  QuadraticEquations,
-  SystemsOfEquations,
-} from './algebra';
+import { LinearEquations, QuadraticEquations } from './algebra';
 import {
   FunctionGraph,
   LinearFunctions,
@@ -74,7 +70,6 @@ function App() {
           <Route path="algebra">
             <Route path="linear" element={<LinearEquations />} />
             <Route path="quadratic" element={<QuadraticEquations />} />
-            <Route path="systems" element={<SystemsOfEquations />} />
           </Route>
           <Route path="functions">
             <Route path="linear" element={<LinearFunctions />} />

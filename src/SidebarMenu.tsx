@@ -7,7 +7,6 @@ const topics = [
     subtopics: [
       { name: 'Линейни уравнения', path: '/linear' },
       { name: 'Квадратни уравнения', path: '/quadratic' },
-      { name: 'Системи уравнения', path: '/systems' },
     ],
   },
   {
