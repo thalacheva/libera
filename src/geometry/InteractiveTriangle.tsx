@@ -9,9 +9,7 @@ interface InteractiveTriangleProps {
   type: 'angles' | 'exterior' | 'inequality';
 }
 
-export default function InteractiveTriangle({
-  type,
-}: InteractiveTriangleProps) {
+export function InteractiveTriangle({ type }: InteractiveTriangleProps) {
   const [dimensions, setDimensions] = useState({ width: 550, height: 360 });
   const [vertices, setVertices] = useState<Point[]>([
     { x: 200, y: 50 },

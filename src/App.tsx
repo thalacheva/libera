@@ -1,12 +1,18 @@
 import { BookOpen, Menu, Moon, Sun, User, X } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
-import Algebra from '~/Algebra';
-import Triangle from '~/geometry/Triangle';
+import { Circle, Quadrangle, Triangle } from '~/geometry';
 import SidebarMenu from '~/SidebarMenu';
-import InteractiveFunctionGrapher from './functions/InteractiveFunctionGrapher';
-import LinearFunctions from './functions/LinearFunctions';
-import QuadraticFunctions from './functions/QuadraticFunctions';
+import {
+  LinearEquations,
+  QuadraticEquations,
+  SystemsOfEquations,
+} from './algebra';
+import {
+  InteractiveFunctionGrapher,
+  LinearFunctions,
+  QuadraticFunctions,
+} from './functions';
 
 function App() {
   const [darkMode, setDarkMode] = useState(false);
@@ -66,9 +72,9 @@ function App() {
         <Routes>
           <Route path="/" element={<Navigate to="/algebra/linear" replace />} />
           <Route path="algebra">
-            <Route path="linear" element={<Algebra />} />
-            <Route path="quadratic" element={<Algebra />} />
-            <Route path="systems" element={<Algebra />} />
+            <Route path="linear" element={<LinearEquations />} />
+            <Route path="quadratic" element={<QuadraticEquations />} />
+            <Route path="systems" element={<SystemsOfEquations />} />
           </Route>
           <Route path="functions">
             <Route path="grapher" element={<InteractiveFunctionGrapher />} />
@@ -77,8 +83,8 @@ function App() {
           </Route>
           <Route path="geometry">
             <Route path="triangle" element={<Triangle />} />
-            <Route path="quadrilateral" element={<Triangle />} />
-            <Route path="circle" element={<Triangle />} />
+            <Route path="quadrilateral" element={<Quadrangle />} />
+            <Route path="circle" element={<Circle />} />
           </Route>
         </Routes>
       </div>

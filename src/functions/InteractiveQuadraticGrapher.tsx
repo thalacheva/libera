@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 
-export default function InteractiveQuadraticGrapher() {
+export function InteractiveQuadraticGrapher() {
   const [a, setA] = useState(1);
   const [b, setB] = useState(0);
   const [c, setC] = useState(-4);

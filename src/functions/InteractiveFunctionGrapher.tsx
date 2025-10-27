@@ -37,7 +37,7 @@ const generateGridValues = (min: number, max: number, step: number) => {
   return values;
 };
 
-export default function InteractiveFunctionGrapher() {
+export function InteractiveFunctionGrapher() {
   const [customFunction, setCustomFunction] = useState('2*x + 1');
   const [error, setError] = useState<string | null>(null);
   const [debouncedFunction, setDebouncedFunction] = useState(customFunction);
