@@ -1,10 +1,31 @@
+import { Plus, X } from 'lucide-react';
 import { useEffect, useMemo, useRef, useState } from 'react';
 
 const RANGE = { MIN: -20, MAX: 20 };
 const GRID_STEP = 5;
 const PADDING = 30;
 const RESOLUTION = 1000;
-const DEBOUNCE_DELAY = 300;
+const MAX_FUNCTIONS = 10;
+
+const COLORS = [
+  '#2563eb', // blue
+  '#dc2626', // red
+  '#16a34a', // green
+  '#ea580c', // orange
+  '#9333ea', // purple
+  '#0891b2', // cyan
+  '#e11d48', // rose
+  '#65a30d', // lime
+  '#c026d3', // fuchsia
+  '#0d9488', // teal
+];
+
+interface FunctionItem {
+  id: string;
+  expression: string;
+  color: string;
+  visible: boolean;
+}
 
 const evaluateFunction = (x: number, functionStr: string): number | null => {
   try {
@@ -37,9 +58,9 @@ const generateGridValues = (min: number, max: number, step: number) => {
 };
 
 export function InteractiveFunctionGrapher() {
-  const [customFunction, setCustomFunction] = useState('2*x + 1');
-  const [error, setError] = useState<string | null>(null);
-  const [debouncedFunction, setDebouncedFunction] = useState(customFunction);
+  const [functions, setFunctions] = useState<FunctionItem[]>([
+    { id: '1', expression: '2*x + 1', color: COLORS[0], visible: true },
+  ]);
   const [dimensions, setDimensions] = useState({ width: 1000, height: 800 });
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -71,34 +92,23 @@ export function InteractiveFunctionGrapher() {
     return () => window.removeEventListener('resize', updateDimensions);
   }, []);
 
-  useEffect(() => {
-    const timer = setTimeout(
-      () => setDebouncedFunction(customFunction),
-      DEBOUNCE_DELAY
-    );
-    return () => clearTimeout(timer);
-  }, [customFunction]);
+  const allFunctionPoints = useMemo(() => {
+    return functions.map(func => {
+      if (!func.visible) return { id: func.id, points: [], color: func.color };
 
-  const functionPoints = useMemo(() => {
-    const points: Array<{ x: number; y: number }> = [];
-    const step = (RANGE.MAX - RANGE.MIN) / RESOLUTION;
-    let hasValidPoint = false;
+      const points: Array<{ x: number; y: number }> = [];
+      const step = (RANGE.MAX - RANGE.MIN) / RESOLUTION;
 
-    for (let x = RANGE.MIN; x <= RANGE.MAX; x += step) {
-      const y = evaluateFunction(x, debouncedFunction);
-      if (y !== null && y >= RANGE.MIN && y <= RANGE.MAX) {
-        points.push({ x, y });
-        hasValidPoint = true;
+      for (let x = RANGE.MIN; x <= RANGE.MAX; x += step) {
+        const y = evaluateFunction(x, func.expression);
+        if (y !== null && y >= RANGE.MIN && y <= RANGE.MAX) {
+          points.push({ x, y });
+        }
       }
-    }
 
-    setError(
-      hasValidPoint
-        ? null
-        : 'Функцията не може да бъде изчислена в този диапазон.'
-    );
-    return points;
-  }, [debouncedFunction]);
+      return { id: func.id, points, color: func.color };
+    });
+  }, [functions]);
 
   const { width, height } = dimensions;
   const range = RANGE.MAX - RANGE.MIN;
@@ -121,19 +131,53 @@ export function InteractiveFunctionGrapher() {
   const scaleY = (y: number) =>
     height - offset.y - ((y - RANGE.MIN) / range) * actualRange;
 
-  const generatePath = () => {
-    if (!functionPoints.length) return '';
+  const generatePath = (points: Array<{ x: number; y: number }>) => {
+    if (!points.length) return '';
 
     const maxGap = range / 100;
-    return functionPoints
+    return points
       .map((point, i) => {
         const x = scaleX(point.x);
         const y = scaleY(point.y);
         const isNewSegment =
-          i === 0 || Math.abs(point.x - functionPoints[i - 1].x) > maxGap;
+          i === 0 || Math.abs(point.x - points[i - 1].x) > maxGap;
         return `${isNewSegment ? 'M' : 'L'} ${x} ${y}`;
       })
       .join(' ');
+  };
+
+  const addFunction = () => {
+    if (functions.length >= MAX_FUNCTIONS) return;
+    const newId = String(Date.now());
+    const newColor = COLORS[functions.length % COLORS.length];
+    setFunctions([
+      ...functions,
+      { id: newId, expression: '', color: newColor, visible: true },
+    ]);
+  };
+
+  const removeFunction = (id: string) => {
+    if (functions.length > 1) {
+      setFunctions(functions.filter(f => f.id !== id));
+    }
+  };
+
+  const updateFunction = (id: string, expression: string) => {
+    setFunctions(functions.map(f => (f.id === id ? { ...f, expression } : f)));
+  };
+
+  const toggleVisibility = (id: string) => {
+    setFunctions(
+      functions.map(f => (f.id === id ? { ...f, visible: !f.visible } : f))
+    );
+  };
+
+  const setPresetFunction = (expression: string) => {
+    if (functions.length === 0) {
+      addFunction();
+    }
+    const firstFunc = functions[0];
+    updateFunction(firstFunc.id, expression);
   };
 
   const axes = { x: scaleY(0), y: scaleX(0) };
@@ -145,26 +189,60 @@ export function InteractiveFunctionGrapher() {
   return (
     <div className="bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 p-3 sm:p-4 rounded-2xl shadow-md mb-4">
       <div className="mb-3">
-        <label className="block text-xs sm:text-sm font-medium mb-1">
-          Въведете функция f(x):
-        </label>
-        <input
-          type="text"
-          value={customFunction}
-          onChange={e => setCustomFunction(e.target.value)}
-          placeholder="Например: x^2, sin(x)"
-          className="w-full px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700"
-        />
-        <p className="text-xs text-gray-600 dark:text-gray-400 mt-1 hidden sm:block">
+        <div className="flex items-center justify-between mb-2">
+          <label className="block text-xs sm:text-sm font-medium">
+            Функции (до {MAX_FUNCTIONS}):
+          </label>
+          {functions.length < MAX_FUNCTIONS && (
+            <button
+              onClick={addFunction}
+              className="flex items-center gap-1 px-2 py-1 text-xs bg-blue-500 text-white rounded hover:bg-blue-600 transition"
+            >
+              <Plus size={14} />
+              Добави
+            </button>
+          )}
+        </div>
+
+        <div className="space-y-2 max-h-48 overflow-y-auto">
+          {functions.map((func, index) => (
+            <div key={func.id} className="flex items-center gap-2">
+              <div
+                className="w-3 h-3 rounded-full flex-shrink-0 cursor-pointer border-2"
+                style={{
+                  backgroundColor: func.visible ? func.color : 'transparent',
+                  borderColor: func.color,
+                }}
+                onClick={() => toggleVisibility(func.id)}
+                title={func.visible ? 'Скрий' : 'Покажи'}
+              />
+              <span className="text-xs font-mono text-gray-600 dark:text-gray-400 flex-shrink-0">
+                f{index + 1}(x)=
+              </span>
+              <input
+                type="text"
+                value={func.expression}
+                onChange={e => updateFunction(func.id, e.target.value)}
+                placeholder="x^2, sin(x), ..."
+                className="flex-1 px-2 py-1 text-xs border border-gray-300 dark:border-gray-600 rounded focus:ring-1 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700"
+              />
+              {functions.length > 1 && (
+                <button
+                  onClick={() => removeFunction(func.id)}
+                  className="flex-shrink-0 p-1 text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 rounded transition"
+                  title="Изтрий"
+                >
+                  <X size={14} />
+                </button>
+              )}
+            </div>
+          ))}
+        </div>
+
+        <p className="text-xs text-gray-600 dark:text-gray-400 mt-2 hidden sm:block">
           Поддържани: +, -, *, /, ^, sin, cos, tan, sqrt, abs, log, exp
         </p>
       </div>
-
-      {error && (
-        <div className="mb-2 p-2 text-xs sm:text-sm bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300 rounded-lg">
-          {error}
-        </div>
-      )}
 
       <div className="flex flex-col lg:flex-row gap-3 lg:gap-4">
         <div
@@ -278,13 +356,17 @@ export function InteractiveFunctionGrapher() {
               y
             </text>
 
-            {functionPoints.length > 0 && (
-              <path
-                d={generatePath()}
-                fill="none"
-                stroke="#2563eb"
-                strokeWidth="2.5"
-              />
+            {allFunctionPoints.map(
+              ({ id, points, color }) =>
+                points.length > 0 && (
+                  <path
+                    key={id}
+                    d={generatePath(points)}
+                    fill="none"
+                    stroke={color}
+                    strokeWidth="2.5"
+                  />
+                )
             )}
 
             <text
@@ -299,8 +381,18 @@ export function InteractiveFunctionGrapher() {
             </text>
           </svg>
 
-          <div className="mt-1 sm:mt-2 text-center text-xs sm:text-sm text-blue-600 dark:text-blue-400 font-mono">
-            f(x) = {debouncedFunction}
+          <div className="mt-1 sm:mt-2 text-center text-xs space-y-0.5">
+            {functions
+              .filter(f => f.visible && f.expression)
+              .map((func, index) => (
+                <div
+                  key={func.id}
+                  className="font-mono"
+                  style={{ color: func.color }}
+                >
+                  f{index + 1}(x) = {func.expression}
+                </div>
+              ))}
           </div>
         </div>
 
@@ -321,7 +413,7 @@ export function InteractiveFunctionGrapher() {
             ].map(({ label, fn }) => (
               <button
                 key={fn}
-                onClick={() => setCustomFunction(fn)}
+                onClick={() => setPresetFunction(fn)}
                 className={
                   'px-2 py-2 lg:px-3 lg:py-2.5 bg-blue-100 dark:bg-blue-900/30 hover:bg-blue-200 dark:hover:bg-blue-900/50 rounded-lg text-xs sm:text-sm transition font-medium w-full'
                 }
