@@ -75,8 +75,14 @@ export function InteractiveQuadraticGrapher() {
       className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-4 sm:p-6 mb-8"
     >
       <h3 className="text-lg font-semibold mb-4 text-gray-800 dark:text-gray-100">
-        Интерактивна графика на квадратна функция
+        Интерактивна графика на квадратна функция{' '}
+        <span className="font-mono">f(x) = ax² + bx + c</span>
       </h3>
+      <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">
+        Коефициентът <strong>a</strong> е форматът на параболата, коефициентът{' '}
+        <strong>b</strong> е наклонът на функцията, а <strong>c</strong> е
+        пресечната точка с Y-оста.
+      </p>
       <div className="flex flex-col lg:flex-row gap-6">
         <div className="flex-shrink-0 space-y-4 w-full lg:w-auto flex flex-col items-center lg:items-start">
           <svg

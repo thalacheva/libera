@@ -24,7 +24,6 @@ export function Quadrangle() {
       <Quiz
         questions={[
           {
-            title: 'Изчислете лицето',
             question:
               'Правоъгълник има страни a = 7 cm и b = 4 cm. Колко е лицето му?',
             answers: ['A = 24 cm²', 'A = 26 cm²', 'A = 28 cm²', 'A = 30 cm²'],

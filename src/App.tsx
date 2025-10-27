@@ -77,9 +77,9 @@ function App() {
             <Route path="systems" element={<SystemsOfEquations />} />
           </Route>
           <Route path="functions">
-            <Route path="grapher" element={<InteractiveFunctionGrapher />} />
             <Route path="linear" element={<LinearFunctions />} />
             <Route path="quadratic" element={<QuadraticFunctions />} />
+            <Route path="grapher" element={<InteractiveFunctionGrapher />} />
           </Route>
           <Route path="geometry">
             <Route path="triangle" element={<Triangle />} />
