@@ -1,4 +1,3 @@
-import { TrendingUp } from 'lucide-react';
 import { useEffect, useMemo, useRef, useState } from 'react';
 
 const RANGE = { MIN: -20, MAX: 20 };
@@ -41,22 +40,29 @@ export function InteractiveFunctionGrapher() {
   const [customFunction, setCustomFunction] = useState('2*x + 1');
   const [error, setError] = useState<string | null>(null);
   const [debouncedFunction, setDebouncedFunction] = useState(customFunction);
-  const [dimensions, setDimensions] = useState({ width: 600, height: 600 });
+  const [dimensions, setDimensions] = useState({ width: 1000, height: 800 });
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const updateDimensions = () => {
       if (containerRef.current) {
         const containerWidth = containerRef.current.offsetWidth;
-        let size = 600;
-        if (containerWidth < 640) {
-          size = Math.max(Math.min(containerWidth - 16, 400), 320);
-        } else if (containerWidth < 1024) {
-          size = 500;
-        } else {
-          size = 600;
+        // Make the graph responsive to container width with proper padding
+        let width = Math.max(containerWidth - 24, 320);
+        let height = width * 0.75;
+
+        // Cap maximum sizes to prevent overflow
+        if (width > 900) {
+          width = 900;
+          height = 675;
         }
-        setDimensions({ width: size, height: size });
+
+        if (containerWidth < 640) {
+          width = Math.max(containerWidth - 16, 300);
+          height = width;
+        }
+
+        setDimensions({ width, height });
       }
     };
 
@@ -137,16 +143,9 @@ export function InteractiveFunctionGrapher() {
   };
 
   return (
-    <div className="bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 p-3 sm:p-6 rounded-2xl shadow-md mb-4 sm:mb-6">
-      <div className="flex items-center gap-2 mb-3 sm:mb-4">
-        <TrendingUp className="text-blue-600" size={20} />
-        <h2 className="text-base sm:text-lg font-semibold">
-          Интерактивна графика на функции
-        </h2>
-      </div>
-
+    <div className="bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 p-3 sm:p-4 rounded-2xl shadow-md mb-4">
       <div className="mb-3">
-        <label className="block text-xs sm:text-sm font-medium mb-1 sm:mb-2">
+        <label className="block text-xs sm:text-sm font-medium mb-1">
           Въведете функция f(x):
         </label>
         <input
@@ -167,163 +166,171 @@ export function InteractiveFunctionGrapher() {
         </div>
       )}
 
-      <div
-        ref={containerRef}
-        className="bg-white dark:bg-gray-800 p-2 sm:p-4 rounded-xl mb-3"
-      >
-        <svg
-          width={width}
-          height={height}
-          className="w-full"
-          style={{ maxWidth: '100%' }}
+      <div className="flex flex-col lg:flex-row gap-3 lg:gap-4">
+        <div
+          ref={containerRef}
+          className="bg-white dark:bg-gray-800 p-2 sm:p-3 rounded-xl flex-1 min-w-0"
         >
-          {gridLines.x.map(x => (
+          <svg
+            width={width}
+            height={height}
+            className="w-full h-auto"
+            viewBox={`0 0 ${width} ${height}`}
+            preserveAspectRatio="xMidYMid meet"
+          >
+            {gridLines.x.map(x => (
+              <line
+                key={`xgrid-${x}`}
+                x1={scaleX(x)}
+                y1={PADDING}
+                x2={scaleX(x)}
+                y2={height - PADDING}
+                stroke="currentColor"
+                strokeWidth="0.5"
+                opacity="0.2"
+              />
+            ))}
+            {gridLines.y.map(y => (
+              <line
+                key={`ygrid-${y}`}
+                x1={PADDING}
+                y1={scaleY(y)}
+                x2={width - PADDING}
+                y2={scaleY(y)}
+                stroke="currentColor"
+                strokeWidth="0.5"
+                opacity="0.2"
+              />
+            ))}
+
             <line
-              key={`xgrid-${x}`}
-              x1={scaleX(x)}
+              x1={axes.y}
               y1={PADDING}
-              x2={scaleX(x)}
+              x2={axes.y}
               y2={height - PADDING}
               stroke="currentColor"
-              strokeWidth="0.5"
-              opacity="0.2"
+              strokeWidth="2"
+              opacity="0.8"
             />
-          ))}
-          {gridLines.y.map(y => (
             <line
-              key={`ygrid-${y}`}
               x1={PADDING}
-              y1={scaleY(y)}
+              y1={axes.x}
               x2={width - PADDING}
-              y2={scaleY(y)}
+              y2={axes.x}
               stroke="currentColor"
-              strokeWidth="0.5"
-              opacity="0.2"
+              strokeWidth="2"
+              opacity="0.8"
             />
-          ))}
 
-          <line
-            x1={axes.y}
-            y1={PADDING}
-            x2={axes.y}
-            y2={height - PADDING}
-            stroke="currentColor"
-            strokeWidth="2"
-            opacity="0.8"
-          />
-          <line
-            x1={PADDING}
-            y1={axes.x}
-            x2={width - PADDING}
-            y2={axes.x}
-            stroke="currentColor"
-            strokeWidth="2"
-            opacity="0.8"
-          />
+            {gridLines.x.map(x => (
+              <text
+                key={`xlabel-${x}`}
+                x={scaleX(x)}
+                y={axes.x + 15}
+                textAnchor="middle"
+                fontSize="10"
+                fill="currentColor"
+                opacity="0.7"
+              >
+                {x}
+              </text>
+            ))}
+            {gridLines.y.map(y => (
+              <text
+                key={`ylabel-${y}`}
+                x={axes.y - 8}
+                y={scaleY(y) + 3}
+                textAnchor="end"
+                fontSize="10"
+                fill="currentColor"
+                opacity="0.7"
+              >
+                {y}
+              </text>
+            ))}
 
-          {gridLines.x.map(x => (
-            <text
-              key={`xlabel-${x}`}
-              x={scaleX(x)}
-              y={axes.x + 15}
-              textAnchor="middle"
-              fontSize="10"
+            <polygon
+              points={`${width - PADDING},${axes.x} ${width - PADDING - 8},${axes.x - 4} ${width - PADDING - 8},${axes.x + 4}`}
               fill="currentColor"
-              opacity="0.7"
-            >
-              {x}
-            </text>
-          ))}
-          {gridLines.y.map(y => (
+              opacity="0.8"
+            />
             <text
-              key={`ylabel-${y}`}
+              x={width - PADDING + 3}
+              y={axes.x - 8}
+              fontSize="12"
+              fontWeight="bold"
+              fill="currentColor"
+            >
+              x
+            </text>
+            <polygon
+              points={`${axes.y},${PADDING} ${axes.y - 4},${PADDING + 8} ${axes.y + 4},${PADDING + 8}`}
+              fill="currentColor"
+              opacity="0.8"
+            />
+            <text
+              x={axes.y + 12}
+              y={PADDING + 4}
+              fontSize="12"
+              fontWeight="bold"
+              fill="currentColor"
+            >
+              y
+            </text>
+
+            {functionPoints.length > 0 && (
+              <path
+                d={generatePath()}
+                fill="none"
+                stroke="#2563eb"
+                strokeWidth="2.5"
+              />
+            )}
+
+            <text
               x={axes.y - 8}
-              y={scaleY(y) + 3}
-              textAnchor="end"
+              y={axes.x + 15}
               fontSize="10"
               fill="currentColor"
               opacity="0.7"
+              textAnchor="end"
             >
-              {y}
+              0
             </text>
-          ))}
+          </svg>
 
-          <polygon
-            points={`${width - PADDING},${axes.x} ${width - PADDING - 8},${axes.x - 4} ${width - PADDING - 8},${axes.x + 4}`}
-            fill="currentColor"
-            opacity="0.8"
-          />
-          <text
-            x={width - PADDING + 3}
-            y={axes.x - 8}
-            fontSize="12"
-            fontWeight="bold"
-            fill="currentColor"
-          >
-            x
-          </text>
-          <polygon
-            points={`${axes.y},${PADDING} ${axes.y - 4},${PADDING + 8} ${axes.y + 4},${PADDING + 8}`}
-            fill="currentColor"
-            opacity="0.8"
-          />
-          <text
-            x={axes.y + 12}
-            y={PADDING + 4}
-            fontSize="12"
-            fontWeight="bold"
-            fill="currentColor"
-          >
-            y
-          </text>
-
-          {functionPoints.length > 0 && (
-            <path
-              d={generatePath()}
-              fill="none"
-              stroke="#2563eb"
-              strokeWidth="2.5"
-            />
-          )}
-
-          <text
-            x={axes.y - 8}
-            y={axes.x + 15}
-            fontSize="10"
-            fill="currentColor"
-            opacity="0.7"
-            textAnchor="end"
-          >
-            0
-          </text>
-        </svg>
-
-        <div className="mt-2 text-center text-xs sm:text-sm text-blue-600 dark:text-blue-400 font-mono">
-          f(x) = {debouncedFunction}
+          <div className="mt-1 sm:mt-2 text-center text-xs sm:text-sm text-blue-600 dark:text-blue-400 font-mono">
+            f(x) = {debouncedFunction}
+          </div>
         </div>
-      </div>
 
-      <div className="grid grid-cols-4 md:grid-cols-8 gap-1.5 sm:gap-2">
-        {[
-          { label: 'x²', fn: 'x^2' },
-          { label: 'x³', fn: 'x^3' },
-          { label: 'sin(x)', fn: 'sin(x)' },
-          { label: 'cos(x)', fn: 'cos(x)' },
-          { label: '√x', fn: 'sqrt(x)' },
-          { label: '1/x', fn: '1/x' },
-          { label: '|x|', fn: 'abs(x)' },
-          { label: 'eˣ', fn: 'exp(x)' },
-        ].map(({ label, fn }) => (
-          <button
-            key={fn}
-            onClick={() => setCustomFunction(fn)}
-            className={
-              'px-2 py-1.5 sm:px-3 sm:py-2 bg-blue-100 dark:bg-blue-900/30 hover:bg-blue-200 dark:hover:bg-blue-900/50 rounded-lg text-xs sm:text-sm transition'
-            }
-          >
-            {label}
-          </button>
-        ))}
+        <div className="lg:w-44 xl:w-48 flex-shrink-0">
+          <h3 className="text-xs sm:text-sm font-semibold mb-2 text-gray-700 dark:text-gray-300">
+            Готови функции:
+          </h3>
+          <div className="grid grid-cols-4 lg:grid-cols-1 gap-1.5 lg:gap-2">
+            {[
+              { label: 'x²', fn: 'x^2' },
+              { label: 'x³', fn: 'x^3' },
+              { label: 'sin(x)', fn: 'sin(x)' },
+              { label: 'cos(x)', fn: 'cos(x)' },
+              { label: '√x', fn: 'sqrt(x)' },
+              { label: '1/x', fn: '1/x' },
+              { label: '|x|', fn: 'abs(x)' },
+              { label: 'eˣ', fn: 'exp(x)' },
+            ].map(({ label, fn }) => (
+              <button
+                key={fn}
+                onClick={() => setCustomFunction(fn)}
+                className={
+                  'px-2 py-2 lg:px-3 lg:py-2.5 bg-blue-100 dark:bg-blue-900/30 hover:bg-blue-200 dark:hover:bg-blue-900/50 rounded-lg text-xs sm:text-sm transition font-medium w-full'
+                }
+              >
+                {label}
+              </button>
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   );

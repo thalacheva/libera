@@ -9,7 +9,7 @@ import {
   SystemsOfEquations,
 } from './algebra';
 import {
-  InteractiveFunctionGrapher,
+  FunctionGraph,
   LinearFunctions,
   QuadraticFunctions,
 } from './functions';
@@ -79,7 +79,7 @@ function App() {
           <Route path="functions">
             <Route path="linear" element={<LinearFunctions />} />
             <Route path="quadratic" element={<QuadraticFunctions />} />
-            <Route path="grapher" element={<InteractiveFunctionGrapher />} />
+            <Route path="grapher" element={<FunctionGraph />} />
           </Route>
           <Route path="geometry">
             <Route path="triangle" element={<Triangle />} />
