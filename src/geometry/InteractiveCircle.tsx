@@ -622,7 +622,7 @@ export function InteractiveCircle({ type }: InteractiveCircleProps) {
           <>
             {/* Arc for 1 radian */}
             <path
-              d={`M ${exactPoint1.x},${exactPoint1.y} A ${radius},${radius} 0 0,${sweepFlag} ${exactPoint2.x},${exactPoint2.y}`}
+              d={`M ${exactPoint1.x},${exactPoint1.y} A ${radius},${radius} 0 ${largeArcFlag},${sweepFlag} ${exactPoint2.x},${exactPoint2.y}`}
               fill="none"
               stroke="rgb(239, 68, 68)"
               strokeWidth="4"
