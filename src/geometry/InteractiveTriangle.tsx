@@ -333,7 +333,7 @@ export function InteractiveTriangle({ type }: InteractiveTriangleProps) {
                     strokeDasharray="5,5"
                   />
                   <path
-                    d={drawAngleArc(C, B, D, 30)}
+                    d={drawAngleArc(C, A, D, 30)}
                     fill="none"
                     stroke="rgb(239, 68, 68)"
                     strokeWidth="2"
@@ -351,8 +351,8 @@ export function InteractiveTriangle({ type }: InteractiveTriangleProps) {
                     strokeWidth="2"
                   />
                   <text
-                    x={getAngleLabelPosition(C, B, D, 50 * scale).x}
-                    y={getAngleLabelPosition(C, B, D, 50 * scale).y}
+                    x={getAngleLabelPosition(C, A, D, 50 * scale).x}
+                    y={getAngleLabelPosition(C, A, D, 50 * scale).y}
                     fontSize={fontSize}
                     fill="rgb(239, 68, 68)"
                     fontWeight="bold"
@@ -370,7 +370,7 @@ export function InteractiveTriangle({ type }: InteractiveTriangleProps) {
                     textAnchor="middle"
                     dominantBaseline="middle"
                   >
-                    {angleA.toFixed(0)}°
+                    {angleB.toFixed(0)}°
                   </text>
                   <text
                     x={getAngleLabelPosition(B, C, A, 45 * scale).x}
@@ -381,7 +381,7 @@ export function InteractiveTriangle({ type }: InteractiveTriangleProps) {
                     textAnchor="middle"
                     dominantBaseline="middle"
                   >
-                    {angleB.toFixed(0)}°
+                    {angleC.toFixed(0)}°
                   </text>
 
                   <text
