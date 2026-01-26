@@ -1,9 +1,18 @@
-import { BookOpen, Menu, Moon, Sun, User, X } from 'lucide-react';
-import { useEffect, useState } from 'react';
-import { Navigate, Route, Routes } from 'react-router-dom';
-import { Circle, Quadrangle, Triangle } from '~/geometry';
+import {BookOpen, Menu, Moon, Sun, User, X} from 'lucide-react';
+import {useEffect, useState} from 'react';
+import {Navigate, Route, Routes} from 'react-router-dom';
+import {Circle, Quadrangle, Triangle} from '~/geometry';
 import SidebarMenu from '~/SidebarMenu';
-import { LinearEquations, QuadraticEquations } from './algebra';
+import {LinearEquations, QuadraticEquations} from './algebra';
+import {
+  Lecture01, Lecture02, Lecture03, Lecture04, Lecture05,
+  Lecture06, Lecture07, Lecture08, Lecture09, Lecture10,
+  Lecture11, Lecture12, Lecture13, Lecture14, Lecture15,
+  Lecture16, Lecture17, Lecture18, Lecture19, Lecture20,
+  Lecture21, Lecture22, Lecture23, Lecture24, Lecture25,
+  Lecture26, Lecture27, Lecture28, Lecture29, Lecture30,
+  Lecture31, Lecture32,
+} from './astronomy';
 import {
   FunctionGraph,
   LinearFunctions,
@@ -80,6 +89,40 @@ function App() {
             <Route path="triangle" element={<Triangle />} />
             <Route path="quadrilateral" element={<Quadrangle />} />
             <Route path="circle" element={<Circle />} />
+          </Route>
+          <Route path="astronomy">
+            <Route path="lecture01" element={<Lecture01 />} />
+            <Route path="lecture02" element={<Lecture02 />} />
+            <Route path="lecture03" element={<Lecture03 />} />
+            <Route path="lecture04" element={<Lecture04 />} />
+            <Route path="lecture05" element={<Lecture05 />} />
+            <Route path="lecture06" element={<Lecture06 />} />
+            <Route path="lecture07" element={<Lecture07 />} />
+            <Route path="lecture08" element={<Lecture08 />} />
+            <Route path="lecture09" element={<Lecture09 />} />
+            <Route path="lecture10" element={<Lecture10 />} />
+            <Route path="lecture11" element={<Lecture11 />} />
+            <Route path="lecture12" element={<Lecture12 />} />
+            <Route path="lecture13" element={<Lecture13 />} />
+            <Route path="lecture14" element={<Lecture14 />} />
+            <Route path="lecture15" element={<Lecture15 />} />
+            <Route path="lecture16" element={<Lecture16 />} />
+            <Route path="lecture17" element={<Lecture17 />} />
+            <Route path="lecture18" element={<Lecture18 />} />
+            <Route path="lecture19" element={<Lecture19 />} />
+            <Route path="lecture20" element={<Lecture20 />} />
+            <Route path="lecture21" element={<Lecture21 />} />
+            <Route path="lecture22" element={<Lecture22 />} />
+            <Route path="lecture23" element={<Lecture23 />} />
+            <Route path="lecture24" element={<Lecture24 />} />
+            <Route path="lecture25" element={<Lecture25 />} />
+            <Route path="lecture26" element={<Lecture26 />} />
+            <Route path="lecture27" element={<Lecture27 />} />
+            <Route path="lecture28" element={<Lecture28 />} />
+            <Route path="lecture29" element={<Lecture29 />} />
+            <Route path="lecture30" element={<Lecture30 />} />
+            <Route path="lecture31" element={<Lecture31 />} />
+            <Route path="lecture32" element={<Lecture32 />} />
           </Route>
         </Routes>
       </div>
