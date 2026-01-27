@@ -49,18 +49,51 @@ export default function Lecture01() {
   //
   // За север (az = 180° в нашата проекция): sin(180°) = 0, но за 3D ефект използваме перспектива
 
-  // ПРАВИЛНА сферична геометрия:
-  // P е на СЕВЕР на хоризонта, на височина h = φ
+  // P и P' трябва да лежат на небесния меридиан
+  // Небесният меридиан минава през Z, P, Z', P'
   // 
-  // За точка да лежи НА кръга в 2D: (x - cx)² + (y - cy)² = R²
+  // За елипса: (x-cx)²/rx² + (y-cy)²/ry² = 1
+  // Минава през Z(cx, cy-R) и Z'(cx, cy+R) → ry = R ✓
   // 
-  // Ако y = cy - R×sin(φ), то:
-  // (x - cx)² = R² - R²sin²(φ) = R²cos²(φ)
-  // x - cx = ±R×cos(φ)
+  // P е на височина φ: y = cy - R×sin(φ)
+  // Заместваме в уравнението на елипсата:
+  // (x-cx)²/rx² + (cy - R×sin(φ) - cy)²/R² = 1
+  // (x-cx)²/rx² + sin²(φ) = 1
+  // (x-cx)²/rx² = 1 - sin²(φ) = cos²(φ)
+  // (x-cx)² = rx² × cos²(φ)
+  // x - cx = ±rx × cos(φ)
   //
-  // За СЕВЕР (назад в 3D, ляво в 2D): x = cx - R×cos(φ)
-  // За ЮГ (напред в 3D, дясно в 2D): x = cx + R×cos(φ)
+  // За P (ляво): x = cx - rx×cos(φ)
+  // Но също x = cx - R×cos(φ) (от сферата)
+  // Значи: rx×cos(φ) = R×cos(φ) → rx = R
   
+  // Небесният меридиан е елипса с rx = R×cos(φ), ry = R
+  // Но за P да лежи на нея, трябва rx = R!
+  // Това означава че меридианът е кръг (не елипса) в 3D
+  
+  // P трябва да лежи И на сферата, И на меридиана
+  // 
+  // На сферата: (x-cx)² + (y-cy)² = R²
+  // P на височина φ: y = cy - R×sin(φ)
+  // → (x-cx)² = R²cos²(φ)
+  // → x = cx ± R×cos(φ)
+  //
+  // На меридиана (елипса): (x-cx)²/rx² + (y-cy)²/R² = 1
+  // Заместваме y = cy - R×sin(φ):
+  // (x-cx)²/rx² + sin²(φ) = 1
+  // (x-cx)²/rx² = cos²(φ)
+  // (x-cx)² = rx²×cos²(φ)
+  //
+  // От двете уравнения:
+  // R²cos²(φ) = rx²×cos²(φ)
+  // R² = rx²
+  // rx = R
+  //
+  // Небесният меридиан е кръг (rx = R) в 3D, но в 2D проекция изглежда като елипса!
+  const meridianRx = sphereRadius; // НЕ R×cos(φ), а просто R!
+  
+  // P на елипсата с rx = R, ry = R при параметър t = 180° - φ:
+  // x = cx + R×cos(180° - φ) = cx - R×cos(φ)
   const poleX = centerX - sphereRadius * Math.cos(poleAngle);
   const poleY = centerY - sphereRadius * Math.sin(poleAngle);
   
@@ -286,7 +319,7 @@ export default function Lecture01() {
               className="w-full h-auto"
               style={{ maxHeight: '500px' }}
             >
-              {/* Небесна сфера (проектирана като кръг) */}
+              {/* Небесна сфера (външен контур) - непрекъсната */}
               <circle
                 cx={centerX}
                 cy={centerY}
@@ -294,40 +327,50 @@ export default function Lecture01() {
                 fill="rgba(59, 130, 246, 0.05)"
                 stroke="rgb(59, 130, 246)"
                 strokeWidth="2"
-                strokeDasharray="5,5"
               />
 
-              {/* Небесен меридиан - вертикален кръг през Z, N' */}
-              {/* Задна половина (запад, невидима, пунктирана) */}
-              <path
-                d={`M ${centerX},${centerY - sphereRadius}
-                    A ${sphereRadius * 0.3},${sphereRadius} 0 0,1 ${centerX},${centerY + sphereRadius}`}
-                fill="none"
-                stroke="rgb(239, 68, 68)"
-                strokeWidth="2"
-                strokeDasharray="5,5"
-                opacity="0.4"
-              />
-              {/* Предна половина (изток, видима, непрекъсната) */}
-              <path
-                d={`M ${centerX},${centerY - sphereRadius}
-                    A ${sphereRadius * 0.3},${sphereRadius} 0 0,0 ${centerX},${centerY + sphereRadius}`}
-                fill="none"
-                stroke="rgb(239, 68, 68)"
-                strokeWidth="2"
-                onMouseEnter={() => setHoveredElement('meridian')}
-                onMouseLeave={() => setHoveredElement(null)}
-                className="cursor-pointer"
-              />
-              <text
-                x={centerX + 80}
-                y={zenithY + 40}
-                fontSize="12"
-                fill="rgb(239, 68, 68)"
-                fontWeight="bold"
-              >
-                Небесен меридиан
-              </text>
+              {/* Небесен меридиан - минава през Z, P, Z', P' */}
+              {/* В 3D това е кръг (rx = ry = R), в 2D проекция е елипса */}
+              {/* rx = R×cos(φ) заради перспективата (север-юг компресия) */}
+              {(() => {
+                const mRx = meridianRx;
+                const mRy = sphereRadius;
+                
+                return (
+                  <>
+                    {/* Задна половина (запад, пунктирана) */}
+                    <path
+                      d={`M ${centerX},${centerY - mRy}
+                          A ${mRx},${mRy} 0 0,1 ${centerX},${centerY + mRy}`}
+                      fill="none"
+                      stroke="rgb(239, 68, 68)"
+                      strokeWidth="2"
+                      strokeDasharray="5,5"
+                      opacity="0.4"
+                    />
+                    {/* Предна половина (изток, непрекъсната) */}
+                    <path
+                      d={`M ${centerX},${centerY - mRy}
+                          A ${mRx},${mRy} 0 0,0 ${centerX},${centerY + mRy}`}
+                      fill="none"
+                      stroke="rgb(239, 68, 68)"
+                      strokeWidth="3"
+                      onMouseEnter={() => setHoveredElement('meridian')}
+                      onMouseLeave={() => setHoveredElement(null)}
+                      className="cursor-pointer"
+                    />
+                    <text
+                      x={centerX + 80}
+                      y={zenithY + 40}
+                      fontSize="12"
+                      fill="rgb(239, 68, 68)"
+                      fontWeight="bold"
+                    >
+                      Небесен меридиан
+                    </text>
+                  </>
+                );
+              })()}
 
               {/* Хоризонт - голям кръг на сферата */}
               {/* Задна половина (запад, невидима, пунктирана) */}
