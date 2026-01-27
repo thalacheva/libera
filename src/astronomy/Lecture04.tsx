@@ -96,21 +96,44 @@ export default function Lecture04() {
 
               {/* Луна на текущата позиция */}
               <g>
-                {/* Осветена половина (винаги от страната на Слънцето) */}
+                {/* Пълен кръг (основа) */}
                 <circle cx={moonX} cy={moonY} r="25" fill="rgb(200, 200, 200)" />
 
-                {/* Тъмна половина */}
-                {currentPhase.angle <= 180 ? (
-                  <path
-                    d={`M ${moonX},${moonY - 25} A 25,25 0 0,1 ${moonX},${moonY + 25} A ${25 * Math.cos(moonAngleRad)},25 0 0,${currentPhase.angle < 90 || currentPhase.angle > 270 ? 0 : 1} ${moonX},${moonY - 25}`}
-                    fill="rgb(60, 60, 60)"
-                  />
-                ) : (
-                  <path
-                    d={`M ${moonX},${moonY - 25} A 25,25 0 0,0 ${moonX},${moonY + 25} A ${25 * Math.abs(Math.cos(moonAngleRad))},25 0 0,${currentPhase.angle > 180 && currentPhase.angle < 360 ? 1 : 0} ${moonX},${moonY - 25}`}
-                    fill="rgb(60, 60, 60)"
-                  />
-                )}
+                {/* Тъмна половина - зависи от позицията спрямо Слънцето */}
+                {/* Слънцето е отляво (angle 180° = пълнолуние, Луната отдясно) */}
+                {(() => {
+                  // Ъгъл на Луната спрямо Слънцето (0° = новолуние, 180° = пълнолуние)
+                  const phaseAngle = currentPhase.angle;
+                  
+                  // При 0° (новолуние): тъмна страна към нас (цялата Луна тъмна)
+                  // При 180° (пълнолуние): светла страна към нас (цялата Луна светла)
+                  
+                  if (phaseAngle === 0) {
+                    // Новолуние - цялата Луна е тъмна
+                    return <circle cx={moonX} cy={moonY} r="25" fill="rgb(60, 60, 60)" />;
+                  } else if (phaseAngle === 180) {
+                    // Пълнолуние - цялата Луна е светла (вече е светла от основния кръг)
+                    return null;
+                  } else if (phaseAngle < 180) {
+                    // Нарастваща (0° → 180°): тъмна страна отляво, светла отдясно
+                    const width = 25 * Math.cos(moonAngleRad);
+                    return (
+                      <path
+                        d={`M ${moonX},${moonY - 25} A 25,25 0 0,0 ${moonX},${moonY + 25} A ${Math.abs(width)},25 0 0,${phaseAngle < 90 ? 0 : 1} ${moonX},${moonY - 25}`}
+                        fill="rgb(60, 60, 60)"
+                      />
+                    );
+                  } else {
+                    // Намаляваща (180° → 360°): тъмна страна отдясно, светла отляво
+                    const width = 25 * Math.abs(Math.cos(moonAngleRad));
+                    return (
+                      <path
+                        d={`M ${moonX},${moonY - 25} A 25,25 0 0,1 ${moonX},${moonY + 25} A ${width},25 0 0,${phaseAngle > 270 ? 0 : 1} ${moonX},${moonY - 25}`}
+                        fill="rgb(60, 60, 60)"
+                      />
+                    );
+                  }
+                })()}
 
                 <circle cx={moonX} cy={moonY} r="25" fill="none" stroke="white" strokeWidth="2" />
               </g>

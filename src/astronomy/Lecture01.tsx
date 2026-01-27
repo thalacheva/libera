@@ -12,109 +12,36 @@ export default function Lecture01() {
     setShowSolutions(prev => ({ ...prev, [taskId]: !prev[taskId] }));
   };
 
-  // Изчисляване на позиции според географската ширина
+  // Константи за визуализацията
   const centerX = 300;
   const centerY = 250;
   const sphereRadius = 200;
-
-  // Правилна сферична геометрия:
-  // Небесната сфера е 3D обект, проектиран в 2D
-
   const poleAngle = (latitude * Math.PI) / 180;
 
-  // Зенит (Z) - винаги на върха на сферата (вертикално над наблюдателя)
+  // Зенит (Z) и Надир (Z') - фиксирани на вертикалата
   const zenithX = centerX;
   const zenithY = centerY - sphereRadius;
-
-  // Надир (Z') - винаги на дъното, противоположен на зенита
   const nadirX = centerX;
   const nadirY = centerY + sphereRadius;
 
-  // Северен полюс на сферата:
-  // Намира се на СЕВЕР на хоризонта, на височина = φ
-  // В 3D: азимут = 0° (север), altitude = φ
-  // Проекция: север е "назад" (по-малко x в перспектива)
-
-  // Използваме сферични координати:
-  // x = r * cos(alt) * sin(az), y = r * sin(alt), z = r * cos(alt) * cos(az)
-  // За север: az = 180° (назад)
-
-  // Правилна сферична геометрия: точките трябва да лежат НА сферата
-  // За точка на сфера: (x - cx)² + (y - cy)² = r²
-  //
-  // Северен полюс: азимут = 0° (север), височина = φ
-  // В 3D сферични координати, проектирани в 2D:
-  // x = cx + r × cos(φ) × sin(az) × depth_factor
-  // y = cy - r × sin(φ)
-  //
-  // За север (az = 180° в нашата проекция): sin(180°) = 0, но за 3D ефект използваме перспектива
-
-  // P и P' трябва да лежат на небесния меридиан
-  // Небесният меридиан минава през Z, P, Z', P'
-  // 
-  // За елипса: (x-cx)²/rx² + (y-cy)²/ry² = 1
-  // Минава през Z(cx, cy-R) и Z'(cx, cy+R) → ry = R ✓
-  // 
-  // P е на височина φ: y = cy - R×sin(φ)
-  // Заместваме в уравнението на елипсата:
-  // (x-cx)²/rx² + (cy - R×sin(φ) - cy)²/R² = 1
-  // (x-cx)²/rx² + sin²(φ) = 1
-  // (x-cx)²/rx² = 1 - sin²(φ) = cos²(φ)
-  // (x-cx)² = rx² × cos²(φ)
-  // x - cx = ±rx × cos(φ)
-  //
-  // За P (ляво): x = cx - rx×cos(φ)
-  // Но също x = cx - R×cos(φ) (от сферата)
-  // Значи: rx×cos(φ) = R×cos(φ) → rx = R
-  
-  // Небесният меридиан е елипса с rx = R×cos(φ), ry = R
-  // Но за P да лежи на нея, трябва rx = R!
-  // Това означава че меридианът е кръг (не елипса) в 3D
-  
-  // P трябва да лежи И на сферата, И на меридиана
-  // 
-  // На сферата: (x-cx)² + (y-cy)² = R²
-  // P на височина φ: y = cy - R×sin(φ)
-  // → (x-cx)² = R²cos²(φ)
-  // → x = cx ± R×cos(φ)
-  //
-  // На меридиана (елипса): (x-cx)²/rx² + (y-cy)²/R² = 1
-  // Заместваме y = cy - R×sin(φ):
-  // (x-cx)²/rx² + sin²(φ) = 1
-  // (x-cx)²/rx² = cos²(φ)
-  // (x-cx)² = rx²×cos²(φ)
-  //
-  // От двете уравнения:
-  // R²cos²(φ) = rx²×cos²(φ)
-  // R² = rx²
-  // rx = R
-  //
-  // Небесният меридиан е кръг (rx = R) в 3D, но в 2D проекция изглежда като елипса!
-  const meridianRx = sphereRadius; // НЕ R×cos(φ), а просто R!
-  
-  // P на елипсата с rx = R, ry = R при параметър t = 180° - φ:
-  // x = cx + R×cos(180° - φ) = cx - R×cos(φ)
+  // Северен (P) и южен (P') полюс на небесната сфера
+  // P е на север, на височина φ над хоризонта
+  // Формула: точка на сфера с (x-cx)² + (y-cy)² = R²
   const poleX = centerX - sphereRadius * Math.cos(poleAngle);
   const poleY = centerY - sphereRadius * Math.sin(poleAngle);
-  
   const southPoleX = centerX + sphereRadius * Math.cos(poleAngle);
   const southPoleY = centerY + sphereRadius * Math.sin(poleAngle);
 
-  // Наклон на небесния екватор спрямо хоризонта
-  const equatorTilt = 90 - latitude;
+  // Небесният меридиан минава през Z, P, Z', P'
+  // В 2D проекция е елипса с rx = R, ry = R
+  const meridianRx = sphereRadius;
 
   // Небесният екватор е перпендикулярен на оста P-P'
-  // 
-  // Ъгъл на оста PP' в 2D проекция (от хоризонтала):
-  // Вектор от P към P': (dx, dy) = (southPoleX - poleX, southPoleY - poleY)
-  // atan2(dy, dx) дава ъгъл от хоризонтала
   const axisDx = southPoleX - poleX;
   const axisDy = southPoleY - poleY;
-  const axisAngleFromHorizontal = Math.atan2(axisDy, axisDx) * 180 / Math.PI;
-  
-  // Екваторът е перпендикулярен на оста PP'
-  // Перпендикулярен ъгъл = ъгъл + 90°
-  const equatorAngle = axisAngleFromHorizontal + 90;
+  const axisAngle = Math.atan2(axisDy, axisDx) * 180 / Math.PI;
+  const equatorAngle = axisAngle + 90;
+  const equatorTilt = 90 - latitude; // Наклон спрямо хоризонта
 
   // Специални случаи
   const isEquator = latitude === 0;
@@ -330,50 +257,39 @@ export default function Lecture01() {
               />
 
               {/* Небесен меридиан - минава през Z, P, Z', P' */}
-              {/* В 3D това е кръг (rx = ry = R), в 2D проекция е елипса */}
-              {/* rx = R×cos(φ) заради перспективата (север-юг компресия) */}
-              {(() => {
-                const mRx = meridianRx;
-                const mRy = sphereRadius;
-                
-                return (
-                  <>
-                    {/* Задна половина (запад, пунктирана) */}
-                    <path
-                      d={`M ${centerX},${centerY - mRy}
-                          A ${mRx},${mRy} 0 0,1 ${centerX},${centerY + mRy}`}
-                      fill="none"
-                      stroke="rgb(239, 68, 68)"
-                      strokeWidth="2"
-                      strokeDasharray="5,5"
-                      opacity="0.4"
-                    />
-                    {/* Предна половина (изток, непрекъсната) */}
-                    <path
-                      d={`M ${centerX},${centerY - mRy}
-                          A ${mRx},${mRy} 0 0,0 ${centerX},${centerY + mRy}`}
-                      fill="none"
-                      stroke="rgb(239, 68, 68)"
-                      strokeWidth="3"
-                      onMouseEnter={() => setHoveredElement('meridian')}
-                      onMouseLeave={() => setHoveredElement(null)}
-                      className="cursor-pointer"
-                    />
-                    <text
-                      x={centerX + 80}
-                      y={zenithY + 40}
-                      fontSize="12"
-                      fill="rgb(239, 68, 68)"
-                      fontWeight="bold"
-                    >
-                      Небесен меридиан
-                    </text>
-                  </>
-                );
-              })()}
+              {/* Задна половина (пунктирана) */}
+              <path
+                d={`M ${centerX},${centerY - sphereRadius}
+                    A ${meridianRx},${sphereRadius} 0 0,1 ${centerX},${centerY + sphereRadius}`}
+                fill="none"
+                stroke="rgb(239, 68, 68)"
+                strokeWidth="2"
+                strokeDasharray="5,5"
+                opacity="0.4"
+              />
+              {/* Предна половина (непрекъсната) */}
+              <path
+                d={`M ${centerX},${centerY - sphereRadius}
+                    A ${meridianRx},${sphereRadius} 0 0,0 ${centerX},${centerY + sphereRadius}`}
+                fill="none"
+                stroke="rgb(239, 68, 68)"
+                strokeWidth="3"
+                onMouseEnter={() => setHoveredElement('meridian')}
+                onMouseLeave={() => setHoveredElement(null)}
+                className="cursor-pointer"
+              />
+              <text
+                x={centerX + 80}
+                y={zenithY + 40}
+                fontSize="12"
+                fill="rgb(239, 68, 68)"
+                fontWeight="bold"
+              >
+                Небесен меридиан
+              </text>
 
-              {/* Хоризонт - голям кръг на сферата */}
-              {/* Задна половина (запад, невидима, пунктирана) */}
+              {/* Хоризонт */}
+              {/* Задна половина (пунктирана) */}
               <path
                 d={`M ${centerX - sphereRadius},${centerY}
                     A ${sphereRadius},${sphereRadius * 0.25} 0 0,1 ${centerX + sphereRadius},${centerY}`}
@@ -383,7 +299,7 @@ export default function Lecture01() {
                 strokeDasharray="5,5"
                 opacity="0.4"
               />
-              {/* Предна половина (изток, видима, непрекъсната) */}
+              {/* Предна половина (непрекъсната) */}
               <path
                 d={`M ${centerX - sphereRadius},${centerY}
                     A ${sphereRadius},${sphereRadius * 0.25} 0 0,0 ${centerX + sphereRadius},${centerY}`}
@@ -405,9 +321,8 @@ export default function Lecture01() {
                 Хоризонт
               </text>
 
-              {/* Небесен екватор - перпендикулярен на оста P-P' */}
-              {/* Същият ексцентритет като хоризонта */}
-              {/* Задна половина (невидима, пунктирана) */}
+              {/* Небесен екватор - перпендикулярен на P-P' */}
+              {/* Задна половина */}
               <path
                 d={`M ${centerX - sphereRadius},${centerY}
                     A ${sphereRadius},${sphereRadius * 0.25} 0 0,0 ${centerX + sphereRadius},${centerY}`}
@@ -418,7 +333,7 @@ export default function Lecture01() {
                 opacity="0.4"
                 transform={`rotate(${equatorAngle} ${centerX} ${centerY})`}
               />
-              {/* Предна половина (видима, непрекъсната) */}
+              {/* Предна половина */}
               <path
                 d={`M ${centerX - sphereRadius},${centerY}
                     A ${sphereRadius},${sphereRadius * 0.25} 0 0,1 ${centerX + sphereRadius},${centerY}`}
@@ -430,10 +345,10 @@ export default function Lecture01() {
                 onMouseLeave={() => setHoveredElement(null)}
                 className="cursor-pointer"
               />
-              {/* Етикет на небесния екватор */}
+              {/* Етикет */}
               <text
-                x={centerX - sphereRadius - 50}
-                y={centerY + 80}
+                x={centerX - sphereRadius * 0.7}
+                y={centerY + sphereRadius * 0.4}
                 fontSize="12"
                 fill="rgb(168, 85, 247)"
                 fontWeight="bold"
@@ -466,10 +381,10 @@ export default function Lecture01() {
                 onMouseLeave={() => setHoveredElement(null)}
                 className="cursor-pointer"
               />
-              {/* Етикет на еклиптиката */}
+              {/* Етикет на еклиптиката - близо до елипсата */}
               <text
-                x={centerX - sphereRadius - 80}
-                y={centerY + 50}
+                x={centerX - sphereRadius * 0.7}
+                y={centerY - sphereRadius * 0.35}
                 fontSize="12"
                 fill="rgb(251, 191, 36)"
                 fontWeight="bold"
@@ -517,21 +432,22 @@ export default function Lecture01() {
               </text>
 
               {/* Пролетна точка (♈) - пресечна точка на екватора и еклиптиката */}
-              {/* На изток, където екваторът и еклиптиката се пресичат */}
+              {/* На дясно, на пресечната линия (ъгъл 23.5°/2 от хоризонта) */}
               <circle
-                cx={centerX + sphereRadius}
-                cy={centerY}
+                cx={centerX + sphereRadius * Math.cos((23.5 / 2) * Math.PI / 180)}
+                cy={centerY - sphereRadius * 0.25 * Math.sin((23.5 / 2) * Math.PI / 180)}
                 r="7"
                 fill="rgb(34, 197, 94)"
                 stroke="white"
                 strokeWidth="2"
+                transform={`rotate(${equatorAngle - 23.5/2} ${centerX} ${centerY})`}
                 onMouseEnter={() => setHoveredElement('vernal')}
                 onMouseLeave={() => setHoveredElement(null)}
                 className="cursor-pointer"
               />
               <text
                 x={centerX + sphereRadius + 15}
-                y={centerY - 8}
+                y={centerY}
                 fontSize="13"
                 fill="rgb(34, 197, 94)"
                 fontWeight="bold"
@@ -539,21 +455,22 @@ export default function Lecture01() {
                 ♈ Пролет
               </text>
 
-              {/* Есенна точка (♎) - на запад, противоположна на пролетната */}
+              {/* Есенна точка (♎) - противоположна на пролетната */}
               <circle
-                cx={centerX - sphereRadius}
-                cy={centerY}
+                cx={centerX - sphereRadius * Math.cos((23.5 / 2) * Math.PI / 180)}
+                cy={centerY + sphereRadius * 0.25 * Math.sin((23.5 / 2) * Math.PI / 180)}
                 r="7"
                 fill="rgb(251, 146, 60)"
                 stroke="white"
                 strokeWidth="2"
+                transform={`rotate(${equatorAngle - 23.5/2} ${centerX} ${centerY})`}
                 onMouseEnter={() => setHoveredElement('autumnal')}
                 onMouseLeave={() => setHoveredElement(null)}
                 className="cursor-pointer"
               />
               <text
                 x={centerX - sphereRadius - 60}
-                y={centerY - 8}
+                y={centerY}
                 fontSize="13"
                 fill="rgb(251, 146, 60)"
                 fontWeight="bold"
@@ -576,13 +493,13 @@ export default function Lecture01() {
                 className="cursor-pointer"
               />
               <text
-                x={centerX - 50}
-                y={centerY - sphereRadius * 0.35}
+                x={centerX + 15}
+                y={centerY - sphereRadius * 0.3}
                 fontSize="11"
                 fill="rgb(255, 200, 0)"
                 fontWeight="bold"
               >
-                ☀️ Лято (21 юни)
+                ☀️ Лято
               </text>
 
               {/* Зимно слънцестоене - долу (минимална деклинация -23.5°) */}
@@ -599,13 +516,13 @@ export default function Lecture01() {
                 className="cursor-pointer"
               />
               <text
-                x={centerX - 60}
-                y={centerY + sphereRadius * 0.4}
+                x={centerX + 15}
+                y={centerY + sphereRadius * 0.35}
                 fontSize="11"
                 fill="rgb(150, 200, 255)"
                 fontWeight="bold"
               >
-                ❄️ Зима (21 дек)
+                ❄️ Зима
               </text>
 
               {/* Наблюдател (център) */}
