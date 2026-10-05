@@ -68,6 +68,7 @@ const astronomyTopics = [
       { name: 'Екзопланети', path: '/lecture30' },
       { name: 'Астробиология', path: '/lecture31' },
       { name: 'Методи за наблюдение', path: '/lecture32' },
+      { name: 'Специална теория на относителността', path: '/lecture33' },
     ],
   },
 ];

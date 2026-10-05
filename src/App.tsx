@@ -11,7 +11,7 @@ import {
   Lecture16, Lecture17, Lecture18, Lecture19, Lecture20,
   Lecture21, Lecture22, Lecture23, Lecture24, Lecture25,
   Lecture26, Lecture27, Lecture28, Lecture29, Lecture30,
-  Lecture31, Lecture32,
+  Lecture31, Lecture32, Lecture33,
 } from './astronomy';
 import {
   FunctionGraph,
@@ -123,6 +123,7 @@ function App() {
             <Route path="lecture30" element={<Lecture30 />} />
             <Route path="lecture31" element={<Lecture31 />} />
             <Route path="lecture32" element={<Lecture32 />} />
+            <Route path="lecture33" element={<Lecture33 />} />
           </Route>
         </Routes>
       </div>
