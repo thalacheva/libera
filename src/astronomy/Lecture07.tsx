@@ -14,12 +14,55 @@ export default function Lecture07() {
   const c = Math.sqrt(a * a - b * b); // фокусно разстояние
   const centerX = 300;
   const centerY = 200;
-  const sunX = centerX - c; // Слънцето е в единия фокус
+  const e = c / a; // ексцентрицитет
+  const sunX = centerX - c; // Слънцето е в левия фокус, перихелият е вляво
 
-  // Позиция на планетата по елипсата
-  const angle = (time / 100) * 2 * Math.PI;
-  const planetX = centerX + a * Math.cos(angle);
-  const planetY = centerY + b * Math.sin(angle);
+  // Точка от орбитата за дадена средна аномалия M (решава уравнението на Кеплер E - e·sinE = M),
+  // така че равни интервали от M съответстват на равни интервали от време
+  const orbitPoint = (M: number) => {
+    let E = M;
+    for (let i = 0; i < 20; i++) {
+      E -= (E - e * Math.sin(E) - M) / (1 - e * Math.cos(E));
+    }
+    return { x: centerX - a * Math.cos(E), y: centerY - b * Math.sin(E) };
+  };
+
+  // Позиция на планетата по елипсата (time = 0 → перихелий, 50 → афелий)
+  const { x: planetX, y: planetY } = orbitPoint((time / 100) * 2 * Math.PI);
+
+  // Сектори за втория закон: еднакъв интервал от време около перихелия и афелия
+  const dM = 0.5;
+  const p1 = orbitPoint(-dM / 2);
+  const p2 = orbitPoint(dM / 2);
+  const q1 = orbitPoint(Math.PI - dM / 2);
+  const q2 = orbitPoint(Math.PI + dM / 2);
+
+  // Трети закон: орбити в мащаб (100 px = 1 AU)
+  const solarX = 180;
+  const solarY = 175;
+  const auPx = 100;
+  const planets = [
+    { name: 'Меркурий', a: 0.39, T: 0.24, color: 'gray', r: 4, deg: 120 },
+    { name: 'Венера', a: 0.72, T: 0.62, color: 'orange', r: 6, deg: 215 },
+    { name: 'Земя', a: 1, T: 1, color: 'rgb(59, 130, 246)', r: 7, deg: 0 },
+    { name: 'Марс', a: 1.52, T: 1.88, color: 'rgb(239, 68, 68)', r: 5, deg: 300 },
+  ].map(p => {
+    const rad = (p.deg * Math.PI) / 180;
+    const R = p.a * auPx;
+    return {
+      ...p,
+      R,
+      x: solarX + R * Math.cos(rad),
+      y: solarY - R * Math.sin(rad),
+      labelX: solarX + (R + 16) * Math.cos(rad),
+      labelY: solarY - (R + 16) * Math.sin(rad) + 4,
+    };
+  });
+  // Юпитер (5.2 AU) не се побира – показваме дъга не в мащаб
+  const jupiterR = 230;
+  const jupiterSpan = Math.asin(160 / jupiterR);
+  const jupiterTop = { x: solarX + jupiterR * Math.cos(jupiterSpan), y: solarY - 160 };
+  const jupiterBottom = { x: jupiterTop.x, y: solarY + 160 };
 
   return (
     <main className="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8">
@@ -79,12 +122,18 @@ export default function Lecture07() {
               <circle cx={centerX + c} cy={centerY} r="3" fill="gray" />
               <text x={centerX + c + 5} y={centerY - 5} fontSize="10" fill="gray">Фокус 2</text>
 
-              {/* Планета */}
-              <circle cx={planetX} cy={planetY} r="12" fill="rgb(59, 130, 246)">
-                <animate attributeName="opacity" values="1;0.7;1" dur="2s" repeatCount="indefinite" />
-              </circle>
-              <text x={planetX} y={planetY - 20} fontSize="11" fontWeight="bold" textAnchor="middle" fill="currentColor">
-                Планета
+              {/* Полуоси и фокусно разстояние */}
+              <line x1={centerX} y1={centerY} x2={centerX + a} y2={centerY} stroke="rgb(168, 85, 247)" strokeWidth="2" />
+              <text x={centerX + a / 2} y={centerY + 15} fontSize="11" fill="rgb(168, 85, 247)" fontWeight="bold" textAnchor="middle">
+                a
+              </text>
+              <line x1={centerX} y1={centerY} x2={centerX} y2={centerY - b} stroke="rgb(20, 184, 166)" strokeWidth="2" />
+              <text x={centerX - 6} y={centerY - b / 2} fontSize="11" fill="rgb(20, 184, 166)" fontWeight="bold" textAnchor="end">
+                b
+              </text>
+              <line x1={sunX} y1={centerY} x2={centerX} y2={centerY} stroke="gray" strokeWidth="2" strokeDasharray="3,3" />
+              <text x={(sunX + centerX) / 2} y={centerY - 6} fontSize="11" fill="gray" fontWeight="bold" textAnchor="middle">
+                c
               </text>
 
               {/* Радиус-вектор */}
@@ -97,6 +146,14 @@ export default function Lecture07() {
                 strokeWidth="2"
                 strokeDasharray="5,5"
               />
+
+              {/* Планета */}
+              <circle cx={planetX} cy={planetY} r="12" fill="rgb(59, 130, 246)">
+                <animate attributeName="opacity" values="1;0.7;1" dur="2s" repeatCount="indefinite" />
+              </circle>
+              <text x={planetX} y={planetY - 20} fontSize="11" fontWeight="bold" textAnchor="middle" fill="currentColor">
+                Планета
+              </text>
 
               {/* Перихелий и афелий */}
               <circle cx={centerX - a} cy={centerY} r="5" fill="rgb(239, 68, 68)" />
@@ -113,14 +170,6 @@ export default function Lecture07() {
               </text>
               <text x={centerX + a} y={centerY + 20} fontSize="10" fill="rgb(34, 197, 94)" textAnchor="middle">
                 (най-далеч)
-              </text>
-
-              {/* Голяма полуос */}
-              <line x1={centerX - a} y1={centerY + 50} x2={centerX + a} y2={centerY + 50} stroke="rgb(168, 85, 247)" strokeWidth="2" />
-              <line x1={centerX - a} y1={centerY + 45} x2={centerX - a} y2={centerY + 55} stroke="rgb(168, 85, 247)" strokeWidth="2" />
-              <line x1={centerX + a} y1={centerY + 45} x2={centerX + a} y2={centerY + 55} stroke="rgb(168, 85, 247)" strokeWidth="2" />
-              <text x={centerX} y={centerY + 70} fontSize="11" fill="rgb(168, 85, 247)" fontWeight="bold" textAnchor="middle">
-                a (голяма полуос)
               </text>
             </svg>
 
@@ -176,36 +225,36 @@ export default function Lecture07() {
               {/* Елипса */}
               <ellipse cx={centerX} cy={centerY} rx={a} ry={b} fill="none" stroke="rgb(59, 130, 246)" strokeWidth="2" />
 
-              {/* Слънце */}
-              <circle cx={sunX} cy={centerY} r="15" fill="rgb(251, 191, 36)" />
-
-              {/* Сектор при перихелий (малък сектор, кратко време) */}
+              {/* Сектор при перихелий (къса дъга, висока скорост) */}
               <path
-                d={`M ${sunX},${centerY} L ${centerX - a},${centerY} A ${a},${b} 0 0,1 ${centerX - a + 30},${centerY - 40} Z`}
+                d={`M ${sunX},${centerY} L ${p1.x},${p1.y} A ${a},${b} 0 0,1 ${p2.x},${p2.y} Z`}
                 fill="rgba(239, 68, 68, 0.3)"
                 stroke="rgb(239, 68, 68)"
                 strokeWidth="2"
               />
-              <text x={centerX - a + 40} y={centerY - 50} fontSize="11" fill="rgb(239, 68, 68)" fontWeight="bold">
+              <text x={centerX - a - 10} y={centerY - 4} fontSize="11" fill="rgb(239, 68, 68)" fontWeight="bold" textAnchor="end">
                 S₁ (1 ден)
               </text>
-              <text x={centerX - a + 40} y={centerY - 35} fontSize="10" fill="rgb(239, 68, 68)">
+              <text x={centerX - a - 10} y={centerY + 10} fontSize="10" fill="rgb(239, 68, 68)" textAnchor="end">
                 Висока скорост
               </text>
 
-              {/* Сектор при афелий (голям сектор, също 1 ден) */}
+              {/* Сектор при афелий (дълъг и тесен сектор, същото време) */}
               <path
-                d={`M ${sunX},${centerY} L ${centerX + a},${centerY} A ${a},${b} 0 0,0 ${centerX + a - 50},${centerY + 60} Z`}
+                d={`M ${sunX},${centerY} L ${q1.x},${q1.y} A ${a},${b} 0 0,1 ${q2.x},${q2.y} Z`}
                 fill="rgba(34, 197, 94, 0.3)"
                 stroke="rgb(34, 197, 94)"
                 strokeWidth="2"
               />
-              <text x={centerX + a - 40} y={centerY + 75} fontSize="11" fill="rgb(34, 197, 94)" fontWeight="bold">
+              <text x={centerX + a + 10} y={centerY - 4} fontSize="11" fill="rgb(34, 197, 94)" fontWeight="bold">
                 S₂ (1 ден)
               </text>
-              <text x={centerX + a - 40} y={centerY + 90} fontSize="10" fill="rgb(34, 197, 94)">
+              <text x={centerX + a + 10} y={centerY + 10} fontSize="10" fill="rgb(34, 197, 94)">
                 Ниска скорост
               </text>
+
+              {/* Слънце */}
+              <circle cx={sunX} cy={centerY} r="15" fill="rgb(251, 191, 36)" />
 
               {/* Етикет за равни площи */}
               <text x={centerX} y={50} fontSize="13" fontWeight="bold" textAnchor="middle" fill="currentColor">
@@ -253,48 +302,72 @@ export default function Lecture07() {
             <h3 className="font-semibold mb-3 text-center">Трети закон: Сравнение на планети</h3>
 
             <svg viewBox="0 0 700 350" className="w-full h-auto">
-              {/* Слънце */}
-              <circle cx="100" cy="175" r="25" fill="rgb(251, 191, 36)" />
-              <text x="100" y="215" fontSize="12" fontWeight="bold" textAnchor="middle" fill="currentColor">☀️</text>
+              {/* Орбити (в мащаб) */}
+              {planets.map(p => (
+                <circle
+                  key={`orbit-${p.name}`}
+                  cx={solarX}
+                  cy={solarY}
+                  r={p.R}
+                  fill="none"
+                  stroke={p.color}
+                  strokeWidth={p.name === 'Земя' ? 2 : 1}
+                />
+              ))}
 
-              {/* Меркурий */}
-              <ellipse cx="100" cy="175" rx="60" ry="55" fill="none" stroke="gray" strokeWidth="1" />
-              <circle cx="160" cy="175" r="4" fill="gray" />
-              <text x="160" y="195" fontSize="9" textAnchor="middle" fill="currentColor">Меркурий</text>
-              <text x="160" y="205" fontSize="8" textAnchor="middle" fill="gray">T=0.24 г, a=0.39 AU</text>
-
-              {/* Венера */}
-              <ellipse cx="100" cy="175" rx="90" ry="85" fill="none" stroke="orange" strokeWidth="1" />
-              <circle cx="190" cy="175" r="6" fill="orange" />
-              <text x="190" y="200" fontSize="9" textAnchor="middle" fill="currentColor">Венера</text>
-              <text x="190" y="210" fontSize="8" textAnchor="middle" fill="gray">T=0.62 г, a=0.72 AU</text>
-
-              {/* Земя */}
-              <ellipse cx="100" cy="175" rx="120" ry="115" fill="none" stroke="rgb(59, 130, 246)" strokeWidth="2" />
-              <circle cx="220" cy="175" r="7" fill="rgb(59, 130, 246)" />
-              <text x="220" y="200" fontSize="10" textAnchor="middle" fill="currentColor" fontWeight="bold">Земя</text>
-              <text x="220" y="212" fontSize="8" textAnchor="middle" fill="gray">T=1 г, a=1 AU</text>
-
-              {/* Марс */}
-              <ellipse cx="100" cy="175" rx="160" ry="155" fill="none" stroke="rgb(239, 68, 68)" strokeWidth="1" />
-              <circle cx="260" cy="175" r="5" fill="rgb(239, 68, 68)" />
-              <text x="260" y="195" fontSize="9" textAnchor="middle" fill="currentColor">Марс</text>
-              <text x="260" y="205" fontSize="8" textAnchor="middle" fill="gray">T=1.88 г, a=1.52 AU</text>
-
-              {/* Юпитер (частично) */}
+              {/* Юпитер (частично, не в мащаб) */}
               <path
-                d="M 100,25 A 250,245 0 0,1 100,325"
+                d={`M ${jupiterTop.x},${jupiterTop.y} A ${jupiterR},${jupiterR} 0 0,1 ${jupiterBottom.x},${jupiterBottom.y}`}
                 fill="none"
                 stroke="rgb(251, 146, 60)"
                 strokeWidth="1"
                 strokeDasharray="5,5"
               />
-              <text x="340" y="180" fontSize="9" fill="currentColor">Юпитер</text>
-              <text x="340" y="192" fontSize="8" fill="gray">T=11.86 г, a=5.20 AU</text>
+              <text x={solarX + jupiterR + 6} y={solarY - 4} fontSize="10" fill="currentColor">Юпитер</text>
+              <text x={solarX + jupiterR + 6} y={solarY + 9} fontSize="8" fill="gray">(не в мащаб)</text>
 
-              {/* Стрелки за размер */}
-              <line x1="100" y1="300" x2="220" y2="300" stroke="rgb(168, 85, 247)" strokeWidth="2" markerEnd="url(#arrowSize)" />
-              <text x="160" y="320" fontSize="10" fill="rgb(168, 85, 247)" textAnchor="middle">a (голяма полуос)</text>
+              {/* Голяма полуос на Земята */}
+              <line
+                x1={solarX}
+                y1={solarY}
+                x2={solarX + auPx - 9}
+                y2={solarY}
+                stroke="rgb(168, 85, 247)"
+                strokeWidth="2"
+                markerEnd="url(#arrowSize)"
+              />
+              <text x={solarX + 60} y={solarY - 6} fontSize="10" fill="rgb(168, 85, 247)" textAnchor="middle" fontWeight="bold">a</text>
+
+              {/* Слънце */}
+              <circle cx={solarX} cy={solarY} r="15" fill="rgb(251, 191, 36)" />
+
+              {/* Планети */}
+              {planets.map(p => (
+                <g key={p.name}>
+                  <circle cx={p.x} cy={p.y} r={p.r} fill={p.color} />
+                  <text
+                    x={p.labelX}
+                    y={p.labelY}
+                    fontSize="10"
+                    textAnchor="middle"
+                    fill="currentColor"
+                    fontWeight={p.name === 'Земя' ? 'bold' : 'normal'}
+                  >
+                    {p.name}
+                  </text>
+                </g>
+              ))}
+
+              {/* Легенда */}
+              {[...planets, { name: 'Юпитер', a: 5.2, T: 11.86, color: 'rgb(251, 146, 60)' }].map((p, i) => (
+                <g key={`legend-${p.name}`}>
+                  <circle cx={470} cy={60 + i * 22} r="5" fill={p.color} />
+                  <text x={482} y={64 + i * 22} fontSize="11" fill="currentColor">
+                    {p.name}: T = {p.T} г, a = {p.a.toFixed(2)} AU
+                  </text>
+                </g>
+              ))}
+              <text x={470} y={300} fontSize="10" fill="gray">Мащаб: 1 AU = {auPx} px</text>
 
               <defs>
                 <marker id="arrowSize" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
