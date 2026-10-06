@@ -33,9 +33,9 @@ export default function Lecture33() {
   }).join(' ');
 
   return (
-    <main className="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8">
+    <main className="flex-1 overflow-y-auto px-4 pt-16 pb-12 sm:px-6 lg:px-10 lg:pt-10">
       <div className="max-w-4xl mx-auto">
-        <h1 className="text-2xl sm:text-3xl font-bold mb-6 text-blue-600 dark:text-blue-400">
+        <h1 className="text-2xl sm:text-3xl font-bold tracking-tight mb-6 text-gray-900 dark:text-white">
           Лекция 33: Специална теория на относителността
         </h1>
 
@@ -61,7 +61,7 @@ export default function Lecture33() {
           <h2 className="text-xl sm:text-2xl font-semibold mb-4">
             Двата постулата на Айнщайн
           </h2>
-          <div className="bg-blue-50 dark:bg-gray-700 p-4 rounded-lg mb-4">
+          <div className="bg-blue-50 dark:bg-blue-500/10 p-4 rounded-lg mb-4">
             <p className="mb-3 font-semibold text-lg">
               1. Принцип на относителността: законите на физиката са еднакви във всички
               инерциални отправни системи.
@@ -155,7 +155,7 @@ export default function Lecture33() {
               </p>
             </div>
 
-            <div className="mt-4 p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
+            <div className="mt-4 p-4 bg-gray-100/70 dark:bg-gray-800/70 rounded-lg">
               <h4 className="font-semibold mb-2">Някои стойности:</h4>
               <ul className="text-sm space-y-1 font-mono">
                 <li>v = 0.1c → γ ≈ 1.005</li>
@@ -252,7 +252,7 @@ export default function Lecture33() {
               </defs>
             </svg>
 
-            <div className="mt-4 p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
+            <div className="mt-4 p-4 bg-gray-100/70 dark:bg-gray-800/70 rounded-lg">
               <p className="text-sm mb-2">
                 <strong>Защо?</strong> Светлината в движещия се часовник изминава по-дълъг,
                 диагонален път. Тъй като скоростта ѝ е все същата c, един тик трае по-дълго.
@@ -321,7 +321,7 @@ export default function Lecture33() {
               <line x1={100 + restLength} y1={95} x2={100 + restLength} y2={185} stroke="gray" strokeDasharray="4,4" />
             </svg>
 
-            <div className="mt-4 p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
+            <div className="mt-4 p-4 bg-gray-100/70 dark:bg-gray-800/70 rounded-lg">
               <p className="text-sm">
                 Свиването е само по посока на движението – височината на ракетата не се променя.
                 От гледна точка на мюона не времето му се забавя, а разстоянието до Земята се
@@ -335,7 +335,7 @@ export default function Lecture33() {
           <h2 className="text-xl sm:text-2xl font-semibold mb-4">
             Събиране на скоростите
           </h2>
-          <div className="bg-blue-50 dark:bg-gray-700 p-4 rounded-lg mb-4">
+          <div className="bg-blue-50 dark:bg-blue-500/10 p-4 rounded-lg mb-4">
             <p className="text-center text-xl my-3 font-mono">u = (u' + v) / (1 + u'v/c²)</p>
             <p className="text-center">
               Скоростите не се събират просто като u' + v. Резултатът никога не надминава c.
@@ -400,7 +400,7 @@ export default function Lecture33() {
             </ul>
           </div>
 
-          <div className="bg-blue-50 dark:bg-gray-700 p-4 rounded-lg mb-4">
+          <div className="bg-blue-50 dark:bg-blue-500/10 p-4 rounded-lg mb-4">
             <h3 className="font-semibold mb-2">Специална или обща теория?</h3>
             <p>
               Специалната теория (1905) разглежда равномерно движение без гравитация. Общата

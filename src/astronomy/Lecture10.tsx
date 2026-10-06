@@ -1,8 +1,8 @@
 export default function Lecture10() {
   return (
-    <main className="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8">
+    <main className="flex-1 overflow-y-auto px-4 pt-16 pb-12 sm:px-6 lg:px-10 lg:pt-10">
       <div className="max-w-4xl mx-auto">
-        <h1 className="text-2xl sm:text-3xl font-bold mb-6 text-blue-600 dark:text-blue-400">
+        <h1 className="text-2xl sm:text-3xl font-bold tracking-tight mb-6 text-gray-900 dark:text-white">
           Лекция 10: Телескопи и инструменти
         </h1>
 
@@ -15,7 +15,7 @@ export default function Lecture10() {
             повече светлина от човешкото око и позволяват да видим слаби и
             далечни обекти.
           </p>
-          <div className="bg-blue-50 dark:bg-gray-700 p-4 rounded-lg mb-4">
+          <div className="bg-blue-50 dark:bg-blue-500/10 p-4 rounded-lg mb-4">
             <h3 className="font-semibold mb-2">Два основни типа:</h3>
             <ul className="list-disc list-inside space-y-3">
               <li>
@@ -92,7 +92,7 @@ export default function Lecture10() {
           <h2 className="text-xl sm:text-2xl font-semibold mb-4">
             Други инструменти
           </h2>
-          <div className="bg-blue-50 dark:bg-gray-700 p-4 rounded-lg mb-4">
+          <div className="bg-blue-50 dark:bg-blue-500/10 p-4 rounded-lg mb-4">
             <ul className="list-disc list-inside space-y-2">
               <li><strong>Спектрографи</strong> – разлагат светлината на спектър</li>
               <li><strong>Фотометри</strong> – измерват яркостта</li>

@@ -240,7 +240,7 @@ export default function GravityPlayground() {
         ].map(c => (
           <div
             key={c.label}
-            className="bg-gray-50 dark:bg-gray-700 p-2 rounded-lg text-center"
+            className="bg-gray-100/70 dark:bg-gray-800/70 p-2 rounded-lg text-center"
           >
             <div className="text-xs text-gray-600 dark:text-gray-400 mb-1">
               {c.label}

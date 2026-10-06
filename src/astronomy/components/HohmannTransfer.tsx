@@ -180,7 +180,7 @@ export default function HohmannTransfer() {
           ].map(s => (
             <div
               key={s.label}
-              className="bg-gray-50 dark:bg-gray-700 p-2 rounded-lg"
+              className="bg-gray-100/70 dark:bg-gray-800/70 p-2 rounded-lg"
             >
               <div className="text-xs text-gray-600 dark:text-gray-400">
                 {s.label}

@@ -22,9 +22,9 @@ export default function Lecture19() {
   ];
 
   return (
-    <main className="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8">
+    <main className="flex-1 overflow-y-auto px-4 pt-16 pb-12 sm:px-6 lg:px-10 lg:pt-10">
       <div className="max-w-4xl mx-auto">
-        <h1 className="text-2xl sm:text-3xl font-bold mb-6 text-blue-600 dark:text-blue-400">
+        <h1 className="text-2xl sm:text-3xl font-bold tracking-tight mb-6 text-gray-900 dark:text-white">
           Лекция 19: Диаграма на Херцшпрунг–Ръсел
         </h1>
 
@@ -37,7 +37,7 @@ export default function Lecture19() {
             между светимостта и температурата (или спектралния клас) на звездите.
             Тя е един от най-важните инструменти в астрономията.
           </p>
-          <div className="bg-blue-50 dark:bg-gray-700 p-4 rounded-lg mb-4">
+          <div className="bg-blue-50 dark:bg-blue-500/10 p-4 rounded-lg mb-4">
             <p className="mb-2">Създадена независимо от:</p>
             <ul className="list-disc list-inside space-y-1">
               <li><strong>Ейнар Херцшпрунг</strong> (1911) – датски астроном</li>
@@ -183,7 +183,7 @@ export default function Lecture19() {
             </svg>
 
             {/* Информация за избраната звезда */}
-            <div className="mt-4 p-4 bg-gray-50 dark:bg-gray-700 rounded-lg min-h-[100px]">
+            <div className="mt-4 p-4 bg-gray-100/70 dark:bg-gray-800/70 rounded-lg min-h-[100px]">
               {selectedStar ? (
                 <div>
                   {stars.filter(s => s.name === selectedStar).map(star => (
@@ -212,7 +212,7 @@ export default function Lecture19() {
           <h2 className="text-xl sm:text-2xl font-semibold mb-4">
             3. Основни области на HR диаграмата
           </h2>
-          <div className="bg-blue-50 dark:bg-gray-700 p-4 rounded-lg mb-4">
+          <div className="bg-blue-50 dark:bg-blue-500/10 p-4 rounded-lg mb-4">
             <ul className="list-disc list-inside space-y-3">
               <li>
                 <strong className="text-blue-600 dark:text-blue-400">Главна последователност</strong> –
@@ -288,7 +288,7 @@ export default function Lecture19() {
             </p>
           </div>
 
-          <div className="bg-blue-50 dark:bg-gray-700 p-4 rounded-lg mb-4">
+          <div className="bg-blue-50 dark:bg-blue-500/10 p-4 rounded-lg mb-4">
             <h3 className="font-semibold mb-2">Примери:</h3>
             <ul className="list-disc list-inside space-y-2">
               <li>Звезда с M = 2 M☉ → L ≈ 11 L☉, живот ≈ 1 млрд. години</li>
@@ -342,7 +342,7 @@ export default function Lecture19() {
               </defs>
             </svg>
 
-            <div className="mt-4 p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
+            <div className="mt-4 p-4 bg-gray-100/70 dark:bg-gray-800/70 rounded-lg">
               <p className="text-sm mb-2">
                 <strong>Мнемоника:</strong> "Oh Be A Fine Girl/Guy, Kiss Me"
                 (O B A F G K M)

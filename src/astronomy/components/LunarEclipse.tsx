@@ -366,11 +366,11 @@ export default function LunarEclipse() {
       </div>
 
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mt-4 text-center text-sm">
-        <div className="bg-gray-50 dark:bg-gray-700 p-2 rounded-lg">
+        <div className="bg-gray-100/70 dark:bg-gray-800/70 p-2 rounded-lg">
           <div className="text-xs text-gray-600 dark:text-gray-400">Вид</div>
           <div className="font-bold">{KIND_LABELS[kind]}</div>
         </div>
-        <div className="bg-gray-50 dark:bg-gray-700 p-2 rounded-lg">
+        <div className="bg-gray-100/70 dark:bg-gray-800/70 p-2 rounded-lg">
           <div className="text-xs text-gray-600 dark:text-gray-400">
             Пълна фаза
           </div>
@@ -378,7 +378,7 @@ export default function LunarEclipse() {
             {totality > 0 ? formatDuration(totality) : '—'}
           </div>
         </div>
-        <div className="bg-gray-50 dark:bg-gray-700 p-2 rounded-lg">
+        <div className="bg-gray-100/70 dark:bg-gray-800/70 p-2 rounded-lg">
           <div className="text-xs text-gray-600 dark:text-gray-400">
             В сянката общо
           </div>
@@ -386,7 +386,7 @@ export default function LunarEclipse() {
             {umbral > 0 ? formatDuration(umbral) : '—'}
           </div>
         </div>
-        <div className="bg-gray-50 dark:bg-gray-700 p-2 rounded-lg">
+        <div className="bg-gray-100/70 dark:bg-gray-800/70 p-2 rounded-lg">
           <div className="text-xs text-gray-600 dark:text-gray-400">
             Радиус на сянката
           </div>

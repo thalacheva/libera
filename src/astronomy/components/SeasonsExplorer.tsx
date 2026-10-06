@@ -501,7 +501,7 @@ function Stat({
   note?: string;
 }) {
   return (
-    <div className="bg-gray-50 dark:bg-gray-700 p-2 rounded-lg">
+    <div className="bg-gray-100/70 dark:bg-gray-800/70 p-2 rounded-lg">
       <div className="text-xs text-gray-600 dark:text-gray-400">{label}</div>
       <div className="font-bold font-mono">{value}</div>
       {note && (

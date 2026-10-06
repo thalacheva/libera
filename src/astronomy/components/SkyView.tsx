@@ -491,7 +491,7 @@ export default function SkyView() {
         </span>
       </div>
 
-      <div className="mt-4 p-4 bg-gray-50 dark:bg-gray-700 rounded-lg text-sm min-h-[90px]">
+      <div className="mt-4 p-4 bg-gray-100/70 dark:bg-gray-800/70 rounded-lg text-sm min-h-[90px]">
         {selectedStar ? (
           <StarInfo star={selectedStar} latitude={latitude} />
         ) : (

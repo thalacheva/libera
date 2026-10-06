@@ -32,9 +32,9 @@ function Question({
   };
 
   return (
-    <div className="bg-gradient-to-br from-amber-50 to-orange-50 dark:from-amber-950/50 dark:to-orange-950/50 border border-amber-200 dark:border-amber-800 p-4 sm:p-6 rounded-2xl shadow-lg mb-6">
+    <div className="bg-amber-50/70 dark:bg-amber-500/10 border border-amber-200/80 dark:border-amber-500/30 p-4 sm:p-6 rounded-2xl shadow-sm">
       <div className="flex items-center gap-3 mb-4">
-        <div className="flex-shrink-0 w-8 h-8 sm:w-10 sm:h-10 bg-amber-600 dark:bg-amber-500 rounded-full flex items-center justify-center text-white font-bold text-sm sm:text-base">
+        <div className="flex-shrink-0 w-8 h-8 sm:w-10 sm:h-10 bg-amber-600 dark:bg-amber-500 rounded-xl flex items-center justify-center text-white font-bold text-sm sm:text-base">
           {index}
         </div>
         <div className="flex-1">
@@ -49,12 +49,12 @@ function Question({
           <button
             key={ans}
             onClick={() => checkAnswer(ans)}
-            className={`w-full text-left px-4 py-3 rounded-lg border-2 transition-all text-sm sm:text-base font-medium ${
+            className={`w-full text-left px-4 py-3 rounded-xl border transition-colors text-sm sm:text-base font-medium ${
               selectedAnswer === ans
                 ? isCorrect
                   ? 'border-green-500 dark:border-green-400 bg-green-100 dark:bg-green-900/40 text-green-800 dark:text-green-200'
                   : 'border-red-500 dark:border-red-400 bg-red-100 dark:bg-red-900/40 text-red-800 dark:text-red-200'
-                : 'border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 hover:bg-amber-50 dark:hover:bg-amber-900/20 hover:border-amber-400 dark:hover:border-amber-600 text-gray-700 dark:text-gray-200'
+                : 'border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 hover:bg-amber-50 dark:hover:bg-amber-900/20 hover:border-amber-400 dark:hover:border-amber-600 text-gray-700 dark:text-gray-200'
             }`}
           >
             {ans}
@@ -62,7 +62,7 @@ function Question({
         ))}
       </div>
       {isCorrect !== null && (
-        <div className="mt-4 pt-4 border-t border-amber-200 dark:border-amber-800">
+        <div className="mt-4 pt-4 border-t border-amber-200/80 dark:border-amber-500/30">
           <div
             className={`flex items-center gap-2 font-semibold text-sm sm:text-base ${isCorrect ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'}`}
           >

@@ -404,7 +404,7 @@ export default function CoordinateSphere({
         />
       </div>
 
-      <p className="mt-3 text-sm bg-blue-50 dark:bg-gray-700 p-3 rounded-lg">
+      <p className="mt-3 text-sm bg-blue-50 dark:bg-blue-500/10 p-3 rounded-lg">
         {MODES.find(m => m.id === mode)!.description}
       </p>
 

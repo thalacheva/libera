@@ -12,12 +12,12 @@ export default function Theorem({
   const isDefinition = type === 'definition';
 
   const bgColor = isDefinition
-    ? 'bg-gradient-to-br from-blue-50 to-cyan-50 dark:from-blue-950/50 dark:to-cyan-950/50'
-    : 'bg-gradient-to-br from-indigo-50 to-purple-50 dark:from-indigo-950/50 dark:to-purple-950/50';
+    ? 'bg-blue-50/70 dark:bg-blue-500/10'
+    : 'bg-indigo-50/70 dark:bg-indigo-500/10';
 
   const borderColor = isDefinition
-    ? 'border-blue-200 dark:border-blue-800'
-    : 'border-indigo-200 dark:border-indigo-800';
+    ? 'border-blue-200/80 dark:border-blue-500/30'
+    : 'border-indigo-200/80 dark:border-indigo-500/30';
 
   const iconBgColor = isDefinition
     ? 'bg-blue-600 dark:bg-blue-500'
@@ -28,18 +28,18 @@ export default function Theorem({
     : 'text-indigo-900 dark:text-indigo-200';
 
   const borderTopColor = isDefinition
-    ? 'border-blue-200 dark:border-blue-800'
-    : 'border-indigo-200 dark:border-indigo-800';
+    ? 'border-blue-200/80 dark:border-blue-500/30'
+    : 'border-indigo-200/80 dark:border-indigo-500/30';
 
   const icon = isDefinition ? 'О' : 'Т';
 
   return (
     <div
-      className={`${bgColor} border ${borderColor} p-4 sm:p-6 rounded-2xl shadow-lg mb-6`}
+      className={`${bgColor} border ${borderColor} p-4 sm:p-6 rounded-2xl shadow-sm mb-6`}
     >
       <div className="flex items-start gap-3 mb-3">
         <div
-          className={`flex-shrink-0 w-8 h-8 sm:w-10 sm:h-10 ${iconBgColor} rounded-full flex items-center justify-center text-white font-bold text-sm sm:text-base`}
+          className={`flex-shrink-0 w-8 h-8 sm:w-10 sm:h-10 ${iconBgColor} rounded-xl flex items-center justify-center text-white font-bold text-sm sm:text-base`}
         >
           {icon}
         </div>

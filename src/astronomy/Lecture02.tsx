@@ -99,9 +99,9 @@ export default function Lecture02() {
   });
 
   return (
-    <main className="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8">
+    <main className="flex-1 overflow-y-auto px-4 pt-16 pb-12 sm:px-6 lg:px-10 lg:pt-10">
       <div className="max-w-4xl mx-auto">
-        <h1 className="text-2xl sm:text-3xl font-bold mb-6 text-blue-600 dark:text-blue-400">
+        <h1 className="text-2xl sm:text-3xl font-bold tracking-tight mb-6 text-gray-900 dark:text-white">
           Лекция 2: Небесни координати
         </h1>
 
@@ -125,7 +125,7 @@ export default function Lecture02() {
             определя само от посоката към нея, т.е. от два ъгъла. Всяка
             координатна система избира:
           </p>
-          <div className="bg-blue-50 dark:bg-gray-700 p-4 rounded-lg mb-4">
+          <div className="bg-blue-50 dark:bg-blue-500/10 p-4 rounded-lg mb-4">
             <ul className="list-disc list-inside space-y-2">
               <li>
                 <strong>основен кръг</strong> (хоризонт, екватор или еклиптика)
@@ -280,7 +280,7 @@ export default function Lecture02() {
               'Тя е кулминирала преди 1h 23m звездно време – при S = 18h 37m.',
             ]}
           />
-          <div className="bg-blue-50 dark:bg-gray-700 p-4 rounded-lg mb-4">
+          <div className="bg-blue-50 dark:bg-blue-500/10 p-4 rounded-lg mb-4">
             <h3 className="font-semibold mb-2">Превръщане часове ↔ градуси</h3>
             <div className="grid grid-cols-3 gap-2 text-center font-mono text-sm">
               <div className="bg-white dark:bg-gray-800 p-2 rounded">
@@ -360,7 +360,7 @@ export default function Lecture02() {
               sin h = sin φ · sin δ + cos φ · cos δ · cos t
             </p>
           </div>
-          <div className="bg-blue-50 dark:bg-gray-700 p-4 rounded-lg mb-4">
+          <div className="bg-blue-50 dark:bg-blue-500/10 p-4 rounded-lg mb-4">
             <h3 className="font-semibold mb-2">
               Важен частен случай – кулминации
             </h3>

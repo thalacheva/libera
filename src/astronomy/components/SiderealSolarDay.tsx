@@ -231,13 +231,13 @@ export default function SiderealSolarDay() {
       </label>
 
       <div className="grid sm:grid-cols-3 gap-2 mt-4 text-center text-sm">
-        <div className="bg-gray-50 dark:bg-gray-700 p-2 rounded-lg">
+        <div className="bg-gray-100/70 dark:bg-gray-800/70 p-2 rounded-lg">
           <div className="text-xs text-gray-600 dark:text-gray-400">
             Завъртане спрямо звездите
           </div>
           <div className="font-mono font-bold">{(tau * 360).toFixed(0)}°</div>
         </div>
-        <div className="bg-gray-50 dark:bg-gray-700 p-2 rounded-lg">
+        <div className="bg-gray-100/70 dark:bg-gray-800/70 p-2 rounded-lg">
           <div className="text-xs text-gray-600 dark:text-gray-400">
             Изминат път по орбитата
           </div>
@@ -245,7 +245,7 @@ export default function SiderealSolarDay() {
             {((tau * 360) / year).toFixed(1)}°
           </div>
         </div>
-        <div className="bg-gray-50 dark:bg-gray-700 p-2 rounded-lg">
+        <div className="bg-gray-100/70 dark:bg-gray-800/70 p-2 rounded-lg">
           <div className="text-xs text-gray-600 dark:text-gray-400">
             Остава до пладне
           </div>

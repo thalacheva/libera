@@ -327,13 +327,13 @@ export default function SolarEclipse() {
       </div>
 
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mt-4 text-center text-sm">
-        <div className="bg-gray-50 dark:bg-gray-700 p-2 rounded-lg">
+        <div className="bg-gray-100/70 dark:bg-gray-800/70 p-2 rounded-lg">
           <div className="text-xs text-gray-600 dark:text-gray-400">
             В момента
           </div>
           <div className="font-bold">{KIND_LABELS[kind]}</div>
         </div>
-        <div className="bg-gray-50 dark:bg-gray-700 p-2 rounded-lg">
+        <div className="bg-gray-100/70 dark:bg-gray-800/70 p-2 rounded-lg">
           <div className="text-xs text-gray-600 dark:text-gray-400">
             Закрита площ от Слънцето
           </div>
@@ -341,13 +341,13 @@ export default function SolarEclipse() {
             {(obscuration * 100).toFixed(0)}%
           </div>
         </div>
-        <div className="bg-gray-50 dark:bg-gray-700 p-2 rounded-lg">
+        <div className="bg-gray-100/70 dark:bg-gray-800/70 p-2 rounded-lg">
           <div className="text-xs text-gray-600 dark:text-gray-400">
             Фаза (дял от диаметъра)
           </div>
           <div className="font-mono font-bold">{magnitude.toFixed(2)}</div>
         </div>
-        <div className="bg-gray-50 dark:bg-gray-700 p-2 rounded-lg">
+        <div className="bg-gray-100/70 dark:bg-gray-800/70 p-2 rounded-lg">
           <div className="text-xs text-gray-600 dark:text-gray-400">
             {reaches ? 'Ширина на пълната сянка' : 'Ширина на „пръстена“'}
           </div>

@@ -12,20 +12,22 @@ const questions: Question[] = [
 
 export function LinearFunctions() {
   return (
-    <main className="flex-1 p-4 sm:p-6 lg:p-8 overflow-y-auto">
-      <h1 className="text-xl sm:text-2xl font-bold mb-3 sm:mb-4 text-blue-600 dark:text-blue-400">
-        Линейни функции
-      </h1>
-      <InteractiveLinearGrapher />
-      <Example
-        description="Да разгледаме функцията f(x) = 2x + 1"
-        steps={[
-          'За x = 0: f(0) = 2(0) + 1 = 1',
-          'За x = 1: f(1) = 2(1) + 1 = 3',
-          'За x = 2: f(2) = 2(2) + 1 = 5',
-        ]}
-      />
-      <Quiz questions={questions} />
+    <main className="flex-1 overflow-y-auto px-4 pt-16 pb-12 sm:px-6 lg:px-10 lg:pt-10">
+      <div className="max-w-4xl mx-auto">
+        <h1 className="text-2xl sm:text-3xl font-bold tracking-tight mb-6 text-gray-900 dark:text-white">
+          Линейни функции
+        </h1>
+        <InteractiveLinearGrapher />
+        <Example
+          description="Да разгледаме функцията f(x) = 2x + 1"
+          steps={[
+            'За x = 0: f(0) = 2(0) + 1 = 1',
+            'За x = 1: f(1) = 2(1) + 1 = 3',
+            'За x = 2: f(2) = 2(2) + 1 = 5',
+          ]}
+        />
+        <Quiz questions={questions} />
+      </div>
     </main>
   );
 }

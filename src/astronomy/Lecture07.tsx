@@ -66,9 +66,9 @@ export default function Lecture07() {
   });
 
   return (
-    <main className="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8">
+    <main className="flex-1 overflow-y-auto px-4 pt-16 pb-12 sm:px-6 lg:px-10 lg:pt-10">
       <div className="max-w-4xl mx-auto">
-        <h1 className="text-2xl sm:text-3xl font-bold mb-6 text-blue-600 dark:text-blue-400">
+        <h1 className="text-2xl sm:text-3xl font-bold tracking-tight mb-6 text-gray-900 dark:text-white">
           Лекция 7: Закони на Кеплер
         </h1>
 
@@ -89,7 +89,7 @@ export default function Lecture07() {
             1. Тихо Брахе и Йоханес Кеплер
           </h2>
           <div className="grid sm:grid-cols-2 gap-3 mb-4">
-            <div className="bg-blue-50 dark:bg-gray-700 p-4 rounded-lg">
+            <div className="bg-blue-50 dark:bg-blue-500/10 p-4 rounded-lg">
               <h3 className="font-semibold mb-1">👁️ Тихо Брахе (1546–1601)</h3>
               <p className="text-sm">
                 Датски астроном – най-точният наблюдател преди телескопа. В
@@ -97,7 +97,7 @@ export default function Lecture07() {
                 планетите с точност около 1′ в продължение на 20 години.
               </p>
             </div>
-            <div className="bg-blue-50 dark:bg-gray-700 p-4 rounded-lg">
+            <div className="bg-blue-50 dark:bg-blue-500/10 p-4 rounded-lg">
               <h3 className="font-semibold mb-1">
                 🧮 Йоханес Кеплер (1571–1630)
               </h3>
@@ -131,7 +131,7 @@ export default function Lecture07() {
             description="Множеството от точки, за които сумата от разстоянията до два фиксирани фокуса F₁ и F₂ е постоянна и равна на 2a: r₁ + r₂ = 2a. Голямата полуос е a, малката – b, разстоянието от центъра до фокус е c = a·e, където e е ексцентрицитетът (0 ≤ e < 1)."
           />
           <div className="grid sm:grid-cols-2 gap-3 mb-4">
-            <div className="bg-blue-50 dark:bg-gray-700 p-4 rounded-lg">
+            <div className="bg-blue-50 dark:bg-blue-500/10 p-4 rounded-lg">
               <h3 className="font-semibold mb-2">Важни формули</h3>
               <ul className="space-y-1 font-mono text-sm">
                 <li>перихелий: rₚ = a(1 − e)</li>
@@ -141,7 +141,7 @@ export default function Lecture07() {
                 <li>b = a·√(1 − e²)</li>
               </ul>
             </div>
-            <div className="bg-blue-50 dark:bg-gray-700 p-4 rounded-lg">
+            <div className="bg-blue-50 dark:bg-blue-500/10 p-4 rounded-lg">
               <h3 className="font-semibold mb-2">Ексцентрицитети</h3>
               <ul className="space-y-1 text-sm">
                 {ECCENTRICITIES.map(item => (

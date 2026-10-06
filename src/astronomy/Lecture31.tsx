@@ -1,8 +1,8 @@
 export default function Lecture31() {
   return (
-    <main className="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8">
+    <main className="flex-1 overflow-y-auto px-4 pt-16 pb-12 sm:px-6 lg:px-10 lg:pt-10">
       <div className="max-w-4xl mx-auto">
-        <h1 className="text-2xl sm:text-3xl font-bold mb-6 text-blue-600 dark:text-blue-400">
+        <h1 className="text-2xl sm:text-3xl font-bold tracking-tight mb-6 text-gray-900 dark:text-white">
           Лекция 31: Астробиология
         </h1>
         <section className="mb-8">
@@ -14,7 +14,7 @@ export default function Lecture31() {
         </section>
         <section className="mb-8">
           <h2 className="text-xl sm:text-2xl font-semibold mb-4">Условия за живот</h2>
-          <div className="bg-blue-50 dark:bg-gray-700 p-4 rounded-lg mb-4">
+          <div className="bg-blue-50 dark:bg-blue-500/10 p-4 rounded-lg mb-4">
             <h3 className="font-semibold mb-2">Основни изисквания:</h3>
             <ul className="list-disc list-inside space-y-2">
               <li>Течна вода (или друг разтворител)</li>
@@ -56,7 +56,7 @@ export default function Lecture31() {
           <p className="mb-4 text-base sm:text-lg leading-relaxed">
             Формула за оценка на броя на разумните цивилизации в Млечния път:
           </p>
-          <div className="bg-blue-50 dark:bg-gray-700 p-4 rounded-lg mb-4">
+          <div className="bg-blue-50 dark:bg-blue-500/10 p-4 rounded-lg mb-4">
             <p className="text-center mb-2">N = R* × fp × ne × fl × fi × fc × L</p>
             <ul className="list-disc list-inside space-y-1 text-sm">
               <li>R* – скорост на звездообразуване</li>

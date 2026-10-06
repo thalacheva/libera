@@ -13,9 +13,9 @@ export default function Lecture24() {
   const distance = 1 / parallaxAngle; // в парсеки
 
   return (
-    <main className="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8">
+    <main className="flex-1 overflow-y-auto px-4 pt-16 pb-12 sm:px-6 lg:px-10 lg:pt-10">
       <div className="max-w-4xl mx-auto">
-        <h1 className="text-2xl sm:text-3xl font-bold mb-6 text-blue-600 dark:text-blue-400">
+        <h1 className="text-2xl sm:text-3xl font-bold tracking-tight mb-6 text-gray-900 dark:text-white">
           Лекция 24: Разстояния в астрономията
         </h1>
 
@@ -23,7 +23,7 @@ export default function Lecture24() {
           <h2 className="text-xl sm:text-2xl font-semibold mb-4">
             1. Единици за разстояние
           </h2>
-          <div className="bg-blue-50 dark:bg-gray-700 p-4 rounded-lg mb-4">
+          <div className="bg-blue-50 dark:bg-blue-500/10 p-4 rounded-lg mb-4">
             <ul className="list-disc list-inside space-y-2">
               <li><strong>Астрономическа единица (AU)</strong> – разстоянието Земя-Слънце = 149.6 млн. km</li>
               <li><strong>Светлинна година (ly)</strong> – разстояние, което светлината изминава за 1 година = 9.46 трилиона km</li>
@@ -153,7 +153,7 @@ export default function Lecture24() {
                 </div>
               </div>
 
-              <div className="mt-4 p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
+              <div className="mt-4 p-4 bg-gray-100/70 dark:bg-gray-800/70 rounded-lg">
                 <h4 className="font-semibold mb-2">Формула:</h4>
                 <p className="font-mono text-center text-lg my-2">d (парсеки) = 1 / p (ъглови секунди)</p>
                 <p className="text-sm mt-2">
@@ -240,7 +240,7 @@ export default function Lecture24() {
                 </g>
               </svg>
 
-              <div className="mt-4 p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
+              <div className="mt-4 p-4 bg-gray-100/70 dark:bg-gray-800/70 rounded-lg">
                 <h4 className="font-semibold mb-2">Как работи методът:</h4>
                 <ol className="text-sm list-decimal list-inside space-y-2">
                   <li>Наблюдаваме цефеидата и измерваме периода на пулсация</li>
@@ -322,7 +322,7 @@ export default function Lecture24() {
                 </g>
               </svg>
 
-              <div className="mt-4 p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
+              <div className="mt-4 p-4 bg-gray-100/70 dark:bg-gray-800/70 rounded-lg">
                 <h4 className="font-semibold mb-2">Защо са "стандартни":</h4>
                 <p className="text-sm mb-2">
                   Свръхновите тип Ia се случват, когато бяло джудже достигне точно 1.4 M☉
@@ -419,7 +419,7 @@ export default function Lecture24() {
                 </g>
               </svg>
 
-              <div className="mt-4 p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
+              <div className="mt-4 p-4 bg-gray-100/70 dark:bg-gray-800/70 rounded-lg">
                 <h4 className="font-semibold mb-2">Връзка период-светимост:</h4>
                 <p className="text-sm mb-2">
                   Хенриета Левит открива (1912), че колкото по-дълъг е периодът на цефеидата,
@@ -518,7 +518,7 @@ export default function Lecture24() {
               </defs>
             </svg>
 
-            <div className="mt-4 p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
+            <div className="mt-4 p-4 bg-gray-100/70 dark:bg-gray-800/70 rounded-lg">
               <p className="text-sm">
                 Всеки метод работи в определен диапазон от разстояния. За да измерим
                 много далечни обекти, трябва да "изкачим стълбата" - всеки метод се

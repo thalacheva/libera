@@ -50,9 +50,9 @@ export default function Lecture13() {
   const planet = planets[selectedPlanet];
 
   return (
-    <main className="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8">
+    <main className="flex-1 overflow-y-auto px-4 pt-16 pb-12 sm:px-6 lg:px-10 lg:pt-10">
       <div className="max-w-4xl mx-auto">
-        <h1 className="text-2xl sm:text-3xl font-bold mb-6 text-blue-600 dark:text-blue-400">
+        <h1 className="text-2xl sm:text-3xl font-bold tracking-tight mb-6 text-gray-900 dark:text-white">
           Лекция 13: Планетите от земен тип
         </h1>
 
@@ -64,7 +64,7 @@ export default function Lecture13() {
             Планетите от земен тип (скалисти планети) са четирите вътрешни
             планети на Слънчевата система: Меркурий, Венера, Земя и Марс.
           </p>
-          <div className="bg-blue-50 dark:bg-gray-700 p-4 rounded-lg mb-4">
+          <div className="bg-blue-50 dark:bg-blue-500/10 p-4 rounded-lg mb-4">
             <h3 className="font-semibold mb-2">Общи характеристики:</h3>
             <ul className="list-disc list-inside space-y-2">
               <li>Твърда скалиста повърхност</li>
@@ -290,7 +290,7 @@ export default function Lecture13() {
               </g>
             </svg>
 
-            <div className="mt-4 p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
+            <div className="mt-4 p-4 bg-gray-100/70 dark:bg-gray-800/70 rounded-lg">
               <h4 className="font-semibold mb-2">Сравнителни данни:</h4>
               <div className="overflow-x-auto">
                 <table className="w-full text-sm">
@@ -336,7 +336,7 @@ export default function Lecture13() {
 
         <section className="mb-8">
           <h2 className="text-xl sm:text-2xl font-semibold mb-4">Меркурий ☿</h2>
-          <div className="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg mb-4">
+          <div className="bg-gray-100/70 dark:bg-gray-800/70 p-4 rounded-lg mb-4">
             <ul className="list-disc list-inside space-y-2">
               <li>Най-малката планета и най-близка до Слънцето</li>
               <li>Няма атмосфера (изпарена от слънчевия вятър)</li>

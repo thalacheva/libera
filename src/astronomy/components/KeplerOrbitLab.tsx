@@ -292,7 +292,7 @@ export default function KeplerOrbitLab() {
       </div>
 
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mt-4 text-center text-sm">
-        <div className="bg-gray-50 dark:bg-gray-700 p-2 rounded-lg">
+        <div className="bg-gray-100/70 dark:bg-gray-800/70 p-2 rounded-lg">
           <div className="text-xs text-gray-600 dark:text-gray-400">
             Разстояние r
           </div>
@@ -300,7 +300,7 @@ export default function KeplerOrbitLab() {
             {r.toFixed(3).replace('.', ',')} a
           </div>
         </div>
-        <div className="bg-gray-50 dark:bg-gray-700 p-2 rounded-lg">
+        <div className="bg-gray-100/70 dark:bg-gray-800/70 p-2 rounded-lg">
           <div className="text-xs text-gray-600 dark:text-gray-400">
             Скорост
           </div>
@@ -308,7 +308,7 @@ export default function KeplerOrbitLab() {
             {speed.toFixed(2).replace('.', ',')} v₀
           </div>
         </div>
-        <div className="bg-gray-50 dark:bg-gray-700 p-2 rounded-lg">
+        <div className="bg-gray-100/70 dark:bg-gray-800/70 p-2 rounded-lg">
           <div className="text-xs text-gray-600 dark:text-gray-400">
             vₚ / vₐ = (1+e)/(1−e)
           </div>
@@ -316,7 +316,7 @@ export default function KeplerOrbitLab() {
             {((1 + e) / (1 - e)).toFixed(2).replace('.', ',')}
           </div>
         </div>
-        <div className="bg-gray-50 dark:bg-gray-700 p-2 rounded-lg">
+        <div className="bg-gray-100/70 dark:bg-gray-800/70 p-2 rounded-lg">
           <div className="text-xs text-gray-600 dark:text-gray-400">
             {showString ? 'r₁ + r₂' : 'Малка полуос b'}
           </div>

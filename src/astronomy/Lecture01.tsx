@@ -86,9 +86,9 @@ export default function Lecture01() {
   });
 
   return (
-    <main className="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8">
+    <main className="flex-1 overflow-y-auto px-4 pt-16 pb-12 sm:px-6 lg:px-10 lg:pt-10">
       <div className="max-w-4xl mx-auto">
-        <h1 className="text-2xl sm:text-3xl font-bold mb-6 text-blue-600 dark:text-blue-400">
+        <h1 className="text-2xl sm:text-3xl font-bold tracking-tight mb-6 text-gray-900 dark:text-white">
           Лекция 1: Какво изучава астрономията. Небесната сфера
         </h1>
 
@@ -132,7 +132,7 @@ export default function Lecture01() {
             Сириус, а календарът, който ползваме днес, е астрономическо
             изобретение.
           </p>
-          <div className="bg-blue-50 dark:bg-gray-700 p-4 rounded-lg mb-4">
+          <div className="bg-blue-50 dark:bg-blue-500/10 p-4 rounded-lg mb-4">
             <h3 className="font-semibold mb-2">Основни направления:</h3>
             <ul className="list-disc list-inside space-y-2">
               <li>
@@ -206,7 +206,7 @@ export default function Lecture01() {
             title="Небесна сфера"
             description="Въображаема сфера с произволно голям радиус, в чийто център се намира наблюдателят. Всяко небесно тяло се изобразява като точка от сферата – там, където я пресича лъчът от наблюдателя към тялото."
           />
-          <div className="bg-blue-50 dark:bg-gray-700 p-4 rounded-lg mb-4">
+          <div className="bg-blue-50 dark:bg-blue-500/10 p-4 rounded-lg mb-4">
             <h3 className="font-semibold mb-2">Приемаме, че:</h3>
             <ul className="list-disc list-inside space-y-2">
               <li>
@@ -266,7 +266,7 @@ export default function Lecture01() {
           <h3 className="text-lg sm:text-xl font-semibold mb-3 mt-6">
             6.1. Основни точки
           </h3>
-          <div className="bg-blue-50 dark:bg-gray-700 p-4 rounded-lg mb-4">
+          <div className="bg-blue-50 dark:bg-blue-500/10 p-4 rounded-lg mb-4">
             <ul className="space-y-3">
               <li>
                 <strong className="text-blue-600 dark:text-blue-400">
@@ -358,7 +358,7 @@ export default function Lecture01() {
             </ul>
           </div>
 
-          <div className="bg-blue-50 dark:bg-gray-700 p-4 rounded-lg mb-4">
+          <div className="bg-blue-50 dark:bg-blue-500/10 p-4 rounded-lg mb-4">
             <h4 className="font-semibold mb-2">Важни точки на еклиптиката:</h4>
             <ul className="space-y-2">
               <li>
@@ -419,7 +419,7 @@ export default function Lecture01() {
           </h2>
 
           <div className="space-y-4">
-            <div className="bg-blue-50 dark:bg-gray-700 p-4 rounded-lg">
+            <div className="bg-blue-50 dark:bg-blue-500/10 p-4 rounded-lg">
               <h3 className="font-semibold mb-2">
                 а) Наблюдател на екватора (φ = 0°)
               </h3>
@@ -461,7 +461,7 @@ export default function Lecture01() {
           <p className="mb-4 text-base sm:text-lg leading-relaxed">
             Поради въртенето на Земята около оста ѝ, имаме впечатление, че:
           </p>
-          <div className="bg-blue-50 dark:bg-gray-700 p-4 rounded-lg mb-4">
+          <div className="bg-blue-50 dark:bg-blue-500/10 p-4 rounded-lg mb-4">
             <ul className="list-disc list-inside space-y-2">
               <li>Звездите изгряват в източната половина на хоризонта</li>
               <li>Движат се по дъги, успоредни на небесния екватор</li>

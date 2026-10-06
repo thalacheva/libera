@@ -12,9 +12,9 @@ export default function Lecture28() {
   const scaleFactor = 1 + time * 0.02;
 
   return (
-    <main className="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8">
+    <main className="flex-1 overflow-y-auto px-4 pt-16 pb-12 sm:px-6 lg:px-10 lg:pt-10">
       <div className="max-w-4xl mx-auto">
-        <h1 className="text-2xl sm:text-3xl font-bold mb-6 text-blue-600 dark:text-blue-400">
+        <h1 className="text-2xl sm:text-3xl font-bold tracking-tight mb-6 text-gray-900 dark:text-white">
           Лекция 28: Разширяване на Вселената
         </h1>
 
@@ -26,7 +26,7 @@ export default function Lecture28() {
             Едуин Хъбъл открива (1929), че галактиките се отдалечават от нас със
             скорост, пропорционална на разстоянието им.
           </p>
-          <div className="bg-blue-50 dark:bg-gray-700 p-4 rounded-lg mb-4">
+          <div className="bg-blue-50 dark:bg-blue-500/10 p-4 rounded-lg mb-4">
             <p className="text-center text-xl font-mono my-3">v = H₀ × d</p>
             <ul className="list-disc list-inside space-y-2">
               <li>v – скорост на отдалечаване (km/s)</li>
@@ -171,7 +171,7 @@ export default function Lecture28() {
               </div>
             </div>
 
-            <div className="mt-4 p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
+            <div className="mt-4 p-4 bg-gray-100/70 dark:bg-gray-800/70 rounded-lg">
               <h4 className="font-semibold mb-2">Наблюдения:</h4>
               <ul className="text-sm space-y-2">
                 <li>🌌 Всички галактики се отдалечават от нас</li>
@@ -272,7 +272,7 @@ export default function Lecture28() {
               </defs>
             </svg>
 
-            <div className="mt-4 p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
+            <div className="mt-4 p-4 bg-gray-100/70 dark:bg-gray-800/70 rounded-lg">
               <h4 className="font-semibold mb-2">Червено изместване (z):</h4>
               <p className="text-sm mb-2">z = Δλ / λ = (λ_наблюдавана - λ_излъчена) / λ_излъчена</p>
               <ul className="text-sm space-y-1">
@@ -364,7 +364,7 @@ export default function Lecture28() {
               </div>
             </div>
 
-            <div className="mt-4 p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
+            <div className="mt-4 p-4 bg-gray-100/70 dark:bg-gray-800/70 rounded-lg">
               <h4 className="font-semibold mb-2">Ключови наблюдения:</h4>
               <ul className="text-sm space-y-2">
                 <li>📐 Разстоянията между галактиките нарастват пропорционално</li>

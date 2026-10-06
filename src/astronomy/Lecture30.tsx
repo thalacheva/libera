@@ -1,8 +1,8 @@
 export default function Lecture30() {
   return (
-    <main className="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8">
+    <main className="flex-1 overflow-y-auto px-4 pt-16 pb-12 sm:px-6 lg:px-10 lg:pt-10">
       <div className="max-w-4xl mx-auto">
-        <h1 className="text-2xl sm:text-3xl font-bold mb-6 text-blue-600 dark:text-blue-400">
+        <h1 className="text-2xl sm:text-3xl font-bold tracking-tight mb-6 text-gray-900 dark:text-white">
           Лекция 30: Екзопланети
         </h1>
         <section className="mb-8">
@@ -18,7 +18,7 @@ export default function Lecture30() {
         </section>
         <section className="mb-8">
           <h2 className="text-xl sm:text-2xl font-semibold mb-4">Методи за откриване</h2>
-          <div className="bg-blue-50 dark:bg-gray-700 p-4 rounded-lg mb-4">
+          <div className="bg-blue-50 dark:bg-blue-500/10 p-4 rounded-lg mb-4">
             <ul className="list-disc list-inside space-y-3">
               <li><strong>Транзитен метод</strong> – планетата преминава пред
               звездата и намалява яркостта ѝ (Kepler, TESS)</li>
@@ -48,7 +48,7 @@ export default function Lecture30() {
             Област около звездата, където температурите позволяват съществуването
             на течна вода на повърхността. Наричана още "зона на Златокоска".
           </p>
-          <div className="bg-blue-50 dark:bg-gray-700 p-4 rounded-lg mb-4">
+          <div className="bg-blue-50 dark:bg-blue-500/10 p-4 rounded-lg mb-4">
             <h3 className="font-semibold mb-2">Интересни екзопланети:</h3>
             <ul className="list-disc list-inside space-y-2">
               <li><strong>Proxima Centauri b</strong> – най-близката екзопланета (4.2 св.г.)</li>

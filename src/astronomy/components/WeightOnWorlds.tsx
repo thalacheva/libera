@@ -53,7 +53,7 @@ export default function WeightOnWorlds() {
               className={`p-3 rounded-lg border ${
                 body.id === 'earth'
                   ? 'border-emerald-400 bg-emerald-50 dark:bg-emerald-900/20'
-                  : 'border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-700'
+                  : 'border-gray-200 dark:border-gray-700 bg-gray-100/70 dark:bg-gray-800/70'
               }`}
             >
               <div className="flex items-center gap-2 mb-1">

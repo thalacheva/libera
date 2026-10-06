@@ -32,9 +32,9 @@ export default function Lecture09() {
   };
 
   return (
-    <main className="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8">
+    <main className="flex-1 overflow-y-auto px-4 pt-16 pb-12 sm:px-6 lg:px-10 lg:pt-10">
       <div className="max-w-4xl mx-auto">
-        <h1 className="text-2xl sm:text-3xl font-bold mb-6 text-blue-600 dark:text-blue-400">
+        <h1 className="text-2xl sm:text-3xl font-bold tracking-tight mb-6 text-gray-900 dark:text-white">
           Лекция 9: Светлина и спектри
         </h1>
 
@@ -167,7 +167,7 @@ export default function Lecture09() {
               </div>
             </div>
 
-            <div className="mt-4 p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
+            <div className="mt-4 p-4 bg-gray-100/70 dark:bg-gray-800/70 rounded-lg">
               <h4 className="font-semibold mb-2">Избрана дължина на вълната:</h4>
               <div className="flex items-center gap-3">
                 <div
@@ -183,7 +183,7 @@ export default function Lecture09() {
             </div>
           </div>
 
-          <div className="bg-blue-50 dark:bg-gray-700 p-4 rounded-lg mb-4">
+          <div className="bg-blue-50 dark:bg-blue-500/10 p-4 rounded-lg mb-4">
             <h3 className="font-semibold mb-2">Видове електромагнитно излъчване:</h3>
             <ul className="list-disc list-inside space-y-2">
               <li><strong>Гама лъчи</strong> – най-енергийни, от радиоактивни процеси</li>
@@ -276,7 +276,7 @@ export default function Lecture09() {
               <text x="620" y="380" fontSize="10" fill="currentColor">непрекъснат фон</text>
             </svg>
 
-            <div className="mt-4 p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
+            <div className="mt-4 p-4 bg-gray-100/70 dark:bg-gray-800/70 rounded-lg">
               <h4 className="font-semibold mb-2">Обяснение:</h4>
               <ul className="text-sm space-y-2">
                 <li><strong>Непрекъснат:</strong> Всички дължини на вълната са представени.
@@ -370,7 +370,7 @@ export default function Lecture09() {
               </defs>
             </svg>
 
-            <div className="mt-4 p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
+            <div className="mt-4 p-4 bg-gray-100/70 dark:bg-gray-800/70 rounded-lg">
               <h4 className="font-semibold mb-2">Доплерова формула:</h4>
               <p className="font-mono text-center my-2">Δλ / λ = v / c</p>
               <ul className="text-sm space-y-1">
@@ -397,7 +397,7 @@ export default function Lecture09() {
           <h2 className="text-xl sm:text-2xl font-semibold mb-4">
             5. Основни формули
           </h2>
-          <div className="bg-blue-50 dark:bg-gray-700 p-4 rounded-lg mb-4">
+          <div className="bg-blue-50 dark:bg-blue-500/10 p-4 rounded-lg mb-4">
             <ul className="space-y-3">
               <li>
                 <strong>Връзка между честота и дължина на вълната:</strong>

@@ -1,5 +1,5 @@
-import {ChevronDown, ChevronRight} from 'lucide-react';
-import {useState} from 'react';
+import {BookOpen, ChevronDown, ChevronRight, Sigma, Telescope} from 'lucide-react';
+import {useEffect, useRef, useState} from 'react';
 import {Link, useLocation} from 'react-router-dom';
 
 const mathTopics = [
@@ -96,124 +96,184 @@ export default function SidebarMenu({
     <>
       {isOpen && (
         <div
-          className="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden"
+          className="fixed inset-0 bg-gray-900/40 backdrop-blur-sm z-40 lg:hidden"
           onClick={onClose}
         />
       )}
       <aside
-        className={`fixed lg:static inset-y-0 left-0 z-50 w-64 bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 p-4 pt-16 lg:pt-4 overflow-y-auto transform transition-transform duration-300 ease-in-out ${isOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}`}
+        className={`fixed lg:static inset-y-0 left-0 z-50 w-72 flex-shrink-0 bg-white dark:bg-gray-900 border-r border-gray-200 dark:border-gray-800 overflow-y-auto transform transition-transform duration-300 ease-in-out ${isOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}`}
       >
-        {/* Математика секция */}
-        <div className="mb-6">
-          <button
-            onClick={() => toggleSection('math')}
-            className="flex items-center justify-between w-full text-lg font-semibold mb-3 hover:text-blue-600 dark:hover:text-blue-400 transition"
-          >
-            <span>Математика</span>
-            {expandedSections.math ? (
-              <ChevronDown size={20} />
-            ) : (
-              <ChevronRight size={20} />
-            )}
-          </button>
-          {expandedSections.math && (
-            <ul className="space-y-2">
-              {mathTopics.map(topic => {
-                const defaultPath = topic.subtopics?.[0]
-                  ? topic.path + topic.subtopics[0].path
-                  : topic.path;
-
-                const isTopicActive = location.pathname.startsWith(topic.path);
-
-                return (
-                  <li key={topic.name}>
-                    <Link
-                      to={defaultPath}
-                      onClick={onClose}
-                      className={`block px-3 py-2 rounded-lg transition ${
-                        isTopicActive
-                          ? 'bg-blue-600 text-white'
-                          : 'hover:bg-blue-100 dark:hover:bg-blue-900'
-                      }`}
-                    >
-                      {topic.name}
-                    </Link>
-                    {topic.subtopics && (
-                      <ul className="ml-4 mt-1 space-y-1">
-                        {topic.subtopics.map(subtopic => {
-                          const fullPath = topic.path + subtopic.path;
-                          return (
-                            <li key={subtopic.name}>
-                              <Link
-                                to={fullPath}
-                                onClick={onClose}
-                                className={`block px-3 py-1.5 rounded-lg transition text-sm ${
-                                  location.pathname === fullPath
-                                    ? 'bg-blue-500 text-white'
-                                    : 'hover:bg-blue-50 dark:hover:bg-blue-900/50'
-                                }`}
-                              >
-                                {subtopic.name}
-                              </Link>
-                            </li>
-                          );
-                        })}
-                      </ul>
-                    )}
-                  </li>
-                );
-              })}
-            </ul>
-          )}
+        <div className="flex items-center gap-3 px-5 pt-16 pb-5 lg:pt-6 border-b border-gray-100 dark:border-gray-800">
+          <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-blue-500 to-indigo-600 text-white shadow-sm">
+            <BookOpen size={18} />
+          </div>
+          <div className="leading-tight">
+            <div className="font-semibold text-gray-900 dark:text-white">
+              Libera
+            </div>
+            <div className="text-xs text-gray-500 dark:text-gray-400">
+              Учи свободно
+            </div>
+          </div>
         </div>
 
-        {/* Астрономия секция */}
-        <div className="mb-6">
-          <button
-            onClick={() => toggleSection('astronomy')}
-            className="flex items-center justify-between w-full text-lg font-semibold mb-3 hover:text-purple-600 dark:hover:text-purple-400 transition"
-          >
-            <span>Астрономия</span>
-            {expandedSections.astronomy ? (
-              <ChevronDown size={20} />
-            ) : (
-              <ChevronRight size={20} />
+        <nav className="px-3 py-4 space-y-6">
+          {/* Математика секция */}
+          <div>
+            <SectionHeader
+              icon={<Sigma size={16} />}
+              label="Математика"
+              expanded={expandedSections.math}
+              onToggle={() => toggleSection('math')}
+            />
+            {expandedSections.math && (
+              <ul className="mt-2 space-y-3">
+                {mathTopics.map(topic => {
+                  const defaultPath = topic.subtopics?.[0]
+                    ? topic.path + topic.subtopics[0].path
+                    : topic.path;
+
+                  const isTopicActive = location.pathname.startsWith(topic.path);
+
+                  return (
+                    <li key={topic.name}>
+                      <Link
+                        to={defaultPath}
+                        onClick={onClose}
+                        className={`block px-3 py-1.5 rounded-lg text-sm font-semibold transition-colors ${
+                          isTopicActive
+                            ? 'text-blue-700 dark:text-blue-300'
+                            : 'text-gray-800 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-800'
+                        }`}
+                      >
+                        {topic.name}
+                      </Link>
+                      {topic.subtopics && (
+                        <ul className="ml-3 mt-1 space-y-0.5 border-l border-gray-200 dark:border-gray-800 pl-2">
+                          {topic.subtopics.map(subtopic => {
+                            const fullPath = topic.path + subtopic.path;
+                            return (
+                              <li key={subtopic.name}>
+                                <NavItem
+                                  to={fullPath}
+                                  active={location.pathname === fullPath}
+                                  accent="blue"
+                                  onClick={onClose}
+                                >
+                                  {subtopic.name}
+                                </NavItem>
+                              </li>
+                            );
+                          })}
+                        </ul>
+                      )}
+                    </li>
+                  );
+                })}
+              </ul>
             )}
-          </button>
-          {expandedSections.astronomy && (
-            <ul className="space-y-2">
-              {astronomyTopics.map(topic => {
-                return (
-                  <li key={topic.name}>
-                    {topic.subtopics && (
-                      <ul className="space-y-1">
-                        {topic.subtopics.map(subtopic => {
-                          const fullPath = topic.path + subtopic.path;
-                          return (
-                            <li key={subtopic.name}>
-                              <Link
-                                to={fullPath}
-                                onClick={onClose}
-                                className={`block px-3 py-1.5 rounded-lg transition text-sm ${
-                                  location.pathname === fullPath
-                                    ? 'bg-purple-500 text-white'
-                                    : 'hover:bg-purple-50 dark:hover:bg-purple-900/50'
-                                }`}
-                              >
-                                {subtopic.name}
-                              </Link>
-                            </li>
-                          );
-                        })}
-                      </ul>
-                    )}
-                  </li>
-                );
-              })}
-            </ul>
-          )}
-        </div>
+          </div>
+
+          {/* Астрономия секция */}
+          <div>
+            <SectionHeader
+              icon={<Telescope size={16} />}
+              label="Астрономия"
+              expanded={expandedSections.astronomy}
+              onToggle={() => toggleSection('astronomy')}
+            />
+            {expandedSections.astronomy && (
+              <ul className="mt-2 space-y-0.5">
+                {astronomyTopics.flatMap(topic =>
+                  topic.subtopics.map((subtopic, index) => {
+                    const fullPath = topic.path + subtopic.path;
+                    return (
+                      <li key={subtopic.name}>
+                        <NavItem
+                          to={fullPath}
+                          active={location.pathname === fullPath}
+                          accent="purple"
+                          onClick={onClose}
+                        >
+                          <span className="w-6 flex-shrink-0 text-xs tabular-nums text-gray-400 dark:text-gray-500">
+                            {index + 1}
+                          </span>
+                          <span>{subtopic.name}</span>
+                        </NavItem>
+                      </li>
+                    );
+                  }),
+                )}
+              </ul>
+            )}
+          </div>
+        </nav>
       </aside>
     </>
+  );
+}
+
+function SectionHeader({
+  icon,
+  label,
+  expanded,
+  onToggle,
+}: {
+  icon: React.ReactNode;
+  label: string;
+  expanded: boolean;
+  onToggle: () => void;
+}) {
+  return (
+    <button
+      onClick={onToggle}
+      aria-expanded={expanded}
+      className="flex items-center gap-2 w-full px-3 py-1 text-xs font-semibold uppercase tracking-wider text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white transition-colors"
+    >
+      {icon}
+      <span className="flex-1 text-left">{label}</span>
+      {expanded ? <ChevronDown size={16} /> : <ChevronRight size={16} />}
+    </button>
+  );
+}
+
+const accentClasses = {
+  blue: 'bg-blue-50 text-blue-700 dark:bg-blue-500/15 dark:text-blue-300',
+  purple: 'bg-purple-50 text-purple-700 dark:bg-purple-500/15 dark:text-purple-300',
+};
+
+function NavItem({
+  to,
+  active,
+  accent,
+  onClick,
+  children,
+}: {
+  to: string;
+  active: boolean;
+  accent: keyof typeof accentClasses;
+  onClick?: () => void;
+  children: React.ReactNode;
+}) {
+  const ref = useRef<HTMLAnchorElement>(null);
+
+  useEffect(() => {
+    if (active) ref.current?.scrollIntoView({block: 'nearest'});
+  }, [active]);
+
+  return (
+    <Link
+      ref={ref}
+      to={to}
+      onClick={onClick}
+      aria-current={active ? 'page' : undefined}
+      className={`flex items-center px-3 py-1.5 rounded-lg text-sm transition-colors ${
+        active
+          ? `${accentClasses[accent]} font-medium`
+          : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-gray-100'
+      }`}
+    >
+      {children}
+    </Link>
   );
 }

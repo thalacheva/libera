@@ -544,9 +544,9 @@ export function QuadraticEquations() {
   const [openProblems, setOpenProblems] = useState<{ [key: number]: boolean }>({});
 
   return (
-    <main className="flex-1 p-4 sm:p-8 overflow-y-auto">
+    <main className="flex-1 overflow-y-auto px-4 pt-16 pb-12 sm:px-6 lg:px-10 lg:pt-10">
       <div className="max-w-4xl mx-auto">
-        <h1 className="text-2xl font-bold mb-4 text-blue-600">
+        <h1 className="text-2xl sm:text-3xl font-bold tracking-tight mb-6 text-gray-900 dark:text-white">
           Решаване на квадратни уравнения
         </h1>
 

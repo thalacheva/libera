@@ -64,9 +64,9 @@ export default function Lecture18() {
   const star = stars[selectedStar as keyof typeof stars];
 
   return (
-    <main className="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8">
+    <main className="flex-1 overflow-y-auto px-4 pt-16 pb-12 sm:px-6 lg:px-10 lg:pt-10">
       <div className="max-w-4xl mx-auto">
-        <h1 className="text-2xl sm:text-3xl font-bold mb-6 text-blue-600 dark:text-blue-400">
+        <h1 className="text-2xl sm:text-3xl font-bold tracking-tight mb-6 text-gray-900 dark:text-white">
           Лекция 18: Звезди – основни характеристики
         </h1>
 
@@ -206,7 +206,7 @@ export default function Lecture18() {
               </g>
             </svg>
 
-            <div className="mt-4 p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
+            <div className="mt-4 p-4 bg-gray-100/70 dark:bg-gray-800/70 rounded-lg">
               <h4 className="font-semibold mb-2">Сравнение със Слънцето:</h4>
               <div className="grid grid-cols-2 gap-2 text-sm">
                 <div>Маса: {star.mass}x</div>
@@ -222,7 +222,7 @@ export default function Lecture18() {
           <h2 className="text-xl sm:text-2xl font-semibold mb-4">
             3. Основни параметри на звездите
           </h2>
-          <div className="bg-blue-50 dark:bg-gray-700 p-4 rounded-lg mb-4">
+          <div className="bg-blue-50 dark:bg-blue-500/10 p-4 rounded-lg mb-4">
             <ul className="list-disc list-inside space-y-2">
               <li><strong>Маса</strong> – от 0.08 до 200 слънчеви маси (M☉)</li>
               <li><strong>Радиус</strong> – от 0.1 до 1000 слънчеви радиуса (R☉)</li>
@@ -307,7 +307,7 @@ export default function Lecture18() {
               </defs>
             </svg>
 
-            <div className="mt-4 p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
+            <div className="mt-4 p-4 bg-gray-100/70 dark:bg-gray-800/70 rounded-lg">
               <p className="text-sm">
                 <strong>O B A F G K M</strong> - от горещи към студени. Всеки клас се разделя
                 на подкласове 0-9 (напр. G2 за Слънцето). По-горещите звезди са по-сини,
@@ -376,7 +376,7 @@ export default function Lecture18() {
               </g>
             </svg>
 
-            <div className="mt-4 p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
+            <div className="mt-4 p-4 bg-gray-100/70 dark:bg-gray-800/70 rounded-lg">
               <p className="text-sm mb-2">
                 <strong>Важно:</strong> По-малка величина = по-ярка звезда!
               </p>

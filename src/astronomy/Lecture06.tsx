@@ -66,9 +66,9 @@ export default function Lecture06() {
   });
 
   return (
-    <main className="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8">
+    <main className="flex-1 overflow-y-auto px-4 pt-16 pb-12 sm:px-6 lg:px-10 lg:pt-10">
       <div className="max-w-4xl mx-auto">
-        <h1 className="text-2xl sm:text-3xl font-bold mb-6 text-blue-600 dark:text-blue-400">
+        <h1 className="text-2xl sm:text-3xl font-bold tracking-tight mb-6 text-gray-900 dark:text-white">
           Лекция 6: Гравитация и закон на Нютон
         </h1>
 
@@ -94,7 +94,7 @@ export default function Lecture06() {
             title="Закон за всемирното привличане"
             description="Всеки две тела се привличат със сила, пропорционална на произведението на масите им и обратно пропорционална на квадрата на разстоянието между тях: F = G·m₁·m₂ / r², където G = 6,674·10⁻¹¹ N·m²/kg² е гравитационната константа."
           />
-          <div className="bg-blue-50 dark:bg-gray-700 p-4 rounded-lg mb-4">
+          <div className="bg-blue-50 dark:bg-blue-500/10 p-4 rounded-lg mb-4">
             <ul className="list-disc list-inside space-y-2">
               <li>
                 <strong>F</strong> – сила на привличане (N); насочена е по
@@ -213,7 +213,7 @@ export default function Lecture06() {
             + m).
           </p>
           <div className="grid sm:grid-cols-2 gap-3 mb-4">
-            <div className="bg-blue-50 dark:bg-gray-700 p-4 rounded-lg">
+            <div className="bg-blue-50 dark:bg-blue-500/10 p-4 rounded-lg">
               <h3 className="font-semibold mb-1">🌍 Земя – Луна</h3>
               <p className="text-sm">
                 x = 384 400 km · 7,34·10²² / 6,05·10²⁴ ≈ 4670 km от центъра на
@@ -221,7 +221,7 @@ export default function Lecture06() {
                 „клатушка“ около тази точка веднъж месечно.
               </p>
             </div>
-            <div className="bg-blue-50 dark:bg-gray-700 p-4 rounded-lg">
+            <div className="bg-blue-50 dark:bg-blue-500/10 p-4 rounded-lg">
               <h3 className="font-semibold mb-1">☀️ Слънце – Юпитер</h3>
               <p className="text-sm">
                 x ≈ 778·10⁶ km / 1048 ≈ 742 000 km – малко{' '}

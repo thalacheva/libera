@@ -515,7 +515,7 @@ export default function CelestialSphere() {
         ))}
       </div>
 
-      <div className="mt-4 p-4 bg-gray-50 dark:bg-gray-700 rounded-lg min-h-[140px]">
+      <div className="mt-4 p-4 bg-gray-100/70 dark:bg-gray-800/70 rounded-lg min-h-[140px]">
         {active ? (
           <ElementInfo id={active} latitude={latitude} />
         ) : (

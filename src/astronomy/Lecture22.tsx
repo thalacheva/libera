@@ -1,8 +1,8 @@
 export default function Lecture22() {
   return (
-    <main className="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8">
+    <main className="flex-1 overflow-y-auto px-4 pt-16 pb-12 sm:px-6 lg:px-10 lg:pt-10">
       <div className="max-w-4xl mx-auto">
-        <h1 className="text-2xl sm:text-3xl font-bold mb-6 text-blue-600 dark:text-blue-400">
+        <h1 className="text-2xl sm:text-3xl font-bold tracking-tight mb-6 text-gray-900 dark:text-white">
           Лекция 22: Двойни звезди
         </h1>
         <section className="mb-8">
@@ -15,7 +15,7 @@ export default function Lecture22() {
         </section>
         <section className="mb-8">
           <h2 className="text-xl sm:text-2xl font-semibold mb-4">Видове двойни звезди</h2>
-          <div className="bg-blue-50 dark:bg-gray-700 p-4 rounded-lg mb-4">
+          <div className="bg-blue-50 dark:bg-blue-500/10 p-4 rounded-lg mb-4">
             <ul className="list-disc list-inside space-y-3">
               <li><strong>Визуални двойни</strong> – могат да се разделят с телескоп</li>
               <li><strong>Спектрални двойни</strong> – откриват се по доплеровото изместване</li>

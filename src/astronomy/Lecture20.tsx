@@ -31,9 +31,9 @@ export default function Lecture20() {
   const currentStage = stages[evolutionStage];
 
   return (
-    <main className="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8">
+    <main className="flex-1 overflow-y-auto px-4 pt-16 pb-12 sm:px-6 lg:px-10 lg:pt-10">
       <div className="max-w-4xl mx-auto">
-        <h1 className="text-2xl sm:text-3xl font-bold mb-6 text-blue-600 dark:text-blue-400">
+        <h1 className="text-2xl sm:text-3xl font-bold tracking-tight mb-6 text-gray-900 dark:text-white">
           Лекция 20: Еволюция на звездите
         </h1>
 
@@ -46,7 +46,7 @@ export default function Lecture20() {
             причинява свиване на облака, което води до повишаване на температурата
             и налягането в центъра.
           </p>
-          <div className="bg-blue-50 dark:bg-gray-700 p-4 rounded-lg mb-4">
+          <div className="bg-blue-50 dark:bg-blue-500/10 p-4 rounded-lg mb-4">
             <h3 className="font-semibold mb-2">Етапи на формиране:</h3>
             <ol className="list-decimal list-inside space-y-2">
               <li><strong>Молекулен облак</strong> – студен газ (10-100 K), плътност увеличава</li>
@@ -205,7 +205,7 @@ export default function Lecture20() {
               </div>
             </div>
 
-            <div className="mt-4 p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
+            <div className="mt-4 p-4 bg-gray-100/70 dark:bg-gray-800/70 rounded-lg">
               <h4 className="font-semibold mb-2">{currentStage.name}</h4>
               {selectedPath === 'solar' && (
                 <>
@@ -371,7 +371,7 @@ export default function Lecture20() {
             </svg>
           </div>
 
-          <div className="bg-blue-50 dark:bg-gray-700 p-4 rounded-lg mb-4">
+          <div className="bg-blue-50 dark:bg-blue-500/10 p-4 rounded-lg mb-4">
             <h3 className="font-semibold mb-2">Ключови разлики:</h3>
             <table className="w-full text-sm mt-2">
               <thead>

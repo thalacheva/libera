@@ -177,13 +177,13 @@ export default function FoucaultPendulum() {
             </button>
           </div>
           <div className="grid grid-cols-2 gap-2 text-center text-sm">
-            <div className="bg-gray-50 dark:bg-gray-700 p-2 rounded-lg">
+            <div className="bg-gray-100/70 dark:bg-gray-800/70 p-2 rounded-lg">
               <div className="text-xs text-gray-600 dark:text-gray-400">
                 Изминало време
               </div>
               <div className="font-mono font-bold">{formatDuration(hours)}</div>
             </div>
-            <div className="bg-gray-50 dark:bg-gray-700 p-2 rounded-lg">
+            <div className="bg-gray-100/70 dark:bg-gray-800/70 p-2 rounded-lg">
               <div className="text-xs text-gray-600 dark:text-gray-400">
                 Пълен оборот на равнината
               </div>

@@ -31,10 +31,10 @@ function App() {
   }, []);
 
   return (
-    <div className="h-screen flex flex-col bg-gray-50 text-gray-800 dark:bg-gray-900 dark:text-gray-100">
+    <div className="h-screen flex flex-col bg-gray-50 text-gray-800 dark:bg-gray-950 dark:text-gray-100">
       <button
         onClick={() => setSidebarOpen(!sidebarOpen)}
-        className="lg:hidden fixed top-3 left-3 z-[60] p-2 rounded-lg bg-white dark:bg-gray-800 shadow-md border border-gray-200 dark:border-gray-700"
+        className="lg:hidden fixed top-3 left-3 z-[60] p-2 rounded-xl bg-white/90 dark:bg-gray-800/90 backdrop-blur shadow-sm border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-200"
         aria-label="Toggle menu"
       >
         {sidebarOpen ? <X size={24} /> : <Menu size={24} />}
