@@ -1,815 +1,369 @@
-import { useEffect, useRef, useState } from 'react';
-
-interface Point {
-  x: number;
-  y: number;
-}
+import { useState } from 'react';
+import {
+  AngleMark,
+  Buttons,
+  Diagram,
+  DiagramButton,
+  Dot,
+  Formula,
+  Handle,
+  Label,
+  Note,
+  Readout,
+  Segment,
+  TickMark,
+  VertexLabel,
+} from './diagram';
+import {
+  arcPath as arcPathAt,
+  dist,
+  fmt,
+  mid,
+  norm360,
+  Point,
+  polar,
+  polarAngle,
+  toRad,
+  tones,
+  units,
+  UNIT,
+} from './diagramMath';
 
 interface InteractiveCircleProps {
   type: 'basic' | 'chord' | 'arc' | 'sector' | 'area-circumference' | 'radian';
 }
 
-export function InteractiveCircle({ type }: InteractiveCircleProps) {
-  const [dimensions, setDimensions] = useState({ width: 550, height: 400 });
-  const [center, setCenter] = useState<Point>({ x: 275, y: 200 });
-  const [radius, setRadius] = useState(100);
-  const [pointOnCircle, setPointOnCircle] = useState<Point>({ x: 375, y: 200 });
-  const [secondPoint, setSecondPoint] = useState<Point>({ x: 225, y: 120 });
-  const [dragging, setDragging] = useState<
-    'center' | 'radius' | 'point1' | 'point2' | null
-  >(null);
-  const svgRef = useRef<SVGSVGElement>(null);
-  const containerRef = useRef<HTMLDivElement>(null);
+const O = { x: 240, y: 160 };
+const MIN_R = 2 * UNIT;
+const MAX_R = 7 * UNIT;
 
-  useEffect(() => {
-    const updateDimensions = () => {
-      if (containerRef.current) {
-        const containerWidth = containerRef.current.offsetWidth;
-        let newWidth = 550;
-        let newHeight = 400;
+const rad = toRad;
+const norm = norm360;
+const at = (r: number, deg: number): Point => polar(O, r, deg);
 
-        if (containerWidth < 640) {
-          newWidth = Math.max(Math.min(containerWidth - 16, 500), 320);
-          newHeight = Math.floor(newWidth * 0.73);
-        } else if (containerWidth < 1024) {
-          newWidth = 500;
-          newHeight = 365;
-        }
+/** Ъгълът на точка спрямо центъра, закръглен до цял градус. */
+const angleOf = (p: Point) => Math.round(polarAngle(O, p)) % 360;
 
-        if (dimensions.width !== newWidth || dimensions.height !== newHeight) {
-          const scaleX = newWidth / dimensions.width;
-          const scaleY = newHeight / dimensions.height;
+/** Радиус, закръглен до цяла единица от мрежата. */
+const radiusOf = (p: Point) =>
+  Math.min(MAX_R, Math.max(MIN_R, Math.round(dist(O, p) / UNIT) * UNIT));
 
-          setCenter(prev => ({ x: prev.x * scaleX, y: prev.y * scaleY }));
-          setPointOnCircle(prev => ({
-            x: prev.x * scaleX,
-            y: prev.y * scaleY,
-          }));
-          setSecondPoint(prev => ({ x: prev.x * scaleX, y: prev.y * scaleY }));
-          setRadius(prev => prev * scaleX);
-        }
+const arcPath = (r: number, from: number, to: number, closed = false) =>
+  arcPathAt(O, r, from, to, closed);
 
-        setDimensions({ width: newWidth, height: newHeight });
-      }
-    };
+/** Окръжността с центъра O. Надписът „O“ се поставя срещу точката away, за да не застъпва линиите. */
+function Circle({ r, away }: { r: number; away?: Point }) {
+  let label = { x: O.x - 12, y: O.y + 14 };
+  if (away && dist(O, away) > 1) {
+    const k = 18 / dist(O, away);
+    label = { x: O.x - (away.x - O.x) * k, y: O.y - (away.y - O.y) * k };
+  }
+  return (
+    <>
+      <circle cx={O.x} cy={O.y} r={r} className={`${tones.blue.soft} ${tones.blue.stroke}`} strokeWidth="2.5" />
+      <Dot p={O} tone="gray" r={4} />
+      <Label p={label} tone="ink" size={16} weight={700}>O</Label>
+    </>
+  );
+}
 
-    updateDimensions();
-    window.addEventListener('resize', updateDimensions);
-    return () => window.removeEventListener('resize', updateDimensions);
-  }, [dimensions.width, dimensions.height]);
+/** Централният ъгъл от φ1 до φ2 – дъга около центъра и надпис. */
+function CentralAngle({ from, to, r }: { from: number; to: number; r: number }) {
+  const span = norm(to - from);
+  const rr = Math.min(28, r * 0.35);
+  const bis = from + span / 2;
+  return (
+    <>
+      <path d={arcPath(rr, from, to, true)} className={`${tones.amber.soft} stroke-none`} />
+      <path d={arcPath(rr, from, to)} className={`fill-none ${tones.amber.stroke}`} strokeWidth="2" />
+      <Label p={at(rr + 18, bis)} tone="amber" size={14}>α</Label>
+    </>
+  );
+}
 
-  const calculateDistance = (p1: Point, p2: Point): number => {
-    return Math.sqrt(Math.pow(p2.x - p1.x, 2) + Math.pow(p2.y - p1.y, 2));
-  };
+function PointHandle({ r, deg, name, onMove }: { r: number; deg: number; name: string; onMove: (p: Point) => void }) {
+  const p = at(r, deg);
+  return (
+    <>
+      <VertexLabel p={p} center={O} name={name} />
+      <Handle p={p} name={name} onMove={onMove} />
+    </>
+  );
+}
 
-  const calculateAngle = (p: Point, center: Point): number => {
-    return Math.atan2(p.y - center.y, p.x - center.x);
-  };
+// ---------- Център, радиус и диаметър ----------
 
-  const constrainToCircle = (
-    point: Point,
-    center: Point,
-    radius: number
-  ): Point => {
-    const angle = calculateAngle(point, center);
-    return {
-      x: center.x + radius * Math.cos(angle),
-      y: center.y + radius * Math.sin(angle),
-    };
-  };
+function Basic() {
+  const [r, setR] = useState(5 * UNIT);
+  const [phi, setPhi] = useState(35);
 
-  const handleMouseDown = (type: 'center' | 'radius' | 'point1' | 'point2') => {
-    setDragging(type);
-  };
-
-  const handleMouseMove = (e: React.MouseEvent<SVGSVGElement>) => {
-    if (!dragging || !svgRef.current) return;
-
-    const rect = svgRef.current.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-
-    if (dragging === 'center') {
-      const maxRadius = Math.min(dimensions.width, dimensions.height) / 2 - 30;
-      const newCenter = {
-        x: Math.max(maxRadius, Math.min(dimensions.width - maxRadius, x)),
-        y: Math.max(maxRadius, Math.min(dimensions.height - 50 - maxRadius, y)),
-      };
-      const offset = { x: newCenter.x - center.x, y: newCenter.y - center.y };
-      setCenter(newCenter);
-      setPointOnCircle(prev => ({
-        x: prev.x + offset.x,
-        y: prev.y + offset.y,
-      }));
-      setSecondPoint(prev => ({ x: prev.x + offset.x, y: prev.y + offset.y }));
-    } else if (dragging === 'radius') {
-      const newRadius = calculateDistance(center, { x, y });
-      const maxRadius = Math.min(
-        center.x - 20,
-        dimensions.width - center.x - 20,
-        center.y - 20,
-        dimensions.height - 50 - center.y
-      );
-      const clampedRadius = Math.min(Math.max(30, newRadius), maxRadius);
-      setRadius(clampedRadius);
-      setPointOnCircle(constrainToCircle({ x, y }, center, clampedRadius));
-      setSecondPoint(constrainToCircle(secondPoint, center, clampedRadius));
-    } else if (dragging === 'point1') {
-      setPointOnCircle(constrainToCircle({ x, y }, center, radius));
-    } else if (dragging === 'point2') {
-      setSecondPoint(constrainToCircle({ x, y }, center, radius));
-    }
-  };
-
-  const handleMouseUp = () => {
-    setDragging(null);
-  };
-
-  const handleTouchStart = (
-    type: 'center' | 'radius' | 'point1' | 'point2',
-    e: React.TouchEvent
-  ) => {
-    e.preventDefault();
-    setDragging(type);
-  };
-
-  const handleTouchMove = (e: React.TouchEvent<SVGSVGElement>) => {
-    if (!dragging || !svgRef.current) return;
-
-    e.preventDefault();
-    const touch = e.touches[0];
-    const rect = svgRef.current.getBoundingClientRect();
-    const x = touch.clientX - rect.left;
-    const y = touch.clientY - rect.top;
-
-    if (dragging === 'center') {
-      const maxRadius = Math.min(dimensions.width, dimensions.height) / 2 - 30;
-      const newCenter = {
-        x: Math.max(maxRadius, Math.min(dimensions.width - maxRadius, x)),
-        y: Math.max(maxRadius, Math.min(dimensions.height - 50 - maxRadius, y)),
-      };
-      const offset = { x: newCenter.x - center.x, y: newCenter.y - center.y };
-      setCenter(newCenter);
-      setPointOnCircle(prev => ({
-        x: prev.x + offset.x,
-        y: prev.y + offset.y,
-      }));
-      setSecondPoint(prev => ({ x: prev.x + offset.x, y: prev.y + offset.y }));
-    } else if (dragging === 'radius') {
-      const newRadius = calculateDistance(center, { x, y });
-      const maxRadius = Math.min(
-        center.x - 20,
-        dimensions.width - center.x - 20,
-        center.y - 20,
-        dimensions.height - 50 - center.y
-      );
-      const clampedRadius = Math.min(Math.max(30, newRadius), maxRadius);
-      setRadius(clampedRadius);
-      setPointOnCircle(constrainToCircle({ x, y }, center, clampedRadius));
-      setSecondPoint(constrainToCircle(secondPoint, center, clampedRadius));
-    } else if (dragging === 'point1') {
-      setPointOnCircle(constrainToCircle({ x, y }, center, radius));
-    } else if (dragging === 'point2') {
-      setSecondPoint(constrainToCircle({ x, y }, center, radius));
-    }
-  };
-
-  const handleTouchEnd = () => {
-    setDragging(null);
-  };
-
-  useEffect(() => {
-    const handleGlobalMouseUp = () => setDragging(null);
-    const handleGlobalTouchEnd = () => setDragging(null);
-    window.addEventListener('mouseup', handleGlobalMouseUp);
-    window.addEventListener('touchend', handleGlobalTouchEnd);
-    return () => {
-      window.removeEventListener('mouseup', handleGlobalMouseUp);
-      window.removeEventListener('touchend', handleGlobalTouchEnd);
-    };
-  }, []);
-
-  const scale = dimensions.width / 550;
-  const fontSize = Math.max(Math.floor(14 * scale), 10);
-  const largeFontSize = Math.max(Math.floor(16 * scale), 11);
-
-  // Calculate arc angle
-  const angle1 = calculateAngle(pointOnCircle, center);
-  const angle2 = calculateAngle(secondPoint, center);
-
-  // Ensure points are exactly on the circle for accurate rendering
-  const exactPoint1 = {
-    x: center.x + radius * Math.cos(angle1),
-    y: center.y + radius * Math.sin(angle1),
-  };
-  const exactPoint2 = {
-    x: center.x + radius * Math.cos(angle2),
-    y: center.y + radius * Math.sin(angle2),
-  };
-
-  // Calculate the arc angle going counter-clockwise from point A to point B
-  let arcAngle = ((angle2 - angle1) * 180) / Math.PI;
-  if (arcAngle < 0) arcAngle += 360;
-
-  // Calculate chord length
-  const chordLength = calculateDistance(exactPoint1, exactPoint2);
-
-  // Calculate arc length
-  const arcLength = (arcAngle * Math.PI * radius) / 180;
-
-  // Calculate sector area
-  const sectorArea = (arcAngle * Math.PI * radius * radius) / 360;
-
-  // For drawing the arc - determine if we should take the longer path
-  const largeArcFlag = arcAngle > 180 ? 1 : 0;
-  // Sweep flag: 1 for counter-clockwise (positive angle direction)
-  const sweepFlag = 1;
+  const A = at(r, phi);
+  // Диаметърът е начертан в друга посока, за да не се застъпва с радиуса
+  const M = at(r, phi + 130);
+  const N = at(r, phi + 310);
+  const ru = units(r);
 
   return (
-    <div
-      ref={containerRef}
-      className="bg-white dark:bg-gray-800 p-4 rounded-lg"
+    <Diagram
+      hint="Влачи точката A, за да промениш радиуса. Всеки диаметър е два пъти по-дълъг от радиуса."
+      readout={
+        <>
+          <Readout
+            items={[
+              { label: 'r =', value: fmt(ru), tone: 'rose' },
+              { label: 'd =', value: fmt(2 * ru), tone: 'emerald' },
+            ]}
+          />
+          <Formula>d = 2r = 2 · {fmt(ru)} = {fmt(2 * ru)}</Formula>
+        </>
+      }
     >
-      <svg
-        ref={svgRef}
-        width={dimensions.width}
-        height={dimensions.height}
-        className="border border-gray-300 dark:border-gray-600 rounded cursor-move max-w-full mx-auto block"
-        onMouseMove={handleMouseMove}
-        onMouseUp={handleMouseUp}
-        onMouseLeave={handleMouseUp}
-        onTouchMove={handleTouchMove}
-        onTouchEnd={handleTouchEnd}
-        style={{ touchAction: 'none' }}
-      >
-        {/* Circle */}
-        <circle
-          cx={center.x}
-          cy={center.y}
-          r={radius}
-          fill="rgba(59, 130, 246, 0.1)"
-          stroke="rgb(59, 130, 246)"
-          strokeWidth="2"
-        />
-
-        {type === 'basic' && (
-          <>
-            {/* Radius line */}
-            <line
-              x1={center.x}
-              y1={center.y}
-              x2={pointOnCircle.x}
-              y2={pointOnCircle.y}
-              stroke="rgb(239, 68, 68)"
-              strokeWidth="2"
-            />
-
-            {/* Diameter line */}
-            <line
-              x1={center.x - radius}
-              y1={center.y}
-              x2={center.x + radius}
-              y2={center.y}
-              stroke="rgb(34, 197, 94)"
-              strokeWidth="2"
-            />
-
-            {/* Radius label */}
-            <text
-              x={(center.x + pointOnCircle.x) / 2}
-              y={(center.y + pointOnCircle.y) / 2 - 10}
-              fontSize={fontSize}
-              fill="rgb(239, 68, 68)"
-              fontWeight="bold"
-              textAnchor="middle"
-            >
-              r = {radius.toFixed(0)}
-            </text>
-
-            {/* Diameter label */}
-            <text
-              x={center.x}
-              y={center.y - radius - 15}
-              fontSize={fontSize}
-              fill="rgb(34, 197, 94)"
-              fontWeight="bold"
-              textAnchor="middle"
-            >
-              d = {(2 * radius).toFixed(0)}
-            </text>
-
-            {/* Formulas */}
-            <text
-              x="10"
-              y={dimensions.height - 50}
-              fontSize={fontSize}
-              fill="currentColor"
-              fontWeight="bold"
-            >
-              Дължина на окръжността: C = 2πr = {(2 * Math.PI * radius).toFixed(2)}
-            </text>
-            <text
-              x="10"
-              y={dimensions.height - 30}
-              fontSize={fontSize}
-              fill="currentColor"
-              fontWeight="bold"
-            >
-              Лице: S = πr² = {(Math.PI * radius * radius).toFixed(2)}
-            </text>
-          </>
-        )}
-
-        {type === 'chord' && (
-          <>
-            {/* Chord */}
-            <line
-              x1={exactPoint1.x}
-              y1={exactPoint1.y}
-              x2={exactPoint2.x}
-              y2={exactPoint2.y}
-              stroke="rgb(239, 68, 68)"
-              strokeWidth="3"
-            />
-
-            {/* Radii to chord endpoints */}
-            <line
-              x1={center.x}
-              y1={center.y}
-              x2={pointOnCircle.x}
-              y2={pointOnCircle.y}
-              stroke="rgb(168, 85, 247)"
-              strokeWidth="2"
-              strokeDasharray="5,5"
-            />
-            <line
-              x1={center.x}
-              y1={center.y}
-              x2={secondPoint.x}
-              y2={secondPoint.y}
-              stroke="rgb(168, 85, 247)"
-              strokeWidth="2"
-              strokeDasharray="5,5"
-            />
-
-            {/* Perpendicular from center to chord */}
-            {(() => {
-              const midChord = {
-                x: (exactPoint1.x + exactPoint2.x) / 2,
-                y: (exactPoint1.y + exactPoint2.y) / 2,
-              };
-              const distToChord = calculateDistance(center, midChord);
-              return (
-                <>
-                  <line
-                    x1={center.x}
-                    y1={center.y}
-                    x2={midChord.x}
-                    y2={midChord.y}
-                    stroke="rgb(34, 197, 94)"
-                    strokeWidth="2"
-                  />
-                  <circle
-                    cx={midChord.x}
-                    cy={midChord.y}
-                    r="4"
-                    fill="rgb(34, 197, 94)"
-                  />
-                  <text
-                    x={midChord.x + 15}
-                    y={midChord.y - 10}
-                    fontSize={fontSize}
-                    fill="rgb(34, 197, 94)"
-                    fontWeight="bold"
-                  >
-                    h = {distToChord.toFixed(0)}
-                  </text>
-                </>
-              );
-            })()}
-
-            {/* Chord label */}
-            <text
-              x={(exactPoint1.x + exactPoint2.x) / 2}
-              y={(exactPoint1.y + exactPoint2.y) / 2 + 20}
-              fontSize={fontSize}
-              fill="rgb(239, 68, 68)"
-              fontWeight="bold"
-              textAnchor="middle"
-            >
-              хорда = {chordLength.toFixed(0)}
-            </text>
-
-            <text
-              x="10"
-              y={dimensions.height - 30}
-              fontSize={fontSize}
-              fill="currentColor"
-              fontWeight="bold"
-            >
-              Хорда: отсечка, свързваща две точки от окръжността
-            </text>
-          </>
-        )}
-
-        {type === 'arc' && (
-          <>
-            {/* Arc (highlighted) */}
-            <path
-              d={`M ${exactPoint1.x},${exactPoint1.y} A ${radius},${radius} 0 ${largeArcFlag},${sweepFlag} ${exactPoint2.x},${exactPoint2.y}`}
-              fill="none"
-              stroke="rgb(239, 68, 68)"
-              strokeWidth="4"
-            />
-
-            {/* Radii */}
-            <line
-              x1={center.x}
-              y1={center.y}
-              x2={pointOnCircle.x}
-              y2={pointOnCircle.y}
-              stroke="rgb(168, 85, 247)"
-              strokeWidth="2"
-              strokeDasharray="5,5"
-            />
-            <line
-              x1={center.x}
-              y1={center.y}
-              x2={secondPoint.x}
-              y2={secondPoint.y}
-              stroke="rgb(168, 85, 247)"
-              strokeWidth="2"
-              strokeDasharray="5,5"
-            />
-
-            {/* Central angle arc */}
-            <path
-              d={`M ${center.x + 30 * Math.cos(angle1)},${center.y + 30 * Math.sin(angle1)} A 30,30 0 ${largeArcFlag},${sweepFlag} ${center.x + 30 * Math.cos(angle2)},${center.y + 30 * Math.sin(angle2)}`}
-              fill="none"
-              stroke="rgb(34, 197, 94)"
-              strokeWidth="2"
-            />
-
-            {/* Angle label */}
-            <text
-              x={center.x + 50 * Math.cos((angle1 + angle2) / 2)}
-              y={center.y + 50 * Math.sin((angle1 + angle2) / 2)}
-              fontSize={fontSize}
-              fill="rgb(34, 197, 94)"
-              fontWeight="bold"
-              textAnchor="middle"
-            >
-              {arcAngle.toFixed(0)}°
-            </text>
-
-            <text
-              x="10"
-              y={dimensions.height - 50}
-              fontSize={fontSize}
-              fill="currentColor"
-              fontWeight="bold"
-            >
-              Ъгъл: {arcAngle.toFixed(1)}° ={' '}
-              {((arcAngle * Math.PI) / 180).toFixed(3)} рад
-            </text>
-            <text
-              x="10"
-              y={dimensions.height - 30}
-              fontSize={fontSize}
-              fill="currentColor"
-              fontWeight="bold"
-            >
-              Дължина на дъга: L = (θ/360°) × 2πr = {arcLength.toFixed(2)}
-            </text>
-          </>
-        )}
-
-        {type === 'sector' && (
-          <>
-            {/* Sector (filled) */}
-            <path
-              d={`M ${center.x},${center.y} L ${exactPoint1.x},${exactPoint1.y} A ${radius},${radius} 0 ${largeArcFlag},${sweepFlag} ${exactPoint2.x},${exactPoint2.y} Z`}
-              fill="rgba(239, 68, 68, 0.3)"
-              stroke="rgb(239, 68, 68)"
-              strokeWidth="2"
-            />
-
-            {/* Radii */}
-            <line
-              x1={center.x}
-              y1={center.y}
-              x2={pointOnCircle.x}
-              y2={pointOnCircle.y}
-              stroke="rgb(168, 85, 247)"
-              strokeWidth="2"
-            />
-            <line
-              x1={center.x}
-              y1={center.y}
-              x2={secondPoint.x}
-              y2={secondPoint.y}
-              stroke="rgb(168, 85, 247)"
-              strokeWidth="2"
-            />
-
-            {/* Central angle arc */}
-            <path
-              d={`M ${center.x + 35 * Math.cos(angle1)},${center.y + 35 * Math.sin(angle1)} A 35,35 0 ${largeArcFlag},${sweepFlag} ${center.x + 35 * Math.cos(angle2)},${center.y + 35 * Math.sin(angle2)}`}
-              fill="none"
-              stroke="rgb(34, 197, 94)"
-              strokeWidth="2"
-            />
-
-            {/* Angle label */}
-            <text
-              x={center.x + 55 * Math.cos((angle1 + angle2) / 2)}
-              y={center.y + 55 * Math.sin((angle1 + angle2) / 2)}
-              fontSize={fontSize}
-              fill="rgb(34, 197, 94)"
-              fontWeight="bold"
-              textAnchor="middle"
-            >
-              {arcAngle.toFixed(0)}°
-            </text>
-
-            <text
-              x="10"
-              y={dimensions.height - 50}
-              fontSize={fontSize}
-              fill="currentColor"
-              fontWeight="bold"
-            >
-              Ъгъл на сектора: {arcAngle.toFixed(1)}°
-            </text>
-            <text
-              x="10"
-              y={dimensions.height - 30}
-              fontSize={fontSize}
-              fill="currentColor"
-              fontWeight="bold"
-            >
-              Лице на сектора: S = (θ/360°) × πr² = {sectorArea.toFixed(2)}
-            </text>
-          </>
-        )}
-
-        {type === 'area-circumference' && (
-          <>
-            {/* Filled circle to show area */}
-            <circle
-              cx={center.x}
-              cy={center.y}
-              r={radius}
-              fill="rgba(59, 130, 246, 0.2)"
-              stroke="rgb(59, 130, 246)"
-              strokeWidth="3"
-            />
-
-            {/* Radius line */}
-            <line
-              x1={center.x}
-              y1={center.y}
-              x2={pointOnCircle.x}
-              y2={pointOnCircle.y}
-              stroke="rgb(239, 68, 68)"
-              strokeWidth="2"
-            />
-
-            {/* Radius label */}
-            <text
-              x={(center.x + pointOnCircle.x) / 2}
-              y={(center.y + pointOnCircle.y) / 2 - 10}
-              fontSize={fontSize}
-              fill="rgb(239, 68, 68)"
-              fontWeight="bold"
-              textAnchor="middle"
-            >
-              r = {radius.toFixed(0)}
-            </text>
-
-            {/* Formulas */}
-            <text
-              x="10"
-              y={dimensions.height - 70}
-              fontSize={fontSize}
-              fill="currentColor"
-              fontWeight="bold"
-            >
-              Радиус: r = {radius.toFixed(0)}
-            </text>
-            <text
-              x="10"
-              y={dimensions.height - 50}
-              fontSize={fontSize}
-              fill="currentColor"
-              fontWeight="bold"
-            >
-              Дължина на окръжността: C = 2πr = {(2 * Math.PI * radius).toFixed(2)}
-            </text>
-            <text
-              x="10"
-              y={dimensions.height - 30}
-              fontSize={fontSize}
-              fill="currentColor"
-              fontWeight="bold"
-            >
-              Лице: S = πr² = {(Math.PI * radius * radius).toFixed(2)}
-            </text>
-          </>
-        )}
-
-        {type === 'radian' && (
-          <>
-            {/* Arc for 1 radian */}
-            <path
-              d={`M ${exactPoint1.x},${exactPoint1.y} A ${radius},${radius} 0 ${largeArcFlag},${sweepFlag} ${exactPoint2.x},${exactPoint2.y}`}
-              fill="none"
-              stroke="rgb(239, 68, 68)"
-              strokeWidth="4"
-            />
-
-            {/* Radii */}
-            <line
-              x1={center.x}
-              y1={center.y}
-              x2={exactPoint1.x}
-              y2={exactPoint1.y}
-              stroke="rgb(168, 85, 247)"
-              strokeWidth="2"
-            />
-            <line
-              x1={center.x}
-              y1={center.y}
-              x2={exactPoint2.x}
-              y2={exactPoint2.y}
-              stroke="rgb(168, 85, 247)"
-              strokeWidth="2"
-            />
-
-            {/* Show arc length equals radius */}
-            <text
-              x={(exactPoint1.x + exactPoint2.x) / 2}
-              y={(exactPoint1.y + exactPoint2.y) / 2 - 25}
-              fontSize={fontSize}
-              fill="rgb(239, 68, 68)"
-              fontWeight="bold"
-              textAnchor="middle"
-            >
-              дължина = {arcLength.toFixed(0)}{' '}
-              {Math.abs(arcLength - radius) < 2 ? '≈ r' : ''}
-            </text>
-
-            {/* Central angle arc */}
-            <path
-              d={`M ${center.x + 30 * Math.cos(angle1)},${center.y + 30 * Math.sin(angle1)} A 30,30 0 ${largeArcFlag},${sweepFlag} ${center.x + 30 * Math.cos(angle2)},${center.y + 30 * Math.sin(angle2)}`}
-              fill="none"
-              stroke="rgb(34, 197, 94)"
-              strokeWidth="2"
-            />
-
-            {/* Angle label */}
-            <text
-              x={center.x + 50 * Math.cos((angle1 + angle2) / 2)}
-              y={center.y + 50 * Math.sin((angle1 + angle2) / 2)}
-              fontSize={fontSize}
-              fill="rgb(34, 197, 94)"
-              fontWeight="bold"
-              textAnchor="middle"
-            >
-              {arcAngle.toFixed(1)}°
-            </text>
-
-            <text
-              x="10"
-              y={dimensions.height - 70}
-              fontSize={fontSize}
-              fill="currentColor"
-              fontWeight="bold"
-            >
-              Радиус: r = {radius.toFixed(0)}
-            </text>
-            <text
-              x="10"
-              y={dimensions.height - 50}
-              fontSize={fontSize}
-              fill="currentColor"
-              fontWeight="bold"
-            >
-              Ъгъл: {arcAngle.toFixed(1)}° ={' '}
-              {((arcAngle * Math.PI) / 180).toFixed(3)} рад
-            </text>
-            <text
-              x="10"
-              y={dimensions.height - 30}
-              fontSize={fontSize}
-              fill="currentColor"
-              fontWeight="bold"
-            >
-              Дължина на дъга: L = {arcLength.toFixed(2)}{' '}
-              {Math.abs(arcLength - radius) < 2
-                ? '(≈ r, когато θ = 1 рад)'
-                : ''}
-            </text>
-          </>
-        )}
-
-        {/* Center point */}
-        <circle
-          cx={center.x}
-          cy={center.y}
-          r="6"
-          fill={dragging === 'center' ? 'rgb(239, 68, 68)' : 'rgb(34, 197, 94)'}
-          stroke="white"
-          strokeWidth="2"
-          className="cursor-pointer"
-          onMouseDown={() => handleMouseDown('center')}
-          onTouchStart={e => handleTouchStart('center', e)}
-        />
-        <text
-          x={center.x + 15}
-          y={center.y - 10}
-          fontSize={largeFontSize}
-          fontWeight="bold"
-          fill="currentColor"
-        >
-          O
-        </text>
-
-        {/* Point on circle (for radius or first point) */}
-        <circle
-          cx={pointOnCircle.x}
-          cy={pointOnCircle.y}
-          r="8"
-          fill={
-            dragging === 'point1' || dragging === 'radius'
-              ? 'rgb(239, 68, 68)'
-              : 'rgb(59, 130, 246)'
-          }
-          stroke="white"
-          strokeWidth="2"
-          className="cursor-pointer"
-          onMouseDown={() =>
-            handleMouseDown(
-              type === 'basic' || type === 'area-circumference'
-                ? 'radius'
-                : 'point1'
-            )
-          }
-          onTouchStart={e =>
-            handleTouchStart(
-              type === 'basic' || type === 'area-circumference'
-                ? 'radius'
-                : 'point1',
-              e
-            )
-          }
-        />
-        <text
-          x={pointOnCircle.x + 15}
-          y={pointOnCircle.y - 10}
-          fontSize={largeFontSize}
-          fontWeight="bold"
-          fill="currentColor"
-        >
-          A
-        </text>
-
-        {/* Second point (for chord, arc, sector, radian) */}
-        {type !== 'basic' && type !== 'area-circumference' && (
-          <>
-            <circle
-              cx={secondPoint.x}
-              cy={secondPoint.y}
-              r="8"
-              fill={
-                dragging === 'point2' ? 'rgb(239, 68, 68)' : 'rgb(59, 130, 246)'
-              }
-              stroke="white"
-              strokeWidth="2"
-              className="cursor-pointer"
-              onMouseDown={() => handleMouseDown('point2')}
-              onTouchStart={e => handleTouchStart('point2', e)}
-            />
-            <text
-              x={secondPoint.x + 15}
-              y={secondPoint.y - 10}
-              fontSize={largeFontSize}
-              fontWeight="bold"
-              fill="currentColor"
-            >
-              B
-            </text>
-          </>
-        )}
-      </svg>
-      <p className="text-sm text-gray-600 dark:text-gray-400 mt-2">
-        💡 Плъзнете или докоснете точките, за да променяте{' '}
-        {type === 'basic' || type === 'area-circumference'
-          ? 'радиуса'
-          : type === 'radian'
-            ? 'ъгъла'
-            : 'формата'}
-      </p>
-    </div>
+      <Circle r={r} away={A} />
+      <Segment p={M} q={N} tone="emerald" width={3} />
+      <Label p={at(r * 0.55, phi + 142)} tone="emerald" size={15}>d</Label>
+      <Segment p={O} q={A} tone="rose" width={3} />
+      <Label p={at(r / 2, phi + 14)} tone="rose" size={15}>r</Label>
+      <PointHandle
+        r={r}
+        deg={phi}
+        name="A"
+        onMove={p => {
+          setR(radiusOf(p));
+          setPhi(angleOf(p));
+        }}
+      />
+    </Diagram>
   );
+}
+
+// ---------- Хорда ----------
+
+function Chord() {
+  const r = 6 * UNIT;
+  const [phiA, setPhiA] = useState(200);
+  const [phiB, setPhiB] = useState(330);
+
+  const A = at(r, phiA);
+  const B = at(r, phiB);
+  const M = mid(A, B);
+  const ab = units(dist(A, B));
+  const om = units(dist(O, M));
+  const isDiameter = om < 0.05;
+
+  return (
+    <Diagram
+      hint="Влачи краищата на хордата. Перпендикулярът от центъра винаги я разполовява."
+      readout={
+        <>
+          <Readout
+            items={[
+              { label: 'r =', value: fmt(units(r)) },
+              { label: 'AB =', value: fmt(ab, 2), tone: 'rose' },
+              { label: 'OM =', value: fmt(om, 2), tone: 'emerald' },
+              { label: 'AM = MB =', value: fmt(ab / 2, 2) },
+            ]}
+          />
+          <Formula>
+            AM² + OM² = r² → {fmt(ab / 2, 2)}² + {fmt(om, 2)}² = {fmt(units(r) ** 2, 1)}
+          </Formula>
+          {isDiameter && <Note>Хордата минава през центъра – това е диаметър, най-дългата хорда!</Note>}
+        </>
+      }
+    >
+      <Circle r={r} away={M} />
+      <Segment p={O} q={A} tone="gray" dashed width={1.5} />
+      <Segment p={O} q={B} tone="gray" dashed width={1.5} />
+      <Segment p={A} q={B} tone="rose" width={3.5} />
+      <TickMark p={A} q={M} />
+      <TickMark p={M} q={B} />
+      {!isDiameter && (
+        <>
+          <Segment p={O} q={M} tone="emerald" width={2.5} />
+          <AngleMark v={M} p={O} q={B} tone="emerald" r={16} />
+        </>
+      )}
+      <Dot p={M} tone="emerald" />
+      <Label p={{ x: M.x + (M.x >= O.x ? 14 : -14), y: M.y + (M.y >= O.y ? 14 : -14) }} tone="emerald" size={15}>M</Label>
+      <PointHandle r={r} deg={phiA} name="A" onMove={p => setPhiA(angleOf(p))} />
+      <PointHandle r={r} deg={phiB} name="B" onMove={p => setPhiB(angleOf(p))} />
+    </Diagram>
+  );
+}
+
+// ---------- Дъга и сектор ----------
+
+function ArcOrSector({ sector }: { sector: boolean }) {
+  const r = 6 * UNIT;
+  const [phiA, setPhiA] = useState(20);
+  const [phiB, setPhiB] = useState(120);
+
+  const alpha = norm(phiB - phiA);
+  const ru = units(r);
+  const length = (Math.PI * ru * alpha) / 180;
+  const area = (Math.PI * ru * ru * alpha) / 360;
+
+  return (
+    <Diagram
+      hint={`Влачи точките A и B. ${sector ? 'Секторът' : 'Дъгата'} е α/360° от ${sector ? 'целия кръг' : 'цялата окръжност'}.`}
+      readout={
+        <>
+          <Readout
+            items={[
+              { label: 'r =', value: fmt(ru) },
+              { label: 'α =', value: `${alpha}°`, tone: 'amber' },
+              { label: 'α/360° ≈', value: fmt(alpha / 360, 3) },
+            ]}
+          />
+          {sector ? (
+            <Formula>
+              S = πr² · α/360° = π · {fmt(ru)}² · {alpha}/360 ≈ {fmt(area, 2)}
+            </Formula>
+          ) : (
+            <Formula>
+              l = 2πr · α/360° = 2π · {fmt(ru)} · {alpha}/360 ≈ {fmt(length, 2)}
+            </Formula>
+          )}
+        </>
+      }
+    >
+      <Circle r={r} away={at(r, phiA + alpha / 2)} />
+      {sector && <path d={arcPath(r, phiA, phiB, true)} className={`${tones.rose.soft} ${tones.rose.stroke}`} strokeWidth="2" />}
+      <Segment p={O} q={at(r, phiA)} tone={sector ? 'rose' : 'gray'} width={sector ? 2.5 : 1.5} dashed={!sector} />
+      <Segment p={O} q={at(r, phiB)} tone={sector ? 'rose' : 'gray'} width={sector ? 2.5 : 1.5} dashed={!sector} />
+      {!sector && <path d={arcPath(r, phiA, phiB)} className={`fill-none ${tones.rose.stroke}`} strokeWidth="6" strokeLinecap="round" />}
+      <CentralAngle from={phiA} to={phiB} r={r} />
+      <Label p={at(r + 22, phiA + alpha / 2)} tone="rose" size={15}>{sector ? 'S' : 'l'}</Label>
+      <PointHandle r={r} deg={phiA} name="A" onMove={p => setPhiA(angleOf(p))} />
+      <PointHandle r={r} deg={phiB} name="B" onMove={p => setPhiB(angleOf(p))} />
+    </Diagram>
+  );
+}
+
+// ---------- Дължина и лице ----------
+
+function AreaCircumference() {
+  const [r, setR] = useState(4 * UNIT);
+  const [phi, setPhi] = useState(30);
+  const ru = units(r);
+  const C = 2 * Math.PI * ru;
+  const S = Math.PI * ru * ru;
+
+  return (
+    <Diagram
+      hint="Влачи точката A. Дължината и лицето се менят, но отношението C : d винаги е π."
+      readout={
+        <>
+          <Readout
+            items={[
+              { label: 'r =', value: fmt(ru), tone: 'rose' },
+              { label: 'd =', value: fmt(2 * ru) },
+              { label: 'C ≈', value: fmt(C, 2), tone: 'blue' },
+              { label: 'S ≈', value: fmt(S, 2), tone: 'blue' },
+            ]}
+          />
+          <Formula>C = 2πr = 2π · {fmt(ru)} ≈ {fmt(C, 2)}</Formula>
+          <Formula>S = πr² = π · {fmt(ru)}² ≈ {fmt(S, 2)}</Formula>
+          <Formula>C : d = {fmt(C, 2)} : {fmt(2 * ru)} = π ≈ 3,14159</Formula>
+        </>
+      }
+    >
+      <circle cx={O.x} cy={O.y} r={r} className={`${tones.blue.soft} ${tones.blue.stroke}`} strokeWidth="4" />
+      <Dot p={O} tone="gray" r={4} />
+      <Label p={{ x: O.x - 12, y: O.y + 14 }} tone="ink" size={16} weight={700}>O</Label>
+      <Segment p={O} q={at(r, phi)} tone="rose" width={3} />
+      <Label p={at(r / 2, phi + 16)} tone="rose" size={15}>r</Label>
+      <PointHandle
+        r={r}
+        deg={phi}
+        name="A"
+        onMove={p => {
+          setR(radiusOf(p));
+          setPhi(angleOf(p));
+        }}
+      />
+    </Diagram>
+  );
+}
+
+// ---------- Радиан ----------
+
+const ONE_RADIAN = 180 / Math.PI;
+
+function Radian() {
+  const r = 6 * UNIT;
+  const [phiA, setPhiA] = useState(-20);
+  const [alpha, setAlpha] = useState(80);
+  const phiB = phiA + alpha;
+
+  const ru = units(r);
+  const radians = rad(alpha);
+  const length = radians * ru;
+  const isOne = Math.abs(alpha - ONE_RADIAN) < 0.6;
+
+  return (
+    <Diagram
+      hint="Влачи точката B, докато дъгата стане равна на радиуса – или натисни бутон."
+      readout={
+        <>
+          <Readout
+            items={[
+              { label: 'r =', value: fmt(ru), tone: 'violet' },
+              { label: 'α =', value: `${fmt(alpha, 1)}°`, tone: 'amber' },
+              { label: 'α =', value: `${fmt(radians, 3)} rad`, tone: 'amber' },
+              { label: 'l =', value: fmt(length, 2), tone: 'rose' },
+            ]}
+          />
+          <Formula>
+            l = α · r = {fmt(radians, 3)} · {fmt(ru)} ≈ {fmt(length, 2)}
+          </Formula>
+          {isOne && <Note>Дъгата е равна на радиуса – това е точно 1 радиан ≈ 57,3°!</Note>}
+          <Buttons>
+            <DiagramButton onClick={() => setAlpha(ONE_RADIAN)} active={isOne}>1 rad</DiagramButton>
+            <DiagramButton onClick={() => setAlpha(90)} active={alpha === 90}>π/2 rad = 90°</DiagramButton>
+            <DiagramButton onClick={() => setAlpha(180)} active={alpha === 180}>π rad = 180°</DiagramButton>
+          </Buttons>
+        </>
+      }
+    >
+      <Circle r={r} away={at(r, phiA + alpha / 2)} />
+      <path d={arcPath(r, phiA, phiB)} className={`fill-none ${tones.rose.stroke}`} strokeWidth="6" strokeLinecap="round" />
+      <Segment p={O} q={at(r, phiA)} tone="violet" width={3} />
+      <Segment p={O} q={at(r, phiB)} tone="gray" width={2} />
+      <Label p={at(r / 2, phiA - 12)} tone="violet" size={15}>r</Label>
+      <Label p={at(r + 22, phiA + alpha / 2)} tone="rose" size={15}>l</Label>
+      <CentralAngle from={phiA} to={phiB} r={r} />
+      <PointHandle
+        r={r}
+        deg={phiA}
+        name="A"
+        onMove={p => setPhiA(angleOf(p))}
+      />
+      <PointHandle
+        r={r}
+        deg={phiB}
+        name="B"
+        onMove={p => {
+          const a = norm(angleOf(p) - phiA);
+          if (a > 0) setAlpha(a);
+        }}
+      />
+    </Diagram>
+  );
+}
+
+export function InteractiveCircle({ type }: InteractiveCircleProps) {
+  switch (type) {
+    case 'basic':
+      return <Basic />;
+    case 'chord':
+      return <Chord />;
+    case 'arc':
+      return <ArcOrSector sector={false} />;
+    case 'sector':
+      return <ArcOrSector sector />;
+    case 'area-circumference':
+      return <AreaCircumference />;
+    case 'radian':
+      return <Radian />;
+  }
 }
