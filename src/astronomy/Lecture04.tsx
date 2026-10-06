@@ -1,28 +1,89 @@
-import {useState} from 'react';
+import { useState } from 'react';
+import Example from '~/Example';
+import Quiz, { type Question } from '~/Quiz';
+import Theorem from '~/Theorem';
+import LunarEclipse from './components/LunarEclipse';
+import MoonPhases from './components/MoonPhases';
+import Task from './components/Task';
+
+const QUIZ: Question[] = [
+  {
+    question: 'Защо Луната има фази?',
+    answers: [
+      'Сянката на Земята пада върху нея',
+      'Виждаме различна част от осветената ѝ половина',
+      'Облаци закриват част от нея',
+      'Луната свети с различна сила',
+    ],
+    correctAnswer: 'Виждаме различна част от осветената ѝ половина',
+  },
+  {
+    question:
+      'Вечер след залез виждате тънък сърп ниско на запад. Каква е фазата?',
+    answers: [
+      'Растящ сърп',
+      'Намаляващ сърп',
+      'Пълнолуние',
+      'Последна четвърт',
+    ],
+    correctAnswer: 'Растящ сърп',
+  },
+  {
+    question: 'Кога изгрява пълната Луна?',
+    answers: ['Около 6:00', 'Около обяд', 'Около залез', 'Около полунощ'],
+    correctAnswer: 'Около залез',
+  },
+  {
+    question: 'При коя фаза е възможно лунно затъмнение?',
+    answers: ['Новолуние', 'Първа четвърт', 'Пълнолуние', 'При всяка фаза'],
+    correctAnswer: 'Пълнолуние',
+  },
+  {
+    question: 'Защо не всяко пълнолуние е затъмнение?',
+    answers: [
+      'Земната сянка е твърде малка',
+      'Лунната орбита е наклонена на ~5° към еклиптиката',
+      'Луната е твърде далеч',
+      'Земята не е кръгла',
+    ],
+    correctAnswer: 'Лунната орбита е наклонена на ~5° към еклиптиката',
+  },
+];
+
+const MONTHS = [
+  {
+    name: 'Сидеричен (звезден)',
+    days: '27,32',
+    meaning: 'оборот спрямо звездите',
+  },
+  {
+    name: 'Синодичен',
+    days: '29,53',
+    meaning: 'от новолуние до новолуние – цикълът на фазите',
+  },
+  {
+    name: 'Драконичен',
+    days: '27,21',
+    meaning: 'от възел до същия възел – важен за затъмненията',
+  },
+  {
+    name: 'Аномалистичен',
+    days: '27,55',
+    meaning: 'от перигей до перигей',
+  },
+];
 
 export default function Lecture04() {
-  const [moonPhase, setMoonPhase] = useState(0); // 0-7 за 8-те фази
-  const [showSolutions, setShowSolutions] = useState<{ [key: string]: boolean }>({});
+  const [showSolutions, setShowSolutions] = useState<{
+    [key: string]: boolean;
+  }>({});
 
-  const toggleSolution = (taskId: string) => {
-    setShowSolutions(prev => ({ ...prev, [taskId]: !prev[taskId] }));
-  };
-
-  const phases = [
-    { name: 'Новолуние', angle: 0, icon: '🌑' },
-    { name: 'Млад месец', angle: 45, icon: '🌒' },
-    { name: 'Първа четвърт', angle: 90, icon: '🌓' },
-    { name: 'Нарастваща луна', angle: 135, icon: '🌔' },
-    { name: 'Пълнолуние', angle: 180, icon: '🌕' },
-    { name: 'Намаляваща луна', angle: 225, icon: '🌖' },
-    { name: 'Последна четвърт', angle: 270, icon: '🌗' },
-    { name: 'Стара луна', angle: 315, icon: '🌘' },
-  ];
-
-  const currentPhase = phases[moonPhase];
-  const moonAngleRad = (currentPhase.angle * Math.PI) / 180;
-  const moonX = 300 + 150 * Math.cos(moonAngleRad);
-  const moonY = 200 + 150 * Math.sin(moonAngleRad);
+  const task = (id: string) => ({
+    id,
+    shown: !!showSolutions[id],
+    onToggle: (taskId: string) =>
+      setShowSolutions(prev => ({ ...prev, [taskId]: !prev[taskId] })),
+  });
 
   return (
     <main className="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8">
@@ -31,288 +92,178 @@ export default function Lecture04() {
           Лекция 4: Фази на Луната и лунни затъмнения
         </h1>
 
+        <div className="bg-gradient-to-br from-indigo-900 to-slate-900 text-white p-6 rounded-2xl mb-8 shadow-lg">
+          <p className="text-lg sm:text-xl leading-relaxed">
+            🌙 Още преди 2300 години Аристотел забелязал, че при лунно
+            затъмнение сянката на Земята върху Луната винаги е кръгла – и
+            заключил, че Земята е кълбо. Малко по-късно Аристарх измерил тази
+            сянка и пресметнал колко голяма е Луната. В тази лекция ще можете да
+            повторите и двете открития.
+          </p>
+        </div>
+
         <section className="mb-8">
           <h2 className="text-xl sm:text-2xl font-semibold mb-4">
             1. Фази на Луната
           </h2>
           <p className="mb-4 text-base sm:text-lg leading-relaxed">
-            Луната не излъчва собствена светлина, а отразява слънчевата. Поради
-            движението ѝ около Земята, виждаме различни части от осветената ѝ
-            страна, което създава фазите.
+            Луната не излъчва собствена светлина, а отразява слънчевата.{' '}
+            <strong>Винаги е осветена точно половината ѝ</strong> – тази,
+            обърната към Слънцето. Докато Луната обикаля Земята, ние гледаме
+            тази осветена половина под различен ъгъл и виждаме различна част от
+            нея. Това са фазите.
           </p>
 
-          {/* Интерактивна визуализация на фазите */}
-          <div className="bg-white dark:bg-gray-800 p-4 rounded-lg border-2 border-blue-300 dark:border-blue-600 mb-6">
-            <h3 className="font-semibold mb-3 text-center">Интерактивна визуализация на лунните фази</h3>
-            <p className="text-sm text-center mb-4 text-gray-600 dark:text-gray-400">
-              Използвайте бутоните или плъзгача, за да видите различните фази
-            </p>
-
-            {/* Бутони за фази */}
-            <div className="flex justify-center gap-2 mb-4 flex-wrap">
-              {phases.map((phase, index) => (
-                <button
-                  key={index}
-                  onClick={() => setMoonPhase(index)}
-                  className={`px-2 py-1 rounded text-sm ${moonPhase === index ? 'bg-blue-500 text-white' : 'bg-gray-200 dark:bg-gray-700'}`}
-                  title={phase.name}
-                >
-                  {phase.icon}
-                </button>
-              ))}
-            </div>
-
-            <svg viewBox="0 0 600 400" className="w-full h-auto" style={{ maxHeight: '400px' }}>
-              {/* Орбита на Луната */}
-              <circle cx="300" cy="200" r="150" fill="none" stroke="rgb(156, 163, 175)" strokeWidth="2" strokeDasharray="5,5" />
-
-              {/* Земя в центъра */}
-              <circle cx="300" cy="200" r="30" fill="rgb(59, 130, 246)" />
-              <circle cx="300" cy="200" r="30" fill="none" stroke="rgb(34, 197, 94)" strokeWidth="2" />
-              <text x="300" y="250" fontSize="12" fontWeight="bold" textAnchor="middle" fill="currentColor">Земя</text>
-
-              {/* Слънчеви лъчи (отляво) */}
-              {[-60, -40, -20, 0, 20, 40, 60].map((offset, i) => (
-                <line
-                  key={i}
-                  x1="0"
-                  y1={200 + offset}
-                  x2="100"
-                  y2={200 + offset}
-                  stroke="rgb(251, 191, 36)"
-                  strokeWidth="2"
-                  opacity="0.5"
-                >
-                  <animate
-                    attributeName="opacity"
-                    values="0.3;0.7;0.3"
-                    dur="3s"
-                    begin={`${i * 0.2}s`}
-                    repeatCount="indefinite"
-                  />
-                </line>
-              ))}
-              <text x="10" y="150" fontSize="14" fontWeight="bold" fill="rgb(251, 191, 36)">☀️ Слънце</text>
-
-              {/* Луна на текущата позиция */}
-              <g>
-                {/* Пълен кръг (основа) */}
-                <circle cx={moonX} cy={moonY} r="25" fill="rgb(200, 200, 200)" />
-
-                {/* Тъмна половина - зависи от позицията спрямо Слънцето */}
-                {/* Слънцето е отляво (angle 180° = пълнолуние, Луната отдясно) */}
-                {(() => {
-                  // Ъгъл на Луната спрямо Слънцето (0° = новолуние, 180° = пълнолуние)
-                  const phaseAngle = currentPhase.angle;
-                  
-                  // При 0° (новолуние): тъмна страна към нас (цялата Луна тъмна)
-                  // При 180° (пълнолуние): светла страна към нас (цялата Луна светла)
-                  
-                  if (phaseAngle === 0) {
-                    // Новолуние - цялата Луна е тъмна
-                    return <circle cx={moonX} cy={moonY} r="25" fill="rgb(60, 60, 60)" />;
-                  } else if (phaseAngle === 180) {
-                    // Пълнолуние - цялата Луна е светла (вече е светла от основния кръг)
-                    return null;
-                  } else if (phaseAngle < 180) {
-                    // Нарастваща (0° → 180°): тъмна страна отляво, светла отдясно
-                    const width = 25 * Math.cos(moonAngleRad);
-                    return (
-                      <path
-                        d={`M ${moonX},${moonY - 25} A 25,25 0 0,0 ${moonX},${moonY + 25} A ${Math.abs(width)},25 0 0,${phaseAngle < 90 ? 0 : 1} ${moonX},${moonY - 25}`}
-                        fill="rgb(60, 60, 60)"
-                      />
-                    );
-                  } else {
-                    // Намаляваща (180° → 360°): тъмна страна отдясно, светла отляво
-                    const width = 25 * Math.abs(Math.cos(moonAngleRad));
-                    return (
-                      <path
-                        d={`M ${moonX},${moonY - 25} A 25,25 0 0,1 ${moonX},${moonY + 25} A ${width},25 0 0,${phaseAngle > 270 ? 0 : 1} ${moonX},${moonY - 25}`}
-                        fill="rgb(60, 60, 60)"
-                      />
-                    );
-                  }
-                })()}
-
-                <circle cx={moonX} cy={moonY} r="25" fill="none" stroke="white" strokeWidth="2" />
-              </g>
-
-              {/* Етикет на фазата */}
-              <text
-                x={moonX}
-                y={moonY + 45}
-                fontSize="13"
-                fontWeight="bold"
-                textAnchor="middle"
-                fill="currentColor"
-              >
-                {currentPhase.name}
-              </text>
-
-              {/* Стрелка за посока на движение */}
-              <path
-                d={`M ${300 + 170 * Math.cos(moonAngleRad)},${200 + 170 * Math.sin(moonAngleRad)}
-                    A 170,170 0 0,1 ${300 + 170 * Math.cos(moonAngleRad + 0.5)},${200 + 170 * Math.sin(moonAngleRad + 0.5)}`}
-                fill="none"
-                stroke="rgb(168, 85, 247)"
-                strokeWidth="2"
-                markerEnd="url(#arrowMoon)"
-              />
-
-              <defs>
-                <marker id="arrowMoon" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
-                  <polygon points="0 0, 10 3, 0 6" fill="rgb(168, 85, 247)" />
-                </marker>
-              </defs>
-            </svg>
-
-            {/* Плъзгач за фази */}
-            <div className="mt-4">
-              <label className="block text-sm font-semibold mb-2 text-center">
-                {currentPhase.icon} {currentPhase.name} (Ден {Math.round((moonPhase / 8) * 29.5)} от цикъла)
-              </label>
-              <input
-                type="range"
-                min="0"
-                max="7"
-                value={moonPhase}
-                onChange={(e) => setMoonPhase(Number(e.target.value))}
-                className="w-full"
-              />
-            </div>
-
-            <div className="mt-4 p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
-              <h4 className="font-semibold mb-2">Обяснение:</h4>
-              <p className="text-sm">
-                Луната обикаля около Земята за <strong>29.5 дни</strong> (синодичен месец).
-                Винаги половината от Луната, обърната към Слънцето, е осветена. Фазите
-                зависят от това коя част от осветената половина виждаме от Земята.
-              </p>
-            </div>
-          </div>
+          <MoonPhases />
 
           <div className="bg-blue-50 dark:bg-gray-700 p-4 rounded-lg mb-4">
-            <h3 className="font-semibold mb-2">Основни фази (цикъл 29.5 дни):</h3>
-            <ul className="list-disc list-inside space-y-2">
-              <li><strong>🌑 Новолуние</strong> – Луната е между Земята и Слънцето, невидима</li>
-              <li><strong>🌒 Млад месец</strong> – тънък сърп на запад след залез</li>
-              <li><strong>🌓 Първа четвърт</strong> – виждаме половината от Луната</li>
-              <li><strong>🌔 Нарастваща луна</strong> – повече от половината е видима</li>
-              <li><strong>🌕 Пълнолуние</strong> – цялата осветена страна е видима</li>
-              <li><strong>🌖 Намаляваща луна</strong> – след пълнолуние</li>
-              <li><strong>🌗 Последна четвърт</strong> – отново половин луна</li>
-              <li><strong>🌘 Стара луна</strong> – тънък сърп преди новолуние</li>
+            <h3 className="font-semibold mb-2">
+              Основни фази (цикъл 29,53 дни):
+            </h3>
+            <ul className="space-y-2">
+              <li>
+                <strong>🌑 Новолуние</strong> – Луната е между Земята и
+                Слънцето; обърната е към нас с тъмната си страна и изгрява и
+                залязва заедно със Слънцето
+              </li>
+              <li>
+                <strong>🌒 Растящ сърп</strong> – вечер ниско на запад след
+                залез
+              </li>
+              <li>
+                <strong>🌓 Първа четвърт</strong> – осветена е дясната половина;
+                най-високо е около залез
+              </li>
+              <li>
+                <strong>🌔 Растяща Луна</strong> – повече от половината е
+                осветена
+              </li>
+              <li>
+                <strong>🌕 Пълнолуние</strong> – Луната е срещу Слънцето,
+                изгрява при залез и свети цяла нощ
+              </li>
+              <li>
+                <strong>🌖 Намаляваща Луна</strong> – изгрява след залез
+              </li>
+              <li>
+                <strong>🌗 Последна четвърт</strong> – осветена е лявата
+                половина; най-високо е около изгрев
+              </li>
+              <li>
+                <strong>🌘 Намаляващ сърп</strong> – сутрин ниско на изток преди
+                изгрев
+              </li>
             </ul>
+          </div>
+
+          <div className="bg-amber-50 dark:bg-amber-900/20 border-l-4 border-amber-500 p-4 rounded mb-4">
+            <p className="font-semibold mb-1">
+              🔤 Лесно правило (за северното полукълбо)
+            </p>
+            <p>
+              Ако сърпът прилича на буквата <strong>С</strong> – Луната е{' '}
+              <strong>С</strong>тара (намалява). Ако допишете чертичка и стане{' '}
+              <strong>Р</strong> – Луната <strong>Р</strong>асте. В южното
+              полукълбо е обратно – пробвайте в симулатора!
+            </p>
+          </div>
+
+          <div className="grid sm:grid-cols-2 gap-3 mb-4">
+            <div className="bg-indigo-50 dark:bg-indigo-900/20 p-4 rounded-lg">
+              <h3 className="font-semibold mb-1">🌍 Пепелява светлина</h3>
+              <p className="text-sm">
+                Около новолуние понякога се вижда бледо и „тъмната“ част на
+                Луната. Тя е осветена от светлината, отразена от Земята. Пръв
+                правилно го е обяснил Леонардо да Винчи.
+              </p>
+            </div>
+            <div className="bg-indigo-50 dark:bg-indigo-900/20 p-4 rounded-lg">
+              <h3 className="font-semibold mb-1">🔒 Едната страна</h3>
+              <p className="text-sm">
+                Луната се завърта около оста си за същото време, за което
+                обикаля Земята (27,32 дни). Затова винаги е обърната към нас с
+                едната страна. Благодарение на либрацията (люлеене) общо виждаме
+                около 59% от повърхността ѝ.
+              </p>
+            </div>
           </div>
         </section>
 
         <section className="mb-8">
           <h2 className="text-xl sm:text-2xl font-semibold mb-4">
-            2. Лунни затъмнения
+            2. Сидеричен и синодичен месец
           </h2>
           <p className="mb-4 text-base sm:text-lg leading-relaxed">
-            Лунното затъмнение настъпва, когато Земята се намира между Слънцето и
-            Луната, и сянката на Земята пада върху Луната. Това може да се случи
-            само при пълнолуние.
+            Също като при звездното и слънчевото денонощие (Лекция 3): докато
+            Луната обикаля Земята, Земята се премества по орбитата си и Слънцето
+            „избягва“ напред. За да настигне Слънцето, Луната трябва да измине
+            още ~2 дни.
+          </p>
+          <div className="overflow-x-auto mb-4">
+            <table className="w-full text-sm border border-gray-200 dark:border-gray-700">
+              <thead className="bg-gray-100 dark:bg-gray-700">
+                <tr>
+                  <th className="p-2 text-left">Месец</th>
+                  <th className="p-2 text-left">Дни</th>
+                  <th className="p-2 text-left">Определение</th>
+                </tr>
+              </thead>
+              <tbody>
+                {MONTHS.map(m => (
+                  <tr
+                    key={m.name}
+                    className="border-t border-gray-200 dark:border-gray-700"
+                  >
+                    <td className="p-2 font-semibold">{m.name}</td>
+                    <td className="p-2 font-mono">{m.days}</td>
+                    <td className="p-2">{m.meaning}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <Theorem
+            title="Уравнение на синодичния период"
+            description="Ако T★ е сидеричният месец, а T⊕ = 365,26 дни е годината, синодичният месец S се определя от 1/S = 1/T★ − 1/T⊕. Ъгловата скорост на Луната спрямо Слънцето е разликата от ъгловите скорости на Луната и на Слънцето."
+          />
+          <Example
+            description="Пресметнете синодичния месец от сидеричния T★ = 27,32 дни."
+            steps={[
+              '1/S = 1/27,32 − 1/365,26 = 0,03660 − 0,00274 = 0,03387 (1/ден)',
+              'S = 1 / 0,03387 ≈ 29,53 дни',
+              'Разликата от ~2,2 дни е времето, за което Луната „догонва“ Слънцето, изминало ~29° по еклиптиката.',
+            ]}
+          />
+        </section>
+
+        <section className="mb-8">
+          <h2 className="text-xl sm:text-2xl font-semibold mb-4">
+            3. Лунни затъмнения
+          </h2>
+          <p className="mb-4 text-base sm:text-lg leading-relaxed">
+            Лунно затъмнение настъпва, когато Луната навлезе в сянката на
+            Земята. Слънцето, Земята и Луната трябва да са почти на една права,
+            като Земята е по средата – затова затъмнението е възможно само при
+            пълнолуние. То се вижда от цялото нощно полукълбо едновременно и е
+            напълно безопасно за наблюдение с просто око.
           </p>
 
-          {/* Визуализация на лунно затъмнение */}
-          <div className="bg-white dark:bg-gray-800 p-4 rounded-lg border-2 border-red-300 dark:border-red-600 mb-6">
-            <h3 className="font-semibold mb-3 text-center">Лунно затъмнение</h3>
-
-            <svg viewBox="0 0 700 300" className="w-full h-auto" style={{ maxHeight: '300px' }}>
-              {/* Слънце */}
-              <circle cx="50" cy="150" r="30" fill="rgb(251, 191, 36)" />
-              <text x="50" y="200" fontSize="12" fontWeight="bold" textAnchor="middle" fill="currentColor">Слънце</text>
-
-              {/* Слънчеви лъчи */}
-              {[-40, -20, 0, 20, 40].map((offset, i) => (
-                <line
-                  key={i}
-                  x1="80"
-                  y1={150 + offset}
-                  x2="200"
-                  y2={150 + offset * 0.5}
-                  stroke="rgb(251, 191, 36)"
-                  strokeWidth="2"
-                  opacity="0.4"
-                />
-              ))}
-
-              {/* Земя */}
-              <circle cx="300" cy="150" r="40" fill="rgb(59, 130, 246)" />
-              <circle cx="300" cy="150" r="40" fill="none" stroke="rgb(34, 197, 94)" strokeWidth="2" />
-              <text x="300" y="210" fontSize="12" fontWeight="bold" textAnchor="middle" fill="currentColor">Земя</text>
-
-              {/* Сянка на Земята (конус) */}
-              <path
-                d="M 300,110 L 600,50 L 600,250 L 300,190 Z"
-                fill="rgba(0, 0, 0, 0.3)"
-                stroke="rgb(100, 100, 100)"
-                strokeWidth="1"
-                strokeDasharray="3,3"
-              />
-              <text x="450" y="100" fontSize="11" fill="rgb(100, 100, 100)" fontWeight="bold">Сянка</text>
-
-              {/* Полусянка */}
-              <path
-                d="M 300,90 L 650,20 M 300,210 L 650,280"
-                stroke="rgb(150, 150, 150)"
-                strokeWidth="1"
-                strokeDasharray="3,3"
-                opacity="0.5"
-              />
-              <text x="500" y="40" fontSize="10" fill="rgb(150, 150, 150)">Полусянка</text>
-
-              {/* Луна в сянката */}
-              <circle cx="550" cy="150" r="20" fill="rgb(139, 69, 19)">
-                <animate attributeName="fill" values="rgb(220,220,220);rgb(139,69,19);rgb(220,220,220)" dur="6s" repeatCount="indefinite" />
-              </circle>
-              <circle cx="550" cy="150" r="20" fill="none" stroke="white" strokeWidth="1" />
-              <text x="550" y="185" fontSize="12" fontWeight="bold" textAnchor="middle" fill="currentColor">Луна</text>
-
-              {/* Стрелка показваща движението */}
-              <path
-                d="M 520,130 L 580,130"
-                stroke="rgb(168, 85, 247)"
-                strokeWidth="2"
-                markerEnd="url(#arrowLunar)"
-              />
-
-              <defs>
-                <marker id="arrowLunar" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
-                  <polygon points="0 0, 10 3, 0 6" fill="rgb(168, 85, 247)" />
-                </marker>
-              </defs>
-            </svg>
-
-            <div className="mt-4 p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
-              <h4 className="font-semibold mb-2">Условия за лунно затъмнение:</h4>
-              <ul className="text-sm space-y-2">
-                <li>✓ Трябва да е <strong>пълнолуние</strong></li>
-                <li>✓ Луната трябва да премине през сянката на Земята</li>
-                <li>✓ Слънце - Земя - Луна трябва да са почти на една права</li>
-                <li>✓ Луната трябва да е близо до възел (пресечна точка на орбитите)</li>
-              </ul>
-            </div>
-          </div>
+          <LunarEclipse />
 
           <div className="bg-red-50 dark:bg-red-900/20 p-4 rounded-lg mb-4">
             <h3 className="font-semibold mb-2">Видове лунни затъмнения:</h3>
             <ul className="list-disc list-inside space-y-2">
               <li>
-                <strong>Пълно лунно затъмнение</strong> – Луната изцяло влиза в
-                сянката на Земята. Луната придобива червеникав цвят ("кървава луна").
-                Продължителност: до 107 минути.
+                <strong>Пълно</strong> – Луната изцяло е в сянката и става
+                медночервена („кървава Луна“). Пълната фаза трае до ~1h 47m.
               </li>
               <li>
-                <strong>Частично лунно затъмнение</strong> – само част от Луната
-                влиза в сянката на Земята
+                <strong>Частично</strong> – само част от Луната навлиза в
+                сянката; тъмният „отхапан“ край е дъга от земната сянка.
               </li>
               <li>
-                <strong>Полусянково затъмнение</strong> – Луната преминава през
-                полусянката, едва забележимо
+                <strong>Полусянково</strong> – Луната минава само през
+                полусянката; потъмняването е едва забележимо.
               </li>
             </ul>
           </div>
@@ -320,205 +271,349 @@ export default function Lecture04() {
 
         <section className="mb-8">
           <h2 className="text-xl sm:text-2xl font-semibold mb-4">
-            3. Защо Луната става червена?
+            4. Защо Луната става червена?
           </h2>
           <p className="mb-4 text-base sm:text-lg leading-relaxed">
-            По време на пълно лунно затъмнение, Луната придобива червеникав цвят.
-            Това се дължи на атмосферата на Земята, която пречупва и разсейва
-            слънчевата светлина.
+            Дори в пълната сянка Луната не изчезва. Слънчевите лъчи, минали през
+            земната атмосфера, се пречупват и завиват към сянката.
           </p>
-
           <div className="bg-orange-50 dark:bg-orange-900/20 p-4 rounded-lg mb-4">
             <h3 className="font-semibold mb-2">Механизъм:</h3>
             <ul className="list-disc list-inside space-y-2">
-              <li>Слънчевата светлина преминава през атмосферата на Земята</li>
-              <li>Синята светлина се разсейва (същият ефект като синьото небе)</li>
-              <li>Червената светлина се пречупва и достига до Луната</li>
-              <li>Колкото по-замърсена е атмосферата, толкова по-тъмна е Луната</li>
+              <li>
+                Атмосферата действа като леща и пречупва светлината навътре в
+                сянката
+              </li>
+              <li>
+                Синята светлина се разсейва по пътя (разсейване на Рейли –
+                затова небето е синьо)
+              </li>
+              <li>
+                До Луната достига предимно червената светлина – светлината на
+                всички изгреви и залези на Земята в този момент
+              </li>
+              <li>
+                Колкото повече прах и облаци има в атмосферата (например след
+                вулканично изригване), толкова по-тъмна е Луната
+              </li>
+            </ul>
+            <p className="mt-3 text-sm">
+              Яркостта се оценява по <strong>скалата на Данжон</strong>: от L =
+              0 (почти невидима, черна Луна) до L = 4 (ярка медно-оранжева
+              Луна).
+            </p>
+          </div>
+        </section>
+
+        <section className="mb-8">
+          <h2 className="text-xl sm:text-2xl font-semibold mb-4">
+            5. Защо затъмненията не се случват всеки месец?
+          </h2>
+          <p className="mb-4 text-base sm:text-lg leading-relaxed">
+            Орбитата на Луната е наклонена на <strong>i ≈ 5,1°</strong> спрямо
+            еклиптиката. Сянката на Земята винаги лежи на еклиптиката, а при
+            повечето пълнолуния Луната минава над или под нея – на β до ±5,1°,
+            докато радиусът на сянката е само ~0,7°.
+          </p>
+          <div className="bg-purple-50 dark:bg-purple-900/20 p-4 rounded-lg mb-4">
+            <h3 className="font-semibold mb-2">
+              Възли и сезони на затъмненията
+            </h3>
+            <ul className="list-disc list-inside space-y-2">
+              <li>
+                <strong>Възли</strong> са двете точки, в които лунната орбита
+                пресича еклиптиката. Затъмнение има само ако пълнолунието е
+                близо до възел.
+              </li>
+              <li>
+                Ако пълнолунието е на по-малко от ~5° от възела, затъмнението е
+                пълно, до ~11° – частично, до ~17° – полусянково (проверете с
+                плъзгача в симулатора).
+              </li>
+              <li>
+                Слънцето минава през всеки възел веднъж на 346,6 дни
+                (затъмнителна година). Затова на всеки ~173 дни настъпва „сезон
+                на затъмненията“.
+              </li>
+              <li>
+                Годишно има от 2 до 5 лунни затъмнения (заедно с полусянковите).
+              </li>
+              <li>
+                <strong>Сарос:</strong> 223 синодични месеца ≈ 242 драконични
+                месеца ≈ 18 години 11 дни 8 часа. След един сарос затъмненията
+                се повтарят почти същите – така древните вавилонци са ги
+                предсказвали.
+              </li>
             </ul>
           </div>
         </section>
 
         <section className="mb-8">
           <h2 className="text-xl sm:text-2xl font-semibold mb-4">
-            4. Защо затъмненията не се случват всеки месец?
+            6. ✅ Провери се
           </h2>
-          <p className="mb-4 text-base sm:text-lg leading-relaxed">
-            Орбитата на Луната е наклонена под ъгъл от около <strong>5°</strong> спрямо
-            еклиптиката (орбитата на Земята). Затова Луната обикновено минава над или
-            под сянката на Земята при пълнолуние.
-          </p>
-
-          <div className="bg-purple-50 dark:bg-purple-900/20 p-4 rounded-lg mb-4">
-            <h3 className="font-semibold mb-2">Възли на орбитата:</h3>
-            <p className="mb-2">
-              Затъмнения се случват само когато пълнолунието съвпадне с <strong>възел</strong> –
-              точка, където орбитата на Луната пересича еклиптиката.
-            </p>
-            <p className="mt-2">
-              Затова лунните затъмнения се случват 2-5 пъти годишно (включително полусянкови).
-            </p>
-          </div>
+          <Quiz questions={QUIZ} />
         </section>
 
         <section className="mb-8">
           <h2 className="text-xl sm:text-2xl font-semibold mb-4">
-            📝 Задачи за упражнение
+            7. 📝 Задачи за упражнение
           </h2>
 
-          {/* Ниво А */}
           <div className="mb-6">
             <h3 className="text-lg font-semibold mb-3 text-green-600 dark:text-green-400">
               Ниво А (Областен кръг)
             </h3>
 
-            <div className="bg-white dark:bg-gray-800 p-4 rounded-lg mb-4 border-l-4 border-green-500">
-              <p className="font-semibold mb-2">1. Колко дни продължава един пълен цикъл на лунните фази?</p>
-              <button
-                onClick={() => toggleSolution('a1')}
-                className="text-blue-600 dark:text-blue-400 hover:underline text-sm"
-              >
-                {showSolutions['a1'] ? '▼ Скрий решението' : '▶ Покажи решението'}
-              </button>
-              {showSolutions['a1'] && (
-                <div className="mt-3 p-3 bg-blue-50 dark:bg-blue-900/20 rounded">
-                  <p className="font-semibold">Отговор: 29.5 дни (синодичен месец)</p>
-                  <p className="mt-2">Обяснение: Това е времето от едно новолуние до следващото.
-                  Различава се от сидеричния месец (27.3 дни), който е времето за пълен оборот
-                  спрямо звездите, защото Земята също се движи по орбитата си.</p>
-                </div>
-              )}
-            </div>
+            <Task
+              {...task('a1')}
+              number={1}
+              color="border-green-500"
+              question="Колко дни продължава един пълен цикъл на лунните фази?"
+            >
+              <p className="font-semibold">
+                Отговор: 29,53 дни (синодичен месец)
+              </p>
+              <p>
+                Това е времето от едно новолуние до следващото. То е по-дълго от
+                сидеричния месец (27,32 дни), защото междувременно Земята се
+                придвижва по орбитата си.
+              </p>
+            </Task>
 
-            <div className="bg-white dark:bg-gray-800 p-4 rounded-lg mb-4 border-l-4 border-green-500">
-              <p className="font-semibold mb-2">2. При коя фаза на Луната може да се случи лунно затъмнение?</p>
-              <button
-                onClick={() => toggleSolution('a2')}
-                className="text-blue-600 dark:text-blue-400 hover:underline text-sm"
-              >
-                {showSolutions['a2'] ? '▼ Скрий решението' : '▶ Покажи решението'}
-              </button>
-              {showSolutions['a2'] && (
-                <div className="mt-3 p-3 bg-blue-50 dark:bg-blue-900/20 rounded">
-                  <p className="font-semibold">Отговор: При пълнолуние</p>
-                  <p className="mt-2">Обяснение: Лунното затъмнение се случва, когато Земята е
-                  между Слънцето и Луната. Това е възможно само при пълнолуние, когато Луната
-                  е от противоположната страна на Земята спрямо Слънцето.</p>
-                </div>
-              )}
-            </div>
+            <Task
+              {...task('a2')}
+              number={2}
+              color="border-green-500"
+              question="При коя фаза на Луната може да има лунно затъмнение?"
+            >
+              <p className="font-semibold">Отговор: само при пълнолуние</p>
+              <p>
+                Само тогава Земята е между Слънцето и Луната и сянката ѝ може да
+                падне върху Луната.
+              </p>
+            </Task>
 
-            <div className="bg-white dark:bg-gray-800 p-4 rounded-lg mb-4 border-l-4 border-green-500">
-              <p className="font-semibold mb-2">3. Защо Луната става червена по време на пълно затъмнение?</p>
-              <button
-                onClick={() => toggleSolution('a3')}
-                className="text-blue-600 dark:text-blue-400 hover:underline text-sm"
-              >
-                {showSolutions['a3'] ? '▼ Скрий решението' : '▶ Покажи решението'}
-              </button>
-              {showSolutions['a3'] && (
-                <div className="mt-3 p-3 bg-blue-50 dark:bg-blue-900/20 rounded">
-                  <p className="font-semibold">Решение:</p>
-                  <p className="mt-2">Атмосферата на Земята пречупва слънчевата светлина.
-                  Синята светлина се разсейва, докато червената светлина се пречупва и
-                  достига до Луната. Това е същият ефект, който прави залезите червени.</p>
-                </div>
-              )}
-            </div>
+            <Task
+              {...task('a3')}
+              number={3}
+              color="border-green-500"
+              question="Защо Луната става червена по време на пълно затъмнение?"
+            >
+              <p>
+                Земната атмосфера пречупва слънчевата светлина и я отклонява към
+                сянката. По пътя синята светлина се разсейва, а червената
+                преминава. Луната е осветена от „светлината на всички залези и
+                изгреви“ на Земята.
+              </p>
+            </Task>
+
+            <Task
+              {...task('a4')}
+              number={4}
+              color="border-green-500"
+              question="Луната е в първа четвърт. По кое време на денонощието е най-високо над хоризонта и в коя посока?"
+            >
+              <p>
+                При първа четвърт Луната е на 90° източно от Слънцето. Тя
+                изостава от него с 90° / 15° = 6 часа и кулминира около{' '}
+                <strong>18:00, на юг</strong>. Изгрява около обяд и залязва
+                около полунощ.
+              </p>
+            </Task>
+
+            <Task
+              {...task('a5')}
+              number={5}
+              color="border-green-500"
+              question="Защо от Земята винаги виждаме една и съща страна на Луната?"
+            >
+              <p>
+                Периодът на въртене на Луната около оста ѝ е равен на периода на
+                обикалянето ѝ около Земята (27,32 дни) – т.нар. синхронно
+                въртене. То е резултат от приливното взаимодействие със Земята.
+              </p>
+            </Task>
           </div>
 
-          {/* Ниво В */}
           <div className="mb-6">
             <h3 className="text-lg font-semibold mb-3 text-yellow-600 dark:text-yellow-400">
               Ниво В (Национален кръг)
             </h3>
 
-            <div className="bg-white dark:bg-gray-800 p-4 rounded-lg mb-4 border-l-4 border-yellow-500">
-              <p className="font-semibold mb-2">4. Защо лунните затъмнения не се случват всеки месец при пълнолуние?</p>
-              <button
-                onClick={() => toggleSolution('b4')}
-                className="text-blue-600 dark:text-blue-400 hover:underline text-sm"
-              >
-                {showSolutions['b4'] ? '▼ Скрий решението' : '▶ Покажи решението'}
-              </button>
-              {showSolutions['b4'] && (
-                <div className="mt-3 p-3 bg-blue-50 dark:bg-blue-900/20 rounded">
-                  <p className="font-semibold">Решение:</p>
-                  <p className="mt-2">Орбитата на Луната е наклонена под ъгъл от около 5° спрямо
-                  еклиптиката (орбитата на Земята). Поради този наклон, при повечето пълнолуния
-                  Луната минава над или под сянката на Земята.</p>
-                  <p className="mt-2">Затъмнения се случват само когато пълнолунието съвпадне с
-                  <strong> възел</strong> – точка, където орбитата на Луната пресича еклиптиката.
-                  Това се случва 2-5 пъти годишно.</p>
-                </div>
-              )}
-            </div>
+            <Task
+              {...task('b1')}
+              number={6}
+              color="border-yellow-500"
+              question="Защо лунните затъмнения не се случват всяко пълнолуние?"
+            >
+              <p>
+                Орбитата на Луната е наклонена на ~5,1° спрямо еклиптиката, а
+                сянката на Земята е на еклиптиката и има радиус само ~0,7°. При
+                повечето пълнолуния Луната минава над или под нея.
+              </p>
+              <p>
+                Затъмнение настъпва само когато пълнолунието е близо до{' '}
+                <strong>възел</strong> на лунната орбита – това става в два
+                „сезона на затъмненията“ годишно.
+              </p>
+            </Task>
 
-            <div className="bg-white dark:bg-gray-800 p-4 rounded-lg mb-4 border-l-4 border-yellow-500">
-              <p className="font-semibold mb-2">5. Колко максимално може да продължи пълно лунно затъмнение?</p>
-              <button
-                onClick={() => toggleSolution('b5')}
-                className="text-blue-600 dark:text-blue-400 hover:underline text-sm"
-              >
-                {showSolutions['b5'] ? '▼ Скрий решението' : '▶ Покажи решението'}
-              </button>
-              {showSolutions['b5'] && (
-                <div className="mt-3 p-3 bg-blue-50 dark:bg-blue-900/20 rounded">
-                  <p className="font-semibold">Отговор: До 107 минути (около 1 час и 47 минути)</p>
-                  <p className="mt-2">Обяснение: Максималната продължителност зависи от това
-                  колко централно Луната преминава през сянката на Земята и от разстоянието на
-                  Луната от Земята. Най-дългите затъмнения се случват, когато Луната е в афелий
-                  (най-далеч от Земята) и преминава през центъра на сянката.</p>
-                </div>
-              )}
-            </div>
+            <Task
+              {...task('b2')}
+              number={7}
+              color="border-yellow-500"
+              question="Колко най-много може да трае пълната фаза на лунно затъмнение? При какви условия?"
+            >
+              <p className="font-semibold">Отговор: около 1h 47m</p>
+              <p>
+                Най-дълго е, когато Луната минава през центъра на сянката и е в{' '}
+                <strong>апогей</strong> (най-далеч от Земята). Тогава тя
+                изглежда най-малка и се движи най-бавно по небето. Помага и
+                Земята да е близо до афелий (юли) – Слънцето е по-малко и
+                сянката е малко по-широка.
+              </p>
+              <p>Проверете в симулатора: β = 0, Луната в апогей.</p>
+            </Task>
+
+            <Task
+              {...task('b3')}
+              number={8}
+              color="border-yellow-500"
+              question="Изведи формулата за синодичния месец, ако сидеричният е T★ = 27,32 дни."
+            >
+              <p>
+                За един ден Луната се премества спрямо звездите с 360°/T★, а
+                Слънцето – с 360°/T⊕. Спрямо Слънцето Луната се движи с
+                разликата: 360°/S = 360°/T★ − 360°/T⊕.
+              </p>
+              <p>
+                1/S = 1/27,32 − 1/365,26 → <strong>S ≈ 29,53 дни</strong>.
+              </p>
+            </Task>
+
+            <Task
+              {...task('b4')}
+              number={9}
+              color="border-yellow-500"
+              question="С колко минути закъснява изгревът на Луната всеки следващ ден?"
+            >
+              <p>
+                Спрямо Слънцето Луната се премества на изток с 360° / 29,53 ≈
+                12,2° на ден. Земята се завърта с 15° за час, затова
+                закъснението е 12,2° / 15°/h ≈ 0,81 h ≈{' '}
+                <strong>49 минути</strong> (средно около 50 минути).
+              </p>
+              <p>
+                В действителност закъснението варира от ~10 минути до над час
+                заради наклона на лунната орбита спрямо хоризонта.
+              </p>
+            </Task>
           </div>
 
-          {/* Ниво С */}
           <div className="mb-6">
             <h3 className="text-lg font-semibold mb-3 text-red-600 dark:text-red-400">
               Ниво С (Международна олимпиада)
             </h3>
 
-            <div className="bg-white dark:bg-gray-800 p-4 rounded-lg mb-4 border-l-4 border-red-500">
-              <p className="font-semibold mb-2">6. Обясни защо от Луната никога не може да се
-              наблюдава "земно затъмнение" (Земята да влезе в сянката на Луната от гледна точка
-              на наблюдател на Луната).</p>
-              <button
-                onClick={() => toggleSolution('c6')}
-                className="text-blue-600 dark:text-blue-400 hover:underline text-sm"
-              >
-                {showSolutions['c6'] ? '▼ Скрий решението' : '▶ Покажи решението'}
-              </button>
-              {showSolutions['c6'] && (
-                <div className="mt-3 p-3 bg-blue-50 dark:bg-blue-900/20 rounded">
-                  <p className="font-semibold">Решение:</p>
-                  <p className="mt-2">От гледна точка на наблюдател на Луната, "земно затъмнение"
-                  би било когато Земята влиза в сянката на Луната. Но Луната е много по-малка от
-                  Земята, така че нейната сянка е твърде малка, за да покрие цялата Земя.</p>
-                  <p className="mt-2">Вместо това, от Луната се наблюдава <strong>"слънчево затъмнение"</strong> –
-                  Земята закрива Слънцето. Това съответства на лунното затъмнение, наблюдавано от Земята.</p>
-                  <p className="mt-2">По време на това "слънчево затъмнение" от Луната, наблюдателят
-                  би видял Земята като тъмен диск с ярък червен пръстен около него (светлината,
-                  преминаваща през атмосферата).</p>
-                </div>
-              )}
-            </div>
+            <Task
+              {...task('c1')}
+              number={10}
+              color="border-red-500"
+              question="Какво би видял наблюдател на Луната по време на лунно затъмнение? А по време на слънчево затъмнение на Земята?"
+            >
+              <p>
+                <strong>При лунно затъмнение</strong> за наблюдателя на Луната
+                Земята закрива Слънцето – това е слънчево затъмнение. Земята е
+                ~4 пъти по-голяма от Слънцето на лунното небе и се вижда като
+                черен диск, обграден от червен пръстен – пречупената светлина в
+                земната атмосфера.
+              </p>
+              <p>
+                <strong>При слънчево затъмнение на Земята</strong> наблюдателят
+                на Луната вижда почти „пълна Земя“, по която пълзи малко тъмно
+                петно – лунната сянка (под 300 km в диаметър). Земята никога не
+                може да бъде изцяло затъмнена, защото Луната е много по-малка от
+                нея.
+              </p>
+            </Task>
+
+            <Task
+              {...task('c2')}
+              number={11}
+              color="border-red-500"
+              question="Радиусът на земната сянка на разстоянието на Луната е ~42′, а радиусът на Луната – 15,5′. Наклонът на лунната орбита е i = 5,15°. На какво най-голямо разстояние от възела трябва да е пълнолунието, за да е затъмнението пълно?"
+            >
+              <p>
+                Пълно затъмнение изисква Луната да е изцяло в сянката: β ≤ 42′ −
+                15,5′ = 26,5′.
+              </p>
+              <p>
+                Ширината на Луната на разстояние d от възела е sin β = sin i ·
+                sin d, т.е. β ≈ i · sin d = 309′ · sin d.
+              </p>
+              <p>
+                sin d ≤ 26,5 / 309 = 0,086 → <strong>d ≤ 4,9°</strong>.
+              </p>
+              <p>
+                Аналогично за частично затъмнение: β &lt; 42′ + 15,5′ = 57,5′ →
+                d &lt; 10,7°.
+              </p>
+            </Task>
+
+            <Task
+              {...task('c3')}
+              number={12}
+              color="border-red-500"
+              question="Методът на Аристарх: при лунно затъмнение се вижда, че диаметърът на земната сянка на разстоянието на Луната е около 2,7 лунни диаметъра. Слънцето и Луната изглеждат еднакво големи на небето. Оцени диаметъра на Луната, ако D⊕ = 12 742 km."
+            >
+              <p>
+                Сянката е конус. Ъгълът му при върха е равен на ъгловия диаметър
+                на Слънцето, който е равен на ъгловия диаметър на Луната. Затова
+                на разстоянието до Луната конусът се е стеснил точно с един
+                лунен диаметър:
+              </p>
+              <p className="font-mono">D_сянка = D⊕ − D☾</p>
+              <p>
+                2,7 · D☾ = D⊕ − D☾ → D☾ = D⊕ / 3,7 = 12 742 / 3,7 ≈{' '}
+                <strong>3440 km</strong>
+              </p>
+              <p>
+                Истинската стойност е 3474 km – грешка под 1% с метод на 2300
+                години!
+              </p>
+            </Task>
           </div>
         </section>
 
         <section className="mb-8">
           <h2 className="text-xl sm:text-2xl font-semibold mb-4">
-            Обобщение
+            8. Обобщение
           </h2>
           <div className="bg-gradient-to-r from-blue-50 to-purple-50 dark:from-gray-800 dark:to-gray-700 p-6 rounded-lg">
             <ul className="space-y-2">
-              <li>✓ Лунните фази се повтарят на всеки 29.5 дни</li>
-              <li>✓ Фазите зависят от взаимното положение Слънце-Земя-Луна</li>
-              <li>✓ Лунните затъмнения се случват при пълнолуние</li>
-              <li>✓ Луната става червена заради пречупването на светлината в атмосферата</li>
-              <li>✓ Орбитата на Луната е наклонена на 5° спрямо еклиптиката</li>
-              <li>✓ Лунните затъмнения са безопасни за наблюдение и видими от цялото нощно полукълбо</li>
+              <li>
+                ✓ Луната е винаги наполовина осветена; фазите зависят от ъгъла,
+                под който гледаме осветената половина
+              </li>
+              <li>
+                ✓ Синодичен месец 29,53 дни, сидеричен 27,32 дни: 1/S = 1/T★ −
+                1/T⊕
+              </li>
+              <li>✓ Луната изгрява всеки ден средно ~50 минути по-късно</li>
+              <li>✓ Лунно затъмнение има само при пълнолуние близо до възел</li>
+              <li>
+                ✓ Пълната сянка се стеснява и на разстоянието на Луната е ~2,7
+                лунни диаметъра
+              </li>
+              <li>
+                ✓ Луната става червена заради пречупването и разсейването на
+                светлината в земната атмосфера
+              </li>
+              <li>
+                ✓ Лунните затъмнения са безопасни и се виждат от цялото нощно
+                полукълбо
+              </li>
             </ul>
           </div>
         </section>
@@ -530,10 +625,13 @@ export default function Lecture04() {
               <span>Интересен факт</span>
             </h3>
             <p>
-              Лунните затъмнения могат да продължат до 107 минути! За разлика от
-              слънчевите затъмнения, лунните са безопасни за наблюдение и видими
-              от цялото нощно полукълбо на Земята. През 2022 г. имахме "супер кървава
-              луна" - комбинация от пълно затъмнение и суперлуние (Луната е най-близо до Земята).
+              През 1504 г. Христофор Колумб, заседнал на Ямайка, знаел от
+              астрономическите таблици, че предстои лунно затъмнение. Той
+              заплашил местните жители, че ще „отнеме Луната“, ако не му дадат
+              храна – и когато Луната почервеняла, те веднага се съгласили. А
+              Луната всяка година се отдалечава от Земята с около 3,8 cm – това
+              е измерено с лазери, насочени към огледалата, оставени от мисиите
+              „Аполо“.
             </p>
           </div>
         </section>

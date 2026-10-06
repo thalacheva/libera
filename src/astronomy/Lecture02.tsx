@@ -1,35 +1,102 @@
 import { useState } from 'react';
+import Example from '~/Example';
+import Quiz, { type Question } from '~/Quiz';
+import Theorem from '~/Theorem';
+import CoordinateSphere from './components/CoordinateSphere';
+import Task from './components/Task';
+
+const QUIZ: Question[] = [
+  {
+    question: 'Коя от координатите НЕ се променя при денонощното въртене?',
+    answers: ['Азимут A', 'Височина h', 'Часов ъгъл t', 'Деклинация δ'],
+    correctAnswer: 'Деклинация δ',
+  },
+  {
+    question: 'Звезда е в горна кулминация. Колко е часовият ѝ ъгъл?',
+    answers: ['0h', '6h', '12h', 'Равен на α'],
+    correctAnswer: '0h',
+  },
+  {
+    question: 'На колко градуса отговарят 4h ректасцензия?',
+    answers: ['4°', '15°', '60°', '90°'],
+    correctAnswer: '60°',
+  },
+  {
+    question: 'Звездното време е S = 10h. Коя звезда кулминира в момента?',
+    answers: [
+      'Звездата с α = 0h',
+      'Звездата с α = 10h',
+      'Звездата с δ = 10°',
+      'Звездата с t = 10h',
+    ],
+    correctAnswer: 'Звездата с α = 10h',
+  },
+  {
+    question: 'Звезда има азимут A = 90° и височина h = 0°. Къде е тя?',
+    answers: [
+      'В зенита',
+      'Изгрява в източната точка',
+      'Залязва в западната точка',
+      'Кулминира на юг',
+    ],
+    correctAnswer: 'Изгрява в източната точка',
+  },
+];
+
+const ANALOGY = [
+  { earth: 'Екватор', sky: 'Небесен екватор' },
+  { earth: 'Географска ширина φ', sky: 'Деклинация δ' },
+  { earth: 'Географска дължина λ', sky: 'Ректасцензия α' },
+  { earth: 'Нулев меридиан (Гринуич)', sky: 'Пролетна точка ♈' },
+  { earth: 'Северен / Южен полюс', sky: 'Полюси на света P / P′' },
+];
+
+const SYSTEMS = [
+  {
+    name: 'Хоризонтална',
+    circle: 'Хоризонт',
+    origin: 'Северна точка С',
+    coords: 'A, h (z)',
+    time: 'Да',
+    place: 'Да',
+  },
+  {
+    name: 'I екваториална',
+    circle: 'Небесен екватор',
+    origin: 'Горна точка на екватора Q',
+    coords: 't, δ',
+    time: 'Само t',
+    place: 'Само t (по дължина)',
+  },
+  {
+    name: 'II екваториална',
+    circle: 'Небесен екватор',
+    origin: 'Пролетна точка ♈',
+    coords: 'α, δ',
+    time: 'Не',
+    place: 'Не',
+  },
+  {
+    name: 'Еклиптична',
+    circle: 'Еклиптика',
+    origin: 'Пролетна точка ♈',
+    coords: 'λ, β',
+    time: 'Не',
+    place: 'Не',
+  },
+];
 
 export default function Lecture02() {
-  const [hoveredElement, setHoveredElement] = useState<string | null>(null);
-  const [azimuth, setAzimuth] = useState(135);
-  const [altitude, setAltitude] = useState(45);
-  const [showSolutions, setShowSolutions] = useState<{ [key: string]: boolean }>({});
+  const [showSolutions, setShowSolutions] = useState<{
+    [key: string]: boolean;
+  }>({});
 
-  const toggleSolution = (taskId: string) => {
-    setShowSolutions(prev => ({ ...prev, [taskId]: !prev[taskId] }));
-  };
-
-  // Изчисляване на позицията на звездата в хоризонтална система
-  const getStarPosition = (azimuth: number, altitude: number) => {
-    const centerX = 300;
-    const centerY = 250;
-    const maxRadius = 150;
-
-    // Преобразуване на азимут (0° = север, по часовниковата стрелка)
-    const azimuthRad = ((azimuth - 90) * Math.PI) / 180;
-
-    // Височината определя разстоянието от центъра (90° = център, 0° = край)
-    const radius = maxRadius * (1 - altitude / 90);
-
-    return {
-      x: centerX + radius * Math.cos(azimuthRad),
-      y: centerY + radius * Math.sin(azimuthRad)
-    };
-  };
-
-  const starPos = getStarPosition(azimuth, altitude);
-  const zenithDistance = 90 - altitude;
+  const task = (id: string) => ({
+    id,
+    shown: !!showSolutions[id],
+    onToggle: (taskId: string) =>
+      setShowSolutions(prev => ({ ...prev, [taskId]: !prev[taskId] })),
+  });
 
   return (
     <main className="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8">
@@ -38,22 +105,61 @@ export default function Lecture02() {
           Лекция 2: Небесни координати
         </h1>
 
+        <div className="bg-gradient-to-br from-indigo-900 to-slate-900 text-white p-6 rounded-2xl mb-8 shadow-lg">
+          <p className="text-lg sm:text-xl leading-relaxed">
+            🔭 Обаждате се на приятел от другия край на страната: „Виж онази
+            ярка звезда вдясно от комина!“ Не става, нали? Неговият комин е
+            другаде, а след час звездата също ще е другаде. Астрономите са
+            измислили „небесен адрес“, който е еднакъв за всички и не остарява –
+            така телескопите по целия свят намират един и същ обект с точност до
+            части от ъглова секунда.
+          </p>
+        </div>
+
         <section className="mb-8">
           <h2 className="text-xl sm:text-2xl font-semibold mb-4">
             1. Защо са нужни координати?
           </h2>
           <p className="mb-4 text-base sm:text-lg leading-relaxed">
-            За да можем точно да определим положението на небесните тела, се
-            използват различни координатни системи, подобно на географските
-            координати на Земята.
+            От Лекция 1 знаем, че положението на звезда върху небесната сфера се
+            определя само от посоката към нея, т.е. от два ъгъла. Всяка
+            координатна система избира:
           </p>
           <div className="bg-blue-50 dark:bg-gray-700 p-4 rounded-lg mb-4">
-            <p className="font-semibold mb-2">Основни изисквания към координатната система:</p>
             <ul className="list-disc list-inside space-y-2">
-              <li>Да позволява еднозначно определяне на положението</li>
-              <li>Да е удобна за изчисления</li>
-              <li>Да отговаря на целите на наблюдението</li>
+              <li>
+                <strong>основен кръг</strong> (хоризонт, екватор или еклиптика)
+                и неговия полюс
+              </li>
+              <li>
+                <strong>начална точка</strong> върху основния кръг, от която
+                отчитаме първата координата
+              </li>
+              <li>
+                <strong>посока</strong> на отчитане
+              </li>
             </ul>
+          </div>
+          <div className="overflow-x-auto mb-4">
+            <table className="w-full text-sm sm:text-base border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden">
+              <thead className="bg-gray-100 dark:bg-gray-700">
+                <tr>
+                  <th className="p-2 text-left">🌍 На Земята</th>
+                  <th className="p-2 text-left">✨ На небето</th>
+                </tr>
+              </thead>
+              <tbody>
+                {ANALOGY.map(row => (
+                  <tr
+                    key={row.earth}
+                    className="border-t border-gray-200 dark:border-gray-700"
+                  >
+                    <td className="p-2">{row.earth}</td>
+                    <td className="p-2 font-semibold">{row.sky}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
         </section>
 
@@ -62,473 +168,423 @@ export default function Lecture02() {
             2. Хоризонтална координатна система
           </h2>
           <p className="mb-4 text-base sm:text-lg leading-relaxed">
-            Най-простата и интуитивна система, базирана на хоризонта на наблюдателя.
+            Най-интуитивната система: „колко да се завъртя“ и „колко високо да
+            погледна“. Точно така работят и азимуталните монтировки на
+            телескопите.
           </p>
+          <Theorem
+            type="definition"
+            title="Азимут A"
+            description="Ъгълът по хоризонта от северната точка С до вертикалния кръг на звездата, отчитан по посока на часовниковата стрелка (С → И → Ю → З). Изменя се от 0° до 360°. Внимание: в някои учебници азимутът се отчита от южната точка на запад – винаги проверявайте коя е конвенцията!"
+          />
+          <Theorem
+            type="definition"
+            title="Височина h и зенитно разстояние z"
+            description="Височината h е ъгълът от хоризонта до звездата по вертикалния кръг (от −90° до +90°; отрицателна е за звезди под хоризонта). Зенитното разстояние е ъгълът от зенита до звездата: z = 90° − h."
+          />
 
-          {/* Интерактивна визуализация */}
-          <div className="bg-white dark:bg-gray-800 p-4 rounded-lg border-2 border-blue-300 dark:border-blue-600 mb-6">
-            <h3 className="font-semibold mb-3 text-center">Интерактивна хоризонтална система</h3>
-            <p className="text-sm text-center mb-4 text-gray-600 dark:text-gray-400">
-              Използвайте плъзгачите, за да промените координатите на звездата
-            </p>
-
-            <svg viewBox="0 0 600 500" className="w-full h-auto" style={{ maxHeight: '500px' }}>
-              {/* Хоризонт (външен кръг) */}
-              <circle
-                cx="300"
-                cy="250"
-                r="150"
-                fill="rgba(34, 197, 94, 0.1)"
-                stroke="rgb(34, 197, 94)"
-                strokeWidth="3"
-              />
-
-              {/* Концентрични кръгове за височина */}
-              <circle cx="300" cy="250" r="112.5" fill="none" stroke="rgb(34, 197, 94)" strokeWidth="1" strokeDasharray="3,3" opacity="0.3" />
-              <circle cx="300" cy="250" r="75" fill="none" stroke="rgb(34, 197, 94)" strokeWidth="1" strokeDasharray="3,3" opacity="0.3" />
-              <circle cx="300" cy="250" r="37.5" fill="none" stroke="rgb(34, 197, 94)" strokeWidth="1" strokeDasharray="3,3" opacity="0.3" />
-
-              {/* Зенит (център) */}
-              <circle
-                cx="300"
-                cy="250"
-                r="5"
-                fill="rgb(59, 130, 246)"
-                onMouseEnter={() => setHoveredElement('zenith')}
-                onMouseLeave={() => setHoveredElement(null)}
-                className="cursor-pointer"
-              />
-              <text x="310" y="255" fontSize="12" fill="rgb(59, 130, 246)" fontWeight="bold">Z</text>
-
-              {/* Посоки на хоризонта */}
-              <text x="300" y="110" fontSize="14" fill="currentColor" fontWeight="bold" textAnchor="middle">С (0°)</text>
-              <text x="460" y="255" fontSize="14" fill="currentColor" fontWeight="bold">И (90°)</text>
-              <text x="300" y="415" fontSize="14" fill="currentColor" fontWeight="bold" textAnchor="middle">Ю (180°)</text>
-              <text x="135" y="255" fontSize="14" fill="currentColor" fontWeight="bold">З (270°)</text>
-
-              {/* Линии за азимут */}
-              {[0, 45, 90, 135, 180, 225, 270, 315].map((angle) => {
-                const rad = ((angle - 90) * Math.PI) / 180;
-                const x2 = 300 + 150 * Math.cos(rad);
-                const y2 = 250 + 150 * Math.sin(rad);
-                return (
-                  <line
-                    key={angle}
-                    x1="300"
-                    y1="250"
-                    x2={x2}
-                    y2={y2}
-                    stroke="gray"
-                    strokeWidth="1"
-                    strokeDasharray="2,2"
-                    opacity="0.3"
-                  />
-                );
-              })}
-
-              {/* Линия от зенит до звездата (зенитно разстояние) */}
-              <line
-                x1="300"
-                y1="250"
-                x2={starPos.x}
-                y2={starPos.y}
-                stroke="rgb(168, 85, 247)"
-                strokeWidth="2"
-                strokeDasharray="5,5"
-              />
-
-              {/* Линия за азимут */}
-              <line
-                x1="300"
-                y1="250"
-                x2="300"
-                y2="100"
-                stroke="rgb(239, 68, 68)"
-                strokeWidth="2"
-                opacity="0.5"
-              />
-              <path
-                d={`M 300,250 L 300,${250 - 80} A 80,80 0 0,1 ${300 + 80 * Math.cos(((azimuth - 90) * Math.PI) / 180)},${250 + 80 * Math.sin(((azimuth - 90) * Math.PI) / 180)}`}
-                fill="none"
-                stroke="rgb(239, 68, 68)"
-                strokeWidth="2"
-              />
-
-              {/* Звездата */}
-              <circle
-                cx={starPos.x}
-                cy={starPos.y}
-                r="8"
-                fill="gold"
-                stroke="white"
-                strokeWidth="2"
-              >
-                <animate
-                  attributeName="opacity"
-                  values="1;0.6;1"
-                  dur="2s"
-                  repeatCount="indefinite"
-                />
-              </circle>
-              <text x={starPos.x + 12} y={starPos.y + 5} fontSize="12" fill="gold" fontWeight="bold">★</text>
-
-              {/* Етикети */}
-              <text x="320" y="180" fontSize="11" fill="rgb(239, 68, 68)" fontWeight="bold">A = {azimuth}°</text>
-              <text x="350" y={starPos.y} fontSize="11" fill="rgb(168, 85, 247)" fontWeight="bold">h = {altitude}°</text>
-              <text x="350" y={starPos.y + 15} fontSize="10" fill="rgb(168, 85, 247)">z = {zenithDistance}°</text>
-            </svg>
-
-            {/* Контроли */}
-            <div className="mt-4 space-y-4">
-              <div>
-                <label className="block text-sm font-semibold mb-2">
-                  Азимут (A): {azimuth}° - {azimuth === 0 ? 'Север' : azimuth === 90 ? 'Изток' : azimuth === 180 ? 'Юг' : azimuth === 270 ? 'Запад' : ''}
-                </label>
-                <input
-                  type="range"
-                  min="0"
-                  max="360"
-                  value={azimuth}
-                  onChange={(e) => setAzimuth(Number(e.target.value))}
-                  className="w-full"
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-semibold mb-2">
-                  Височина (h): {altitude}° (Зенитно разстояние z = {zenithDistance}°)
-                </label>
-                <input
-                  type="range"
-                  min="0"
-                  max="90"
-                  value={altitude}
-                  onChange={(e) => setAltitude(Number(e.target.value))}
-                  className="w-full"
-                />
-              </div>
-            </div>
-
-            <div className="mt-4 p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
-              <h4 className="font-semibold mb-2">Координати на звездата:</h4>
-              <ul className="text-sm space-y-1">
-                <li><strong className="text-red-600 dark:text-red-400">Азимут (A):</strong> {azimuth}° (ъгъл от север по часовниковата стрелка)</li>
-                <li><strong className="text-purple-600 dark:text-purple-400">Височина (h):</strong> {altitude}° (ъгъл над хоризонта)</li>
-                <li><strong className="text-purple-600 dark:text-purple-400">Зенитно разстояние (z):</strong> {zenithDistance}° (ъгъл от зенита)</li>
-              </ul>
-            </div>
-          </div>
-
-          <div className="bg-blue-50 dark:bg-gray-700 p-4 rounded-lg mb-4">
-            <h3 className="font-semibold mb-2">Основни формули:</h3>
-            <ul className="space-y-2">
-              <li className="font-mono">h + z = 90° (височина + зенитно разстояние)</li>
-              <li className="font-mono">h = 90° - z</li>
-              <li className="font-mono">z = 90° - h</li>
-            </ul>
-          </div>
+          <CoordinateSphere initialMode="horizontal" />
 
           <div className="bg-red-50 dark:bg-red-900/20 border-l-4 border-red-500 p-4 rounded mb-4">
             <p className="font-semibold mb-2">⚠️ Недостатък:</p>
-            <p>Координатите се променят с времето (поради въртенето на Земята) и зависят от
-            местоположението на наблюдателя. Една и съща звезда има различни хоризонтални
-            координати за различни наблюдатели.</p>
+            <p>
+              Хоризонталните координати се променят непрекъснато заради
+              въртенето на Земята и са различни за различните наблюдатели. Те не
+              стават за каталози, но са незаменими при самото наблюдение.
+            </p>
           </div>
         </section>
 
         <section className="mb-8">
           <h2 className="text-xl sm:text-2xl font-semibold mb-4">
-            3. Екваториална координатна система
+            3. Първа екваториална система (t, δ)
           </h2>
           <p className="mb-4 text-base sm:text-lg leading-relaxed">
-            Най-използваната система в астрономията. Координатите са фиксирани спрямо
-            небесната сфера и не зависят от времето и местоположението на наблюдателя.
+            Сменяме основния кръг: вместо хоризонта използваме небесния екватор.
+            Така едната координата престава да се мени при въртенето на небето –
+            звездата се движи по успоредник на екватора и разстоянието ѝ до него
+            остава същото.
           </p>
-
-          <div className="bg-white dark:bg-gray-800 p-4 rounded-lg border-2 border-purple-300 dark:border-purple-600 mb-6">
-            <h3 className="font-semibold mb-3 text-center">Екваториална система</h3>
-
-            <svg viewBox="0 0 600 400" className="w-full h-auto" style={{ maxHeight: '400px' }}>
-              {/* Небесна сфера */}
-              <ellipse cx="300" cy="200" rx="200" ry="150" fill="rgba(59, 130, 246, 0.05)" stroke="rgb(59, 130, 246)" strokeWidth="2" strokeDasharray="5,5" />
-
-              {/* Небесен екватор */}
-              <ellipse
-                cx="300"
-                cy="200"
-                rx="180"
-                ry="60"
-                fill="none"
-                stroke="rgb(168, 85, 247)"
-                strokeWidth="3"
-              />
-              <text x="470" y="190" fontSize="12" fill="rgb(168, 85, 247)" fontWeight="bold">Небесен екватор</text>
-
-              {/* Меридиани (кръгове на ректасцензия) */}
-              {[0, 6, 12, 18].map((hour) => {
-                const angle = (hour * 15 - 90) * Math.PI / 180;
-                return (
-                  <ellipse
-                    key={hour}
-                    cx="300"
-                    cy="200"
-                    rx={Math.abs(Math.cos(angle)) * 40}
-                    ry="150"
-                    fill="none"
-                    stroke="gray"
-                    strokeWidth="1"
-                    strokeDasharray="3,3"
-                    opacity="0.3"
-                    transform={`rotate(${hour * 15} 300 200)`}
-                  />
-                );
-              })}
-
-              {/* Северен полюс */}
-              <circle cx="300" cy="50" r="6" fill="rgb(239, 68, 68)" />
-              <text x="310" y="55" fontSize="12" fill="rgb(239, 68, 68)" fontWeight="bold">P (Северен полюс)</text>
-
-              {/* Южен полюс */}
-              <circle cx="300" cy="350" r="6" fill="rgb(239, 68, 68)" />
-              <text x="310" y="355" fontSize="12" fill="rgb(239, 68, 68)" fontWeight="bold">P' (Южен полюс)</text>
-
-              {/* Пролетна точка (0h) */}
-              <circle cx="480" cy="200" r="5" fill="rgb(34, 197, 94)" />
-              <text x="490" y="205" fontSize="12" fill="rgb(34, 197, 94)" fontWeight="bold">♈ (0h)</text>
-
-              {/* Примерна звезда */}
-              <circle cx="400" cy="140" r="8" fill="gold">
-                <animate attributeName="opacity" values="1;0.6;1" dur="2s" repeatCount="indefinite" />
-              </circle>
-              <text x="410" y="145" fontSize="12" fill="gold" fontWeight="bold">Звезда</text>
-
-              {/* Линия за деклинация */}
-              <line x1="300" y1="200" x2="400" y2="140" stroke="rgb(59, 130, 246)" strokeWidth="2" strokeDasharray="5,5" />
-              <text x="340" y="165" fontSize="11" fill="rgb(59, 130, 246)" fontWeight="bold">δ (деклинация)</text>
-
-              {/* Дъга за ректасцензия */}
-              <path
-                d="M 480,200 A 180,60 0 0,0 400,140"
-                fill="none"
-                stroke="rgb(168, 85, 247)"
-                strokeWidth="2"
-              />
-              <text x="440" y="180" fontSize="11" fill="rgb(168, 85, 247)" fontWeight="bold">α (ректасцензия)</text>
-            </svg>
-
-            <div className="mt-4 p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
-              <h4 className="font-semibold mb-2">Координати:</h4>
-              <ul className="text-sm space-y-2">
-                <li>
-                  <strong className="text-purple-600 dark:text-purple-400">Ректасцензия (α, RA):</strong>
-                  <br/>Аналог на географската дължина. Измерва се от пролетната точка (♈)
-                  по небесния екватор в посока, обратна на часовниковата стрелка.
-                  <br/>Диапазон: 0h до 24h (или 0° до 360°, където 1h = 15°)
-                </li>
-                <li>
-                  <strong className="text-blue-600 dark:text-blue-400">Деклинация (δ, Dec):</strong>
-                  <br/>Аналог на географската ширина. Измерва се от небесния екватор към полюсите.
-                  <br/>Диапазон: -90° (южен полюс) до +90° (северен полюс)
-                </li>
-              </ul>
-            </div>
+          <Theorem
+            type="definition"
+            title="Деклинация δ"
+            description="Ъгълът от небесния екватор до звездата, мерен по часовия ѝ кръг (кръга през P, P′ и звездата). От +90° (северен полюс) до −90° (южен полюс). Аналог на географската ширина."
+          />
+          <Theorem
+            type="definition"
+            title="Часов ъгъл t"
+            description="Ъгълът по небесния екватор от горната точка Q на екватора (където той пресича меридиана над хоризонта) до часовия кръг на звездата, отчитан на запад – по посока на видимото денонощно движение. Измерва се в часове: 0h–24h, 1h = 15°."
+          />
+          <div className="bg-indigo-50 dark:bg-indigo-900/20 border-l-4 border-indigo-500 p-4 rounded mb-4">
+            <p className="font-semibold mb-1">⏰ Защо в часове?</p>
+            <p>
+              Часовият ъгъл е като стрелка на часовник: расте равномерно с 1h за
+              всеки час (звездно време). t = 0h означава, че звездата кулминира
+              (на меридиана, най-високо), t = 12h – че е в долна кулминация, а t
+              = 3h – че е кулминирала преди 3 часа.
+            </p>
           </div>
+        </section>
+
+        <section className="mb-8">
+          <h2 className="text-xl sm:text-2xl font-semibold mb-4">
+            4. Втора екваториална система (α, δ)
+          </h2>
+          <p className="mb-4 text-base sm:text-lg leading-relaxed">
+            Часовият ъгъл още зависи от времето. Решението: да отчитаме от
+            точка, която се върти <em>заедно</em> със звездите – пролетната
+            точка ♈. Това е системата на звездните каталози и картите.
+          </p>
+          <Theorem
+            type="definition"
+            title="Ректасцензия α"
+            description="Ъгълът по небесния екватор от пролетната точка ♈ до часовия кръг на звездата, отчитан на изток – обратно на денонощното движение. От 0h до 24h. Аналог на географската дължина."
+          />
+
+          <CoordinateSphere initialMode="equatorial" />
 
           <div className="bg-green-50 dark:bg-green-900/20 p-4 rounded-lg mb-4">
             <p className="font-semibold mb-2">✅ Предимство:</p>
-            <p>Координатите са постоянни за дадено небесно тяло (с малки изменения поради
-            прецесия). Независими от местоположението на наблюдателя и времето.</p>
-          </div>
-
-          <div className="bg-blue-50 dark:bg-gray-700 p-4 rounded-lg mb-4">
-            <h3 className="font-semibold mb-2">Важни точки:</h3>
-            <ul className="list-disc list-inside space-y-2">
-              <li><strong>Пролетна точка (♈)</strong> – началото на координатната система (α = 0h, δ = 0°)</li>
-              <li><strong>Есенна точка (♎)</strong> – противоположна на пролетната (α = 12h, δ = 0°)</li>
-              <li><strong>Северен небесен полюс</strong> – δ = +90°</li>
-              <li><strong>Южен небесен полюс</strong> – δ = -90°</li>
-            </ul>
+            <p>
+              α и δ са едни и същи за всички наблюдатели и почти не се променят
+              с времето. Бавно се изменят само заради прецесията на земната ос
+              (около 50″ годишно) и собственото движение на звездите, затова
+              каталозите посочват епоха – например J2000.0.
+            </p>
           </div>
         </section>
 
         <section className="mb-8">
           <h2 className="text-xl sm:text-2xl font-semibold mb-4">
-            4. Връзка между системите
+            5. Звездно време – мостът между системите
+          </h2>
+          <Theorem
+            type="definition"
+            title="Звездно време S"
+            description="Часовият ъгъл на пролетната точка: S = t♈. За един звезден ден (23h 56m 04s слънчево време) S нараства с 24h."
+          />
+          <Theorem
+            title="Основна формула на звездното време"
+            description="За всяко светило в даден момент S = t + α. Следователно светилото кулминира (t = 0), когато звездното време е равно на ректасцензията му: S = α."
+          />
+          <p className="mb-4 text-base sm:text-lg leading-relaxed">
+            Изберете режим „Звездно време S = t + α“ в модела по-горе: трите
+            дъги по екватора се събират точно като в равенството.
+          </p>
+          <Example
+            description="В София звездното време е S = 20h 00m. Къде е Вега (α = 18h 37m)?"
+            steps={[
+              'Часовият ъгъл е t = S − α = 20h 00m − 18h 37m = 1h 23m.',
+              'Превръщаме в градуси: 1h 23m = 1,383h × 15°/h ≈ 20,8°.',
+              't > 0, значи Вега вече е минала меридиана и е на ~21° западно от него.',
+              'Тя е кулминирала преди 1h 23m звездно време – при S = 18h 37m.',
+            ]}
+          />
+          <div className="bg-blue-50 dark:bg-gray-700 p-4 rounded-lg mb-4">
+            <h3 className="font-semibold mb-2">Превръщане часове ↔ градуси</h3>
+            <div className="grid grid-cols-3 gap-2 text-center font-mono text-sm">
+              <div className="bg-white dark:bg-gray-800 p-2 rounded">
+                1h = 15°
+              </div>
+              <div className="bg-white dark:bg-gray-800 p-2 rounded">
+                1m = 15′
+              </div>
+              <div className="bg-white dark:bg-gray-800 p-2 rounded">
+                1s = 15″
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="mb-8">
+          <h2 className="text-xl sm:text-2xl font-semibold mb-4">
+            6. Еклиптична система (λ, β)
           </h2>
           <p className="mb-4 text-base sm:text-lg leading-relaxed">
-            Хоризонталната и екваториалната система са свързани чрез географската ширина
-            на наблюдателя и часовия ъгъл на звездата.
+            За Слънцето и планетите е удобно основният кръг да е еклиптиката.
+            Еклиптичната дължина λ се мери от ♈ на изток по еклиптиката, а
+            еклиптичната ширина β – от еклиптиката към полюса ѝ. Слънцето винаги
+            има β = 0°, а λ нараства с около 1° на ден: на 21 юни λ☉ = 90°, на
+            23 септември – 180°.
           </p>
-          <div className="bg-purple-50 dark:bg-purple-900/20 p-4 rounded-lg mb-4">
-            <h3 className="font-semibold mb-2">Преобразуване:</h3>
-            <p className="mb-2">Зависи от:</p>
-            <ul className="list-disc list-inside space-y-1">
-              <li>Географска ширина на наблюдателя (φ)</li>
-              <li>Часови ъгъл на звездата (t)</li>
-              <li>Деклинация на звездата (δ)</li>
-            </ul>
+        </section>
+
+        <section className="mb-8">
+          <h2 className="text-xl sm:text-2xl font-semibold mb-4">
+            7. Сравнение на системите
+          </h2>
+          <div className="overflow-x-auto">
+            <table className="w-full text-sm border border-gray-200 dark:border-gray-700">
+              <thead className="bg-gray-100 dark:bg-gray-700">
+                <tr>
+                  <th className="p-2 text-left">Система</th>
+                  <th className="p-2 text-left">Основен кръг</th>
+                  <th className="p-2 text-left">Начало</th>
+                  <th className="p-2 text-left">Координати</th>
+                  <th className="p-2 text-left">Зависи от времето?</th>
+                  <th className="p-2 text-left">Зависи от мястото?</th>
+                </tr>
+              </thead>
+              <tbody>
+                {SYSTEMS.map(s => (
+                  <tr
+                    key={s.name}
+                    className="border-t border-gray-200 dark:border-gray-700"
+                  >
+                    <td className="p-2 font-semibold">{s.name}</td>
+                    <td className="p-2">{s.circle}</td>
+                    <td className="p-2">{s.origin}</td>
+                    <td className="p-2 font-mono">{s.coords}</td>
+                    <td className="p-2">{s.time}</td>
+                    <td className="p-2">{s.place}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
         </section>
 
         <section className="mb-8">
           <h2 className="text-xl sm:text-2xl font-semibold mb-4">
-            📝 Задачи за упражнение
+            8. Връзка между хоризонталната и екваториалната система
+          </h2>
+          <p className="mb-4 text-base sm:text-lg leading-relaxed">
+            Зенитът Z, полюсът P и звездата образуват сферичен триъгълник –
+            т.нар. <strong>паралактичен триъгълник</strong>. Страните му са 90°
+            − φ (от P до Z), 90° − δ (от P до звездата) и z (от Z до звездата),
+            а ъгълът при P е часовият ъгъл t. От сферичната косинусова теорема
+            следва:
+          </p>
+          <div className="bg-purple-50 dark:bg-purple-900/20 p-4 rounded-lg mb-4 text-center">
+            <p className="font-mono text-base sm:text-lg">
+              sin h = sin φ · sin δ + cos φ · cos δ · cos t
+            </p>
+          </div>
+          <div className="bg-blue-50 dark:bg-gray-700 p-4 rounded-lg mb-4">
+            <h3 className="font-semibold mb-2">
+              Важен частен случай – кулминации
+            </h3>
+            <p className="mb-2">
+              При горна кулминация t = 0 и cos t = 1, откъдето sin h = cos(φ −
+              δ), т.е.:
+            </p>
+            <p className="font-mono text-center mb-2">
+              h<sub>горна</sub> = 90° − |φ − δ|
+            </p>
+            <p>
+              Ако δ = φ, звездата минава точно през зенита. Ако δ &lt; φ, тя
+              кулминира на юг от зенита, а ако δ &gt; φ – на север от него.
+            </p>
+          </div>
+        </section>
+
+        <section className="mb-8">
+          <h2 className="text-xl sm:text-2xl font-semibold mb-4">
+            9. ✅ Провери се
+          </h2>
+          <Quiz questions={QUIZ} />
+        </section>
+
+        <section className="mb-8">
+          <h2 className="text-xl sm:text-2xl font-semibold mb-4">
+            10. 📝 Задачи за упражнение
           </h2>
 
-          {/* Ниво А */}
           <div className="mb-6">
             <h3 className="text-lg font-semibold mb-3 text-green-600 dark:text-green-400">
               Ниво А (Областен кръг)
             </h3>
 
-            <div className="bg-white dark:bg-gray-800 p-4 rounded-lg mb-4 border-l-4 border-green-500">
-              <p className="font-semibold mb-2">1. Намери зенитното разстояние при h = 40°.</p>
-              <button
-                onClick={() => toggleSolution('a1')}
-                className="text-blue-600 dark:text-blue-400 hover:underline text-sm"
-              >
-                {showSolutions['a1'] ? '▼ Скрий решението' : '▶ Покажи решението'}
-              </button>
-              {showSolutions['a1'] && (
-                <div className="mt-3 p-3 bg-blue-50 dark:bg-blue-900/20 rounded">
-                  <p className="font-semibold">Решение:</p>
-                  <p className="mt-2">Използваме формулата: z = 90° - h</p>
-                  <p>z = 90° - 40° = 50°</p>
-                  <p className="mt-2"><strong>Отговор: 50°</strong></p>
-                </div>
-              )}
-            </div>
+            <Task
+              {...task('a1')}
+              number={1}
+              color="border-green-500"
+              question="Намери зенитното разстояние при h = 40°."
+            >
+              <p>z = 90° − h = 90° − 40° = 50°.</p>
+              <p>
+                <strong>Отговор: z = 50°</strong>
+              </p>
+            </Task>
 
-            <div className="bg-white dark:bg-gray-800 p-4 rounded-lg mb-4 border-l-4 border-green-500">
-              <p className="font-semibold mb-2">2. Каква е височината на звезда, която е в зенита?</p>
-              <button
-                onClick={() => toggleSolution('a2')}
-                className="text-blue-600 dark:text-blue-400 hover:underline text-sm"
-              >
-                {showSolutions['a2'] ? '▼ Скрий решението' : '▶ Покажи решението'}
-              </button>
-              {showSolutions['a2'] && (
-                <div className="mt-3 p-3 bg-blue-50 dark:bg-blue-900/20 rounded">
-                  <p className="font-semibold">Решение:</p>
-                  <p className="mt-2">Зенитът е точката точно над главата на наблюдателя,
-                  което означава, че е на максимална височина.</p>
-                  <p className="mt-2"><strong>Отговор: h = 90°</strong></p>
-                </div>
-              )}
-            </div>
+            <Task
+              {...task('a2')}
+              number={2}
+              color="border-green-500"
+              question="Каква е височината на звезда, която е в зенита? А на звезда, която изгрява?"
+            >
+              <p>
+                В зенита z = 0°, следователно h = 90°. При изгрев звездата е на
+                хоризонта: h = 0°.
+              </p>
+            </Task>
 
-            <div className="bg-white dark:bg-gray-800 p-4 rounded-lg mb-4 border-l-4 border-green-500">
-              <p className="font-semibold mb-2">3. Колко градуса съответстват на 1 час ректасцензия?</p>
-              <button
-                onClick={() => toggleSolution('a3')}
-                className="text-blue-600 dark:text-blue-400 hover:underline text-sm"
-              >
-                {showSolutions['a3'] ? '▼ Скрий решението' : '▶ Покажи решението'}
-              </button>
-              {showSolutions['a3'] && (
-                <div className="mt-3 p-3 bg-blue-50 dark:bg-blue-900/20 rounded">
-                  <p className="font-semibold">Решение:</p>
-                  <p className="mt-2">Пълният кръг е 360°, което съответства на 24 часа.</p>
-                  <p>360° / 24h = 15°/h</p>
-                  <p className="mt-2"><strong>Отговор: 15°</strong></p>
-                </div>
-              )}
-            </div>
+            <Task
+              {...task('a3')}
+              number={3}
+              color="border-green-500"
+              question="Колко градуса съответстват на 1 час ректасцензия?"
+            >
+              <p>
+                Пълната окръжност е 360° = 24h, следователно 1h = 360° / 24 =
+                15°.
+              </p>
+            </Task>
+
+            <Task
+              {...task('a4')}
+              number={4}
+              color="border-green-500"
+              question="Бетелгейзе има ректасцензия α = 5h 55m. Изрази я в градуси."
+            >
+              <p>5h = 75°; 55m = 55 × 15′ = 825′ = 13,75°.</p>
+              <p>
+                <strong>Отговор: α ≈ 88,75°</strong>
+              </p>
+            </Task>
           </div>
 
-          {/* Ниво В */}
           <div className="mb-6">
             <h3 className="text-lg font-semibold mb-3 text-yellow-600 dark:text-yellow-400">
               Ниво В (Национален кръг)
             </h3>
 
-            <div className="bg-white dark:bg-gray-800 p-4 rounded-lg mb-4 border-l-4 border-yellow-500">
-              <p className="font-semibold mb-2">4. Как се променят координатите на звезда при въртенето на Земята?</p>
-              <button
-                onClick={() => toggleSolution('b4')}
-                className="text-blue-600 dark:text-blue-400 hover:underline text-sm"
-              >
-                {showSolutions['b4'] ? '▼ Скрий решението' : '▶ Покажи решението'}
-              </button>
-              {showSolutions['b4'] && (
-                <div className="mt-3 p-3 bg-blue-50 dark:bg-blue-900/20 rounded">
-                  <p className="font-semibold">Решение:</p>
-                  <p className="mt-2"><strong>Хоризонтални координати (A, h):</strong> Променят се
-                  непрекъснато поради въртенето на Земята. Азимутът и височината на звездата се
-                  изменят с времето.</p>
-                  <p className="mt-2"><strong>Екваториални координати (α, δ):</strong> Остават
-                  постоянни (с малки изменения поради прецесия). Не зависят от въртенето на Земята.</p>
-                </div>
-              )}
-            </div>
+            <Task
+              {...task('b1')}
+              number={5}
+              color="border-yellow-500"
+              question="Кои координати на една звезда се променят при въртенето на Земята и кои – не?"
+            >
+              <p>
+                <strong>Променят се:</strong> A, h, z (хоризонтални) и часовият
+                ъгъл t – всички те се отчитат от точки, свързани с наблюдателя
+                (С, Z, Q).
+              </p>
+              <p>
+                <strong>Не се променят:</strong> δ и α. Деклинацията – защото
+                звездата се движи успоредно на екватора. Ректасцензията – защото
+                се отчита от ♈, която се върти заедно със звездите.
+              </p>
+            </Task>
 
-            <div className="bg-white dark:bg-gray-800 p-4 rounded-lg mb-4 border-l-4 border-yellow-500">
-              <p className="font-semibold mb-2">5. Звезда има деклинация δ = +42°. Може ли тя да
-              премине през зенита за наблюдател в София (φ ≈ 42°N)?</p>
-              <button
-                onClick={() => toggleSolution('b5')}
-                className="text-blue-600 dark:text-blue-400 hover:underline text-sm"
-              >
-                {showSolutions['b5'] ? '▼ Скрий решението' : '▶ Покажи решението'}
-              </button>
-              {showSolutions['b5'] && (
-                <div className="mt-3 p-3 bg-blue-50 dark:bg-blue-900/20 rounded">
-                  <p className="font-semibold">Решение:</p>
-                  <p className="mt-2">Звезда може да премине през зенита, ако нейната деклинация
-                  е равна на географската ширина на наблюдателя.</p>
-                  <p className="mt-2">В този случай: δ = φ = 42°</p>
-                  <p className="mt-2"><strong>Отговор: Да, звездата ще премине през зенита.</strong></p>
-                </div>
-              )}
-            </div>
+            <Task
+              {...task('b2')}
+              number={6}
+              color="border-yellow-500"
+              question="Каква трябва да е деклинацията на звезда, за да минава през зенита в София (φ = 42,7°)? Минава ли Вега (δ = +38,8°) през зенита?"
+            >
+              <p>
+                При горна кулминация h = 90° − |φ − δ| = 90° само ако δ = φ ={' '}
+                <strong>+42,7°</strong>.
+              </p>
+              <p>
+                За Вега h = 90° − 3,9° = 86,1° – тя минава на 3,9° южно от
+                зенита, но не през него.
+              </p>
+            </Task>
+
+            <Task
+              {...task('b3')}
+              number={7}
+              color="border-yellow-500"
+              question="В кой момент (по звездно време) кулминира Сириус (α = 6h 45m, δ = −16,7°) и на каква височина е тогава в София (φ = 42,7°)?"
+            >
+              <p>
+                Кулминацията е при t = 0, т.е. S = α = <strong>6h 45m</strong>.
+              </p>
+              <p>
+                h = 90° − |42,7° − (−16,7°)| = 90° − 59,4° ={' '}
+                <strong>30,6°</strong> над южната точка.
+              </p>
+            </Task>
+
+            <Task
+              {...task('b4')}
+              number={8}
+              color="border-yellow-500"
+              question="Звездното време е S = 2h 00m. Звезда има часов ъгъл t = 22h 30m. Каква е ректасцензията ѝ? Кулминирала ли е вече?"
+            >
+              <p>
+                α = S − t = 2h 00m − 22h 30m = −20h 30m → +24h ={' '}
+                <strong>3h 30m</strong>.
+              </p>
+              <p>
+                t = 22h 30m = −1h 30m: звездата е на изток от меридиана и ще
+                кулминира след 1h 30m – при S = 3h 30m = α ✓.
+              </p>
+            </Task>
           </div>
 
-          {/* Ниво С */}
           <div className="mb-6">
             <h3 className="text-lg font-semibold mb-3 text-red-600 dark:text-red-400">
               Ниво С (Международна олимпиада)
             </h3>
 
-            <div className="bg-white dark:bg-gray-800 p-4 rounded-lg mb-4 border-l-4 border-red-500">
-              <p className="font-semibold mb-2">6. Обясни връзката между хоризонталната и
-              екваториалната координатна система. Какви параметри са необходими за преобразуване
-              от една система в друга?</p>
-              <button
-                onClick={() => toggleSolution('c6')}
-                className="text-blue-600 dark:text-blue-400 hover:underline text-sm"
-              >
-                {showSolutions['c6'] ? '▼ Скрий решението' : '▶ Покажи решението'}
-              </button>
-              {showSolutions['c6'] && (
-                <div className="mt-3 p-3 bg-blue-50 dark:bg-blue-900/20 rounded">
-                  <p className="font-semibold">Решение:</p>
-                  <p className="mt-2">Връзката между двете системи се осъществява чрез сферична
-                  тригонометрия. Необходими параметри:</p>
-                  <ul className="list-disc list-inside mt-2 space-y-1">
-                    <li><strong>φ</strong> – географска ширина на наблюдателя</li>
-                    <li><strong>t</strong> – часови ъгъл на звездата (зависи от времето)</li>
-                    <li><strong>δ</strong> – деклинация на звездата</li>
-                  </ul>
-                  <p className="mt-2">Основна формула за височина:</p>
-                  <p className="font-mono mt-1">sin(h) = sin(φ)·sin(δ) + cos(φ)·cos(δ)·cos(t)</p>
-                  <p className="mt-2">Тази формула показва, че хоризонталните координати зависят
-                  от местоположението (φ) и времето (t), докато екваториалните (α, δ) са постоянни.</p>
-                </div>
-              )}
-            </div>
+            <Task
+              {...task('c1')}
+              number={9}
+              color="border-red-500"
+              question="Обясни как от екваториалните координати (α, δ) на звезда се получава височината ѝ h. Какви допълнителни данни са нужни?"
+            >
+              <p>Нужни са:</p>
+              <ul className="list-disc list-inside space-y-1">
+                <li>
+                  <strong>φ</strong> – географската ширина на наблюдателя
+                </li>
+                <li>
+                  <strong>S</strong> – местното звездно време (зависи от момента
+                  и географската дължина)
+                </li>
+              </ul>
+              <p>
+                Първо намираме t = S − α, после от паралактичния триъгълник: sin
+                h = sin φ sin δ + cos φ cos δ cos t.
+              </p>
+            </Task>
+
+            <Task
+              {...task('c2')}
+              number={10}
+              color="border-red-500"
+              question="Наблюдател на φ = 43° с.ш. вижда звезда с δ = +20° при часов ъгъл t = 3h. Намери височината ѝ."
+            >
+              <p>t = 3h = 45°.</p>
+              <p>
+                sin h = sin 43° · sin 20° + cos 43° · cos 20° · cos 45° = 0,682
+                · 0,342 + 0,731 · 0,940 · 0,707 ≈ 0,233 + 0,486 = 0,719
+              </p>
+              <p>
+                <strong>h ≈ 46,0°</strong>
+              </p>
+              <p>
+                Проверка: при кулминация звездата би била на 90° − 23° = 67°; 3
+                часа по-късно е по-ниско – логично.
+              </p>
+            </Task>
           </div>
         </section>
 
         <section className="mb-8">
           <h2 className="text-xl sm:text-2xl font-semibold mb-4">
-            Обобщение
+            11. Обобщение
           </h2>
           <div className="bg-gradient-to-r from-blue-50 to-purple-50 dark:from-gray-800 dark:to-gray-700 p-6 rounded-lg">
             <ul className="space-y-2">
-              <li>✓ Хоризонталната система (A, h) е интуитивна, но зависи от време и място</li>
-              <li>✓ Екваториалната система (α, δ) е универсална и постоянна</li>
-              <li>✓ h + z = 90° (основна формула за хоризонтална система)</li>
-              <li>✓ 1 час ректасцензия = 15°</li>
-              <li>✓ Звезда преминава през зенита, ако δ = φ</li>
+              <li>
+                ✓ Хоризонталната система (A, h) е интуитивна, но зависи от време
+                и място
+              </li>
+              <li>
+                ✓ I екваториална (t, δ): δ е постоянна, t расте с 1h на звезден
+                час
+              </li>
+              <li>
+                ✓ II екваториална (α, δ) е универсална – използва се в
+                каталозите
+              </li>
+              <li>✓ h + z = 90°, 1h = 15°</li>
+              <li>✓ S = t + α; звездата кулминира, когато S = α</li>
+              <li>✓ h при горна кулминация = 90° − |φ − δ|</li>
             </ul>
           </div>
         </section>
@@ -540,10 +596,12 @@ export default function Lecture02() {
               <span>Практическо приложение</span>
             </h3>
             <p>
-              Съвременните телескопи използват екваториални координати за
-              автоматично насочване към избрани обекти. GPS системите в
-              астрономията позволяват точност до долни от секундата! Професионалните
-              обсерватории използват каталози с прецизни координати на милиони звезди.
+              Любителските телескопи с „GoTo“ монтировка пресмятат точно S = t +
+              α: въвеждате дата, час и място, а телескопът сам изчислява часовия
+              ъгъл и се насочва. Космическият телескоп Gaia е измерил α и δ на
+              близо 2 милиарда звезди с точност до няколко десетки милионни
+              части от ъгловата секунда – толкова голяма изглежда монета,
+              оставена на Луната.
             </p>
           </div>
         </section>

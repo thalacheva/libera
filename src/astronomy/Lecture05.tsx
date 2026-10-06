@@ -1,12 +1,91 @@
-import {useState} from 'react';
+import { useState } from 'react';
+import Example from '~/Example';
+import Quiz, { type Question } from '~/Quiz';
+import Theorem from '~/Theorem';
+import SolarEclipse from './components/SolarEclipse';
+import Task from './components/Task';
+
+const QUIZ: Question[] = [
+  {
+    question: 'При коя фаза на Луната е възможно слънчево затъмнение?',
+    answers: ['Пълнолуние', 'Новолуние', 'Първа четвърт', 'При всяка фаза'],
+    correctAnswer: 'Новолуние',
+  },
+  {
+    question: 'Кога затъмнението е пръстеновидно, а не пълно?',
+    answers: [
+      'Когато Луната е близо до апогей',
+      'Когато Луната е близо до перигей',
+      'Когато е облачно',
+      'Когато Земята е в перихелий и Луната – в перигей',
+    ],
+    correctAnswer: 'Когато Луната е близо до апогей',
+  },
+  {
+    question: 'Защо пълните слънчеви затъмнения изобщо са възможни?',
+    answers: [
+      'Луната е по-голяма от Слънцето',
+      'Луната е ~400 пъти по-малка и ~400 пъти по-близо от Слънцето',
+      'Сянката на Земята помага',
+      'Луната свети по-слабо от Слънцето',
+    ],
+    correctAnswer:
+      'Луната е ~400 пъти по-малка и ~400 пъти по-близо от Слънцето',
+  },
+  {
+    question:
+      'Кое затъмнение се вижда от по-голяма част от Земята едновременно?',
+    answers: [
+      'Пълното слънчево',
+      'Пръстеновидното слънчево',
+      'Лунното',
+      'Еднакво е',
+    ],
+    correctAnswer: 'Лунното',
+  },
+  {
+    question:
+      'Безопасно ли е да гледате частично затъмнение с обикновени слънчеви очила?',
+    answers: [
+      'Да, ако са тъмни',
+      'Да, ако е за кратко',
+      'Не – нужни са сертифицирани филтри (ISO 12312-2)',
+      'Да, ако Слънцето е ниско',
+    ],
+    correctAnswer: 'Не – нужни са сертифицирани филтри (ISO 12312-2)',
+  },
+];
+
+const CONTACTS = [
+  {
+    name: 'I контакт',
+    text: 'Дискът на Луната докосва Слънцето – начало на частичната фаза.',
+  },
+  {
+    name: 'II контакт',
+    text: 'Луната закрива цялото Слънце – начало на пълната фаза. Миг преди това проблясват „броеницата на Бейли“ и „диамантеният пръстен“.',
+  },
+  {
+    name: 'III контакт',
+    text: 'Слънцето започва да се показва – край на пълната фаза.',
+  },
+  {
+    name: 'IV контакт',
+    text: 'Луната напуска диска на Слънцето – край на затъмнението.',
+  },
+];
 
 export default function Lecture05() {
-  const [eclipseType, setEclipseType] = useState<'total' | 'partial' | 'annular'>('total');
-  const [showSolutions, setShowSolutions] = useState<{ [key: string]: boolean }>({});
+  const [showSolutions, setShowSolutions] = useState<{
+    [key: string]: boolean;
+  }>({});
 
-  const toggleSolution = (taskId: string) => {
-    setShowSolutions(prev => ({ ...prev, [taskId]: !prev[taskId] }));
-  };
+  const task = (id: string) => ({
+    id,
+    shown: !!showSolutions[id],
+    onToggle: (taskId: string) =>
+      setShowSolutions(prev => ({ ...prev, [taskId]: !prev[taskId] })),
+  });
 
   return (
     <main className="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8">
@@ -15,221 +94,115 @@ export default function Lecture05() {
           Лекция 5: Слънчеви затъмнения
         </h1>
 
+        <div className="bg-gradient-to-br from-slate-900 to-black text-white p-6 rounded-2xl mb-8 shadow-lg">
+          <p className="text-lg sm:text-xl leading-relaxed">
+            🌑 11 август 1999 г., Шабла. Посред бял ден за минути става здрачно,
+            температурата пада с няколко градуса, птиците замлъкват. После
+            Слънцето изчезва и на негово място грейва бледа сребриста корона, а
+            на небето се появяват Венера и най-ярките звезди. Това е последното
+            пълно слънчево затъмнение, видяно в България – и едно от
+            най-впечатляващите природни явления изобщо.
+          </p>
+        </div>
+
         <section className="mb-8">
           <h2 className="text-xl sm:text-2xl font-semibold mb-4">
             1. Какво е слънчево затъмнение?
           </h2>
           <p className="mb-4 text-base sm:text-lg leading-relaxed">
-            Слънчевото затъмнение настъпва, когато Луната се намира между Земята
-            и Слънцето, и сянката на Луната пада върху Земята. Това може да се
-            случи само при <strong>новолуние</strong>.
+            Слънчево затъмнение настъпва, когато Луната мине между Земята и
+            Слънцето и сянката ѝ падне върху Земята. Затова то е възможно само
+            при <strong>новолуние</strong>. За разлика от лунното затъмнение,
+            което се вижда от цялото нощно полукълбо, слънчевото се вижда само
+            там, където пада лунната сянка.
           </p>
+          <div className="bg-yellow-50 dark:bg-yellow-900/20 p-4 rounded-lg mb-4">
+            <h3 className="font-semibold mb-2">
+              🎯 Невероятно космическо съвпадение
+            </h3>
+            <ul className="list-disc list-inside space-y-2">
+              <li>
+                <strong>Слънце:</strong> диаметър 1,39 млн. km, разстояние 150
+                млн. km → ъглов диаметър ≈ 0,53° (31,6′–32,7′)
+              </li>
+              <li>
+                <strong>Луна:</strong> диаметър 3474 km, разстояние 356 500–406
+                700 km → ъглов диаметър ≈ 0,49°–0,56° (29,4′–33,5′)
+              </li>
+            </ul>
+            <p className="mt-3">
+              Луната е около 400 пъти по-малка от Слънцето и около 400 пъти
+              по-близо. Затова двата диска изглеждат почти еднакво големи, а
+              според разстоянието до Луната затъмнението е ту пълно, ту
+              пръстеновидно.
+            </p>
+          </div>
         </section>
 
         <section className="mb-8">
           <h2 className="text-xl sm:text-2xl font-semibold mb-4">
-            2. Интерактивна визуализация
+            2. Сянка, полусянка и видове затъмнения
           </h2>
+          <p className="mb-4 text-base sm:text-lg leading-relaxed">
+            Сянката на Луната е конус, дълъг около 374 000 km – почти колкото
+            разстоянието до Земята. Дали върхът му стига до повърхността, решава
+            вида на затъмнението.
+          </p>
 
-          {/* Бутони за избор на тип затъмнение */}
-          <div className="flex justify-center gap-2 mb-4 flex-wrap">
-            <button
-              onClick={() => setEclipseType('total')}
-              className={`px-4 py-2 rounded ${eclipseType === 'total' ? 'bg-gray-800 text-white' : 'bg-gray-200 dark:bg-gray-700'}`}
-            >
-              Пълно
-            </button>
-            <button
-              onClick={() => setEclipseType('annular')}
-              className={`px-4 py-2 rounded ${eclipseType === 'annular' ? 'bg-yellow-500 text-white' : 'bg-gray-200 dark:bg-gray-700'}`}
-            >
-              Пръстеновидно
-            </button>
-            <button
-              onClick={() => setEclipseType('partial')}
-              className={`px-4 py-2 rounded ${eclipseType === 'partial' ? 'bg-blue-500 text-white' : 'bg-gray-200 dark:bg-gray-700'}`}
-            >
-              Частично
-            </button>
-          </div>
-
-          <div className="bg-white dark:bg-gray-800 p-4 rounded-lg border-2 border-orange-300 dark:border-orange-600 mb-6">
-            <h3 className="font-semibold mb-3 text-center">
-              {eclipseType === 'total' && 'Пълно слънчево затъмнение'}
-              {eclipseType === 'annular' && 'Пръстеновидно затъмнение'}
-              {eclipseType === 'partial' && 'Частично затъмнение'}
-            </h3>
-
-            <svg viewBox="0 0 800 400" className="w-full h-auto" style={{ maxHeight: '400px' }}>
-              {/* Слънце */}
-              <circle cx="80" cy="200" r="50" fill="rgb(251, 191, 36)" />
-              {[...Array(12)].map((_, i) => {
-                const angle = (i * 30 * Math.PI) / 180;
-                return (
-                  <line
-                    key={i}
-                    x1={80 + 55 * Math.cos(angle)}
-                    y1={200 + 55 * Math.sin(angle)}
-                    x2={80 + 70 * Math.cos(angle)}
-                    y2={200 + 70 * Math.sin(angle)}
-                    stroke="rgb(251, 191, 36)"
-                    strokeWidth="3"
-                  />
-                );
-              })}
-              <text x="80" y="270" fontSize="14" fontWeight="bold" textAnchor="middle" fill="currentColor">Слънце</text>
-
-              {/* Луна */}
-              <circle
-                cx={eclipseType === 'annular' ? 350 : 320}
-                cy="200"
-                r={eclipseType === 'annular' ? 25 : 30}
-                fill="rgb(100, 100, 100)"
-              />
-              <circle
-                cx={eclipseType === 'annular' ? 350 : 320}
-                cy="200"
-                r={eclipseType === 'annular' ? 25 : 30}
-                fill="none"
-                stroke="white"
-                strokeWidth="1"
-              />
-              <text
-                x={eclipseType === 'annular' ? 350 : 320}
-                y="240"
-                fontSize="12"
-                fontWeight="bold"
-                textAnchor="middle"
-                fill="currentColor"
-              >
-                Луна
-              </text>
-
-              {/* Сянка на Луната (конус към Земята) */}
-              {eclipseType === 'total' && (
-                <>
-                  <path
-                    d="M 320,170 L 600,195 L 600,205 L 320,230 Z"
-                    fill="rgba(0, 0, 0, 0.4)"
-                    stroke="rgb(100, 100, 100)"
-                    strokeWidth="1"
-                  />
-                  <text x="460" y="190" fontSize="11" fill="rgb(100, 100, 100)" fontWeight="bold">Сянка (умбра)</text>
-                </>
-              )}
-
-              {/* Пръстеновидно - сянката не достига до Земята */}
-              {eclipseType === 'annular' && (
-                <>
-                  <path
-                    d="M 350,175 L 520,190 M 350,225 L 520,210"
-                    stroke="rgb(100, 100, 100)"
-                    strokeWidth="2"
-                    strokeDasharray="5,5"
-                  />
-                  <circle cx="520" cy="200" r="3" fill="rgb(239, 68, 68)" />
-                  <text x="460" y="180" fontSize="10" fill="rgb(100, 100, 100)">Сянката не достига</text>
-                </>
-              )}
-
-              {/* Полусянка */}
-              <path
-                d={eclipseType === 'annular'
-                  ? "M 350,150 L 650,100 M 350,250 L 650,300"
-                  : "M 320,140 L 650,100 M 320,260 L 650,300"}
-                stroke="rgb(150, 150, 150)"
-                strokeWidth="1"
-                strokeDasharray="3,3"
-                opacity="0.5"
-              />
-              <text x="550" y="120" fontSize="10" fill="rgb(150, 150, 150)">Полусянка</text>
-
-              {/* Земя */}
-              <circle cx="600" cy="200" r="50" fill="rgb(59, 130, 246)" />
-
-              {/* Осветена половина */}
-              <path
-                d="M 600,150 A 50,50 0 0,0 600,250"
-                fill="rgba(251, 191, 36, 0.3)"
-              />
-
-              {/* Зона на затъмнението на Земята */}
-              {eclipseType === 'total' && (
-                <circle cx="600" cy="200" r="8" fill="rgb(0, 0, 0)" />
-              )}
-              {eclipseType === 'annular' && (
-                <>
-                  <circle cx="600" cy="200" r="8" fill="rgb(251, 191, 36)" />
-                  <circle cx="600" cy="200" r="5" fill="rgb(0, 0, 0)" />
-                </>
-              )}
-              {eclipseType === 'partial' && (
-                <path
-                  d="M 600,192 A 8,8 0 0,1 600,208 L 600,200 Z"
-                  fill="rgb(0, 0, 0)"
-                />
-              )}
-
-              <circle cx="600" cy="200" r="50" fill="none" stroke="rgb(34, 197, 94)" strokeWidth="2" />
-              <text x="600" y="270" fontSize="14" fontWeight="bold" textAnchor="middle" fill="currentColor">Земя</text>
-
-              {/* Път на пълнотата */}
-              {eclipseType === 'total' && (
-                <text x="600" y="185" fontSize="9" textAnchor="middle" fill="white" fontWeight="bold">
-                  Път на пълнотата
-                </text>
-              )}
-            </svg>
-
-            <div className="mt-4 p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
-              <h4 className="font-semibold mb-2">
-                {eclipseType === 'total' && 'Пълно слънчево затъмнение'}
-                {eclipseType === 'annular' && 'Пръстеновидно затъмнение'}
-                {eclipseType === 'partial' && 'Частично затъмнение'}
-              </h4>
-              {eclipseType === 'total' && (
-                <p className="text-sm">
-                  Луната изцяло закрива Слънцето. Видимо само от тясна ивица на Земята
-                  (път на пълнотата, ширина до 270 km). Продължителност: до 7.5 минути.
-                  Може да се види короната на Слънцето.
-                </p>
-              )}
-              {eclipseType === 'annular' && (
-                <p className="text-sm">
-                  Луната е по-далеч от Земята (в апогей) и изглежда по-малка от Слънцето,
-                  оставяйки видим ярък "пръстен" около себе си. Короната не е видима.
-                </p>
-              )}
-              {eclipseType === 'partial' && (
-                <p className="text-sm">
-                  Луната закрива само част от Слънцето. Видимо от по-широка област около
-                  пътя на пълнотата. Не може да се види короната.
-                </p>
-              )}
-            </div>
-          </div>
+          <SolarEclipse />
 
           <div className="bg-blue-50 dark:bg-gray-700 p-4 rounded-lg mb-4">
             <h3 className="font-semibold mb-2">Видове слънчеви затъмнения:</h3>
             <ul className="list-disc list-inside space-y-3">
               <li>
-                <strong>Пълно слънчево затъмнение</strong> – Луната изцяло закрива Слънцето.
-                Видимо само от тясна ивица (път на пълнотата). Продължителност: до 7.5 минути.
+                <strong>Пълно</strong> – конусът на пълната сянка стига до
+                Земята. От тясна ивица (до ~270 km) Луната закрива цялото Слънце
+                за до 7 min 31 s.
               </li>
               <li>
-                <strong>Пръстеновидно затъмнение</strong> – Луната е по-далеч и изглежда
-                по-малка, оставяйки видим "пръстен" около себе си.
+                <strong>Пръстеновидно</strong> – Луната е твърде далеч, конусът
+                свършва преди Земята. Около черния диск остава ярък пръстен.
+                Короната не се вижда.
               </li>
               <li>
-                <strong>Частично слънчево затъмнение</strong> – Луната закрива само част
-                от Слънцето. Видимо от по-широка област.
+                <strong>Частично</strong> – наблюдателят е в полусянката (до
+                ~3500 km от централната линия) и Луната закрива само част от
+                Слънцето.
               </li>
               <li>
-                <strong>Хибридно затъмнение</strong> – рядко явление, когато затъмнението
-                е пълно на някои места и пръстеновидно на други.
+                <strong>Хибридно</strong> – по продължение на пътя затъмнението
+                е ту пръстеновидно, ту пълно, защото Земята е кълбо и средата на
+                пътя е по-близо до Луната с ~6000 km.
               </li>
             </ul>
           </div>
+
+          <h3 className="text-lg font-semibold mb-3">Ход на затъмнението</h3>
+          <div className="grid sm:grid-cols-2 gap-3 mb-4">
+            {CONTACTS.map(c => (
+              <div
+                key={c.name}
+                className="bg-gray-50 dark:bg-gray-700 p-3 rounded-lg"
+              >
+                <p className="font-semibold">{c.name}</p>
+                <p className="text-sm">{c.text}</p>
+              </div>
+            ))}
+          </div>
+
+          <Theorem
+            title="Условие за пълно затъмнение"
+            description="Затъмнението е пълно, ако ъгловият радиус на Луната е по-голям от този на Слънцето: R☾ / d☾ > R☉ / d☉. Еквивалентно: дължината на конуса на пълната сянка L = d☉·R☾ / (R☉ − R☾) е по-голяма от разстоянието от Луната до наблюдателя."
+          />
+          <Example
+            description="Колко е дълъг конусът на пълната лунна сянка?"
+            steps={[
+              'Подобни триъгълници: L / R☾ = (L + d☉) / R☉, откъдето L = d☉ · R☾ / (R☉ − R☾).',
+              'L = 149,6·10⁶ km · 1737 km / (696 000 − 1737) km ≈ 374 000 km.',
+              'Разстоянието от Луната до повърхността на Земята е от ~350 000 km (перигей) до ~400 000 km (апогей).',
+              'Следователно сянката понякога стига до Земята (пълно затъмнение), а понякога не (пръстеновидно). Пръстеновидните затъмнения дори са малко по-чести.',
+            ]}
+          />
         </section>
 
         <section className="mb-8">
@@ -237,292 +210,387 @@ export default function Lecture05() {
             3. Корона на Слънцето
           </h2>
           <p className="mb-4 text-base sm:text-lg leading-relaxed">
-            По време на пълно слънчево затъмнение можем да видим короната на
-            Слънцето – външната му атмосфера, която обикновено е невидима поради
-            яркостта на фотосферата.
+            Само по време на пълната фаза виждаме с просто око короната –
+            външната атмосфера на Слънцето. Тя е милион пъти по-слаба от
+            фотосферата и обикновено се губи в нейния блясък.
           </p>
-
           <div className="bg-purple-50 dark:bg-purple-900/20 p-4 rounded-lg mb-4">
             <h3 className="font-semibold mb-2">Характеристики на короната:</h3>
             <ul className="list-disc list-inside space-y-2">
-              <li>Температура: над 1 милион градуса (парадокс - по-гореща от повърхността!)</li>
-              <li>Простира се на милиони километри в космоса</li>
-              <li>Източник на слънчевия вятър</li>
-              <li>Видима само при пълно затъмнение или със специални коронографи</li>
+              <li>
+                Температура 1–3 милиона K – стотици пъти по-гореща от
+                повърхността (5800 K). Защо е така, още се изследва.
+              </li>
+              <li>
+                Простира се на милиони километри и преминава в слънчевия вятър
+              </li>
+              <li>
+                Формата ѝ зависи от слънчевата активност: при максимум е кръгла,
+                при минимум – удължена по екватора
+              </li>
+              <li>
+                Червените протуберанси по ръба на Слънцето също се виждат само
+                при пълно затъмнение или със специални телескопи
+              </li>
             </ul>
           </div>
-        </section>
-
-        <section className="mb-8">
-          <h2 className="text-xl sm:text-2xl font-semibold mb-4">
-            4. Невероятно космическо съвпадение
-          </h2>
-          <p className="mb-4 text-base sm:text-lg leading-relaxed">
-            Пълните слънчеви затъмнения са възможни само защото Луната и Слънцето
-            изглеждат почти еднакви по размер от Земята!
-          </p>
-
-          <div className="bg-yellow-50 dark:bg-yellow-900/20 p-4 rounded-lg mb-4">
-            <h3 className="font-semibold mb-2">Ъглови размери:</h3>
-            <ul className="list-disc list-inside space-y-2">
-              <li><strong>Слънце:</strong> диаметър 1.39 млн. km, разстояние 150 млн. km → ъглов размер ≈ 0.53°</li>
-              <li><strong>Луна:</strong> диаметър 3474 km, разстояние 384 400 km → ъглов размер ≈ 0.52°</li>
-            </ul>
-            <p className="mt-3 font-semibold">
-              Луната бавно се отдалечава от Земята (около 3.8 cm годишно), така че след
-              милиони години пълните затъмнения няма да са възможни!
+          <div className="bg-indigo-50 dark:bg-indigo-900/20 border-l-4 border-indigo-500 p-4 rounded mb-4">
+            <p className="font-semibold mb-1">
+              🔭 Затъмнения, които промениха науката
             </p>
+            <ul className="list-disc list-inside space-y-1 text-sm">
+              <li>
+                <strong>1868 г.</strong> – в спектъра на протуберансите е открит
+                нов елемент, наречен <em>хелий</em> (от гр. „хелиос“ – Слънце).
+                Години по-късно го намират и на Земята.
+              </li>
+              <li>
+                <strong>1919 г.</strong> – Едингтън измерва отклонението на
+                звездната светлина край Слънцето и потвърждава общата теория на
+                относителността на Айнщайн.
+              </li>
+            </ul>
           </div>
         </section>
 
         <section className="mb-8">
           <h2 className="text-xl sm:text-2xl font-semibold mb-4">
-            5. Защо затъмненията не се случват всеки месец?
+            4. Защо затъмненията не се случват всеки месец?
           </h2>
           <p className="mb-4 text-base sm:text-lg leading-relaxed">
-            Орбитата на Луната е наклонена под ъгъл от около 5° спрямо еклиптиката.
-            Затова Луната обикновено минава над или под Слънцето при новолуние.
+            Както при лунните затъмнения (Лекция 4), орбитата на Луната е
+            наклонена на ~5,1° спрямо еклиптиката. При повечето новолуния Луната
+            минава над или под Слънцето. Затъмнение има само ако новолунието е
+            близо до възел.
           </p>
-
-          <div className="bg-white dark:bg-gray-800 p-4 rounded-lg border-2 border-purple-300 dark:border-purple-600 mb-6">
-            <h3 className="font-semibold mb-3 text-center">Наклон на лунната орбита</h3>
-
-            <svg viewBox="0 0 600 300" className="w-full h-auto">
-              {/* Еклиптика (хоризонтална) */}
-              <line x1="50" y1="150" x2="550" y2="150" stroke="rgb(251, 191, 36)" strokeWidth="3" />
-              <text x="560" y="155" fontSize="12" fill="rgb(251, 191, 36)" fontWeight="bold">Еклиптика</text>
-
-              {/* Орбита на Луната (наклонена) */}
-              <ellipse
-                cx="300"
-                cy="150"
-                rx="200"
-                ry="60"
-                fill="none"
-                stroke="rgb(156, 163, 175)"
-                strokeWidth="2"
-                transform="rotate(-10 300 150)"
-              />
-              <text x="480" y="100" fontSize="12" fill="rgb(156, 163, 175)" fontWeight="bold">Орбита на Луната</text>
-
-              {/* Възли */}
-              <circle cx="150" cy="150" r="6" fill="rgb(239, 68, 68)" />
-              <text x="155" y="145" fontSize="11" fill="rgb(239, 68, 68)" fontWeight="bold">Възел</text>
-              <circle cx="450" cy="150" r="6" fill="rgb(239, 68, 68)" />
-              <text x="455" y="145" fontSize="11" fill="rgb(239, 68, 68)" fontWeight="bold">Възел</text>
-
-              {/* Ъгъл 5° */}
-              <path
-                d="M 300,150 L 350,150 L 350,120"
-                fill="none"
-                stroke="rgb(239, 68, 68)"
-                strokeWidth="1"
-              />
-              <text x="360" y="135" fontSize="11" fill="rgb(239, 68, 68)" fontWeight="bold">5°</text>
-
-              {/* Луна над еклиптиката */}
-              <circle cx="250" cy="110" r="10" fill="rgb(200, 200, 200)" opacity="0.5" />
-              <text x="265" y="110" fontSize="10" fill="currentColor">Луна над</text>
-
-              {/* Луна под еклиптиката */}
-              <circle cx="350" cy="190" r="10" fill="rgb(200, 200, 200)" opacity="0.5" />
-              <text x="365" y="195" fontSize="10" fill="currentColor">Луна под</text>
-
-              {/* Затъмнение при възел */}
-              <circle cx="450" cy="150" r="10" fill="rgb(100, 100, 100)" />
-              <text x="430" y="175" fontSize="10" fill="rgb(239, 68, 68)" fontWeight="bold">Затъмнение!</text>
-            </svg>
-
-            <div className="mt-4 p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
-              <p className="text-sm">
-                Затъмнения се случват само когато новолунието (или пълнолунието) съвпадне
-                с <strong>възел</strong> – точка, където орбитата на Луната пресича еклиптиката.
-                Това се случва 2-5 пъти годишно за слънчеви затъмнения.
-              </p>
-            </div>
+          <div className="bg-purple-50 dark:bg-purple-900/20 p-4 rounded-lg mb-4">
+            <ul className="list-disc list-inside space-y-2">
+              <li>
+                Слънчевото затъмнение е възможно, ако новолунието е до ~18° от
+                възела – по-широко от лунното, защото е достатъчно Луната да
+                закрие Слънцето от <em>някоя</em> точка на Земята.
+              </li>
+              <li>
+                Затова годишно има от 2 до 5 слънчеви затъмнения – общо повече
+                от лунните.
+              </li>
+              <li>
+                На едно конкретно място обаче пълно слънчево затъмнение има
+                средно веднъж на ~375 години – много по-рядко от лунното.
+              </li>
+              <li>
+                Затъмненията се повтарят през един <strong>сарос</strong> (18
+                години 11 дни 8 часа), но изместени с ~120° по дължина заради
+                допълнителните 8 часа.
+              </li>
+            </ul>
           </div>
         </section>
 
         <section className="mb-8">
-          <div className="bg-red-50 dark:bg-red-900/20 border-l-4 border-red-500 p-4 rounded">
+          <h2 className="text-xl sm:text-2xl font-semibold mb-4">
+            5. Как да наблюдаваме безопасно
+          </h2>
+          <div className="bg-red-50 dark:bg-red-900/20 border-l-4 border-red-500 p-4 rounded mb-4">
             <h3 className="font-semibold mb-2 flex items-center gap-2">
               <span>⚠️</span>
               <span>ВАЖНО ПРЕДУПРЕЖДЕНИЕ!</span>
             </h3>
             <p className="mb-2 font-semibold">
-              Никога не гледайте директно към Слънцето по време на затъмнение без
-              специални филтри!
+              Никога не гледайте Слънцето директно без специален филтър – дори
+              когато е закрито на 99%!
             </p>
             <p>
-              Това може да причини трайно увреждане на очите, включително слепота.
-              Използвайте само сертифицирани очила за наблюдение на слънчеви
-              затъмнения (ISO 12312-2). Обикновените слънчеви очила НЕ са безопасни!
+              Това може да причини трайно увреждане на очите, включително
+              слепота, без никаква болка в момента. Използвайте само
+              сертифицирани очила за наблюдение на затъмнения (ISO 12312-2).
+              Обикновените слънчеви очила, опушено стъкло и рентгенови снимки НЕ
+              са безопасни! Само по време на пълната фаза може да се гледа без
+              филтър – и филтърът трябва да се сложи веднага щом Слънцето
+              започне да се показва.
+            </p>
+          </div>
+          <div className="grid sm:grid-cols-2 gap-3 mb-4">
+            <div className="bg-emerald-50 dark:bg-emerald-900/20 p-4 rounded-lg">
+              <h3 className="font-semibold mb-1">📦 Камера-обскура</h3>
+              <p className="text-sm">
+                Пробийте малка дупка в картон и оставете светлината да падне
+                върху бял лист на ~1 m зад него. На листа ще видите
+                изображението на „нахапаното“ Слънце – напълно безопасно.
+              </p>
+            </div>
+            <div className="bg-emerald-50 dark:bg-emerald-900/20 p-4 rounded-lg">
+              <h3 className="font-semibold mb-1">🌳 Сърпчета под дърветата</h3>
+              <p className="text-sm">
+                Пролуките между листата действат като хиляди камери-обскури. По
+                време на частичното затъмнение сенките под дърветата се изпълват
+                с малки сърпчета.
+              </p>
+            </div>
+          </div>
+          <div className="bg-amber-50 dark:bg-amber-900/20 p-4 rounded-lg mb-4">
+            <p className="font-semibold mb-1">
+              📅 Следващото голямо затъмнение
+            </p>
+            <p className="text-sm">
+              На 2 август 2027 г. ще има пълно слънчево затъмнение над Южна
+              Испания, Северна Африка и Египет – с пълна фаза до над 6 минути
+              край Луксор. От България то ще се вижда като частично. Проверете
+              точните данни за вашия град в сайта за затъмнения на НАСА.
             </p>
           </div>
         </section>
 
         <section className="mb-8">
           <h2 className="text-xl sm:text-2xl font-semibold mb-4">
-            📝 Задачи за упражнение
+            6. ✅ Провери се
+          </h2>
+          <Quiz questions={QUIZ} />
+        </section>
+
+        <section className="mb-8">
+          <h2 className="text-xl sm:text-2xl font-semibold mb-4">
+            7. 📝 Задачи за упражнение
           </h2>
 
-          {/* Ниво А */}
           <div className="mb-6">
             <h3 className="text-lg font-semibold mb-3 text-green-600 dark:text-green-400">
               Ниво А (Областен кръг)
             </h3>
 
-            <div className="bg-white dark:bg-gray-800 p-4 rounded-lg mb-4 border-l-4 border-green-500">
-              <p className="font-semibold mb-2">1. При коя фаза на Луната може да се случи слънчево затъмнение?</p>
-              <button
-                onClick={() => toggleSolution('a1')}
-                className="text-blue-600 dark:text-blue-400 hover:underline text-sm"
-              >
-                {showSolutions['a1'] ? '▼ Скрий решението' : '▶ Покажи решението'}
-              </button>
-              {showSolutions['a1'] && (
-                <div className="mt-3 p-3 bg-blue-50 dark:bg-blue-900/20 rounded">
-                  <p className="font-semibold">Отговор: При новолуние</p>
-                  <p className="mt-2">Обяснение: Слънчевото затъмнение се случва, когато Луната
-                  е между Земята и Слънцето. Това е възможно само при новолуние.</p>
-                </div>
-              )}
-            </div>
+            <Task
+              {...task('a1')}
+              number={1}
+              color="border-green-500"
+              question="При коя фаза на Луната може да има слънчево затъмнение?"
+            >
+              <p className="font-semibold">Отговор: при новолуние</p>
+              <p>
+                Само тогава Луната е между Земята и Слънцето и сянката ѝ може да
+                падне върху Земята.
+              </p>
+            </Task>
 
-            <div className="bg-white dark:bg-gray-800 p-4 rounded-lg mb-4 border-l-4 border-green-500">
-              <p className="font-semibold mb-2">2. Каква е разликата между пълно и пръстеновидно затъмнение?</p>
-              <button
-                onClick={() => toggleSolution('a2')}
-                className="text-blue-600 dark:text-blue-400 hover:underline text-sm"
-              >
-                {showSolutions['a2'] ? '▼ Скрий решението' : '▶ Покажи решението'}
-              </button>
-              {showSolutions['a2'] && (
-                <div className="mt-3 p-3 bg-blue-50 dark:bg-blue-900/20 rounded">
-                  <p className="font-semibold">Решение:</p>
-                  <p className="mt-2"><strong>Пълно:</strong> Луната е достатъчно близо до Земята
-                  и изглежда по-голяма или равна на Слънцето. Изцяло го закрива.</p>
-                  <p className="mt-2"><strong>Пръстеновидно:</strong> Луната е по-далеч (в апогей)
-                  и изглежда по-малка от Слънцето. Остава видим ярък пръстен около Луната.</p>
-                </div>
-              )}
-            </div>
+            <Task
+              {...task('a2')}
+              number={2}
+              color="border-green-500"
+              question="Каква е разликата между пълно и пръстеновидно затъмнение?"
+            >
+              <p>
+                <strong>Пълно:</strong> Луната е по-близо и изглежда по-голяма
+                от Слънцето – закрива го изцяло и се вижда короната.
+              </p>
+              <p>
+                <strong>Пръстеновидно:</strong> Луната е по-далеч (близо до
+                апогей) и изглежда по-малка от Слънцето – около нея остава ярък
+                пръстен.
+              </p>
+            </Task>
 
-            <div className="bg-white dark:bg-gray-800 p-4 rounded-lg mb-4 border-l-4 border-green-500">
-              <p className="font-semibold mb-2">3. Защо пълното слънчево затъмнение е видимо само от тясна ивица на Земята?</p>
-              <button
-                onClick={() => toggleSolution('a3')}
-                className="text-blue-600 dark:text-blue-400 hover:underline text-sm"
-              >
-                {showSolutions['a3'] ? '▼ Скрий решението' : '▶ Покажи решението'}
-              </button>
-              {showSolutions['a3'] && (
-                <div className="mt-3 p-3 bg-blue-50 dark:bg-blue-900/20 rounded">
-                  <p className="font-semibold">Решение:</p>
-                  <p className="mt-2">Сянката на Луната е конусовидна и много малка в сравнение
-                  с размера на Земята. Върхът на конуса достига до Земята и създава тясна ивица
-                  (път на пълнотата) с ширина до 270 km. Само от тази ивица затъмнението е пълно.</p>
-                  <p className="mt-2">Извън тази ивица (в полусянката) затъмнението е частично.</p>
-                </div>
-              )}
-            </div>
+            <Task
+              {...task('a3')}
+              number={3}
+              color="border-green-500"
+              question="Защо пълното слънчево затъмнение се вижда само от тясна ивица на Земята?"
+            >
+              <p>
+                Конусът на пълната сянка е дълъг ~374 000 km – почти колкото
+                разстоянието до Земята. Затова, когато стигне до повърхността,
+                напречното му сечение е само до ~270 km. Докато Луната се движи,
+                това петно чертае тясна ивица – пътя на пълнотата.
+              </p>
+              <p>Извън нея, в полусянката, затъмнението е частично.</p>
+            </Task>
+
+            <Task
+              {...task('a4')}
+              number={4}
+              color="border-green-500"
+              question="Защо лунното затъмнение се вижда от цялото нощно полукълбо, а слънчевото – само от малка част от дневното?"
+            >
+              <p>
+                При лунно затъмнение самата Луна наистина потъмнява – всеки,
+                който я вижда, вижда и затъмнението.
+              </p>
+              <p>
+                При слънчево затъмнение Слънцето не се променя – просто Луната
+                го закрива за наблюдателите в нейната сянка. Различните места
+                гледат към Луната от различни посоки (паралакс) и само за малка
+                част от тях тя застава точно пред Слънцето.
+              </p>
+            </Task>
           </div>
 
-          {/* Ниво В */}
           <div className="mb-6">
             <h3 className="text-lg font-semibold mb-3 text-yellow-600 dark:text-yellow-400">
               Ниво В (Национален кръг)
             </h3>
 
-            <div className="bg-white dark:bg-gray-800 p-4 rounded-lg mb-4 border-l-4 border-yellow-500">
-              <p className="font-semibold mb-2">4. Колко максимално може да продължи пълно слънчево затъмнение?</p>
-              <button
-                onClick={() => toggleSolution('b4')}
-                className="text-blue-600 dark:text-blue-400 hover:underline text-sm"
-              >
-                {showSolutions['b4'] ? '▼ Скрий решението' : '▶ Покажи решението'}
-              </button>
-              {showSolutions['b4'] && (
-                <div className="mt-3 p-3 bg-blue-50 dark:bg-blue-900/20 rounded">
-                  <p className="font-semibold">Отговор: До 7 минути и 31 секунди</p>
-                  <p className="mt-2">Обяснение: Максималната продължителност зависи от:</p>
-                  <ul className="list-disc list-inside mt-2 space-y-1">
-                    <li>Луната да е в перигей (най-близо до Земята) → изглежда по-голяма</li>
-                    <li>Земята да е в афелий (най-далеч от Слънцето) → Слънцето изглежда по-малко</li>
-                    <li>Затъмнението да се случва на екватора (по-бавно движение на сянката)</li>
-                  </ul>
-                  <p className="mt-2">На практика повечето пълни затъмнения продължават 2-4 минути.</p>
-                </div>
-              )}
-            </div>
+            <Task
+              {...task('b1')}
+              number={5}
+              color="border-yellow-500"
+              question="Колко най-много може да трае пълната фаза на слънчево затъмнение и при какви условия?"
+            >
+              <p className="font-semibold">Отговор: около 7 min 31 s</p>
+              <ul className="list-disc list-inside space-y-1">
+                <li>Луната е в перигей → изглежда най-голяма</li>
+                <li>Земята е в афелий (юли) → Слънцето изглежда най-малко</li>
+                <li>
+                  Наблюдателят е близо до екватора около пладне – въртенето на
+                  Земята го носи в посоката на сянката и тя го „подминава“
+                  по-бавно
+                </li>
+              </ul>
+              <p>Повечето пълни затъмнения траят 2–4 минути.</p>
+            </Task>
 
-            <div className="bg-white dark:bg-gray-800 p-4 rounded-lg mb-4 border-l-4 border-yellow-500">
-              <p className="font-semibold mb-2">5. Изчисли ъгловия размер на Луната, ако диаметърът
-              ѝ е 3474 km, а разстоянието до Земята е 384 400 km.</p>
-              <button
-                onClick={() => toggleSolution('b5')}
-                className="text-blue-600 dark:text-blue-400 hover:underline text-sm"
-              >
-                {showSolutions['b5'] ? '▼ Скрий решението' : '▶ Покажи решението'}
-              </button>
-              {showSolutions['b5'] && (
-                <div className="mt-3 p-3 bg-blue-50 dark:bg-blue-900/20 rounded">
-                  <p className="font-semibold">Решение:</p>
-                  <p className="mt-2">Формула за малки ъгли: α ≈ d / D (в радиани)</p>
-                  <p className="mt-2">α = 3474 km / 384400 km = 0.00904 радиана</p>
-                  <p className="mt-2">Преобразуване в градуси: α = 0.00904 × (180° / π) ≈ 0.518°</p>
-                  <p className="mt-2">Преобразуване в ъглови минути: 0.518° × 60 ≈ 31'</p>
-                  <p className="mt-2"><strong>Отговор: около 0.52° или 31 ъглови минути</strong></p>
-                </div>
-              )}
-            </div>
+            <Task
+              {...task('b2')}
+              number={6}
+              color="border-yellow-500"
+              question="Изчисли ъгловия диаметър на Луната, ако диаметърът ѝ е 3474 km, а разстоянието – 384 400 km."
+            >
+              <p>За малки ъгли: α ≈ D / d (в радиани).</p>
+              <p>α = 3474 / 384 400 = 0,00904 rad</p>
+              <p>α = 0,00904 · 180° / π ≈ 0,518° ≈ 31′</p>
+              <p>
+                <strong>Отговор: около 0,52° или 31′</strong>
+              </p>
+            </Task>
+
+            <Task
+              {...task('b3')}
+              number={7}
+              color="border-yellow-500"
+              question="Луната обикаля Земята със скорост ~1,02 km/s на изток. В каква посока се движи сянката ѝ по Земята?"
+            >
+              <p>
+                Сянката следва Луната и се движи от запад на изток. Повърхността
+                на Земята също се движи на изток, но по-бавно – до 0,47 km/s на
+                екватора.
+              </p>
+              <p>
+                Затова пътят на пълнотата винаги се чертае{' '}
+                <strong>от запад на изток</strong>, а затъмнението започва
+                по-рано на запад и по-късно на изток.
+              </p>
+            </Task>
+
+            <Task
+              {...task('b4')}
+              number={8}
+              color="border-yellow-500"
+              question="Каква е най-голямата възможна дистанция между наблюдател и Луната, при която затъмнението може да е пълно, ако Земята е в перихелий (d☉ = 147,1 млн. km)?"
+            >
+              <p>Условие: R☾ / d☾ ≥ R☉ / d☉.</p>
+              <p>
+                d☾ ≤ R☾ · d☉ / R☉ = 1737,4 · 147,1·10⁶ / 696 000 ≈{' '}
+                <strong>367 200 km</strong>
+              </p>
+              <p>
+                Това е разстоянието до наблюдателя; до центъра на Земята е с
+                ~6400 km повече (~373 600 km). През юли границата е ~386 000 km
+                – проверете със симулатора.
+              </p>
+            </Task>
           </div>
 
-          {/* Ниво С */}
           <div className="mb-6">
             <h3 className="text-lg font-semibold mb-3 text-red-600 dark:text-red-400">
               Ниво С (Международна олимпиада)
             </h3>
 
-            <div className="bg-white dark:bg-gray-800 p-4 rounded-lg mb-4 border-l-4 border-red-500">
-              <p className="font-semibold mb-2">6. Обясни защо на Марс не може да има пълни
-              слънчеви затъмнения, подобни на земните. (Фобос: диаметър 22 km, разстояние 9400 km;
-              Деймос: диаметър 12 km, разстояние 23 500 km)</p>
-              <button
-                onClick={() => toggleSolution('c6')}
-                className="text-blue-600 dark:text-blue-400 hover:underline text-sm"
-              >
-                {showSolutions['c6'] ? '▼ Скрий решението' : '▶ Покажи решението'}
-              </button>
-              {showSolutions['c6'] && (
-                <div className="mt-3 p-3 bg-blue-50 dark:bg-blue-900/20 rounded">
-                  <p className="font-semibold">Решение:</p>
-                  <p className="mt-2">Изчисляваме ъгловите размери на спътниците:</p>
-                  <p className="mt-2"><strong>Фобос:</strong> α = 22 / 9400 ≈ 0.00234 рад ≈ 0.134° ≈ 8'</p>
-                  <p><strong>Деймос:</strong> α = 12 / 23500 ≈ 0.00051 рад ≈ 0.029° ≈ 1.7'</p>
-                  <p className="mt-2"><strong>Слънце от Марс:</strong> α ≈ 0.35° (по-малко от Земята)</p>
-                  <p className="mt-2"><strong>Заключение:</strong> И двата спътника изглеждат много
-                  по-малки от Слънцето от Марс. Фобос може да причини частично затъмнение, но не
-                  и пълно. Деймос изглежда като малка точка пред Слънцето.</p>
-                  <p className="mt-2">Пълните слънчеви затъмнения са уникално земно явление!</p>
-                </div>
-              )}
-            </div>
+            <Task
+              {...task('c1')}
+              number={9}
+              color="border-red-500"
+              question="Може ли на Марс да има пълни слънчеви затъмнения? (Фобос: диаметър ~22 km, радиус на орбитата 9376 km; Деймос: ~12 km, 23 460 km; радиус на Марс 3390 km; Марс е на 1,52 AU от Слънцето.)"
+            >
+              <p>Разстоянията трябва да се мерят от повърхността на Марс:</p>
+              <p>
+                <strong>Фобос:</strong> 9376 − 3390 ≈ 5990 km → α = 22 / 5990 ≈
+                0,0037 rad ≈ 0,21° ≈ 13′
+              </p>
+              <p>
+                <strong>Деймос:</strong> 23 460 − 3390 ≈ 20 070 km → α ≈ 12 / 20
+                070 ≈ 0,0006 rad ≈ 2′
+              </p>
+              <p>
+                <strong>Слънцето от Марс:</strong> 0,53° / 1,52 ≈ 0,35° ≈ 21′
+              </p>
+              <p>
+                И двата спътника са по-малки от слънчевия диск – пълни
+                затъмнения на Марс няма. Фобос предизвиква „пръстеновидни“
+                затъмнения (заснети от марсоходите), а Деймос – само малка точка
+                пред Слънцето (преминаване).
+              </p>
+            </Task>
+
+            <Task
+              {...task('c2')}
+              number={10}
+              color="border-red-500"
+              question="Оцени колко трае пълната фаза за наблюдател на екватора около пладне, ако сянката има диаметър 200 km. (Скорост на Луната по орбитата 1,02 km/s, на повърхността на Земята при екватора – 0,47 km/s.)"
+            >
+              <p>
+                Сянката и наблюдателят се движат в една посока, така че
+                относителната скорост е v ≈ 1,02 − 0,47 = 0,55 km/s.
+              </p>
+              <p>
+                t ≈ 200 km / 0,55 km/s ≈ 360 s ≈ <strong>6 минути</strong>.
+              </p>
+              <p>
+                На по-високи ширини въртенето на Земята помага по-малко, а
+                сянката пада под ъгъл – затова там пълните фази са по-кратки.
+              </p>
+            </Task>
+
+            <Task
+              {...task('c3')}
+              number={11}
+              color="border-red-500"
+              question="Луната се отдалечава от Земята с ~3,8 cm годишно. Оцени след колко време пълните затъмнения ще станат невъзможни, ако приемем, че решаващо е разстоянието в перигей (днес ~357 000 km до центъра на Земята) и Слънцето е в афелий."
+            >
+              <p>
+                При афелий пълно затъмнение е възможно до ~379 700 km от
+                наблюдателя, т.е. до ~386 000 km от центъра на Земята.
+              </p>
+              <p>
+                Перигеят трябва да нарасне с ~29 000 km = 2,9·10¹⁰ mm. При 38
+                mm/год: t ≈ 2,9·10¹⁰ / 38 ≈ 7,6·10⁸ години.
+              </p>
+              <p>
+                <strong>Отговор: след няколкостотин милиона години</strong>{' '}
+                (по-точните модели дават ~600 млн. години). Живеем в късмет –
+                във времето, когато пълните затъмнения съществуват!
+              </p>
+            </Task>
           </div>
         </section>
 
         <section className="mb-8">
           <h2 className="text-xl sm:text-2xl font-semibold mb-4">
-            Обобщение
+            8. Обобщение
           </h2>
           <div className="bg-gradient-to-r from-orange-50 to-red-50 dark:from-gray-800 dark:to-gray-700 p-6 rounded-lg">
             <ul className="space-y-2">
-              <li>✓ Слънчеви затъмнения се случват при новолуние</li>
-              <li>✓ Пълно затъмнение е видимо само от тясна ивица (път на пълнотата)</li>
-              <li>✓ Максимална продължителност: 7.5 минути</li>
-              <li>✓ Луната и Слънцето имат почти еднакъв ъглов размер (~0.5°)</li>
-              <li>✓ Орбитата на Луната е наклонена на 5° спрямо еклиптиката</li>
-              <li>✓ Затъмнения се случват само при възлите</li>
+              <li>✓ Слънчеви затъмнения има при новолуние близо до възел</li>
+              <li>
+                ✓ Слънцето и Луната имат почти еднакъв ъглов диаметър (~0,5°)
+              </li>
+              <li>
+                ✓ Конусът на сянката (~374 000 km) понякога стига до Земята
+                (пълно), понякога не (пръстеновидно)
+              </li>
+              <li>
+                ✓ Пълното затъмнение се вижда от ивица до ~270 km, за до 7 min
+                31 s
+              </li>
+              <li>✓ Сянката се движи по Земята от запад на изток</li>
+              <li>✓ Само при пълна фаза се вижда короната</li>
+              <li>✓ Наблюдавайте само със сертифицирани филтри!</li>
             </ul>
           </div>
         </section>
@@ -534,11 +602,10 @@ export default function Lecture05() {
               <span>Интересен факт</span>
             </h3>
             <p>
-              Пълните слънчеви затъмнения са възможни само защото Луната и
-              Слънцето изглеждат почти еднакви по размер от Земята – невероятно
-              космическо съвпадение! Луната бавно се отдалечава от Земята (3.8 cm/година),
-              така че след около 600 милиона години пълните затъмнения няма да са възможни.
-              Ние живеем в специален момент от историята на Земята!
+              През 1973 г. свръхзвуковият самолет „Конкорд“ лети заедно с
+              лунната сянка над Африка и учените на борда наблюдават пълната
+              фаза цели 74 минути – рекорд, който никой наземен наблюдател не
+              може да достигне.
             </p>
           </div>
         </section>
