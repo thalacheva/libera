@@ -1,68 +1,69 @@
-import {useState} from 'react';
+import { useState } from 'react';
+import Example from '~/Example';
+import Quiz, { type Question } from '~/Quiz';
+import Theorem from '~/Theorem';
+import KeplerOrbitLab from './components/KeplerOrbitLab';
+import KeplerThirdLaw from './components/KeplerThirdLaw';
+import Task from './components/Task';
+
+const QUIZ: Question[] = [
+  {
+    question: 'Къде се намира Слънцето спрямо орбитата на планетата?',
+    answers: [
+      'В центъра на елипсата',
+      'В единия фокус на елипсата',
+      'В перихелия',
+      'Извън елипсата',
+    ],
+    correctAnswer: 'В единия фокус на елипсата',
+  },
+  {
+    question: 'Къде планетата се движи най-бързо?',
+    answers: [
+      'В перихелий',
+      'В афелий',
+      'Еднакво навсякъде',
+      'В края на малката ос',
+    ],
+    correctAnswer: 'В перихелий',
+  },
+  {
+    question: 'Планета обикаля Слънцето на a = 9 AU. Какъв е периодът ѝ?',
+    answers: ['9 години', '27 години', '81 години', '3 години'],
+    correctAnswer: '27 години',
+  },
+  {
+    question: 'Вторият закон на Кеплер е следствие от запазването на…',
+    answers: ['енергията', 'масата', 'момента на импулса', 'импулса'],
+    correctAnswer: 'момента на импулса',
+  },
+  {
+    question: 'Какъв е ексцентрицитетът на кръгова орбита?',
+    answers: ['0', '0,5', '1', 'Безкраен'],
+    correctAnswer: '0',
+  },
+];
+
+const ECCENTRICITIES = [
+  { name: 'Венера', e: '0,007' },
+  { name: 'Земя', e: '0,017' },
+  { name: 'Марс', e: '0,093' },
+  { name: 'Меркурий', e: '0,206' },
+  { name: 'Плутон', e: '0,249' },
+  { name: 'Кометата на Халей', e: '0,967' },
+];
 
 export default function Lecture07() {
-  const [time, setTime] = useState(0); // 0-100 за анимация
-  const [showSolutions, setShowSolutions] = useState<{ [key: string]: boolean }>({});
+  const [showSolutions, setShowSolutions] = useState<{
+    [key: string]: boolean;
+  }>({});
 
-  const toggleSolution = (taskId: string) => {
-    setShowSolutions(prev => ({ ...prev, [taskId]: !prev[taskId] }));
-  };
-
-  // Параметри на елипсата
-  const a = 180; // голяма полуос
-  const b = 140; // малка полуос
-  const c = Math.sqrt(a * a - b * b); // фокусно разстояние
-  const centerX = 300;
-  const centerY = 200;
-  const e = c / a; // ексцентрицитет
-  const sunX = centerX - c; // Слънцето е в левия фокус, перихелият е вляво
-
-  // Точка от орбитата за дадена средна аномалия M (решава уравнението на Кеплер E - e·sinE = M),
-  // така че равни интервали от M съответстват на равни интервали от време
-  const orbitPoint = (M: number) => {
-    let E = M;
-    for (let i = 0; i < 20; i++) {
-      E -= (E - e * Math.sin(E) - M) / (1 - e * Math.cos(E));
-    }
-    return { x: centerX - a * Math.cos(E), y: centerY - b * Math.sin(E) };
-  };
-
-  // Позиция на планетата по елипсата (time = 0 → перихелий, 50 → афелий)
-  const { x: planetX, y: planetY } = orbitPoint((time / 100) * 2 * Math.PI);
-
-  // Сектори за втория закон: еднакъв интервал от време около перихелия и афелия
-  const dM = 0.5;
-  const p1 = orbitPoint(-dM / 2);
-  const p2 = orbitPoint(dM / 2);
-  const q1 = orbitPoint(Math.PI - dM / 2);
-  const q2 = orbitPoint(Math.PI + dM / 2);
-
-  // Трети закон: орбити в мащаб (100 px = 1 AU)
-  const solarX = 180;
-  const solarY = 175;
-  const auPx = 100;
-  const planets = [
-    { name: 'Меркурий', a: 0.39, T: 0.24, color: 'gray', r: 4, deg: 120 },
-    { name: 'Венера', a: 0.72, T: 0.62, color: 'orange', r: 6, deg: 215 },
-    { name: 'Земя', a: 1, T: 1, color: 'rgb(59, 130, 246)', r: 7, deg: 0 },
-    { name: 'Марс', a: 1.52, T: 1.88, color: 'rgb(239, 68, 68)', r: 5, deg: 300 },
-  ].map(p => {
-    const rad = (p.deg * Math.PI) / 180;
-    const R = p.a * auPx;
-    return {
-      ...p,
-      R,
-      x: solarX + R * Math.cos(rad),
-      y: solarY - R * Math.sin(rad),
-      labelX: solarX + (R + 16) * Math.cos(rad),
-      labelY: solarY - (R + 16) * Math.sin(rad) + 4,
-    };
+  const task = (id: string) => ({
+    id,
+    shown: !!showSolutions[id],
+    onToggle: (taskId: string) =>
+      setShowSolutions(prev => ({ ...prev, [taskId]: !prev[taskId] })),
   });
-  // Юпитер (5.2 AU) не се побира – показваме дъга не в мащаб
-  const jupiterR = 230;
-  const jupiterSpan = Math.asin(160 / jupiterR);
-  const jupiterTop = { x: solarX + jupiterR * Math.cos(jupiterSpan), y: solarY - 160 };
-  const jupiterBottom = { x: jupiterTop.x, y: solarY + 160 };
 
   return (
     <main className="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8">
@@ -71,504 +72,383 @@ export default function Lecture07() {
           Лекция 7: Закони на Кеплер
         </h1>
 
+        <div className="bg-gradient-to-br from-indigo-900 to-slate-900 text-white p-6 rounded-2xl mb-8 shadow-lg">
+          <p className="text-lg sm:text-xl leading-relaxed">
+            🔭 Хиляди години хората вярвали, че небесните тела се движат по
+            съвършени окръжности. Йоханес Кеплер също вярвал – докато не се
+            опитал да опише орбитата на Марс. Шест години пресмятания на ръка и
+            една разлика от само 8 ъглови минути (четвърт от диаметъра на
+            Луната) спрямо наблюденията на Тихо Брахе го накарали да изостави
+            окръжностите. „Тези 8 минути – пише той – показаха пътя към
+            реформата на цялата астрономия.“
+          </p>
+        </div>
+
         <section className="mb-8">
           <h2 className="text-xl sm:text-2xl font-semibold mb-4">
-            Йоханес Кеплер (1571-1630)
+            1. Тихо Брахе и Йоханес Кеплер
           </h2>
+          <div className="grid sm:grid-cols-2 gap-3 mb-4">
+            <div className="bg-blue-50 dark:bg-gray-700 p-4 rounded-lg">
+              <h3 className="font-semibold mb-1">👁️ Тихо Брахе (1546–1601)</h3>
+              <p className="text-sm">
+                Датски астроном – най-точният наблюдател преди телескопа. В
+                обсерваторията си на остров Хвен измервал положенията на
+                планетите с точност около 1′ в продължение на 20 години.
+              </p>
+            </div>
+            <div className="bg-blue-50 dark:bg-gray-700 p-4 rounded-lg">
+              <h3 className="font-semibold mb-1">
+                🧮 Йоханес Кеплер (1571–1630)
+              </h3>
+              <p className="text-sm">
+                Немски математик, помощник на Брахе в Прага. След смъртта му
+                наследил наблюденията и от тях извел трите закона (1609 и 1619)
+                – без телескоп, без компютър и без да знае защо планетите се
+                движат така.
+              </p>
+            </div>
+          </div>
           <p className="mb-4 text-base sm:text-lg leading-relaxed">
-            Немският астроном Йоханес Кеплер формулира три закона, които описват
-            движението на планетите около Слънцето. Тези закони са базирани на
-            прецизните наблюдения на Тихо Брахе и са революционизирали астрономията.
+            Законите на Кеплер са <strong>емпирични</strong> – те описват{' '}
+            <em>как</em> се движат планетите. Едва 70 години по-късно Нютон
+            показа, че те следват от закона за всемирното привличане (Лекция 6)
+            – и обясни <em>защо</em>.
           </p>
         </section>
 
         <section className="mb-8">
           <h2 className="text-xl sm:text-2xl font-semibold mb-4">
-            Първи закон на Кеплер (Закон за елипсите)
+            2. Първи закон: закон за елипсите
           </h2>
-          <div className="bg-blue-50 dark:bg-gray-700 p-4 rounded-lg mb-4">
-            <p className="mb-3 font-semibold text-lg">
-              Всяка планета се движи по елипса, в единия фокус на която се намира Слънцето.
-            </p>
-          </div>
-
-          {/* Интерактивна визуализация на елиптична орбита */}
-          <div className="bg-white dark:bg-gray-800 p-4 rounded-lg border-2 border-blue-300 dark:border-blue-600 mb-6">
-            <h3 className="font-semibold mb-3 text-center">Първи закон: Елиптична орбита</h3>
-
-            <svg viewBox="0 0 600 400" className="w-full h-auto">
-              {/* Елипса (орбита) */}
-              <ellipse
-                cx={centerX}
-                cy={centerY}
-                rx={a}
-                ry={b}
-                fill="none"
-                stroke="rgb(59, 130, 246)"
-                strokeWidth="3"
-              />
-
-              {/* Център на елипсата */}
-              <circle cx={centerX} cy={centerY} r="3" fill="gray" opacity="0.5" />
-              <text x={centerX + 5} y={centerY - 5} fontSize="10" fill="gray">Център</text>
-
-              {/* Слънце (в единия фокус) */}
-              <circle cx={sunX} cy={centerY} r="20" fill="rgb(251, 191, 36)" />
-              <text x={sunX} y={centerY + 35} fontSize="12" fontWeight="bold" textAnchor="middle" fill="currentColor">
-                ☀️ Слънце (фокус)
-              </text>
-
-              {/* Втори фокус (празен) */}
-              <circle cx={centerX + c} cy={centerY} r="3" fill="gray" />
-              <text x={centerX + c + 5} y={centerY - 5} fontSize="10" fill="gray">Фокус 2</text>
-
-              {/* Полуоси и фокусно разстояние */}
-              <line x1={centerX} y1={centerY} x2={centerX + a} y2={centerY} stroke="rgb(168, 85, 247)" strokeWidth="2" />
-              <text x={centerX + a / 2} y={centerY + 15} fontSize="11" fill="rgb(168, 85, 247)" fontWeight="bold" textAnchor="middle">
-                a
-              </text>
-              <line x1={centerX} y1={centerY} x2={centerX} y2={centerY - b} stroke="rgb(20, 184, 166)" strokeWidth="2" />
-              <text x={centerX - 6} y={centerY - b / 2} fontSize="11" fill="rgb(20, 184, 166)" fontWeight="bold" textAnchor="end">
-                b
-              </text>
-              <line x1={sunX} y1={centerY} x2={centerX} y2={centerY} stroke="gray" strokeWidth="2" strokeDasharray="3,3" />
-              <text x={(sunX + centerX) / 2} y={centerY - 6} fontSize="11" fill="gray" fontWeight="bold" textAnchor="middle">
-                c
-              </text>
-
-              {/* Радиус-вектор */}
-              <line
-                x1={sunX}
-                y1={centerY}
-                x2={planetX}
-                y2={planetY}
-                stroke="rgb(239, 68, 68)"
-                strokeWidth="2"
-                strokeDasharray="5,5"
-              />
-
-              {/* Планета */}
-              <circle cx={planetX} cy={planetY} r="12" fill="rgb(59, 130, 246)">
-                <animate attributeName="opacity" values="1;0.7;1" dur="2s" repeatCount="indefinite" />
-              </circle>
-              <text x={planetX} y={planetY - 20} fontSize="11" fontWeight="bold" textAnchor="middle" fill="currentColor">
-                Планета
-              </text>
-
-              {/* Перихелий и афелий */}
-              <circle cx={centerX - a} cy={centerY} r="5" fill="rgb(239, 68, 68)" />
-              <text x={centerX - a} y={centerY - 10} fontSize="11" fill="rgb(239, 68, 68)" fontWeight="bold" textAnchor="middle">
-                Перихелий
-              </text>
-              <text x={centerX - a} y={centerY + 20} fontSize="10" fill="rgb(239, 68, 68)" textAnchor="middle">
-                (най-близо)
-              </text>
-
-              <circle cx={centerX + a} cy={centerY} r="5" fill="rgb(34, 197, 94)" />
-              <text x={centerX + a} y={centerY - 10} fontSize="11" fill="rgb(34, 197, 94)" fontWeight="bold" textAnchor="middle">
-                Афелий
-              </text>
-              <text x={centerX + a} y={centerY + 20} fontSize="10" fill="rgb(34, 197, 94)" textAnchor="middle">
-                (най-далеч)
-              </text>
-            </svg>
-
-            {/* Контрола за анимация */}
-            <div className="mt-4">
-              <label className="block text-sm font-semibold mb-2 text-center">
-                Движение на планетата по орбитата
-              </label>
-              <input
-                type="range"
-                min="0"
-                max="100"
-                value={time}
-                onChange={(e) => setTime(Number(e.target.value))}
-                className="w-full"
-              />
-              <div className="flex justify-between text-xs text-gray-600 dark:text-gray-400 mt-1">
-                <span>Перихелий</span>
-                <span>Афелий</span>
-                <span>Перихелий</span>
-              </div>
+          <Theorem
+            title="Първи закон на Кеплер"
+            description="Всяка планета се движи по елипса, в единия фокус на която се намира Слънцето."
+          />
+          <Theorem
+            type="definition"
+            title="Елипса"
+            description="Множеството от точки, за които сумата от разстоянията до два фиксирани фокуса F₁ и F₂ е постоянна и равна на 2a: r₁ + r₂ = 2a. Голямата полуос е a, малката – b, разстоянието от центъра до фокус е c = a·e, където e е ексцентрицитетът (0 ≤ e < 1)."
+          />
+          <div className="grid sm:grid-cols-2 gap-3 mb-4">
+            <div className="bg-blue-50 dark:bg-gray-700 p-4 rounded-lg">
+              <h3 className="font-semibold mb-2">Важни формули</h3>
+              <ul className="space-y-1 font-mono text-sm">
+                <li>перихелий: rₚ = a(1 − e)</li>
+                <li>афелий: rₐ = a(1 + e)</li>
+                <li>a = (rₚ + rₐ) / 2</li>
+                <li>e = (rₐ − rₚ) / (rₐ + rₚ)</li>
+                <li>b = a·√(1 − e²)</li>
+              </ul>
             </div>
-
-            <div className="mt-4 p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
-              <h4 className="font-semibold mb-2">Елементи на елипсата:</h4>
-              <ul className="text-sm space-y-1">
-                <li><strong>a</strong> – голяма полуос (средно разстояние до Слънцето)</li>
-                <li><strong>b</strong> – малка полуос</li>
-                <li><strong>c</strong> – фокусно разстояние (разстояние от център до фокус)</li>
-                <li><strong>e = c/a</strong> – ексцентрицитет (0 = кръг, близо до 1 = много издължена)</li>
-                <li><strong>Перихелий</strong> – най-близката точка до Слънцето (r = a - c)</li>
-                <li><strong>Афелий</strong> – най-далечната точка (r = a + c)</li>
+            <div className="bg-blue-50 dark:bg-gray-700 p-4 rounded-lg">
+              <h3 className="font-semibold mb-2">Ексцентрицитети</h3>
+              <ul className="space-y-1 text-sm">
+                {ECCENTRICITIES.map(item => (
+                  <li key={item.name} className="flex justify-between">
+                    <span>{item.name}</span>
+                    <span className="font-mono">e = {item.e}</span>
+                  </li>
+                ))}
               </ul>
             </div>
           </div>
+          <div className="bg-amber-50 dark:bg-amber-900/20 border-l-4 border-amber-500 p-4 rounded mb-4">
+            <p className="font-semibold mb-1">
+              ✏️ Опитайте сами: метод на градинаря
+            </p>
+            <p>
+              Забийте две кабарчета в картон, вържете около тях хлабав конец и
+              опънете го с молив. Движейки молива, ще начертаете елипса –
+              кабарчетата са фокусите, а дължината на конеца е 2a. Колкото
+              по-далеч са кабарчетата, толкова по-издължена е елипсата.
+            </p>
+          </div>
         </section>
 
         <section className="mb-8">
           <h2 className="text-xl sm:text-2xl font-semibold mb-4">
-            Втори закон на Кеплер (Закон за площите)
+            3. Втори закон: закон за площите
           </h2>
-          <div className="bg-green-50 dark:bg-green-900/20 p-4 rounded-lg mb-4">
-            <p className="mb-3 font-semibold text-lg">
-              Радиус-векторът, свързващ Слънцето с планетата, описва равни площи
-              за равни интервали от време.
-            </p>
-          </div>
+          <Theorem
+            title="Втори закон на Кеплер"
+            description="Радиус-векторът от Слънцето до планетата описва равни площи за равни интервали от време. Следователно планетата се движи най-бързо в перихелия и най-бавно в афелия."
+          />
 
-          <div className="bg-white dark:bg-gray-800 p-4 rounded-lg border-2 border-green-300 dark:border-green-600 mb-6">
-            <h3 className="font-semibold mb-3 text-center">Втори закон: Равни площи за равни времена</h3>
-
-            <svg viewBox="0 0 600 400" className="w-full h-auto">
-              {/* Елипса */}
-              <ellipse cx={centerX} cy={centerY} rx={a} ry={b} fill="none" stroke="rgb(59, 130, 246)" strokeWidth="2" />
-
-              {/* Сектор при перихелий (къса дъга, висока скорост) */}
-              <path
-                d={`M ${sunX},${centerY} L ${p1.x},${p1.y} A ${a},${b} 0 0,1 ${p2.x},${p2.y} Z`}
-                fill="rgba(239, 68, 68, 0.3)"
-                stroke="rgb(239, 68, 68)"
-                strokeWidth="2"
-              />
-              <text x={centerX - a - 10} y={centerY - 4} fontSize="11" fill="rgb(239, 68, 68)" fontWeight="bold" textAnchor="end">
-                S₁ (1 ден)
-              </text>
-              <text x={centerX - a - 10} y={centerY + 10} fontSize="10" fill="rgb(239, 68, 68)" textAnchor="end">
-                Висока скорост
-              </text>
-
-              {/* Сектор при афелий (дълъг и тесен сектор, същото време) */}
-              <path
-                d={`M ${sunX},${centerY} L ${q1.x},${q1.y} A ${a},${b} 0 0,1 ${q2.x},${q2.y} Z`}
-                fill="rgba(34, 197, 94, 0.3)"
-                stroke="rgb(34, 197, 94)"
-                strokeWidth="2"
-              />
-              <text x={centerX + a + 10} y={centerY - 4} fontSize="11" fill="rgb(34, 197, 94)" fontWeight="bold">
-                S₂ (1 ден)
-              </text>
-              <text x={centerX + a + 10} y={centerY + 10} fontSize="10" fill="rgb(34, 197, 94)">
-                Ниска скорост
-              </text>
-
-              {/* Слънце */}
-              <circle cx={sunX} cy={centerY} r="15" fill="rgb(251, 191, 36)" />
-
-              {/* Етикет за равни площи */}
-              <text x={centerX} y={50} fontSize="13" fontWeight="bold" textAnchor="middle" fill="currentColor">
-                S₁ = S₂ (за равни времена)
-              </text>
-            </svg>
-
-            <div className="mt-4 p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
-              <p className="text-sm mb-2">
-                <strong>Следствие:</strong> Планетата се движи по-бързо, когато е по-близо до
-                Слънцето (в перихелий), и по-бавно, когато е по-далеч (в афелий).
-              </p>
-              <p className="text-sm mt-2">
-                <strong>Пример:</strong> Земята се движи с около 30.3 km/s в перихелий (януари)
-                и с около 29.3 km/s в афелий (юли).
-              </p>
-            </div>
-          </div>
+          <KeplerOrbitLab />
 
           <div className="bg-yellow-50 dark:bg-yellow-900/20 p-4 rounded-lg mb-4">
-            <h3 className="font-semibold mb-2">Физично обяснение:</h3>
-            <p>
-              Вторият закон на Кеплер е следствие от <strong>закона за запазване на ъгловия
-              момент</strong>. Когато планетата е по-близо до Слънцето, тя трябва да се движи
-              по-бързо, за да запази ъгловия момент.
+            <h3 className="font-semibold mb-2">Физично обяснение</h3>
+            <p className="mb-2">
+              Гравитацията винаги сочи към Слънцето, затова не може да завърти
+              планетата „встрани“ – запазва се{' '}
+              <strong>моментът на импулса</strong> L = m·r·v⊥. Площта, описана
+              за кратко време Δt, е ΔS = ½·r·v⊥·Δt = L·Δt / (2m) – постоянна.
+            </p>
+            <p className="font-mono text-center">
+              rₚ · vₚ = rₐ · vₐ → vₚ / vₐ = rₐ / rₚ = (1 + e) / (1 − e)
             </p>
           </div>
+          <Example
+            description="С каква скорост се движи Земята в перихелия и в афелия, ако средната ѝ скорост е 29,78 km/s, а e = 0,0167?"
+            steps={[
+              'vₚ / vₐ = (1 + e) / (1 − e) = 1,0167 / 0,9833 ≈ 1,034.',
+              'За почти кръгова орбита vₚ ≈ v₀·(1 + e) и vₐ ≈ v₀·(1 − e).',
+              'vₚ ≈ 29,78 · 1,0167 ≈ 30,3 km/s (началото на януари), vₐ ≈ 29,78 · 0,9833 ≈ 29,3 km/s (началото на юли).',
+              'Затова лятното полугодие в северното полукълбо е с ~7 дни по-дълго (Лекция 3).',
+            ]}
+          />
         </section>
 
         <section className="mb-8">
           <h2 className="text-xl sm:text-2xl font-semibold mb-4">
-            Трети закон на Кеплер (Хармоничен закон)
+            4. Трети закон: хармоничен закон
           </h2>
-          <div className="bg-purple-50 dark:bg-purple-900/20 p-4 rounded-lg mb-4">
-            <p className="mb-3 font-semibold text-lg">
-              Квадратът на периода на обращение на планетата е пропорционален на
-              куба на голямата полуос на нейната орбита.
-            </p>
-            <p className="text-center text-xl my-3 font-mono">T² = k × a³</p>
-            <p className="text-center my-2">или</p>
-            <p className="text-center text-xl my-3 font-mono">T² / a³ = константа</p>
-          </div>
+          <Theorem
+            title="Трети закон на Кеплер"
+            description="Квадратите на периодите на планетите се отнасят както кубовете на големите полуоси на орбитите им: T₁² / T₂² = a₁³ / a₂³. Ако T е в години, а a – в астрономически единици, за планетите от Слънчевата система T² = a³."
+          />
 
-          <div className="bg-white dark:bg-gray-800 p-4 rounded-lg border-2 border-purple-300 dark:border-purple-600 mb-6">
-            <h3 className="font-semibold mb-3 text-center">Трети закон: Сравнение на планети</h3>
+          <KeplerThirdLaw />
 
-            <svg viewBox="0 0 700 350" className="w-full h-auto">
-              {/* Орбити (в мащаб) */}
-              {planets.map(p => (
-                <circle
-                  key={`orbit-${p.name}`}
-                  cx={solarX}
-                  cy={solarY}
-                  r={p.R}
-                  fill="none"
-                  stroke={p.color}
-                  strokeWidth={p.name === 'Земя' ? 2 : 1}
-                />
-              ))}
-
-              {/* Юпитер (частично, не в мащаб) */}
-              <path
-                d={`M ${jupiterTop.x},${jupiterTop.y} A ${jupiterR},${jupiterR} 0 0,1 ${jupiterBottom.x},${jupiterBottom.y}`}
-                fill="none"
-                stroke="rgb(251, 146, 60)"
-                strokeWidth="1"
-                strokeDasharray="5,5"
-              />
-              <text x={solarX + jupiterR + 6} y={solarY - 4} fontSize="10" fill="currentColor">Юпитер</text>
-              <text x={solarX + jupiterR + 6} y={solarY + 9} fontSize="8" fill="gray">(не в мащаб)</text>
-
-              {/* Голяма полуос на Земята */}
-              <line
-                x1={solarX}
-                y1={solarY}
-                x2={solarX + auPx - 9}
-                y2={solarY}
-                stroke="rgb(168, 85, 247)"
-                strokeWidth="2"
-                markerEnd="url(#arrowSize)"
-              />
-              <text x={solarX + 60} y={solarY - 6} fontSize="10" fill="rgb(168, 85, 247)" textAnchor="middle" fontWeight="bold">a</text>
-
-              {/* Слънце */}
-              <circle cx={solarX} cy={solarY} r="15" fill="rgb(251, 191, 36)" />
-
-              {/* Планети */}
-              {planets.map(p => (
-                <g key={p.name}>
-                  <circle cx={p.x} cy={p.y} r={p.r} fill={p.color} />
-                  <text
-                    x={p.labelX}
-                    y={p.labelY}
-                    fontSize="10"
-                    textAnchor="middle"
-                    fill="currentColor"
-                    fontWeight={p.name === 'Земя' ? 'bold' : 'normal'}
-                  >
-                    {p.name}
-                  </text>
-                </g>
-              ))}
-
-              {/* Легенда */}
-              {[...planets, { name: 'Юпитер', a: 5.2, T: 11.86, color: 'rgb(251, 146, 60)' }].map((p, i) => (
-                <g key={`legend-${p.name}`}>
-                  <circle cx={470} cy={60 + i * 22} r="5" fill={p.color} />
-                  <text x={482} y={64 + i * 22} fontSize="11" fill="currentColor">
-                    {p.name}: T = {p.T} г, a = {p.a.toFixed(2)} AU
-                  </text>
-                </g>
-              ))}
-              <text x={470} y={300} fontSize="10" fill="gray">Мащаб: 1 AU = {auPx} px</text>
-
-              <defs>
-                <marker id="arrowSize" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
-                  <polygon points="0 0, 10 3, 0 6" fill="rgb(168, 85, 247)" />
-                </marker>
-              </defs>
-            </svg>
-
-            <div className="mt-4 p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
-              <h4 className="font-semibold mb-2">Проверка на третия закон:</h4>
-              <div className="text-sm space-y-1">
-                <p>Меркурий: T²/a³ = 0.24² / 0.39³ = 0.0576 / 0.0593 ≈ 0.97</p>
-                <p>Венера: T²/a³ = 0.62² / 0.72³ = 0.384 / 0.373 ≈ 1.03</p>
-                <p>Земя: T²/a³ = 1² / 1³ = 1 / 1 = 1.00</p>
-                <p>Марс: T²/a³ = 1.88² / 1.52³ = 3.53 / 3.51 ≈ 1.01</p>
-                <p className="mt-2 font-semibold">Съотношението е приблизително константа ≈ 1 (в единици AU и години)!</p>
-              </div>
-            </div>
-          </div>
-
-          <div className="bg-blue-50 dark:bg-gray-700 p-4 rounded-lg mb-4">
-            <h3 className="font-semibold mb-2">Формули:</h3>
-            <ul className="space-y-2">
-              <li className="font-mono">T² = a³ (ако T е в години, a в AU)</li>
-              <li className="font-mono">T² = (4π² / GM) × a³ (обща форма)</li>
-              <li>G – гравитационна константа</li>
-              <li>M – маса на централното тяло (Слънцето)</li>
-            </ul>
-          </div>
+          <Theorem
+            title="Третият закон във формата на Нютон"
+            description="T² = 4π²·a³ / (G·(M + m)). Константата зависи само от масата на централното тяло (m обикновено се пренебрегва). Затова по орбитата на спътник може да се определи масата на планетата, звездата или черната дупка, около която обикаля."
+          />
+          <Example
+            description="На какво разстояние от центъра на Земята е геостационарната орбита (T = 1 звезден ден = 0,9973 дни)? Сравнете с Луната (a = 384 400 km, T = 27,32 дни)."
+            steps={[
+              'Двата спътника обикалят едно и също тяло, затова (a_г / a☾)³ = (T_г / T☾)².',
+              'T_г / T☾ = 0,9973 / 27,32 = 0,0365.',
+              'a_г = 384 400 km · 0,0365^(2/3) ≈ 384 400 · 0,110 ≈ 42 300 km.',
+              'Това е ~35 900 km над повърхността – там „висят“ телевизионните спътници.',
+            ]}
+          />
         </section>
 
         <section className="mb-8">
           <h2 className="text-xl sm:text-2xl font-semibold mb-4">
-            Значение на законите
+            5. Значение на законите
           </h2>
-          <p className="mb-4 text-base sm:text-lg leading-relaxed">
-            Законите на Кеплер са революционни, защото за първи път описват
-            точно движението на планетите. Те са основа за по-късното откритие
-            на закона за всемирното привличане от Нютон.
-          </p>
-
           <div className="bg-purple-50 dark:bg-purple-900/20 p-4 rounded-lg mb-4">
-            <h3 className="font-semibold mb-2">Приложения:</h3>
             <ul className="list-disc list-inside space-y-2">
-              <li>Предсказване на положенията на планетите</li>
-              <li>Изчисляване на масите на планети и звезди</li>
-              <li>Планиране на космически мисии</li>
-              <li>Откриване на екзопланети</li>
+              <li>
+                Законите важат за всяко тяло, обикалящо друго: планети, комети,
+                спътници, двойни звезди, звезди около черната дупка в центъра на
+                Галактиката.
+              </li>
+              <li>
+                Чрез тях се изчисляват масите на небесните тела (Лекция 6).
+              </li>
+              <li>
+                През 1846 г. малки отклонения на Уран от Кеплеровата му орбита
+                позволили на Льо Верие да предскаже къде е непознатата планета,
+                която го смущава. Нептун е открит на по-малко от 1° от
+                предсказаното място.
+              </li>
+              <li>
+                Всички космически мисии летят по Кеплерови орбити – например
+                прелитането от Земята до Марс е половин елипса с перихелий при
+                Земята и афелий при Марс (Лекция 8).
+              </li>
+              <li>
+                По периода и „клатенето“ на звездите се откриват и измерват
+                екзопланети (Лекция 30).
+              </li>
             </ul>
           </div>
         </section>
 
         <section className="mb-8">
           <h2 className="text-xl sm:text-2xl font-semibold mb-4">
-            📝 Задачи за упражнение
+            6. ✅ Провери се
+          </h2>
+          <Quiz questions={QUIZ} />
+        </section>
+
+        <section className="mb-8">
+          <h2 className="text-xl sm:text-2xl font-semibold mb-4">
+            7. 📝 Задачи за упражнение
           </h2>
 
-          {/* Ниво А */}
           <div className="mb-6">
             <h3 className="text-lg font-semibold mb-3 text-green-600 dark:text-green-400">
               Ниво А (Областен кръг)
             </h3>
 
-            <div className="bg-white dark:bg-gray-800 p-4 rounded-lg mb-4 border-l-4 border-green-500">
-              <p className="font-semibold mb-2">1. Къде се намира Слънцето спрямо орбитата на планетата?</p>
-              <button
-                onClick={() => toggleSolution('a1')}
-                className="text-blue-600 dark:text-blue-400 hover:underline text-sm"
-              >
-                {showSolutions['a1'] ? '▼ Скрий решението' : '▶ Покажи решението'}
-              </button>
-              {showSolutions['a1'] && (
-                <div className="mt-3 p-3 bg-blue-50 dark:bg-blue-900/20 rounded">
-                  <p className="font-semibold">Отговор: В единия фокус на елипсата</p>
-                  <p className="mt-2">Обяснение: Според първия закон на Кеплер, Слънцето не е в
-                  центъра на елипсата, а в единия от двата фокуса. Вторият фокус е празна точка
-                  в пространството.</p>
-                </div>
-              )}
-            </div>
+            <Task
+              {...task('a1')}
+              number={1}
+              color="border-green-500"
+              question="Къде се намира Слънцето спрямо орбитата на планетата?"
+            >
+              <p className="font-semibold">
+                Отговор: в единия фокус на елипсата
+              </p>
+              <p>
+                Според първия закон Слънцето не е в центъра на елипсата, а в
+                единия фокус. Другият фокус е празна точка в пространството.
+              </p>
+            </Task>
 
-            <div className="bg-white dark:bg-gray-800 p-4 rounded-lg mb-4 border-l-4 border-green-500">
-              <p className="font-semibold mb-2">2. Къде се движи планетата по-бързо - в перихелий или в афелий?</p>
-              <button
-                onClick={() => toggleSolution('a2')}
-                className="text-blue-600 dark:text-blue-400 hover:underline text-sm"
-              >
-                {showSolutions['a2'] ? '▼ Скрий решението' : '▶ Покажи решението'}
-              </button>
-              {showSolutions['a2'] && (
-                <div className="mt-3 p-3 bg-blue-50 dark:bg-blue-900/20 rounded">
-                  <p className="font-semibold">Отговор: В перихелий (по-бързо)</p>
-                  <p className="mt-2">Обяснение: Според втория закон на Кеплер, радиус-векторът
-                  описва равни площи за равни времена. Когато планетата е по-близо до Слънцето
-                  (перихелий), радиус-векторът е по-къс, затова планетата трябва да се движи
-                  по-бързо, за да опише същата площ.</p>
-                </div>
-              )}
-            </div>
+            <Task
+              {...task('a2')}
+              number={2}
+              color="border-green-500"
+              question="Къде планетата се движи по-бързо – в перихелий или в афелий? Защо?"
+            >
+              <p className="font-semibold">Отговор: в перихелий</p>
+              <p>
+                Радиус-векторът описва равни площи за равни времена. Близо до
+                Слънцето той е по-къс, затова планетата трябва да измине
+                по-дълга дъга за същото време.
+              </p>
+            </Task>
+
+            <Task
+              {...task('a3')}
+              number={3}
+              color="border-green-500"
+              question="Астероид обикаля Слънцето на средно разстояние 4 AU. Какъв е периодът му?"
+            >
+              <p>T² = a³ = 4³ = 64 → T = 8 години.</p>
+              <p>
+                <strong>Отговор: 8 години.</strong> Голямата полуос е 4 пъти
+                по-голяма от земната, а периодът – 8 пъти.
+              </p>
+            </Task>
           </div>
 
-          {/* Ниво В */}
           <div className="mb-6">
             <h3 className="text-lg font-semibold mb-3 text-yellow-600 dark:text-yellow-400">
               Ниво В (Национален кръг)
             </h3>
 
-            <div className="bg-white dark:bg-gray-800 p-4 rounded-lg mb-4 border-l-4 border-yellow-500">
-              <p className="font-semibold mb-2">3. Планета обикаля около звезда с период 8 години.
-              Каква е голямата полуос на орбитата ѝ в AU?</p>
-              <button
-                onClick={() => toggleSolution('b3')}
-                className="text-blue-600 dark:text-blue-400 hover:underline text-sm"
-              >
-                {showSolutions['b3'] ? '▼ Скрий решението' : '▶ Покажи решението'}
-              </button>
-              {showSolutions['b3'] && (
-                <div className="mt-3 p-3 bg-blue-50 dark:bg-blue-900/20 rounded">
-                  <p className="font-semibold">Решение:</p>
-                  <p className="mt-2">Използваме третия закон на Кеплер: T² = a³</p>
-                  <p className="mt-2">8² = a³</p>
-                  <p>64 = a³</p>
-                  <p>a = ∛64 = 4 AU</p>
-                  <p className="mt-2"><strong>Отговор: 4 AU</strong></p>
-                  <p className="mt-2 text-sm">Това е приблизително разстоянието на пояса на астероидите.</p>
-                </div>
-              )}
-            </div>
+            <Task
+              {...task('b1')}
+              number={4}
+              color="border-yellow-500"
+              question="Комета има перихелий 0,6 AU и афелий 35 AU. Изчисли голямата полуос, ексцентрицитета и периода."
+            >
+              <p>a = (0,6 + 35) / 2 = 17,8 AU</p>
+              <p>e = (35 − 0,6) / (35 + 0,6) ≈ 0,966</p>
+              <p>T = a^(3/2) = 17,8^1,5 ≈ 75,1 години</p>
+              <p>
+                <strong>Почти като кометата на Халей (T ≈ 76 години)!</strong>
+              </p>
+            </Task>
 
-            <div className="bg-white dark:bg-gray-800 p-4 rounded-lg mb-4 border-l-4 border-yellow-500">
-              <p className="font-semibold mb-2">4. Комета има перихелий 0.6 AU и афелий 35 AU.
-              Изчисли голямата полуос и периода на обращение.</p>
-              <button
-                onClick={() => toggleSolution('b4')}
-                className="text-blue-600 dark:text-blue-400 hover:underline text-sm"
-              >
-                {showSolutions['b4'] ? '▼ Скрий решението' : '▶ Покажи решението'}
-              </button>
-              {showSolutions['b4'] && (
-                <div className="mt-3 p-3 bg-blue-50 dark:bg-blue-900/20 rounded">
-                  <p className="font-semibold">Решение:</p>
-                  <p className="mt-2">Голямата полуос е средното аритметично на перихелия и афелия:</p>
-                  <p>a = (rₚ + rₐ) / 2 = (0.6 + 35) / 2 = 35.6 / 2 = 17.8 AU</p>
-                  <p className="mt-2">Период (от третия закон): T² = a³</p>
-                  <p>T² = 17.8³ = 5639.5</p>
-                  <p>T = √5639.5 ≈ 75.1 години</p>
-                  <p className="mt-2"><strong>Отговор: a = 17.8 AU, T ≈ 75 години</strong></p>
-                  <p className="mt-2 text-sm">Това е подобно на кометата на Халей (T = 76 г)!</p>
-                </div>
-              )}
-            </div>
+            <Task
+              {...task('b2')}
+              number={5}
+              color="border-yellow-500"
+              question="Каква е голямата полуос на орбита с период 1000 години? А период на тяло на 0,1 AU?"
+            >
+              <p>a = T^(2/3) = 1000^(2/3) = 100 AU.</p>
+              <p>T = 0,1^(3/2) = 0,0316 години ≈ 11,5 дни.</p>
+            </Task>
+
+            <Task
+              {...task('b3')}
+              number={6}
+              color="border-yellow-500"
+              question="Изчисли радиуса на геостационарната орбита, като знаеш, че Луната обикаля Земята на 384 400 km за 27,32 дни."
+            >
+              <p>
+                Геостационарният спътник обикаля за 1 звезден ден = 0,9973 дни.
+              </p>
+              <p>a = 384 400 · (0,9973 / 27,32)^(2/3) ≈ 384 400 · 0,110</p>
+              <p>
+                <strong>a ≈ 42 300 km</strong> от центъра на Земята, т.е. ~35
+                900 km над повърхността.
+              </p>
+            </Task>
           </div>
 
-          {/* Ниво С */}
           <div className="mb-6">
             <h3 className="text-lg font-semibold mb-3 text-red-600 dark:text-red-400">
               Ниво С (Международна олимпиада)
             </h3>
 
-            <div className="bg-white dark:bg-gray-800 p-4 rounded-lg mb-4 border-l-4 border-red-500">
-              <p className="font-semibold mb-2">5. Изведи общата форма на третия закон на Кеплер,
-              използвайки закона за всемирното привличане и центростремителното ускорение.</p>
-              <button
-                onClick={() => toggleSolution('c5')}
-                className="text-blue-600 dark:text-blue-400 hover:underline text-sm"
-              >
-                {showSolutions['c5'] ? '▼ Скрий решението' : '▶ Покажи решението'}
-              </button>
-              {showSolutions['c5'] && (
-                <div className="mt-3 p-3 bg-blue-50 dark:bg-blue-900/20 rounded">
-                  <p className="font-semibold">Решение:</p>
-                  <p className="mt-2">За кръгова орбита (опростено):</p>
-                  <p className="mt-2">Гравитационната сила = Центростремителна сила</p>
-                  <p className="font-mono">GMm/r² = mv²/r</p>
-                  <p className="mt-2">Опростяваме: GM/r = v²</p>
-                  <p className="mt-2">Орбиталната скорост: v = 2πr/T</p>
-                  <p className="mt-2">Заместваме: GM/r = (2πr/T)²</p>
-                  <p className="font-mono">GM/r = 4π²r²/T²</p>
-                  <p className="mt-2">Пренареждаме:</p>
-                  <p className="font-mono">T² = (4π²/GM) × r³</p>
-                  <p className="mt-2">За елипса r → a (голяма полуос):</p>
-                  <p className="font-mono text-lg mt-2"><strong>T² = (4π²/GM) × a³</strong></p>
-                  <p className="mt-2">Това показва, че константата k = 4π²/GM зависи само от
-                  масата на централното тяло!</p>
-                </div>
-              )}
-            </div>
+            <Task
+              {...task('c1')}
+              number={7}
+              color="border-red-500"
+              question="Изведи третия закон на Кеплер във формата на Нютон за кръгова орбита."
+            >
+              <p>Гравитацията е центростремителна сила:</p>
+              <p className="font-mono">GMm / r² = m·v² / r → v² = GM / r</p>
+              <p>За кръгова орбита v = 2πr / T:</p>
+              <p className="font-mono">4π²r² / T² = GM / r</p>
+              <p className="font-mono text-lg">
+                <strong>T² = (4π² / GM) · r³</strong>
+              </p>
+              <p>
+                За елиптична орбита r се заменя с голямата полуос a, а ако
+                масата на спътника не е пренебрежима – M с M + m.
+              </p>
+            </Task>
+
+            <Task
+              {...task('c2')}
+              number={8}
+              color="border-red-500"
+              question="Луната Йо обикаля Юпитер на 421 700 km за 1,769 дни. Колко пъти Юпитер е по-масивен от Земята? (Луната: 384 400 km, 27,32 дни)"
+            >
+              <p>От T² = 4π²a³ / (GM) следва M ∝ a³ / T². Затова:</p>
+              <p className="font-mono">M♃ / M⊕ = (a_Йо / a☾)³ · (T☾ / T_Йо)²</p>
+              <p>= (1,097)³ · (15,44)² ≈ 1,320 · 238,5 ≈ 315</p>
+              <p>
+                <strong>Отговор: ~315 пъти.</strong> Истинската стойност е 318 –
+                разликата е, защото за системата Земя–Луна трябва да вземем M⊕ +
+                M☾ = 1,012·M⊕: 315 · 1,012 ≈ 319.
+              </p>
+            </Task>
+
+            <Task
+              {...task('c3')}
+              number={9}
+              color="border-red-500"
+              question="Кометата на Халей има период 76 години и перихелий 0,586 AU. Намери афелия, ексцентрицитета и отношението на скоростите в перихелия и афелия."
+            >
+              <p>a = 76^(2/3) ≈ 17,9 AU</p>
+              <p>
+                rₐ = 2a − rₚ = 35,8 − 0,586 ≈ 35,3 AU (отвъд орбитата на Нептун)
+              </p>
+              <p>e = 1 − rₚ / a = 1 − 0,586 / 17,9 ≈ 0,967</p>
+              <p>
+                vₚ / vₐ = rₐ / rₚ = 35,3 / 0,586 ≈ <strong>60</strong>
+              </p>
+              <p>
+                Кометата профучава покрай Слънцето за няколко месеца и прекарва
+                десетилетия, бавно пълзейки далеч от него.
+              </p>
+            </Task>
           </div>
         </section>
 
         <section className="mb-8">
           <h2 className="text-xl sm:text-2xl font-semibold mb-4">
-            Обобщение
+            8. Обобщение
           </h2>
           <div className="bg-gradient-to-r from-blue-50 to-purple-50 dark:from-gray-800 dark:to-gray-700 p-6 rounded-lg">
             <ul className="space-y-2">
-              <li>✓ <strong>Първи закон:</strong> Орбитите са елипси със Слънцето в единия фокус</li>
-              <li>✓ <strong>Втори закон:</strong> Равни площи за равни времена → променлива скорост</li>
-              <li>✓ <strong>Трети закон:</strong> T² = a³ (в години и AU)</li>
-              <li>✓ По-близо до Слънцето = по-висока скорост</li>
-              <li>✓ По-голяма орбита = по-дълъг период</li>
+              <li>
+                ✓ <strong>I закон:</strong> орбитите са елипси със Слънцето в
+                единия фокус; rₚ = a(1 − e), rₐ = a(1 + e)
+              </li>
+              <li>
+                ✓ <strong>II закон:</strong> равни площи за равни времена; vₚ /
+                vₐ = (1 + e) / (1 − e)
+              </li>
+              <li>
+                ✓ <strong>III закон:</strong> T² = a³ (в години и AU)
+              </li>
+              <li>✓ Във вида на Нютон: T² = 4π²a³ / (G(M + m))</li>
+              <li>✓ II законът следва от запазването на момента на импулса</li>
+              <li>
+                ✓ По орбитата на спътник се намира масата на централното тяло
+              </li>
             </ul>
           </div>
         </section>
@@ -580,11 +460,12 @@ export default function Lecture07() {
               <span>Интересен факт</span>
             </h3>
             <p>
-              Кеплер е изчислил орбитите на планетите без компютър, използвайки
-              само ръчни изчисления! Работата му е отнела години на упорит труд
-              и хиляди изчисления. Той е трябвало да провери стотици различни
-              геометрични форми, преди да открие, че орбитите са елипси. Днес
-              законите на Кеплер се използват за планиране на всички космически мисии!
+              Кеплер е бил и автор на един от първите научнофантастични разкази
+              – „Сънят“ (1634), в който описва пътуване до Луната и как изглежда
+              Земята оттам. А майка му била съдена като вещица и самият Кеплер я
+              защитавал години наред, докато успял да я освободи. Днес на името
+              му е кръстен космическият телескоп „Кеплер“, открил хиляди
+              екзопланети.
             </p>
           </div>
         </section>

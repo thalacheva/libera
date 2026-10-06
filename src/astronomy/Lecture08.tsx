@@ -1,24 +1,74 @@
 import { useState } from 'react';
+import Example from '~/Example';
+import Quiz, { type Question } from '~/Quiz';
+import Theorem from '~/Theorem';
+import HohmannTransfer from './components/HohmannTransfer';
+import OrbitAltitudeExplorer from './components/OrbitAltitudeExplorer';
+import Task from './components/Task';
+import VisVivaLab from './components/VisVivaLab';
+
+const QUIZ: Question[] = [
+  {
+    question:
+      'Как се променя скоростта на спътник по кръгова орбита, ако орбитата е по-висока?',
+    answers: [
+      'Расте',
+      'Намалява',
+      'Не се променя',
+      'Зависи от масата на спътника',
+    ],
+    correctAnswer: 'Намалява',
+  },
+  {
+    question:
+      'Колко пъти скоростта за бягство е по-голяма от кръговата скорост на същото разстояние?',
+    answers: ['2 пъти', '√2 пъти', '1,5 пъти', '4 пъти'],
+    correctAnswer: '√2 пъти',
+  },
+  {
+    question:
+      'Тяло е изстреляно хоризонтално със скорост между v₁ и v₂. По каква траектория ще се движи?',
+    answers: ['Окръжност', 'Елипса', 'Парабола', 'Хипербола'],
+    correctAnswer: 'Елипса',
+  },
+  {
+    question: 'Колко трае полетът до Марс по преход на Хоман?',
+    answers: ['3 дни', '~1 месец', '~8,5 месеца', '~2 години'],
+    correctAnswer: '~8,5 месеца',
+  },
+  {
+    question:
+      'Космически кораб иска да догони МКС, която е пред него на същата орбита. Какво трябва да направи първо?',
+    answers: [
+      'Да увеличи скоростта си',
+      'Да намали скоростта си',
+      'Да се насочи право към станцията',
+      'Нищо – ще я настигне сам',
+    ],
+    correctAnswer: 'Да намали скоростта си',
+  },
+];
+
+const ESCAPE = [
+  { name: 'Луна', v: '2,4', note: '0,21 × Земя' },
+  { name: 'Марс', v: '5,0', note: '0,45 × Земя' },
+  { name: 'Земя', v: '11,2', note: '1' },
+  { name: 'Юпитер', v: '59,5', note: '5,3 × Земя' },
+  { name: 'Слънце (от повърхността)', v: '618', note: '55 × Земя' },
+  { name: 'Неутронна звезда', v: '~190 000', note: '~0,6 c' },
+];
 
 export default function Lecture08() {
-  const [altitude, setAltitude] = useState(400); // km над Земята
-  const [showSolutions, setShowSolutions] = useState<{ [key: string]: boolean }>({});
+  const [showSolutions, setShowSolutions] = useState<{
+    [key: string]: boolean;
+  }>({});
 
-  const toggleSolution = (taskId: string) => {
-    setShowSolutions(prev => ({ ...prev, [taskId]: !prev[taskId] }));
-  };
-
-  // Константи
-  const earthRadius = 6371; // km
-  const G = 6.674e-11; // N⋅m²/kg²
-  const M = 5.972e24; // kg (маса на Земята)
-  
-  // Изчисляване на орбитална скорост
-  const r = (earthRadius + altitude) * 1000; // в метри
-  const orbitalVelocity = Math.sqrt(G * M / r) / 1000; // km/s
-  
-  // Втора космическа скорост (скорост на освобождаване)
-  const escapeVelocity = Math.sqrt(2 * G * M / r) / 1000; // km/s
+  const task = (id: string) => ({
+    id,
+    shown: !!showSolutions[id],
+    onToggle: (taskId: string) =>
+      setShowSolutions(prev => ({ ...prev, [taskId]: !prev[taskId] })),
+  });
 
   return (
     <main className="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8">
@@ -27,684 +77,425 @@ export default function Lecture08() {
           Лекция 8: Орбити и скорости
         </h1>
 
+        <div className="bg-gradient-to-br from-indigo-900 to-slate-900 text-white p-6 rounded-2xl mb-8 shadow-lg">
+          <p className="text-lg sm:text-xl leading-relaxed">
+            🛰️ 4 октомври 1957 г.: малка метална топка с антени – „Спутник-1“ –
+            обикаля Земята за 96 минути и всеки, който има радио, чува нейното
+            „бип-бип“. За да не падне, тя се движи с почти 8 km/s – десетки пъти
+            по-бързо от куршум. Откъде идва точно това число? И защо, за да
+            догоните някого в орбита, трябва… да намалите скоростта?
+          </p>
+        </div>
+
         <section className="mb-8">
           <h2 className="text-xl sm:text-2xl font-semibold mb-4">
-            1. Орбитална скорост
+            1. Кръгова орбитална скорост
           </h2>
           <p className="mb-4 text-base sm:text-lg leading-relaxed">
-            Орбиталната скорост е скоростта, с която едно тяло се движи по
-            орбита около друго тяло. Тя зависи от масата на централното тяло и
-            разстоянието до него.
+            Спътникът по орбита непрекъснато пада към Земята, но се движи
+            хоризонтално толкова бързо, че повърхността „бяга“ под него (топът
+            на Нютон, Лекция 6). При кръгова орбита гравитацията играе ролята на
+            центростремителна сила.
           </p>
+          <Theorem
+            title="Кръгова (първа космическа) скорост"
+            description="От GMm / r² = m·v² / r следва v = √(GM / r). На повърхността на Земята (r = R) това е първата космическа скорост v₁ = √(GM / R) = √(gR) ≈ 7,9 km/s. Периодът е T = 2πr / v = 2π·√(r³ / GM) – третият закон на Кеплер."
+          />
+
+          <OrbitAltitudeExplorer />
+
           <div className="bg-blue-50 dark:bg-gray-700 p-4 rounded-lg mb-4">
-            <h3 className="font-semibold mb-3">Формула за орбитална скорост:</h3>
-            <p className="text-center text-xl font-mono my-3">v = √(GM / r)</p>
-            <ul className="list-disc list-inside space-y-2">
-              <li>v – орбитална скорост</li>
-              <li>G – гравитационна константа (6.674 × 10⁻¹¹ N⋅m²/kg²)</li>
-              <li>M – маса на централното тяло</li>
-              <li>r – разстояние от центъра на централното тяло</li>
+            <h3 className="font-semibold mb-2">Познати орбити</h3>
+            <ul className="text-sm space-y-2">
+              <li>
+                🛰️ <strong>МКС</strong> (~408 km): v ≈ 7,66 km/s, T ≈ 92 min
+              </li>
+              <li>
+                📡 <strong>GPS</strong> (20 200 km): v ≈ 3,87 km/s, T ≈ 12 h
+              </li>
+              <li>
+                📺 <strong>Геостационарна</strong> (35 786 km над екватора): v ≈
+                3,07 km/s, T = 23h 56m – спътникът „виси“ над една точка
+              </li>
+              <li>
+                🌙 <strong>Луната</strong> (384 400 km): v ≈ 1,02 km/s, T ≈ 27,3
+                дни
+              </li>
             </ul>
           </div>
         </section>
 
         <section className="mb-8">
           <h2 className="text-xl sm:text-2xl font-semibold mb-4">
-            Интерактивна визуализация на орбити
+            2. Скорост за бягство и форма на орбитата
           </h2>
+          <p className="mb-4 text-base sm:text-lg leading-relaxed">
+            Каква скорост е нужна, за да напуснем Земята завинаги? Тялото трябва
+            да има достатъчно кинетична енергия, за да преодолее гравитационната
+            потенциална енергия −GMm/r.
+          </p>
+          <Theorem
+            title="Скорост за бягство (втора космическа скорост)"
+            description="От ½·m·v² − GMm/r = 0 следва v₂ = √(2GM / r) = √2 · v₁. За Земята v₂ ≈ 11,2 km/s. Тя не зависи от масата на тялото и от посоката на изстрелване."
+          />
+          <Theorem
+            title="Уравнение vis-viva"
+            description="Скоростта на тяло по всяка Кеплерова орбита с голяма полуос a на разстояние r от центъра е v² = GM·(2/r − 1/a). При кръгова орбита a = r и v² = GM/r; при парабола a → ∞ и v² = 2GM/r."
+          />
 
-          <div className="bg-white dark:bg-gray-800 p-4 rounded-lg border-2 border-blue-300 dark:border-blue-600 mb-6">
-            <h3 className="font-semibold mb-3 text-center">Орбитална скорост на различни височини</h3>
-            
-            <svg viewBox="0 0 600 500" className="w-full h-auto">
-              {/* Фон - космос */}
-              <rect x="0" y="0" width="600" height="500" fill="rgb(10, 10, 30)" />
-              
-              {/* Звезди */}
-              {[...Array(60)].map((_, i) => (
-                <circle
-                  key={i}
-                  cx={Math.random() * 600}
-                  cy={Math.random() * 500}
-                  r={Math.random() * 1.5}
-                  fill="white"
-                  opacity={Math.random() * 0.6 + 0.2}
-                />
-              ))}
+          <VisVivaLab />
 
-              {/* Земя */}
-              <circle cx="300" cy="250" r="60" fill="rgb(59, 130, 246)" />
-              <circle cx="300" cy="250" r="60" fill="none" stroke="rgb(34, 197, 94)" strokeWidth="2" />
-              
-              {/* Континенти (опростени) */}
-              <path d="M 280,230 Q 290,225 300,230 L 305,240 Q 300,245 295,240 Z" fill="rgb(34, 197, 94)" />
-              <path d="M 310,260 Q 320,255 325,265 L 320,275 Z" fill="rgb(34, 197, 94)" />
-              
-              <text x="300" y="330" fontSize="12" textAnchor="middle" fill="white" fontWeight="bold">
-                🌍 Земя
-              </text>
-
-              {/* Орбита на текущата височина */}
-              <circle
-                cx="300"
-                cy="250"
-                r={60 + altitude * 0.15}
-                fill="none"
-                stroke="rgb(168, 85, 247)"
-                strokeWidth="3"
-              />
-
-              {/* Спътник на орбитата */}
-              <g>
-                <circle
-                  cx={300 + (60 + altitude * 0.15)}
-                  cy="250"
-                  r="8"
-                  fill="rgb(200, 200, 200)"
-                  stroke="white"
-                  strokeWidth="2"
-                >
-                  <animateTransform
-                    attributeName="transform"
-                    type="rotate"
-                    from="0 300 250"
-                    to="360 300 250"
-                    dur={`${10 / orbitalVelocity}s`}
-                    repeatCount="indefinite"
-                  />
-                </circle>
-                {/* Стрелка за посока */}
-                <path
-                  d={`M ${300 + (60 + altitude * 0.15) + 15},250 L ${300 + (60 + altitude * 0.15) + 25},250`}
-                  stroke="rgb(255, 200, 100)"
-                  strokeWidth="2"
-                  markerEnd="url(#arrowOrbit)"
-                >
-                  <animateTransform
-                    attributeName="transform"
-                    type="rotate"
-                    from="0 300 250"
-                    to="360 300 250"
-                    dur={`${10 / orbitalVelocity}s`}
-                    repeatCount="indefinite"
-                  />
-                </path>
-              </g>
-
-              {/* Референтни орбити */}
-              {/* МКС (400 km) */}
-              <circle cx="300" cy="250" r="120" fill="none" stroke="rgb(100, 150, 200)" strokeWidth="1" strokeDasharray="3,3" opacity="0.3" />
-              <text x="420" y="255" fontSize="9" fill="rgb(100, 150, 200)">МКС (400 km)</text>
-              
-              {/* GPS (20200 km) */}
-              <circle cx="300" cy="250" r="180" fill="none" stroke="rgb(150, 200, 100)" strokeWidth="1" strokeDasharray="3,3" opacity="0.3" />
-              <text x="480" y="255" fontSize="9" fill="rgb(150, 200, 100)">GPS (20200 km)</text>
-
-              {/* Информация */}
-              <g transform="translate(20, 20)">
-                <rect x="0" y="0" width="220" height="110" fill="rgba(0, 0, 0, 0.8)" rx="5" />
-                <text x="110" y="25" fontSize="14" fontWeight="bold" textAnchor="middle" fill="white">
-                  Орбитални параметри
-                </text>
-                <text x="10" y="50" fontSize="11" fill="white">
-                  Височина: <tspan fontWeight="bold" fill="rgb(168, 85, 247)">{altitude} km</tspan>
-                </text>
-                <text x="10" y="70" fontSize="11" fill="white">
-                  Орбитална скорост:
-                </text>
-                <text x="10" y="85" fontSize="13" fontWeight="bold" fill="rgb(255, 200, 100)">
-                  v = {orbitalVelocity.toFixed(2)} km/s
-                </text>
-                <text x="10" y="105" fontSize="10" fill="gray">
-                  ({(orbitalVelocity * 3600).toFixed(0)} km/h)
-                </text>
-              </g>
-
-              <defs>
-                <marker id="arrowOrbit" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
-                  <polygon points="0 0, 10 3, 0 6" fill="rgb(255, 200, 100)" />
-                </marker>
-              </defs>
-            </svg>
-
-            {/* Контрола */}
-            <div className="mt-4">
-              <label className="block text-sm font-semibold mb-2 text-center">
-                Височина над Земята: {altitude} km
-              </label>
-              <input
-                type="range"
-                min="200"
-                max="36000"
-                step="100"
-                value={altitude}
-                onChange={(e) => setAltitude(Number(e.target.value))}
-                className="w-full"
-              />
-              <div className="flex justify-between text-xs text-gray-600 dark:text-gray-400 mt-1">
-                <span>200 km (ниска орбита)</span>
-                <span>36000 km (геостационарна)</span>
-              </div>
-            </div>
-
-            <div className="mt-4 p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
-              <h4 className="font-semibold mb-2">Наблюдения:</h4>
-              <ul className="text-sm space-y-2">
-                <li>📉 Колкото по-високо, толкова по-бавна е орбиталната скорост</li>
-                <li>🛰️ МКС (400 km): v ≈ 7.66 km/s, период ≈ 90 минути</li>
-                <li>📡 GPS (20200 km): v ≈ 3.87 km/s, период ≈ 12 часа</li>
-                <li>🌍 Геостационарна (35786 km): v ≈ 3.07 km/s, период = 24 часа</li>
-              </ul>
-            </div>
-          </div>
-        </section>
-
-        <section className="mb-8">
-          <h2 className="text-xl sm:text-2xl font-semibold mb-4">
-            2. Космически скорости
-          </h2>
-
-          <div className="bg-white dark:bg-gray-800 p-4 rounded-lg border-2 border-green-300 dark:border-green-600 mb-6">
-            <h3 className="font-semibold mb-3 text-center">Три космически скорости</h3>
-            
-            <svg viewBox="0 0 700 400" className="w-full h-auto">
-              <rect x="0" y="0" width="700" height="400" fill="rgb(10, 10, 30)" />
-
-              {/* Земя */}
-              <circle cx="150" cy="200" r="50" fill="rgb(59, 130, 246)" />
-              <circle cx="150" cy="200" r="50" fill="none" stroke="rgb(34, 197, 94)" strokeWidth="2" />
-
-              {/* Първа космическа скорост - орбита */}
-              <g>
-                <ellipse cx="150" cy="200" rx="90" ry="85" fill="none" stroke="rgb(34, 197, 94)" strokeWidth="3" />
-                <text x="150" y="120" fontSize="13" textAnchor="middle" fill="rgb(34, 197, 94)" fontWeight="bold">
-                  1-ва космическа
-                </text>
-                <text x="150" y="135" fontSize="11" textAnchor="middle" fill="rgb(34, 197, 94)">
-                  v₁ = 7.9 km/s
-                </text>
-                <text x="150" y="150" fontSize="10" textAnchor="middle" fill="white">
-                  (орбита около Земята)
-                </text>
-                
-                {/* Анимиран спътник */}
-                <circle cx="240" cy="200" r="6" fill="rgb(200, 200, 200)">
-                  <animateMotion
-                    path="M 90,0 A 90,85 0 1,1 89.9,0"
-                    dur="8s"
-                    repeatCount="indefinite"
-                  />
-                </circle>
-              </g>
-
-              {/* Втора космическа скорост - избягване */}
-              <g>
-                <path
-                  d="M 150,150 Q 300,100 450,80"
-                  fill="none"
-                  stroke="rgb(255, 165, 0)"
-                  strokeWidth="3"
-                />
-                <text x="300" y="70" fontSize="13" textAnchor="middle" fill="rgb(255, 165, 0)" fontWeight="bold">
-                  2-ра космическа
-                </text>
-                <text x="300" y="85" fontSize="11" textAnchor="middle" fill="rgb(255, 165, 0)">
-                  v₂ = 11.2 km/s
-                </text>
-                <text x="300" y="100" fontSize="10" textAnchor="middle" fill="white">
-                  (напуска Земята)
-                </text>
-                
-                {/* Анимирана ракета */}
-                <g>
-                  <polygon points="0,-8 -4,8 4,8" fill="rgb(255, 200, 100)">
-                    <animateMotion
-                      path="M 0,0 Q 150,-50 300,-70"
-                      dur="6s"
-                      repeatCount="indefinite"
-                    />
-                  </polygon>
-                  <circle cx="0" cy="10" r="2" fill="rgb(255, 100, 50)">
-                    <animateMotion
-                      path="M 0,0 Q 150,-50 300,-70"
-                      dur="6s"
-                      repeatCount="indefinite"
-                    />
-                    <animate attributeName="opacity" values="1;0" dur="0.5s" repeatCount="indefinite" />
-                  </circle>
-                </g>
-              </g>
-
-              {/* Трета космическа скорост - напуска Слънчевата система */}
-              <g>
-                <path
-                  d="M 150,250 Q 250,320 400,350"
-                  fill="none"
-                  stroke="rgb(239, 68, 68)"
-                  strokeWidth="3"
-                  strokeDasharray="8,4"
-                />
-                <text x="280" y="345" fontSize="13" textAnchor="middle" fill="rgb(239, 68, 68)" fontWeight="bold">
-                  3-та космическа
-                </text>
-                <text x="280" y="360" fontSize="11" textAnchor="middle" fill="rgb(239, 68, 68)">
-                  v₃ = 16.7 km/s
-                </text>
-                <text x="280" y="375" fontSize="10" textAnchor="middle" fill="white">
-                  (напуска Слънчевата система)
-                </text>
-              </g>
-
-              {/* Легенда */}
-              <g transform="translate(480, 20)">
-                <rect x="0" y="0" width="200" height="100" fill="rgba(0, 0, 0, 0.8)" rx="5" />
-                <text x="10" y="20" fontSize="12" fontWeight="bold" fill="white">
-                  Космически скорости
-                </text>
-                <line x1="10" y1="35" x2="30" y2="35" stroke="rgb(34, 197, 94)" strokeWidth="3" />
-                <text x="35" y="40" fontSize="10" fill="white">1-ва: орбита</text>
-                
-                <line x1="10" y1="55" x2="30" y2="55" stroke="rgb(255, 165, 0)" strokeWidth="3" />
-                <text x="35" y="60" fontSize="10" fill="white">2-ра: избягване</text>
-                
-                <line x1="10" y1="75" x2="30" y2="75" stroke="rgb(239, 68, 68)" strokeWidth="3" strokeDasharray="4,2" />
-                <text x="35" y="80" fontSize="10" fill="white">3-та: Слънч. сист.</text>
-              </g>
-            </svg>
-
-            <div className="mt-4 p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
-              <h4 className="font-semibold mb-2">Обяснение:</h4>
-              <ul className="text-sm space-y-2">
-                <li>
-                  <strong className="text-green-600 dark:text-green-400">Първа космическа (v₁ = 7.9 km/s):</strong> 
-                  Минимална скорост за орбита на малка височина около Земята
-                </li>
-                <li>
-                  <strong className="text-orange-600 dark:text-orange-400">Втора космическа (v₂ = 11.2 km/s):</strong> 
-                  Скорост на освобождаване - напуска гравитационното поле на Земята
-                </li>
-                <li>
-                  <strong className="text-red-600 dark:text-red-400">Трета космическа (v₃ = 16.7 km/s):</strong> 
-                  Напуска Слънчевата система от орбитата на Земята
-                </li>
-              </ul>
-            </div>
-          </div>
-
-          {/* Интерактивен калкулатор */}
-          <div className="bg-white dark:bg-gray-800 p-4 rounded-lg border-2 border-purple-300 dark:border-purple-600 mb-6">
-            <h3 className="font-semibold mb-3 text-center">Калкулатор на орбитална скорост</h3>
-            
-            <svg viewBox="0 0 600 350" className="w-full h-auto">
-              <rect x="0" y="0" width="600" height="350" fill="rgb(20, 20, 40)" />
-
-              {/* Земя с атмосфера */}
-              <defs>
-                <radialGradient id="atmosphere">
-                  <stop offset="0%" stopColor="rgba(100, 150, 255, 0)" />
-                  <stop offset="70%" stopColor="rgba(100, 150, 255, 0.3)" />
-                  <stop offset="100%" stopColor="rgba(100, 150, 255, 0)" />
-                </radialGradient>
-              </defs>
-              
-              <circle cx="300" cy="175" r="70" fill="url(#atmosphere)" />
-              <circle cx="300" cy="175" r="50" fill="rgb(59, 130, 246)" />
-              <circle cx="300" cy="175" r="50" fill="none" stroke="rgb(34, 197, 94)" strokeWidth="2" />
-
-              {/* Орбита */}
-              <circle
-                cx="300"
-                cy="175"
-                r={50 + altitude * 0.12}
-                fill="none"
-                stroke="rgb(168, 85, 247)"
-                strokeWidth="2"
-              />
-
-              {/* Спътник */}
-              <circle
-                cx={300 + 50 + altitude * 0.12}
-                cy="175"
-                r="6"
-                fill="rgb(200, 200, 200)"
-              />
-              <text
-                x={300 + 50 + altitude * 0.12}
-                y={175 - 15}
-                fontSize="10"
-                textAnchor="middle"
-                fill="white"
-              >
-                🛰️
-              </text>
-
-              {/* Данни */}
-              <g transform="translate(20, 20)">
-                <rect x="0" y="0" width="250" height="140" fill="rgba(0, 0, 0, 0.8)" rx="5" />
-                <text x="10" y="25" fontSize="13" fontWeight="bold" fill="white">
-                  На височина {altitude} km:
-                </text>
-                <text x="10" y="50" fontSize="11" fill="white">
-                  Радиус орбита: <tspan fontWeight="bold">{(earthRadius + altitude).toFixed(0)} km</tspan>
-                </text>
-                <text x="10" y="70" fontSize="11" fill="white">
-                  Орбитална скорост:
-                </text>
-                <text x="10" y="90" fontSize="15" fontWeight="bold" fill="rgb(255, 200, 100)">
-                  v = {orbitalVelocity.toFixed(2)} km/s
-                </text>
-                <text x="10" y="110" fontSize="11" fill="white">
-                  Скорост на освобождаване:
-                </text>
-                <text x="10" y="130" fontSize="13" fontWeight="bold" fill="rgb(255, 150, 100)">
-                  v_esc = {escapeVelocity.toFixed(2)} km/s
-                </text>
-              </g>
-
-              {/* Сравнение със звука */}
-              <g transform="translate(400, 280)">
-                <text x="0" y="0" fontSize="10" fill="gray">
-                  Скорост на звука: 0.34 km/s
-                </text>
-                <text x="0" y="15" fontSize="10" fill="rgb(255, 200, 100)">
-                  Орбитална: {(orbitalVelocity / 0.34).toFixed(0)}x по-бърза
-                </text>
-              </g>
-            </svg>
-          </div>
-        </section>
-
-        <section className="mb-8">
-          <h2 className="text-xl sm:text-2xl font-semibold mb-4">
-            3. Видове орбити
-          </h2>
-          
-          <div className="bg-white dark:bg-gray-800 p-4 rounded-lg border-2 border-orange-300 dark:border-orange-600 mb-6">
-            <svg viewBox="0 0 700 400" className="w-full h-auto">
-              <rect x="0" y="0" width="700" height="400" fill="rgb(10, 10, 30)" />
-
-              {/* Централно тяло */}
-              <circle cx="150" cy="200" r="30" fill="rgb(251, 191, 36)" />
-              <text x="150" y="245" fontSize="11" textAnchor="middle" fill="white">Централно тяло</text>
-
-              {/* Кръгова орбита */}
-              <circle cx="150" cy="200" r="70" fill="none" stroke="rgb(34, 197, 94)" strokeWidth="3" />
-              <text x="230" y="200" fontSize="12" fill="rgb(34, 197, 94)" fontWeight="bold">
-                Кръгова (e=0)
-              </text>
-
-              {/* Елиптична орбита */}
-              <ellipse cx="180" cy="200" rx="120" ry="90" fill="none" stroke="rgb(168, 85, 247)" strokeWidth="3" />
-              <text x="310" y="200" fontSize="12" fill="rgb(168, 85, 247)" fontWeight="bold">
-                Елиптична (0&lt;e&lt;1)
-              </text>
-              <circle cx="150" cy="200" r="4" fill="rgb(168, 85, 247)" />
-              <text x="150" y="185" fontSize="9" fill="rgb(168, 85, 247)">фокус</text>
-
-              {/* Параболична орбита */}
-              <path
-                d="M 150,130 Q 250,150 350,100"
-                fill="none"
-                stroke="rgb(255, 165, 0)"
-                strokeWidth="3"
-              />
-              <text x="280" y="120" fontSize="12" fill="rgb(255, 165, 0)" fontWeight="bold">
-                Параболична (e=1)
-              </text>
-
-              {/* Хиперболична орбита */}
-              <path
-                d="M 150,270 Q 280,250 420,280"
-                fill="none"
-                stroke="rgb(239, 68, 68)"
-                strokeWidth="3"
-              />
-              <text x="310" y="290" fontSize="12" fill="rgb(239, 68, 68)" fontWeight="bold">
-                Хиперболична (e&gt;1)
-              </text>
-
-              {/* Обяснение */}
-              <g transform="translate(450, 50)">
-                <rect x="0" y="0" width="230" height="140" fill="rgba(0, 0, 0, 0.8)" rx="5" />
-                <text x="115" y="25" fontSize="13" fontWeight="bold" textAnchor="middle" fill="white">
-                  Ексцентрицитет (e)
-                </text>
-                <text x="10" y="50" fontSize="10" fill="rgb(34, 197, 94)">
-                  e = 0: Кръг
-                </text>
-                <text x="10" y="70" fontSize="10" fill="rgb(168, 85, 247)">
-                  0 &lt; e &lt; 1: Елипса (затворена)
-                </text>
-                <text x="10" y="90" fontSize="10" fill="rgb(255, 165, 0)">
-                  e = 1: Парабола (граница)
-                </text>
-                <text x="10" y="110" fontSize="10" fill="rgb(239, 68, 68)">
-                  e &gt; 1: Хипербола (отворена)
-                </text>
-                <text x="10" y="130" fontSize="9" fill="gray">
-                  v &lt; v_esc: затворена орбита
-                </text>
-              </g>
-            </svg>
-
-            <div className="mt-4 p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
-              <p className="text-sm">
-                <strong>Ексцентрицитетът (e)</strong> определя формата на орбитата. При v &lt; v_esc
-                орбитата е затворена (кръг или елипса). При v ≥ v_esc обектът напуска системата.
-              </p>
-            </div>
-          </div>
-        </section>
-
-        <section className="mb-8">
-          <h2 className="text-xl sm:text-2xl font-semibold mb-4">
-            4. Космически скорости за различни тела
-          </h2>
-          <div className="bg-green-50 dark:bg-green-900/20 p-4 rounded-lg mb-4">
-            <h3 className="font-semibold mb-2">Втора космическа скорост (v_esc):</h3>
-            <table className="w-full text-sm mt-2">
-              <thead>
-                <tr className="border-b border-gray-300 dark:border-gray-600">
-                  <th className="text-left py-2">Тяло</th>
-                  <th className="text-right py-2">v_esc (km/s)</th>
-                  <th className="text-right py-2">Сравнение</th>
+          <div className="overflow-x-auto mb-4">
+            <table className="w-full text-sm border border-gray-200 dark:border-gray-700">
+              <thead className="bg-gray-100 dark:bg-gray-700">
+                <tr>
+                  <th className="p-2 text-left">Начална скорост</th>
+                  <th className="p-2 text-left">Енергия</th>
+                  <th className="p-2 text-left">Орбита</th>
+                  <th className="p-2 text-left">e</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td className="py-1">Луна</td>
-                  <td className="text-right">2.4</td>
-                  <td className="text-right text-gray-600 dark:text-gray-400">0.21x Земя</td>
-                </tr>
-                <tr>
-                  <td className="py-1">Земя</td>
-                  <td className="text-right font-bold">11.2</td>
-                  <td className="text-right">1.00x</td>
-                </tr>
-                <tr>
-                  <td className="py-1">Юпитер</td>
-                  <td className="text-right">59.5</td>
-                  <td className="text-right text-gray-600 dark:text-gray-400">5.3x Земя</td>
-                </tr>
-                <tr>
-                  <td className="py-1">Слънце</td>
-                  <td className="text-right">617.5</td>
-                  <td className="text-right text-gray-600 dark:text-gray-400">55x Земя</td>
-                </tr>
-                <tr>
-                  <td className="py-1">Неутронна звезда</td>
-                  <td className="text-right">200 000</td>
-                  <td className="text-right text-red-600 dark:text-red-400">67% от c</td>
-                </tr>
+                {[
+                  ['v = v₁', 'ε < 0', 'окръжност', '0'],
+                  ['v₁ < v < v₂', 'ε < 0', 'елипса', '0 < e < 1'],
+                  ['v = v₂', 'ε = 0', 'парабола', '1'],
+                  ['v > v₂', 'ε > 0', 'хипербола', '> 1'],
+                ].map(row => (
+                  <tr
+                    key={row[0]}
+                    className="border-t border-gray-200 dark:border-gray-700"
+                  >
+                    {row.map(cell => (
+                      <td key={cell} className="p-2 font-mono">
+                        {cell}
+                      </td>
+                    ))}
+                  </tr>
+                ))}
               </tbody>
             </table>
+          </div>
+
+          <div className="bg-green-50 dark:bg-green-900/20 p-4 rounded-lg mb-4">
+            <h3 className="font-semibold mb-2">
+              Скорост за бягство от различни тела
+            </h3>
+            <table className="w-full text-sm">
+              <tbody>
+                {ESCAPE.map(row => (
+                  <tr
+                    key={row.name}
+                    className="border-t border-green-200 dark:border-green-800"
+                  >
+                    <td className="py-1">{row.name}</td>
+                    <td className="py-1 text-right font-mono font-bold">
+                      {row.v} km/s
+                    </td>
+                    <td className="py-1 text-right text-gray-600 dark:text-gray-400">
+                      {row.note}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+            <p className="text-sm mt-2">
+              Ако v₂ стане равна на скоростта на светлината c, нищо не може да
+              избяга – това е черна дупка (Лекция 21). Радиусът ѝ е R = 2GM /
+              c².
+            </p>
           </div>
         </section>
 
         <section className="mb-8">
           <h2 className="text-xl sm:text-2xl font-semibold mb-4">
-            📝 Задачи за упражнение
+            3. Третата космическа скорост
+          </h2>
+          <p className="mb-4 text-base sm:text-lg leading-relaxed">
+            За да напусне Слънчевата система, тялото трябва да избяга и от
+            Слънцето. На разстоянието на Земята скоростта за бягство от Слънцето
+            е √2 · 29,8 ≈ 42,1 km/s. Земята обаче вече ни носи с 29,8 km/s!
+          </p>
+          <Example
+            description="Колко е минималната скорост на изстрелване от Земята, за да напуснем Слънчевата система?"
+            steps={[
+              'Изстрелваме по посоката на движение на Земята. Далеч от Земята ни трябват 42,1 − 29,8 ≈ 12,3 km/s спрямо нея.',
+              'При излитането трябва да преодолеем и привличането на Земята. По закона за запазване на енергията: v₃² = v₂² + 12,3².',
+              'v₃ = √(11,2² + 12,3²) ≈ 16,6 km/s – третата космическа скорост.',
+              'Ако изстрелваме срещу движението на Земята, ще ни трябват над 70 km/s! Посоката е от огромно значение.',
+            ]}
+          />
+        </section>
+
+        <section className="mb-8">
+          <h2 className="text-xl sm:text-2xl font-semibold mb-4">
+            4. Полети до други планети
+          </h2>
+          <p className="mb-4 text-base sm:text-lg leading-relaxed">
+            Космическите кораби не летят „направо“ – те се движат по Кеплерови
+            орбити около Слънцето и двигателите им работят само за кратко.
+          </p>
+
+          <HohmannTransfer />
+
+          <div className="bg-red-50 dark:bg-red-900/20 p-4 rounded-lg mb-4">
+            <ul className="list-disc list-inside space-y-2">
+              <li>
+                <strong>Преход на Хоман</strong> – елипса с перихелий на едната
+                орбита и афелий на другата. Нужни са само два импулса на
+                двигателя.
+              </li>
+              <li>
+                <strong>Стартови прозорци</strong> – до Марс може да се полети
+                удобно само веднъж на ~26 месеца, когато планетите са в правилно
+                взаимно положение (синодичният период).
+              </li>
+              <li>
+                <strong>Гравитационна прашка</strong> – при прелитане край
+                планета корабът „открадва“ малко от орбиталната ѝ скорост. Така
+                „Вояджър 2“ посети Юпитер, Сатурн, Уран и Нептун.
+              </li>
+            </ul>
+          </div>
+          <div className="bg-amber-50 dark:bg-amber-900/20 border-l-4 border-amber-500 p-4 rounded mb-4">
+            <p className="font-semibold mb-1">
+              🤯 Парадоксът на орбиталната гонитба
+            </p>
+            <p>
+              Ако ускорите напред, орбитата ви става по-висока и по-дълга – и
+              вие изоставате! За да догоните МКС пред вас, трябва да спирачите:
+              слизате на по-ниска и по-бърза орбита, изпреварвате я и после
+              ускорявате, за да се изравните. Така се скачват всички кораби.
+            </p>
+          </div>
+        </section>
+
+        <section className="mb-8">
+          <h2 className="text-xl sm:text-2xl font-semibold mb-4">
+            5. ✅ Провери се
+          </h2>
+          <Quiz questions={QUIZ} />
+        </section>
+
+        <section className="mb-8">
+          <h2 className="text-xl sm:text-2xl font-semibold mb-4">
+            6. 📝 Задачи за упражнение
           </h2>
 
-          {/* Ниво А */}
           <div className="mb-6">
             <h3 className="text-lg font-semibold mb-3 text-green-600 dark:text-green-400">
               Ниво А (Областен кръг)
             </h3>
 
-            <div className="bg-white dark:bg-gray-800 p-4 rounded-lg mb-4 border-l-4 border-green-500">
-              <p className="font-semibold mb-2">1. Каква е първата космическа скорост за Земята?</p>
-              <button
-                onClick={() => toggleSolution('a1')}
-                className="text-blue-600 dark:text-blue-400 hover:underline text-sm"
-              >
-                {showSolutions['a1'] ? '▼ Скрий решението' : '▶ Покажи решението'}
-              </button>
-              {showSolutions['a1'] && (
-                <div className="mt-3 p-3 bg-blue-50 dark:bg-blue-900/20 rounded">
-                  <p className="font-semibold">Отговор: 7.9 km/s (28 440 km/h)</p>
-                  <p className="mt-2">Обяснение: Това е минималната скорост, необходима за влизане
-                  в орбита около Земята на малка височина. При по-ниска скорост обектът ще падне
-                  обратно на Земята.</p>
-                </div>
-              )}
-            </div>
+            <Task
+              {...task('a1')}
+              number={1}
+              color="border-green-500"
+              question="Каква е първата космическа скорост за Земята и какво означава тя?"
+            >
+              <p className="font-semibold">
+                Отговор: v₁ ≈ 7,9 km/s (~28 400 km/h)
+              </p>
+              <p>
+                Това е скоростта на кръгова орбита точно над повърхността (без
+                да отчитаме атмосферата). При по-малка хоризонтална скорост
+                тялото пада обратно на Земята.
+              </p>
+            </Task>
 
-            <div className="bg-white dark:bg-gray-800 p-4 rounded-lg mb-4 border-l-4 border-green-500">
-              <p className="font-semibold mb-2">2. Защо МКС трябва да се движи толкова бързо?</p>
-              <button
-                onClick={() => toggleSolution('a2')}
-                className="text-blue-600 dark:text-blue-400 hover:underline text-sm"
-              >
-                {showSolutions['a2'] ? '▼ Скрий решението' : '▶ Покажи решението'}
-              </button>
-              {showSolutions['a2'] && (
-                <div className="mt-3 p-3 bg-blue-50 dark:bg-blue-900/20 rounded">
-                  <p className="font-semibold">Решение:</p>
-                  <p className="mt-2">МКС се движи с около 7.66 km/s (27 600 km/h), за да остане
-                  на орбита. При тази скорост центростремителното ускорение (v²/r) е равно на
-                  гравитационното ускорение.</p>
-                  <p className="mt-2">Ако се движеше по-бавно, щеше да падне. Ако се движеше
-                  по-бързо, щеше да се издигне на по-висока орбита. МКС е в постоянно "свободно
-                  падане" около Земята!</p>
-                </div>
-              )}
-            </div>
+            <Task
+              {...task('a2')}
+              number={2}
+              color="border-green-500"
+              question="Защо МКС трябва да се движи толкова бързо?"
+            >
+              <p>
+                МКС се движи с ~7,66 km/s, за да е по кръгова орбита: тогава
+                центростремителното ускорение v²/r е точно равно на
+                гравитационното на тази височина.
+              </p>
+              <p>
+                Ако се движеше по-бавно, щеше да слезе по елипса и да навлезе в
+                атмосферата. Станцията е в постоянно свободно падане около
+                Земята.
+              </p>
+            </Task>
+
+            <Task
+              {...task('a3')}
+              number={3}
+              color="border-green-500"
+              question="Защо телевизионните спътници изглеждат неподвижни на небето?"
+            >
+              <p>
+                Те са на геостационарна орбита – над екватора, на ~35 800 km
+                височина. Периодът им е точно едно звездно денонощие и те
+                обикалят в посоката на въртене на Земята. Затова „висят“ над
+                една точка и антените не трябва да се завъртат.
+              </p>
+            </Task>
           </div>
 
-          {/* Ниво В */}
           <div className="mb-6">
             <h3 className="text-lg font-semibold mb-3 text-yellow-600 dark:text-yellow-400">
               Ниво В (Национален кръг)
             </h3>
 
-            <div className="bg-white dark:bg-gray-800 p-4 rounded-lg mb-4 border-l-4 border-yellow-500">
-              <p className="font-semibold mb-2">3. Изчисли орбиталната скорост на спътник на
-              височина 400 km. (R_Земя = 6371 km, M = 5.972 × 10²⁴ kg, G = 6.674 × 10⁻¹¹)</p>
-              <button
-                onClick={() => toggleSolution('b3')}
-                className="text-blue-600 dark:text-blue-400 hover:underline text-sm"
-              >
-                {showSolutions['b3'] ? '▼ Скрий решението' : '▶ Покажи решението'}
-              </button>
-              {showSolutions['b3'] && (
-                <div className="mt-3 p-3 bg-blue-50 dark:bg-blue-900/20 rounded">
-                  <p className="font-semibold">Решение:</p>
-                  <p className="mt-2">v = √(GM / r)</p>
-                  <p className="mt-2">r = R_Земя + h = 6371 + 400 = 6771 km = 6.771 × 10⁶ m</p>
-                  <p className="mt-2">v = √(6.674 × 10⁻¹¹ × 5.972 × 10²⁴ / 6.771 × 10⁶)</p>
-                  <p>v = √(3.985 × 10¹⁴ / 6.771 × 10⁶)</p>
-                  <p>v = √(5.884 × 10⁷)</p>
-                  <p>v ≈ 7670 m/s ≈ 7.67 km/s</p>
-                  <p className="mt-2"><strong>Отговор: около 7.67 km/s (27 600 km/h)</strong></p>
-                  <p className="mt-2 text-sm">Това е орбиталната скорост на МКС!</p>
-                </div>
-              )}
-            </div>
+            <Task
+              {...task('b1')}
+              number={4}
+              color="border-yellow-500"
+              question="Изчисли орбиталната скорост и периода на спътник на височина 400 km (R = 6371 km, GM = 3,986·10¹⁴ m³/s²)."
+            >
+              <p>r = 6371 + 400 = 6771 km = 6,771·10⁶ m</p>
+              <p>
+                v = √(GM / r) = √(3,986·10¹⁴ / 6,771·10⁶) = √(5,887·10⁷) ≈ 7670
+                m/s
+              </p>
+              <p>T = 2πr / v = 2π · 6,771·10⁶ / 7670 ≈ 5550 s ≈ 92,5 min</p>
+              <p>
+                <strong>Отговор: 7,67 km/s и ~92 минути</strong> – 15–16
+                обиколки на ден.
+              </p>
+            </Task>
 
-            <div className="bg-white dark:bg-gray-800 p-4 rounded-lg mb-4 border-l-4 border-yellow-500">
-              <p className="font-semibold mb-2">4. Докажи, че скоростта на освобождаване е √2 пъти
-              по-голяма от орбиталната скорост (на същата височина).</p>
-              <button
-                onClick={() => toggleSolution('b4')}
-                className="text-blue-600 dark:text-blue-400 hover:underline text-sm"
-              >
-                {showSolutions['b4'] ? '▼ Скрий решението' : '▶ Покажи решението'}
-              </button>
-              {showSolutions['b4'] && (
-                <div className="mt-3 p-3 bg-blue-50 dark:bg-blue-900/20 rounded">
-                  <p className="font-semibold">Решение:</p>
-                  <p className="mt-2">Орбитална скорост: v_orb = √(GM / r)</p>
-                  <p className="mt-2">Скорост на освобождаване: v_esc = √(2GM / r)</p>
-                  <p className="mt-2">Съотношение:</p>
-                  <p>v_esc / v_orb = √(2GM / r) / √(GM / r)</p>
-                  <p>= √[(2GM / r) / (GM / r)]</p>
-                  <p>= √2</p>
-                  <p className="mt-2"><strong>v_esc = √2 × v_orb ≈ 1.414 × v_orb</strong></p>
-                  <p className="mt-2 text-sm">Пример: На повърхността на Земята v_orb = 7.9 km/s,
-                  v_esc = 11.2 km/s. Съотношение: 11.2 / 7.9 ≈ 1.418 ≈ √2 ✓</p>
-                </div>
-              )}
-            </div>
+            <Task
+              {...task('b2')}
+              number={5}
+              color="border-yellow-500"
+              question="Докажи, че скоростта за бягство е √2 пъти по-голяма от кръговата скорост на същото разстояние."
+            >
+              <p>Кръгова: GMm / r² = mv₁² / r → v₁ = √(GM / r).</p>
+              <p>Бягство: ½mv₂² = GMm / r → v₂ = √(2GM / r).</p>
+              <p>v₂ / v₁ = √2 ≈ 1,414. За Земята: 11,2 / 7,9 ≈ 1,42 ✓</p>
+            </Task>
+
+            <Task
+              {...task('b3')}
+              number={6}
+              color="border-yellow-500"
+              question="Изчисли скоростта за бягство от Луната (M = 7,35·10²² kg, R = 1737 km). Защо Луната няма атмосфера?"
+            >
+              <p>
+                v₂ = √(2GM / R) = √(2 · 6,674·10⁻¹¹ · 7,35·10²² / 1,737·10⁶) ≈
+                √(5,65·10⁶) ≈ <strong>2,38 km/s</strong>
+              </p>
+              <p>
+                Молекулите на газовете при дневната температура на Луната (~120
+                °C) се движат средно с ~0,5 km/s, а най-бързите от тях
+                надвишават 2,4 km/s. За милиарди години атмосферата е избягала в
+                космоса.
+              </p>
+            </Task>
+
+            <Task
+              {...task('b4')}
+              number={7}
+              color="border-yellow-500"
+              question="Спътник се движи по елипса с перигей на височина 300 km и апогей 35 786 km. Каква е скоростта му в перигея? (Използвай vis-viva.)"
+            >
+              <p>rₚ = 6671 km, rₐ = 42 157 km, a = (rₚ + rₐ) / 2 = 24 414 km</p>
+              <p>
+                v² = GM(2/rₚ − 1/a) = 398 600 · (2/6671 − 1/24 414) ≈ 398 600 ·
+                2,589·10⁻⁴ ≈ 103,2
+              </p>
+              <p>
+                <strong>vₚ ≈ 10,16 km/s</strong> – с 2,43 km/s повече от
+                кръговата скорост на 300 km (7,73 km/s).
+              </p>
+            </Task>
           </div>
 
-          {/* Ниво С */}
           <div className="mb-6">
             <h3 className="text-lg font-semibold mb-3 text-red-600 dark:text-red-400">
               Ниво С (Международна олимпиада)
             </h3>
 
-            <div className="bg-white dark:bg-gray-800 p-4 rounded-lg mb-4 border-l-4 border-red-500">
-              <p className="font-semibold mb-2">5. Астронавт на МКС (h = 400 km) хвърля топка напред
-              (по посоката на движението) със скорост 1 m/s спрямо станцията. Опиши орбитата на топката.</p>
-              <button
-                onClick={() => toggleSolution('c5')}
-                className="text-blue-600 dark:text-blue-400 hover:underline text-sm"
-              >
-                {showSolutions['c5'] ? '▼ Скрий решението' : '▶ Покажи решението'}
-              </button>
-              {showSolutions['c5'] && (
-                <div className="mt-3 p-3 bg-blue-50 dark:bg-blue-900/20 rounded">
-                  <p className="font-semibold">Решение:</p>
-                  <p className="mt-2">МКС се движи с v_МКС ≈ 7.67 km/s = 7670 m/s</p>
-                  <p className="mt-2">Топката получава допълнителна скорост +1 m/s:</p>
-                  <p>v_топка = 7670 + 1 = 7671 m/s</p>
-                  
-                  <p className="mt-3"><strong>Какво ще се случи:</strong></p>
-                  <p className="mt-2">Топката има малко по-голяма скорост от необходимата за
-                  кръгова орбита на 400 km. Това означава, че тя ще се издигне на по-висока орбита.</p>
-                  
-                  <p className="mt-2">Орбитата на топката ще бъде <strong>елипса</strong> с:</p>
-                  <ul className="list-disc list-inside mt-2 space-y-1">
-                    <li>Перигей (най-ниска точка): 400 km (където е хвърлена)</li>
-                    <li>Апогей (най-висока точка): малко по-висок (около 402 km)</li>
-                  </ul>
-                  
-                  <p className="mt-3">Топката ще се върне обратно към МКС след половин орбита
-                  (около 45 минути), но малко "отзад" и "отгоре"!</p>
-                  
-                  <p className="mt-3 text-sm font-semibold">Интересно: Ако астронавтът хвърли топката
-                  "назад" (срещу движението), тя ще падне на по-ниска орбита и също ще се върне
-                  след половин орбита. В орбита не можеш просто да "хвърлиш" нещо - то остава
-                  на орбита!</p>
-                </div>
-              )}
-            </div>
+            <Task
+              {...task('c1')}
+              number={8}
+              color="border-red-500"
+              question="Астронавт на МКС (h = 400 km, T ≈ 92,5 min) хвърля топка напред със скорост 1 m/s спрямо станцията. Къде ще е топката след една обиколка?"
+            >
+              <p>
+                Топката получава Δv = +1 m/s и тръгва по елипса с перигей в
+                точката на хвърлянето. Голямата ѝ полуос нараства с Δa = 2a·Δv /
+                v = 2 · 6771 km · 1 / 7670 ≈ 1,77 km.
+              </p>
+              <p>
+                След половин обиколка тя е ~3,5 km <em>по-високо</em> от
+                станцията (в апогея).
+              </p>
+              <p>
+                Периодът ѝ е по-дълъг: ΔT / T = 1,5 · Δa / a ≈ 3,9·10⁻⁴, т.е. ΔT
+                ≈ 2,2 s. След една обиколка топката се връща на височината на
+                МКС, но <strong>изостава зад нея с ~3·Δv·T ≈ 17 km</strong>!
+              </p>
+              <p>
+                Парадокс: хвърлена напред, топката се озовава отзад. Хвърлена
+                назад, ще изпревари станцията.
+              </p>
+            </Task>
+
+            <Task
+              {...task('c2')}
+              number={9}
+              color="border-red-500"
+              question="Изведи третата космическа скорост (v₃ ≈ 16,6 km/s), като знаеш, че Земята обикаля Слънцето с 29,8 km/s, а v₂ = 11,2 km/s."
+            >
+              <p>
+                Скорост за бягство от Слънцето на 1 AU: √2 · 29,8 ≈ 42,1 km/s.
+                Изстрелвайки по посоката на Земята, извън земното притегляне ни
+                трябват v∞ = 42,1 − 29,8 = 12,3 km/s.
+              </p>
+              <p>
+                Енергия на единица маса при старта: ½v₃² − GM⊕/R = ½v∞², а GM⊕/R
+                = ½v₂².
+              </p>
+              <p>
+                v₃ = √(v₂² + v∞²) = √(11,2² + 12,3²) ≈{' '}
+                <strong>16,6 km/s</strong>
+              </p>
+            </Task>
+
+            <Task
+              {...task('c3')}
+              number={10}
+              color="border-red-500"
+              question="Кораб лети до Марс (a = 1,524 AU) по преход на Хоман. Колко трае полетът? Под какъв ъгъл пред Земята трябва да е Марс при старта и колко често се повтаря такава възможност?"
+            >
+              <p>a_пр = (1 + 1,524) / 2 = 1,262 AU</p>
+              <p>t = ½ · a^(3/2) = ½ · 1,262^1,5 ≈ 0,709 години ≈ 259 дни</p>
+              <p>
+                За това време Марс изминава 360° · 0,709 / 1,881 ≈ 136°. Той
+                трябва да пристигне в точката, противоположна на старта (180°),
+                значи при старта е <strong>~44° пред Земята</strong>.
+              </p>
+              <p>
+                Същото взаимно положение се повтаря през синодичния период: 1/S
+                = 1 − 1/1,881 → S ≈ 2,14 години ≈ <strong>26 месеца</strong>.
+              </p>
+            </Task>
           </div>
         </section>
 
         <section className="mb-8">
           <h2 className="text-xl sm:text-2xl font-semibold mb-4">
-            Обобщение
+            7. Обобщение
           </h2>
           <div className="bg-gradient-to-r from-green-50 to-blue-50 dark:from-gray-800 dark:to-gray-700 p-6 rounded-lg">
             <ul className="space-y-2">
-              <li>✓ Орбитална скорост: v = √(GM / r)</li>
-              <li>✓ Скорост на освобождаване: v_esc = √(2GM / r) = √2 × v_orb</li>
-              <li>✓ Първа космическа (Земя): 7.9 km/s</li>
-              <li>✓ Втора космическа (Земя): 11.2 km/s</li>
-              <li>✓ Трета космическа: 16.7 km/s (от орбитата на Земята)</li>
-              <li>✓ Видове орбити: кръгова (e=0), елиптична (0&lt;e&lt;1), параболична (e=1), хиперболична (e&gt;1)</li>
+              <li>✓ Кръгова скорост v = √(GM/r); по-високо = по-бавно</li>
+              <li>✓ Скорост за бягство v₂ = √(2GM/r) = √2·v₁</li>
+              <li>✓ Vis-viva: v² = GM(2/r − 1/a)</li>
+              <li>✓ Земя: v₁ = 7,9 km/s, v₂ = 11,2 km/s, v₃ = 16,6 km/s</li>
+              <li>
+                ✓ Окръжност (e = 0), елипса (0 &lt; e &lt; 1), парабола (e = 1),
+                хипербола (e &gt; 1)
+              </li>
+              <li>
+                ✓ Полетите до планетите са по Кеплерови орбити – преход на Хоман
+              </li>
             </ul>
           </div>
         </section>
@@ -716,13 +507,11 @@ export default function Lecture08() {
               <span>Интересен факт</span>
             </h3>
             <p>
-              Международната космическа станция (МКС) се движи с орбитална скорост
-              от около 7.66 km/s и прави пълен оборот около Земята за около 90
-              минути. Астронавтите на борда виждат 16 изгрева и залеза на ден!
-              Въпреки че са на "само" 400 km височина, те са в състояние на безтегловност,
-              защото са в постоянно свободно падане около Земята. Вояджър 1, изстрелян
-              през 1977 г., е напуснал Слънчевата система и сега се движи с около
-              17 km/s спрямо Слънцето!
+              Астронавтите на МКС виждат по 16 изгрева и залеза на ден. „Вояджър
+              1“, изстрелян през 1977 г., се движи с ~17 km/s спрямо Слънцето и
+              през 2012 г. стана първият човешки апарат в междузвездното
+              пространство. Въпреки това до най-близката звезда ще му трябват
+              над 70 000 години.
             </p>
           </div>
         </section>
