@@ -234,7 +234,7 @@ export function InteractiveTriangle({ type }: InteractiveTriangleProps) {
         ref={svgRef}
         width={dimensions.width}
         height={dimensions.height}
-        className="border border-gray-300 dark:border-gray-600 rounded cursor-move max-w-full"
+        className="border border-gray-300 dark:border-gray-600 rounded cursor-move max-w-full mx-auto block"
         onMouseMove={handleMouseMove}
         onMouseUp={handleMouseUp}
         onMouseLeave={handleMouseUp}

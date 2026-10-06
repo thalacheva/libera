@@ -372,7 +372,7 @@ export function InteractiveQuadrangle({ type }: InteractiveQuadrangleProps) {
         ref={svgRef}
         width={dimensions.width}
         height={dimensions.height}
-        className="border border-gray-300 dark:border-gray-600 rounded cursor-move max-w-full"
+        className="border border-gray-300 dark:border-gray-600 rounded cursor-move max-w-full mx-auto block"
         onMouseMove={handleMouseMove}
         onMouseUp={handleMouseUp}
         onMouseLeave={handleMouseUp}
@@ -509,7 +509,7 @@ export function InteractiveQuadrangle({ type }: InteractiveQuadrangleProps) {
           fill="currentColor"
           fontWeight="bold"
         >
-          Лице: A = {area.toFixed(2)}
+          Лице: S = {area.toFixed(2)}
         </text>
         <text
           x="10"

@@ -234,7 +234,7 @@ export function InteractiveCircle({ type }: InteractiveCircleProps) {
         ref={svgRef}
         width={dimensions.width}
         height={dimensions.height}
-        className="border border-gray-300 dark:border-gray-600 rounded cursor-move max-w-full"
+        className="border border-gray-300 dark:border-gray-600 rounded cursor-move max-w-full mx-auto block"
         onMouseMove={handleMouseMove}
         onMouseUp={handleMouseUp}
         onMouseLeave={handleMouseUp}
@@ -306,7 +306,7 @@ export function InteractiveCircle({ type }: InteractiveCircleProps) {
               fill="currentColor"
               fontWeight="bold"
             >
-              Обиколка: C = 2πr = {(2 * Math.PI * radius).toFixed(2)}
+              Дължина на окръжността: C = 2πr = {(2 * Math.PI * radius).toFixed(2)}
             </text>
             <text
               x="10"
@@ -315,7 +315,7 @@ export function InteractiveCircle({ type }: InteractiveCircleProps) {
               fill="currentColor"
               fontWeight="bold"
             >
-              Лице: A = πr² = {(Math.PI * radius * radius).toFixed(2)}
+              Лице: S = πr² = {(Math.PI * radius * radius).toFixed(2)}
             </text>
           </>
         )}
@@ -407,7 +407,7 @@ export function InteractiveCircle({ type }: InteractiveCircleProps) {
               fill="currentColor"
               fontWeight="bold"
             >
-              Хорда: отсечка свързваща две точки на кръга
+              Хорда: отсечка, свързваща две точки от окръжността
             </text>
           </>
         )}
@@ -548,7 +548,7 @@ export function InteractiveCircle({ type }: InteractiveCircleProps) {
               fill="currentColor"
               fontWeight="bold"
             >
-              Лице на сектора: A = (θ/360°) × πr² = {sectorArea.toFixed(2)}
+              Лице на сектора: S = (θ/360°) × πr² = {sectorArea.toFixed(2)}
             </text>
           </>
         )}
@@ -604,7 +604,7 @@ export function InteractiveCircle({ type }: InteractiveCircleProps) {
               fill="currentColor"
               fontWeight="bold"
             >
-              Обиколка: C = 2πr = {(2 * Math.PI * radius).toFixed(2)}
+              Дължина на окръжността: C = 2πr = {(2 * Math.PI * radius).toFixed(2)}
             </text>
             <text
               x="10"
@@ -613,7 +613,7 @@ export function InteractiveCircle({ type }: InteractiveCircleProps) {
               fill="currentColor"
               fontWeight="bold"
             >
-              Лице: A = πr² = {(Math.PI * radius * radius).toFixed(2)}
+              Лице: S = πr² = {(Math.PI * radius * radius).toFixed(2)}
             </text>
           </>
         )}

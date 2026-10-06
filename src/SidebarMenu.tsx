@@ -26,7 +26,7 @@ const mathTopics = [
     subtopics: [
       { name: 'Триъгълник', path: '/triangle' },
       { name: 'Четириъгълник', path: '/quadrilateral' },
-      { name: 'Кръг', path: '/circle' },
+      { name: 'Окръжност и кръг', path: '/circle' },
     ],
   },
 ];
