@@ -1,4 +1,4 @@
-import {BookOpen, Menu, Moon, Sun, User, X} from 'lucide-react';
+import {Menu, X} from 'lucide-react';
 import {useEffect, useState} from 'react';
 import {Navigate, Route, Routes} from 'react-router-dom';
 import {Circle, Quadrangle, Triangle} from '~/geometry';
@@ -20,12 +20,7 @@ import {
 } from './functions';
 
 function App() {
-  const [darkMode, setDarkMode] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(false);
-
-  useEffect(() => {
-    document.documentElement.classList.toggle('dark', darkMode);
-  }, [darkMode]);
 
   useEffect(() => {
     const handleResize = () => {
@@ -36,39 +31,14 @@ function App() {
   }, []);
 
   return (
-    <div
-      className={`h-screen flex flex-col ${darkMode ? 'bg-gray-900 text-gray-100' : 'bg-gray-50 text-gray-800'}`}
-    >
-      <header className="flex justify-between items-center px-4 sm:px-6 py-3 sm:py-4 border-b border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 shadow-sm flex-shrink-0">
-        <div className="flex items-center gap-2">
-          <button
-            onClick={() => setSidebarOpen(!sidebarOpen)}
-            className="lg:hidden p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700"
-            aria-label="Toggle menu"
-          >
-            {sidebarOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
-          <BookOpen className="text-blue-600" size={20} />
-          <span className="font-semibold text-sm sm:text-lg">
-            Образованието е в твоите ръце
-          </span>
-        </div>
-        <div className="flex items-center gap-2 sm:gap-4">
-          <input
-            type="text"
-            placeholder="Търси..."
-            className="hidden sm:block px-3 py-1 rounded-lg border dark:bg-gray-700 border-gray-300 dark:border-gray-600 focus:outline-none text-sm"
-          />
-          <button
-            onClick={() => setDarkMode(!darkMode)}
-            className="p-2 rounded-lg bg-gray-100 dark:bg-gray-700"
-            aria-label="Toggle dark mode"
-          >
-            {darkMode ? <Sun size={18} /> : <Moon size={18} />}
-          </button>
-          <User className="hidden sm:block" size={20} />
-        </div>
-      </header>
+    <div className="h-screen flex flex-col bg-gray-50 text-gray-800 dark:bg-gray-900 dark:text-gray-100">
+      <button
+        onClick={() => setSidebarOpen(!sidebarOpen)}
+        className="lg:hidden fixed top-3 left-3 z-[60] p-2 rounded-lg bg-white dark:bg-gray-800 shadow-md border border-gray-200 dark:border-gray-700"
+        aria-label="Toggle menu"
+      >
+        {sidebarOpen ? <X size={24} /> : <Menu size={24} />}
+      </button>
       <div className="flex flex-1 overflow-hidden">
         <SidebarMenu
           isOpen={sidebarOpen}
