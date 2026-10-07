@@ -1,337 +1,174 @@
-import { useEffect, useRef, useState } from 'react';
+import { useState } from 'react';
+import { Buttons, DiagramButton, Formula, Note, Readout } from '~/geometry/diagram';
+import { Point } from '~/geometry/diagramMath';
+import { num, point, polynomial } from './functionMath';
+import { Curve, Plot, PlotDot, PlotHandle, PlotLabel, PlotLine, Slider, Sliders } from './plot';
 
+const gcd = (a: number, b: number): number => (b === 0 ? Math.abs(a) : gcd(b, a % b));
+
+/** Δy/Δx като несъкратима дроб: „4/3“, „−2“, „0“. */
+function fraction(dy: number, dx: number) {
+  const sign = dy * dx < 0 ? '−' : '';
+  const g = gcd(dy, dx) || 1;
+  const p = Math.abs(dy / g);
+  const q = Math.abs(dx / g);
+  return q === 1 ? `${sign}${p}` : `${sign}${p}/${q}`;
+}
+
+const presets: { label: string; A: Point; B: Point }[] = [
+  { label: 'Растяща', A: { x: -2, y: -3 }, B: { x: 2, y: 3 } },
+  { label: 'Намаляваща', A: { x: -3, y: 2 }, B: { x: 1, y: -2 } },
+  { label: 'Константна', A: { x: -3, y: 2 }, B: { x: 3, y: 2 } },
+  { label: 'През началото', A: { x: 0, y: 0 }, B: { x: 3, y: 2 } },
+];
+
+/** Права през две точки, които се влачат – с правоъгълния триъгълник на наклона. */
 export function InteractiveLinearGrapher() {
-  const [a, setA] = useState(2);
-  const [b, setB] = useState(1);
+  const [A, setA] = useState<Point>({ x: -2, y: -1 });
+  const [B, setB] = useState<Point>({ x: 2, y: 5 });
 
-  const [dimensions, setDimensions] = useState({ width: 800, height: 600 });
-  const containerRef = useRef<HTMLDivElement>(null);
-  const width = dimensions.width;
-  const height = dimensions.height;
-  const padding = 50;
-  const xMin = -10;
-  const xMax = 10;
-  const yMin = -10;
-  const yMax = 10;
-
-  useEffect(() => {
-    const updateDimensions = () => {
-      if (containerRef.current) {
-        const containerWidth = containerRef.current.offsetWidth;
-        if (containerWidth < 640) {
-          setDimensions({
-            width: Math.min(containerWidth - 32, 400),
-            height: 400,
-          });
-        } else if (containerWidth < 1024) {
-          setDimensions({ width: 600, height: 500 });
-        } else {
-          setDimensions({ width: 800, height: 600 });
-        }
-      }
-    };
-
-    updateDimensions();
-    window.addEventListener('resize', updateDimensions);
-    return () => window.removeEventListener('resize', updateDimensions);
-  }, []);
-
-  const scaleX = (x: number) =>
-    padding + ((x - xMin) / (xMax - xMin)) * (width - 2 * padding);
-  const scaleY = (y: number) =>
-    height - padding - ((y - yMin) / (yMax - yMin)) * (height - 2 * padding);
-
+  const dx = B.x - A.x;
+  const dy = B.y - A.y;
+  const a = dy / dx;
+  const b = A.y - a * A.x;
   const f = (x: number) => a * x + b;
+  const root = a !== 0 ? -b / a : null;
 
-  // Calculate x-intercept (root): when y = 0, x = -b/a
-  const xIntercept = a !== 0 ? -b / a : null;
-  const yIntercept = b;
+  // Двете точки не бива да лежат на една вертикала – тогава няма функция
+  const moveA = (p: Point) => p.x !== B.x && setA(p);
+  const moveB = (p: Point) => p.x !== A.x && setB(p);
 
-  const generatePath = () => {
-    const points: string[] = [];
-    const numPoints = 100;
-    for (let i = 0; i <= numPoints; i++) {
-      const x = xMin + (i / numPoints) * (xMax - xMin);
-      const y = f(x);
-      if (y >= yMin && y <= yMax) {
-        points.push(`${scaleX(x)},${scaleY(y)}`);
-      }
-    }
-    return points.join(' ');
-  };
+  const corner = { x: B.x, y: A.y };
 
   return (
-    <div
-      ref={containerRef}
-      className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-4 sm:p-6 mb-8"
-    >
-      <h3 className="text-lg font-semibold mb-4 text-gray-800 dark:text-gray-100">
-        Интерактивна графика на линейна функция{' '}
-        <span className="font-mono">f(x) = ax + b</span>
-      </h3>
-      <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">
-        Коефициентът <strong>a</strong> е наклонът на функцията, а{' '}
-        <strong>b</strong> е пресечната точка с Y-оста.
-      </p>
-      <div className="flex flex-col lg:flex-row gap-6">
-        <div className="flex-shrink-0 space-y-4 w-full lg:w-auto flex flex-col items-center lg:items-start">
-          <svg
-            width={width}
-            height={height}
-            className="border border-gray-300 dark:border-gray-600 rounded bg-gray-50 dark:bg-gray-900 max-w-full"
-          >
-            <defs>
-              <pattern
-                id="grid-linear"
-                width={width / 10}
-                height={height / 10}
-                patternUnits="userSpaceOnUse"
+    <Plot
+      hint="Влачи точките A и B. Правата през тях е графиката на функцията. Наклонът a показва с колко се променя y, когато x нарасне с 1."
+      readout={
+        <>
+          <Readout
+            items={[
+              { label: 'Δx =', value: num(dx), tone: 'amber' },
+              { label: 'Δy =', value: num(dy), tone: 'violet' },
+              { label: 'a = Δy/Δx =', value: fraction(dy, dx), tone: 'blue' },
+              { label: 'b =', value: num(b), tone: 'emerald' },
+            ]}
+          />
+          <Formula>f(x) = {polynomial([a, b])}</Formula>
+          <Note tone={a > 0 ? 'emerald' : a < 0 ? 'rose' : 'gray'}>
+            {a > 0 && '↗ a > 0 – функцията е растяща'}
+            {a < 0 && '↘ a < 0 – функцията е намаляваща'}
+            {a === 0 && '→ a = 0 – функцията е константна, графиката е успоредна на оста Ox'}
+          </Note>
+          <Buttons>
+            {presets.map(p => (
+              <DiagramButton
+                key={p.label}
+                onClick={() => {
+                  setA(p.A);
+                  setB(p.B);
+                }}
               >
-                <path
-                  d={`M ${width / 10} 0 L 0 0 0 ${height / 10}`}
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="0.5"
-                  opacity="0.1"
-                />
-              </pattern>
-            </defs>
-            <rect width={width} height={height} fill="url(#grid-linear)" />
-
-            {/* Axes */}
-            <line
-              x1={padding}
-              y1={scaleY(0)}
-              x2={width - padding}
-              y2={scaleY(0)}
-              stroke="currentColor"
-              strokeWidth="2"
-              opacity="0.5"
-            />
-            <line
-              x1={scaleX(0)}
-              y1={padding}
-              x2={scaleX(0)}
-              y2={height - padding}
-              stroke="currentColor"
-              strokeWidth="2"
-              opacity="0.5"
-            />
-            {[-10, -5, 5, 10].map(x => (
-              <text
-                key={`x-${x}`}
-                x={scaleX(x)}
-                y={scaleY(0) + 20}
-                textAnchor="middle"
-                fontSize="12"
-                fill="currentColor"
-                opacity="0.7"
-              >
-                {x}
-              </text>
+                {p.label}
+              </DiagramButton>
             ))}
-            {[-10, -5, 5, 10]
-              .filter(y => y !== 0)
-              .map(y => (
-                <text
-                  key={`y-${y}`}
-                  x={scaleX(0) - 20}
-                  y={scaleY(y) + 5}
-                  textAnchor="middle"
-                  fontSize="12"
-                  fill="currentColor"
-                  opacity="0.7"
-                >
-                  {y}
-                </text>
-              ))}
-            <polyline
-              points={generatePath()}
-              fill="none"
-              stroke="#3b82f6"
-              strokeWidth="3"
-            />
-            {/* X-intercept (root) */}
-            {xIntercept !== null &&
-              xIntercept >= xMin &&
-              xIntercept <= xMax && (
-                <>
-                  <circle
-                    cx={scaleX(xIntercept)}
-                    cy={scaleY(0)}
-                    r="6"
-                    fill="#ef4444"
-                    stroke="white"
-                    strokeWidth="2"
-                  />
-                  <text
-                    x={scaleX(xIntercept)}
-                    y={scaleY(0) - 15}
-                    textAnchor="middle"
-                    fontSize="14"
-                    fontWeight="bold"
-                    fill="#ef4444"
-                  >
-                    x₀
-                  </text>
-                </>
-              )}
-            {/* Y-intercept */}
-            {yIntercept >= yMin && yIntercept <= yMax && (
-              <>
-                <circle
-                  cx={scaleX(0)}
-                  cy={scaleY(yIntercept)}
-                  r="6"
-                  fill="#10b981"
-                  stroke="white"
-                  strokeWidth="2"
-                />
-                <text
-                  x={scaleX(0) + 20}
-                  y={scaleY(yIntercept) + 5}
-                  fontSize="14"
-                  fontWeight="bold"
-                  fill="#10b981"
-                >
-                  y₀
-                </text>
-              </>
-            )}
-          </svg>
-        </div>
-        <div className="flex-1 space-y-4 w-full">
-          <div className="space-y-3 sm:space-y-4">
-            <div>
-              <label className="block text-xs sm:text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                Коефициент <strong>a</strong> (наклон):{' '}
-                <span className="font-bold">{a.toFixed(1)}</span>
-              </label>
-              <input
-                type="range"
-                min="-5"
-                max="5"
-                step="0.1"
-                value={a}
-                onChange={e => setA(Number(e.target.value))}
-                className="w-full h-2 sm:h-3 bg-blue-200 rounded-lg appearance-none cursor-pointer touch-none"
-              />
-              <p className="text-xs text-gray-600 dark:text-gray-400 mt-1">
-                {a > 0 && '↗ Растяща функция'}
-                {a < 0 && '↘ Намаляваща функция'}
-                {a === 0 && '→ Константна функция'}
-              </p>
-            </div>
-            <div>
-              <label className="block text-xs sm:text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                Коефициент <strong>b</strong> (пресичане с Y-ос):{' '}
-                <span className="font-bold">{b.toFixed(1)}</span>
-              </label>
-              <input
-                type="range"
-                min="-10"
-                max="10"
-                step="0.1"
-                value={b}
-                onChange={e => setB(Number(e.target.value))}
-                className="w-full h-2 sm:h-3 bg-green-200 rounded-lg appearance-none cursor-pointer touch-none"
-              />
-            </div>
-          </div>
-        </div>
-      </div>
-      <div className="mt-4 sm:mt-6 bg-purple-50 dark:bg-purple-900/20 border-l-4 border-purple-500 p-3 sm:p-4 rounded w-full">
-        <p className="text-xs sm:text-sm font-semibold text-purple-900 dark:text-purple-300 mb-2">
-          Уравнение:
-        </p>
-        <p className="text-base sm:text-xl font-mono text-center break-all text-gray-800 dark:text-gray-100">
-          f(x) ={' '}
-          <span className="font-bold">
-            {a >= 0 ? '' : ''}
-            {a.toFixed(1)}
-          </span>
-          x{b >= 0 ? ' + ' : ' - '}
-          <span className="font-bold">{Math.abs(b).toFixed(1)}</span>
-        </p>
-      </div>
-      <div className="mt-4 sm:mt-6 grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
-        <div className="space-y-3 sm:space-y-4">
-          <div className="bg-green-50 dark:bg-green-900/20 border-l-4 border-green-500 p-3 sm:p-4 rounded">
-            <p className="text-xs sm:text-sm font-semibold text-green-900 dark:text-green-300 mb-2">
-              Y-сечение (пресичане с Y-ос):
-            </p>
-            <p className="text-xs sm:text-sm mb-2 text-green-800 dark:text-green-300">
-              Когато x = 0:
-            </p>
-            <p className="font-mono text-sm sm:text-base text-gray-800 dark:text-gray-100">
-              y₀ = {yIntercept.toFixed(3)}
-            </p>
-          </div>
+          </Buttons>
+        </>
+      }
+    >
+      <Curve f={f} />
 
-          {a !== 0 && (
-            <div className="bg-red-50 dark:bg-red-900/20 border-l-4 border-red-500 p-3 sm:p-4 rounded">
-              <p className="text-xs sm:text-sm font-semibold text-red-900 dark:text-red-300 mb-2">
-                X-сечение (корен):
-              </p>
-              <p className="text-xs sm:text-sm mb-2 text-red-800 dark:text-red-300">
-                Когато y = 0:
-              </p>
-              <p className="font-mono text-sm sm:text-base text-gray-800 dark:text-gray-100">
-                x₀ = {xIntercept !== null ? xIntercept.toFixed(3) : 'N/A'}
-              </p>
-            </div>
-          )}
+      {/* Триъгълник на наклона: Δx хоризонтално, Δy вертикално */}
+      {dy !== 0 && (
+        <>
+          <PlotLine p={A} q={corner} tone="amber" width={2.5} dashed />
+          <PlotLine p={corner} q={B} tone="violet" width={2.5} dashed />
+          <PlotLabel p={{ x: (A.x + B.x) / 2, y: A.y }} dy={dy > 0 ? 14 : -14} tone="amber">
+            Δx = {num(dx)}
+          </PlotLabel>
+          <PlotLabel p={{ x: B.x, y: (A.y + B.y) / 2 }} dx={dx > 0 ? 10 : -10} anchor={dx > 0 ? 'start' : 'end'} tone="violet">
+            Δy = {num(dy)}
+          </PlotLabel>
+        </>
+      )}
 
-          {a === 0 && (
-            <div className="bg-yellow-50 dark:bg-yellow-900/20 border-l-4 border-yellow-500 p-3 sm:p-4 rounded">
-              <p className="text-xs sm:text-sm font-semibold text-yellow-900 dark:text-yellow-300 mb-2">
-                Константна функция:
-              </p>
-              <p className="text-xs sm:text-sm text-yellow-800 dark:text-yellow-300">
-                {b === 0
-                  ? 'Функцията съвпада с X-оста'
-                  : 'Хоризонтална линия, паралелна на X-оста'}
-              </p>
-            </div>
-          )}
-        </div>
-        <div className="space-y-3 sm:space-y-4">
-          <div className="bg-blue-50 dark:bg-blue-900/20 border-l-4 border-blue-500 p-3 sm:p-4 rounded">
-            <p className="text-xs sm:text-sm font-semibold text-blue-900 dark:text-blue-300 mb-2">
-              Наклон (ъгъл):
-            </p>
-            <p className="font-mono text-sm sm:text-base text-gray-800 dark:text-gray-100 mb-2">
-              a = {a.toFixed(3)}
-            </p>
-            {a !== 0 && (
-              <p className="text-xs sm:text-sm text-blue-800 dark:text-blue-300">
-                α = {((Math.atan(a) * 180) / Math.PI).toFixed(1)}°
-              </p>
-            )}
-          </div>
+      <PlotDot p={{ x: 0, y: b }} tone="emerald" />
+      <PlotLabel p={{ x: 0, y: b }} dx={-10} dy={a > 0 ? -12 : 12} anchor="end" tone="emerald">
+        (0; {num(b)})
+      </PlotLabel>
+      {root !== null && (
+        <>
+          <PlotDot p={{ x: root, y: 0 }} tone="rose" />
+          <PlotLabel p={{ x: root, y: 0 }} dx={a > 0 ? 10 : -10} dy={14} anchor={a > 0 ? 'start' : 'end'} tone="rose">
+            ({num(root)}; 0)
+          </PlotLabel>
+        </>
+      )}
 
-          <div className="bg-orange-50 dark:bg-orange-900/20 border-l-4 border-orange-500 p-3 sm:p-4 rounded">
-            <p className="text-xs sm:text-sm font-semibold text-orange-900 dark:text-orange-300 mb-2">
-              Свойства:
-            </p>
-            <ul className="text-xs sm:text-sm space-y-1 text-orange-800 dark:text-orange-300">
-              <li>
-                • Дефиниционна област: <span className="font-mono">ℝ</span>
-              </li>
-              <li>
-                • Стойностна област: <span className="font-mono">ℝ</span>
-              </li>
-              {a !== 0 && (
-                <>
-                  <li>• Функцията е {a > 0 ? 'растяща' : 'намаляваща'}</li>
-                  <li>• Функцията е биективна</li>
-                </>
-              )}
-              {a === 0 && <li>• Функцията е константна</li>}
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
+      <PlotLabel p={A} dx={-12} dy={-14} tone="ink">A</PlotLabel>
+      <PlotLabel p={B} dx={-12} dy={-14} tone="ink">B</PlotLabel>
+      <PlotHandle p={A} onMove={moveA} name="A" />
+      <PlotHandle p={B} onMove={moveB} name="B" />
+    </Plot>
+  );
+}
+
+type Line = { a: number; b: number };
+
+const pairs: { label: string; second: Line }[] = [
+  { label: 'Пресичащи се', second: { a: -1, b: 2 } },
+  { label: 'Успоредни', second: { a: 0.5, b: -2 } },
+  { label: 'Съвпадащи', second: { a: 0.5, b: 1 } },
+  { label: 'Перпендикулярни', second: { a: -2, b: -1 } },
+];
+
+/** Взаимно положение на две прави y = a₁x + b₁ и y = a₂x + b₂. */
+export function TwoLines() {
+  const first: Line = { a: 0.5, b: 1 };
+  const [second, setSecond] = useState<Line>({ a: -1, b: 2 });
+
+  const same = second.a === first.a;
+  const coincide = same && second.b === first.b;
+  const perpendicular = first.a * second.a === -1;
+  const meet: Point | null = same
+    ? null
+    : (() => {
+        const x = (second.b - first.b) / (first.a - second.a);
+        return { x, y: first.a * x + first.b };
+      })();
+
+  return (
+    <Plot
+      hint="Променяй a₂ и b₂ и наблюдавай кога правите се пресичат, кога са успоредни и кога съвпадат."
+      readout={
+        <>
+          <Formula>
+            <span className="text-blue-700 dark:text-blue-300">y = {polynomial([first.a, first.b])}</span>
+            {'   ·   '}
+            <span className="text-rose-600 dark:text-rose-400">y = {polynomial([second.a, second.b])}</span>
+          </Formula>
+          <Note tone={coincide ? 'violet' : same ? 'amber' : 'emerald'}>
+            {coincide && 'a₁ = a₂ и b₁ = b₂ – правите съвпадат'}
+            {same && !coincide && 'a₁ = a₂, b₁ ≠ b₂ – правите са успоредни и нямат обща точка'}
+            {meet && `a₁ ≠ a₂ – правите се пресичат в точката ${point(meet)}`}
+            {perpendicular && ' и са перпендикулярни (a₁ · a₂ = −1)'}
+          </Note>
+          <Sliders>
+            <Slider label="a₂" value={second.a} onChange={a => setSecond({ ...second, a })} min={-3} max={3} tone="rose" />
+            <Slider label="b₂" value={second.b} onChange={b => setSecond({ ...second, b })} min={-5} max={5} tone="rose" />
+          </Sliders>
+          <Buttons>
+            {pairs.map(p => (
+              <DiagramButton key={p.label} onClick={() => setSecond(p.second)} active={p.second.a === second.a && p.second.b === second.b}>
+                {p.label}
+              </DiagramButton>
+            ))}
+          </Buttons>
+        </>
+      }
+    >
+      <Curve f={x => first.a * x + first.b} tone="blue" />
+      <Curve f={x => second.a * x + second.b} tone="rose" dashed={coincide} />
+      {meet && <PlotDot p={meet} tone="emerald" r={6} />}
+    </Plot>
   );
 }

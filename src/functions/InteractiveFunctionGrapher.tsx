@@ -1,429 +1,193 @@
-import { Plus, X } from 'lucide-react';
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { Eye, EyeOff, Plus, X } from 'lucide-react';
+import { useMemo, useState } from 'react';
+import { Buttons, DiagramButton } from '~/geometry/diagram';
+import { Curve, Plot } from './plot';
 
-const RANGE = { MIN: -20, MAX: 20 };
-const GRID_STEP = 5;
-const PADDING = 30;
-const RESOLUTION = 1000;
-const MAX_FUNCTIONS = 10;
+const MAX_FUNCTIONS = 6;
 
-const COLORS = [
-  '#2563eb', // blue
-  '#dc2626', // red
-  '#16a34a', // green
-  '#ea580c', // orange
-  '#9333ea', // purple
-  '#0891b2', // cyan
-  '#e11d48', // rose
-  '#65a30d', // lime
-  '#c026d3', // fuchsia
-  '#0d9488', // teal
+const COLORS = ['#3b82f6', '#f43f5e', '#10b981', '#f59e0b', '#8b5cf6', '#06b6d4'];
+
+const FUNCTIONS = ['sin', 'cos', 'tan', 'sqrt', 'abs', 'log', 'exp'];
+
+const ZOOMS = [5, 10, 20];
+
+const PRESETS = [
+  { label: 'x²', fn: 'x^2' },
+  { label: 'x³', fn: 'x^3' },
+  { label: '√x', fn: 'sqrt(x)' },
+  { label: '1/x', fn: '1/x' },
+  { label: '|x|', fn: 'abs(x)' },
+  { label: 'sin x', fn: 'sin(x)' },
+  { label: 'cos x', fn: 'cos(x)' },
+  { label: 'eˣ', fn: 'exp(x)' },
 ];
 
 interface FunctionItem {
-  id: string;
+  id: number;
   expression: string;
   color: string;
   visible: boolean;
 }
 
-const evaluateFunction = (x: number, functionStr: string): number | null => {
-  try {
-    const expr = functionStr
-      .toLowerCase()
-      .replace(/\^/g, '**')
-      .replace(/\bsin\b/g, 'Math.sin')
-      .replace(/\bcos\b/g, 'Math.cos')
-      .replace(/\btan\b/g, 'Math.tan')
-      .replace(/\bsqrt\b/g, 'Math.sqrt')
-      .replace(/\babs\b/g, 'Math.abs')
-      .replace(/\blog\b/g, 'Math.log')
-      .replace(/\bexp\b/g, 'Math.exp')
-      .replace(/(\d)x\b/g, '$1*x')
-      .replace(/\bx\b/g, `(${x})`);
+const TOKEN = /\s*(\d+(?:[.,]\d+)?|sqrt|sin|cos|tan|abs|log|exp|pi|π|x|e|\*\*|[-−+*/^()])/y;
 
-    const result = eval(expr);
-    return typeof result === 'number' && isFinite(result) ? result : null;
+/**
+ * Превръща израз като „2x^2 − 3(x + 1)“ във функция.
+ * Изразът се разбива на познати части (числа, x, аритметика, изброените функции),
+ * така че нищо друго не може да бъде изпълнено.
+ */
+function compile(source: string): ((x: number) => number) | null {
+  const input = source.toLowerCase().trim();
+  if (!input) return null;
+
+  const tokens: string[] = [];
+  TOKEN.lastIndex = 0;
+  while (TOKEN.lastIndex < input.length) {
+    const m = TOKEN.exec(input);
+    if (!m) return null;
+    tokens.push(m[1]);
+    if (/^\s*$/.test(input.slice(TOKEN.lastIndex))) break;
+  }
+
+  const isValue = (t: string) => /^[\d.,]|^(x|e|pi|π)$/.test(t);
+  const isFunction = (t: string) => FUNCTIONS.includes(t);
+  let js = '';
+  tokens.forEach((t, i) => {
+    const prev = tokens[i - 1];
+    // Неявно умножение: 2x, 2(x + 1), (x + 1)(x − 1), 3sin(x)
+    if (prev && (isValue(prev) || prev === ')') && (isValue(t) || isFunction(t) || t === '(')) js += '*';
+    if (isFunction(t)) js += `Math.${t}`;
+    else if (t === 'pi' || t === 'π') js += 'Math.PI';
+    else if (t === 'e') js += 'Math.E';
+    else if (t === '^') js += '**';
+    else if (t === '-' || t === '−') {
+      // В JavaScript -x**2 е синтактична грешка, затова унарният минус става (−1)·
+      js += !prev || prev === '(' || /^[-−+*/^]/.test(prev) ? '(-1)*' : '-';
+    } else js += t.replace(',', '.');
+  });
+
+  try {
+    const fn = new Function('x', `return (${js});`) as (x: number) => number;
+    fn(1);
+    return fn;
   } catch {
     return null;
   }
-};
+}
 
-const generateGridValues = (min: number, max: number, step: number) => {
-  const values = [];
-  for (let v = min; v <= max; v += step) {
-    if (v !== 0) values.push(v);
-  }
-  return values;
-};
-
+/** Свободен чертож на няколко функции едновременно. */
 export function InteractiveFunctionGrapher() {
   const [functions, setFunctions] = useState<FunctionItem[]>([
-    { id: '1', expression: '2*x + 1', color: COLORS[0], visible: true },
+    { id: 1, expression: 'x^2 - 3', color: COLORS[0], visible: true },
+    { id: 2, expression: '2x + 1', color: COLORS[1], visible: true },
   ]);
-  const [dimensions, setDimensions] = useState({ width: 1000, height: 800 });
-  const containerRef = useRef<HTMLDivElement>(null);
+  const [zoom, setZoom] = useState(10);
 
-  useEffect(() => {
-    const updateDimensions = () => {
-      if (containerRef.current) {
-        const containerWidth = containerRef.current.offsetWidth;
-        // Make the graph responsive to container width with proper padding
-        let width = Math.max(containerWidth - 24, 320);
-        let height = width * 0.75;
+  const compiled = useMemo(() => functions.map(f => compile(f.expression)), [functions]);
 
-        // Cap maximum sizes to prevent overflow
-        if (width > 900) {
-          width = 900;
-          height = 675;
-        }
+  const update = (id: number, change: Partial<FunctionItem>) =>
+    setFunctions(functions.map(f => (f.id === id ? { ...f, ...change } : f)));
 
-        if (containerWidth < 640) {
-          width = Math.max(containerWidth - 16, 300);
-          height = width;
-        }
-
-        setDimensions({ width, height });
-      }
-    };
-
-    updateDimensions();
-    window.addEventListener('resize', updateDimensions);
-    return () => window.removeEventListener('resize', updateDimensions);
-  }, []);
-
-  const allFunctionPoints = useMemo(() => {
-    return functions.map(func => {
-      if (!func.visible) return { id: func.id, points: [], color: func.color };
-
-      const points: Array<{ x: number; y: number }> = [];
-      const step = (RANGE.MAX - RANGE.MIN) / RESOLUTION;
-
-      for (let x = RANGE.MIN; x <= RANGE.MAX; x += step) {
-        const y = evaluateFunction(x, func.expression);
-        if (y !== null && y >= RANGE.MIN && y <= RANGE.MAX) {
-          points.push({ x, y });
-        }
-      }
-
-      return { id: func.id, points, color: func.color };
-    });
-  }, [functions]);
-
-  const { width, height } = dimensions;
-  const range = RANGE.MAX - RANGE.MIN;
-  const available = {
-    width: width - 2 * PADDING,
-    height: height - 2 * PADDING,
-  };
-  const pixelsPerUnit = Math.min(
-    available.width / range,
-    available.height / range
-  );
-  const actualRange = pixelsPerUnit * range;
-  const offset = {
-    x: PADDING + (available.width - actualRange) / 2,
-    y: PADDING + (available.height - actualRange) / 2,
-  };
-
-  const scaleX = (x: number) =>
-    offset.x + ((x - RANGE.MIN) / range) * actualRange;
-  const scaleY = (y: number) =>
-    height - offset.y - ((y - RANGE.MIN) / range) * actualRange;
-
-  const generatePath = (points: Array<{ x: number; y: number }>) => {
-    if (!points.length) return '';
-
-    const maxGap = range / 100;
-    return points
-      .map((point, i) => {
-        const x = scaleX(point.x);
-        const y = scaleY(point.y);
-        const isNewSegment =
-          i === 0 || Math.abs(point.x - points[i - 1].x) > maxGap;
-        return `${isNewSegment ? 'M' : 'L'} ${x} ${y}`;
-      })
-      .join(' ');
-  };
-
-  const addFunction = () => {
+  const add = (expression = '') => {
     if (functions.length >= MAX_FUNCTIONS) return;
-    const newId = String(Date.now());
-    const newColor = COLORS[functions.length % COLORS.length];
-    setFunctions([
-      ...functions,
-      { id: newId, expression: '', color: newColor, visible: true },
-    ]);
+    const used = new Set(functions.map(f => f.color));
+    const color = COLORS.find(c => !used.has(c)) ?? COLORS[0];
+    setFunctions([...functions, { id: Date.now(), expression, color, visible: true }]);
   };
 
-  const removeFunction = (id: string) => {
-    if (functions.length > 1) {
-      setFunctions(functions.filter(f => f.id !== id));
-    }
-  };
-
-  const updateFunction = (id: string, expression: string) => {
-    setFunctions(functions.map(f => (f.id === id ? { ...f, expression } : f)));
-  };
-
-  const toggleVisibility = (id: string) => {
-    setFunctions(
-      functions.map(f => (f.id === id ? { ...f, visible: !f.visible } : f))
-    );
-  };
-
-  const setPresetFunction = (expression: string) => {
-    if (functions.length === 0) {
-      addFunction();
-    }
-    const firstFunc = functions[0];
-    updateFunction(firstFunc.id, expression);
-  };
-
-  const axes = { x: scaleY(0), y: scaleX(0) };
-  const gridLines = {
-    x: generateGridValues(RANGE.MIN, RANGE.MAX, GRID_STEP),
-    y: generateGridValues(RANGE.MIN, RANGE.MAX, GRID_STEP),
+  // Готовата функция заема първия празен ред, а ако няма такъв – добавя нов
+  const applyPreset = (fn: string) => {
+    const empty = functions.find(f => !f.expression.trim());
+    if (empty) update(empty.id, { expression: fn });
+    else add(fn);
   };
 
   return (
-    <div className="bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 p-3 sm:p-4 rounded-2xl shadow-md mb-4">
-      <div className="mb-3">
-        <div className="flex items-center justify-between mb-2">
-          <label className="block text-xs sm:text-sm font-medium">
-            Функции (до {MAX_FUNCTIONS}):
-          </label>
-          {functions.length < MAX_FUNCTIONS && (
-            <button
-              onClick={addFunction}
-              className="flex items-center gap-1 px-2 py-1 text-xs bg-blue-500 text-white rounded hover:bg-blue-600 transition"
-            >
-              <Plus size={14} />
-              Добави
-            </button>
-          )}
-        </div>
-
-        <div className="space-y-2 max-h-48 overflow-y-auto">
-          {functions.map((func, index) => (
+    <div className="space-y-3">
+      <div className="bg-white dark:bg-gray-800 rounded-lg p-3 sm:p-4 space-y-2">
+        {functions.map((func, i) => {
+          const invalid = func.expression.trim() !== '' && !compiled[i];
+          return (
             <div key={func.id} className="flex items-center gap-2">
-              <div
-                className="w-3 h-3 rounded-full flex-shrink-0 cursor-pointer border-2"
-                style={{
-                  backgroundColor: func.visible ? func.color : 'transparent',
-                  borderColor: func.color,
-                }}
-                onClick={() => toggleVisibility(func.id)}
+              <button
+                onClick={() => update(func.id, { visible: !func.visible })}
+                className="flex-shrink-0 p-1 rounded hover:bg-gray-100 dark:hover:bg-gray-700"
+                style={{ color: func.color }}
                 title={func.visible ? 'Скрий' : 'Покажи'}
-              />
-              <span className="text-xs font-mono text-gray-600 dark:text-gray-400 flex-shrink-0">
-                f{index + 1}(x)=
+              >
+                {func.visible ? <Eye size={16} /> : <EyeOff size={16} />}
+              </button>
+              <span className="font-mono text-sm flex-shrink-0" style={{ color: func.color }}>
+                y =
               </span>
               <input
                 type="text"
                 value={func.expression}
-                onChange={e => updateFunction(func.id, e.target.value)}
-                placeholder="x^2, sin(x), ..."
-                className="flex-1 px-2 py-1 text-xs border border-gray-300 dark:border-gray-600 rounded focus:ring-1 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700"
+                onChange={e => update(func.id, { expression: e.target.value })}
+                placeholder="напр. x^2 - 2x, sin(x), 1/x"
+                spellCheck={false}
+                className={`flex-1 min-w-0 px-2.5 py-1.5 font-mono text-sm rounded-lg border bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 ${
+                  invalid
+                    ? 'border-rose-400 focus:ring-rose-400/40'
+                    : 'border-gray-200 dark:border-gray-700 focus:ring-blue-500/40'
+                }`}
               />
               {functions.length > 1 && (
                 <button
-                  onClick={() => removeFunction(func.id)}
-                  className="flex-shrink-0 p-1 text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 rounded transition"
+                  onClick={() => setFunctions(functions.filter(f => f.id !== func.id))}
+                  className="flex-shrink-0 p-1 rounded text-gray-400 hover:text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-500/10"
                   title="Изтрий"
                 >
-                  <X size={14} />
+                  <X size={16} />
                 </button>
               )}
             </div>
-          ))}
+          );
+        })}
+        <div className="flex flex-wrap items-center justify-between gap-2">
+          {functions.length < MAX_FUNCTIONS ? (
+            <button
+              onClick={() => add()}
+              className="inline-flex items-center gap-1 text-sm text-blue-600 dark:text-blue-400 hover:underline"
+            >
+              <Plus size={14} /> Добави функция
+            </button>
+          ) : (
+            <span />
+          )}
+          <p className="text-xs text-gray-500 dark:text-gray-400">
+            Може: + − * / ^ ( ), sin, cos, tan, sqrt, abs, log, exp, pi
+          </p>
         </div>
-
-        <p className="text-xs text-gray-600 dark:text-gray-400 mt-2 hidden sm:block">
-          Поддържани: +, -, *, /, ^, sin, cos, tan, sqrt, abs, log, exp
-        </p>
       </div>
 
-      <div className="flex flex-col lg:flex-row gap-3 lg:gap-4">
-        <div
-          ref={containerRef}
-          className="bg-white dark:bg-gray-800 p-2 sm:p-3 rounded-xl flex-1 min-w-0"
-        >
-          <svg
-            width={width}
-            height={height}
-            className="w-full h-auto"
-            viewBox={`0 0 ${width} ${height}`}
-            preserveAspectRatio="xMidYMid meet"
-          >
-            {gridLines.x.map(x => (
-              <line
-                key={`xgrid-${x}`}
-                x1={scaleX(x)}
-                y1={PADDING}
-                x2={scaleX(x)}
-                y2={height - PADDING}
-                stroke="currentColor"
-                strokeWidth="0.5"
-                opacity="0.2"
-              />
-            ))}
-            {gridLines.y.map(y => (
-              <line
-                key={`ygrid-${y}`}
-                x1={PADDING}
-                y1={scaleY(y)}
-                x2={width - PADDING}
-                y2={scaleY(y)}
-                stroke="currentColor"
-                strokeWidth="0.5"
-                opacity="0.2"
-              />
-            ))}
-
-            <line
-              x1={axes.y}
-              y1={PADDING}
-              x2={axes.y}
-              y2={height - PADDING}
-              stroke="currentColor"
-              strokeWidth="2"
-              opacity="0.8"
-            />
-            <line
-              x1={PADDING}
-              y1={axes.x}
-              x2={width - PADDING}
-              y2={axes.x}
-              stroke="currentColor"
-              strokeWidth="2"
-              opacity="0.8"
-            />
-
-            {gridLines.x.map(x => (
-              <text
-                key={`xlabel-${x}`}
-                x={scaleX(x)}
-                y={axes.x + 15}
-                textAnchor="middle"
-                fontSize="10"
-                fill="currentColor"
-                opacity="0.7"
-              >
-                {x}
-              </text>
-            ))}
-            {gridLines.y.map(y => (
-              <text
-                key={`ylabel-${y}`}
-                x={axes.y - 8}
-                y={scaleY(y) + 3}
-                textAnchor="end"
-                fontSize="10"
-                fill="currentColor"
-                opacity="0.7"
-              >
-                {y}
-              </text>
-            ))}
-
-            <polygon
-              points={`${width - PADDING},${axes.x} ${width - PADDING - 8},${axes.x - 4} ${width - PADDING - 8},${axes.x + 4}`}
-              fill="currentColor"
-              opacity="0.8"
-            />
-            <text
-              x={width - PADDING + 3}
-              y={axes.x - 8}
-              fontSize="12"
-              fontWeight="bold"
-              fill="currentColor"
-            >
-              x
-            </text>
-            <polygon
-              points={`${axes.y},${PADDING} ${axes.y - 4},${PADDING + 8} ${axes.y + 4},${PADDING + 8}`}
-              fill="currentColor"
-              opacity="0.8"
-            />
-            <text
-              x={axes.y + 12}
-              y={PADDING + 4}
-              fontSize="12"
-              fontWeight="bold"
-              fill="currentColor"
-            >
-              y
-            </text>
-
-            {allFunctionPoints.map(
-              ({ id, points, color }) =>
-                points.length > 0 && (
-                  <path
-                    key={id}
-                    d={generatePath(points)}
-                    fill="none"
-                    stroke={color}
-                    strokeWidth="2.5"
-                  />
-                )
-            )}
-
-            <text
-              x={axes.y - 8}
-              y={axes.x + 15}
-              fontSize="10"
-              fill="currentColor"
-              opacity="0.7"
-              textAnchor="end"
-            >
-              0
-            </text>
-          </svg>
-
-          <div className="mt-1 sm:mt-2 text-center text-xs space-y-0.5">
-            {functions
-              .filter(f => f.visible && f.expression)
-              .map((func, index) => (
-                <div
-                  key={func.id}
-                  className="font-mono"
-                  style={{ color: func.color }}
-                >
-                  f{index + 1}(x) = {func.expression}
-                </div>
+      <Plot
+        x={[-zoom, zoom]}
+        y={[-zoom * 0.75, zoom * 0.75]}
+        hint="Пиши формули в полетата или избери готова функция. Окото скрива графиката, без да я изтрива."
+        readout={
+          <>
+            <Buttons>
+              {ZOOMS.map(z => (
+                <DiagramButton key={z} onClick={() => setZoom(z)} active={z === zoom}>
+                  ±{z}
+                </DiagramButton>
               ))}
-          </div>
-        </div>
-
-        <div className="lg:w-44 xl:w-48 flex-shrink-0">
-          <h3 className="text-xs sm:text-sm font-semibold mb-2 text-gray-700 dark:text-gray-300">
-            Готови функции:
-          </h3>
-          <div className="grid grid-cols-4 lg:grid-cols-1 gap-1.5 lg:gap-2">
-            {[
-              { label: 'x²', fn: 'x^2' },
-              { label: 'x³', fn: 'x^3' },
-              { label: 'sin(x)', fn: 'sin(x)' },
-              { label: 'cos(x)', fn: 'cos(x)' },
-              { label: '√x', fn: 'sqrt(x)' },
-              { label: '1/x', fn: '1/x' },
-              { label: '|x|', fn: 'abs(x)' },
-              { label: 'eˣ', fn: 'exp(x)' },
-            ].map(({ label, fn }) => (
-              <button
-                key={fn}
-                onClick={() => setPresetFunction(fn)}
-                className={
-                  'px-2 py-2 lg:px-3 lg:py-2.5 bg-blue-100 dark:bg-blue-900/30 hover:bg-blue-200 dark:hover:bg-blue-900/50 rounded-lg text-xs sm:text-sm transition font-medium w-full'
-                }
-              >
-                {label}
-              </button>
-            ))}
-          </div>
-        </div>
-      </div>
+            </Buttons>
+            <Buttons>
+              {PRESETS.map(p => (
+                <DiagramButton key={p.fn} onClick={() => applyPreset(p.fn)}>
+                  <span className="font-mono">{p.label}</span>
+                </DiagramButton>
+              ))}
+            </Buttons>
+          </>
+        }
+      >
+        {functions.map(
+          (func, i) => func.visible && compiled[i] && <Curve key={func.id} f={compiled[i]} color={func.color} width={2.5} />
+        )}
+      </Plot>
     </div>
   );
 }

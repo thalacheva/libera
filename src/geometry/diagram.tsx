@@ -10,17 +10,8 @@ import { add, dist, fmt, H, mid, Point, scale, sub, toDeg, Tone, tones, UNIT, un
 const ZoomContext = createContext(1);
 const useZoom = () => useContext(ZoomContext);
 
-export function Diagram({
-  children,
-  hint,
-  readout,
-  grid = true,
-}: {
-  children: React.ReactNode;
-  hint: string;
-  readout?: React.ReactNode;
-  grid?: boolean;
-}) {
+/** SVG, който увеличава надписите и точките си, когато е показан на тесен екран. */
+export function ZoomingSvg({ viewBox, children }: { viewBox: string; children: React.ReactNode }) {
   const svgRef = useRef<SVGSVGElement>(null);
   const [zoom, setZoom] = useState(1);
 
@@ -36,17 +27,33 @@ export function Diagram({
   }, []);
 
   return (
+    <svg
+      ref={svgRef}
+      viewBox={viewBox}
+      className="w-full h-auto max-w-xl mx-auto block rounded-md text-gray-800 dark:text-gray-100 select-none"
+    >
+      <ZoomContext.Provider value={zoom}>{children}</ZoomContext.Provider>
+    </svg>
+  );
+}
+
+export function Diagram({
+  children,
+  hint,
+  readout,
+  grid = true,
+}: {
+  children: React.ReactNode;
+  hint: string;
+  readout?: React.ReactNode;
+  grid?: boolean;
+}) {
+  return (
     <div className="bg-white dark:bg-gray-800 p-3 sm:p-4 rounded-lg">
-      <svg
-        ref={svgRef}
-        viewBox={`0 0 ${W} ${H}`}
-        className="w-full h-auto max-w-xl mx-auto block rounded-md text-gray-800 dark:text-gray-100 select-none"
-      >
-        <ZoomContext.Provider value={zoom}>
-          {grid && <Grid />}
-          {children}
-        </ZoomContext.Provider>
-      </svg>
+      <ZoomingSvg viewBox={`0 0 ${W} ${H}`}>
+        {grid && <Grid />}
+        {children}
+      </ZoomingSvg>
       {readout && <div className="mt-3">{readout}</div>}
       <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 mt-3">💡 {hint}</p>
     </div>
