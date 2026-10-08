@@ -1,596 +1,505 @@
-import {useState} from 'react';
+import { useState } from 'react';
+import Example from '~/Example';
+import Quiz, { type Question } from '~/Quiz';
+import Theorem from '~/Theorem';
+import CometOrbit from './components/CometOrbit';
+import MeteorEntryLab from './components/MeteorEntryLab';
+import RadiantSky from './components/RadiantSky';
+import ShowerCalendar from './components/ShowerCalendar';
+import Task from './components/Task';
+import { SHOWERS } from './components/showerData';
+
+const QUIZ: Question[] = [
+  {
+    question: 'Накъде сочи йонната опашка на кометата?',
+    answers: ['Назад по орбитата', 'Винаги право от Слънцето', 'Към Слънцето', 'Към Земята'],
+    correctAnswer: 'Винаги право от Слънцето',
+  },
+  {
+    question: 'Защо кометите „оживяват“ едва на около 3 AU от Слънцето?',
+    answers: [
+      'Там започват да ги привличат планетите',
+      'Там слънчевата светлина стига, за да се изпарява водният лед',
+      'Там слънчевият вятър ги запалва',
+      'Там се срещат с пояса на астероидите',
+    ],
+    correctAnswer: 'Там слънчевата светлина стига, за да се изпарява водният лед',
+  },
+  {
+    question: 'Откъде идват кометите с дълъг период?',
+    answers: ['От пояса на астероидите', 'От облака на Оорт', 'От пръстените на Сатурн', 'От вулканите на Йо'],
+    correctAnswer: 'От облака на Оорт',
+  },
+  {
+    question: 'Защо метеорите от един поток изглеждат като че излизат от една точка?',
+    answers: [
+      'Там има невидима комета',
+      'Летят по успоредни пътища, а перспективата ги кара да се събират в една точка',
+      'Земята ги привлича към една точка',
+      'Всички се раждат от един взрив',
+    ],
+    correctAnswer: 'Летят по успоредни пътища, а перспективата ги кара да се събират в една точка',
+  },
+  {
+    question: 'Какво нагрява метеороида в атмосферата?',
+    answers: [
+      'Слънчевата светлина',
+      'Триенето във въздуха',
+      'Свиването на въздуха пред него при огромната скорост',
+      'Радиоактивност',
+    ],
+    correctAnswer: 'Свиването на въздуха пред него при огромната скорост',
+  },
+  {
+    question: 'Кое е родителското тяло на Геминидите?',
+    answers: ['Кометата на Халей', 'Астероидът Фаетон', 'Кометата Суифт–Тътъл', 'Луната'],
+    correctAnswer: 'Астероидът Фаетон',
+  },
+  {
+    question: 'Кои два метеорни потока създава кометата на Халей?',
+    answers: ['Персеиди и Леониди', 'Ета Аквариди и Ориониди', 'Геминиди и Квадрантиди', 'Лириди и Тауриди'],
+    correctAnswer: 'Ета Аквариди и Ориониди',
+  },
+];
+
+const FAMILIES = [
+  {
+    icon: '🪐',
+    name: 'Семейство на Юпитер',
+    text: 'Период под 20 години, малък наклон, афелий близо до орбитата на Юпитер. Идват от пояса на Кайпер и разсеяния диск. Юпитер непрекъснато променя орбитите им. Пример: 67P.',
+  },
+  {
+    icon: '🔁',
+    name: 'Тип Халей',
+    text: 'Период 20–200 години и всякакъв наклон – някои обикалят обратно. Вероятно са дошли от облака на Оорт и са „уловени“ от планетите на по-къса орбита.',
+  },
+  {
+    icon: '🌌',
+    name: 'С дълъг период',
+    text: 'Периоди от стотици до милиони години, идват от всички посоки – от облака на Оорт. Повечето минават край Слънцето за първи път и затова са непредсказуеми: може да станат зрелищни (Хейл–Боп) или да се разпаднат.',
+  },
+  {
+    icon: '☀️',
+    name: 'Слънцелизци',
+    text: 'Минават на няколко слънчеви радиуса от повърхността. Повечето са отломки от една голяма комета, разпаднала се преди векове (семейство на Кройц). Коронографът на сондата SOHO откри над 5000 комети – повечето от тях.',
+  },
+  {
+    icon: '🚀',
+    name: 'Междузвездни гости',
+    text: 'Идват от други звезди по хиперболи (e > 1) и никога не се връщат: ʻОумуамуа (2017), 2I/Борисов (2019) и 3I/ATLAS (2025) с e ≈ 6. Скоростта им далеч от Слънцето е десетки km/s – твърде голяма, за да са наши.',
+  },
+];
+
+const MISSIONS = [
+  { name: 'Giotto', years: '1986', text: 'Прелита на 600 km от ядрото на Халей и показва, че то е тъмно като въглища – отразява само 4% от светлината.' },
+  { name: 'Deep Impact', years: '2005', text: 'Изстрелва 370-килограмов меден снаряд в кометата Темпел 1 и изследва избития облак: прахът е фин като талк.' },
+  { name: 'Stardust', years: '2006', text: 'Донася на Земята прах от кометата Вилд 2. В него има минерали, образувани при над 1000 °C – близо до младото Слънце – и аминокиселината глицин.' },
+  { name: 'Rosetta и Philae', years: '2014–2016', text: 'Две години около 67P. Philae е първият апарат, кацнал на комета; подскача два пъти и спира в сянка. Rosetta намира кислород и органични молекули – и вода с различен изотопен състав от земната.' },
+];
 
 export default function Lecture16() {
-  const [cometDistance, setCometDistance] = useState(50); // 0-100, 0 = близо до Слънцето
   const [showSolutions, setShowSolutions] = useState<{ [key: string]: boolean }>({});
 
-  const toggleSolution = (taskId: string) => {
-    setShowSolutions(prev => ({ ...prev, [taskId]: !prev[taskId] }));
-  };
-
-  // Изчисляване на размера на комата и опашките според разстоянието
-  const comaSize = Math.max(5, 30 - cometDistance * 0.25);
-  const tailLength = Math.max(0, 200 - cometDistance * 2);
-  const ionTailLength = Math.max(0, 250 - cometDistance * 2.5);
+  const task = (id: string) => ({
+    id,
+    shown: !!showSolutions[id],
+    onToggle: (taskId: string) => setShowSolutions(prev => ({ ...prev, [taskId]: !prev[taskId] })),
+  });
 
   return (
     <main className="flex-1 overflow-y-auto px-4 pt-16 pb-12 sm:px-6 lg:px-10 lg:pt-10">
       <div className="max-w-4xl mx-auto">
-        <h1 className="text-2xl sm:text-3xl font-bold tracking-tight mb-6 text-gray-900 dark:text-white">
-          Лекция 16: Комети и метеори
-        </h1>
+        <h1 className="text-2xl sm:text-3xl font-bold tracking-tight mb-6 text-gray-900 dark:text-white">Лекция 16: Комети и метеори</h1>
+
+        <div className="bg-gradient-to-br from-sky-800 to-slate-900 text-white p-6 rounded-2xl mb-8 shadow-lg">
+          <p className="text-lg sm:text-xl leading-relaxed">
+            ☄️ През 1705 г. Едмънд Халей сравнява орбитите на кометите от 1531, 1607 и 1682 г. и забелязва, че са почти еднакви. Той
+            прави смело предсказание: това е едно и също тяло и то ще се върне в края на 1758 г. Халей умира през 1742 г. На Коледа
+            на 1758 г. немският фермер и любител астроном Йохан Паличш забелязва кометата точно там, където трябва да бъде. За пръв
+            път е доказано, че кометите не са знамения, а тела, които се подчиняват на закона за всемирното привличане на Нютон.
+          </p>
+        </div>
 
         <section className="mb-8">
-          <h2 className="text-xl sm:text-2xl font-semibold mb-4">
-            1. Структура на кометите
-          </h2>
+          <h2 className="text-xl sm:text-2xl font-semibold mb-4">1. Ледени пратеници</h2>
           <p className="mb-4 text-base sm:text-lg leading-relaxed">
-            Кометите са "мръсни снежни топки" от лед, прах и скали. Когато се
-            приближат до Слънцето, ледът се изпарява и създава ярка кома и опашки.
+            През 1950 г. Фред Уипъл описва ядрото на кометата като „мръсна снежна топка“: смес от лед (H₂O, CO, CO₂) и прах, голяма
+            няколко километра. Сондите показаха, че прахът е дори повече от леда – по-точно е „ледена буца пръст“. Докато кометата е
+            далеч от Слънцето, тя е само тъмно ядро. Когато се приближи, ледът преминава направо в газ (сублимира) и повлича праха със
+            себе си.
           </p>
-
-          {/* Интерактивна визуализация на комета */}
-          <div className="bg-white dark:bg-gray-800 p-4 rounded-lg border-2 border-blue-300 dark:border-blue-600 mb-6">
-            <h3 className="font-semibold mb-3 text-center">Интерактивна комета</h3>
-            <p className="text-sm text-center mb-4 text-gray-600 dark:text-gray-400">
-              Преместете плъзгача, за да видите как се променя кометата при приближаване до Слънцето
-            </p>
-
-            <svg viewBox="0 0 800 400" className="w-full h-auto">
-              {/* Слънце */}
-              <circle cx="100" cy="200" r="40" fill="rgb(251, 191, 36)" />
-              {[...Array(12)].map((_, i) => {
-                const angle = (i * 30 * Math.PI) / 180;
-                return (
-                  <line
-                    key={i}
-                    x1={100 + 45 * Math.cos(angle)}
-                    y1={200 + 45 * Math.sin(angle)}
-                    x2={100 + 60 * Math.cos(angle)}
-                    y2={200 + 60 * Math.sin(angle)}
-                    stroke="rgb(251, 191, 36)"
-                    strokeWidth="2"
-                  >
-                    <animate
-                      attributeName="opacity"
-                      values="0.5;1;0.5"
-                      dur="2s"
-                      begin={`${i * 0.1}s`}
-                      repeatCount="indefinite"
-                    />
-                  </line>
-                );
-              })}
-              <text x="100" y="260" fontSize="12" fontWeight="bold" textAnchor="middle" fill="currentColor">☀️ Слънце</text>
-
-              {/* Орбита на кометата (елиптична) */}
-              <ellipse cx="300" cy="200" rx="350" ry="150" fill="none" stroke="gray" strokeWidth="1" strokeDasharray="5,5" opacity="0.3" />
-
-              {/* Позиция на кометата */}
-              <g transform={`translate(${150 + cometDistance * 5}, 200)`}>
-                {/* Йонна опашка (синя, винаги от Слънцето) */}
-                <path
-                  d={`M 0,0 Q ${ionTailLength * 0.3},${-ionTailLength * 0.1} ${ionTailLength},${-ionTailLength * 0.15}`}
-                  fill="none"
-                  stroke="rgb(100, 200, 255)"
-                  strokeWidth="8"
-                  opacity="0.6"
-                  strokeLinecap="round"
-                />
-                <path
-                  d={`M 0,0 Q ${ionTailLength * 0.3},${ionTailLength * 0.1} ${ionTailLength},${ionTailLength * 0.15}`}
-                  fill="none"
-                  stroke="rgb(100, 200, 255)"
-                  strokeWidth="6"
-                  opacity="0.5"
-                  strokeLinecap="round"
-                />
-                {ionTailLength > 50 && (
-                  <text x={ionTailLength * 0.6} y="-30" fontSize="11" fill="rgb(100, 200, 255)" fontWeight="bold">
-                    Йонна опашка
-                  </text>
-                )}
-
-                {/* Прахова опашка (жълта, следва орбитата) */}
-                <path
-                  d={`M 0,0 Q ${tailLength * 0.4},${tailLength * 0.3} ${tailLength * 0.8},${tailLength * 0.5}`}
-                  fill="none"
-                  stroke="rgb(255, 215, 100)"
-                  strokeWidth="12"
-                  opacity="0.5"
-                  strokeLinecap="round"
-                />
-                {tailLength > 50 && (
-                  <text x={tailLength * 0.5} y={tailLength * 0.4 + 15} fontSize="11" fill="rgb(255, 215, 100)" fontWeight="bold">
-                    Прахова опашка
-                  </text>
-                )}
-
-                {/* Кома (газова обвивка) */}
-                <circle cx="0" cy="0" r={comaSize} fill="rgba(200, 220, 255, 0.4)" />
-                <circle cx="0" cy="0" r={comaSize} fill="none" stroke="rgb(150, 200, 255)" strokeWidth="1" />
-                {comaSize > 15 && (
-                  <text x="0" y={comaSize + 15} fontSize="10" textAnchor="middle" fill="rgb(150, 200, 255)">
-                    Кома
-                  </text>
-                )}
-
-                {/* Ядро */}
-                <circle cx="0" cy="0" r="5" fill="rgb(100, 100, 100)" />
-                <circle cx="0" cy="0" r="5" fill="none" stroke="white" strokeWidth="1" />
-                <text x="0" y="-15" fontSize="10" textAnchor="middle" fill="currentColor" fontWeight="bold">
-                  Ядро
-                </text>
-              </g>
-
-              {/* Етикети за разстояние */}
-              <text x="150" y="350" fontSize="11" fill="gray">Перихелий (близо)</text>
-              <text x="600" y="350" fontSize="11" fill="gray">Афелий (далеч)</text>
-            </svg>
-
-            {/* Плъзгач */}
-            <div className="mt-4">
-              <label className="block text-sm font-semibold mb-2 text-center">
-                Разстояние от Слънцето: {cometDistance < 30 ? 'Близо (активна комета)' : cometDistance < 70 ? 'Средно' : 'Далеч (неактивна)'}
-              </label>
-              <input
-                type="range"
-                min="0"
-                max="100"
-                value={cometDistance}
-                onChange={(e) => setCometDistance(Number(e.target.value))}
-                className="w-full"
-              />
-              <div className="flex justify-between text-xs text-gray-600 dark:text-gray-400 mt-1">
-                <span>Близо до Слънцето</span>
-                <span>Далеч от Слънцето</span>
-              </div>
-            </div>
-
-            <div className="mt-4 p-4 bg-gray-100/70 dark:bg-gray-800/70 rounded-lg">
-              <h4 className="font-semibold mb-2">Наблюдения:</h4>
-              <ul className="text-sm space-y-2">
-                <li>🔵 <strong>Йонна опашка:</strong> Синкава, винаги насочена от Слънцето (слънчев вятър)</li>
-                <li>🟡 <strong>Прахова опашка:</strong> Жълтеникава, следва орбитата на кометата</li>
-                <li>⚪ <strong>Кома:</strong> Газова обвивка около ядрото, нараства при приближаване</li>
-                <li>⚫ <strong>Ядро:</strong> Твърдо тяло от лед и прах (1-50 km)</li>
-              </ul>
-            </div>
-          </div>
 
           <div className="bg-blue-50 dark:bg-blue-500/10 p-4 rounded-lg mb-4">
-            <h3 className="font-semibold mb-2">Структура на кометите:</h3>
-            <ul className="list-disc list-inside space-y-2">
-              <li><strong>Ядро</strong> – твърдо тяло от лед (H₂O, CO₂, CH₄) и прах (1-50 km)</li>
-              <li><strong>Кома</strong> – газова обвивка около ядрото (може да достигне 100 000 km)</li>
-              <li><strong>Прахова опашка</strong> – жълтеникава, следва орбитата, дължина до 10 млн. km</li>
-              <li><strong>Йонна опашка</strong> – синкава, винаги насочена от Слънцето, дължина до 100 млн. km</li>
-            </ul>
-          </div>
-        </section>
-
-        <section className="mb-8">
-          <h2 className="text-xl sm:text-2xl font-semibold mb-4">
-            2. Известни комети
-          </h2>
-          <div className="bg-green-50 dark:bg-green-900/20 p-4 rounded-lg mb-4">
-            <ul className="list-disc list-inside space-y-3">
+            <h3 className="font-semibold mb-2">Части на кометата</h3>
+            <ul className="list-disc list-inside space-y-1 text-sm sm:text-base">
               <li>
-                <strong>Комета на Халей</strong> – период 76 години, следващо появяване 2061 г.
-                Последно видима през 1986 г.
+                <strong>Ядро</strong> – твърдо, 1–50 km, тъмно (отразява 3–6% от светлината) и порьозно: плътността е ~0,5 g/cm³
               </li>
               <li>
-                <strong>Комета Хейл-Боп</strong> – видима с просто око през 1997 г.,
-                една от най-ярките комети на XX век
+                <strong>Кома</strong> – облак от газ и прах около ядрото, до ~100 000 km; около нея има още по-голям облак от водород
               </li>
               <li>
-                <strong>Комета Шумейкър-Леви 9</strong> – се разби в Юпитер през 1994 г.,
-                давайки уникална възможност за наблюдение
+                <strong>Прахова опашка</strong> – жълтеникава, извита: светлинното налягане избутва праха, който изостава назад по
+                орбитата
               </li>
               <li>
-                <strong>Комета NEOWISE</strong> – видима през 2020 г.
+                <strong>Йонна опашка</strong> – синкава (свети йонът CO⁺), права, винаги точно от Слънцето: слънчевият вятър я носи
+                със стотици km/s; дълга до 1 AU
               </li>
             </ul>
           </div>
+
+          <CometOrbit />
+
+          <Theorem
+            title="Скорост по орбитата (уравнение на енергията)"
+            description="За тяло на разстояние r от Слънцето с голяма полуос a: v = 29,78 km/s · √(2/r − 1/a), където r и a са в AU (29,78 km/s е скоростта на Земята). В перихелий кометата лети най-бързо, в афелий – най-бавно, а отношението на двете скорости е Q / q – следствие от втория закон на Кеплер."
+          />
+
+          <Example
+            description="Кометата на Халей има a = 17,83 AU и перихелий q = 0,586 AU. Намерете скоростта ѝ в перихелий и в афелий."
+            steps={[
+              'Афелий: Q = 2a − q = 35,66 − 0,586 ≈ 35,1 AU',
+              'v_q = 29,78 · √(2 / 0,586 − 1 / 17,83) = 29,78 · √(3,413 − 0,056) ≈ 29,78 · 1,832 ≈ 54,6 km/s',
+              'v_Q = 29,78 · √(2 / 35,1 − 1 / 17,83) = 29,78 · √(0,0570 − 0,0561) ≈ 0,9 km/s – по-бавно от бегач на ски',
+              'Проверка: v_q / v_Q ≈ Q / q ≈ 60',
+            ]}
+          />
+
+          <Example
+            description="Ядрото на 67P има маса 1,0 · 10¹³ kg и обем 18,6 km³. Каква е плътността му?"
+            steps={[
+              'V = 18,6 km³ = 1,86 · 10¹⁰ m³',
+              'ρ = M / V = 1,0 · 10¹³ / 1,86 · 10¹⁰ ≈ 540 kg/m³ = 0,54 g/cm³',
+              'Ледът и прахът имат плътност 1–3 g/cm³, значи ~70% от ядрото е празно пространство. Кометата е крехък пухкав агрегат – „ледена пемза“.',
+            ]}
+          />
         </section>
 
         <section className="mb-8">
-          <h2 className="text-xl sm:text-2xl font-semibold mb-4">
-            3. Метеорни дъждове
-          </h2>
+          <h2 className="text-xl sm:text-2xl font-semibold mb-4">2. Семейства комети</h2>
           <p className="mb-4 text-base sm:text-lg leading-relaxed">
-            Когато Земята премине през орбитата на комета, частиците от нея
-            навлизат в атмосферата и създават метеорен дъжд.
+            Познаваме над 4000 комети. Те се делят на групи според орбитите си, а орбитата издава откъде идва кометата.
+          </p>
+          <div className="grid sm:grid-cols-2 gap-3 mb-4">
+            {FAMILIES.map(f => (
+              <div key={f.name} className="bg-white dark:bg-gray-800 p-3 rounded-lg shadow-sm">
+                <p className="font-semibold mb-1">
+                  {f.icon} {f.name}
+                </p>
+                <p className="text-sm text-gray-600 dark:text-gray-400">{f.text}</p>
+              </div>
+            ))}
+          </div>
+          <Theorem
+            type="definition"
+            title="Параметър на Тисеран"
+            description="T_J = a_J / a + 2 cos i · √((a / a_J) · (1 − e²)), където a_J = 5,20 AU, a, e, i са голямата полуос, ексцентрицитетът и наклонът на орбитата. При среща с Юпитер a, e и i се променят, но T_J остава почти същият. Затова по него се разпознава семейството: 2 < T_J < 3 – семейство на Юпитер; T_J < 2 – тип Халей или дълъг период; T_J > 3 – обикновено астероиди."
+          />
+        </section>
+
+        <section className="mb-8">
+          <h2 className="text-xl sm:text-2xl font-semibold mb-4">3. Кометите отблизо</h2>
+          <div className="grid sm:grid-cols-2 gap-3 mb-4">
+            {MISSIONS.map(m => (
+              <div key={m.name} className="bg-white dark:bg-gray-800 p-3 rounded-lg shadow-sm">
+                <p className="font-semibold mb-1">
+                  🛰️ {m.name} <span className="font-normal text-sm text-gray-500 dark:text-gray-400">({m.years})</span>
+                </p>
+                <p className="text-sm text-gray-600 dark:text-gray-400">{m.text}</p>
+              </div>
+            ))}
+          </div>
+          <div className="bg-sky-50 dark:bg-sky-500/10 p-4 rounded-lg mb-4 text-sm sm:text-base">
+            <p>
+              <strong>Кометите са смъртни.</strong> При всяко минаване край Слънцето ядрото губи слой, дебел около метър. След
+              няколкостотин обиколки ледът свършва – кометата угасва и остава тъмно тяло, неотличимо от астероид (такъв може да е
+              Фаетон), или се разпада. Кометата на Биела се разделя на две през 1846 г., а после изчезва. Само че на мястото ѝ през
+              1872 г. Земята срещна облак отломки и над Европа заваля метеорна буря – хиляди метеора в час.
+            </p>
+          </div>
+        </section>
+
+        <section className="mb-8">
+          <h2 className="text-xl sm:text-2xl font-semibold mb-4">4. Метеорните потоци</h2>
+          <p className="mb-4 text-base sm:text-lg leading-relaxed">
+            Прахът, изхвърлен от кометата, продължава да обикаля Слънцето по почти същата орбита. С времето частиците се разпръскват
+            по цялата орбита и образуват <strong>метеорен рой</strong>. Ако орбитата на роя пресича земната, всяка година на една и
+            съща дата Земята минава през него и наблюдаваме <strong>метеорен поток</strong>. Частиците са малки – като пясъчни
+            зрънца, – но влизат в атмосферата с десетки километри в секунда.
           </p>
 
-          {/* Визуализация на метеорен дъжд */}
-          <div className="bg-white dark:bg-gray-800 p-4 rounded-lg border-2 border-purple-300 dark:border-purple-600 mb-6">
-            <h3 className="font-semibold mb-3 text-center">Метеорен дъжд</h3>
+          <ShowerCalendar />
 
-            <svg viewBox="0 0 600 400" className="w-full h-auto">
-              {/* Земя */}
-              <circle cx="300" cy="300" r="60" fill="rgb(59, 130, 246)" />
-              <circle cx="300" cy="300" r="60" fill="none" stroke="rgb(34, 197, 94)" strokeWidth="2" />
+          <div className="overflow-x-auto mb-4">
+            <table className="w-full text-sm">
+              <thead>
+                <tr className="border-b border-gray-300 dark:border-gray-600 text-gray-600 dark:text-gray-400">
+                  <th className="text-left py-2 pr-2">Поток</th>
+                  <th className="text-left py-2 px-2">Максимум</th>
+                  <th className="text-right py-2 px-2">ZHR</th>
+                  <th className="text-right py-2 px-2">v (km/s)</th>
+                  <th className="text-left py-2 pl-2">Родител</th>
+                </tr>
+              </thead>
+              <tbody>
+                {SHOWERS.map(s => (
+                  <tr key={s.id} className="border-b border-gray-200 dark:border-gray-700">
+                    <td className="py-1 pr-2 whitespace-nowrap">
+                      <span className="inline-block w-2 h-2 rounded-full mr-1 align-middle" style={{ background: s.color }} />
+                      {s.name}
+                    </td>
+                    <td className="px-2 whitespace-nowrap">{s.date}</td>
+                    <td className="text-right px-2">{s.zhr}</td>
+                    <td className="text-right px-2">{s.speed}</td>
+                    <td className="pl-2">{s.parent}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
 
-              {/* Атмосфера */}
-              <circle cx="300" cy="300" r="70" fill="none" stroke="rgb(100, 200, 255)" strokeWidth="2" opacity="0.5" />
+          <Theorem
+            title="Скоростите на метеорите"
+            description="Метеороид, който обикаля Слънцето, среща Земята със скорост между ~11 и ~72 km/s. Долната граница е втората космическа скорост на Земята (11,2 km/s): дори неподвижно спрямо Земята тяло пада до нея с толкова. Горната граница идва от параболичната скорост около Слънцето на 1 AU (√2 · 29,8 ≈ 42,1 km/s) плюс орбиталната скорост на Земята (29,8 km/s) при челен сблъсък: ~72 km/s."
+          />
+          <p className="mb-4 text-base sm:text-lg leading-relaxed">
+            Сутрин, преди изгрев, сме на „предната“ страна на Земята по посока на движението ѝ. Тогава тя „гребе“ метеороидите като
+            предно стъкло на кола в дъжд – и вижда около два пъти повече спорадични метеори, отколкото вечер, и то по-бързи.
+          </p>
+        </section>
 
-              {/* Орбита на кометата (пунктирана) */}
-              <ellipse cx="300" cy="200" rx="250" ry="150" fill="none" stroke="gray" strokeWidth="1" strokeDasharray="5,5" opacity="0.3" />
+        <section className="mb-8">
+          <h2 className="text-xl sm:text-2xl font-semibold mb-4">5. Радиантът и наблюденията</h2>
+          <p className="mb-4 text-base sm:text-lg leading-relaxed">
+            Частиците от един рой летят по успоредни пътища. Като релсите, които се събират на хоризонта, тези пътища ни изглеждат
+            излизащи от една точка на небето – <strong>радианта</strong>. Потокът носи името на съзвездието, в което е радиантът:
+            Персеиди – от Персей, Леониди – от Лъв.
+          </p>
 
-              {/* Частици от кометата (метеороиди) */}
-              {[...Array(20)].map((_, i) => {
-                const x = 100 + i * 25;
-                const y = 100 + Math.sin(i * 0.5) * 30;
-                return (
-                  <circle
-                    key={i}
-                    cx={x}
-                    cy={y}
-                    r="2"
-                    fill="rgb(200, 200, 200)"
-                    opacity="0.6"
-                  />
-                );
-              })}
+          <Theorem
+            title="Зенитно часово число (ZHR)"
+            description="ZHR е броят метеори, които един наблюдател би видял за час, ако радиантът е в зенита, а небето е идеално тъмно (най-слабите видими звезди са от 6,5 величина). Реално виждаме HR = ZHR · sin h / r^(6,5 − LM), където h е височината на радианта, LM – звездната величина на най-слабите видими звезди, а r ≈ 2–3 (популационен индекс) показва колко пъти повече са метеорите с една величина по-слаби."
+          />
 
-              {/* Метеори (падащи звезди) */}
-              {[0, 1, 2, 3, 4].map((i) => {
-                const startX = 150 + i * 100;
-                const startY = 50 + i * 30;
-                return (
-                  <g key={i}>
-                    <line
-                      x1={startX}
-                      y1={startY}
-                      x2={startX + 60}
-                      y2={startY + 80}
-                      stroke="rgb(255, 215, 0)"
-                      strokeWidth="3"
-                      strokeLinecap="round"
-                    >
-                      <animate
-                        attributeName="opacity"
-                        values="0;1;1;0"
-                        dur="2s"
-                        begin={`${i * 0.4}s`}
-                        repeatCount="indefinite"
-                      />
-                      <animateTransform
-                        attributeName="transform"
-                        type="translate"
-                        from="0 0"
-                        to="100 150"
-                        dur="2s"
-                        begin={`${i * 0.4}s`}
-                        repeatCount="indefinite"
-                      />
-                    </line>
-                    {/* След на метеора */}
-                    <line
-                      x1={startX}
-                      y1={startY}
-                      x2={startX + 30}
-                      y2={startY + 40}
-                      stroke="rgb(255, 255, 200)"
-                      strokeWidth="1"
-                      opacity="0.5"
-                    >
-                      <animate
-                        attributeName="opacity"
-                        values="0;0.5;0"
-                        dur="2s"
-                        begin={`${i * 0.4}s`}
-                        repeatCount="indefinite"
-                      />
-                      <animateTransform
-                        attributeName="transform"
-                        type="translate"
-                        from="0 0"
-                        to="100 150"
-                        dur="2s"
-                        begin={`${i * 0.4}s`}
-                        repeatCount="indefinite"
-                      />
-                    </line>
-                  </g>
-                );
-              })}
+          <RadiantSky />
+        </section>
 
-              {/* Радиант */}
-              <circle cx="200" cy="80" r="5" fill="rgb(239, 68, 68)" />
-              <circle cx="200" cy="80" r="15" fill="none" stroke="rgb(239, 68, 68)" strokeWidth="2" strokeDasharray="3,3" />
-              <text x="220" y="85" fontSize="12" fill="rgb(239, 68, 68)" fontWeight="bold">Радиант</text>
+        <section className="mb-8">
+          <h2 className="text-xl sm:text-2xl font-semibold mb-4">6. Метеори, болиди и метеорити</h2>
+          <div className="bg-green-50 dark:bg-green-500/10 p-4 rounded-lg mb-4">
+            <h3 className="font-semibold mb-2">Понятия (МАС, 2017)</h3>
+            <ul className="list-disc list-inside space-y-1 text-sm sm:text-base">
+              <li>
+                <strong>Метеороид</strong> – твърдо тяло в междупланетното пространство с размер от ~30 µm до 1 m
+              </li>
+              <li>
+                <strong>Метеор</strong> – светлината и йонизираната следа, когато метеороид навлезе в атмосферата („падаща звезда“)
+              </li>
+              <li>
+                <strong>Болид</strong> – метеор, по-ярък от Венера (по-ярък от −4 звездна величина)
+              </li>
+              <li>
+                <strong>Метеорит</strong> – част от тялото, оцеляла и паднала на повърхността
+              </li>
+              <li>
+                <strong>Микрометеорит</strong> – прашинка под ~1 mm, достигнала повърхността
+              </li>
+            </ul>
+          </div>
 
-              {/* Стрелки от радианта */}
-              {[0, 45, 90, 135, 180].map((angle, i) => {
-                const rad = (angle * Math.PI) / 180;
-                return (
-                  <line
-                    key={i}
-                    x1="200"
-                    y1="80"
-                    x2={200 + 40 * Math.cos(rad)}
-                    y2={80 + 40 * Math.sin(rad)}
-                    stroke="rgb(239, 68, 68)"
-                    strokeWidth="1"
-                    strokeDasharray="2,2"
-                    opacity="0.5"
-                  />
-                );
-              })}
+          <p className="mb-4 text-base sm:text-lg leading-relaxed">
+            Метеорите светят на 80–120 km височина. Нагряването не е от триене: при скорост от десетки km/s въздухът пред тялото не
+            успява да се отмести, свива се рязко и се нагрява до хиляди градуси. Всеки ден на Земята падат около 100 тона космическо
+            вещество – почти изцяло под формата на прах.
+          </p>
 
-              <text x="300" y="30" fontSize="13" fontWeight="bold" textAnchor="middle" fill="currentColor">
-                Метеорен дъжд
-              </text>
-            </svg>
+          <MeteorEntryLab />
 
-            <div className="mt-4 p-4 bg-gray-100/70 dark:bg-gray-800/70 rounded-lg">
-              <h4 className="font-semibold mb-2">Обяснение:</h4>
-              <p className="text-sm">
-                Когато Земята премине през орбитата на комета, хиляди малки частици
-                (метеороиди) навлизат в атмосферата със скорост 10-70 km/s. Триенето
-                ги нагрява до 1500-3000°C и те светят – "падащи звезди". Всички метеори
-                изглеждат като че идват от една точка - <strong>радианта</strong>.
+          <div className="grid sm:grid-cols-3 gap-3 mb-4">
+            <div className="bg-white dark:bg-gray-800 p-3 rounded-lg shadow-sm">
+              <p className="font-semibold mb-1">🪨 Каменни (~94% от паданията)</p>
+              <p className="text-sm text-gray-600 dark:text-gray-400">
+                Повечето са <strong>хондрити</strong> – съдържат хондри, капчици стопена скала от облака около младото Слънце. Никога не
+                са се топили и са най-старите скали, които можем да държим. Белите включения в метеорита Алиенде са на 4,567 млрд.
+                години – по тях се определя възрастта на Слънчевата система.
+              </p>
+            </div>
+            <div className="bg-white dark:bg-gray-800 p-3 rounded-lg shadow-sm">
+              <p className="font-semibold mb-1">⚙️ Железни (~5%)</p>
+              <p className="text-sm text-gray-600 dark:text-gray-400">
+                Сплав на желязо и никел – парчета от ядрата на разбити зародиши на планети. След разрязване и ецване показват
+                шарките на Видманщетен: кристали, израснали при изстиване с ~1 °C на милион години.
+              </p>
+            </div>
+            <div className="bg-white dark:bg-gray-800 p-3 rounded-lg shadow-sm">
+              <p className="font-semibold mb-1">💎 Каменно-железни (~1%)</p>
+              <p className="text-sm text-gray-600 dark:text-gray-400">
+                Паласитите – зелени кристали оливин в желязна матрица – идват от границата между ядро и мантия. Сред метеоритите има и
+                парчета от Марс и Луната, избити при удари.
               </p>
             </div>
           </div>
+          <p className="mb-4 text-base sm:text-lg leading-relaxed">
+            Най-много метеорити се намират в Антарктида: тъмните камъни се виждат лесно върху белия лед, а ледниците ги събират на
+            едни и същи места. Оттам са събрани над 45 000.
+          </p>
+        </section>
 
-          <div className="bg-purple-50 dark:bg-purple-900/20 p-4 rounded-lg mb-4">
-            <h3 className="font-semibold mb-2">Известни метеорни дъждове:</h3>
-            <ul className="list-disc list-inside space-y-2">
-              <li><strong>Персеиди</strong> – август (10-13), до 100 метеора/час, от комета Swift-Tuttle</li>
-              <li><strong>Геминиди</strong> – декември (13-14), най-интензивен (120 метеора/час)</li>
-              <li><strong>Леониди</strong> – ноември (17-18), от комета Tempel-Tuttle</li>
-              <li><strong>Квадрантиди</strong> – януари (3-4), кратък пик</li>
-            </ul>
+        <section className="mb-8">
+          <h2 className="text-xl sm:text-2xl font-semibold mb-4">7. ✅ Провери се</h2>
+          <Quiz questions={QUIZ} />
+        </section>
+
+        <section className="mb-8">
+          <h2 className="text-xl sm:text-2xl font-semibold mb-4">8. 📝 Задачи за упражнение</h2>
+
+          <div className="mb-6">
+            <h3 className="text-lg font-semibold mb-3 text-green-600 dark:text-green-400">Ниво А (Областен кръг)</h3>
+
+            <Task {...task('a1')} number={1} color="border-green-500" question="Каква е разликата между метеороид, метеор и метеорит?">
+              <p>
+                <strong>Метеороид</strong> – малкото тяло в космоса. <strong>Метеор</strong> – светлината, която виждаме, когато то
+                изгаря в атмосферата. <strong>Метеорит</strong> – това, което е оцеляло и е паднало на земята.
+              </p>
+              <p>Повечето метеори изгарят напълно – само малка част от по-големите тела стават метеорити.</p>
+            </Task>
+
+            <Task {...task('a2')} number={2} color="border-green-500" question="Защо кометата има две опашки и защо те сочат в различни посоки?">
+              <p>
+                <strong>Йонната опашка</strong> е от газ, йонизиран от ултравиолетовите лъчи. Слънчевият вятър и магнитното му поле я
+                отнасят право от Слънцето с огромна скорост. Затова е права и синкава.
+              </p>
+              <p>
+                <strong>Праховата опашка</strong> е от прашинки, избутвани от светлинното налягане. Те се движат бавно и изостават по
+                орбитата, затова опашката е извита и жълтеникава (отразена слънчева светлина).
+              </p>
+              <p>Когато кометата се отдалечава от Слънцето, двете опашки вървят пред нея!</p>
+            </Task>
+
+            <Task {...task('a3')} number={3} color="border-green-500" question="Защо метеорните потоци се повтарят всяка година на една и съща дата?">
+              <p>
+                Роят от частици е разпръснат по орбитата на кометата, която е неподвижна в пространството (почти). Земята минава през
+                една и съща точка от своята орбита на една и съща дата всяка година. Ако там орбитата ѝ пресича роя, потокът се
+                повтаря – Персеидите всеки август, Геминидите всеки декември.
+              </p>
+            </Task>
+          </div>
+
+          <div className="mb-6">
+            <h3 className="text-lg font-semibold mb-3 text-yellow-600 dark:text-yellow-400">Ниво В (Национален кръг)</h3>
+
+            <Task {...task('b1')} number={4} color="border-yellow-500" question="Кометата на Халей има период 76 години и перихелий 0,59 AU. Изчислете афелия.">
+              <p>От третия закон на Кеплер: a³ = T² = 76² = 5776 ⇒ a = ∛5776 ≈ 17,9 AU</p>
+              <p>Q = 2a − q = 35,9 − 0,59 ≈ 35,3 AU</p>
+              <p>
+                <strong>Афелият е отвъд орбитата на Нептун (30 AU).</strong> Последно Халей беше в афелий през декември 2023 г. и вече се
+                връща към Слънцето.
+              </p>
+            </Task>
+
+            <Task {...task('b2')} number={5} color="border-yellow-500" question="Кометата 67P има перихелий 1,24 AU и период 6,44 години. Намерете голямата полуос, афелия и ексцентрицитета. Защо я наричат комета от семейството на Юпитер?">
+              <p>a = T^⅔ = 6,44^⅔ ≈ 3,46 AU</p>
+              <p>Q = 2a − q = 6,92 − 1,24 ≈ 5,68 AU; e = (Q − q) / (Q + q) = 4,44 / 6,92 ≈ 0,64</p>
+              <p>
+                Афелият е малко отвъд орбитата на Юпитер (5,2 AU). При всяка обиколка кометата минава близо до гиганта и той
+                променя орбитата ѝ – така е била и „доведена“ във вътрешната Слънчева система през 1959 г.
+              </p>
+            </Task>
+
+            <Task {...task('b3')} number={6} color="border-yellow-500" question="Обяснете защо не може да има метеор, който влиза в атмосферата по-бавно от 11 km/s или по-бързо от 73 km/s. Защо Леонидите (71 km/s) са много по-бързи от Геминидите (35 km/s)?">
+              <p>
+                Долна граница: дори тяло, което стои неподвижно спрямо Земята далеч от нея, пада и набира втората космическа скорост –
+                11,2 km/s.
+              </p>
+              <p>
+                Горна граница: тяло, свързано със Слънцето, на 1 AU не може да е по-бързо от 42,1 km/s (иначе би избягало). При челен
+                сблъсък се добавя скоростта на Земята 29,8 km/s: 42,1 + 29,8 = 71,9 km/s, а земното привличане го ускорява до
+                √(71,9² + 11,2²) ≈ 72,8 km/s.
+              </p>
+              <p>
+                Темпел–Тътъл обикаля обратно на Земята, затова Леонидите ни удрят почти челно. Фаетон обикаля в същата посока като
+                Земята и Геминидите я „догонват“ – относителната скорост е малка.
+              </p>
+            </Task>
+          </div>
+
+          <div className="mb-6">
+            <h3 className="text-lg font-semibold mb-3 text-red-600 dark:text-red-400">Ниво С (Международна олимпиада)</h3>
+
+            <Task
+              {...task('c1')}
+              number={7}
+              color="border-red-500"
+              question="Наблюдател отброява 30 Персеиди за един час. Радиантът е на 40° над хоризонта, най-слабите видими звезди са от 5,5 величина, а популационният индекс е r = 2,2. Колко е ZHR?"
+            >
+              <p>ZHR = HR · r^(6,5 − LM) / sin h</p>
+              <p>ZHR = 30 · 2,2^(6,5 − 5,5) / sin 40° = 30 · 2,2 / 0,643 ≈ 103</p>
+              <p>
+                Получава се типичната стойност за максимума на Персеидите. Наблюдателят е видял само ~30% от тях заради ниския
+                радиант и не съвсем тъмното небе.
+              </p>
+            </Task>
+
+            <Task
+              {...task('c2')}
+              number={8}
+              color="border-red-500"
+              question="Намерете параметъра на Тисеран спрямо Юпитер за 67P (a = 3,46 AU, e = 0,641, i = 7,0°) и за кометата на Халей (a = 17,83 AU, e = 0,967, i = 162,3°). Към кои семейства спадат?"
+            >
+              <p>67P: a_J / a = 5,20 / 3,46 = 1,503; √((3,46 / 5,20) · (1 − 0,641²)) = √(0,665 · 0,589) = √0,392 ≈ 0,626</p>
+              <p>T_J = 1,503 + 2 · cos 7° · 0,626 = 1,503 + 2 · 0,993 · 0,626 ≈ 2,75 – между 2 и 3: семейство на Юпитер.</p>
+              <p>Халей: 5,20 / 17,83 = 0,292; √((17,83 / 5,20) · (1 − 0,967²)) = √(3,429 · 0,0649) ≈ 0,472</p>
+              <p>
+                T_J = 0,292 + 2 · cos 162,3° · 0,472 = 0,292 − 2 · 0,953 · 0,472 ≈ −0,61 – отрицателен, защото кометата обикаля обратно.
+                Тип Халей, най-вероятно дошла от облака на Оорт.
+              </p>
+            </Task>
+
+            <Task
+              {...task('c3')}
+              number={9}
+              color="border-red-500"
+              question="Челябинският метеороид (15 февруари 2013 г.) е имал диаметър ~19 m, плътност ~3,3 g/cm³ и скорост 19 km/s. Оценете кинетичната му енергия в килотонове тротил (1 kt = 4,18 · 10¹² J)."
+            >
+              <p>m = ρ · (4/3)π(D/2)³ = 3300 · 4,19 · 9,5³ ≈ 3300 · 3590 ≈ 1,2 · 10⁷ kg – 12 000 тона</p>
+              <p>E = mv² / 2 = 0,5 · 1,2 · 10⁷ · (1,9 · 10⁴)² ≈ 2,2 · 10¹⁵ J</p>
+              <p>
+                E ≈ 2,2 · 10¹⁵ / 4,18 · 10¹² ≈ <strong>500 kt</strong> – ~30 пъти повече от бомбата над Хирошима. Тялото се разпада на
+                ~30 km височина. Ударната вълна чупи прозорците на ~7000 сгради и ранява ~1500 души – главно от стъкла. Затова
+                астрономите съветват: видите ли невероятно ярък болид, стойте далеч от прозорците!
+              </p>
+            </Task>
           </div>
         </section>
 
         <section className="mb-8">
-          <h2 className="text-xl sm:text-2xl font-semibold mb-4">
-            4. Метеороиди, метеори и метеорити
-          </h2>
-
-          <div className="bg-white dark:bg-gray-800 p-4 rounded-lg border-2 border-green-300 dark:border-green-600 mb-6">
-            <svg viewBox="0 0 600 300" className="w-full h-auto">
-              {/* Космос */}
-              <rect x="0" y="0" width="600" height="100" fill="rgb(10, 10, 30)" />
-              {[...Array(30)].map((_, i) => (
-                <circle
-                  key={i}
-                  cx={Math.random() * 600}
-                  cy={Math.random() * 100}
-                  r="1"
-                  fill="white"
-                />
-              ))}
-
-              {/* Метеороид в космоса */}
-              <circle cx="150" cy="50" r="8" fill="rgb(150, 150, 150)" />
-              <text x="150" y="80" fontSize="12" textAnchor="middle" fill="white" fontWeight="bold">
-                Метеороид
-              </text>
-              <text x="150" y="95" fontSize="10" textAnchor="middle" fill="white">
-                (в космоса)
-              </text>
-
-              {/* Атмосфера */}
-              <rect x="0" y="100" width="600" height="50" fill="rgba(100, 150, 255, 0.3)" />
-              <text x="10" y="120" fontSize="11" fill="currentColor">Атмосфера</text>
-
-              {/* Метеор (падаща звезда) */}
-              <g>
-                <line x1="350" y1="110" x2="380" y2="160" stroke="rgb(255, 215, 0)" strokeWidth="4" strokeLinecap="round" />
-                <line x1="350" y1="110" x2="365" y2="135" stroke="rgb(255, 255, 200)" strokeWidth="2" />
-                <circle cx="380" cy="160" r="3" fill="rgb(255, 100, 0)" />
-              </g>
-              <text x="390" y="140" fontSize="12" textAnchor="start" fill="rgb(255, 215, 0)" fontWeight="bold">
-                Метеор
-              </text>
-              <text x="390" y="155" fontSize="10" textAnchor="start" fill="currentColor">
-                (в атмосферата)
-              </text>
-
-              {/* Земя */}
-              <rect x="0" y="150" width="600" height="150" fill="rgb(139, 69, 19)" />
-              <text x="10" y="170" fontSize="11" fill="white">Земна повърхност</text>
-
-              {/* Метеорит */}
-              <circle cx="550" cy="220" r="10" fill="rgb(80, 80, 80)" />
-              <circle cx="545" cy="215" r="3" fill="rgb(150, 150, 150)" />
-              <text x="550" y="250" fontSize="12" textAnchor="middle" fill="white" fontWeight="bold">
-                Метеорит
-              </text>
-              <text x="550" y="265" fontSize="10" textAnchor="middle" fill="white">
-                (на земята)
-              </text>
-            </svg>
-
-            <div className="mt-4 p-4 bg-gray-100/70 dark:bg-gray-800/70 rounded-lg">
-              <h4 className="font-semibold mb-2">Терминология:</h4>
-              <ul className="text-sm space-y-2">
-                <li><strong>Метеороид</strong> – малък обект в космоса (от прах до няколко метра)</li>
-                <li><strong>Метеор</strong> – "падаща звезда", светещ след когато метеороид изгаря в атмосферата</li>
-                <li><strong>Метеорит</strong> – метеороид, който е оцелял и е достигнал земната повърхност</li>
-              </ul>
-            </div>
-          </div>
-
-          <div className="bg-red-50 dark:bg-red-900/20 p-4 rounded-lg mb-4">
-            <h3 className="font-semibold mb-2">Типове метеорити:</h3>
-            <ul className="list-disc list-inside space-y-2">
-              <li><strong>Каменни (94%)</strong> – силикати, най-чести</li>
-              <li><strong>Железни (5%)</strong> – желязо-никел сплав, много тежки</li>
-              <li><strong>Каменно-железни (1%)</strong> – смесени, най-редки</li>
-            </ul>
-          </div>
-        </section>
-
-        <section className="mb-8">
-          <h2 className="text-xl sm:text-2xl font-semibold mb-4">
-            📝 Задачи за упражнение
-          </h2>
-
-          {/* Ниво А */}
-          <div className="mb-6">
-            <h3 className="text-lg font-semibold mb-3 text-green-600 dark:text-green-400">
-              Ниво А (Областен кръг)
-            </h3>
-
-            <div className="bg-white dark:bg-gray-800 p-4 rounded-lg mb-4 border-l-4 border-green-500">
-              <p className="font-semibold mb-2">1. Каква е разликата между метеор и метеорит?</p>
-              <button
-                onClick={() => toggleSolution('a1')}
-                className="text-blue-600 dark:text-blue-400 hover:underline text-sm"
-              >
-                {showSolutions['a1'] ? '▼ Скрий решението' : '▶ Покажи решението'}
-              </button>
-              {showSolutions['a1'] && (
-                <div className="mt-3 p-3 bg-blue-50 dark:bg-blue-900/20 rounded">
-                  <p className="font-semibold">Решение:</p>
-                  <p className="mt-2"><strong>Метеор</strong> – светещ след в атмосферата ("падаща звезда"),
-                  когато метеороид изгаря.</p>
-                  <p className="mt-2"><strong>Метеорит</strong> – метеороид, който е оцелял преминаването
-                  през атмосферата и е достигнал земната повърхност.</p>
-                </div>
-              )}
-            </div>
-
-            <div className="bg-white dark:bg-gray-800 p-4 rounded-lg mb-4 border-l-4 border-green-500">
-              <p className="font-semibold mb-2">2. Защо кометата има две опашки?</p>
-              <button
-                onClick={() => toggleSolution('a2')}
-                className="text-blue-600 dark:text-blue-400 hover:underline text-sm"
-              >
-                {showSolutions['a2'] ? '▼ Скрий решението' : '▶ Покажи решението'}
-              </button>
-              {showSolutions['a2'] && (
-                <div className="mt-3 p-3 bg-blue-50 dark:bg-blue-900/20 rounded">
-                  <p className="font-semibold">Решение:</p>
-                  <p className="mt-2"><strong>Прахова опашка:</strong> Състои се от прахови частици,
-                  които се освобождават от ядрото. Следва орбитата на кометата. Жълтеникава.</p>
-                  <p className="mt-2"><strong>Йонна опашка:</strong> Състои се от йонизирани газове,
-                  които се отблъскват от слънчевия вятър. Винаги е насочена от Слънцето. Синкава.</p>
-                </div>
-              )}
-            </div>
-          </div>
-
-          {/* Ниво В */}
-          <div className="mb-6">
-            <h3 className="text-lg font-semibold mb-3 text-yellow-600 dark:text-yellow-400">
-              Ниво В (Национален кръг)
-            </h3>
-
-            <div className="bg-white dark:bg-gray-800 p-4 rounded-lg mb-4 border-l-4 border-yellow-500">
-              <p className="font-semibold mb-2">3. Метеор навлиза в атмосферата със скорост 50 km/s.
-              На каква височина обикновено започва да свети? (Атмосферата става достатъчно плътна
-              на около 100 km)</p>
-              <button
-                onClick={() => toggleSolution('b3')}
-                className="text-blue-600 dark:text-blue-400 hover:underline text-sm"
-              >
-                {showSolutions['b3'] ? '▼ Скрий решението' : '▶ Покажи решението'}
-              </button>
-              {showSolutions['b3'] && (
-                <div className="mt-3 p-3 bg-blue-50 dark:bg-blue-900/20 rounded">
-                  <p className="font-semibold">Отговор: Около 100-120 km</p>
-                  <p className="mt-2">Обяснение: Метеорите започват да светят на височина около
-                  100-120 km, където атмосферата става достатъчно плътна, за да причини значително
-                  триене. Повечето метеори изгарят напълно на височина 50-80 km. Само по-големите
-                  обекти достигат до земята като метеорити.</p>
-                </div>
-              )}
-            </div>
-
-            <div className="bg-white dark:bg-gray-800 p-4 rounded-lg mb-4 border-l-4 border-yellow-500">
-              <p className="font-semibold mb-2">4. Комета на Халей има период 76 години и перихелий
-              0.59 AU. Изчисли афелия.</p>
-              <button
-                onClick={() => toggleSolution('b4')}
-                className="text-blue-600 dark:text-blue-400 hover:underline text-sm"
-              >
-                {showSolutions['b4'] ? '▼ Скрий решението' : '▶ Покажи решението'}
-              </button>
-              {showSolutions['b4'] && (
-                <div className="mt-3 p-3 bg-blue-50 dark:bg-blue-900/20 rounded">
-                  <p className="font-semibold">Решение:</p>
-                  <p className="mt-2">От третия закон на Кеплер: T² = a³</p>
-                  <p>76² = a³</p>
-                  <p>5776 = a³</p>
-                  <p>a = ∛5776 ≈ 17.94 AU</p>
-                  <p className="mt-2">Голямата полуос: a = (rₚ + rₐ) / 2</p>
-                  <p>17.94 = (0.59 + rₐ) / 2</p>
-                  <p>35.88 = 0.59 + rₐ</p>
-                  <p>rₐ = 35.29 AU</p>
-                  <p className="mt-2"><strong>Отговор: около 35.3 AU</strong></p>
-                  <p className="mt-2 text-sm">Това е отвъд орбитата на Нептун (30 AU)!</p>
-                </div>
-              )}
-            </div>
-          </div>
-
-          {/* Ниво С */}
-          <div className="mb-6">
-            <h3 className="text-lg font-semibold mb-3 text-red-600 dark:text-red-400">
-              Ниво С (Международна олимпиада)
-            </h3>
-
-            <div className="bg-white dark:bg-gray-800 p-4 rounded-lg mb-4 border-l-4 border-red-500">
-              <p className="font-semibold mb-2">5. Обясни защо метеорните дъждове се случват по
-              едно и също време всяка година и защо всички метеори изглеждат като че идват от
-              една точка (радиант).</p>
-              <button
-                onClick={() => toggleSolution('c5')}
-                className="text-blue-600 dark:text-blue-400 hover:underline text-sm"
-              >
-                {showSolutions['c5'] ? '▼ Скрий решението' : '▶ Покажи решението'}
-              </button>
-              {showSolutions['c5'] && (
-                <div className="mt-3 p-3 bg-blue-50 dark:bg-blue-900/20 rounded">
-                  <p className="font-semibold">Решение:</p>
-                  <p className="mt-2"><strong>Защо по едно и също време:</strong></p>
-                  <p>Земята обикаля около Слънцето по фиксирана орбита. Всяка година по същото
-                  време Земята преминава през същата точка от орбитата си, където се пресича с
-                  орбитата на дадена комета. Затова метеорните дъждове са предсказуеми.</p>
-                  <p className="mt-2"><strong>Защо има радиант:</strong></p>
-                  <p>Всички частици от кометата се движат приблизително в една и съща посока
-                  (паралелни траектории). Поради перспективата, паралелните линии изглеждат като
-                  че се събират в една точка - радианта. Това е същият ефект като железопътните
-                  релси, които изглеждат като че се събират на хоризонта.</p>
-                  <p className="mt-2">Радиантът се нарича по съзвездието, в което се намира
-                  (напр. Персеиди → съзвездие Персей).</p>
-                </div>
-              )}
-            </div>
-          </div>
-        </section>
-
-        <section className="mb-8">
-          <h2 className="text-xl sm:text-2xl font-semibold mb-4">
-            Обобщение
-          </h2>
-          <div className="bg-gradient-to-r from-blue-50 to-yellow-50 dark:from-gray-800 dark:to-gray-700 p-6 rounded-lg">
+          <h2 className="text-xl sm:text-2xl font-semibold mb-4">9. Обобщение</h2>
+          <div className="bg-gradient-to-r from-sky-50 to-purple-50 dark:from-gray-800 dark:to-gray-700 p-6 rounded-lg">
             <ul className="space-y-2">
-              <li>✓ Кометите са "мръсни снежни топки" от лед и прах</li>
-              <li>✓ Имат ядро, кома и две опашки (прахова и йонна)</li>
-              <li>✓ Метеорни дъждове се случват когато Земята премине през орбита на комета</li>
-              <li>✓ Метеороид → метеор → метеорит (в космоса → в атмосферата → на земята)</li>
-              <li>✓ Всеки ден около 100 тона космически материал пада на Земята</li>
+              <li>✓ Ядрото на кометата е тъмна, рохкава смес от лед и прах (ρ ~ 0,5 g/cm³), активна вътре от ~3 AU</li>
+              <li>✓ Йонната опашка сочи точно от Слънцето, праховата се извива назад по орбитата</li>
+              <li>✓ Скорост по орбитата: v = 29,78 km/s · √(2/r − 1/a); v_q / v_Q = Q / q</li>
+              <li>✓ Комети от семейството на Юпитер (от пояса на Кайпер) и с дълъг период (от облака на Оорт); 2 &lt; T_J &lt; 3</li>
+              <li>✓ Метеорен поток: Земята пресича роя на кометата на една и съща дата; метеорите излизат от радианта</li>
+              <li>✓ Метеорите влизат с 11–72 km/s и светят на 80–120 km; HR = ZHR · sin h / r^(6,5 − LM)</li>
+              <li>✓ Метеоритите – каменни, железни и каменно-железни – са най-старите скали: 4,567 млрд. години</li>
             </ul>
           </div>
         </section>
 
         <section className="mb-8">
           <div className="bg-yellow-50 dark:bg-yellow-900/20 border-l-4 border-yellow-500 p-4 rounded">
-            <h3 className="font-semibold mb-2">💡 Интересен факт</h3>
+            <h3 className="font-semibold mb-2 flex items-center gap-2">
+              <span>💡</span>
+              <span>Интересен факт</span>
+            </h3>
             <p>
-              Всеки ден около 100 тона космически материал пада на Земята, но
-              повечето от него е под формата на микроскопичен прах. Големи
-              метеорити падат рядко, но могат да причинят значителни щети. Преди
-              66 милиона години астероид с диаметър 10 km е причинил изчезването на
-              динозаврите. Днес учените непрекъснато следят потенциално опасните обекти!
+              През май 1910 г. Земята минава през опашката на кометата на Халей. Спектроскопите вече са открили в опашките отровния
+              газ циан и вестниците предупреждават за края на света. Хората запушват комините и купуват „противокометни хапчета“ и
+              противогази. Нищо не се случва: опашката е по-разредена от най-добрия вакуум, който можем да получим в
+              лаборатория. Марк Твен, роден през 1835 г. при предишното ѝ завръщане, казва, че ще си отиде с нея – и умира
+              на 21 април 1910 г., ден след като кометата минава през перихелий.
             </p>
           </div>
         </section>

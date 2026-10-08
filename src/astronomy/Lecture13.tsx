@@ -1,53 +1,111 @@
-import {useState} from 'react';
+import { useState } from 'react';
+import Example from '~/Example';
+import Quiz, { type Question } from '~/Quiz';
+import Theorem from '~/Theorem';
+import AtmosphereEscapeLab from './components/AtmosphereEscapeLab';
+import GreenhouseLab from './components/GreenhouseLab';
+import PlanetInteriors from './components/PlanetInteriors';
+import SolarDayLab from './components/SolarDayLab';
+import Task from './components/Task';
+import TerrestrialPlanets from './components/TerrestrialPlanets';
+import { fmt, TERRESTRIAL } from './components/terrestrialData';
+
+const QUIZ: Question[] = [
+  {
+    question: 'Защо близо до Слънцето са се образували скалисти, а далеч от него – газови планети?',
+    answers: [
+      'Близо до Слънцето е било твърде горещо за лед – там са кондензирали само метали и скали',
+      'Слънцето е привлякло целия газ към себе си',
+      'Скалистите планети са дошли от друга звезда',
+      'Газовите гиганти са избутани навън от Земята',
+    ],
+    correctAnswer: 'Близо до Слънцето е било твърде горещо за лед – там са кондензирали само метали и скали',
+  },
+  {
+    question: 'Коя планета има най-голямо желязно ядро спрямо размера си?',
+    answers: ['Земята', 'Марс', 'Меркурий', 'Венера'],
+    correctAnswer: 'Меркурий',
+  },
+  {
+    question: 'Коя е най-горещата планета в Слънчевата система?',
+    answers: ['Меркурий – защото е най-близо до Слънцето', 'Венера – заради парниковия ефект', 'Земята', 'Марс'],
+    correctAnswer: 'Венера – заради парниковия ефект',
+  },
+  {
+    question: 'Защо Земята е изгубила водорода и хелия от атмосферата си, но е запазила азота?',
+    answers: [
+      'Леките молекули при една и съща температура се движат по-бързо и надхвърлят втората космическа скорост',
+      'Водородът и хелият са изгорели',
+      'Азотът е по-студен',
+      'Слънцето привлича само леките газове',
+    ],
+    correctAnswer: 'Леките молекули при една и съща температура се движат по-бързо и надхвърлят втората космическа скорост',
+  },
+  {
+    question: 'Колко трае едно слънчево денонощие на Меркурий?',
+    answers: ['24 часа', '59 земни дни', '88 земни дни', '176 земни дни'],
+    correctAnswer: '176 земни дни',
+  },
+  {
+    question: 'Защо на Луната и Меркурий има много повече кратери, отколкото на Земята?',
+    answers: [
+      'Те са по-често удряни от астероиди',
+      'Нямат атмосфера, вода и активна геология, които да заличат старите кратери',
+      'Кратерите на Земята са под снега',
+      'Земята е по-млада от тях',
+    ],
+    correctAnswer: 'Нямат атмосфера, вода и активна геология, които да заличат старите кратери',
+  },
+  {
+    question: 'Защо Марс е изгубил по-голямата част от атмосферата и водата си?',
+    answers: [
+      'Изпарили са се от слънчевата топлина',
+      'Малката гравитация и липсата на магнитно поле позволяват на слънчевия вятър да я отнесе',
+      'Погълнати са от Фобос и Деймос',
+      'Замръзнали са в полярните шапки и са изчезнали',
+    ],
+    correctAnswer: 'Малката гравитация и липсата на магнитно поле позволяват на слънчевия вятър да я отнесе',
+  },
+];
+
+const PROCESSES = [
+  {
+    icon: '☄️',
+    title: 'Ударни кратери',
+    text: 'Всички планети са бомбардирани, особено през първите ~700 млн. години. Колкото повече кратери има една област, толкова по-стара е тя – така се датират повърхностите на други светове без нито една скална проба.',
+  },
+  {
+    icon: '🌋',
+    title: 'Вулканизъм',
+    text: 'Лавата залива старите кратери и обновява повърхността. Олимп на Марс е 22 km висок; Венера има над 1000 вулкана и вероятно някои са активни и днес.',
+  },
+  {
+    icon: '🧩',
+    title: 'Тектоника',
+    text: 'Само Земята има подвижни литосферни плочи. Те рециклират кората, издигат планини и връщат въглерода в недрата – ключов „термостат“ за климата.',
+  },
+  {
+    icon: '💨',
+    title: 'Ерозия',
+    text: 'Вятър, вода и лед изтриват релефа. На Земята кратерите изчезват за десетки милиони години; на Марс прашни бури покриват цялата планета; на Меркурий ерозия почти няма.',
+  },
+];
+
+const WATER = [
+  { name: 'Меркурий', text: 'Воден лед в постоянно засенчени кратери при полюсите – открит от сондата MESSENGER.' },
+  { name: 'Венера', text: 'Вероятно е имала океани. Днес атмосферата съдържа ~100 пъти повече деутерий спрямо водорода от земната – следа от избягал лек водород.' },
+  { name: 'Земя', text: '71% от повърхността е покрита с океан, но водата е само ~0,02% от масата на планетата.' },
+  { name: 'Марс', text: 'Лед в полярните шапки и под повърхността, древни речни корита, делти и минерали, които се образуват само във вода.' },
+];
 
 export default function Lecture13() {
-  const [selectedPlanet, setSelectedPlanet] = useState<'mercury' | 'venus' | 'earth' | 'mars'>('earth');
   const [showSolutions, setShowSolutions] = useState<{ [key: string]: boolean }>({});
 
-  const toggleSolution = (taskId: string) => {
-    setShowSolutions(prev => ({ ...prev, [taskId]: !prev[taskId] }));
-  };
-
-  const planets = {
-    mercury: {
-      name: 'Меркурий',
-      color: 'rgb(169, 169, 169)',
-      size: 15,
-      distance: 80,
-      period: '88 дни',
-      temp: '-180°C до +430°C',
-      facts: ['Най-малката планета', 'Няма атмосфера', 'Покрит с кратери'],
-    },
-    venus: {
-      name: 'Венера',
-      color: 'rgb(255, 198, 73)',
-      size: 35,
-      distance: 130,
-      period: '225 дни',
-      temp: '465°C',
-      facts: ['Най-гореща планета', 'Плътна CO₂ атмосфера', 'Въртене в обратна посока'],
-    },
-    earth: {
-      name: 'Земя',
-      color: 'rgb(59, 130, 246)',
-      size: 36,
-      distance: 180,
-      period: '365.25 дни',
-      temp: '-89°C до +58°C',
-      facts: ['Течна вода', 'Богата на O₂ атмосфера', 'Активна тектоника'],
-    },
-    mars: {
-      name: 'Марс',
-      color: 'rgb(239, 68, 68)',
-      size: 20,
-      distance: 230,
-      period: '687 дни',
-      temp: '-140°C до +20°C',
-      facts: ['Червената планета', 'Полярни ледени шапки', 'Олимп Монс - най-висок вулкан'],
-    },
-  };
-
-  const planet = planets[selectedPlanet];
+  const task = (id: string) => ({
+    id,
+    shown: !!showSolutions[id],
+    onToggle: (taskId: string) => setShowSolutions(prev => ({ ...prev, [taskId]: !prev[taskId] })),
+  });
 
   return (
     <main className="flex-1 overflow-y-auto px-4 pt-16 pb-12 sm:px-6 lg:px-10 lg:pt-10">
@@ -56,537 +114,378 @@ export default function Lecture13() {
           Лекция 13: Планетите от земен тип
         </h1>
 
-        <section className="mb-8">
-          <h2 className="text-xl sm:text-2xl font-semibold mb-4">
-            Какво са планетите от земен тип?
-          </h2>
-          <p className="mb-4 text-base sm:text-lg leading-relaxed">
-            Планетите от земен тип (скалисти планети) са четирите вътрешни
-            планети на Слънчевата система: Меркурий, Венера, Земя и Марс.
+        <div className="bg-gradient-to-br from-amber-800 to-slate-900 text-white p-6 rounded-2xl mb-8 shadow-lg">
+          <p className="text-lg sm:text-xl leading-relaxed">
+            🛰️ На 15 декември 1970 г. съветската сонда „Венера 7“ се спуска с парашут през облаците на Венера и удря повърхността.
+            Сигналът ѝ е толкова слаб, че учените го откриват в записите чак седмици по-късно: 475 °C и налягане 90 пъти по-голямо от
+            земното. Това са първите данни, изпратени някога от повърхността на друга планета. Венера е почти колкото Земята, на почти
+            същото разстояние от Слънцето и е изградена от същите скали. Как е станала толкова различна?
           </p>
+        </div>
+
+        <section className="mb-8">
+          <h2 className="text-xl sm:text-2xl font-semibold mb-4">1. Семейството на скалистите планети</h2>
+          <p className="mb-4 text-base sm:text-lg leading-relaxed">
+            Меркурий, Венера, Земята и Марс са четирите вътрешни планети на Слънчевата система. Образували са се преди 4,6 млрд.
+            години от облака газ и прах около младото Слънце. Близо до него е било толкова горещо, че водата, метанът и амонякът не
+            са могли да замръзнат. Кондензирали са само металите и скалите – а те са малко. Затова вътрешните планети са малки и
+            скалисти. Отвъд <strong>снежната линия</strong> (~3 AU) ледът е бил в изобилие и там са израснали гигантите.
+          </p>
+
           <div className="bg-blue-50 dark:bg-blue-500/10 p-4 rounded-lg mb-4">
-            <h3 className="font-semibold mb-2">Общи характеристики:</h3>
-            <ul className="list-disc list-inside space-y-2">
-              <li>Твърда скалиста повърхност</li>
-              <li>Относително малки размери и маси</li>
-              <li>Висока плътност (5-5.5 g/cm³)</li>
-              <li>Малко или никакви спътници</li>
-              <li>Нямат пръстени</li>
-              <li>Близо до Слънцето</li>
+            <h3 className="font-semibold mb-2">Общи белези</h3>
+            <ul className="list-disc list-inside space-y-1 text-sm sm:text-base">
+              <li>Твърда повърхност от силикатни скали и метално ядро</li>
+              <li>Малки размери и маси – Земята е най-голямата от тях</li>
+              <li>Висока средна плътност: 3,9–5,5 g/cm³ (при гигантите е 0,7–1,6 g/cm³)</li>
+              <li>Бавно въртене, малко спътници (общо три) и никакви пръстени</li>
+              <li>Тънки или вторични атмосфери, образувани от вулканични газове и комети</li>
             </ul>
           </div>
-        </section>
 
-        <section className="mb-8">
-          <h2 className="text-xl sm:text-2xl font-semibold mb-4">
-            Интерактивна визуализация
-          </h2>
+          <Theorem
+            type="definition"
+            title="Средна плътност"
+            description="ρ = M / V = 3M / (4πR³). Масата се намира от движението на спътници или сонди (трети закон на Кеплер), а радиусът – от ъгловия размер и разстоянието. Плътността подсказва от какво е изградена планетата, без да я докосваме."
+          />
+          <Example
+            description="Намерете средната плътност на Земята (M = 5,97 · 10²⁴ kg, R = 6371 km)."
+            steps={[
+              'V = 4πR³ / 3 = 4π · (6,371 · 10⁶ m)³ / 3 ≈ 1,083 · 10²¹ m³',
+              'ρ = M / V = 5,97 · 10²⁴ / 1,083 · 10²¹ ≈ 5510 kg/m³ = 5,51 g/cm³',
+              'Скалите на повърхността са с плътност само ~2,7–3 g/cm³, значи в недрата има нещо много по-тежко – желязно ядро.',
+            ]}
+          />
 
-          {/* Бутони за избор на планета */}
-          <div className="flex justify-center gap-2 mb-4 flex-wrap">
-            <button
-              onClick={() => setSelectedPlanet('mercury')}
-              className={`px-4 py-2 rounded ${selectedPlanet === 'mercury' ? 'bg-gray-500 text-white' : 'bg-gray-200 dark:bg-gray-700'}`}
-            >
-              ☿ Меркурий
-            </button>
-            <button
-              onClick={() => setSelectedPlanet('venus')}
-              className={`px-4 py-2 rounded ${selectedPlanet === 'venus' ? 'bg-yellow-500 text-white' : 'bg-gray-200 dark:bg-gray-700'}`}
-            >
-              ♀ Венера
-            </button>
-            <button
-              onClick={() => setSelectedPlanet('earth')}
-              className={`px-4 py-2 rounded ${selectedPlanet === 'earth' ? 'bg-blue-500 text-white' : 'bg-gray-200 dark:bg-gray-700'}`}
-            >
-              🌍 Земя
-            </button>
-            <button
-              onClick={() => setSelectedPlanet('mars')}
-              className={`px-4 py-2 rounded ${selectedPlanet === 'mars' ? 'bg-red-500 text-white' : 'bg-gray-200 dark:bg-gray-700'}`}
-            >
-              ♂ Марс
-            </button>
-          </div>
+          <TerrestrialPlanets />
 
-          <div className="bg-white dark:bg-gray-800 p-4 rounded-lg border-2 border-blue-300 dark:border-blue-600 mb-6">
-            <h3 className="font-semibold mb-3 text-center">{planet.name}</h3>
-
-            <svg viewBox="0 0 700 400" className="w-full h-auto">
-              {/* Слънце */}
-              <circle cx="100" cy="200" r="40" fill="rgb(251, 191, 36)" />
-              {[...Array(12)].map((_, i) => {
-                const angle = (i * 30 * Math.PI) / 180;
-                return (
-                  <line
-                    key={i}
-                    x1={100 + 45 * Math.cos(angle)}
-                    y1={200 + 45 * Math.sin(angle)}
-                    x2={100 + 60 * Math.cos(angle)}
-                    y2={200 + 60 * Math.sin(angle)}
-                    stroke="rgb(251, 191, 36)"
-                    strokeWidth="2"
-                  />
-                );
-              })}
-              <text x="100" y="260" fontSize="14" fontWeight="bold" textAnchor="middle" fill="currentColor">☀️ Слънце</text>
-
-              {/* Орбити на всички планети (за контекст) */}
-              <circle cx="100" cy="200" r="80" fill="none" stroke="gray" strokeWidth="1" opacity="0.2" />
-              <circle cx="100" cy="200" r="130" fill="none" stroke="gray" strokeWidth="1" opacity="0.2" />
-              <circle cx="100" cy="200" r="180" fill="none" stroke="gray" strokeWidth="1" opacity="0.2" />
-              <circle cx="100" cy="200" r="230" fill="none" stroke="gray" strokeWidth="1" opacity="0.2" />
-
-              {/* Избраната планета с орбита */}
-              <circle
-                cx="100"
-                cy="200"
-                r={planet.distance}
-                fill="none"
-                stroke={planet.color}
-                strokeWidth="3"
-              />
-
-              {/* Планетата */}
-              <g>
-                <circle
-                  cx={100 + planet.distance}
-                  cy="200"
-                  r={planet.size}
-                  fill={planet.color}
-                  stroke="white"
-                  strokeWidth="2"
-                >
-                  <animateTransform
-                    attributeName="transform"
-                    type="rotate"
-                    from={`0 100 200`}
-                    to={`360 100 200`}
-                    dur="20s"
-                    repeatCount="indefinite"
-                  />
-                </circle>
-
-                {/* Специални детайли за всяка планета */}
-                {selectedPlanet === 'mercury' && (
-                  <g>
-                    {/* Кратери */}
-                    <circle cx={100 + planet.distance - 5} cy="195" r="2" fill="rgb(100, 100, 100)">
-                      <animateTransform
-                        attributeName="transform"
-                        type="rotate"
-                        from={`0 100 200`}
-                        to={`360 100 200`}
-                        dur="20s"
-                        repeatCount="indefinite"
-                      />
-                    </circle>
-                    <circle cx={100 + planet.distance + 3} cy="203" r="1.5" fill="rgb(100, 100, 100)">
-                      <animateTransform
-                        attributeName="transform"
-                        type="rotate"
-                        from={`0 100 200`}
-                        to={`360 100 200`}
-                        dur="20s"
-                        repeatCount="indefinite"
-                      />
-                    </circle>
-                  </g>
-                )}
-
-                {selectedPlanet === 'venus' && (
-                  <g>
-                    {/* Облаци */}
-                    <ellipse cx={100 + planet.distance} cy="195" rx="30" ry="10" fill="rgba(255, 255, 255, 0.3)">
-                      <animateTransform
-                        attributeName="transform"
-                        type="rotate"
-                        from={`0 100 200`}
-                        to={`360 100 200`}
-                        dur="20s"
-                        repeatCount="indefinite"
-                      />
-                    </ellipse>
-                  </g>
-                )}
-
-                {selectedPlanet === 'earth' && (
-                  <g>
-                    {/* Континенти */}
-                    <path
-                      d={`M ${100 + planet.distance - 10},200 Q ${100 + planet.distance - 5},195 ${100 + planet.distance},200`}
-                      fill="rgb(34, 197, 94)"
-                    >
-                      <animateTransform
-                        attributeName="transform"
-                        type="rotate"
-                        from={`0 100 200`}
-                        to={`360 100 200`}
-                        dur="20s"
-                        repeatCount="indefinite"
-                      />
-                    </path>
-                    {/* Луна */}
-                    <circle cx={100 + planet.distance + 50} cy="180" r="8" fill="rgb(200, 200, 200)">
-                      <animateTransform
-                        attributeName="transform"
-                        type="rotate"
-                        from={`0 ${100 + planet.distance} 200`}
-                        to={`360 ${100 + planet.distance} 200`}
-                        dur="5s"
-                        repeatCount="indefinite"
-                        additive="sum"
-                      />
-                      <animateTransform
-                        attributeName="transform"
-                        type="rotate"
-                        from={`0 100 200`}
-                        to={`360 100 200`}
-                        dur="20s"
-                        repeatCount="indefinite"
-                      />
-                    </circle>
-                  </g>
-                )}
-
-                {selectedPlanet === 'mars' && (
-                  <g>
-                    {/* Полярна шапка */}
-                    <circle cx={100 + planet.distance} cy={200 - planet.size + 3} r="4" fill="white">
-                      <animateTransform
-                        attributeName="transform"
-                        type="rotate"
-                        from={`0 100 200`}
-                        to={`360 100 200`}
-                        dur="20s"
-                        repeatCount="indefinite"
-                      />
-                    </circle>
-                  </g>
-                )}
-              </g>
-
-              {/* Етикети за другите планети */}
-              <text x="180" y="205" fontSize="10" fill="gray" opacity="0.5">Меркурий</text>
-              <text x="230" y="205" fontSize="10" fill="gray" opacity="0.5">Венера</text>
-              <text x="280" y="205" fontSize="10" fill="gray" opacity="0.5">Земя</text>
-              <text x="330" y="205" fontSize="10" fill="gray" opacity="0.5">Марс</text>
-
-              {/* Информация за избраната планета */}
-              <g transform="translate(400, 50)">
-                <rect x="0" y="0" width="250" height="280" fill="rgba(59, 130, 246, 0.1)" stroke={planet.color} strokeWidth="2" rx="10" />
-                <text x="125" y="30" fontSize="16" fontWeight="bold" textAnchor="middle" fill={planet.color}>
-                  {planet.name}
-                </text>
-
-                <text x="20" y="60" fontSize="12" fill="currentColor">Период: {planet.period}</text>
-                <text x="20" y="80" fontSize="12" fill="currentColor">Температура: {planet.temp}</text>
-
-                <text x="20" y="110" fontSize="12" fontWeight="bold" fill="currentColor">Характеристики:</text>
-                {planet.facts.map((fact, i) => (
-                  <text key={i} x="25" y={130 + i * 20} fontSize="11" fill="currentColor">• {fact}</text>
+          <div className="overflow-x-auto mb-4">
+            <table className="w-full text-sm">
+              <thead>
+                <tr className="border-b border-gray-300 dark:border-gray-600 text-gray-600 dark:text-gray-400">
+                  <th className="text-left py-2 pr-2">Планета</th>
+                  <th className="text-right py-2 px-2">a (AU)</th>
+                  <th className="text-right py-2 px-2">R (km)</th>
+                  <th className="text-right py-2 px-2">M (M⊕)</th>
+                  <th className="text-right py-2 px-2">ρ (g/cm³)</th>
+                  <th className="text-right py-2 px-2">g (m/s²)</th>
+                  <th className="text-right py-2 px-2">Година</th>
+                  <th className="text-right py-2 pl-2">Слънчев ден</th>
+                </tr>
+              </thead>
+              <tbody>
+                {TERRESTRIAL.map(p => (
+                  <tr key={p.id} className="border-b border-gray-200 dark:border-gray-700">
+                    <td className="py-1 pr-2 whitespace-nowrap">
+                      <span className="inline-block w-2 h-2 rounded-full mr-1 align-middle" style={{ background: p.color }} />
+                      {p.name}
+                    </td>
+                    <td className="text-right px-2">{fmt(p.a, 3)}</td>
+                    <td className="text-right px-2">{fmt(p.radius, 0)}</td>
+                    <td className="text-right px-2">{fmt(p.mass, 3)}</td>
+                    <td className="text-right px-2">{fmt(p.density, 2)}</td>
+                    <td className="text-right px-2">{fmt(p.gravity, 2)}</td>
+                    <td className="text-right px-2 whitespace-nowrap">{fmt(p.year, 0)} д</td>
+                    <td className="text-right pl-2 whitespace-nowrap">{p.solarDay}</td>
+                  </tr>
                 ))}
-              </g>
-            </svg>
+              </tbody>
+            </table>
+          </div>
+        </section>
 
-            <div className="mt-4 p-4 bg-gray-100/70 dark:bg-gray-800/70 rounded-lg">
-              <h4 className="font-semibold mb-2">Сравнителни данни:</h4>
-              <div className="overflow-x-auto">
-                <table className="w-full text-sm">
-                  <thead>
-                    <tr className="border-b border-gray-300 dark:border-gray-600">
-                      <th className="text-left py-2">Планета</th>
-                      <th className="text-right py-2">Диаметър (km)</th>
-                      <th className="text-right py-2">Маса (Земи)</th>
-                      <th className="text-right py-2">Разстояние (AU)</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr className={selectedPlanet === 'mercury' ? 'bg-gray-200 dark:bg-gray-600' : ''}>
-                      <td className="py-1">☿ Меркурий</td>
-                      <td className="text-right">4,879</td>
-                      <td className="text-right">0.055</td>
-                      <td className="text-right">0.39</td>
-                    </tr>
-                    <tr className={selectedPlanet === 'venus' ? 'bg-yellow-100 dark:bg-yellow-900/30' : ''}>
-                      <td className="py-1">♀ Венера</td>
-                      <td className="text-right">12,104</td>
-                      <td className="text-right">0.815</td>
-                      <td className="text-right">0.72</td>
-                    </tr>
-                    <tr className={selectedPlanet === 'earth' ? 'bg-blue-100 dark:bg-blue-900/30' : ''}>
-                      <td className="py-1">🌍 Земя</td>
-                      <td className="text-right">12,742</td>
-                      <td className="text-right">1.000</td>
-                      <td className="text-right">1.00</td>
-                    </tr>
-                    <tr className={selectedPlanet === 'mars' ? 'bg-red-100 dark:bg-red-900/30' : ''}>
-                      <td className="py-1">♂ Марс</td>
-                      <td className="text-right">6,779</td>
-                      <td className="text-right">0.107</td>
-                      <td className="text-right">1.52</td>
-                    </tr>
-                  </tbody>
-                </table>
+        <section className="mb-8">
+          <h2 className="text-xl sm:text-2xl font-semibold mb-4">2. Вътрешен строеж</h2>
+          <p className="mb-4 text-base sm:text-lg leading-relaxed">
+            Младите планети са били разтопени от ударите и от разпада на радиоактивни елементи. Тежкото желязо е потънало към
+            центъра, а по-леките силикати са изплували нагоре – това се нарича <strong>диференциация</strong>. Така всички скалисти
+            планети имат слоеве: метално ядро, скална мантия и тънка кора. За Земята знаем това от сеизмичните вълни при земетресения;
+            за Марс – от сеизмометъра на сондата InSight; за Меркурий и Венера – от гравитационното им поле и средната плътност.
+          </p>
+
+          <PlanetInteriors />
+
+          <div className="bg-blue-50 dark:bg-blue-500/10 p-4 rounded-lg mb-4 text-sm sm:text-base">
+            <p>
+              <strong>Защо само Земята има силно магнитно поле?</strong> Нужни са три неща: течно метално ядро, конвекция в него и
+              достатъчно бързо въртене. Венера има ядро, но се върти бавно и няма тектоника, която да изнася топлината от него. Марс е
+              малък и ядрото му е спряло да кипи преди ~4 млрд. години. Меркурий има слабо поле – само ~1% от земното.
+            </p>
+          </div>
+        </section>
+
+        <section className="mb-8">
+          <h2 className="text-xl sm:text-2xl font-semibold mb-4">3. Как се променят повърхностите</h2>
+          <p className="mb-4 text-base sm:text-lg leading-relaxed">
+            Четири процеса оформят лицето на една скалиста планета. Кой от тях преобладава, зависи най-вече от размера ѝ.
+          </p>
+          <div className="grid sm:grid-cols-2 gap-3 mb-4">
+            {PROCESSES.map(p => (
+              <div key={p.title} className="bg-white dark:bg-gray-800 p-3 rounded-lg shadow-sm">
+                <p className="font-semibold mb-1">
+                  {p.icon} {p.title}
+                </p>
+                <p className="text-sm text-gray-600 dark:text-gray-400">{p.text}</p>
               </div>
-            </div>
+            ))}
+          </div>
+          <Theorem
+            title="Големите планети остават горещи по-дълго"
+            description="Топлината се съдържа в обема (∝ R³), а се губи през повърхността (∝ R²). Отношението V / S = R / 3 расте с радиуса, затова по-голямата планета изстива по-бавно. Затова Луната и Меркурий са геологично мъртви от милиарди години, Марс – почти, а Земята и Венера са все още активни."
+          />
+        </section>
+
+        <section className="mb-8">
+          <h2 className="text-xl sm:text-2xl font-semibold mb-4">4. Атмосфери: кой какво е задържал</h2>
+          <p className="mb-4 text-base sm:text-lg leading-relaxed">
+            Първичният водород и хелий, които скалистите планети са привлекли при раждането си, отдавна са изчезнали. Днешните
+            атмосфери са <strong>вторични</strong>: изпуснати от вулканите (CO₂, H₂O, N₂) и донесени от комети и астероиди. Дали една
+            планета ще ги задържи, зависи от надпреварата между гравитацията и топлинното движение на молекулите.
+          </p>
+          <Theorem
+            title="Топлинна скорост и задържане на газ"
+            description="Средната квадратична скорост на молекулите е v = √(3kT / m), където k = 1,38 · 10⁻²³ J/K, T е температурата, а m – масата на една молекула. Скоростите са разпределени около тази стойност и най-бързите молекули избягват. Газът остава за милиарди години, ако втората космическа скорост е поне ~6 пъти по-голяма от v."
+          />
+          <Example
+            description="Ще задържи ли Земята азота? Горната атмосфера е с T ≈ 1000 K, m(N₂) = 28 · 1,66 · 10⁻²⁷ kg, v₂ = 11,2 km/s."
+            steps={[
+              'v = √(3 · 1,38 · 10⁻²³ · 1000 / 4,65 · 10⁻²⁶) ≈ √(8,9 · 10⁵) ≈ 940 m/s',
+              '6v ≈ 5,7 km/s < 11,2 km/s',
+              'Азотът остава. За водорода (m 14 пъти по-малка) v ≈ 3,5 km/s и 6v ≈ 21 km/s – той бяга.',
+            ]}
+          />
+
+          <AtmosphereEscapeLab />
+        </section>
+
+        <section className="mb-8">
+          <h2 className="text-xl sm:text-2xl font-semibold mb-4">5. Парниковият ефект</h2>
+          <p className="mb-4 text-base sm:text-lg leading-relaxed">
+            Без атмосфера температурата на една планета се определя само от това колко светлина получава и колко от нея поглъща.
+          </p>
+          <Theorem
+            title="Равновесна температура"
+            description="T_eq ≈ 279 K · (1 − A)^¼ / √d, където A е албедото (каква част от светлината се отразява), а d е разстоянието до Слънцето в AU. Формулата следва от равенството между погълнатата слънчева енергия и топлинното излъчване по закона на Стефан–Болцман."
+          />
+          <p className="mb-4 text-base sm:text-lg leading-relaxed">
+            Атмосферата обаче пропуска видимата светлина, а задържа инфрачервеното излъчване на нагрятата повърхност. Тя действа
+            като одеяло – повърхността трябва да стане по-топла, за да излъчи в космоса толкова енергия, колкото получава.
+          </p>
+
+          <GreenhouseLab />
+
+          <div className="bg-red-50 dark:bg-red-900/20 p-4 rounded-lg mb-4 text-sm sm:text-base">
+            <h3 className="font-semibold mb-2">Неудържимият парников ефект на Венера</h3>
+            <p>
+              Младото Слънце е светело с ~30% по-слабо и Венера вероятно е имала океани. С нарастването на светимостта водата се
+              изпарява. Водната пара също е парников газ – тя затопля планетата още повече, изпарява още вода и процесът „избягва“.
+              Без океани CO₂ не може да се разтваря и да се свързва в карбонатни скали, както на Земята, и целият остава във
+              въздуха. Интересното е, че в земния варовик е заключено почти толкова CO₂, колкото има в атмосферата на Венера.
+            </p>
+          </div>
+          <p className="mb-4 text-base sm:text-lg leading-relaxed">
+            Областта около звезда, в която планета като Земята може да има течна вода на повърхността, се нарича{' '}
+            <strong>обитаема зона</strong>. За Слънцето тя е приблизително между 0,95 и 1,7 AU – Венера е точно до вътрешния ѝ ръб, а
+            Марс е вътре, но е твърде малък, за да задържи плътна атмосфера.
+          </p>
+        </section>
+
+        <section className="mb-8">
+          <h2 className="text-xl sm:text-2xl font-semibold mb-4">6. Странното въртене на Меркурий и Венера</h2>
+          <p className="mb-4 text-base sm:text-lg leading-relaxed">
+            Звездното (сидерично) денонощие е времето за едно завъртане спрямо звездите. Но за жителите на една планета е важно
+            слънчевото денонощие – от пладне до пладне. Докато планетата се върти, тя се премества и по орбитата си, затова двете се
+            различават.
+          </p>
+          <Theorem
+            title="Слънчево денонощие"
+            description="1 / P_слънч = 1 / P_сид − 1 / T при въртене в посоката на обикаляне и 1 / P_слънч = 1 / P_сид + 1 / T при обратно въртене, където T е орбиталният период. За Земята: 1 / 0,9973 − 1 / 365,26 ⇒ точно 1 ден."
+          />
+          <Example
+            description="Меркурий се завърта спрямо звездите за 58,65 дни и обикаля Слънцето за 87,97 дни. Колко е слънчевото му денонощие?"
+            steps={[
+              '1 / P = 1 / 58,65 − 1 / 87,97 = 0,017050 − 0,011368 = 0,005682',
+              'P ≈ 176 дни – точно колкото две меркуриански години.',
+            ]}
+          />
+
+          <SolarDayLab />
+
+          <p className="mb-4 text-base sm:text-lg leading-relaxed">
+            Тези необичайни въртения са дело на приливите. Слънцето е забавило въртенето на Меркурий, докато той „заседне“ в
+            резонанса 3 : 2 – стабилен заради издължената му орбита. Обратното въртене на Венера се обяснява по различни начини: с
+            гигантски сблъсък в миналото или с приливите, които Слънцето предизвиква в плътната ѝ атмосфера.
+          </p>
+        </section>
+
+        <section className="mb-8">
+          <h2 className="text-xl sm:text-2xl font-semibold mb-4">7. Къде е водата?</h2>
+          <p className="mb-4 text-base sm:text-lg leading-relaxed">
+            Течната вода е ключът към живота, какъвто го познаваме. Всички скалисти планети вероятно са получили вода, но само Земята е
+            успяла да я запази течна на повърхността.
+          </p>
+          <div className="grid sm:grid-cols-2 gap-3 mb-4">
+            {WATER.map(w => (
+              <div key={w.name} className="bg-white dark:bg-gray-800 p-3 rounded-lg shadow-sm">
+                <p className="font-semibold mb-1">💧 {w.name}</p>
+                <p className="text-sm text-gray-600 dark:text-gray-400">{w.text}</p>
+              </div>
+            ))}
+          </div>
+          <div className="bg-red-50 dark:bg-red-900/20 p-4 rounded-lg mb-4 text-sm sm:text-base">
+            <p>
+              <strong>Марс днес</strong> е изследван от роувъри и орбитални сонди повече от всяка друга планета. Роувърът
+              Perseverance събира скални проби в кратера Йезеро – бивше езеро с речна делта, – за да бъдат донесени на Земята и
+              изследвани за следи от древен микробен живот. Двата малки спътника на Марс, Фобос (~22 km) и Деймос (~12 km), вероятно
+              са уловени астероиди или отломки от древен сблъсък. Фобос бавно се спуска и след ~50 млн. години ще бъде разкъсан от
+              приливните сили.
+            </p>
           </div>
         </section>
 
         <section className="mb-8">
-          <h2 className="text-xl sm:text-2xl font-semibold mb-4">Меркурий ☿</h2>
-          <div className="bg-gray-100/70 dark:bg-gray-800/70 p-4 rounded-lg mb-4">
-            <ul className="list-disc list-inside space-y-2">
-              <li>Най-малката планета и най-близка до Слънцето</li>
-              <li>Няма атмосфера (изпарена от слънчевия вятър)</li>
-              <li>Температурни крайности: -180°C (нощ) до +430°C (ден)</li>
-              <li>Покрит с кратери, подобно на Луната</li>
-              <li>Има желязно ядро (70% от масата)</li>
-              <li>Бавно въртене: 1 ден = 59 земни дни</li>
-            </ul>
-          </div>
+          <h2 className="text-xl sm:text-2xl font-semibold mb-4">8. ✅ Провери се</h2>
+          <Quiz questions={QUIZ} />
         </section>
 
         <section className="mb-8">
-          <h2 className="text-xl sm:text-2xl font-semibold mb-4">Венера ♀</h2>
-          <div className="bg-orange-50 dark:bg-orange-900/20 p-4 rounded-lg mb-4">
-            <ul className="list-disc list-inside space-y-2">
-              <li>Най-гореща планета (около 465°C) заради парников ефект</li>
-              <li>Плътна атмосфера от CO₂ (налягане 92 пъти по-голямо от земното)</li>
-              <li>Въртене в обратна посока (ретроградно)</li>
-              <li>Облаци от сярна киселина</li>
-              <li>Един ден на Венера (243 земни дни) е по-дълъг от годината ѝ (225 дни)!</li>
-              <li>Най-яркият обект на небето след Слънцето и Луната</li>
-            </ul>
-          </div>
-        </section>
+          <h2 className="text-xl sm:text-2xl font-semibold mb-4">9. 📝 Задачи за упражнение</h2>
 
-        <section className="mb-8">
-          <h2 className="text-xl sm:text-2xl font-semibold mb-4">Земя 🌍</h2>
-          <div className="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg mb-4">
-            <ul className="list-disc list-inside space-y-2">
-              <li>Единствената планета с течна вода на повърхността</li>
-              <li>Атмосфера богата на кислород (21% O₂, 78% N₂)</li>
-              <li>Активна тектоника на плочите</li>
-              <li>Магнитно поле, което ни защитава от слънчевия вятър</li>
-              <li>Един естествен спътник – Луната</li>
-              <li>Единственото известно място с живот</li>
-            </ul>
-          </div>
-        </section>
-
-        <section className="mb-8">
-          <h2 className="text-xl sm:text-2xl font-semibold mb-4">Марс ♂</h2>
-          <div className="bg-red-50 dark:bg-red-900/20 p-4 rounded-lg mb-4">
-            <ul className="list-disc list-inside space-y-2">
-              <li>Червената планета (заради желязния оксид в почвата)</li>
-              <li>Тънка атмосфера от CO₂ (налягане 0.6% от земното)</li>
-              <li>Полярни ледени шапки от вода и CO₂ лед</li>
-              <li>Олимп Монс – най-високият вулкан в Слънчевата система (21 km)</li>
-              <li>Валес Маринерис – каньон дълъг 4000 km</li>
-              <li>Два малки спътника – Фобос и Деймос</li>
-              <li>Следи от древни реки и езера</li>
-            </ul>
-          </div>
-        </section>
-
-        <section className="mb-8">
-          <h2 className="text-xl sm:text-2xl font-semibold mb-4">
-            Сравнение на размерите
-          </h2>
-
-          <div className="bg-white dark:bg-gray-800 p-4 rounded-lg border-2 border-purple-300 dark:border-purple-600 mb-6">
-            <svg viewBox="0 0 600 200" className="w-full h-auto">
-              {/* Меркурий */}
-              <circle cx="80" cy="100" r="15" fill="rgb(169, 169, 169)" />
-              <text x="80" y="130" fontSize="11" textAnchor="middle" fill="currentColor">Меркурий</text>
-              <text x="80" y="145" fontSize="9" textAnchor="middle" fill="gray">4,879 km</text>
-
-              {/* Венера */}
-              <circle cx="180" cy="100" r="35" fill="rgb(255, 198, 73)" />
-              <text x="180" y="145" fontSize="11" textAnchor="middle" fill="currentColor">Венера</text>
-              <text x="180" y="160" fontSize="9" textAnchor="middle" fill="gray">12,104 km</text>
-
-              {/* Земя */}
-              <circle cx="300" cy="100" r="36" fill="rgb(59, 130, 246)" />
-              <circle cx="300" cy="100" r="36" fill="none" stroke="rgb(34, 197, 94)" strokeWidth="2" />
-              <text x="300" y="150" fontSize="11" textAnchor="middle" fill="currentColor" fontWeight="bold">Земя</text>
-              <text x="300" y="165" fontSize="9" textAnchor="middle" fill="gray">12,742 km</text>
-
-              {/* Марс */}
-              <circle cx="420" cy="100" r="20" fill="rgb(239, 68, 68)" />
-              <text x="420" y="130" fontSize="11" textAnchor="middle" fill="currentColor">Марс</text>
-              <text x="420" y="145" fontSize="9" textAnchor="middle" fill="gray">6,779 km</text>
-
-              {/* Луна (за сравнение) */}
-              <circle cx="520" cy="100" r="10" fill="rgb(200, 200, 200)" />
-              <text x="520" y="120" fontSize="10" textAnchor="middle" fill="gray">Луна</text>
-              <text x="520" y="133" fontSize="8" textAnchor="middle" fill="gray">3,474 km</text>
-            </svg>
-          </div>
-        </section>
-
-        <section className="mb-8">
-          <h2 className="text-xl sm:text-2xl font-semibold mb-4">
-            📝 Задачи за упражнение
-          </h2>
-
-          {/* Ниво А */}
           <div className="mb-6">
-            <h3 className="text-lg font-semibold mb-3 text-green-600 dark:text-green-400">
-              Ниво А (Областен кръг)
-            </h3>
+            <h3 className="text-lg font-semibold mb-3 text-green-600 dark:text-green-400">Ниво А (Областен кръг)</h3>
 
-            <div className="bg-white dark:bg-gray-800 p-4 rounded-lg mb-4 border-l-4 border-green-500">
-              <p className="font-semibold mb-2">1. Коя е най-горещата планета в Слънчевата система и защо?</p>
-              <button
-                onClick={() => toggleSolution('a1')}
-                className="text-blue-600 dark:text-blue-400 hover:underline text-sm"
-              >
-                {showSolutions['a1'] ? '▼ Скрий решението' : '▶ Покажи решението'}
-              </button>
-              {showSolutions['a1'] && (
-                <div className="mt-3 p-3 bg-blue-50 dark:bg-blue-900/20 rounded">
-                  <p className="font-semibold">Отговор: Венера</p>
-                  <p className="mt-2">Обяснение: Въпреки че Меркурий е по-близо до Слънцето,
-                  Венера е по-гореща (465°C) заради мощния парников ефект. Плътната атмосфера
-                  от CO₂ задържа топлината и не позволява на планетата да се охлажда.</p>
-                </div>
-              )}
-            </div>
+            <Task {...task('a1')} number={1} color="border-green-500" question="Коя е най-горещата планета в Слънчевата система и защо?">
+              <p>
+                <strong>Венера</strong> (~464 °C), въпреки че Меркурий е по-близо до Слънцето. Плътната атмосфера от CO₂ задържа
+                инфрачервеното излъчване на повърхността – парников ефект. Температурата е почти еднаква денем и нощем, на екватора и
+                на полюсите, защото атмосферата разнася топлината.
+              </p>
+            </Task>
 
-            <div className="bg-white dark:bg-gray-800 p-4 rounded-lg mb-4 border-l-4 border-green-500">
-              <p className="font-semibold mb-2">2. Защо Марс е червен?</p>
-              <button
-                onClick={() => toggleSolution('a2')}
-                className="text-blue-600 dark:text-blue-400 hover:underline text-sm"
-              >
-                {showSolutions['a2'] ? '▼ Скрий решението' : '▶ Покажи решението'}
-              </button>
-              {showSolutions['a2'] && (
-                <div className="mt-3 p-3 bg-blue-50 dark:bg-blue-900/20 rounded">
-                  <p className="font-semibold">Решение:</p>
-                  <p className="mt-2">Марс е червен заради желязния оксид (ръжда) в почвата и
-                  скалите на повърхността. Желязото се е окислило в миналото, когато Марс е имал
-                  по-плътна атмосфера и вода.</p>
-                </div>
-              )}
-            </div>
+            <Task {...task('a2')} number={2} color="border-green-500" question="Защо Марс е червен и защо атмосферата му е толкова рядка?">
+              <p>Червеният цвят идва от железния оксид (ръжда) в праха и скалите на повърхността.</p>
+              <p>
+                Марс е малък: гравитацията му е ~3 пъти по-слаба от земната, а ядрото му отдавна е спряло да създава магнитно поле.
+                Без тази защита слънчевият вятър постепенно е откъснал по-голямата част от атмосферата.
+              </p>
+            </Task>
+
+            <Task {...task('a3')} number={3} color="border-green-500" question="Защо Меркурий и Луната са покрити с кратери, а на Земята кратерите се откриват трудно?">
+              <p>
+                И Земята е била удряна, но атмосферата изгаря по-малките тела, а водата, вятърът, животът и движението на плочите
+                заличават старите кратери. Меркурий и Луната нямат атмосфера и са геологично мъртви – там кратери отпреди 4 млрд.
+                години са запазени и днес.
+              </p>
+            </Task>
           </div>
 
-          {/* Ниво В */}
           <div className="mb-6">
-            <h3 className="text-lg font-semibold mb-3 text-yellow-600 dark:text-yellow-400">
-              Ниво В (Национален кръг)
-            </h3>
+            <h3 className="text-lg font-semibold mb-3 text-yellow-600 dark:text-yellow-400">Ниво В (Национален кръг)</h3>
 
-            <div className="bg-white dark:bg-gray-800 p-4 rounded-lg mb-4 border-l-4 border-yellow-500">
-              <p className="font-semibold mb-2">3. Обясни защо на Меркурий има толкова големи
-              температурни разлики между деня и нощта.</p>
-              <button
-                onClick={() => toggleSolution('b3')}
-                className="text-blue-600 dark:text-blue-400 hover:underline text-sm"
-              >
-                {showSolutions['b3'] ? '▼ Скрий решението' : '▶ Покажи решението'}
-              </button>
-              {showSolutions['b3'] && (
-                <div className="mt-3 p-3 bg-blue-50 dark:bg-blue-900/20 rounded">
-                  <p className="font-semibold">Решение:</p>
-                  <p className="mt-2">Причини за екстремните температури:</p>
-                  <ul className="list-disc list-inside mt-2 space-y-1">
-                    <li><strong>Няма атмосфера</strong> – няма нищо да задържа топлината през нощта</li>
-                    <li><strong>Бавно въртене</strong> – един ден = 59 земни дни, дълго време за нагряване/охлаждане</li>
-                    <li><strong>Близо до Слънцето</strong> – получава много слънчева енергия през деня</li>
-                  </ul>
-                  <p className="mt-2">Резултат: +430°C на слънце, -180°C в сянка (разлика 610°C!)</p>
-                </div>
-              )}
-            </div>
+            <Task {...task('b1')} number={4} color="border-yellow-500" question="Масата на Марс е 6,42 · 10²³ kg, а радиусът му – 3390 km. Намерете средната плътност и я сравнете със земната (5,51 g/cm³). Какво следва от това?">
+              <p>V = 4π · (3,39 · 10⁶)³ / 3 ≈ 1,63 · 10²⁰ m³</p>
+              <p>ρ = 6,42 · 10²³ / 1,63 · 10²⁰ ≈ 3930 kg/m³ = 3,93 g/cm³</p>
+              <p>
+                Марс е с ~30% по-рядък. Част от разликата идва от това, че по-малката маса по-слабо свива веществото в недрата. Другата
+                част – от ядрото: то е по-малко като дял от масата и съдържа много сяра, която е по-лека от желязото.
+              </p>
+            </Task>
 
-            <div className="bg-white dark:bg-gray-800 p-4 rounded-lg mb-4 border-l-4 border-yellow-500">
-              <p className="font-semibold mb-2">4. Използвайки третия закон на Кеплер, изчисли
-              периода на Марс, ако a = 1.52 AU.</p>
-              <button
-                onClick={() => toggleSolution('b4')}
-                className="text-blue-600 dark:text-blue-400 hover:underline text-sm"
-              >
-                {showSolutions['b4'] ? '▼ Скрий решението' : '▶ Покажи решението'}
-              </button>
-              {showSolutions['b4'] && (
-                <div className="mt-3 p-3 bg-blue-50 dark:bg-blue-900/20 rounded">
-                  <p className="font-semibold">Решение:</p>
-                  <p className="mt-2">Трети закон на Кеплер: T² = a³</p>
-                  <p className="mt-2">T² = 1.52³ = 3.512</p>
-                  <p>T = √3.512 ≈ 1.874 години</p>
-                  <p className="mt-2">Преобразуване в дни: 1.874 × 365.25 ≈ 684 дни</p>
-                  <p className="mt-2"><strong>Отговор: около 1.87 години или 687 дни</strong></p>
-                  <p className="mt-2 text-sm">(Реалната стойност е 687 дни)</p>
-                </div>
-              )}
-            </div>
+            <Task {...task('b2')} number={5} color="border-yellow-500" question="Венера се завърта спрямо звездите за 243 дни в обратна посока, а обикаля Слънцето за 224,7 дни. Колко е слънчевото денонощие?">
+              <p>При обратно въртене двете движения се събират: 1 / P = 1 / 243 + 1 / 224,7</p>
+              <p>1 / P = 0,004115 + 0,004450 = 0,008566</p>
+              <p>
+                <strong>P ≈ 117 дни.</strong> На Венера има по-малко от две слънчеви денонощия за година.
+              </p>
+            </Task>
+
+            <Task {...task('b3')} number={6} color="border-yellow-500" question="Марс обикаля Слънцето за 1,881 години. На колко време се повтарят противопоставянията му (най-добрите моменти за наблюдение и изстрелване на сонди)? Последното беше на 16 януари 2025 г.">
+              <p>Синодичен период на външна планета: 1 / S = 1 / 1 − 1 / 1,881 = 0,4684</p>
+              <p>S ≈ 2,135 години ≈ 780 дни (~2 години и 2 месеца).</p>
+              <p>
+                Следващото противопоставяне е около началото на 2027 г. (реално – 19 февруари 2027 г.; разликата идва от
+                елиптичната орбита на Марс).
+              </p>
+            </Task>
           </div>
 
-          {/* Ниво С */}
           <div className="mb-6">
-            <h3 className="text-lg font-semibold mb-3 text-red-600 dark:text-red-400">
-              Ниво С (Международна олимпиада)
-            </h3>
+            <h3 className="text-lg font-semibold mb-3 text-red-600 dark:text-red-400">Ниво С (Международна олимпиада)</h3>
 
-            <div className="bg-white dark:bg-gray-800 p-4 rounded-lg mb-4 border-l-4 border-red-500">
-              <p className="font-semibold mb-2">5. Защо Венера е по-гореща от Меркурий, въпреки че
-              е по-далеч от Слънцето? Изчисли колко пъти по-малко слънчева енергия получава
-              Венера спрямо Меркурий.</p>
-              <button
-                onClick={() => toggleSolution('c5')}
-                className="text-blue-600 dark:text-blue-400 hover:underline text-sm"
-              >
-                {showSolutions['c5'] ? '▼ Скрий решението' : '▶ Покажи решението'}
-              </button>
-              {showSolutions['c5'] && (
-                <div className="mt-3 p-3 bg-blue-50 dark:bg-blue-900/20 rounded">
-                  <p className="font-semibold">Решение:</p>
-                  <p className="mt-2">Слънчевата енергия намалява с квадрата на разстоянието:</p>
-                  <p className="font-mono">I ∝ 1/r²</p>
-                  <p className="mt-2">Съотношение: I_Венера / I_Меркурий = (r_Меркурий / r_Венера)²</p>
-                  <p>= (0.39 / 0.72)² = 0.542² ≈ 0.29</p>
-                  <p className="mt-2">Венера получава около <strong>29%</strong> от енергията на Меркурий
-                  (или 3.4 пъти по-малко).</p>
-                  <p className="mt-2"><strong>Защо е по-гореща?</strong></p>
-                  <p className="mt-2">Парниковият ефект! Плътната атмосфера от CO₂ задържа топлината.
-                  Меркурий няма атмосфера, затова бързо се охлажда през нощта. Венера задържа
-                  топлината и постоянно се нагрява.</p>
-                  <p className="mt-2">Това показва, че атмосферата е по-важна от разстоянието за температурата!</p>
-                </div>
-              )}
-            </div>
+            <Task
+              {...task('c1')}
+              number={7}
+              color="border-red-500"
+              question="Изчислете равновесните температури на Меркурий (d = 0,387 AU, A = 0,07) и Венера (d = 0,723 AU, A = 0,76). Сравнете с измерените 440 K (средно за Меркурий) и 737 K. Колко пъти по-малко светлина на 1 m² получава Венера?"
+            >
+              <p>Отношение на потоците: (0,387 / 0,723)² ≈ 0,29 – Венера получава ~3,5 пъти по-малко светлина.</p>
+              <p>T_Меркурий = 279 · 0,93¼ / √0,387 ≈ 279 · 0,982 / 0,622 ≈ 440 K – съвпада с измереното.</p>
+              <p>T_Венера = 279 · 0,24¼ / √0,723 ≈ 279 · 0,700 / 0,850 ≈ 230 K – по-студено от Земята!</p>
+              <p>
+                Реалната температура на Венера е с над 500 K по-висока. Цялата разлика идва от парниковия ефект. Ако приемем модела с
+                N слоя, (737 / 230)⁴ = 1 + N ⇒ N ≈ 105.
+              </p>
+            </Task>
+
+            <Task
+              {...task('c2')}
+              number={8}
+              color="border-red-500"
+              question="Горната атмосфера на Марс е с T ≈ 250 K, а втората космическа скорост е 5,0 km/s. Може ли Марс да задържи хелий? А кислород?"
+            >
+              <p>v = √(3kT / m), 3kT = 3 · 1,38 · 10⁻²³ · 250 ≈ 1,04 · 10⁻²⁰ J</p>
+              <p>Хелий (m = 4 · 1,66 · 10⁻²⁷ kg): v ≈ √(1,56 · 10⁶) ≈ 1,25 km/s, 6v ≈ 7,5 km/s &gt; 5,0 – хелият бяга.</p>
+              <p>Кислород O₂ (m = 32 · 1,66 · 10⁻²⁷ kg): v ≈ √(1,95 · 10⁵) ≈ 0,44 km/s, 6v ≈ 2,6 km/s &lt; 5,0 – остава.</p>
+              <p>
+                Въпреки това Марс губи и тежки газове – не термично, а заради слънчевия вятър, който отнася йонизираните частици от
+                горната атмосфера.
+              </p>
+            </Task>
+
+            <Task
+              {...task('c3')}
+              number={9}
+              color="border-red-500"
+              question="Най-високата планина на Земята, мерена от основата ѝ (Мауна Кеа), е ~10 km. Оценете колко висока може да бъде планина на Марс (g = 3,71 m/s²) и сравнете с Олимп."
+            >
+              <p>
+                Планината може да расте, докато налягането в основата ѝ ρgh не надхвърли якостта на скалите. Скалите са подобни,
+                затова h_max ∝ 1 / g.
+              </p>
+              <p>h_Марс ≈ 10 km · 9,81 / 3,71 ≈ 26 km</p>
+              <p>
+                Олимп се издига на ~22 km над средното ниво и на ~26 km над околните равнини – тъкмо колкото позволява слабата
+                гравитация.
+              </p>
+            </Task>
           </div>
         </section>
 
         <section className="mb-8">
-          <h2 className="text-xl sm:text-2xl font-semibold mb-4">
-            Обобщение
-          </h2>
-          <div className="bg-gradient-to-r from-gray-50 to-red-50 dark:from-gray-800 dark:to-gray-700 p-6 rounded-lg">
+          <h2 className="text-xl sm:text-2xl font-semibold mb-4">10. Обобщение</h2>
+          <div className="bg-gradient-to-r from-stone-50 to-red-50 dark:from-gray-800 dark:to-gray-700 p-6 rounded-lg">
             <ul className="space-y-2">
-              <li>✓ Четири планети от земен тип: Меркурий, Венера, Земя, Марс</li>
-              <li>✓ Всички имат скалиста повърхност и висока плътност</li>
-              <li>✓ Меркурий – най-малък, екстремни температури</li>
-              <li>✓ Венера – най-горещ, парников ефект</li>
-              <li>✓ Земя – единствена с течна вода и живот</li>
-              <li>✓ Марс – червен, следи от древна вода</li>
+              <li>✓ Четири скалисти планети, образувани от метали и силикати вътре от снежната линия</li>
+              <li>✓ Средна плътност ρ = 3M / (4πR³) от 3,9 до 5,5 g/cm³; всички имат ядро, мантия и кора</li>
+              <li>✓ По-голямата планета остава гореща и геологично активна по-дълго (V / S = R / 3)</li>
+              <li>✓ Газът се задържа, ако v₂ ≳ 6 · √(3kT / m) – затова водородът и хелият са избягали</li>
+              <li>✓ T_eq ≈ 279 K · (1 − A)^¼ / √d; Венера е 500 K по-гореща от T_eq заради парниковия ефект</li>
+              <li>✓ Меркурий: резонанс 3 : 2, слънчев ден 176 дни; Венера: обратно въртене, слънчев ден 117 дни</li>
+              <li>✓ Само Земята има течна вода на повърхността, тектоника на плочите и силно магнитно поле</li>
             </ul>
           </div>
         </section>
 
         <section className="mb-8">
           <div className="bg-yellow-50 dark:bg-yellow-900/20 border-l-4 border-yellow-500 p-4 rounded">
-            <h3 className="font-semibold mb-2">💡 Интересен факт</h3>
+            <h3 className="font-semibold mb-2 flex items-center gap-2">
+              <span>💡</span>
+              <span>Интересен факт</span>
+            </h3>
             <p>
-              Венера и Земя са почти еднакви по размер (Венера е 95% от Земята) и често
-              се наричат "планети-близнаци". Но условията са драстично различни! Венера
-              е пример за "избягал парников ефект" – предупреждение какво може да се случи
-              с климата на една планета.
+              На ~50 km над повърхността на Венера налягането е около 1 bar, а температурата – между 0 и 50 °C. Това е най-подобното
+              на Земята място в Слънчевата система извън самата Земя. Затова учени предлагат бъдещи изследователски станции да се
+              носят като балони в облаците на Венера – въздухът, който дишаме, е по-лек от CO₂ и би ги държал във въздуха.
             </p>
           </div>
         </section>
