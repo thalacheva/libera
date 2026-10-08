@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import Example from '~/Example';
 import Quiz, { type Question } from '~/Quiz';
 import Theorem from '~/Theorem';
@@ -7,7 +6,7 @@ import DistanceLab from './components/DistanceLab';
 import MagnitudeLab from './components/MagnitudeLab';
 import SpectralClassLab from './components/SpectralClassLab';
 import StarSizeLab from './components/StarSizeLab';
-import Task from './components/Task';
+import Task, { TaskBoard, TaskLevel } from './components/Task';
 import { CLASSES } from './components/starData';
 
 const QUIZ: Question[] = [
@@ -79,14 +78,6 @@ const MEASURED = [
 ];
 
 export default function Lecture18() {
-  const [showSolutions, setShowSolutions] = useState<{ [key: string]: boolean }>({});
-
-  const task = (id: string) => ({
-    id,
-    shown: !!showSolutions[id],
-    onToggle: (taskId: string) => setShowSolutions(prev => ({ ...prev, [taskId]: !prev[taskId] })),
-  });
-
   return (
     <main className="flex-1 overflow-y-auto px-4 pt-16 pb-12 sm:px-6 lg:px-10 lg:pt-10">
       <div className="max-w-4xl mx-auto">
@@ -322,18 +313,18 @@ export default function Lecture18() {
 
         <section className="mb-8">
           <h2 className="text-xl sm:text-2xl font-semibold mb-4">9. 📝 Задачи за упражнение</h2>
-
+          <TaskBoard>
           <div className="mb-6">
-            <h3 className="text-lg font-semibold mb-3 text-green-600 dark:text-green-400">Ниво А (Областен кръг)</h3>
+            <TaskLevel level="A" />
 
-            <Task {...task('a1')} number={1} color="border-green-500" question="Коя звезда е по-гореща – синя или червена?">
+            <Task id="a1" number={1} color="border-green-500" question="Коя звезда е по-гореща – синя или червена?">
               <p>
                 <strong>Синята.</strong> Колкото по-гореща е звездата, толкова по-къса е дължината на вълната, при която излъчва
                 най-много (закон на Вин). Сините звезди (класове O и B) са с температура над 10 000 K, червените (K и M) – под 5000 K.
               </p>
             </Task>
 
-            <Task {...task('a2')} number={2} color="border-green-500" question="Какво означава обозначението G2V на Слънцето?">
+            <Task id="a2" number={2} color="border-green-500" question="Какво означава обозначението G2V на Слънцето?">
               <p>
                 <strong>G</strong> – спектрален клас: жълтеникава звезда с температура 5200–6000 K и силни линии на калция и металите.
               </p>
@@ -343,16 +334,16 @@ export default function Lecture18() {
               </p>
             </Task>
 
-            <Task {...task('a3')} number={3} color="border-green-500" question="Звезда A има видима величина 1, а звезда B – величина 3. Коя изглежда по-ярка и колко пъти?">
+            <Task id="a3" number={3} color="border-green-500" question="Звезда A има видима величина 1, а звезда B – величина 3. Коя изглежда по-ярка и колко пъти?">
               <p>По-ярка е A – тя има по-малка величина.</p>
               <p>F_A / F_B = 2,512^(3 − 1) = 2,512² ≈ 6,3 пъти.</p>
             </Task>
           </div>
 
           <div className="mb-6">
-            <h3 className="text-lg font-semibold mb-3 text-yellow-600 dark:text-yellow-400">Ниво В (Национален кръг)</h3>
+            <TaskLevel level="B" />
 
-            <Task {...task('b1')} number={4} color="border-yellow-500" question="Звезда има температура 10 000 K. При каква дължина на вълната излъчва най-много?">
+            <Task id="b1" number={4} color="border-yellow-500" question="Звезда има температура 10 000 K. При каква дължина на вълната излъчва най-много?">
               <p>λ_max = 2,898 · 10⁻³ / T = 2,898 · 10⁻³ / 10 000 = 2,9 · 10⁻⁷ m = 290 nm</p>
               <p>
                 <strong>Това е ултравиолетово.</strong> Виждаме звездата синкавобяла, защото от видимата област тя излъчва най-много в
@@ -360,7 +351,7 @@ export default function Lecture18() {
               </p>
             </Task>
 
-            <Task {...task('b2')} number={5} color="border-yellow-500" question="Две звезди имат еднаква видима величина m = 5. Едната е на 10 pc, другата – на 100 pc. Коя е с по-голяма светимост и колко пъти?">
+            <Task id="b2" number={5} color="border-yellow-500" question="Две звезди имат еднаква видима величина m = 5. Едната е на 10 pc, другата – на 100 pc. Коя е с по-голяма светимост и колко пъти?">
               <p>M = m − 5 · lg(d / 10)</p>
               <p>Първата: M₁ = 5 − 5 · lg 1 = 5. Втората: M₂ = 5 − 5 · lg 10 = 0.</p>
               <p>
@@ -369,7 +360,7 @@ export default function Lecture18() {
               </p>
             </Task>
 
-            <Task {...task('b3')} number={6} color="border-yellow-500" question="Сириус има M = +1,42, а Полярната звезда – M = −3,6. Коя е с по-голяма светимост и колко пъти? Защо тогава Сириус изглежда по-ярък?">
+            <Task id="b3" number={6} color="border-yellow-500" question="Сириус има M = +1,42, а Полярната звезда – M = −3,6. Коя е с по-голяма светимост и колко пъти? Защо тогава Сириус изглежда по-ярък?">
               <p>ΔM = 1,42 − (−3,6) = 5,02 ⇒ L_Полярна / L_Сириус = 10^(0,4 · 5,02) ≈ 100</p>
               <p>
                 Полярната е ~100 пъти по-ярка, но е на 133 pc, а Сириус – на 2,64 pc. Разстоянието е 50 пъти по-голямо, потокът е 2500
@@ -379,10 +370,10 @@ export default function Lecture18() {
           </div>
 
           <div className="mb-6">
-            <h3 className="text-lg font-semibold mb-3 text-red-600 dark:text-red-400">Ниво С (Международна олимпиада)</h3>
+            <TaskLevel level="C" />
 
             <Task
-              {...task('c1')}
+              id="c1"
               number={7}
               color="border-red-500"
               question="Звезда A е два пъти по-гореща и с два пъти по-голям радиус от звезда Б. Колко пъти е по-голяма светимостта ѝ? Възможно ли е и двете да са на главната последователност? (Там приблизително L ∝ M^3,5 и R ∝ M^0,8.)"
@@ -399,7 +390,7 @@ export default function Lecture18() {
             </Task>
 
             <Task
-              {...task('c2')}
+              id="c2"
               number={8}
               color="border-red-500"
               question="Алфа Кентавър A има m = 0,01, а Алфа Кентавър B – m = 1,33. С просто око двете не се различават. Каква е общата им видима величина? А на две еднакви звезди с m = 2?"
@@ -410,7 +401,7 @@ export default function Lecture18() {
             </Task>
 
             <Task
-              {...task('c3')}
+              id="c3"
               number={9}
               color="border-red-500"
               question="Бетелгейзе има R ≈ 770 R☉ и е на 168 pc. Какъв е ъгловият ѝ диаметър? Може ли да бъде видян като диск от телескоп с диаметър 2,4 m (Хъбъл) при λ = 500 nm?"
@@ -426,6 +417,7 @@ export default function Lecture18() {
               </p>
             </Task>
           </div>
+          </TaskBoard>
         </section>
 
         <section className="mb-8">

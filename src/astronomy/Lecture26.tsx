@@ -1,10 +1,9 @@
-import { useState } from 'react';
 import Example from '~/Example';
 import Quiz, { type Question } from '~/Quiz';
 import Theorem from '~/Theorem';
 import MilkyWayMapLab from './components/MilkyWayMapLab';
 import SgrAStarsLab from './components/SgrAStarsLab';
-import Task from './components/Task';
+import Task, { TaskBoard, TaskLevel } from './components/Task';
 import WindingLab from './components/WindingLab';
 
 const QUIZ: Question[] = [
@@ -84,14 +83,6 @@ const NEIGHBOURS = [
 ];
 
 export default function Lecture26() {
-  const [showSolutions, setShowSolutions] = useState<{ [key: string]: boolean }>({});
-
-  const task = (id: string) => ({
-    id,
-    shown: !!showSolutions[id],
-    onToggle: (taskId: string) => setShowSolutions(prev => ({ ...prev, [taskId]: !prev[taskId] })),
-  });
-
   return (
     <main className="flex-1 overflow-y-auto px-4 pt-16 pb-12 sm:px-6 lg:px-10 lg:pt-10">
       <div className="max-w-4xl mx-auto">
@@ -211,24 +202,24 @@ export default function Lecture26() {
 
         <section className="mb-8">
           <h2 className="text-xl sm:text-2xl font-semibold mb-4">7. 📝 Задачи за упражнение</h2>
-
+          <TaskBoard>
           <div className="mb-6">
-            <h3 className="text-lg font-semibold mb-3 text-green-600 dark:text-green-400">Ниво А (Областен кръг)</h3>
-            <Task {...task('a1')} number={1} color="border-green-500" question="Защо Млечният път се вижда като ивица, която обикаля цялото небе?">
+            <TaskLevel level="A" />
+            <Task id="a1" number={1} color="border-green-500" question="Защо Млечният път се вижда като ивица, която обикаля цялото небе?">
               <p>
                 Галактиката е плосък диск, а Слънцето е вътре в него. По посоката на диска виждаме огромен брой далечни звезди, които се
                 сливат в светла ивица; в посоките извън диска звездите са малко. Тъй като сме вътре, ивицата обикаля цялото небе като
                 голям кръг.
               </p>
             </Task>
-            <Task {...task('a2')} number={2} color="border-green-500" question="Защо не виждаме центъра на Галактиката с обикновен телескоп? Как тогава го изследваме?">
+            <Task id="a2" number={2} color="border-green-500" question="Защо не виждаме центъра на Галактиката с обикновен телескоп? Как тогава го изследваме?">
               <p>
                 По пътя има толкова много прах, че видимата светлина отслабва с ~30 звездни величини – 10¹² пъти. Инфрачервената
                 светлина, радиовълните и рентгеновите лъчи минават през праха. Затова звездите около Sgr A* се следят в инфрачервено, а
                 самата черна дупка – в радиодиапазона.
               </p>
             </Task>
-            <Task {...task('a3')} number={3} color="border-green-500" question="Какво отличава звездите от Популация I и Популация II?">
+            <Task id="a3" number={3} color="border-green-500" question="Какво отличава звездите от Популация I и Популация II?">
               <p>
                 Популация I са млади звезди в диска, богати на тежки елементи. Популация II са стари звезди в ореола и кълбовидните
                 купове, бедни на тежки елементи. Разликата идва от това, че звездите от Популация II са родени, когато Галактиката още не
@@ -238,17 +229,17 @@ export default function Lecture26() {
           </div>
 
           <div className="mb-6">
-            <h3 className="text-lg font-semibold mb-3 text-yellow-600 dark:text-yellow-400">Ниво В (Национален кръг)</h3>
-            <Task {...task('b1')} number={4} color="border-yellow-500" question="Звезда в диска е на 4 kpc от центъра и се движи с 220 km/s. Колко трае нейната галактична година? Колко пъти по-бързо от Слънцето обикаля?">
+            <TaskLevel level="B" />
+            <Task id="b1" number={4} color="border-yellow-500" question="Звезда в диска е на 4 kpc от центъра и се движи с 220 km/s. Колко трае нейната галактична година? Колко пъти по-бързо от Слънцето обикаля?">
               <p>T = 2π · 4 kpc / 220 km/s = 25 100 pc / (225 pc/млн. г.) ≈ 112 млн. години</p>
               <p>Почти два пъти по-бързо от Слънцето (219 млн. години) – при плоска крива на въртене периодът е пропорционален на радиуса.</p>
             </Task>
-            <Task {...task('b2')} number={5} color="border-yellow-500" question="Облак водород в Галактиката се отдалечава от нас със 100 km/s. С колко се измества линията от 21,106 cm (1420,406 MHz)?">
+            <Task id="b2" number={5} color="border-yellow-500" question="Облак водород в Галактиката се отдалечава от нас със 100 km/s. С колко се измества линията от 21,106 cm (1420,406 MHz)?">
               <p>Δλ = λ · v / c = 21,106 · 100 / 3 · 10⁵ ≈ 0,0070 cm = 0,07 mm</p>
               <p>Δν = −ν · v / c = −1420,406 · 100 / 3 · 10⁵ ≈ −0,47 MHz ⇒ ν ≈ 1419,93 MHz</p>
               <p>По такива отмествания в различни посоки се построява кривата на въртене и карта на ръкавите.</p>
             </Task>
-            <Task {...task('b3')} number={6} color="border-yellow-500" question="Сянката на черна дупка е с диаметър ~5,2 Rs. Колко е ъгловият диаметър на сянката на Sgr A* (Rs = 1,27 · 10¹⁰ m, d = 8,28 kpc)? Какъв телескоп трябва при λ = 1,3 mm?">
+            <Task id="b3" number={6} color="border-yellow-500" question="Сянката на черна дупка е с диаметър ~5,2 Rs. Колко е ъгловият диаметър на сянката на Sgr A* (Rs = 1,27 · 10¹⁰ m, d = 8,28 kpc)? Какъв телескоп трябва при λ = 1,3 mm?">
               <p>d = 8,28 · 3,086 · 10¹⁹ ≈ 2,56 · 10²⁰ m</p>
               <p>θ = 5,2 · 1,27 · 10¹⁰ / 2,56 · 10²⁰ ≈ 2,6 · 10⁻¹⁰ rad ≈ 53 µas</p>
               <p>D = 1,22 · λ / θ = 1,22 · 1,3 · 10⁻³ / 2,6 · 10⁻¹⁰ ≈ 6 · 10⁶ m – телескоп с размера на Земята!</p>
@@ -257,13 +248,13 @@ export default function Lecture26() {
           </div>
 
           <div className="mb-6">
-            <h3 className="text-lg font-semibold mb-3 text-red-600 dark:text-red-400">Ниво С (Международна олимпиада)</h3>
-            <Task {...task('c1')} number={7} color="border-red-500" question="Константите на Оорт, измерени по движенията на близки звезди, са A = 15,3 и B = −11,9 km/s/kpc. Ъгловата скорост на въртене при Слънцето е Ω₀ = A − B. Намерете скоростта на Слънцето, ако R₀ = 8,2 kpc. Расте или намалява кривата на въртене около Слънцето (dv/dR = −(A + B))?">
+            <TaskLevel level="C" />
+            <Task id="c1" number={7} color="border-red-500" question="Константите на Оорт, измерени по движенията на близки звезди, са A = 15,3 и B = −11,9 km/s/kpc. Ъгловата скорост на въртене при Слънцето е Ω₀ = A − B. Намерете скоростта на Слънцето, ако R₀ = 8,2 kpc. Расте или намалява кривата на въртене около Слънцето (dv/dR = −(A + B))?">
               <p>Ω₀ = 15,3 + 11,9 = 27,2 km/s/kpc ⇒ v₀ = Ω₀ · R₀ = 27,2 · 8,2 ≈ 223 km/s</p>
               <p>dv/dR = −(A + B) = −(15,3 − 11,9) = −3,4 km/s/kpc – кривата е почти плоска, леко спадаща.</p>
               <p>Ян Оорт извежда тези константи през 1927 г. и така доказва, че Галактиката се върти диференциално.</p>
             </Task>
-            <Task {...task('c2')} number={8} color="border-red-500" question="В кълбовиден куп звездите тип RR Лира (M = +0,6) имат видима величина 17,1. Колко е разстоянието, ако пренебрегнем праха? А ако поглъщането е 1,5 звездни величини? Как това обяснява грешката на Шапли?">
+            <Task id="c2" number={8} color="border-red-500" question="В кълбовиден куп звездите тип RR Лира (M = +0,6) имат видима величина 17,1. Колко е разстоянието, ако пренебрегнем праха? А ако поглъщането е 1,5 звездни величини? Как това обяснява грешката на Шапли?">
               <p>Без прах: m − M = 16,5 ⇒ d = 10^(16,5 / 5 + 1) = 10^4,3 ≈ 20 kpc</p>
               <p>С прах: m − M − A = 15,0 ⇒ d = 10 kpc – наполовина!</p>
               <p>
@@ -271,7 +262,7 @@ export default function Lecture26() {
                 ~100 kpc. Днес знаем: 8,2 kpc и ~30 kpc.
               </p>
             </Task>
-            <Task {...task('c3')} number={9} color="border-red-500" question="Звездата S5-HVS1 лети със скорост 1700 km/s на ~9 kpc от центъра на Галактиката и се отдалечава от него. Ако е изхвърлена от Sgr A*, преди колко време е станало това? Може ли Галактиката да я задържи (втората космическа скорост тук е ~550 km/s)?">
+            <Task id="c3" number={9} color="border-red-500" question="Звездата S5-HVS1 лети със скорост 1700 km/s на ~9 kpc от центъра на Галактиката и се отдалечава от него. Ако е изхвърлена от Sgr A*, преди колко време е станало това? Може ли Галактиката да я задържи (втората космическа скорост тук е ~550 km/s)?">
               <p>t ≈ d / v = 9 kpc / 1700 km/s = 9000 pc / (1739 pc/млн. г.) ≈ 5 млн. години</p>
               <p>
                 1700 km/s е над три пъти повече от втората космическа скорост – звездата ще напусне Галактиката завинаги. Вероятно е била
@@ -279,6 +270,7 @@ export default function Lecture26() {
               </p>
             </Task>
           </div>
+          </TaskBoard>
         </section>
 
         <section className="mb-8">

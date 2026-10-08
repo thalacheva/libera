@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import Example from '~/Example';
 import Quiz, { type Question } from '~/Quiz';
 import Theorem from '~/Theorem';
@@ -6,7 +5,7 @@ import ClusterAgeLab from './components/ClusterAgeLab';
 import HRDiagram from './components/HRDiagram';
 import MainSequenceLab from './components/MainSequenceLab';
 import MSFittingLab from './components/MSFittingLab';
-import Task from './components/Task';
+import Task, { TaskBoard, TaskLevel } from './components/Task';
 
 const QUIZ: Question[] = [
   {
@@ -75,14 +74,6 @@ const REGIONS = [
 ];
 
 export default function Lecture19() {
-  const [showSolutions, setShowSolutions] = useState<{ [key: string]: boolean }>({});
-
-  const task = (id: string) => ({
-    id,
-    shown: !!showSolutions[id],
-    onToggle: (taskId: string) => setShowSolutions(prev => ({ ...prev, [taskId]: !prev[taskId] })),
-  });
-
   return (
     <main className="flex-1 overflow-y-auto px-4 pt-16 pb-12 sm:px-6 lg:px-10 lg:pt-10">
       <div className="max-w-4xl mx-auto">
@@ -239,18 +230,18 @@ export default function Lecture19() {
 
         <section className="mb-8">
           <h2 className="text-xl sm:text-2xl font-semibold mb-4">7. 📝 Задачи за упражнение</h2>
-
+          <TaskBoard>
           <div className="mb-6">
-            <h3 className="text-lg font-semibold mb-3 text-green-600 dark:text-green-400">Ниво А (Областен кръг)</h3>
+            <TaskLevel level="A" />
 
-            <Task {...task('a1')} number={1} color="border-green-500" question="В коя област на HR диаграмата е Слънцето? Какво означава това?">
+            <Task id="a1" number={1} color="border-green-500" question="В коя област на HR диаграмата е Слънцето? Какво означава това?">
               <p>
                 <strong>На главната последователност</strong>, приблизително по средата: T = 5772 K, L = 1 L☉. Това означава, че в
                 ядрото му водородът се превръща в хелий. Слънцето ще остане тук общо около 10 млрд. години – досега са минали 4,6.
               </p>
             </Task>
 
-            <Task {...task('a2')} number={2} color="border-green-500" question="Арктур и Проксима Кентавър са почти еднакво оранжево-червени, но Арктур е 100 000 пъти по-ярък. Как е възможно?">
+            <Task id="a2" number={2} color="border-green-500" question="Арктур и Проксима Кентавър са почти еднакво оранжево-червени, но Арктур е 100 000 пъти по-ярък. Как е възможно?">
               <p>
                 Еднаквият цвят значи сходна температура, т.е. всеки квадратен метър от повърхността им излъчва почти еднакво. Щом Арктур
                 излъчва 100 000 пъти повече, повърхността му е ~100 000 пъти по-голяма, а радиусът – ~√100 000 ≈ 300 пъти. Арктур е
@@ -258,7 +249,7 @@ export default function Lecture19() {
               </p>
             </Task>
 
-            <Task {...task('a3')} number={3} color="border-green-500" question="В коя част на диаграмата са повечето звезди в Галактиката и защо не ги виждаме с просто око?">
+            <Task id="a3" number={3} color="border-green-500" question="В коя част на диаграмата са повечето звезди в Галактиката и защо не ги виждаме с просто око?">
               <p>
                 Повечето звезди са на долния край на главната последователност – червени джуджета от клас M. Те са малки, студени и
                 стотици до хиляди пъти по-слаби от Слънцето. Дори най-близката звезда, Проксима, има видима величина 11 и не се вижда
@@ -268,15 +259,15 @@ export default function Lecture19() {
           </div>
 
           <div className="mb-6">
-            <h3 className="text-lg font-semibold mb-3 text-yellow-600 dark:text-yellow-400">Ниво В (Национален кръг)</h3>
+            <TaskLevel level="B" />
 
-            <Task {...task('b1')} number={4} color="border-yellow-500" question="Звезда от главната последователност има маса 4 M☉. Ако L ∝ M^3,5, колко пъти е по-ярка от Слънцето и колко живее?">
+            <Task id="b1" number={4} color="border-yellow-500" question="Звезда от главната последователност има маса 4 M☉. Ако L ∝ M^3,5, колко пъти е по-ярка от Слънцето и колко живее?">
               <p>L / L☉ = 4^3,5 = 2⁷ = 128</p>
               <p>t = 10¹⁰ · 4 / 128 ≈ 3,1 · 10⁸ години – около 300 милиона години.</p>
               <p>С по-точната връзка (L ≈ 1,4 · M^3,5 ≈ 180 L☉) се получава ~220 млн. години – редът на величината е същият.</p>
             </Task>
 
-            <Task {...task('b2')} number={5} color="border-yellow-500" question="Звезда има T = 3500 K и L = 1000 L☉. Колко е радиусът ѝ? В коя област на диаграмата е?">
+            <Task id="b2" number={5} color="border-yellow-500" question="Звезда има T = 3500 K и L = 1000 L☉. Колко е радиусът ѝ? В коя област на диаграмата е?">
               <p>R / R☉ = √1000 · (5772 / 3500)² = 31,6 · 2,72 ≈ 86</p>
               <p>
                 <strong>~86 R☉ = 0,4 AU</strong> – почти колкото орбитата на Меркурий. Студена и ярка звезда горе вдясно: червен гигант от
@@ -284,7 +275,7 @@ export default function Lecture19() {
               </p>
             </Task>
 
-            <Task {...task('b3')} number={6} color="border-yellow-500" question="Звезда от клас A0V (M ≈ +0,6) има видима величина 10,6. На какво разстояние е?">
+            <Task id="b3" number={6} color="border-yellow-500" question="Звезда от клас A0V (M ≈ +0,6) има видима величина 10,6. На какво разстояние е?">
               <p>m − M = 10,6 − 0,6 = 10</p>
               <p>d = 10^(10 / 5 + 1) = 10³ pc = 1 kpc ≈ 3300 светлинни години</p>
               <p>Паралаксът ѝ би бил 0,001″ = 1 mas – на границата на точност за много звезди дори при Gaia.</p>
@@ -292,10 +283,10 @@ export default function Lecture19() {
           </div>
 
           <div className="mb-6">
-            <h3 className="text-lg font-semibold mb-3 text-red-600 dark:text-red-400">Ниво С (Международна олимпиада)</h3>
+            <TaskLevel level="C" />
 
             <Task
-              {...task('c1')}
+              id="c1"
               number={7}
               color="border-red-500"
               question="Главната последователност на разсеян куп се отклонява при звезди с маса 1,3 M☉. Оценете възрастта на купа, ако L ∝ M⁴, и ако L ∝ M^3,5. Колко чувствителна е оценката?"
@@ -309,7 +300,7 @@ export default function Lecture19() {
             </Task>
 
             <Task
-              {...task('c2')}
+              id="c2"
               number={8}
               color="border-red-500"
               question="Звезда се разширява 10 пъти при постоянна светимост. Как се променя температурата ѝ? Ако това е Слънцето, какъв цвят би имало? В каква посока се мести точката в HR диаграмата?"
@@ -323,7 +314,7 @@ export default function Lecture19() {
             </Task>
 
             <Task
-              {...task('c3')}
+              id="c3"
               number={9}
               color="border-red-500"
               question="Звездите на далечен куп изглеждат с E(B − V) = 0,3 по-червени, отколкото трябва, заради междузвездния прах. Подреждането по главната последователност дава видим модул m − M = 11,0. Ако поглъщането е A_V = 3,1 · E(B − V), колко е истинското разстояние? Колко бихме сгрешили без поправката?"
@@ -337,6 +328,7 @@ export default function Lecture19() {
               </p>
             </Task>
           </div>
+          </TaskBoard>
         </section>
 
         <section className="mb-8">

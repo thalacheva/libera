@@ -1,11 +1,10 @@
-import { useState } from 'react';
 import Example from '~/Example';
 import Quiz, { type Question } from '~/Quiz';
 import Theorem from '~/Theorem';
 import FoucaultPendulum from './components/FoucaultPendulum';
 import SeasonsExplorer from './components/SeasonsExplorer';
 import SiderealSolarDay from './components/SiderealSolarDay';
-import Task from './components/Task';
+import Task, { TaskBoard, TaskLevel } from './components/Task';
 
 const QUIZ: Question[] = [
   {
@@ -81,17 +80,6 @@ const KEY_MOMENTS = [
 ];
 
 export default function Lecture03() {
-  const [showSolutions, setShowSolutions] = useState<{
-    [key: string]: boolean;
-  }>({});
-
-  const task = (id: string) => ({
-    id,
-    shown: !!showSolutions[id],
-    onToggle: (taskId: string) =>
-      setShowSolutions(prev => ({ ...prev, [taskId]: !prev[taskId] })),
-  });
-
   return (
     <main className="flex-1 overflow-y-auto px-4 pt-16 pb-12 sm:px-6 lg:px-10 lg:pt-10">
       <div className="max-w-4xl mx-auto">
@@ -437,14 +425,12 @@ export default function Lecture03() {
           <h2 className="text-xl sm:text-2xl font-semibold mb-4">
             8. 📝 Задачи за упражнение
           </h2>
-
+          <TaskBoard>
           <div className="mb-6">
-            <h3 className="text-lg font-semibold mb-3 text-green-600 dark:text-green-400">
-              Ниво А (Областен кръг)
-            </h3>
+            <TaskLevel level="A" />
 
             <Task
-              {...task('a1')}
+              id="a1"
               number={1}
               color="border-green-500"
               question="Колко трае едно звездно денонощие?"
@@ -458,7 +444,7 @@ export default function Lecture03() {
             </Task>
 
             <Task
-              {...task('a2')}
+              id="a2"
               number={2}
               color="border-green-500"
               question="В каква посока се върти Земята около оста си?"
@@ -472,7 +458,7 @@ export default function Lecture03() {
             </Task>
 
             <Task
-              {...task('a3')}
+              id="a3"
               number={3}
               color="border-green-500"
               question="Колко градуса е наклонена земната ос спрямо перпендикуляра към равнината на орбитата?"
@@ -484,7 +470,7 @@ export default function Lecture03() {
             </Task>
 
             <Task
-              {...task('a4')}
+              id="a4"
               number={4}
               color="border-green-500"
               question="На каква височина е Слънцето по пладне в София (φ = 42,7°) на 21 юни и на 21 декември?"
@@ -503,12 +489,10 @@ export default function Lecture03() {
           </div>
 
           <div className="mb-6">
-            <h3 className="text-lg font-semibold mb-3 text-yellow-600 dark:text-yellow-400">
-              Ниво В (Национален кръг)
-            </h3>
+            <TaskLevel level="B" />
 
             <Task
-              {...task('b1')}
+              id="b1"
               number={5}
               color="border-yellow-500"
               question="Сравни слънчевото и звездното денонощие. Защо има разлика?"
@@ -529,7 +513,7 @@ export default function Lecture03() {
             </Task>
 
             <Task
-              {...task('b2')}
+              id="b2"
               number={6}
               color="border-yellow-500"
               question="Изчисли линейната скорост на точка от екватора заради въртенето на Земята (R = 6371 km)."
@@ -545,7 +529,7 @@ export default function Lecture03() {
             </Task>
 
             <Task
-              {...task('b3')}
+              id="b3"
               number={7}
               color="border-yellow-500"
               question="Земята е най-близо до Слънцето през януари. Защо тогава в България е зима?"
@@ -570,7 +554,7 @@ export default function Lecture03() {
             </Task>
 
             <Task
-              {...task('b4')}
+              id="b4"
               number={8}
               color="border-yellow-500"
               question="За колко време ще направи пълен оборот равнината на махало на Фуко в София (φ = 42,7°)?"
@@ -584,12 +568,10 @@ export default function Lecture03() {
           </div>
 
           <div className="mb-6">
-            <h3 className="text-lg font-semibold mb-3 text-red-600 dark:text-red-400">
-              Ниво С (Международна олимпиада)
-            </h3>
+            <TaskLevel level="C" />
 
             <Task
-              {...task('c1')}
+              id="c1"
               number={9}
               color="border-red-500"
               question="Ако наклонът на земната ос беше 0°, как би се променил климатът на Земята?"
@@ -615,7 +597,7 @@ export default function Lecture03() {
             </Task>
 
             <Task
-              {...task('c2')}
+              id="c2"
               number={10}
               color="border-red-500"
               question="Изчисли средната орбитална скорост на Земята (1 AU = 149,6 млн. km, 1 година = 365,26 денонощия)."
@@ -630,7 +612,7 @@ export default function Lecture03() {
             </Task>
 
             <Task
-              {...task('c3')}
+              id="c3"
               number={11}
               color="border-red-500"
               question="Пресметни продължителността на най-дългия ден в София (φ = 42,7°). Защо измерената стойност (~15h 20m) е по-голяма?"
@@ -652,7 +634,7 @@ export default function Lecture03() {
             </Task>
 
             <Task
-              {...task('c4')}
+              id="c4"
               number={12}
               color="border-red-500"
               question="Наклонът на оста на Марс е 25,2°. На каква ширина са марсианските полярни кръгове и тропици? Има ли Марс сезони?"
@@ -669,6 +651,7 @@ export default function Lecture03() {
               </p>
             </Task>
           </div>
+          </TaskBoard>
         </section>
 
         <section className="mb-8">

@@ -1,10 +1,9 @@
-import { useState } from 'react';
 import Example from '~/Example';
 import Quiz, { type Question } from '~/Quiz';
 import Theorem from '~/Theorem';
 import LeavittLab from './components/LeavittLab';
 import PulsatingStarLab from './components/PulsatingStarLab';
-import Task from './components/Task';
+import Task, { TaskBoard, TaskLevel } from './components/Task';
 import VariableMap from './components/VariableMap';
 
 const QUIZ: Question[] = [
@@ -90,14 +89,6 @@ const ERUPTIVE = [
 ];
 
 export default function Lecture23() {
-  const [showSolutions, setShowSolutions] = useState<{ [key: string]: boolean }>({});
-
-  const task = (id: string) => ({
-    id,
-    shown: !!showSolutions[id],
-    onToggle: (taskId: string) => setShowSolutions(prev => ({ ...prev, [taskId]: !prev[taskId] })),
-  });
-
   return (
     <main className="flex-1 overflow-y-auto px-4 pt-16 pb-12 sm:px-6 lg:px-10 lg:pt-10">
       <div className="max-w-4xl mx-auto">
@@ -237,11 +228,11 @@ export default function Lecture23() {
 
         <section className="mb-8">
           <h2 className="text-xl sm:text-2xl font-semibold mb-4">7. 📝 Задачи за упражнение</h2>
-
+          <TaskBoard>
           <div className="mb-6">
-            <h3 className="text-lg font-semibold mb-3 text-green-600 dark:text-green-400">Ниво А (Областен кръг)</h3>
+            <TaskLevel level="A" />
 
-            <Task {...task('a1')} number={1} color="border-green-500" question="Каква е разликата между физически променлива звезда и затъмняваща двойна?">
+            <Task id="a1" number={1} color="border-green-500" question="Каква е разликата между физически променлива звезда и затъмняваща двойна?">
               <p>
                 При физически променливата звезда се променя самата звезда – радиусът, температурата или излъчването ѝ (цефеиди, мириди,
                 нови). При затъмняващата двойна звездите не се променят; блясъкът спада само защото от Земята виждаме как едната
@@ -249,7 +240,7 @@ export default function Lecture23() {
               </p>
             </Task>
 
-            <Task {...task('a2')} number={2} color="border-green-500" question="Защо цефеидите се наричат „стандартни свещи“?">
+            <Task id="a2" number={2} color="border-green-500" question="Защо цефеидите се наричат „стандартни свещи“?">
               <p>
                 Защото по периода им – който се измерва лесно и не зависи от разстоянието – знаем истинската им светимост (зависимостта
                 на Левит). Сравнявайки я с видимия блясък, намираме разстоянието – както ако знаем мощността на крушка, по това колко
@@ -257,7 +248,7 @@ export default function Lecture23() {
               </p>
             </Task>
 
-            <Task {...task('a3')} number={3} color="border-green-500" question="Мира се мени от 2-ра до 10-а величина. Колко пъти се променя блясъкът ѝ?">
+            <Task id="a3" number={3} color="border-green-500" question="Мира се мени от 2-ра до 10-а величина. Колко пъти се променя блясъкът ѝ?">
               <p>Δm = 8 ⇒ F_max / F_min = 10^(0,4 · 8) = 10^3,2 ≈ 1600 пъти.</p>
               <p>
                 Пълната светимост на Мира се мени само ~2 пъти. Видимият блясък се мени много повече, защото при охлаждане максимумът на
@@ -267,14 +258,14 @@ export default function Lecture23() {
           </div>
 
           <div className="mb-6">
-            <h3 className="text-lg font-semibold mb-3 text-yellow-600 dark:text-yellow-400">Ниво В (Национален кръг)</h3>
+            <TaskLevel level="B" />
 
-            <Task {...task('b1')} number={4} color="border-yellow-500" question="В далечна галактика е открита цефеида с период 30 дни и средна видима величина 20,5. На какво разстояние е галактиката (без поглъщане)?">
+            <Task id="b1" number={4} color="border-yellow-500" question="В далечна галактика е открита цефеида с период 30 дни и средна видима величина 20,5. На какво разстояние е галактиката (без поглъщане)?">
               <p>M_V = −2,43 · (lg 30 − 1) − 4,05 = −2,43 · 0,477 − 4,05 ≈ −5,21</p>
               <p>m − M = 20,5 + 5,21 = 25,71 ⇒ d = 10^(25,71 / 5 + 1) = 10^6,14 ≈ 1,4 · 10⁶ pc = 1,4 Mpc</p>
             </Task>
 
-            <Task {...task('b2')} number={5} color="border-yellow-500" question="В кълбовиден куп звездите тип RR Лира имат средна видима величина 15,6. Колко е далеч купът?">
+            <Task id="b2" number={5} color="border-yellow-500" question="В кълбовиден куп звездите тип RR Лира имат средна видима величина 15,6. Колко е далеч купът?">
               <p>M_V ≈ +0,6 ⇒ m − M = 15,0 ⇒ d = 10^(15 / 5 + 1) = 10⁴ pc = 10 kpc</p>
               <p>
                 С този метод Харлоу Шапли картографира кълбовидните купове през 1918 г. и показва, че те са струпани около точка в
@@ -282,7 +273,7 @@ export default function Lecture23() {
               </p>
             </Task>
 
-            <Task {...task('b3')} number={6} color="border-yellow-500" question="Цефеида има период 10 дни и маса 6 M☉. Оценете средната ѝ плътност и радиуса (P ≈ 0,04 дни / √(ρ / ρ☉)).">
+            <Task id="b3" number={6} color="border-yellow-500" question="Цефеида има период 10 дни и маса 6 M☉. Оценете средната ѝ плътност и радиуса (P ≈ 0,04 дни / √(ρ / ρ☉)).">
               <p>ρ / ρ☉ = (0,04 / 10)² = 1,6 · 10⁻⁵</p>
               <p>R / R☉ = (M / ρ)^(1/3) = (6 / 1,6 · 10⁻⁵)^(1/3) = (3,75 · 10⁵)^(1/3) ≈ 72</p>
               <p>Свръхгигант с радиус ~70 R☉ и средна плътност 20 милиона пъти по-малка от тази на водата.</p>
@@ -290,10 +281,10 @@ export default function Lecture23() {
           </div>
 
           <div className="mb-6">
-            <h3 className="text-lg font-semibold mb-3 text-red-600 dark:text-red-400">Ниво С (Международна олимпиада)</h3>
+            <TaskLevel level="C" />
 
             <Task
-              {...task('c1')}
+              id="c1"
               number={7}
               color="border-red-500"
               question="В галактика са открити две цефеиди: P₁ = 10 дни, m₁ = 21,9 и P₂ = 40 дни, m₂ = 20,4. Проверете дали са съгласувани със зависимостта период–светимост и намерете разстоянието."
@@ -305,7 +296,7 @@ export default function Lecture23() {
             </Task>
 
             <Task
-              {...task('c2')}
+              id="c2"
               number={8}
               color="border-red-500"
               question="Ако калибровката на зависимостта период–светимост е сгрешена така, че цефеидите са смятани за 1,5 величини по-слаби, отколкото са, колко пъти ще сгрешим разстоянията? Сравнете с поправката на Бааде от 1952 г."
@@ -318,7 +309,7 @@ export default function Lecture23() {
             </Task>
 
             <Task
-              {...task('c3')}
+              id="c3"
               number={9}
               color="border-red-500"
               question="Радиусът на цефеида се мени с ±7%, а температурата – с ±8%. Приемете, че максимумът на температурата съвпада с минимума на радиуса. Оценете амплитудата на пълната светимост в звездни величини."
@@ -332,6 +323,7 @@ export default function Lecture23() {
               </p>
             </Task>
           </div>
+          </TaskBoard>
         </section>
 
         <section className="mb-8">

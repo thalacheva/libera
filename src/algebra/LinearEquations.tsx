@@ -1,6 +1,7 @@
 import { CheckCircle, RotateCcw, Sparkles, XCircle } from 'lucide-react';
 import { useState } from 'react';
 import Example from '~/Example';
+import { WordProblems, type WordProblem } from '~/WordProblems';
 import Quiz, { Question } from '~/Quiz';
 
 // ---------- Помощни функции за форматиране ----------
@@ -406,7 +407,7 @@ function Trainer() {
 
 // ---------- Задачи от живота ----------
 
-const wordProblems = [
+const wordProblems: WordProblem[] = [
   {
     title: '🚕 Такси',
     problem: 'Таксито взима 3 лв. за качване и 1.50 лв. на километър. Платили сме 18 лв. Колко километра сме пътували?',
@@ -417,6 +418,10 @@ const wordProblems = [
       'x = 10',
     ],
     answer: '10 km',
+
+    check: [10],
+
+    ask: ['километри'],
   },
   {
     title: '👩‍👧 Възрасти',
@@ -428,6 +433,10 @@ const wordProblems = [
       '18 = x',
     ],
     answer: 'След 18 години (майката ще е на 56, а дъщерята – на 28)',
+
+    check: [18],
+
+    ask: ['след колко години'],
   },
   {
     title: '🌡️ Температура',
@@ -439,6 +448,10 @@ const wordProblems = [
       'x = −40',
     ],
     answer: '−40° (−40 °C = −40 °F)',
+
+    check: [-40],
+
+    ask: ['температура, °'],
   },
 ];
 
@@ -480,7 +493,6 @@ const linearEquationsQuiz: Question[] = [
 // ---------- Страница ----------
 
 export function LinearEquations() {
-  const [openProblems, setOpenProblems] = useState<{ [key: number]: boolean }>({});
 
   return (
     <main className="flex-1 overflow-y-auto px-4 pt-16 pb-12 sm:px-6 lg:px-10 lg:pt-10">
@@ -640,28 +652,7 @@ export function LinearEquations() {
             Най-трудната част е да превърнем текста в уравнение. Избери кое е неизвестното,
             означи го с x и запиши условието като равенство.
           </p>
-          <div className="grid gap-4 sm:grid-cols-3">
-            {wordProblems.map((p, i) => (
-              <div key={p.title} className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-sm flex flex-col">
-                <p className="font-semibold mb-2">{p.title}</p>
-                <p className="text-sm text-gray-700 dark:text-gray-300 mb-3 flex-1">{p.problem}</p>
-                <button
-                  onClick={() => setOpenProblems(prev => ({ ...prev, [i]: !prev[i] }))}
-                  className="text-blue-600 dark:text-blue-400 hover:underline text-sm text-left"
-                >
-                  {openProblems[i] ? '▼ Скрий решението' : '▶ Покажи решението'}
-                </button>
-                {openProblems[i] && (
-                  <div className="mt-2 p-3 bg-blue-50 dark:bg-blue-900/20 rounded text-sm">
-                    {p.solution.map(line => (
-                      <p key={line} className="font-mono">{line}</p>
-                    ))}
-                    <p className="mt-2 font-semibold">Отговор: {p.answer}</p>
-                  </div>
-                )}
-              </div>
-            ))}
-          </div>
+          <WordProblems problems={wordProblems} />
         </section>
 
         <section className="mb-6 sm:mb-8">

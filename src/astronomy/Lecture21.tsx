@@ -1,11 +1,10 @@
-import { useState } from 'react';
 import Example from '~/Example';
 import Quiz, { type Question } from '~/Quiz';
 import Theorem from '~/Theorem';
 import BlackHoleLab from './components/BlackHoleLab';
 import PulsarLab from './components/PulsarLab';
 import RemnantCompare from './components/RemnantCompare';
-import Task from './components/Task';
+import Task, { TaskBoard, TaskLevel } from './components/Task';
 import WhiteDwarfLab from './components/WhiteDwarfLab';
 
 const QUIZ: Question[] = [
@@ -64,14 +63,6 @@ const EVIDENCE = [
 ];
 
 export default function Lecture21() {
-  const [showSolutions, setShowSolutions] = useState<{ [key: string]: boolean }>({});
-
-  const task = (id: string) => ({
-    id,
-    shown: !!showSolutions[id],
-    onToggle: (taskId: string) => setShowSolutions(prev => ({ ...prev, [taskId]: !prev[taskId] })),
-  });
-
   return (
     <main className="flex-1 overflow-y-auto px-4 pt-16 pb-12 sm:px-6 lg:px-10 lg:pt-10">
       <div className="max-w-4xl mx-auto">
@@ -283,18 +274,18 @@ export default function Lecture21() {
 
         <section className="mb-8">
           <h2 className="text-xl sm:text-2xl font-semibold mb-4">6. 📝 Задачи за упражнение</h2>
-
+          <TaskBoard>
           <div className="mb-6">
-            <h3 className="text-lg font-semibold mb-3 text-green-600 dark:text-green-400">Ниво А (Областен кръг)</h3>
+            <TaskLevel level="A" />
 
-            <Task {...task('a1')} number={1} color="border-green-500" question="Какво е хоризонт на събитията?">
+            <Task id="a1" number={1} color="border-green-500" question="Какво е хоризонт на събитията?">
               <p>
                 Границата около черната дупка, отвъд която нищо, дори светлината, не може да се върне. Тя не е твърда повърхност –
                 падащо тяло я пресича, без да „удари“ нещо. Радиусът ѝ е радиусът на Шварцшилд Rs = 2GM / c².
               </p>
             </Task>
 
-            <Task {...task('a2')} number={2} color="border-green-500" question="Каква е максималната маса на бяло джудже? Какво става, ако я надхвърли?">
+            <Task id="a2" number={2} color="border-green-500" question="Каква е максималната маса на бяло джудже? Какво става, ако я надхвърли?">
               <p>
                 <strong>~1,44 M☉ – границата на Чандрасекар.</strong> Над нея налягането на изродените електрони не може да удържи
                 гравитацията. Ако бялото джудже трупа вещество от съсед, при доближаване до границата въглеродът се запалва изведнъж и
@@ -302,7 +293,7 @@ export default function Lecture21() {
               </p>
             </Task>
 
-            <Task {...task('a3')} number={3} color="border-green-500" question="Защо пулсарите „мигат“, при положение че излъчват непрекъснато?">
+            <Task id="a3" number={3} color="border-green-500" question="Защо пулсарите „мигат“, при положение че излъчват непрекъснато?">
               <p>
                 Излъчването е съсредоточено в два тесни лъча по магнитната ос, която е наклонена спрямо оста на въртене. При всяко
                 завъртане лъчът помита Земята за кратко – като светлината на фар. Затова виждаме импулси с периода на въртене.
@@ -311,14 +302,14 @@ export default function Lecture21() {
           </div>
 
           <div className="mb-6">
-            <h3 className="text-lg font-semibold mb-3 text-yellow-600 dark:text-yellow-400">Ниво В (Национален кръг)</h3>
+            <TaskLevel level="B" />
 
-            <Task {...task('b1')} number={4} color="border-yellow-500" question="Колко е радиусът на Шварцшилд за черна дупка от 10 M☉? А за Sgr A* (4,3 · 10⁶ M☉)?">
+            <Task id="b1" number={4} color="border-yellow-500" question="Колко е радиусът на Шварцшилд за черна дупка от 10 M☉? А за Sgr A* (4,3 · 10⁶ M☉)?">
               <p>Rs ≈ 2,95 km · 10 ≈ 30 km – колкото София от единия до другия край.</p>
               <p>Sgr A*: Rs ≈ 2,95 · 4,3 · 10⁶ km ≈ 1,27 · 10⁷ km ≈ 18 R☉ ≈ 0,085 AU – по-малко от орбитата на Меркурий.</p>
             </Task>
 
-            <Task {...task('b2')} number={5} color="border-yellow-500" question="Неутронна звезда има маса 1,4 M☉ и радиус 10 km. Каква е средната ѝ плътност? Колко тежи една чаена лъжичка (5 cm³) от нея?">
+            <Task id="b2" number={5} color="border-yellow-500" question="Неутронна звезда има маса 1,4 M☉ и радиус 10 km. Каква е средната ѝ плътност? Колко тежи една чаена лъжичка (5 cm³) от нея?">
               <p>V = 4π · (10⁴ m)³ / 3 ≈ 4,19 · 10¹² m³; M = 1,4 · 1,99 · 10³⁰ ≈ 2,8 · 10³⁰ kg</p>
               <p>ρ = M / V ≈ 6,7 · 10¹⁷ kg/m³ = 6,7 · 10¹⁴ g/cm³</p>
               <p>
@@ -327,7 +318,7 @@ export default function Lecture21() {
               </p>
             </Task>
 
-            <Task {...task('b3')} number={6} color="border-yellow-500" question="Пулсарът в мъглявината Рак се върти с период 33,5 ms. С каква скорост се движи точка от екватора му, ако радиусът е 12 km? А пулсарът J1748−2446ad (1,4 ms)?">
+            <Task id="b3" number={6} color="border-yellow-500" question="Пулсарът в мъглявината Рак се върти с период 33,5 ms. С каква скорост се движи точка от екватора му, ако радиусът е 12 km? А пулсарът J1748−2446ad (1,4 ms)?">
               <p>v = 2πR / P = 2π · 12 km / 0,0335 s ≈ 2250 km/s – 0,75% от скоростта на светлината.</p>
               <p>J1748−2446ad: v = 2π · 12 / 0,0014 ≈ 54 000 km/s ≈ 18% c.</p>
               <p>
@@ -337,10 +328,10 @@ export default function Lecture21() {
           </div>
 
           <div className="mb-6">
-            <h3 className="text-lg font-semibold mb-3 text-red-600 dark:text-red-400">Ниво С (Международна олимпиада)</h3>
+            <TaskLevel level="C" />
 
             <Task
-              {...task('c1')}
+              id="c1"
               number={7}
               color="border-red-500"
               question="Ако Слънцето хипотетично се превърне в черна дупка със същата маса, какъв ще бъде радиусът на Шварцшилд? Ще се промени ли орбитата на Земята?"
@@ -354,7 +345,7 @@ export default function Lecture21() {
             </Task>
 
             <Task
-              {...task('c2')}
+              id="c2"
               number={8}
               color="border-red-500"
               question="Астронавт с ръст 2 m е на хоризонта на черна дупка. Оценете разликата между ускоренията на главата и краката му, ако черната дупка е 10 M☉ и ако е Sgr A* (4,3 · 10⁶ M☉)."
@@ -369,7 +360,7 @@ export default function Lecture21() {
             </Task>
 
             <Task
-              {...task('c3')}
+              id="c3"
               number={9}
               color="border-red-500"
               question="Звездата S2 обикаля около Sgr A* с период 16,05 години. Голямата полуос на орбитата се вижда под ъгъл 0,1255″ от разстояние 8,28 kpc. Намерете масата на Sgr A*."
@@ -382,6 +373,7 @@ export default function Lecture21() {
               </p>
             </Task>
           </div>
+          </TaskBoard>
         </section>
 
         <section className="mb-8">

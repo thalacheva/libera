@@ -1,7 +1,7 @@
 import Example from '~/Example';
 import Quiz, { Question } from '~/Quiz';
 import Theorem from '~/Theorem';
-import { WordProblem, WordProblems } from '~/geometry/WordProblems';
+import { WordProblems, type WordProblem } from '~/WordProblems';
 import { InteractiveLinearGrapher, TwoLines } from './InteractiveLinearGrapher';
 import { PointByPoint } from './InteractiveQuadraticGrapher';
 
@@ -28,18 +28,30 @@ const wordProblems: WordProblem[] = [
     problem: 'Таксито взема 1,20 € при качване и по 0,80 € за всеки километър. Колко ще платиш за 15 km?',
     solution: ['Цената е линейна функция на пътя x (в km):', 'C(x) = 0,8x + 1,2', 'C(15) = 0,8 · 15 + 1,2 = 12 + 1,2'],
     answer: '13,20 €',
+
+    check: [13.2],
+
+    ask: ['цена, €'],
   },
   {
     title: '🌡️ Градуси по Фаренхайт',
     problem: 'Връзката между градуси по Целзий и по Фаренхайт е F = 1,8C + 32. Колко °F е стайната температура 20 °C? А при колко °C водата замръзва, ако е 32 °F?',
     solution: ['F = 1,8 · 20 + 32 = 36 + 32 = 68', '32 = 1,8C + 32', '1,8C = 0 ⇒ C = 0'],
     answer: '68 °F; 0 °C',
+
+    check: [68, 0],
+
+    ask: ['20 °C = ? °F', '32 °F = ? °C'],
   },
   {
     title: '🕯️ Свещта',
     problem: 'Свещ е висока 24 cm и изгаря с 3 cm на час. Запиши височината ѝ h като функция на времето t. След колко часа ще изгори?',
     solution: ['h(t) = 24 − 3t (a = −3 < 0, функцията намалява)', 'Свещта изгаря, когато h(t) = 0:', '24 − 3t = 0 ⇒ t = 8'],
     answer: 'h(t) = 24 − 3t; след 8 часа',
+
+    check: [8],
+
+    ask: ['изгаря след, часа'],
   },
 ];
 

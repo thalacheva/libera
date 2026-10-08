@@ -1,7 +1,7 @@
 import Example from '~/Example';
 import Quiz, { Question } from '~/Quiz';
 import Theorem from '~/Theorem';
-import { WordProblem, WordProblems } from '~/geometry/WordProblems';
+import { WordProblems, type WordProblem } from '~/WordProblems';
 import { DiscriminantCases, InteractiveQuadraticGrapher, PointByPoint } from './InteractiveQuadraticGrapher';
 
 const h2 = 'text-lg sm:text-xl font-semibold mb-2 sm:mb-3 text-gray-800 dark:text-gray-100';
@@ -28,18 +28,30 @@ const wordProblems: WordProblem[] = [
     problem: 'Топка е хвърлена право нагоре. Височината ѝ след t секунди е h(t) = −5t² + 20t метра. Колко най-високо стига и кога пада на земята?',
     solution: ['Върхът е при t₀ = −20 / (2 · (−5)) = 2 s', 'h(2) = −5 · 4 + 20 · 2 = 20 m', 'Пада, когато h(t) = 0: −5t(t − 4) = 0 ⇒ t = 4'],
     answer: '20 m след 2 s; пада след 4 s',
+
+    check: [20, 4],
+
+    ask: ['максимална височина, m', 'пада след, s'],
   },
   {
     title: '🐑 Оградата',
     problem: 'С 40 m мрежа трябва да оградиш правоъгълна ливада до река (по реката не се огражда). Какви да са размерите, за да е лицето най-голямо?',
     solution: ['Двете страни, перпендикулярни на реката – x, третата – 40 − 2x', 'S(x) = x(40 − 2x) = −2x² + 40x', 'Връх: x₀ = −40 / (2 · (−2)) = 10', 'S(10) = 10 · 20 = 200'],
     answer: '10 m × 20 m, лице 200 m²',
+
+    check: [200],
+
+    ask: ['най-голямо лице, m²'],
   },
   {
     title: '🎟️ Цената на билета',
     problem: 'Кино продава 200 билета по 10 €. Всяко поскъпване с 1 € намалява продадените билети с 10. При каква цена приходът е най-голям?',
     solution: ['При поскъпване с x €: P(x) = (10 + x)(200 − 10x)', 'P(x) = −10x² + 100x + 2000', 'x₀ = −100 / (2 · (−10)) = 5', 'P(5) = 15 · 150 = 2250 €'],
     answer: 'при цена 15 € – приход 2250 €',
+
+    check: [15],
+
+    ask: ['цена на билета, €'],
   },
 ];
 

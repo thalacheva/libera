@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import Example from '~/Example';
 import Quiz, { type Question } from '~/Quiz';
 import Theorem from '~/Theorem';
@@ -6,7 +5,7 @@ import AtmosphereEscapeLab from './components/AtmosphereEscapeLab';
 import GreenhouseLab from './components/GreenhouseLab';
 import PlanetInteriors from './components/PlanetInteriors';
 import SolarDayLab from './components/SolarDayLab';
-import Task from './components/Task';
+import Task, { TaskBoard, TaskLevel } from './components/Task';
 import TerrestrialPlanets from './components/TerrestrialPlanets';
 import { fmt, TERRESTRIAL } from './components/terrestrialData';
 
@@ -99,14 +98,6 @@ const WATER = [
 ];
 
 export default function Lecture13() {
-  const [showSolutions, setShowSolutions] = useState<{ [key: string]: boolean }>({});
-
-  const task = (id: string) => ({
-    id,
-    shown: !!showSolutions[id],
-    onToggle: (taskId: string) => setShowSolutions(prev => ({ ...prev, [taskId]: !prev[taskId] })),
-  });
-
   return (
     <main className="flex-1 overflow-y-auto px-4 pt-16 pb-12 sm:px-6 lg:px-10 lg:pt-10">
       <div className="max-w-4xl mx-auto">
@@ -350,11 +341,11 @@ export default function Lecture13() {
 
         <section className="mb-8">
           <h2 className="text-xl sm:text-2xl font-semibold mb-4">9. 📝 Задачи за упражнение</h2>
-
+          <TaskBoard>
           <div className="mb-6">
-            <h3 className="text-lg font-semibold mb-3 text-green-600 dark:text-green-400">Ниво А (Областен кръг)</h3>
+            <TaskLevel level="A" />
 
-            <Task {...task('a1')} number={1} color="border-green-500" question="Коя е най-горещата планета в Слънчевата система и защо?">
+            <Task id="a1" number={1} color="border-green-500" question="Коя е най-горещата планета в Слънчевата система и защо?">
               <p>
                 <strong>Венера</strong> (~464 °C), въпреки че Меркурий е по-близо до Слънцето. Плътната атмосфера от CO₂ задържа
                 инфрачервеното излъчване на повърхността – парников ефект. Температурата е почти еднаква денем и нощем, на екватора и
@@ -362,7 +353,7 @@ export default function Lecture13() {
               </p>
             </Task>
 
-            <Task {...task('a2')} number={2} color="border-green-500" question="Защо Марс е червен и защо атмосферата му е толкова рядка?">
+            <Task id="a2" number={2} color="border-green-500" question="Защо Марс е червен и защо атмосферата му е толкова рядка?">
               <p>Червеният цвят идва от железния оксид (ръжда) в праха и скалите на повърхността.</p>
               <p>
                 Марс е малък: гравитацията му е ~3 пъти по-слаба от земната, а ядрото му отдавна е спряло да създава магнитно поле.
@@ -370,7 +361,7 @@ export default function Lecture13() {
               </p>
             </Task>
 
-            <Task {...task('a3')} number={3} color="border-green-500" question="Защо Меркурий и Луната са покрити с кратери, а на Земята кратерите се откриват трудно?">
+            <Task id="a3" number={3} color="border-green-500" question="Защо Меркурий и Луната са покрити с кратери, а на Земята кратерите се откриват трудно?">
               <p>
                 И Земята е била удряна, но атмосферата изгаря по-малките тела, а водата, вятърът, животът и движението на плочите
                 заличават старите кратери. Меркурий и Луната нямат атмосфера и са геологично мъртви – там кратери отпреди 4 млрд.
@@ -380,9 +371,9 @@ export default function Lecture13() {
           </div>
 
           <div className="mb-6">
-            <h3 className="text-lg font-semibold mb-3 text-yellow-600 dark:text-yellow-400">Ниво В (Национален кръг)</h3>
+            <TaskLevel level="B" />
 
-            <Task {...task('b1')} number={4} color="border-yellow-500" question="Масата на Марс е 6,42 · 10²³ kg, а радиусът му – 3390 km. Намерете средната плътност и я сравнете със земната (5,51 g/cm³). Какво следва от това?">
+            <Task id="b1" number={4} color="border-yellow-500" question="Масата на Марс е 6,42 · 10²³ kg, а радиусът му – 3390 km. Намерете средната плътност и я сравнете със земната (5,51 g/cm³). Какво следва от това?">
               <p>V = 4π · (3,39 · 10⁶)³ / 3 ≈ 1,63 · 10²⁰ m³</p>
               <p>ρ = 6,42 · 10²³ / 1,63 · 10²⁰ ≈ 3930 kg/m³ = 3,93 g/cm³</p>
               <p>
@@ -391,7 +382,7 @@ export default function Lecture13() {
               </p>
             </Task>
 
-            <Task {...task('b2')} number={5} color="border-yellow-500" question="Венера се завърта спрямо звездите за 243 дни в обратна посока, а обикаля Слънцето за 224,7 дни. Колко е слънчевото денонощие?">
+            <Task id="b2" number={5} color="border-yellow-500" question="Венера се завърта спрямо звездите за 243 дни в обратна посока, а обикаля Слънцето за 224,7 дни. Колко е слънчевото денонощие?">
               <p>При обратно въртене двете движения се събират: 1 / P = 1 / 243 + 1 / 224,7</p>
               <p>1 / P = 0,004115 + 0,004450 = 0,008566</p>
               <p>
@@ -399,7 +390,7 @@ export default function Lecture13() {
               </p>
             </Task>
 
-            <Task {...task('b3')} number={6} color="border-yellow-500" question="Марс обикаля Слънцето за 1,881 години. На колко време се повтарят противопоставянията му (най-добрите моменти за наблюдение и изстрелване на сонди)? Последното беше на 16 януари 2025 г.">
+            <Task id="b3" number={6} color="border-yellow-500" question="Марс обикаля Слънцето за 1,881 години. На колко време се повтарят противопоставянията му (най-добрите моменти за наблюдение и изстрелване на сонди)? Последното беше на 16 януари 2025 г.">
               <p>Синодичен период на външна планета: 1 / S = 1 / 1 − 1 / 1,881 = 0,4684</p>
               <p>S ≈ 2,135 години ≈ 780 дни (~2 години и 2 месеца).</p>
               <p>
@@ -410,10 +401,10 @@ export default function Lecture13() {
           </div>
 
           <div className="mb-6">
-            <h3 className="text-lg font-semibold mb-3 text-red-600 dark:text-red-400">Ниво С (Международна олимпиада)</h3>
+            <TaskLevel level="C" />
 
             <Task
-              {...task('c1')}
+              id="c1"
               number={7}
               color="border-red-500"
               question="Изчислете равновесните температури на Меркурий (d = 0,387 AU, A = 0,07) и Венера (d = 0,723 AU, A = 0,76). Сравнете с измерените 440 K (средно за Меркурий) и 737 K. Колко пъти по-малко светлина на 1 m² получава Венера?"
@@ -428,7 +419,7 @@ export default function Lecture13() {
             </Task>
 
             <Task
-              {...task('c2')}
+              id="c2"
               number={8}
               color="border-red-500"
               question="Горната атмосфера на Марс е с T ≈ 250 K, а втората космическа скорост е 5,0 km/s. Може ли Марс да задържи хелий? А кислород?"
@@ -443,7 +434,7 @@ export default function Lecture13() {
             </Task>
 
             <Task
-              {...task('c3')}
+              id="c3"
               number={9}
               color="border-red-500"
               question="Най-високата планина на Земята, мерена от основата ѝ (Мауна Кеа), е ~10 km. Оценете колко висока може да бъде планина на Марс (g = 3,71 m/s²) и сравнете с Олимп."
@@ -459,6 +450,7 @@ export default function Lecture13() {
               </p>
             </Task>
           </div>
+          </TaskBoard>
         </section>
 
         <section className="mb-8">

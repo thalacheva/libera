@@ -1,9 +1,8 @@
-import { useState } from 'react';
 import Example from '~/Example';
 import Quiz, { type Question } from '~/Quiz';
 import Theorem from '~/Theorem';
 import CoordinateSphere from './components/CoordinateSphere';
-import Task from './components/Task';
+import Task, { TaskBoard, TaskLevel } from './components/Task';
 
 const QUIZ: Question[] = [
   {
@@ -87,17 +86,6 @@ const SYSTEMS = [
 ];
 
 export default function Lecture02() {
-  const [showSolutions, setShowSolutions] = useState<{
-    [key: string]: boolean;
-  }>({});
-
-  const task = (id: string) => ({
-    id,
-    shown: !!showSolutions[id],
-    onToggle: (taskId: string) =>
-      setShowSolutions(prev => ({ ...prev, [taskId]: !prev[taskId] })),
-  });
-
   return (
     <main className="flex-1 overflow-y-auto px-4 pt-16 pb-12 sm:px-6 lg:px-10 lg:pt-10">
       <div className="max-w-4xl mx-auto">
@@ -389,14 +377,12 @@ export default function Lecture02() {
           <h2 className="text-xl sm:text-2xl font-semibold mb-4">
             10. 📝 Задачи за упражнение
           </h2>
-
+          <TaskBoard>
           <div className="mb-6">
-            <h3 className="text-lg font-semibold mb-3 text-green-600 dark:text-green-400">
-              Ниво А (Областен кръг)
-            </h3>
+            <TaskLevel level="A" />
 
             <Task
-              {...task('a1')}
+              id="a1"
               number={1}
               color="border-green-500"
               question="Намери зенитното разстояние при h = 40°."
@@ -408,7 +394,7 @@ export default function Lecture02() {
             </Task>
 
             <Task
-              {...task('a2')}
+              id="a2"
               number={2}
               color="border-green-500"
               question="Каква е височината на звезда, която е в зенита? А на звезда, която изгрява?"
@@ -420,7 +406,7 @@ export default function Lecture02() {
             </Task>
 
             <Task
-              {...task('a3')}
+              id="a3"
               number={3}
               color="border-green-500"
               question="Колко градуса съответстват на 1 час ректасцензия?"
@@ -432,7 +418,7 @@ export default function Lecture02() {
             </Task>
 
             <Task
-              {...task('a4')}
+              id="a4"
               number={4}
               color="border-green-500"
               question="Бетелгейзе има ректасцензия α = 5h 55m. Изрази я в градуси."
@@ -445,12 +431,10 @@ export default function Lecture02() {
           </div>
 
           <div className="mb-6">
-            <h3 className="text-lg font-semibold mb-3 text-yellow-600 dark:text-yellow-400">
-              Ниво В (Национален кръг)
-            </h3>
+            <TaskLevel level="B" />
 
             <Task
-              {...task('b1')}
+              id="b1"
               number={5}
               color="border-yellow-500"
               question="Кои координати на една звезда се променят при въртенето на Земята и кои – не?"
@@ -468,7 +452,7 @@ export default function Lecture02() {
             </Task>
 
             <Task
-              {...task('b2')}
+              id="b2"
               number={6}
               color="border-yellow-500"
               question="Каква трябва да е деклинацията на звезда, за да минава през зенита в София (φ = 42,7°)? Минава ли Вега (δ = +38,8°) през зенита?"
@@ -484,7 +468,7 @@ export default function Lecture02() {
             </Task>
 
             <Task
-              {...task('b3')}
+              id="b3"
               number={7}
               color="border-yellow-500"
               question="В кой момент (по звездно време) кулминира Сириус (α = 6h 45m, δ = −16,7°) и на каква височина е тогава в София (φ = 42,7°)?"
@@ -499,7 +483,7 @@ export default function Lecture02() {
             </Task>
 
             <Task
-              {...task('b4')}
+              id="b4"
               number={8}
               color="border-yellow-500"
               question="Звездното време е S = 2h 00m. Звезда има часов ъгъл t = 22h 30m. Каква е ректасцензията ѝ? Кулминирала ли е вече?"
@@ -516,12 +500,10 @@ export default function Lecture02() {
           </div>
 
           <div className="mb-6">
-            <h3 className="text-lg font-semibold mb-3 text-red-600 dark:text-red-400">
-              Ниво С (Международна олимпиада)
-            </h3>
+            <TaskLevel level="C" />
 
             <Task
-              {...task('c1')}
+              id="c1"
               number={9}
               color="border-red-500"
               question="Обясни как от екваториалните координати (α, δ) на звезда се получава височината ѝ h. Какви допълнителни данни са нужни?"
@@ -543,7 +525,7 @@ export default function Lecture02() {
             </Task>
 
             <Task
-              {...task('c2')}
+              id="c2"
               number={10}
               color="border-red-500"
               question="Наблюдател на φ = 43° с.ш. вижда звезда с δ = +20° при часов ъгъл t = 3h. Намери височината ѝ."
@@ -562,6 +544,7 @@ export default function Lecture02() {
               </p>
             </Task>
           </div>
+          </TaskBoard>
         </section>
 
         <section className="mb-8">

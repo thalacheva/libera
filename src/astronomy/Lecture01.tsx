@@ -1,9 +1,8 @@
-import { useState } from 'react';
 import Example from '~/Example';
 import Quiz, { type Question } from '~/Quiz';
 import Theorem from '~/Theorem';
 import CelestialSphere from './components/CelestialSphere';
-import Task from './components/Task';
+import Task, { TaskBoard, TaskLevel } from './components/Task';
 import PoleAltitudeDiagram from './components/PoleAltitudeDiagram';
 import SkyView from './components/SkyView';
 
@@ -71,20 +70,6 @@ const FACTS = [
 ];
 
 export default function Lecture01() {
-  const [showSolutions, setShowSolutions] = useState<{
-    [key: string]: boolean;
-  }>({});
-
-  const toggleSolution = (taskId: string) => {
-    setShowSolutions(prev => ({ ...prev, [taskId]: !prev[taskId] }));
-  };
-
-  const task = (id: string) => ({
-    id,
-    shown: !!showSolutions[id],
-    onToggle: toggleSolution,
-  });
-
   return (
     <main className="flex-1 overflow-y-auto px-4 pt-16 pb-12 sm:px-6 lg:px-10 lg:pt-10">
       <div className="max-w-4xl mx-auto">
@@ -513,14 +498,12 @@ export default function Lecture01() {
           <h2 className="text-xl sm:text-2xl font-semibold mb-4">
             11. 📝 Задачи за упражнение
           </h2>
-
+          <TaskBoard>
           <div className="mb-6">
-            <h3 className="text-lg font-semibold mb-3 text-green-600 dark:text-green-400">
-              Ниво А (Областен кръг)
-            </h3>
+            <TaskLevel level="A" />
 
             <Task
-              {...task('a1')}
+              id="a1"
               number={1}
               color="border-green-500"
               question="Дай определение за небесна сфера."
@@ -534,7 +517,7 @@ export default function Lecture01() {
             </Task>
 
             <Task
-              {...task('a2')}
+              id="a2"
               number={2}
               color="border-green-500"
               question="Каква е разликата между зенит и надир?"
@@ -548,7 +531,7 @@ export default function Lecture01() {
             </Task>
 
             <Task
-              {...task('a3')}
+              id="a3"
               number={3}
               color="border-green-500"
               question="Защо Полярната звезда е важна за ориентиране?"
@@ -562,7 +545,7 @@ export default function Lecture01() {
             </Task>
 
             <Task
-              {...task('a4')}
+              id="a4"
               number={4}
               color="border-green-500"
               question={
@@ -585,7 +568,7 @@ export default function Lecture01() {
             </Task>
 
             <Task
-              {...task('a5')}
+              id="a5"
               number={5}
               color="border-green-500"
               question="Каква е височината на зенита над хоризонта?"
@@ -599,12 +582,10 @@ export default function Lecture01() {
           </div>
 
           <div className="mb-6">
-            <h3 className="text-lg font-semibold mb-3 text-yellow-600 dark:text-yellow-400">
-              Ниво В (Национален кръг)
-            </h3>
+            <TaskLevel level="B" />
 
             <Task
-              {...task('b1')}
+              id="b1"
               number={6}
               color="border-yellow-500"
               question="Наблюдател се намира на географска ширина 45° с.ш. На каква височина над хоризонта ще види северния небесен полюс?"
@@ -617,7 +598,7 @@ export default function Lecture01() {
             </Task>
 
             <Task
-              {...task('b2')}
+              id="b2"
               number={7}
               color="border-yellow-500"
               question="Наблюдател се намира на Северния полюс. Къде ще бъде зенитът спрямо небесния екватор?"
@@ -631,7 +612,7 @@ export default function Lecture01() {
             </Task>
 
             <Task
-              {...task('b3')}
+              id="b3"
               number={8}
               color="border-yellow-500"
               question="Опиши как ще се движат звездите по небето за наблюдател на екватора."
@@ -647,7 +628,7 @@ export default function Lecture01() {
             </Task>
 
             <Task
-              {...task('b4')}
+              id="b4"
               number={9}
               color="border-yellow-500"
               question="Звезда с деклинация δ = +60° никога не залязва за даден наблюдател в северното полукълбо. Какво можем да кажем за географската му ширина?"
@@ -664,7 +645,7 @@ export default function Lecture01() {
             </Task>
 
             <Task
-              {...task('b5')}
+              id="b5"
               number={10}
               color="border-yellow-500"
               question="Вега има деклинация δ = +38,8°. На каква най-голяма височина се издига над хоризонта в София (φ = 42,7°)? От коя страна на зенита минава?"
@@ -680,7 +661,7 @@ export default function Lecture01() {
             </Task>
 
             <Task
-              {...task('b6')}
+              id="b6"
               number={11}
               color="border-yellow-500"
               question="Канопус (δ = −52,7°) не се вижда от България. От какви северни ширини изобщо може да се наблюдава?"
@@ -698,12 +679,10 @@ export default function Lecture01() {
           </div>
 
           <div className="mb-6">
-            <h3 className="text-lg font-semibold mb-3 text-red-600 dark:text-red-400">
-              Ниво С (Международна олимпиада)
-            </h3>
+            <TaskLevel level="C" />
 
             <Task
-              {...task('c1')}
+              id="c1"
               number={12}
               color="border-red-500"
               question="Представи си, че Земята внезапно спира да се върти около оста си (спрямо звездите), но продължава да обикаля около Слънцето. Как ще изглежда небето за наблюдател на Земята?"
@@ -727,7 +706,7 @@ export default function Lecture01() {
             </Task>
 
             <Task
-              {...task('c2')}
+              id="c2"
               number={13}
               color="border-red-500"
               question="Незалязваща звезда има горна кулминация на височина 70° на юг от зенита и долна кулминация на височина 20° над северната точка. Намерете географската ширина φ на наблюдателя и деклинацията δ на звездата."
@@ -751,6 +730,7 @@ export default function Lecture01() {
               </p>
             </Task>
           </div>
+          </TaskBoard>
         </section>
 
         <section className="mb-8">

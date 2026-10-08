@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import Example from '~/Example';
 import Quiz, { type Question } from '~/Quiz';
 import Theorem from '~/Theorem';
@@ -7,7 +6,7 @@ import GiantInteriors from './components/GiantInteriors';
 import GiantPlanets from './components/GiantPlanets';
 import JupiterBands from './components/JupiterBands';
 import RocheLab from './components/RocheLab';
-import Task from './components/Task';
+import Task, { TaskBoard, TaskLevel } from './components/Task';
 import { GIANTS, rotationText } from './components/giantData';
 import { fmt } from './components/terrestrialData';
 
@@ -112,14 +111,6 @@ const MISSIONS = [
 ];
 
 export default function Lecture14() {
-  const [showSolutions, setShowSolutions] = useState<{ [key: string]: boolean }>({});
-
-  const task = (id: string) => ({
-    id,
-    shown: !!showSolutions[id],
-    onToggle: (taskId: string) => setShowSolutions(prev => ({ ...prev, [taskId]: !prev[taskId] })),
-  });
-
   return (
     <main className="flex-1 overflow-y-auto px-4 pt-16 pb-12 sm:px-6 lg:px-10 lg:pt-10">
       <div className="max-w-4xl mx-auto">
@@ -402,11 +393,11 @@ export default function Lecture14() {
 
         <section className="mb-8">
           <h2 className="text-xl sm:text-2xl font-semibold mb-4">9. 📝 Задачи за упражнение</h2>
-
+          <TaskBoard>
           <div className="mb-6">
-            <h3 className="text-lg font-semibold mb-3 text-green-600 dark:text-green-400">Ниво А (Областен кръг)</h3>
+            <TaskLevel level="A" />
 
-            <Task {...task('a1')} number={1} color="border-green-500" question="Защо гигантите са се образували далеч от Слънцето и защо са толкова големи?">
+            <Task id="a1" number={1} color="border-green-500" question="Защо гигантите са се образували далеч от Слънцето и защо са толкова големи?">
               <p>
                 Отвъд снежната линия (~3 AU) освен скали е замръзвал и лед, затова твърдото вещество е било много повече. Зародишите
                 на планети там бързо са достигнали ~10 земни маси.
@@ -418,7 +409,7 @@ export default function Lecture14() {
               </p>
             </Task>
 
-            <Task {...task('a2')} number={2} color="border-green-500" question="Юпитер и Сатурн са изградени от едни и същи вещества. Защо плътността на Юпитер (1,33 g/cm³) е почти два пъти по-голяма?">
+            <Task id="a2" number={2} color="border-green-500" question="Юпитер и Сатурн са изградени от едни и същи вещества. Защо плътността на Юпитер (1,33 g/cm³) е почти два пъти по-голяма?">
               <p>
                 Юпитер е 3,3 пъти по-масивен от Сатурн. По-силната гравитация сгъстява водорода в недрата много повече – голяма част
                 от него е станала метален водород под огромно налягане. Сатурн е по-„пухкав“: при малко по-малък радиус има само
@@ -426,7 +417,7 @@ export default function Lecture14() {
               </p>
             </Task>
 
-            <Task {...task('a3')} number={3} color="border-green-500" question="Какво би станало със сонда, която се опита да „кацне“ на Юпитер?">
+            <Task id="a3" number={3} color="border-green-500" question="Какво би станало със сонда, която се опита да „кацне“ на Юпитер?">
               <p>
                 Юпитер няма твърда повърхност. Сондата би преминала през облаците от амоняк и вода и би потъвала във все по-гъст и
                 горещ водород, докато не бъде смачкана и разтопена.
@@ -439,9 +430,9 @@ export default function Lecture14() {
           </div>
 
           <div className="mb-6">
-            <h3 className="text-lg font-semibold mb-3 text-yellow-600 dark:text-yellow-400">Ниво В (Национален кръг)</h3>
+            <TaskLevel level="B" />
 
-            <Task {...task('b1')} number={4} color="border-yellow-500" question="Титан обикаля Сатурн на 1 221 870 km за 15,945 дни. Намерете масата на Сатурн в kg и в земни маси (M⊕ = 5,97 · 10²⁴ kg).">
+            <Task id="b1" number={4} color="border-yellow-500" question="Титан обикаля Сатурн на 1 221 870 km за 15,945 дни. Намерете масата на Сатурн в kg и в земни маси (M⊕ = 5,97 · 10²⁴ kg).">
               <p>M = 4π²a³ / (GT²)</p>
               <p>a³ = (1,2219 · 10⁹ m)³ ≈ 1,824 · 10²⁷ m³; T = 15,945 · 86 400 ≈ 1,3776 · 10⁶ s, T² ≈ 1,898 · 10¹² s²</p>
               <p>M = 39,48 · 1,824 · 10²⁷ / (6,674 · 10⁻¹¹ · 1,898 · 10¹²) ≈ 7,20 · 10²⁸ / 126,7 ≈ 5,69 · 10²⁶ kg</p>
@@ -450,7 +441,7 @@ export default function Lecture14() {
               </p>
             </Task>
 
-            <Task {...task('b2')} number={5} color="border-yellow-500" question="Периодите на Йо, Европа и Ганимед са 1,769138; 3,551181 и 7,154553 дни. Проверете, че 1/T_Йо − 3/T_Европа + 2/T_Ганимед ≈ 0. През колко време Йо настига Европа?">
+            <Task id="b2" number={5} color="border-yellow-500" question="Периодите на Йо, Европа и Ганимед са 1,769138; 3,551181 и 7,154553 дни. Проверете, че 1/T_Йо − 3/T_Европа + 2/T_Ганимед ≈ 0. През колко време Йо настига Европа?">
               <p>1 / 1,769138 = 0,565247; 3 / 3,551181 = 0,844790; 2 / 7,154553 = 0,279542</p>
               <p>0,565247 − 0,844790 + 0,279542 ≈ −0,000001 – нула с точност до шестия знак!</p>
               <p>Синодичен период Йо–Европа: 1 / S = 0,565247 − 0,281597 = 0,283650 ⇒ S ≈ 3,526 дни – почти точно един период на Европа.</p>
@@ -460,7 +451,7 @@ export default function Lecture14() {
               </p>
             </Task>
 
-            <Task {...task('b3')} number={6} color="border-yellow-500" question="Когато „Вояджър 2“ прелита покрай Уран през януари 1986 г., южният полюс на планетата сочи почти към Слънцето (слънцестоенето е било през 1985 г.). Кога е било равноденствието и кога северният полюс ще сочи към Слънцето?">
+            <Task id="b3" number={6} color="border-yellow-500" question="Когато „Вояджър 2“ прелита покрай Уран през януари 1986 г., южният полюс на планетата сочи почти към Слънцето (слънцестоенето е било през 1985 г.). Кога е било равноденствието и кога северният полюс ще сочи към Слънцето?">
               <p>Годината на Уран е 84 земни години. От слънцестоене до равноденствие минава 1/4 от нея – 21 години.</p>
               <p>Равноденствие: 1985 + 21 ≈ 2006–2007 г. (реално – декември 2007 г.).</p>
               <p>
@@ -471,10 +462,10 @@ export default function Lecture14() {
           </div>
 
           <div className="mb-6">
-            <h3 className="text-lg font-semibold mb-3 text-red-600 dark:text-red-400">Ниво С (Международна олимпиада)</h3>
+            <TaskLevel level="C" />
 
             <Task
-              {...task('c1')}
+              id="c1"
               number={7}
               color="border-red-500"
               question="Мимас обикаля Сатурн на 185 540 km за 0,942 дни. На какво разстояние частиците от пръстените биха имали точно половината от неговия период? Сравнете с външния ръб на пръстена B (117 580 km) и делението на Касини."
@@ -489,7 +480,7 @@ export default function Lecture14() {
             </Task>
 
             <Task
-              {...task('c2')}
+              id="c2"
               number={8}
               color="border-red-500"
               question="Сатурн се върти за 10,66 h, екваториалният му радиус е 60 268 km, а GM = 3,793 · 10¹⁶ m³/s². Намерете q = ω²R³/(GM) – отношението на центробежното ускорение към гравитационното на екватора. Хомогенна течна планета би имала сплескване f ≈ 5q/4, а планета с цялата маса в центъра – f ≈ q/2. Измереното е 0,098. Какво следва?"
@@ -505,7 +496,7 @@ export default function Lecture14() {
             </Task>
 
             <Task
-              {...task('c3')}
+              id="c3"
               number={9}
               color="border-red-500"
               question="Юпитер е на 5,203 AU от Слънцето и има албедо на Бонд A = 0,343. Измерената му ефективна температура е 124,4 K. Намерете равновесната температура, колко пъти повече енергия излъчва, отколкото поглъща, и мощността на вътрешния му източник (R = 69 911 km)."
@@ -521,6 +512,7 @@ export default function Lecture14() {
               </p>
             </Task>
           </div>
+          </TaskBoard>
         </section>
 
         <section className="mb-8">

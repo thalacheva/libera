@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import Example from '~/Example';
 import Quiz, { type Question } from '~/Quiz';
 import Theorem from '~/Theorem';
@@ -6,7 +5,7 @@ import SolarCycleChart from './components/SolarCycleChart';
 import SolarDynamo from './components/SolarDynamo';
 import SpaceWeatherLab from './components/SpaceWeatherLab';
 import SunspotRotation from './components/SunspotRotation';
-import Task from './components/Task';
+import Task, { TaskBoard, TaskLevel } from './components/Task';
 
 const QUIZ: Question[] = [
   {
@@ -88,14 +87,6 @@ const STORMS = [
 ];
 
 export default function Lecture12() {
-  const [showSolutions, setShowSolutions] = useState<{ [key: string]: boolean }>({});
-
-  const task = (id: string) => ({
-    id,
-    shown: !!showSolutions[id],
-    onToggle: (taskId: string) => setShowSolutions(prev => ({ ...prev, [taskId]: !prev[taskId] })),
-  });
-
   return (
     <main className="flex-1 overflow-y-auto px-4 pt-16 pb-12 sm:px-6 lg:px-10 lg:pt-10">
       <div className="max-w-4xl mx-auto">
@@ -269,25 +260,25 @@ export default function Lecture12() {
 
         <section className="mb-8">
           <h2 className="text-xl sm:text-2xl font-semibold mb-4">8. 📝 Задачи за упражнение</h2>
-
+          <TaskBoard>
           <div className="mb-6">
-            <h3 className="text-lg font-semibold mb-3 text-green-600 dark:text-green-400">Ниво А (Областен кръг)</h3>
+            <TaskLevel level="A" />
 
-            <Task {...task('a1')} number={1} color="border-green-500" question="Какво представляват слънчевите петна и защо са тъмни?">
+            <Task id="a1" number={1} color="border-green-500" question="Какво представляват слънчевите петна и защо са тъмни?">
               <p>
                 Области от фотосферата със силно магнитно поле. То пречи на конвекцията да изнася топлина отдолу, затова петната са с
                 1500–2000 K по-студени. Изглеждат тъмни само в сравнение с ярката околност.
               </p>
             </Task>
 
-            <Task {...task('a2')} number={2} color="border-green-500" question="Защо казваме, че цикълът на петната е 11 години, а магнитният цикъл – 22 години?">
+            <Task id="a2" number={2} color="border-green-500" question="Защо казваме, че цикълът на петната е 11 години, а магнитният цикъл – 22 години?">
               <p>
                 Броят на петната достига максимум средно на 11 години. Но след всеки цикъл магнитната полярност на Слънцето се обръща.
                 За да се върне в същото положение, трябват два цикъла – 22 години.
               </p>
             </Task>
 
-            <Task {...task('a3')} number={3} color="border-green-500" question="Защо в България рядко виждаме полярни сияния, а в Норвегия – почти всяка ясна зимна нощ?">
+            <Task id="a3" number={3} color="border-green-500" question="Защо в България рядко виждаме полярни сияния, а в Норвегия – почти всяка ясна зимна нощ?">
               <p>
                 Заредените частици се движат по линиите на земното магнитно поле и навлизат в атмосферата в овал около магнитния полюс
                 (~65–70° геомагнитна ширина). Норвегия е под овала. Той се разширява към екватора само при силни бури (Kp 8–9), каквато бе
@@ -297,23 +288,23 @@ export default function Lecture12() {
           </div>
 
           <div className="mb-6">
-            <h3 className="text-lg font-semibold mb-3 text-yellow-600 dark:text-yellow-400">Ниво В (Национален кръг)</h3>
+            <TaskLevel level="B" />
 
-            <Task {...task('b1')} number={4} color="border-yellow-500" question="Сянката на петно е с 3800 K, а фотосферата – с 5800 K. Колко пъти по-малко енергия излъчва 1 m² от петното?">
+            <Task id="b1" number={4} color="border-yellow-500" question="Сянката на петно е с 3800 K, а фотосферата – с 5800 K. Колко пъти по-малко енергия излъчва 1 m² от петното?">
               <p>F ∝ T⁴ ⇒ F_п / F_ф = (3800 / 5800)⁴ ≈ 0,655⁴ ≈ 0,18</p>
               <p>
                 <strong>Около 5,4 пъти по-малко.</strong>
               </p>
             </Task>
 
-            <Task {...task('b2')} number={5} color="border-yellow-500" question="CME напуска Слънцето с 1500 km/s. След колко време ще стигне Земята? А светлината от изригването?">
+            <Task id="b2" number={5} color="border-yellow-500" question="CME напуска Слънцето с 1500 km/s. След колко време ще стигне Земята? А светлината от изригването?">
               <p>t = 1,496 · 10⁸ km / 1500 km/s ≈ 1,0 · 10⁵ s ≈ 28 часа.</p>
               <p>Светлината: 1,496 · 10⁸ / 3 · 10⁵ ≈ 500 s ≈ 8,3 минути.</p>
               <p>Затова изригването „предупреждава“ за бурята повече от ден по-рано.</p>
             </Task>
 
             <Task
-              {...task('b3')}
+              id="b3"
               number={6}
               color="border-yellow-500"
               question="Петно на екватора се връща на същото място на диска след 27,3 дни. Какъв е истинският (сидеричен) период на въртене на Слънцето?"
@@ -327,10 +318,10 @@ export default function Lecture12() {
           </div>
 
           <div className="mb-6">
-            <h3 className="text-lg font-semibold mb-3 text-red-600 dark:text-red-400">Ниво С (Международна олимпиада)</h3>
+            <TaskLevel level="C" />
 
             <Task
-              {...task('c1')}
+              id="c1"
               number={7}
               color="border-red-500"
               question="Магнитното поле в петно е B = 0,3 T. Сравни магнитното налягане B² / (2μ₀) с налягането на газа във фотосферата (n ≈ 10²³ m⁻³, T = 5800 K)."
@@ -344,7 +335,7 @@ export default function Lecture12() {
             </Task>
 
             <Task
-              {...task('c2')}
+              id="c2"
               number={8}
               color="border-red-500"
               question="При Земята слънчевият вятър има n = 5 протона/cm³ и v = 400 km/s. Оцени колко маса губи Слънцето чрез вятъра и сравни със загубата от синтеза (4,3 · 10⁹ kg/s)."
@@ -357,7 +348,7 @@ export default function Lecture12() {
             </Task>
 
             <Task
-              {...task('c3')}
+              id="c3"
               number={9}
               color="border-red-500"
               question="Червеното сияние свети на ~300 km височина. От какво разстояние може да се види ниско над хоризонта? На колко градуса ширина отговаря това?"
@@ -370,6 +361,7 @@ export default function Lecture12() {
               </p>
             </Task>
           </div>
+          </TaskBoard>
         </section>
 
         <section className="mb-8">

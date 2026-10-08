@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import Example from '~/Example';
 import Quiz, { type Question } from '~/Quiz';
 import Theorem from '~/Theorem';
@@ -6,7 +5,7 @@ import CometOrbit from './components/CometOrbit';
 import MeteorEntryLab from './components/MeteorEntryLab';
 import RadiantSky from './components/RadiantSky';
 import ShowerCalendar from './components/ShowerCalendar';
-import Task from './components/Task';
+import Task, { TaskBoard, TaskLevel } from './components/Task';
 import { SHOWERS } from './components/showerData';
 
 const QUIZ: Question[] = [
@@ -98,14 +97,6 @@ const MISSIONS = [
 ];
 
 export default function Lecture16() {
-  const [showSolutions, setShowSolutions] = useState<{ [key: string]: boolean }>({});
-
-  const task = (id: string) => ({
-    id,
-    shown: !!showSolutions[id],
-    onToggle: (taskId: string) => setShowSolutions(prev => ({ ...prev, [taskId]: !prev[taskId] })),
-  });
-
   return (
     <main className="flex-1 overflow-y-auto px-4 pt-16 pb-12 sm:px-6 lg:px-10 lg:pt-10">
       <div className="max-w-4xl mx-auto">
@@ -353,11 +344,11 @@ export default function Lecture16() {
 
         <section className="mb-8">
           <h2 className="text-xl sm:text-2xl font-semibold mb-4">8. 📝 Задачи за упражнение</h2>
-
+          <TaskBoard>
           <div className="mb-6">
-            <h3 className="text-lg font-semibold mb-3 text-green-600 dark:text-green-400">Ниво А (Областен кръг)</h3>
+            <TaskLevel level="A" />
 
-            <Task {...task('a1')} number={1} color="border-green-500" question="Каква е разликата между метеороид, метеор и метеорит?">
+            <Task id="a1" number={1} color="border-green-500" question="Каква е разликата между метеороид, метеор и метеорит?">
               <p>
                 <strong>Метеороид</strong> – малкото тяло в космоса. <strong>Метеор</strong> – светлината, която виждаме, когато то
                 изгаря в атмосферата. <strong>Метеорит</strong> – това, което е оцеляло и е паднало на земята.
@@ -365,7 +356,7 @@ export default function Lecture16() {
               <p>Повечето метеори изгарят напълно – само малка част от по-големите тела стават метеорити.</p>
             </Task>
 
-            <Task {...task('a2')} number={2} color="border-green-500" question="Защо кометата има две опашки и защо те сочат в различни посоки?">
+            <Task id="a2" number={2} color="border-green-500" question="Защо кометата има две опашки и защо те сочат в различни посоки?">
               <p>
                 <strong>Йонната опашка</strong> е от газ, йонизиран от ултравиолетовите лъчи. Слънчевият вятър и магнитното му поле я
                 отнасят право от Слънцето с огромна скорост. Затова е права и синкава.
@@ -377,7 +368,7 @@ export default function Lecture16() {
               <p>Когато кометата се отдалечава от Слънцето, двете опашки вървят пред нея!</p>
             </Task>
 
-            <Task {...task('a3')} number={3} color="border-green-500" question="Защо метеорните потоци се повтарят всяка година на една и съща дата?">
+            <Task id="a3" number={3} color="border-green-500" question="Защо метеорните потоци се повтарят всяка година на една и съща дата?">
               <p>
                 Роят от частици е разпръснат по орбитата на кометата, която е неподвижна в пространството (почти). Земята минава през
                 една и съща точка от своята орбита на една и съща дата всяка година. Ако там орбитата ѝ пресича роя, потокът се
@@ -387,9 +378,9 @@ export default function Lecture16() {
           </div>
 
           <div className="mb-6">
-            <h3 className="text-lg font-semibold mb-3 text-yellow-600 dark:text-yellow-400">Ниво В (Национален кръг)</h3>
+            <TaskLevel level="B" />
 
-            <Task {...task('b1')} number={4} color="border-yellow-500" question="Кометата на Халей има период 76 години и перихелий 0,59 AU. Изчислете афелия.">
+            <Task id="b1" number={4} color="border-yellow-500" question="Кометата на Халей има период 76 години и перихелий 0,59 AU. Изчислете афелия.">
               <p>От третия закон на Кеплер: a³ = T² = 76² = 5776 ⇒ a = ∛5776 ≈ 17,9 AU</p>
               <p>Q = 2a − q = 35,9 − 0,59 ≈ 35,3 AU</p>
               <p>
@@ -398,7 +389,7 @@ export default function Lecture16() {
               </p>
             </Task>
 
-            <Task {...task('b2')} number={5} color="border-yellow-500" question="Кометата 67P има перихелий 1,24 AU и период 6,44 години. Намерете голямата полуос, афелия и ексцентрицитета. Защо я наричат комета от семейството на Юпитер?">
+            <Task id="b2" number={5} color="border-yellow-500" question="Кометата 67P има перихелий 1,24 AU и период 6,44 години. Намерете голямата полуос, афелия и ексцентрицитета. Защо я наричат комета от семейството на Юпитер?">
               <p>a = T^⅔ = 6,44^⅔ ≈ 3,46 AU</p>
               <p>Q = 2a − q = 6,92 − 1,24 ≈ 5,68 AU; e = (Q − q) / (Q + q) = 4,44 / 6,92 ≈ 0,64</p>
               <p>
@@ -407,7 +398,7 @@ export default function Lecture16() {
               </p>
             </Task>
 
-            <Task {...task('b3')} number={6} color="border-yellow-500" question="Обяснете защо не може да има метеор, който влиза в атмосферата по-бавно от 11 km/s или по-бързо от 73 km/s. Защо Леонидите (71 km/s) са много по-бързи от Геминидите (35 km/s)?">
+            <Task id="b3" number={6} color="border-yellow-500" question="Обяснете защо не може да има метеор, който влиза в атмосферата по-бавно от 11 km/s или по-бързо от 73 km/s. Защо Леонидите (71 km/s) са много по-бързи от Геминидите (35 km/s)?">
               <p>
                 Долна граница: дори тяло, което стои неподвижно спрямо Земята далеч от нея, пада и набира втората космическа скорост –
                 11,2 km/s.
@@ -425,10 +416,10 @@ export default function Lecture16() {
           </div>
 
           <div className="mb-6">
-            <h3 className="text-lg font-semibold mb-3 text-red-600 dark:text-red-400">Ниво С (Международна олимпиада)</h3>
+            <TaskLevel level="C" />
 
             <Task
-              {...task('c1')}
+              id="c1"
               number={7}
               color="border-red-500"
               question="Наблюдател отброява 30 Персеиди за един час. Радиантът е на 40° над хоризонта, най-слабите видими звезди са от 5,5 величина, а популационният индекс е r = 2,2. Колко е ZHR?"
@@ -442,7 +433,7 @@ export default function Lecture16() {
             </Task>
 
             <Task
-              {...task('c2')}
+              id="c2"
               number={8}
               color="border-red-500"
               question="Намерете параметъра на Тисеран спрямо Юпитер за 67P (a = 3,46 AU, e = 0,641, i = 7,0°) и за кометата на Халей (a = 17,83 AU, e = 0,967, i = 162,3°). Към кои семейства спадат?"
@@ -457,7 +448,7 @@ export default function Lecture16() {
             </Task>
 
             <Task
-              {...task('c3')}
+              id="c3"
               number={9}
               color="border-red-500"
               question="Челябинският метеороид (15 февруари 2013 г.) е имал диаметър ~19 m, плътност ~3,3 g/cm³ и скорост 19 km/s. Оценете кинетичната му енергия в килотонове тротил (1 kt = 4,18 · 10¹² J)."
@@ -471,6 +462,7 @@ export default function Lecture16() {
               </p>
             </Task>
           </div>
+          </TaskBoard>
         </section>
 
         <section className="mb-8">

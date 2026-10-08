@@ -1,11 +1,10 @@
-import { useState } from 'react';
 import Example from '~/Example';
 import Quiz, { type Question } from '~/Quiz';
 import Theorem from '~/Theorem';
 import ExpansionGridLab from './components/ExpansionGridLab';
 import FriedmannLab from './components/FriedmannLab';
 import HubbleDiagramLab from './components/HubbleDiagramLab';
-import Task from './components/Task';
+import Task, { TaskBoard, TaskLevel } from './components/Task';
 
 const QUIZ: Question[] = [
   {
@@ -76,14 +75,6 @@ const QUIZ: Question[] = [
 ];
 
 export default function Lecture28() {
-  const [showSolutions, setShowSolutions] = useState<{ [key: string]: boolean }>({});
-
-  const task = (id: string) => ({
-    id,
-    shown: !!showSolutions[id],
-    onToggle: (taskId: string) => setShowSolutions(prev => ({ ...prev, [taskId]: !prev[taskId] })),
-  });
-
   return (
     <main className="flex-1 overflow-y-auto px-4 pt-16 pb-12 sm:px-6 lg:px-10 lg:pt-10">
       <div className="max-w-4xl mx-auto">
@@ -198,23 +189,23 @@ export default function Lecture28() {
 
         <section className="mb-8">
           <h2 className="text-xl sm:text-2xl font-semibold mb-4">7. 📝 Задачи за упражнение</h2>
-
+          <TaskBoard>
           <div className="mb-6">
-            <h3 className="text-lg font-semibold mb-3 text-green-600 dark:text-green-400">Ниво А (Областен кръг)</h3>
-            <Task {...task('a1')} number={1} color="border-green-500" question="Какво казва законът на Хъбъл–Льометр?">
+            <TaskLevel level="A" />
+            <Task id="a1" number={1} color="border-green-500" question="Какво казва законът на Хъбъл–Льометр?">
               <p>
                 Галактиките се отдалечават от нас със скорост, пропорционална на разстоянието: v = H₀ · d. Колкото по-далеч е галактиката,
                 толкова по-бързо се отдалечава. Това е признак, че Вселената се разширява.
               </p>
             </Task>
-            <Task {...task('a2')} number={2} color="border-green-500" question="Какво е червено отместване и защо е „космологично“, а не обикновен ефект на Доплер?">
+            <Task id="a2" number={2} color="border-green-500" question="Какво е червено отместване и защо е „космологично“, а не обикновен ефект на Доплер?">
               <p>
                 Изместване на спектралните линии към по-дълги вълни. При космологичното отместване светлината се разтяга, докато пътува
                 през разширяващото се пространство: 1 + z показва колко пъти са нараснали разстоянията. Ефектът на Доплер е от движение
                 през пространството; при близките галактики двата ефекта дават почти едно и също (v ≈ cz).
               </p>
             </Task>
-            <Task {...task('a3')} number={3} color="border-green-500" question="Ако всички галактики се отдалечават от нас, в центъра на Вселената ли сме?">
+            <Task id="a3" number={3} color="border-green-500" question="Ако всички галактики се отдалечават от нас, в центъра на Вселената ли сме?">
               <p>
                 <strong>Не.</strong> Разширява се самото пространство и разстоянието между всеки две галактики расте пропорционално. Представете си
                 балон с нарисувани точки: когато го надуваме, от всяка точка всички останали се отдалечават, и то толкова по-бързо, колкото
@@ -224,17 +215,17 @@ export default function Lecture28() {
           </div>
 
           <div className="mb-6">
-            <h3 className="text-lg font-semibold mb-3 text-yellow-600 dark:text-yellow-400">Ниво В (Национален кръг)</h3>
-            <Task {...task('b1')} number={4} color="border-yellow-500" question="Галактика е на 100 Mpc. С каква скорост се отдалечава (H₀ = 70 km/s/Mpc)? Какво е червеното ѝ отместване?">
+            <TaskLevel level="B" />
+            <Task id="b1" number={4} color="border-yellow-500" question="Галактика е на 100 Mpc. С каква скорост се отдалечава (H₀ = 70 km/s/Mpc)? Какво е червеното ѝ отместване?">
               <p>v = 70 · 100 = 7000 km/s – около 2,3% от скоростта на светлината</p>
               <p>z ≈ v / c ≈ 0,023</p>
             </Task>
-            <Task {...task('b2')} number={5} color="border-yellow-500" question="Галактика има червено отместване z = 0,1. С каква скорост се отдалечава и на какво разстояние е?">
+            <Task id="b2" number={5} color="border-yellow-500" question="Галактика има червено отместване z = 0,1. С каква скорост се отдалечава и на какво разстояние е?">
               <p>v ≈ c · z = 30 000 km/s</p>
               <p>d = v / H₀ = 30 000 / 70 ≈ 430 Mpc ≈ 1,4 млрд. светлинни години</p>
               <p>(При z ≳ 0,3 трябват точните формули на космологията – приближението v ≈ cz вече не работи добре.)</p>
             </Task>
-            <Task {...task('b3')} number={6} color="border-yellow-500" question="Хъбъл получава H₀ ≈ 500 km/s/Mpc. Каква възраст на Вселената следва от това? Защо това е било проблем?">
+            <Task id="b3" number={6} color="border-yellow-500" question="Хъбъл получава H₀ ≈ 500 km/s/Mpc. Каква възраст на Вселената следва от това? Защо това е било проблем?">
               <p>1/H₀ = 978 / 500 ≈ 2 млрд. години</p>
               <p>
                 Геолозите вече знаят, че скалите на Земята са на над 3 млрд. години. Вселената не може да е по-млада от Земята! Кризата е
@@ -244,13 +235,13 @@ export default function Lecture28() {
           </div>
 
           <div className="mb-6">
-            <h3 className="text-lg font-semibold mb-3 text-red-600 dark:text-red-400">Ниво С (Международна олимпиада)</h3>
-            <Task {...task('c1')} number={7} color="border-red-500" question="Покажете, че в Айнщайн–де Ситеровата Вселена (само вещество, плоска) a ∝ t^(2/3) и възрастта е t₀ = (2/3) / H₀. Колко е тя при H₀ = 70 km/s/Mpc?">
+            <TaskLevel level="C" />
+            <Task id="c1" number={7} color="border-red-500" question="Покажете, че в Айнщайн–де Ситеровата Вселена (само вещество, плоска) a ∝ t^(2/3) и възрастта е t₀ = (2/3) / H₀. Колко е тя при H₀ = 70 km/s/Mpc?">
               <p>При Ω = 1, k = 0: H² = (ȧ / a)² = H₀² / a³ ⇒ ȧ = H₀ a^(−1/2) ⇒ a^(1/2) da = H₀ dt</p>
               <p>(2/3) a^(3/2) = H₀ t ⇒ a = (3H₀t / 2)^(2/3) ∝ t^(2/3); днес a = 1 ⇒ t₀ = 2 / (3H₀)</p>
               <p>t₀ = (2/3) · 14 ≈ 9,3 млрд. години – по-малко от възрастта на най-старите звезди (~13). Само тъмната енергия решава този проблем.</p>
             </Task>
-            <Task {...task('c2')} number={8} color="border-red-500" question="На какво разстояние скоростта на отдалечаване по закона на Хъбъл става равна на скоростта на светлината? Колко Mpc е това и колко светлинни години?">
+            <Task id="c2" number={8} color="border-red-500" question="На какво разстояние скоростта на отдалечаване по закона на Хъбъл става равна на скоростта на светлината? Колко Mpc е това и колко светлинни години?">
               <p>d_H = c / H₀ = 300 000 / 70 ≈ 4300 Mpc ≈ 14 млрд. светлинни години</p>
               <p>
                 Това е радиусът на Хъбъл. Галактиките отвъд него днес се отдалечават по-бързо от светлината – но ние ги виждаме, защото
@@ -258,7 +249,7 @@ export default function Lecture28() {
                 (46 млрд. светлинни години) в днешни разстояния.
               </p>
             </Task>
-            <Task {...task('c3')} number={9} color="border-red-500" question="Ускорението на разширяването се описва с параметъра на забавяне q₀ = Ω_м / 2 − Ω_Λ. Пресметнете го за нашата Вселена. При какво Ω_Λ ускорението би започнало днес, ако Ω_м = 0,3?">
+            <Task id="c3" number={9} color="border-red-500" question="Ускорението на разширяването се описва с параметъра на забавяне q₀ = Ω_м / 2 − Ω_Λ. Пресметнете го за нашата Вселена. При какво Ω_Λ ускорението би започнало днес, ако Ω_м = 0,3?">
               <p>q₀ = 0,315 / 2 − 0,685 ≈ −0,53 &lt; 0 ⇒ разширението се ускорява.</p>
               <p>q₀ = 0 при Ω_Λ = Ω_м / 2 = 0,15.</p>
               <p>
@@ -267,6 +258,7 @@ export default function Lecture28() {
               </p>
             </Task>
           </div>
+          </TaskBoard>
         </section>
 
         <section className="mb-8">

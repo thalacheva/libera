@@ -1,10 +1,9 @@
-import { useState } from 'react';
 import Example from '~/Example';
 import Quiz, { type Question } from '~/Quiz';
 import Theorem from '~/Theorem';
 import ApertureLab from './components/ApertureLab';
 import ResolutionLab from './components/ResolutionLab';
-import Task from './components/Task';
+import Task, { TaskBoard, TaskLevel } from './components/Task';
 import TelescopeOptics from './components/TelescopeOptics';
 import TelescopeSizes from './components/TelescopeSizes';
 
@@ -105,14 +104,6 @@ const DETECTORS = [
 ];
 
 export default function Lecture10() {
-  const [showSolutions, setShowSolutions] = useState<{ [key: string]: boolean }>({});
-
-  const task = (id: string) => ({
-    id,
-    shown: !!showSolutions[id],
-    onToggle: (taskId: string) => setShowSolutions(prev => ({ ...prev, [taskId]: !prev[taskId] })),
-  });
-
   return (
     <main className="flex-1 overflow-y-auto px-4 pt-16 pb-12 sm:px-6 lg:px-10 lg:pt-10">
       <div className="max-w-4xl mx-auto">
@@ -321,11 +312,11 @@ export default function Lecture10() {
 
         <section className="mb-8">
           <h2 className="text-xl sm:text-2xl font-semibold mb-4">9. 📝 Задачи за упражнение</h2>
-
+          <TaskBoard>
           <div className="mb-6">
-            <h3 className="text-lg font-semibold mb-3 text-green-600 dark:text-green-400">Ниво А (Областен кръг)</h3>
+            <TaskLevel level="A" />
 
-            <Task {...task('a1')} number={1} color="border-green-500" question="Кои са двете основни задачи на телескопа? Защо увеличението не е сред тях?">
+            <Task id="a1" number={1} color="border-green-500" question="Кои са двете основни задачи на телескопа? Защо увеличението не е сред тях?">
               <p>1) Да събира повече светлина от окото, за да се виждат слаби обекти. 2) Да различава фини детайли.</p>
               <p>
                 И двете зависят от диаметъра на обектива. Увеличението се определя от окуляра (M = F / f) и лесно се сменя, но не може
@@ -333,7 +324,7 @@ export default function Lecture10() {
               </p>
             </Task>
 
-            <Task {...task('a2')} number={2} color="border-green-500" question="Защо всички големи телескопи днес са рефлектори?">
+            <Task id="a2" number={2} color="border-green-500" question="Защо всички големи телескопи днес са рефлектори?">
               <ul className="list-disc list-inside space-y-1">
                 <li>Огледалото няма хроматична аберация – отразява всички цветове еднакво.</li>
                 <li>Светлината не минава през стъклото, затова то не трябва да е идеално прозрачно и еднородно.</li>
@@ -342,7 +333,7 @@ export default function Lecture10() {
               </ul>
             </Task>
 
-            <Task {...task('a3')} number={3} color="border-green-500" question="Защо рентгеновите и инфрачервените телескопи се изпращат в космоса, а за радиотелескопите това не е нужно?">
+            <Task id="a3" number={3} color="border-green-500" question="Защо рентгеновите и инфрачервените телескопи се изпращат в космоса, а за радиотелескопите това не е нужно?">
               <p>
                 Атмосферата поглъща рентгеновите и повечето инфрачервени лъчи, а освен това сама свети в инфрачервено. Радиовълните
                 от ~1 cm до ~10 m минават свободно през нея (радиопрозорецът), затова радиотелескопите работят на Земята – дори през
@@ -352,10 +343,10 @@ export default function Lecture10() {
           </div>
 
           <div className="mb-6">
-            <h3 className="text-lg font-semibold mb-3 text-yellow-600 dark:text-yellow-400">Ниво В (Национален кръг)</h3>
+            <TaskLevel level="B" />
 
             <Task
-              {...task('b1')}
+              id="b1"
               number={4}
               color="border-yellow-500"
               question="Телескоп има D = 150 mm и F = 1200 mm. Какво увеличение дават окуляри с f = 25 mm и f = 10 mm? Има ли смисъл окуляр с f = 3 mm?"
@@ -366,7 +357,7 @@ export default function Lecture10() {
             </Task>
 
             <Task
-              {...task('b2')}
+              id="b2"
               number={5}
               color="border-yellow-500"
               question="Колко пъти повече светлина събира 10-метровият телескоп Кек от 2-метровия на Рожен? А от окото (7 mm)? С колко звездни величини по-слаби обекти вижда Кек от Рожен?"
@@ -377,7 +368,7 @@ export default function Lecture10() {
             </Task>
 
             <Task
-              {...task('b3')}
+              id="b3"
               number={6}
               color="border-yellow-500"
               question="Каква е разделителната способност на Хъбъл (D = 2,4 m) при λ = 550 nm? Какъв е най-малкият детайл, който може да различи на Луната (384 400 km)?"
@@ -392,10 +383,10 @@ export default function Lecture10() {
           </div>
 
           <div className="mb-6">
-            <h3 className="text-lg font-semibold mb-3 text-red-600 dark:text-red-400">Ниво С (Международна олимпиада)</h3>
+            <TaskLevel level="C" />
 
             <Task
-              {...task('c1')}
+              id="c1"
               number={7}
               color="border-red-500"
               question="EHT наблюдава при λ = 1,3 mm с антени на разстояние до 10 700 km. Каква е разделителната му способност? Може ли да различи сянката на черната дупка в M87 с ъглов диаметър ~42 µas?"
@@ -409,7 +400,7 @@ export default function Lecture10() {
             </Task>
 
             <Task
-              {...task('c2')}
+              id="c2"
               number={8}
               color="border-red-500"
               question="Плутон има видима звездна величина около 14,4ᵐ. Какъв е най-малкият диаметър на телескоп, с който може да се види визуално? Как ще се промени отговорът под градско небе, където граничната величина е с 3ᵐ по-ярка?"
@@ -422,7 +413,7 @@ export default function Lecture10() {
             </Task>
 
             <Task
-              {...task('c3')}
+              id="c3"
               number={9}
               color="border-red-500"
               question="Слаба галактика се заснема на фотоплака (ефективност 2%) с телескоп от 4 m за 4 часа. Колко време ще отнеме същото с CCD камера (ефективност 90%) на 8-метров телескоп?"
@@ -435,6 +426,7 @@ export default function Lecture10() {
               </p>
             </Task>
           </div>
+          </TaskBoard>
         </section>
 
         <section className="mb-8">

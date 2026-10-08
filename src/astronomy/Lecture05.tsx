@@ -1,9 +1,8 @@
-import { useState } from 'react';
 import Example from '~/Example';
 import Quiz, { type Question } from '~/Quiz';
 import Theorem from '~/Theorem';
 import SolarEclipse from './components/SolarEclipse';
-import Task from './components/Task';
+import Task, { TaskBoard, TaskLevel } from './components/Task';
 
 const QUIZ: Question[] = [
   {
@@ -76,17 +75,6 @@ const CONTACTS = [
 ];
 
 export default function Lecture05() {
-  const [showSolutions, setShowSolutions] = useState<{
-    [key: string]: boolean;
-  }>({});
-
-  const task = (id: string) => ({
-    id,
-    shown: !!showSolutions[id],
-    onToggle: (taskId: string) =>
-      setShowSolutions(prev => ({ ...prev, [taskId]: !prev[taskId] })),
-  });
-
   return (
     <main className="flex-1 overflow-y-auto px-4 pt-16 pb-12 sm:px-6 lg:px-10 lg:pt-10">
       <div className="max-w-4xl mx-auto">
@@ -352,14 +340,12 @@ export default function Lecture05() {
           <h2 className="text-xl sm:text-2xl font-semibold mb-4">
             7. 📝 Задачи за упражнение
           </h2>
-
+          <TaskBoard>
           <div className="mb-6">
-            <h3 className="text-lg font-semibold mb-3 text-green-600 dark:text-green-400">
-              Ниво А (Областен кръг)
-            </h3>
+            <TaskLevel level="A" />
 
             <Task
-              {...task('a1')}
+              id="a1"
               number={1}
               color="border-green-500"
               question="При коя фаза на Луната може да има слънчево затъмнение?"
@@ -372,7 +358,7 @@ export default function Lecture05() {
             </Task>
 
             <Task
-              {...task('a2')}
+              id="a2"
               number={2}
               color="border-green-500"
               question="Каква е разликата между пълно и пръстеновидно затъмнение?"
@@ -389,7 +375,7 @@ export default function Lecture05() {
             </Task>
 
             <Task
-              {...task('a3')}
+              id="a3"
               number={3}
               color="border-green-500"
               question="Защо пълното слънчево затъмнение се вижда само от тясна ивица на Земята?"
@@ -404,7 +390,7 @@ export default function Lecture05() {
             </Task>
 
             <Task
-              {...task('a4')}
+              id="a4"
               number={4}
               color="border-green-500"
               question="Защо лунното затъмнение се вижда от цялото нощно полукълбо, а слънчевото – само от малка част от дневното?"
@@ -423,12 +409,10 @@ export default function Lecture05() {
           </div>
 
           <div className="mb-6">
-            <h3 className="text-lg font-semibold mb-3 text-yellow-600 dark:text-yellow-400">
-              Ниво В (Национален кръг)
-            </h3>
+            <TaskLevel level="B" />
 
             <Task
-              {...task('b1')}
+              id="b1"
               number={5}
               color="border-yellow-500"
               question="Колко най-много може да трае пълната фаза на слънчево затъмнение и при какви условия?"
@@ -447,7 +431,7 @@ export default function Lecture05() {
             </Task>
 
             <Task
-              {...task('b2')}
+              id="b2"
               number={6}
               color="border-yellow-500"
               question="Изчисли ъгловия диаметър на Луната, ако диаметърът ѝ е 3474 km, а разстоянието – 384 400 km."
@@ -461,7 +445,7 @@ export default function Lecture05() {
             </Task>
 
             <Task
-              {...task('b3')}
+              id="b3"
               number={7}
               color="border-yellow-500"
               question="Луната обикаля Земята със скорост ~1,02 km/s на изток. В каква посока се движи сянката ѝ по Земята?"
@@ -479,7 +463,7 @@ export default function Lecture05() {
             </Task>
 
             <Task
-              {...task('b4')}
+              id="b4"
               number={8}
               color="border-yellow-500"
               question="Каква е най-голямата възможна дистанция между наблюдател и Луната, при която затъмнението може да е пълно, ако Земята е в перихелий (d☉ = 147,1 млн. km)?"
@@ -498,12 +482,10 @@ export default function Lecture05() {
           </div>
 
           <div className="mb-6">
-            <h3 className="text-lg font-semibold mb-3 text-red-600 dark:text-red-400">
-              Ниво С (Международна олимпиада)
-            </h3>
+            <TaskLevel level="C" />
 
             <Task
-              {...task('c1')}
+              id="c1"
               number={9}
               color="border-red-500"
               question="Може ли на Марс да има пълни слънчеви затъмнения? (Фобос: диаметър ~22 km, радиус на орбитата 9376 km; Деймос: ~12 km, 23 460 km; радиус на Марс 3390 km; Марс е на 1,52 AU от Слънцето.)"
@@ -529,7 +511,7 @@ export default function Lecture05() {
             </Task>
 
             <Task
-              {...task('c2')}
+              id="c2"
               number={10}
               color="border-red-500"
               question="Оцени колко трае пълната фаза за наблюдател на екватора около пладне, ако сянката има диаметър 200 km. (Скорост на Луната по орбитата 1,02 km/s, на повърхността на Земята при екватора – 0,47 km/s.)"
@@ -548,7 +530,7 @@ export default function Lecture05() {
             </Task>
 
             <Task
-              {...task('c3')}
+              id="c3"
               number={11}
               color="border-red-500"
               question="Луната се отдалечава от Земята с ~3,8 cm годишно. Оцени след колко време пълните затъмнения ще станат невъзможни, ако приемем, че решаващо е разстоянието в перигей (днес ~357 000 km до центъра на Земята) и Слънцето е в афелий."
@@ -568,6 +550,7 @@ export default function Lecture05() {
               </p>
             </Task>
           </div>
+          </TaskBoard>
         </section>
 
         <section className="mb-8">

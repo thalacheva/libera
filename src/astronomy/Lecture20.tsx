@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import Example from '~/Example';
 import Quiz, { type Question } from '~/Quiz';
 import Theorem from '~/Theorem';
@@ -6,7 +5,7 @@ import CosmicOrigins from './components/CosmicOrigins';
 import EvolutionTrack from './components/EvolutionTrack';
 import JeansLab from './components/JeansLab';
 import OnionLab from './components/OnionLab';
-import Task from './components/Task';
+import Task, { TaskBoard, TaskLevel } from './components/Task';
 
 const QUIZ: Question[] = [
   {
@@ -87,14 +86,6 @@ const FATES = [
 ];
 
 export default function Lecture20() {
-  const [showSolutions, setShowSolutions] = useState<{ [key: string]: boolean }>({});
-
-  const task = (id: string) => ({
-    id,
-    shown: !!showSolutions[id],
-    onToggle: (taskId: string) => setShowSolutions(prev => ({ ...prev, [taskId]: !prev[taskId] })),
-  });
-
   return (
     <main className="flex-1 overflow-y-auto px-4 pt-16 pb-12 sm:px-6 lg:px-10 lg:pt-10">
       <div className="max-w-4xl mx-auto">
@@ -258,11 +249,11 @@ export default function Lecture20() {
 
         <section className="mb-8">
           <h2 className="text-xl sm:text-2xl font-semibold mb-4">7. 📝 Задачи за упражнение</h2>
-
+          <TaskBoard>
           <div className="mb-6">
-            <h3 className="text-lg font-semibold mb-3 text-green-600 dark:text-green-400">Ниво А (Областен кръг)</h3>
+            <TaskLevel level="A" />
 
-            <Task {...task('a1')} number={1} color="border-green-500" question="Каква част от живота си звездата прекарва на главната последователност и защо?">
+            <Task id="a1" number={1} color="border-green-500" question="Каква част от живота си звездата прекарва на главната последователност и защо?">
               <p>
                 <strong>Около 90%.</strong> Водородът е най-изобилното и най-„енергийното“ гориво: превръщането му в хелий освобождава
                 0,7% от масата, а всички следващи реакции заедно – още само ~0,1%. Освен това в по-късните фази звездите светят много
@@ -270,7 +261,7 @@ export default function Lecture20() {
               </p>
             </Task>
 
-            <Task {...task('a2')} number={2} color="border-green-500" question="Какво ще остане от Слънцето накрая?">
+            <Task id="a2" number={2} color="border-green-500" question="Какво ще остане от Слънцето накрая?">
               <p>
                 <strong>Бяло джудже</strong> от въглерод и кислород, с маса ~0,55 M☉ и размер колкото Земята. Преди това Слънцето ще
                 стане червен гигант, ще изхвърли обвивката си като планетарна мъглявина и ще изгуби почти половината си маса. За
@@ -278,7 +269,7 @@ export default function Lecture20() {
               </p>
             </Task>
 
-            <Task {...task('a3')} number={3} color="border-green-500" question="Какво спира свиването на протозвездата и я превръща в звезда?">
+            <Task id="a3" number={3} color="border-green-500" question="Какво спира свиването на протозвездата и я превръща в звезда?">
               <p>
                 Докато се свива, протозвездата се нагрява. Когато температурата в центъра стигне ~10 млн. K, започва синтезът на
                 водород в хелий. Енергията му поддържа налягането на газа, което уравновесява гравитацията. Звездата е на главната
@@ -288,15 +279,15 @@ export default function Lecture20() {
           </div>
 
           <div className="mb-6">
-            <h3 className="text-lg font-semibold mb-3 text-yellow-600 dark:text-yellow-400">Ниво В (Национален кръг)</h3>
+            <TaskLevel level="B" />
 
-            <Task {...task('b1')} number={4} color="border-yellow-500" question="Звезда с маса 10 M☉ живее около 20 млн. години. Колко ще живее звезда с маса 2 M☉, ако t ∝ M^(−2,5)?">
+            <Task id="b1" number={4} color="border-yellow-500" question="Звезда с маса 10 M☉ живее около 20 млн. години. Колко ще живее звезда с маса 2 M☉, ако t ∝ M^(−2,5)?">
               <p>t₂ / t₁ = (M₂ / M₁)^(−2,5) = (2 / 10)^(−2,5) = 5^2,5 = 25 · √5 ≈ 56</p>
               <p>t₂ ≈ 20 млн. · 56 ≈ 1,1 млрд. години</p>
               <p>Пет пъти по-малка маса – 56 пъти по-дълъг живот.</p>
             </Task>
 
-            <Task {...task('b2')} number={5} color="border-yellow-500" question="Като червен гигант Слънцето ще достигне L ≈ 2600 L☉ и R ≈ 200 R☉. Каква ще е температурата на повърхността му? Ако Земята оцелее на 1,5 AU (орбитата ѝ се разширява, когато Слънцето губи маса), каква ще е равновесната ѝ температура (T ≈ 279 K · L^(1/4) / √d при албедо 0)?">
+            <Task id="b2" number={5} color="border-yellow-500" question="Като червен гигант Слънцето ще достигне L ≈ 2600 L☉ и R ≈ 200 R☉. Каква ще е температурата на повърхността му? Ако Земята оцелее на 1,5 AU (орбитата ѝ се разширява, когато Слънцето губи маса), каква ще е равновесната ѝ температура (T ≈ 279 K · L^(1/4) / √d при албедо 0)?">
               <p>T = 5772 · (L / R²)^(1/4) = 5772 · (2600 / 40 000)^(1/4) = 5772 · 0,505 ≈ 2900 K</p>
               <p>T_Земя ≈ 279 · 2600^(1/4) / √1,5 ≈ 279 · 7,14 / 1,22 ≈ 1600 K</p>
               <p>
@@ -306,7 +297,7 @@ export default function Lecture20() {
               </p>
             </Task>
 
-            <Task {...task('b3')} number={6} color="border-yellow-500" question="Защо масивните звезди завършват като свръхнови, а звездите като Слънцето – не?">
+            <Task id="b3" number={6} color="border-yellow-500" question="Защо масивните звезди завършват като свръхнови, а звездите като Слънцето – не?">
               <p>
                 <strong>Звезди като Слънцето:</strong> ядрото им никога не става достатъчно горещо за горене на въглерод. Изроденото
                 въглеродно-кислородно ядро е под 1,4 M☉ и налягането на електроните го удържа. Звездата спокойно изхвърля обвивката си.
@@ -319,10 +310,10 @@ export default function Lecture20() {
           </div>
 
           <div className="mb-6">
-            <h3 className="text-lg font-semibold mb-3 text-red-600 dark:text-red-400">Ниво С (Международна олимпиада)</h3>
+            <TaskLevel level="C" />
 
             <Task
-              {...task('c1')}
+              id="c1"
               number={7}
               color="border-red-500"
               question="Каква е масата на Джинс и времето за колапс в облак с T = 20 K и n = 10³ cm⁻³? Използвайте, че при T = 10 K и n = 10⁴ cm⁻³ M_J ≈ 5 M☉ и t_ff ≈ 340 000 години."
@@ -337,7 +328,7 @@ export default function Lecture20() {
             </Task>
 
             <Task
-              {...task('c2')}
+              id="c2"
               number={8}
               color="border-red-500"
               question="Масата на атома на водорода е 1,007825 u, а на хелия – 4,002603 u. Каква част от масата се превръща в енергия при синтеза 4H → He? Колко би живяло Слънцето, ако светеше от горене на въглища (3 · 10⁷ J/kg)?"
@@ -354,7 +345,7 @@ export default function Lecture20() {
             </Task>
 
             <Task
-              {...task('c3')}
+              id="c3"
               number={9}
               color="border-red-500"
               question="Свръхновата SN 1987A е на 51,4 kpc. При колапса са излъчени ~3 · 10⁴⁶ J в неутрино със средна енергия 15 MeV. Колко неутрино са минали през всеки квадратен сантиметър на Земята? През тялото ви (площ ~0,5 m²)?"
@@ -368,6 +359,7 @@ export default function Lecture20() {
               </p>
             </Task>
           </div>
+          </TaskBoard>
         </section>
 
         <section className="mb-8">

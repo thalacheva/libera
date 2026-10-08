@@ -1,10 +1,9 @@
-import { useState } from 'react';
 import Example from '~/Example';
 import Quiz, { type Question } from '~/Quiz';
 import Theorem from '~/Theorem';
 import HohmannTransfer from './components/HohmannTransfer';
 import OrbitAltitudeExplorer from './components/OrbitAltitudeExplorer';
-import Task from './components/Task';
+import Task, { TaskBoard, TaskLevel } from './components/Task';
 import VisVivaLab from './components/VisVivaLab';
 
 const QUIZ: Question[] = [
@@ -59,17 +58,6 @@ const ESCAPE = [
 ];
 
 export default function Lecture08() {
-  const [showSolutions, setShowSolutions] = useState<{
-    [key: string]: boolean;
-  }>({});
-
-  const task = (id: string) => ({
-    id,
-    shown: !!showSolutions[id],
-    onToggle: (taskId: string) =>
-      setShowSolutions(prev => ({ ...prev, [taskId]: !prev[taskId] })),
-  });
-
   return (
     <main className="flex-1 overflow-y-auto px-4 pt-16 pb-12 sm:px-6 lg:px-10 lg:pt-10">
       <div className="max-w-4xl mx-auto">
@@ -281,14 +269,12 @@ export default function Lecture08() {
           <h2 className="text-xl sm:text-2xl font-semibold mb-4">
             6. 📝 Задачи за упражнение
           </h2>
-
+          <TaskBoard>
           <div className="mb-6">
-            <h3 className="text-lg font-semibold mb-3 text-green-600 dark:text-green-400">
-              Ниво А (Областен кръг)
-            </h3>
+            <TaskLevel level="A" />
 
             <Task
-              {...task('a1')}
+              id="a1"
               number={1}
               color="border-green-500"
               question="Каква е първата космическа скорост за Земята и какво означава тя?"
@@ -304,7 +290,7 @@ export default function Lecture08() {
             </Task>
 
             <Task
-              {...task('a2')}
+              id="a2"
               number={2}
               color="border-green-500"
               question="Защо МКС трябва да се движи толкова бързо?"
@@ -322,7 +308,7 @@ export default function Lecture08() {
             </Task>
 
             <Task
-              {...task('a3')}
+              id="a3"
               number={3}
               color="border-green-500"
               question="Защо телевизионните спътници изглеждат неподвижни на небето?"
@@ -337,12 +323,10 @@ export default function Lecture08() {
           </div>
 
           <div className="mb-6">
-            <h3 className="text-lg font-semibold mb-3 text-yellow-600 dark:text-yellow-400">
-              Ниво В (Национален кръг)
-            </h3>
+            <TaskLevel level="B" />
 
             <Task
-              {...task('b1')}
+              id="b1"
               number={4}
               color="border-yellow-500"
               question="Изчисли орбиталната скорост и периода на спътник на височина 400 km (R = 6371 km, GM = 3,986·10¹⁴ m³/s²)."
@@ -360,7 +344,7 @@ export default function Lecture08() {
             </Task>
 
             <Task
-              {...task('b2')}
+              id="b2"
               number={5}
               color="border-yellow-500"
               question="Докажи, че скоростта за бягство е √2 пъти по-голяма от кръговата скорост на същото разстояние."
@@ -371,7 +355,7 @@ export default function Lecture08() {
             </Task>
 
             <Task
-              {...task('b3')}
+              id="b3"
               number={6}
               color="border-yellow-500"
               question="Изчисли скоростта за бягство от Луната (M = 7,35·10²² kg, R = 1737 km). Защо Луната няма атмосфера?"
@@ -389,7 +373,7 @@ export default function Lecture08() {
             </Task>
 
             <Task
-              {...task('b4')}
+              id="b4"
               number={7}
               color="border-yellow-500"
               question="Спътник се движи по елипса с перигей на височина 300 km и апогей 35 786 km. Каква е скоростта му в перигея? (Използвай vis-viva.)"
@@ -407,12 +391,10 @@ export default function Lecture08() {
           </div>
 
           <div className="mb-6">
-            <h3 className="text-lg font-semibold mb-3 text-red-600 dark:text-red-400">
-              Ниво С (Международна олимпиада)
-            </h3>
+            <TaskLevel level="C" />
 
             <Task
-              {...task('c1')}
+              id="c1"
               number={8}
               color="border-red-500"
               question="Астронавт на МКС (h = 400 km, T ≈ 92,5 min) хвърля топка напред със скорост 1 m/s спрямо станцията. Къде ще е топката след една обиколка?"
@@ -438,7 +420,7 @@ export default function Lecture08() {
             </Task>
 
             <Task
-              {...task('c2')}
+              id="c2"
               number={9}
               color="border-red-500"
               question="Изведи третата космическа скорост (v₃ ≈ 16,6 km/s), като знаеш, че Земята обикаля Слънцето с 29,8 km/s, а v₂ = 11,2 km/s."
@@ -459,7 +441,7 @@ export default function Lecture08() {
             </Task>
 
             <Task
-              {...task('c3')}
+              id="c3"
               number={10}
               color="border-red-500"
               question="Кораб лети до Марс (a = 1,524 AU) по преход на Хоман. Колко трае полетът? Под какъв ъгъл пред Земята трябва да е Марс при старта и колко често се повтаря такава възможност?"
@@ -477,6 +459,7 @@ export default function Lecture08() {
               </p>
             </Task>
           </div>
+          </TaskBoard>
         </section>
 
         <section className="mb-8">

@@ -5,7 +5,7 @@ import Theorem from '~/Theorem';
 import LightClockLab from './components/LightClockLab';
 import MuonLab from './components/MuonLab';
 import SuperluminalLab from './components/SuperluminalLab';
-import Task from './components/Task';
+import Task, { TaskBoard, TaskLevel } from './components/Task';
 import TwinParadoxLab from './components/TwinParadoxLab';
 import { fmt } from './components/terrestrialData';
 
@@ -74,13 +74,6 @@ const QUIZ: Question[] = [
 
 export default function Lecture33() {
   const [beta, setBeta] = useState(0.6);
-  const [showSolutions, setShowSolutions] = useState<{ [key: string]: boolean }>({});
-
-  const task = (id: string) => ({
-    id,
-    shown: !!showSolutions[id],
-    onToggle: (taskId: string) => setShowSolutions(prev => ({ ...prev, [taskId]: !prev[taskId] })),
-  });
 
   const gamma = 1 / Math.sqrt(1 - beta * beta);
 
@@ -336,24 +329,24 @@ export default function Lecture33() {
 
         <section className="mb-8">
           <h2 className="text-xl sm:text-2xl font-semibold mb-4">10. 📝 Задачи за упражнение</h2>
-
+          <TaskBoard>
           <div className="mb-6">
-            <h3 className="text-lg font-semibold mb-3 text-green-600 dark:text-green-400">Ниво А (Областен кръг)</h3>
-            <Task {...task('a1')} number={1} color="border-green-500" question="Кораб лети от Земята със скорост 0,6c. Космонавтът отчита по своя часовник 1 час. Колко време е минало на Земята?">
+            <TaskLevel level="A" />
+            <Task id="a1" number={1} color="border-green-500" question="Кораб лети от Земята със скорост 0,6c. Космонавтът отчита по своя часовник 1 час. Колко време е минало на Земята?">
               <p>γ = 1 / √(1 − 0,6²) = 1 / √0,64 = 1 / 0,8 = 1,25</p>
               <p>Δt = γ · Δt₀ = 1,25 · 1 h = 1,25 h</p>
               <p>
                 <strong>Отговор: 1 час и 15 минути</strong>
               </p>
             </Task>
-            <Task {...task('a2')} number={2} color="border-green-500" question="Ракета с дължина 100 m в покой лети с 0,8c. Каква дължина ще измери наблюдател на Земята?">
+            <Task id="a2" number={2} color="border-green-500" question="Ракета с дължина 100 m в покой лети с 0,8c. Каква дължина ще измери наблюдател на Земята?">
               <p>γ = 1 / √(1 − 0,8²) = 1 / √0,36 = 1 / 0,6 ≈ 1,67</p>
               <p>L = L₀ / γ = 100 m · 0,6 = 60 m</p>
               <p>
                 <strong>Отговор: 60 m</strong>
               </p>
             </Task>
-            <Task {...task('a3')} number={3} color="border-green-500" question="Може ли нещо да се движи по-бързо от светлината? Как тогава струите на квазарите изглеждат „свръхсветлинни“?">
+            <Task id="a3" number={3} color="border-green-500" question="Може ли нещо да се движи по-бързо от светлината? Как тогава струите на квазарите изглеждат „свръхсветлинни“?">
               <p>
                 Нито едно тяло с маса, нито сигнал, не може да надмине c – за това би била нужна безкрайна енергия (γ → ∞). „Свръхсветлинните“
                 струи са оптична илюзия: плазма с почти светлинна скорост, насочена почти към нас, почти догонва собствената си светлина, затова
@@ -363,8 +356,8 @@ export default function Lecture33() {
           </div>
 
           <div className="mb-6">
-            <h3 className="text-lg font-semibold mb-3 text-yellow-600 dark:text-yellow-400">Ниво В (Национален кръг)</h3>
-            <Task {...task('b3')} number={4} color="border-yellow-500" question="Мюон със собствено време на живот 2,2 µs се движи със скорост 0,995c. Какво разстояние ще измине средно според наблюдател на Земята? А колко би изминал без релативистки ефекти?">
+            <TaskLevel level="B" />
+            <Task id="b3" number={4} color="border-yellow-500" question="Мюон със собствено време на живот 2,2 µs се движи със скорост 0,995c. Какво разстояние ще измине средно според наблюдател на Земята? А колко би изминал без релативистки ефекти?">
               <p>v = 0,995 · 3 · 10⁸ ≈ 2,985 · 10⁸ m/s</p>
               <p>Без СТО: d = v · τ₀ = 2,985 · 10⁸ · 2,2 · 10⁻⁶ ≈ 657 m</p>
               <p>γ = 1 / √(1 − 0,995²) = 1 / √0,009975 ≈ 10,0</p>
@@ -373,14 +366,14 @@ export default function Lecture33() {
                 <strong>Отговор: ≈ 6,6 km вместо ≈ 0,66 km</strong>
               </p>
             </Task>
-            <Task {...task('b4')} number={5} color="border-yellow-500" question="Колко енергия се съдържа в 1 g вещество? Сравнете с енергията на 1 килотон тротил (4,2 · 10¹² J).">
+            <Task id="b4" number={5} color="border-yellow-500" question="Колко енергия се съдържа в 1 g вещество? Сравнете с енергията на 1 килотон тротил (4,2 · 10¹² J).">
               <p>E = mc² = 10⁻³ kg · (3 · 10⁸ m/s)² = 9 · 10¹³ J</p>
               <p>9 · 10¹³ / 4,2 · 10¹² ≈ 21</p>
               <p>
                 <strong>Отговор: 9 · 10¹³ J ≈ 21 килотона тротил</strong>
               </p>
             </Task>
-            <Task {...task('b5')} number={6} color="border-yellow-500" question="Ако галактика се отдалечаваше от нас със скорост 0,5c (като обикновен Доплеров ефект), на каква дължина на вълната бихме видели линията Hα (656,3 nm)? В кой диапазон е това?">
+            <Task id="b5" number={6} color="border-yellow-500" question="Ако галактика се отдалечаваше от нас със скорост 0,5c (като обикновен Доплеров ефект), на каква дължина на вълната бихме видели линията Hα (656,3 nm)? В кой диапазон е това?">
               <p>λ = λ₀ · √((1 + 0,5) / (1 − 0,5)) = 656,3 · √3 ≈ 656,3 · 1,732 ≈ 1137 nm</p>
               <p>z = λ/λ₀ − 1 ≈ 0,73 – линията е в близкото инфрачервено, невидима за окото.</p>
               <p>Класическата формула Δλ/λ = v/c би дала 984 nm – грешка от ~13%.</p>
@@ -388,8 +381,8 @@ export default function Lecture33() {
           </div>
 
           <div className="mb-6">
-            <h3 className="text-lg font-semibold mb-3 text-red-600 dark:text-red-400">Ниво С (Международна олимпиада)</h3>
-            <Task {...task('c5')} number={7} color="border-red-500" question="Светимостта на Слънцето е L = 3,83 · 10²⁶ W. Колко маса губи Слънцето всяка секунда? Каква част от масата си (M = 2 · 10³⁰ kg) би загубило за 10 милиарда години?">
+            <TaskLevel level="C" />
+            <Task id="c5" number={7} color="border-red-500" question="Светимостта на Слънцето е L = 3,83 · 10²⁶ W. Колко маса губи Слънцето всяка секунда? Каква част от масата си (M = 2 · 10³⁰ kg) би загубило за 10 милиарда години?">
               <p>Δm/Δt = L / c² = 3,83 · 10²⁶ / 9 · 10¹⁶ ≈ 4,3 · 10⁹ kg/s</p>
               <p>10 милиарда години ≈ 10¹⁰ · 3,16 · 10⁷ s ≈ 3,16 · 10¹⁷ s</p>
               <p>Δm ≈ 4,3 · 10⁹ · 3,16 · 10¹⁷ ≈ 1,4 · 10²⁷ kg</p>
@@ -398,20 +391,21 @@ export default function Lecture33() {
                 <strong>Отговор: ≈ 4,3 милиона тона в секунда, но само ≈ 0,07% от масата за целия живот</strong>
               </p>
             </Task>
-            <Task {...task('c6')} number={8} color="border-red-500" question="Две частици от космическите лъчи се движат една срещу друга, всяка със скорост 0,8c спрямо Земята. С каква скорост се движи едната спрямо другата?">
+            <Task id="c6" number={8} color="border-red-500" question="Две частици от космическите лъчи се движат една срещу друга, всяка със скорост 0,8c спрямо Земята. С каква скорост се движи едната спрямо другата?">
               <p>Класически: 0,8c + 0,8c = 1,6c – невъзможно!</p>
               <p>Релативистки: u = (u' + v) / (1 + u'v/c²) = (0,8 + 0,8) / (1 + 0,64) c = 1,6 / 1,64 c ≈ 0,976c</p>
               <p>
                 <strong>Отговор: ≈ 0,976c</strong>
               </p>
             </Task>
-            <Task {...task('c7')} number={9} color="border-red-500" question="Петно в струята на M87 се движи по небето с видима скорост 6c. Видимата скорост е β_вид = β sin θ / (1 − β cos θ). Каква е най-малката истинска скорост на петното и под какъв ъгъл към зрителния лъч трябва да се движи?">
+            <Task id="c7" number={9} color="border-red-500" question="Петно в струята на M87 се движи по небето с видима скорост 6c. Видимата скорост е β_вид = β sin θ / (1 − β cos θ). Каква е най-малката истинска скорост на петното и под какъв ъгъл към зрителния лъч трябва да се движи?">
               <p>При дадено β видимата скорост е най-голяма при cos θ = β и е равна на βγ.</p>
               <p>Значи βγ ≥ 6 ⇒ β² / (1 − β²) ≥ 36 ⇒ β ≥ 6 / √37 ≈ 0,986 (γ ≥ √37 ≈ 6,1)</p>
               <p>Ъгъл: cos θ = 0,986 ⇒ θ ≈ 9,5° (tg θ = 1/6)</p>
               <p>Струята е насочена почти към нас и се движи с поне 98,6% от скоростта на светлината.</p>
             </Task>
           </div>
+          </TaskBoard>
         </section>
 
         <section className="mb-8">

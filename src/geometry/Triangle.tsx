@@ -2,7 +2,7 @@ import Example from '~/Example';
 import Quiz, { Question } from '~/Quiz';
 import Theorem from '~/Theorem';
 import { InteractiveTriangle } from './InteractiveTriangle';
-import { WordProblem, WordProblems } from './WordProblems';
+import { WordProblems, type WordProblem } from '~/WordProblems';
 
 const h2 = 'text-lg sm:text-xl font-semibold mb-2 sm:mb-3 text-gray-800 dark:text-gray-100';
 const text = 'text-sm sm:text-base text-gray-700 dark:text-gray-300 leading-relaxed';
@@ -38,18 +38,30 @@ const wordProblems: WordProblem[] = [
     problem: 'Стълба с дължина 5 m е опряна на стена. Долният ѝ край е на 3 m от стената. На каква височина стига стълбата?',
     solution: ['Стената, земята и стълбата образуват правоъгълен триъгълник.', 'h² + 3² = 5²', 'h² = 25 − 9 = 16', 'h = 4'],
     answer: '4 m',
+
+    check: [4],
+
+    ask: ['височина, m'],
   },
   {
     title: '🌳 Пряк път през парка',
     problem: 'Правоъгълна поляна е 60 m × 80 m. С колко метра е по-къс пътят по диагонала, отколкото покрай двата края?',
     solution: ['d² = 60² + 80² = 3600 + 6400 = 10000', 'd = 100 m', 'Покрай краищата: 60 + 80 = 140 m', '140 − 100 = 40'],
     answer: 'с 40 m',
+
+    check: [40],
+
+    ask: ['по-къс с, m'],
   },
   {
     title: '⛵ Платното',
     problem: 'Триъгълно платно има долен край 3 m, а височината към него е 4 m. Колко квадратни метра плат е нужен?',
     solution: ['S = a · hₐ / 2', 'S = 3 · 4 / 2', 'S = 6'],
     answer: '6 m²',
+
+    check: [6],
+
+    ask: ['плат, m²'],
   },
 ];
 

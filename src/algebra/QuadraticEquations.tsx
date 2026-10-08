@@ -1,6 +1,7 @@
 import { CheckCircle, RotateCcw, Sparkles, XCircle } from 'lucide-react';
 import { useState } from 'react';
 import Example from '~/Example';
+import { WordProblems, type WordProblem } from '~/WordProblems';
 import Quiz, { Question } from '~/Quiz';
 
 // ---------- Помощни функции ----------
@@ -439,7 +440,7 @@ function Trainer() {
 
 // ---------- Задачи от живота ----------
 
-const wordProblems = [
+const wordProblems: WordProblem[] = [
   {
     title: '⚽ Топка',
     problem: 'Хвърляме топка нагоре. Височината ѝ след t секунди е h = 20t − 5t² метра. Кога топката е на височина 15 m?',
@@ -451,6 +452,10 @@ const wordProblems = [
       't₁ = (4 − 2)/2 = 1,  t₂ = (4 + 2)/2 = 3',
     ],
     answer: 'Два пъти: след 1 s (на път нагоре) и след 3 s (на път надолу)',
+
+    check: [1, 3],
+
+    ask: ['първи момент, s', 'втори момент, s'],
   },
   {
     title: '🌻 Градина',
@@ -463,6 +468,10 @@ const wordProblems = [
       'x₁ = (13 − 3)/2 = 5,  x₂ = (13 + 3)/2 = 8',
     ],
     answer: '5 m × 8 m',
+
+    check: [5, 8],
+
+    ask: ['едната страна, m', 'другата страна, m'],
   },
   {
     title: '🤝 Ръкостискания',
@@ -475,6 +484,10 @@ const wordProblems = [
       'n₁ = (1 + 19)/2 = 10,  n₂ = (1 − 19)/2 = −9 (отпада)',
     ],
     answer: '10 участници',
+
+    check: [10],
+
+    ask: ['участници'],
   },
 ];
 
@@ -541,7 +554,6 @@ const quadraticEquationsQuiz: Question[] = [
 // ---------- Страница ----------
 
 export function QuadraticEquations() {
-  const [openProblems, setOpenProblems] = useState<{ [key: number]: boolean }>({});
 
   return (
     <main className="flex-1 overflow-y-auto px-4 pt-16 pb-12 sm:px-6 lg:px-10 lg:pt-10">
@@ -754,28 +766,7 @@ export function QuadraticEquations() {
             Квадратните уравнения се появяват навсякъде, където има лица, падане на предмети
             или броене на двойки. Внимавай – понякога единият корен няма смисъл в задачата!
           </p>
-          <div className="grid gap-4 sm:grid-cols-3">
-            {wordProblems.map((p, i) => (
-              <div key={p.title} className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-sm flex flex-col">
-                <p className="font-semibold mb-2">{p.title}</p>
-                <p className="text-sm text-gray-700 dark:text-gray-300 mb-3 flex-1">{p.problem}</p>
-                <button
-                  onClick={() => setOpenProblems(prev => ({ ...prev, [i]: !prev[i] }))}
-                  className="text-blue-600 dark:text-blue-400 hover:underline text-sm text-left"
-                >
-                  {openProblems[i] ? '▼ Скрий решението' : '▶ Покажи решението'}
-                </button>
-                {openProblems[i] && (
-                  <div className="mt-2 p-3 bg-blue-50 dark:bg-blue-900/20 rounded text-sm">
-                    {p.solution.map(line => (
-                      <p key={line} className="font-mono">{line}</p>
-                    ))}
-                    <p className="mt-2 font-semibold">Отговор: {p.answer}</p>
-                  </div>
-                )}
-              </div>
-            ))}
-          </div>
+          <WordProblems problems={wordProblems} />
         </section>
 
         <section className="mb-6 sm:mb-8">

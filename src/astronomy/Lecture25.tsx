@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import Example from '~/Example';
 import Quiz, { type Question } from '~/Quiz';
 import Theorem from '~/Theorem';
@@ -6,7 +5,7 @@ import AGNLab from './components/AGNLab';
 import GalaxyCollisionLab from './components/GalaxyCollisionLab';
 import HubbleForkLab from './components/HubbleForkLab';
 import RotationCurveLab from './components/RotationCurveLab';
-import Task from './components/Task';
+import Task, { TaskBoard, TaskLevel } from './components/Task';
 
 const QUIZ: Question[] = [
   {
@@ -84,14 +83,6 @@ const GROUPS = [
 ];
 
 export default function Lecture25() {
-  const [showSolutions, setShowSolutions] = useState<{ [key: string]: boolean }>({});
-
-  const task = (id: string) => ({
-    id,
-    shown: !!showSolutions[id],
-    onToggle: (taskId: string) => setShowSolutions(prev => ({ ...prev, [taskId]: !prev[taskId] })),
-  });
-
   return (
     <main className="flex-1 overflow-y-auto px-4 pt-16 pb-12 sm:px-6 lg:px-10 lg:pt-10">
       <div className="max-w-4xl mx-auto">
@@ -224,24 +215,24 @@ export default function Lecture25() {
 
         <section className="mb-8">
           <h2 className="text-xl sm:text-2xl font-semibold mb-4">7. 📝 Задачи за упражнение</h2>
-
+          <TaskBoard>
           <div className="mb-6">
-            <h3 className="text-lg font-semibold mb-3 text-green-600 dark:text-green-400">Ниво А (Областен кръг)</h3>
-            <Task {...task('a1')} number={1} color="border-green-500" question="По какво се различават елиптичните, спиралните и неправилните галактики?">
+            <TaskLevel level="A" />
+            <Task id="a1" number={1} color="border-green-500" question="По какво се различават елиптичните, спиралните и неправилните галактики?">
               <p>
                 <strong>Елиптичните</strong> нямат диск и ръкави, съдържат стари звезди и почти никакъв студен газ – нови звезди не се
                 раждат. <strong>Спиралните</strong> имат плосък въртящ се диск с ръкави, газ, прах и млади звезди, и издутина в центъра.{' '}
                 <strong>Неправилните</strong> нямат симетрична форма, често са малки и богати на газ.
               </p>
             </Task>
-            <Task {...task('a2')} number={2} color="border-green-500" question="Защо две галактики могат да се сблъскат, без нито една звезда да се удари в друга?">
+            <Task id="a2" number={2} color="border-green-500" question="Защо две галактики могат да се сблъскат, без нито една звезда да се удари в друга?">
               <p>
                 Разстоянието между съседни звезди е ~1 pc, а диаметърът на звезда като Слънцето е ~10⁻⁸ pc – сто милиона пъти по-малко.
                 Ако Слънцето беше топка за тенис, най-близката звезда би била на ~2000 km. Две галактики минават една през друга като два
                 роя мушици. Разстоянието между галактиките обаче е само 20–50 пъти колкото размерите им – затова те се сблъскват често.
               </p>
             </Task>
-            <Task {...task('a3')} number={3} color="border-green-500" question="Какво е квазар и защо е толкова ярък?">
+            <Task id="a3" number={3} color="border-green-500" question="Какво е квазар и защо е толкова ярък?">
               <p>
                 Ядро на далечна галактика, в което вещество пада към свръхмасивна черна дупка. В акреционния диск то се нагрява до
                 стотици хиляди градуси и излъчва до 10% от енергията mc² – много по-ефективно от ядрения синтез. Квазарът може да е
@@ -251,34 +242,34 @@ export default function Lecture25() {
           </div>
 
           <div className="mb-6">
-            <h3 className="text-lg font-semibold mb-3 text-yellow-600 dark:text-yellow-400">Ниво В (Национален кръг)</h3>
-            <Task {...task('b1')} number={4} color="border-yellow-500" question="Видимият образ на елиптична галактика има оси 50″ и 30″. Какъв е типът ѝ?">
+            <TaskLevel level="B" />
+            <Task id="b1" number={4} color="border-yellow-500" question="Видимият образ на елиптична галактика има оси 50″ и 30″. Какъв е типът ѝ?">
               <p>b / a = 30 / 50 = 0,6 ⇒ n = 10 · (1 − 0,6) = 4 ⇒ тип E4.</p>
               <p>Истински галактиката може да е и по-сплескана – ако я гледаме под ъгъл.</p>
             </Task>
-            <Task {...task('b2')} number={5} color="border-yellow-500" question="Водородът в Андромеда обикаля със скорост 250 km/s дори на 30 kpc от центъра. Колко е масата вътре в този радиус? Видимите звезди са ~10¹¹ M☉.">
+            <Task id="b2" number={5} color="border-yellow-500" question="Водородът в Андромеда обикаля със скорост 250 km/s дори на 30 kpc от центъра. Колко е масата вътре в този радиус? Видимите звезди са ~10¹¹ M☉.">
               <p>M = v² r / G = 250² · 30 / 4,3 · 10⁻⁶ ≈ 62 500 · 30 / 4,3 · 10⁻⁶ ≈ 4,4 · 10¹¹ M☉</p>
               <p>Над четири пъти повече от масата на звездите – останалото е газ и (главно) тъмна материя.</p>
             </Task>
-            <Task {...task('b3')} number={6} color="border-yellow-500" question="Каква е светимостта на Едингтън за черна дупка от 10⁸ M☉? Сравнете с Млечния път (~3 · 10¹⁰ L☉).">
+            <Task id="b3" number={6} color="border-yellow-500" question="Каква е светимостта на Едингтън за черна дупка от 10⁸ M☉? Сравнете с Млечния път (~3 · 10¹⁰ L☉).">
               <p>L_Edd = 1,26 · 10³¹ · 10⁸ ≈ 1,3 · 10³⁹ W ≈ 1,3 · 10³⁹ / 3,83 · 10²⁶ ≈ 3,3 · 10¹² L☉</p>
               <p>Над 100 пъти повече от всички звезди в Млечния път – колкото най-ярките квазари.</p>
             </Task>
           </div>
 
           <div className="mb-6">
-            <h3 className="text-lg font-semibold mb-3 text-red-600 dark:text-red-400">Ниво С (Международна олимпиада)</h3>
-            <Task {...task('c1')} number={7} color="border-red-500" question="Квазар излъчва 10⁴⁰ W. Колко слънчеви маси годишно поглъща черната дупка при η = 10%? За колко време тя би удвоила масата си от 10⁹ M☉?">
+            <TaskLevel level="C" />
+            <Task id="c1" number={7} color="border-red-500" question="Квазар излъчва 10⁴⁰ W. Колко слънчеви маси годишно поглъща черната дупка при η = 10%? За колко време тя би удвоила масата си от 10⁹ M☉?">
               <p>Ṁ = L / (η c²) = 10⁴⁰ / (0,1 · 9 · 10¹⁶) ≈ 1,1 · 10²⁴ kg/s</p>
               <p>1 M☉/год. = 1,99 · 10³⁰ / 3,16 · 10⁷ ≈ 6,3 · 10²² kg/s ⇒ Ṁ ≈ 18 M☉/год.</p>
               <p>(В дупката остават 90% – останалото се излъчва.) Удвояване: 10⁹ / (0,9 · 18) ≈ 6 · 10⁷ години – за космически миг.</p>
             </Task>
-            <Task {...task('c2')} number={8} color="border-red-500" question="Кривата на въртене е плоска: v = const. Покажете, че тогава масата расте пропорционално на радиуса, а плътността намалява като 1/r². Колко е масата на ореола до 200 kpc при v = 220 km/s?">
+            <Task id="c2" number={8} color="border-red-500" question="Кривата на въртене е плоска: v = const. Покажете, че тогава масата расте пропорционално на радиуса, а плътността намалява като 1/r². Колко е масата на ореола до 200 kpc при v = 220 km/s?">
               <p>M(r) = v² r / G ∝ r. Масата в тънък слой: dM = 4πr² ρ dr = (v² / G) dr ⇒ ρ = v² / (4πG r²) ∝ 1/r².</p>
               <p>M(200 kpc) = 220² · 200 / 4,3 · 10⁻⁶ ≈ 2,3 · 10¹² M☉ – двадесет пъти повече от видимата маса на Млечния път.</p>
               <p>Ореолът не може да е безкраен – в даден момент кривата трябва да започне да спада. Къде е краят му, още се изследва.</p>
             </Task>
-            <Task {...task('c3')} number={9} color="border-red-500" question="Дълбокото поле на Хъбъл е с размер 2,6′ × 2,6′ и съдържа ~3000 галактики. Цялото небе е 41 253 квадратни градуса. Оценете броя на галактиките, които Хъбъл би видял, ако снимаше цялото небе така.">
+            <Task id="c3" number={9} color="border-red-500" question="Дълбокото поле на Хъбъл е с размер 2,6′ × 2,6′ и съдържа ~3000 галактики. Цялото небе е 41 253 квадратни градуса. Оценете броя на галактиките, които Хъбъл би видял, ако снимаше цялото небе така.">
               <p>Площ на полето: (2,6 / 60)² ≈ 1,9 · 10⁻³ квадратни градуса</p>
               <p>Брой: 3000 · 41 253 / 1,9 · 10⁻³ ≈ 6,5 · 10¹⁰ галактики</p>
               <p>
@@ -287,6 +278,7 @@ export default function Lecture25() {
               </p>
             </Task>
           </div>
+          </TaskBoard>
         </section>
 
         <section className="mb-8">

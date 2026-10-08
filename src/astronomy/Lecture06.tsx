@@ -1,10 +1,9 @@
-import { useState } from 'react';
 import Example from '~/Example';
 import Quiz, { type Question } from '~/Quiz';
 import Theorem from '~/Theorem';
 import GravityPlayground from './components/GravityPlayground';
 import NewtonCannon from './components/NewtonCannon';
-import Task from './components/Task';
+import Task, { TaskBoard, TaskLevel } from './components/Task';
 import TidesExplorer from './components/TidesExplorer';
 import WeightOnWorlds from './components/WeightOnWorlds';
 
@@ -54,17 +53,6 @@ const QUIZ: Question[] = [
 ];
 
 export default function Lecture06() {
-  const [showSolutions, setShowSolutions] = useState<{
-    [key: string]: boolean;
-  }>({});
-
-  const task = (id: string) => ({
-    id,
-    shown: !!showSolutions[id],
-    onToggle: (taskId: string) =>
-      setShowSolutions(prev => ({ ...prev, [taskId]: !prev[taskId] })),
-  });
-
   return (
     <main className="flex-1 overflow-y-auto px-4 pt-16 pb-12 sm:px-6 lg:px-10 lg:pt-10">
       <div className="max-w-4xl mx-auto">
@@ -286,14 +274,12 @@ export default function Lecture06() {
           <h2 className="text-xl sm:text-2xl font-semibold mb-4">
             8. 📝 Задачи за упражнение
           </h2>
-
+          <TaskBoard>
           <div className="mb-6">
-            <h3 className="text-lg font-semibold mb-3 text-green-600 dark:text-green-400">
-              Ниво А (Областен кръг)
-            </h3>
+            <TaskLevel level="A" />
 
             <Task
-              {...task('a1')}
+              id="a1"
               number={1}
               color="border-green-500"
               question="Как се променя силата на привличане между две тела, ако разстоянието между тях се удвои? А ако масата на едното се удвои?"
@@ -308,7 +294,7 @@ export default function Lecture06() {
             </Task>
 
             <Task
-              {...task('a2')}
+              id="a2"
               number={2}
               color="border-green-500"
               question="Космонавт има маса 80 kg. Каква е масата му на Луната и какво е теглото му там (g☾ = 1,62 m/s²)?"
@@ -323,7 +309,7 @@ export default function Lecture06() {
             </Task>
 
             <Task
-              {...task('a3')}
+              id="a3"
               number={3}
               color="border-green-500"
               question="Защо астронавтите на МКС (на 408 km височина) се носят в безтегловност, щом там g е около 8,7 m/s²?"
@@ -342,7 +328,7 @@ export default function Lecture06() {
             </Task>
 
             <Task
-              {...task('a4')}
+              id="a4"
               number={4}
               color="border-green-500"
               question="Земята привлича ябълка със сила 1 N. С каква сила ябълката привлича Земята? Защо не виждаме Земята да „пада“ към ябълката?"
@@ -358,12 +344,10 @@ export default function Lecture06() {
           </div>
 
           <div className="mb-6">
-            <h3 className="text-lg font-semibold mb-3 text-yellow-600 dark:text-yellow-400">
-              Ниво В (Национален кръг)
-            </h3>
+            <TaskLevel level="B" />
 
             <Task
-              {...task('b1')}
+              id="b1"
               number={5}
               color="border-yellow-500"
               question="Изчисли g на повърхността на Марс (M = 6,42·10²³ kg, R = 3390 km). Колко пъти по-високо ще скочите там?"
@@ -380,7 +364,7 @@ export default function Lecture06() {
             </Task>
 
             <Task
-              {...task('b2')}
+              id="b2"
               number={6}
               color="border-yellow-500"
               question="На каква височина над повърхността на Земята g е два пъти по-малко от g₀?"
@@ -392,7 +376,7 @@ export default function Lecture06() {
             </Task>
 
             <Task
-              {...task('b3')}
+              id="b3"
               number={7}
               color="border-yellow-500"
               question="Пресметни масата на Земята от g = 9,81 m/s² и R = 6371 km. Колко е средната ѝ плътност?"
@@ -408,7 +392,7 @@ export default function Lecture06() {
             </Task>
 
             <Task
-              {...task('b4')}
+              id="b4"
               number={8}
               color="border-yellow-500"
               question="Луната Европа обикаля Юпитер по почти кръгова орбита с радиус 671 000 km за 3,55 дни. Пресметни масата на Юпитер."
@@ -423,12 +407,10 @@ export default function Lecture06() {
           </div>
 
           <div className="mb-6">
-            <h3 className="text-lg font-semibold mb-3 text-red-600 dark:text-red-400">
-              Ниво С (Международна олимпиада)
-            </h3>
+            <TaskLevel level="C" />
 
             <Task
-              {...task('c1')}
+              id="c1"
               number={9}
               color="border-red-500"
               question="В коя точка между Земята и Луната силите на привличане от двете тела се уравновесяват? (M☾ / M⊕ = 0,0123, d = 384 400 km)"
@@ -444,7 +426,7 @@ export default function Lecture06() {
             </Task>
 
             <Task
-              {...task('c2')}
+              id="c2"
               number={10}
               color="border-red-500"
               question="Покажи, че приливното действие на Слънцето е ~0,46 от това на Луната. Колко пъти сизигийните приливи са по-високи от квадратурните? (M☉ / M☾ = 2,71·10⁷, d☉ = 1,496·10⁸ km, d☾ = 3,844·10⁵ km)"
@@ -460,7 +442,7 @@ export default function Lecture06() {
             </Task>
 
             <Task
-              {...task('c3')}
+              id="c3"
               number={11}
               color="border-red-500"
               question="Звезда с маса 1 M☉ има планета с маса на Юпитер (M = M☉/1048) на 5,2 AU. С каква скорост „клати“ звездата около общия център на масите? (Скоростта на Юпитер е 13,1 km/s.)"
@@ -478,6 +460,7 @@ export default function Lecture06() {
               </p>
             </Task>
           </div>
+          </TaskBoard>
         </section>
 
         <section className="mb-8">

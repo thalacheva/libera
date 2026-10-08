@@ -1,11 +1,10 @@
-import { useState } from 'react';
 import Example from '~/Example';
 import Quiz, { type Question } from '~/Quiz';
 import Theorem from '~/Theorem';
 import LadderLab from './components/LadderLab';
 import ParallaxLab from './components/ParallaxLab';
 import StandardCandleLab from './components/StandardCandleLab';
-import Task from './components/Task';
+import Task, { TaskBoard, TaskLevel } from './components/Task';
 
 const QUIZ: Question[] = [
   {
@@ -90,14 +89,6 @@ const GEOMETRIC = [
 ];
 
 export default function Lecture24() {
-  const [showSolutions, setShowSolutions] = useState<{ [key: string]: boolean }>({});
-
-  const task = (id: string) => ({
-    id,
-    shown: !!showSolutions[id],
-    onToggle: (taskId: string) => setShowSolutions(prev => ({ ...prev, [taskId]: !prev[taskId] })),
-  });
-
   return (
     <main className="flex-1 overflow-y-auto px-4 pt-16 pb-12 sm:px-6 lg:px-10 lg:pt-10">
       <div className="max-w-4xl mx-auto">
@@ -233,21 +224,21 @@ export default function Lecture24() {
 
         <section className="mb-8">
           <h2 className="text-xl sm:text-2xl font-semibold mb-4">7. 📝 Задачи за упражнение</h2>
-
+          <TaskBoard>
           <div className="mb-6">
-            <h3 className="text-lg font-semibold mb-3 text-green-600 dark:text-green-400">Ниво А (Областен кръг)</h3>
+            <TaskLevel level="A" />
 
-            <Task {...task('a1')} number={1} color="border-green-500" question="Колко парсека е една светлинна година?">
+            <Task id="a1" number={1} color="border-green-500" question="Колко парсека е една светлинна година?">
               <p>1 pc = 3,26 ly ⇒ 1 ly = 1 / 3,26 ≈ 0,307 pc.</p>
               <p>Парсекът е по-голямата единица – около три пъти по-голям от светлинната година.</p>
             </Task>
 
-            <Task {...task('a2')} number={2} color="border-green-500" question="Звезда има паралакс 0,5″. На какво разстояние е?">
+            <Task id="a2" number={2} color="border-green-500" question="Звезда има паралакс 0,5″. На какво разстояние е?">
               <p>d = 1 / p = 1 / 0,5 = 2 pc = 2 · 3,26 ≈ 6,5 светлинни години.</p>
               <p>Всъщност такава звезда няма: най-голям паралакс има Проксима Кентавър – 0,768″ (1,30 pc).</p>
             </Task>
 
-            <Task {...task('a3')} number={3} color="border-green-500" question="Защо не можем да измерим паралакса на галактиката Андромеда?">
+            <Task id="a3" number={3} color="border-green-500" question="Защо не можем да измерим паралакса на галактиката Андромеда?">
               <p>Андромеда е на ~765 kpc ⇒ p = 1 / 765 000 ≈ 1,3 · 10⁻⁶ ″ = 1,3 µas.</p>
               <p>
                 Gaia мери паралакси с точност ~20 µas – 15 пъти по-голяма от самия ъгъл. Затова разстоянията до галактиките се мерят със
@@ -257,20 +248,20 @@ export default function Lecture24() {
           </div>
 
           <div className="mb-6">
-            <h3 className="text-lg font-semibold mb-3 text-yellow-600 dark:text-yellow-400">Ниво В (Национален кръг)</h3>
+            <TaskLevel level="B" />
 
-            <Task {...task('b1')} number={4} color="border-yellow-500" question="Цефеида с период 10 дни има видима величина m = 15 и абсолютна M = −4. На какво разстояние е?">
+            <Task id="b1" number={4} color="border-yellow-500" question="Цефеида с период 10 дни има видима величина m = 15 и абсолютна M = −4. На какво разстояние е?">
               <p>m − M = 5 lg d − 5 ⇒ 15 + 4 = 5 lg d − 5 ⇒ lg d = 4,8</p>
               <p>d = 10^4,8 ≈ 63 000 pc = 63 kpc ≈ 206 000 светлинни години – колкото Малкия Магеланов облак.</p>
             </Task>
 
-            <Task {...task('b2')} number={5} color="border-yellow-500" question="Радиоимпулс до Марс в противопоставяне и обратно пътува 523 s. Голямата полуос на Марс е 1,524 AU. Колко е 1 AU (приемете кръгови орбити)?">
+            <Task id="b2" number={5} color="border-yellow-500" question="Радиоимпулс до Марс в противопоставяне и обратно пътува 523 s. Голямата полуос на Марс е 1,524 AU. Колко е 1 AU (приемете кръгови орбити)?">
               <p>d = c · t / 2 = 3 · 10⁸ · 261,5 ≈ 7,85 · 10¹⁰ m</p>
               <p>В AU: 1,524 − 1 = 0,524 AU ⇒ 1 AU = 7,85 · 10¹⁰ / 0,524 ≈ 1,50 · 10¹¹ m</p>
               <p>Истинската стойност е 1,496 · 10¹¹ m. В действителност орбитата на Марс е доста издължена (e = 0,09), затова при точните измервания се използват пълните елиптични орбити.</p>
             </Task>
 
-            <Task {...task('b3')} number={6} color="border-yellow-500" question="Двата края на земната орбита са на 2 AU. Ако наблюдаваме от телескоп в орбита около Нептун (30 AU), колко по-далеч ще стигаме с паралакс при същата точност?">
+            <Task id="b3" number={6} color="border-yellow-500" question="Двата края на земната орбита са на 2 AU. Ако наблюдаваме от телескоп в орбита около Нептун (30 AU), колко по-далеч ще стигаме с паралакс при същата точност?">
               <p>Паралаксът е пропорционален на базата: при радиус 30 AU ъгълът е 30 пъти по-голям.</p>
               <p>При същата точност ще мерим 30 пъти по-далечни звезди – с Gaia до ~150 kpc, т.е. до Магелановите облаци.</p>
               <p>За съжаление обиколката на Нептун трае 165 години – трябва да се чака дълго за пълна елипса.</p>
@@ -278,10 +269,10 @@ export default function Lecture24() {
           </div>
 
           <div className="mb-6">
-            <h3 className="text-lg font-semibold mb-3 text-red-600 dark:text-red-400">Ниво С (Международна олимпиада)</h3>
+            <TaskLevel level="C" />
 
             <Task
-              {...task('c1')}
+              id="c1"
               number={7}
               color="border-red-500"
               question="Обяснете защо грешка в паралаксите на близките цефеиди води до систематична грешка в разстоянията до далечните галактики и в H₀."
@@ -298,7 +289,7 @@ export default function Lecture24() {
             </Task>
 
             <Task
-              {...task('c2')}
+              id="c2"
               number={8}
               color="border-red-500"
               question="Gaia мери паралакса на звезда с точност 20 µas. До какво разстояние разстоянието се определя с точност по-добра от 10%? А колко е грешката за звезда в центъра на Галактиката (8,2 kpc)?"
@@ -312,7 +303,7 @@ export default function Lecture24() {
             </Task>
 
             <Task
-              {...task('c3')}
+              id="c3"
               number={9}
               color="border-red-500"
               question="Звездите от Хиадите се движат успоредно с радиална скорост 39 km/s, а точката, към която сякаш се събират, е на 30° от центъра на купа. Собственото движение на купа е 0,11″ годишно. Намерете разстоянието."
@@ -322,6 +313,7 @@ export default function Lecture24() {
               <p>d = v_t / (4,74 · μ) = 22,5 / (4,74 · 0,11) ≈ 43 pc – близо до днешните 47 pc от Gaia.</p>
             </Task>
           </div>
+          </TaskBoard>
         </section>
 
         <section className="mb-8">

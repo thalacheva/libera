@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import Example from '~/Example';
 import Quiz, { type Question } from '~/Quiz';
 import Theorem from '~/Theorem';
@@ -8,7 +7,7 @@ import EMSpectrumExplorer from './components/EMSpectrumExplorer';
 import HydrogenAtom from './components/HydrogenAtom';
 import KirchhoffLab from './components/KirchhoffLab';
 import SpectrumDetective from './components/SpectrumDetective';
-import Task from './components/Task';
+import Task, { TaskBoard, TaskLevel } from './components/Task';
 
 const QUIZ: Question[] = [
   {
@@ -77,14 +76,6 @@ const LEARN = [
 ];
 
 export default function Lecture09() {
-  const [showSolutions, setShowSolutions] = useState<{ [key: string]: boolean }>({});
-
-  const task = (id: string) => ({
-    id,
-    shown: !!showSolutions[id],
-    onToggle: (taskId: string) => setShowSolutions(prev => ({ ...prev, [taskId]: !prev[taskId] })),
-  });
-
   return (
     <main className="flex-1 overflow-y-auto px-4 pt-16 pb-12 sm:px-6 lg:px-10 lg:pt-10">
       <div className="max-w-4xl mx-auto">
@@ -309,16 +300,16 @@ export default function Lecture09() {
 
         <section className="mb-8">
           <h2 className="text-xl sm:text-2xl font-semibold mb-4">8. 📝 Задачи за упражнение</h2>
-
+          <TaskBoard>
           <div className="mb-6">
-            <h3 className="text-lg font-semibold mb-3 text-green-600 dark:text-green-400">Ниво А (Областен кръг)</h3>
+            <TaskLevel level="A" />
 
-            <Task {...task('a1')} number={1} color="border-green-500" question="Подреди видовете електромагнитно излъчване от най-късите към най-дългите вълни.">
+            <Task id="a1" number={1} color="border-green-500" question="Подреди видовете електромагнитно излъчване от най-късите към най-дългите вълни.">
               <p>Гама лъчи → рентгенови лъчи → ултравиолетово → видима светлина → инфрачервено → микровълни → радиовълни.</p>
               <p>В същия ред намаляват честотата и енергията на фотоните.</p>
             </Task>
 
-            <Task {...task('a2')} number={2} color="border-green-500" question="Каква е разликата между емисионен и абсорбционен спектър? Какъв спектър дават звездите?">
+            <Task id="a2" number={2} color="border-green-500" question="Каква е разликата между емисионен и абсорбционен спектър? Какъв спектър дават звездите?">
               <p>
                 <strong>Емисионен:</strong> ярки линии на тъмен фон – излъчва нагрят разреден газ (мъглявина, неонова лампа).
               </p>
@@ -329,7 +320,7 @@ export default function Lecture09() {
               <p>Звездите дават абсорбционен спектър: външните им слоеве са по-хладни от вътрешните.</p>
             </Task>
 
-            <Task {...task('a3')} number={3} color="border-green-500" question="Ригел е синкав, а Антарес – червеникав. Коя от двете звезди е по-гореща и защо?">
+            <Task id="a3" number={3} color="border-green-500" question="Ригел е синкав, а Антарес – червеникав. Коя от двете звезди е по-гореща и защо?">
               <p>
                 Ригел. По закона на Вин по-горещото тяло излъчва най-силно при по-къси вълни, т.е. към синия край. Ригел има около 12 000 K,
                 а Антарес – около 3500 K.
@@ -338,16 +329,16 @@ export default function Lecture09() {
           </div>
 
           <div className="mb-6">
-            <h3 className="text-lg font-semibold mb-3 text-yellow-600 dark:text-yellow-400">Ниво В (Национален кръг)</h3>
+            <TaskLevel level="B" />
 
-            <Task {...task('b1')} number={4} color="border-yellow-500" question="Звезда се приближава към нас със скорост 60 km/s. С колко се отмества линия с λ = 500 nm и накъде?">
+            <Task id="b1" number={4} color="border-yellow-500" question="Звезда се приближава към нас със скорост 60 km/s. С колко се отмества линия с λ = 500 nm и накъде?">
               <p>Δλ = λ · v / c = 500 nm · 60 / 300 000 = 0,1 nm</p>
               <p>
                 Звездата се приближава, затова линията се отмества към синия край: наблюдаваме я при <strong>499,9 nm</strong>.
               </p>
             </Task>
 
-            <Task {...task('b2')} number={5} color="border-yellow-500" question="Звезда излъчва най-силно при λmax = 500 nm. Каква е температурата ѝ?">
+            <Task id="b2" number={5} color="border-yellow-500" question="Звезда излъчва най-силно при λmax = 500 nm. Каква е температурата ѝ?">
               <p>T = b / λmax = 2,898 · 10⁻³ / (5 · 10⁻⁷) ≈ 5800 K</p>
               <p>
                 <strong>Отговор: около 5800 K</strong> – почти колкото Слънцето (5772 K).
@@ -355,7 +346,7 @@ export default function Lecture09() {
             </Task>
 
             <Task
-              {...task('b3')}
+              id="b3"
               number={6}
               color="border-yellow-500"
               question="Сириус A има температура 9940 K и радиус 1,71 R☉. Колко пъти светимостта му е по-голяма от слънчевата (T☉ = 5772 K)?"
@@ -368,7 +359,7 @@ export default function Lecture09() {
             </Task>
 
             <Task
-              {...task('b4')}
+              id="b4"
               number={7}
               color="border-yellow-500"
               question="Изчисли дължината на вълната и енергията на фотона при прехода 4 → 2 във водородния атом. Как се казва тази линия?"
@@ -383,10 +374,10 @@ export default function Lecture09() {
           </div>
 
           <div className="mb-6">
-            <h3 className="text-lg font-semibold mb-3 text-red-600 dark:text-red-400">Ниво С (Международна олимпиада)</h3>
+            <TaskLevel level="C" />
 
             <Task
-              {...task('c1')}
+              id="c1"
               number={8}
               color="border-red-500"
               question="Галактика има червено отместване z = 0,1. С каква скорост се отдалечава? Сравни приближената и релативистката формула."
@@ -398,7 +389,7 @@ export default function Lecture09() {
             </Task>
 
             <Task
-              {...task('c2')}
+              id="c2"
               number={9}
               color="border-red-500"
               question="Заради Юпитер Слънцето се поклаща около общия център на масите със скорост 12,5 m/s. С колко се отмества линия с λ = 500 nm? Каква разделителна способност R = λ / Δλ е нужна?"
@@ -412,7 +403,7 @@ export default function Lecture09() {
             </Task>
 
             <Task
-              {...task('c3')}
+              id="c3"
               number={10}
               color="border-red-500"
               question="Слънцето се върти с период 25,4 дни на екватора (R☉ = 6,96 · 10⁵ km). Колко ще бъде разширението на линията Hα (656,3 nm), ако гледаме Слънцето отдалеч, от равнината на екватора му?"
@@ -426,6 +417,7 @@ export default function Lecture09() {
               </p>
             </Task>
           </div>
+          </TaskBoard>
         </section>
 
         <section className="mb-8">

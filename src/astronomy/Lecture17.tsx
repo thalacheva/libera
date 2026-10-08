@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import Example from '~/Example';
 import Quiz, { type Question } from '~/Quiz';
 import Theorem from '~/Theorem';
@@ -6,7 +5,7 @@ import AsteroidSizeLab from './components/AsteroidSizeLab';
 import DeflectionLab from './components/DeflectionLab';
 import ImpactLab from './components/ImpactLab';
 import KirkwoodGaps from './components/KirkwoodGaps';
-import Task from './components/Task';
+import Task, { TaskBoard, TaskLevel } from './components/Task';
 import TrojanLab from './components/TrojanLab';
 
 const QUIZ: Question[] = [
@@ -87,14 +86,6 @@ const EXPLORED = [
 ];
 
 export default function Lecture17() {
-  const [showSolutions, setShowSolutions] = useState<{ [key: string]: boolean }>({});
-
-  const task = (id: string) => ({
-    id,
-    shown: !!showSolutions[id],
-    onToggle: (taskId: string) => setShowSolutions(prev => ({ ...prev, [taskId]: !prev[taskId] })),
-  });
-
   return (
     <main className="flex-1 overflow-y-auto px-4 pt-16 pb-12 sm:px-6 lg:px-10 lg:pt-10">
       <div className="max-w-4xl mx-auto">
@@ -316,11 +307,11 @@ export default function Lecture17() {
 
         <section className="mb-8">
           <h2 className="text-xl sm:text-2xl font-semibold mb-4">8. 📝 Задачи за упражнение</h2>
-
+          <TaskBoard>
           <div className="mb-6">
-            <h3 className="text-lg font-semibold mb-3 text-green-600 dark:text-green-400">Ниво А (Областен кръг)</h3>
+            <TaskLevel level="A" />
 
-            <Task {...task('a1')} number={1} color="border-green-500" question="Защо между Марс и Юпитер няма планета?">
+            <Task id="a1" number={1} color="border-green-500" question="Защо между Марс и Юпитер няма планета?">
               <p>
                 Гравитацията на Юпитер е разбъркала орбитите на зародишите и скоростите при сблъсъците им са станали ~5 km/s. При
                 такива скорости телата не се слепват, а се раздробяват. Освен това резонансите с Юпитер са изхвърлили по-голямата част
@@ -328,7 +319,7 @@ export default function Lecture17() {
               </p>
             </Task>
 
-            <Task {...task('a2')} number={2} color="border-green-500" question="Какво са точките на Лагранж L4 и L5 и кои астероиди живеят там?">
+            <Task id="a2" number={2} color="border-green-500" question="Какво са точките на Лагранж L4 и L5 и кои астероиди живеят там?">
               <p>
                 Това са точки, които образуват равностранен триъгълник със Слънцето и планетата – на 60° пред и зад нея по орбитата
                 ѝ. Там привличането на двете тела и центробежната сила във въртящата се система се уравновесяват. Астероидите там
@@ -336,7 +327,7 @@ export default function Lecture17() {
               </p>
             </Task>
 
-            <Task {...task('a3')} number={3} color="border-green-500" question="По какво се различават астероидите от кометите? Има ли тела, които са и двете?">
+            <Task id="a3" number={3} color="border-green-500" question="По какво се различават астероидите от кометите? Има ли тела, които са и двете?">
               <p>
                 Астероидите са скалисти или метални и не развиват кома. Повечето са образувани вътре от снежната линия. Кометите съдържат
                 много лед, идват от далечните ледени резервоари и при приближаване до Слънцето развиват кома и опашки.
@@ -349,9 +340,9 @@ export default function Lecture17() {
           </div>
 
           <div className="mb-6">
-            <h3 className="text-lg font-semibold mb-3 text-yellow-600 dark:text-yellow-400">Ниво В (Национален кръг)</h3>
+            <TaskLevel level="B" />
 
-            <Task {...task('b1')} number={4} color="border-yellow-500" question="Проверете правилото на Тициус–Боде (a = 0,4 + 0,3 · 2ⁿ) за n = 3, 6 и 7 и сравнете с Церера (2,77 AU), Уран (19,2 AU) и Нептун (30,1 AU).">
+            <Task id="b1" number={4} color="border-yellow-500" question="Проверете правилото на Тициус–Боде (a = 0,4 + 0,3 · 2ⁿ) за n = 3, 6 и 7 и сравнете с Церера (2,77 AU), Уран (19,2 AU) и Нептун (30,1 AU).">
               <p>n = 3: 0,4 + 0,3 · 8 = 2,8 AU – Церера: съвпадение с 1%.</p>
               <p>n = 6: 0,4 + 0,3 · 64 = 19,6 AU – Уран: 2%.</p>
               <p>
@@ -360,7 +351,7 @@ export default function Lecture17() {
               </p>
             </Task>
 
-            <Task {...task('b2')} number={5} color="border-yellow-500" question="Приемете, че в главния пояс има ~1,5 милиона астероида над 1 km, разпределени в пръстен с радиуси от 2,1 до 3,3 AU и дебелина ~1 AU. Колко е средното разстояние между тях?">
+            <Task id="b2" number={5} color="border-yellow-500" question="Приемете, че в главния пояс има ~1,5 милиона астероида над 1 km, разпределени в пръстен с радиуси от 2,1 до 3,3 AU и дебелина ~1 AU. Колко е средното разстояние между тях?">
               <p>V ≈ π(3,3² − 2,1²) · 1 AU³ ≈ 20 AU³</p>
               <p>1 AU³ = (1,5 · 10⁸ km)³ ≈ 3,4 · 10²⁴ km³ ⇒ V ≈ 6,8 · 10²⁵ km³</p>
               <p>Обем на един астероид: 6,8 · 10²⁵ / 1,5 · 10⁶ ≈ 4,5 · 10¹⁹ km³; средно разстояние ≈ ∛(4,5 · 10¹⁹) ≈ 3,6 · 10⁶ km</p>
@@ -370,7 +361,7 @@ export default function Lecture17() {
               </p>
             </Task>
 
-            <Task {...task('b3')} number={6} color="border-yellow-500" question="Намерете къде са резонансите 2 : 1 и 3 : 2 с Юпитер. Защо при първия има пролука, а при втория – група астероиди (Хилди)?">
+            <Task id="b3" number={6} color="border-yellow-500" question="Намерете къде са резонансите 2 : 1 и 3 : 2 с Юпитер. Защо при първия има пролука, а при втория – група астероиди (Хилди)?">
               <p>2 : 1: a = 5,20 · (1/2)^⅔ = 5,20 · 0,630 ≈ 3,28 AU – външният ръб на пояса.</p>
               <p>3 : 2: a = 5,20 · (2/3)^⅔ = 5,20 · 0,763 ≈ 3,97 AU – Хилдите.</p>
               <p>
@@ -382,10 +373,10 @@ export default function Lecture17() {
           </div>
 
           <div className="mb-6">
-            <h3 className="text-lg font-semibold mb-3 text-red-600 dark:text-red-400">Ниво С (Международна олимпиада)</h3>
+            <TaskLevel level="C" />
 
             <Task
-              {...task('c1')}
+              id="c1"
               number={7}
               color="border-red-500"
               question="Открит е околоземен астероид с H = 22. Оценете диаметъра и масата му, ако е тъмен C-астероид (p = 0,05, ρ = 1,4 g/cm³) или светъл S-астероид (p = 0,25, ρ = 2,7 g/cm³). Колко пъти се различават енергиите при удар с една и съща скорост?"
@@ -400,7 +391,7 @@ export default function Lecture17() {
             </Task>
 
             <Task
-              {...task('c2')}
+              id="c2"
               number={8}
               color="border-red-500"
               question="След удара на DART периодът на Диморфос около Дидимос намалява от 11 h 55 min с 33 min. Радиусът на орбитата е ~1,19 km. Приемете кръгова орбита и тласък по посока на движението: ΔT / T = 3 · Δv / v. Намерете Δv и β, ако масата на Диморфос е 4,3 · 10⁹ kg, а DART е с маса 580 kg и скорост 6,14 km/s."
@@ -415,7 +406,7 @@ export default function Lecture17() {
             </Task>
 
             <Task
-              {...task('c3')}
+              id="c3"
               number={9}
               color="border-red-500"
               question="Астероид с диаметър 340 m (ρ = 2,6 g/cm³) ще удари Земята след 10 години. Колко апарата като DART (580 kg, 6,1 km/s, β = 3) са нужни, за да го изместим с 2 земни радиуса? А ако го открием 30 години по-рано?"
@@ -430,6 +421,7 @@ export default function Lecture17() {
               </p>
             </Task>
           </div>
+          </TaskBoard>
         </section>
 
         <section className="mb-8">

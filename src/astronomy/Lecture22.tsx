@@ -1,11 +1,10 @@
-import { useState } from 'react';
 import Example from '~/Example';
 import Quiz, { type Question } from '~/Quiz';
 import Theorem from '~/Theorem';
 import BinaryOrbitLab from './components/BinaryOrbitLab';
 import EclipsingLab from './components/EclipsingLab';
 import RocheLobeLab from './components/RocheLobeLab';
-import Task from './components/Task';
+import Task, { TaskBoard, TaskLevel } from './components/Task';
 
 const QUIZ: Question[] = [
   {
@@ -90,14 +89,6 @@ const CLOSE = [
 ];
 
 export default function Lecture22() {
-  const [showSolutions, setShowSolutions] = useState<{ [key: string]: boolean }>({});
-
-  const task = (id: string) => ({
-    id,
-    shown: !!showSolutions[id],
-    onToggle: (taskId: string) => setShowSolutions(prev => ({ ...prev, [taskId]: !prev[taskId] })),
-  });
-
   return (
     <main className="flex-1 overflow-y-auto px-4 pt-16 pb-12 sm:px-6 lg:px-10 lg:pt-10">
       <div className="max-w-4xl mx-auto">
@@ -256,11 +247,11 @@ export default function Lecture22() {
 
         <section className="mb-8">
           <h2 className="text-xl sm:text-2xl font-semibold mb-4">7. 📝 Задачи за упражнение</h2>
-
+          <TaskBoard>
           <div className="mb-6">
-            <h3 className="text-lg font-semibold mb-3 text-green-600 dark:text-green-400">Ниво А (Областен кръг)</h3>
+            <TaskLevel level="A" />
 
-            <Task {...task('a1')} number={1} color="border-green-500" question="Каква е разликата между оптична двойка и истинска двойна звезда? Как да ги различим?">
+            <Task id="a1" number={1} color="border-green-500" question="Каква е разликата между оптична двойка и истинска двойна звезда? Как да ги различим?">
               <p>
                 Оптичната двойка е случайно съвпадение по посока – звездите са на различни разстояния и не са свързани. Истинската
                 двойна е гравитационно свързана и звездите обикалят една около друга.
@@ -271,7 +262,7 @@ export default function Lecture22() {
               </p>
             </Task>
 
-            <Task {...task('a2')} number={2} color="border-green-500" question="Защо повечето двойни звезди не са затъмняващи?">
+            <Task id="a2" number={2} color="border-green-500" question="Защо повечето двойни звезди не са затъмняващи?">
               <p>
                 Затъмнения има само ако зрителният ни лъч е почти в равнината на орбитата. Орбитите са ориентирани случайно и е малко
                 вероятно да ги гледаме точно отстрани. Вероятността е приблизително (R₁ + R₂) / a – за двойки, далечни една от друга,
@@ -279,7 +270,7 @@ export default function Lecture22() {
               </p>
             </Task>
 
-            <Task {...task('a3')} number={3} color="border-green-500" question="Защо блясъкът на затъмняваща двойна има два минимума с различна дълбочина?">
+            <Task id="a3" number={3} color="border-green-500" question="Защо блясъкът на затъмняваща двойна има два минимума с различна дълбочина?">
               <p>
                 Веднъж по-студената звезда скрива по-горещата, а половин период по-късно – обратно. Скритата площ е почти еднаква (тя е
                 площта на по-малкия диск), но всеки квадратен метър от горещата звезда свети много по-силно (∝ T⁴). Затова минимумът,
@@ -289,22 +280,22 @@ export default function Lecture22() {
           </div>
 
           <div className="mb-6">
-            <h3 className="text-lg font-semibold mb-3 text-yellow-600 dark:text-yellow-400">Ниво В (Национален кръг)</h3>
+            <TaskLevel level="B" />
 
-            <Task {...task('b1')} number={4} color="border-yellow-500" question="Звездата Сириус A описва около центъра на масите елипса с голяма полуос 2,5″, а Сириус B – 5,0″. Сириус е на 2,64 pc, а периодът е 50,1 години. Намерете масите на двете звезди.">
+            <Task id="b1" number={4} color="border-yellow-500" question="Звездата Сириус A описва около центъра на масите елипса с голяма полуос 2,5″, а Сириус B – 5,0″. Сириус е на 2,64 pc, а периодът е 50,1 години. Намерете масите на двете звезди.">
               <p>Относителна орбита: α = 2,5 + 5,0 = 7,5″ ⇒ a = 7,5 · 2,64 ≈ 19,8 AU</p>
               <p>M_A + M_B = 19,8³ / 50,1² ≈ 7762 / 2510 ≈ 3,09 M☉</p>
               <p>M_B / M_A = a_A / a_B = 2,5 / 5,0 = 0,5 ⇒ M_A ≈ 2,06 M☉, M_B ≈ 1,03 M☉</p>
               <p>Сириус B е бяло джудже с масата на Слънцето – така е разкрита изумителната плътност на белите джуджета (Лекция 21).</p>
             </Task>
 
-            <Task {...task('b2')} number={5} color="border-yellow-500" question="Линията Hα (656,28 nm) в спектъра на звезда се мести между 656,17 и 656,39 nm с период 6 дни. Каква е амплитудата на радиалната ѝ скорост?">
+            <Task id="b2" number={5} color="border-yellow-500" question="Линията Hα (656,28 nm) в спектъра на звезда се мести между 656,17 и 656,39 nm с период 6 дни. Каква е амплитудата на радиалната ѝ скорост?">
               <p>Δλ = (656,39 − 656,17) / 2 = 0,11 nm</p>
               <p>K = c · Δλ / λ = 3 · 10⁵ km/s · 0,11 / 656,28 ≈ 50 km/s</p>
               <p>За сравнение: Земята обикаля Слънцето с 30 km/s. Звездата има масивен спътник наблизо.</p>
             </Task>
 
-            <Task {...task('b3')} number={6} color="border-yellow-500" question="Около звезда като Слънцето е открита планета чрез транзит: блясъкът намалява с 1,0% за ~3 часа на всеки 3 дни. Колко е голяма планетата и на какво разстояние е?">
+            <Task id="b3" number={6} color="border-yellow-500" question="Около звезда като Слънцето е открита планета чрез транзит: блясъкът намалява с 1,0% за ~3 часа на всеки 3 дни. Колко е голяма планетата и на какво разстояние е?">
               <p>Дълбочина = (R_p / R_*)² = 0,01 ⇒ R_p = 0,1 R☉ ≈ 70 000 km – почти колкото Юпитер.</p>
               <p>a = (P² · M)^(1/3) = ((3 / 365,25)² · 1)^(1/3) ≈ 0,041 AU – десет пъти по-близо от Меркурий: „горещ Юпитер“.</p>
               <p>
@@ -315,10 +306,10 @@ export default function Lecture22() {
           </div>
 
           <div className="mb-6">
-            <h3 className="text-lg font-semibold mb-3 text-red-600 dark:text-red-400">Ниво С (Международна олимпиада)</h3>
+            <TaskLevel level="C" />
 
             <Task
-              {...task('c1')}
+              id="c1"
               number={7}
               color="border-red-500"
               question="Затъмняваща спектрална двойна има период 2,0 дни, K₁ = 120 km/s, K₂ = 180 km/s и наклон i = 85° (от кривата на блясъка). Орбитата е кръгова. Намерете масите на звездите."
@@ -330,7 +321,7 @@ export default function Lecture22() {
             </Task>
 
             <Task
-              {...task('c2')}
+              id="c2"
               number={8}
               color="border-red-500"
               question="Спектроскопът вижда само линиите на звезда с маса 1 M☉ (K = 30 km/s, P = 5 дни, кръгова орбита). Невидимият спътник може да е неутронна звезда или бяло джудже. Намерете функцията на масата f = P K³ / (2πG) = M₂³ sin³ i / (M₁ + M₂)² и минималната маса на спътника."
@@ -344,7 +335,7 @@ export default function Lecture22() {
             </Task>
 
             <Task
-              {...task('c3')}
+              id="c3"
               number={9}
               color="border-red-500"
               question="Звездите в контактна двойка W Голяма мечка имат общо 2 M☉ и период 0,4 дни. Колко е разстоянието между тях и радиусът на полето на Рош на всяка (при q = 1 по Егълтън R_L ≈ 0,38 a)? Какво следва, ако звездите са като Слънцето?"
@@ -358,6 +349,7 @@ export default function Lecture22() {
               </p>
             </Task>
           </div>
+          </TaskBoard>
         </section>
 
         <section className="mb-8">

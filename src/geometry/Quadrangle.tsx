@@ -2,7 +2,7 @@ import Example from '~/Example';
 import Quiz, { Question } from '~/Quiz';
 import Theorem from '~/Theorem';
 import { InteractiveQuadrangle } from './InteractiveQuadrangle';
-import { WordProblem, WordProblems } from './WordProblems';
+import { WordProblems, type WordProblem } from '~/WordProblems';
 
 const h2 = 'text-lg sm:text-xl font-semibold mb-2 sm:mb-3 text-gray-800 dark:text-gray-100';
 const text = 'text-sm sm:text-base text-gray-700 dark:text-gray-300 leading-relaxed';
@@ -85,18 +85,30 @@ const wordProblems: WordProblem[] = [
     problem: 'Стена е 5 m × 3 m и има прозорец 1 m × 1,5 m. Една кутия боя стига за 10 m². Колко кутии са нужни?',
     solution: ['Стена: 5 · 3 = 15 m²', 'Прозорец: 1 · 1,5 = 1,5 m²', 'За боядисване: 15 − 1,5 = 13,5 m²', '13,5 / 10 = 1,35 → закръгляме нагоре'],
     answer: '2 кутии',
+
+    check: [2],
+
+    ask: ['кутии'],
   },
   {
     title: '🧱 Плочки',
     problem: 'Под на баня е 3 m × 4 m. Колко квадратни плочки със страна 50 cm са нужни, за да се покрие?',
     solution: ['3 m = 300 cm, 4 m = 400 cm', 'По ширина: 300 / 50 = 6 плочки', 'По дължина: 400 / 50 = 8 плочки', '6 · 8 = 48'],
     answer: '48 плочки',
+
+    check: [48],
+
+    ask: ['плочки'],
   },
   {
     title: '🌷 Лехата',
     problem: 'Леха има форма на трапец с основи 8 m и 5 m и височина 4 m. Колко е лицето ѝ?',
     solution: ['S = (a + c) / 2 · h', 'S = (8 + 5) / 2 · 4', 'S = 6,5 · 4 = 26'],
     answer: '26 m²',
+
+    check: [26],
+
+    ask: ['лице, m²'],
   },
 ];
 

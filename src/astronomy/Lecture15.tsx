@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import Example from '~/Example';
 import Quiz, { type Question } from '~/Quiz';
 import Theorem from '~/Theorem';
@@ -7,7 +6,7 @@ import PlanetTest from './components/PlanetTest';
 import PlutoResonance from './components/PlutoResonance';
 import RoundnessLab from './components/RoundnessLab';
 import SmallBodyMap from './components/SmallBodyMap';
-import Task from './components/Task';
+import Task, { TaskBoard, TaskLevel } from './components/Task';
 import { DWARFS } from './components/dwarfData';
 import { fmt } from './components/terrestrialData';
 
@@ -79,14 +78,6 @@ const MISSIONS = [
 ];
 
 export default function Lecture15() {
-  const [showSolutions, setShowSolutions] = useState<{ [key: string]: boolean }>({});
-
-  const task = (id: string) => ({
-    id,
-    shown: !!showSolutions[id],
-    onToggle: (taskId: string) => setShowSolutions(prev => ({ ...prev, [taskId]: !prev[taskId] })),
-  });
-
   return (
     <main className="flex-1 overflow-y-auto px-4 pt-16 pb-12 sm:px-6 lg:px-10 lg:pt-10">
       <div className="max-w-4xl mx-auto">
@@ -304,11 +295,11 @@ export default function Lecture15() {
 
         <section className="mb-8">
           <h2 className="text-xl sm:text-2xl font-semibold mb-4">8. 📝 Задачи за упражнение</h2>
-
+          <TaskBoard>
           <div className="mb-6">
-            <h3 className="text-lg font-semibold mb-3 text-green-600 dark:text-green-400">Ниво А (Областен кръг)</h3>
+            <TaskLevel level="A" />
 
-            <Task {...task('a1')} number={1} color="border-green-500" question="Кое от трите условия на МАС не изпълнява Плутон? А Луната?">
+            <Task id="a1" number={1} color="border-green-500" question="Кое от трите условия на МАС не изпълнява Плутон? А Луната?">
               <p>
                 Плутон обикаля Слънцето и е кръгъл, но не е изчистил околността на орбитата си: в пояса на Кайпер има хиляди тела по
                 подобни орбити, а самият Плутон е само ~8% от масата им. Затова е джуджеста планета.
@@ -316,7 +307,7 @@ export default function Lecture15() {
               <p>Луната е кръгла и по-голяма от Плутон, но не обикаля около Слънцето, а около Земята – тя е спътник.</p>
             </Task>
 
-            <Task {...task('a2')} number={2} color="border-green-500" question="Защо Фобос (22 km) прилича на картоф, а Мимас (396 km), изграден от още по-мек материал – лед, е почти кръгъл?">
+            <Task id="a2" number={2} color="border-green-500" question="Защо Фобос (22 km) прилича на картоф, а Мимас (396 km), изграден от още по-мек материал – лед, е почти кръгъл?">
               <p>
                 Налягането в центъра расте като R². Мимас е ~18 пъти по-голям от Фобос, затова налягането в него е стотици пъти
                 по-голямо (въпреки сходните плътности) и надвива якостта на леда. В Фобос гравитацията е толкова слаба, че скалите
@@ -324,7 +315,7 @@ export default function Lecture15() {
               </p>
             </Task>
 
-            <Task {...task('a3')} number={3} color="border-green-500" question="На 14 юли 2015 г., когато New Horizons прелита покрай Плутон, сондата е на 32,9 AU от Земята. Колко време пътува сигналът? Може ли екипът да управлява сондата „на живо“?">
+            <Task id="a3" number={3} color="border-green-500" question="На 14 юли 2015 г., когато New Horizons прелита покрай Плутон, сондата е на 32,9 AU от Земята. Колко време пътува сигналът? Може ли екипът да управлява сондата „на живо“?">
               <p>t = 32,9 · 499 s ≈ 16 400 s ≈ 4,6 часа в едната посока.</p>
               <p>
                 Отговор на команда идва след ~9 часа. Затова всичко около прелитането е програмирано предварително, а екипът научава
@@ -334,9 +325,9 @@ export default function Lecture15() {
           </div>
 
           <div className="mb-6">
-            <h3 className="text-lg font-semibold mb-3 text-yellow-600 dark:text-yellow-400">Ниво В (Национален кръг)</h3>
+            <TaskLevel level="B" />
 
-            <Task {...task('b1')} number={4} color="border-yellow-500" question="Спътникът Дисномия обикаля Ерида на 37 273 km за 15,786 дни. Намерете масата на Ерида и средната ѝ плътност (D = 2326 km). Сравнете с Плутон (1,30 · 10²² kg, 1,85 g/cm³).">
+            <Task id="b1" number={4} color="border-yellow-500" question="Спътникът Дисномия обикаля Ерида на 37 273 km за 15,786 дни. Намерете масата на Ерида и средната ѝ плътност (D = 2326 km). Сравнете с Плутон (1,30 · 10²² kg, 1,85 g/cm³).">
               <p>a³ = (3,7273 · 10⁷)³ ≈ 5,178 · 10²² m³; T = 15,786 · 86 400 ≈ 1,364 · 10⁶ s, T² ≈ 1,860 · 10¹² s²</p>
               <p>M = 39,48 · 5,178 · 10²² / (6,674 · 10⁻¹¹ · 1,860 · 10¹²) ≈ 2,044 · 10²⁴ / 124,1 ≈ 1,65 · 10²² kg</p>
               <p>V = 4π · (1,163 · 10⁶)³ / 3 ≈ 6,59 · 10¹⁸ m³ ⇒ ρ ≈ 2500 kg/m³ = 2,5 g/cm³</p>
@@ -345,7 +336,7 @@ export default function Lecture15() {
               </p>
             </Task>
 
-            <Task {...task('b2')} number={5} color="border-yellow-500" question="Голямата полуос на Нептун е 30,07 AU, а на Плутон – 39,48 AU. Намерете отношението на периодите им. Какво забелязвате?">
+            <Task id="b2" number={5} color="border-yellow-500" question="Голямата полуос на Нептун е 30,07 AU, а на Плутон – 39,48 AU. Намерете отношението на периодите им. Какво забелязвате?">
               <p>От третия закон на Кеплер: T_П / T_Н = (a_П / a_Н)^1,5 = (39,48 / 30,07)^1,5 = 1,3129^1,5 ≈ 1,504</p>
               <p>
                 Почти точно 3/2: докато Нептун прави 3 обиколки (3 · 164,8 = 494 г.), Плутон прави 2 (2 · 247,9 = 496 г.). Това е
@@ -353,7 +344,7 @@ export default function Lecture15() {
               </p>
             </Task>
 
-            <Task {...task('b3')} number={6} color="border-yellow-500" question="Седна е на 76 AU от Слънцето в перихелий и на ~940 AU в афелий. Намерете голямата полуос, ексцентрицитета и периода. (Перихелият е около 2076 г.)">
+            <Task id="b3" number={6} color="border-yellow-500" question="Седна е на 76 AU от Слънцето в перихелий и на ~940 AU в афелий. Намерете голямата полуос, ексцентрицитета и периода. (Перихелият е около 2076 г.)">
               <p>a = (76 + 940) / 2 = 508 AU</p>
               <p>e = (940 − 76) / (940 + 76) ≈ 0,85</p>
               <p>T = 508^1,5 ≈ 11 450 години. Последният път, когато Седна е била толкова близо, на Земята е свършвал ледниковият период.</p>
@@ -365,10 +356,10 @@ export default function Lecture15() {
           </div>
 
           <div className="mb-6">
-            <h3 className="text-lg font-semibold mb-3 text-red-600 dark:text-red-400">Ниво С (Международна олимпиада)</h3>
+            <TaskLevel level="C" />
 
             <Task
-              {...task('c1')}
+              id="c1"
               number={7}
               color="border-red-500"
               question="Оценете налягането в центъра на Мимас (R = 198 km, ρ = 1,15 g/cm³) и на Веста (R = 263 km, ρ = 3,46 g/cm³). Сравнете с якостта на студения лед (~5 MPa) и на скалите (~100 MPa). Кое тяло трябва да е кръгло?"
@@ -384,7 +375,7 @@ export default function Lecture15() {
             </Task>
 
             <Task
-              {...task('c2')}
+              id="c2"
               number={8}
               color="border-red-500"
               question="Хаумеа (ρ ≈ 2,0 g/cm³) се завърта за 3,92 h. При какъв период на въртене кълбо с тази плътност би се разпаднало (центробежното ускорение на екватора става равно на гравитационното)? Колко близо до тази граница е Хаумеа?"
@@ -399,7 +390,7 @@ export default function Lecture15() {
             </Task>
 
             <Task
-              {...task('c3')}
+              id="c3"
               number={9}
               color="border-red-500"
               question="Юпитер (m = M☉ / 1047,6) обикаля на 778,5 млн. km от Слънцето (R☉ = 696 000 km) за 11,86 години. Къде е центърът на масите? С каква скорост Слънцето се движи около него? Защо това е важно за търсенето на екзопланети?"
@@ -413,6 +404,7 @@ export default function Lecture15() {
               </p>
             </Task>
           </div>
+          </TaskBoard>
         </section>
 
         <section className="mb-8">

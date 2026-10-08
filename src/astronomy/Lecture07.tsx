@@ -1,10 +1,9 @@
-import { useState } from 'react';
 import Example from '~/Example';
 import Quiz, { type Question } from '~/Quiz';
 import Theorem from '~/Theorem';
 import KeplerOrbitLab from './components/KeplerOrbitLab';
 import KeplerThirdLaw from './components/KeplerThirdLaw';
-import Task from './components/Task';
+import Task, { TaskBoard, TaskLevel } from './components/Task';
 
 const QUIZ: Question[] = [
   {
@@ -54,17 +53,6 @@ const ECCENTRICITIES = [
 ];
 
 export default function Lecture07() {
-  const [showSolutions, setShowSolutions] = useState<{
-    [key: string]: boolean;
-  }>({});
-
-  const task = (id: string) => ({
-    id,
-    shown: !!showSolutions[id],
-    onToggle: (taskId: string) =>
-      setShowSolutions(prev => ({ ...prev, [taskId]: !prev[taskId] })),
-  });
-
   return (
     <main className="flex-1 overflow-y-auto px-4 pt-16 pb-12 sm:px-6 lg:px-10 lg:pt-10">
       <div className="max-w-4xl mx-auto">
@@ -270,14 +258,12 @@ export default function Lecture07() {
           <h2 className="text-xl sm:text-2xl font-semibold mb-4">
             7. 📝 Задачи за упражнение
           </h2>
-
+          <TaskBoard>
           <div className="mb-6">
-            <h3 className="text-lg font-semibold mb-3 text-green-600 dark:text-green-400">
-              Ниво А (Областен кръг)
-            </h3>
+            <TaskLevel level="A" />
 
             <Task
-              {...task('a1')}
+              id="a1"
               number={1}
               color="border-green-500"
               question="Къде се намира Слънцето спрямо орбитата на планетата?"
@@ -292,7 +278,7 @@ export default function Lecture07() {
             </Task>
 
             <Task
-              {...task('a2')}
+              id="a2"
               number={2}
               color="border-green-500"
               question="Къде планетата се движи по-бързо – в перихелий или в афелий? Защо?"
@@ -306,7 +292,7 @@ export default function Lecture07() {
             </Task>
 
             <Task
-              {...task('a3')}
+              id="a3"
               number={3}
               color="border-green-500"
               question="Астероид обикаля Слънцето на средно разстояние 4 AU. Какъв е периодът му?"
@@ -320,12 +306,10 @@ export default function Lecture07() {
           </div>
 
           <div className="mb-6">
-            <h3 className="text-lg font-semibold mb-3 text-yellow-600 dark:text-yellow-400">
-              Ниво В (Национален кръг)
-            </h3>
+            <TaskLevel level="B" />
 
             <Task
-              {...task('b1')}
+              id="b1"
               number={4}
               color="border-yellow-500"
               question="Комета има перихелий 0,6 AU и афелий 35 AU. Изчисли голямата полуос, ексцентрицитета и периода."
@@ -339,7 +323,7 @@ export default function Lecture07() {
             </Task>
 
             <Task
-              {...task('b2')}
+              id="b2"
               number={5}
               color="border-yellow-500"
               question="Каква е голямата полуос на орбита с период 1000 години? А период на тяло на 0,1 AU?"
@@ -349,7 +333,7 @@ export default function Lecture07() {
             </Task>
 
             <Task
-              {...task('b3')}
+              id="b3"
               number={6}
               color="border-yellow-500"
               question="Изчисли радиуса на геостационарната орбита, като знаеш, че Луната обикаля Земята на 384 400 km за 27,32 дни."
@@ -366,12 +350,10 @@ export default function Lecture07() {
           </div>
 
           <div className="mb-6">
-            <h3 className="text-lg font-semibold mb-3 text-red-600 dark:text-red-400">
-              Ниво С (Международна олимпиада)
-            </h3>
+            <TaskLevel level="C" />
 
             <Task
-              {...task('c1')}
+              id="c1"
               number={7}
               color="border-red-500"
               question="Изведи третия закон на Кеплер във формата на Нютон за кръгова орбита."
@@ -390,7 +372,7 @@ export default function Lecture07() {
             </Task>
 
             <Task
-              {...task('c2')}
+              id="c2"
               number={8}
               color="border-red-500"
               question="Луната Йо обикаля Юпитер на 421 700 km за 1,769 дни. Колко пъти Юпитер е по-масивен от Земята? (Луната: 384 400 km, 27,32 дни)"
@@ -406,7 +388,7 @@ export default function Lecture07() {
             </Task>
 
             <Task
-              {...task('c3')}
+              id="c3"
               number={9}
               color="border-red-500"
               question="Кометата на Халей има период 76 години и перихелий 0,586 AU. Намери афелия, ексцентрицитета и отношението на скоростите в перихелия и афелия."
@@ -425,6 +407,7 @@ export default function Lecture07() {
               </p>
             </Task>
           </div>
+          </TaskBoard>
         </section>
 
         <section className="mb-8">

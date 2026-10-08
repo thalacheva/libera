@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import Example from '~/Example';
 import Quiz, { type Question } from '~/Quiz';
 import Theorem from '~/Theorem';
@@ -6,7 +5,7 @@ import PhotonRandomWalk from './components/PhotonRandomWalk';
 import ProtonProtonChain from './components/ProtonProtonChain';
 import SolarConstantLab from './components/SolarConstantLab';
 import SunInterior from './components/SunInterior';
-import Task from './components/Task';
+import Task, { TaskBoard, TaskLevel } from './components/Task';
 
 const QUIZ: Question[] = [
   {
@@ -80,14 +79,6 @@ const ATMOSPHERE = [
 ];
 
 export default function Lecture11() {
-  const [showSolutions, setShowSolutions] = useState<{ [key: string]: boolean }>({});
-
-  const task = (id: string) => ({
-    id,
-    shown: !!showSolutions[id],
-    onToggle: (taskId: string) => setShowSolutions(prev => ({ ...prev, [taskId]: !prev[taskId] })),
-  });
-
   return (
     <main className="flex-1 overflow-y-auto px-4 pt-16 pb-12 sm:px-6 lg:px-10 lg:pt-10">
       <div className="max-w-4xl mx-auto">
@@ -259,22 +250,22 @@ export default function Lecture11() {
 
         <section className="mb-8">
           <h2 className="text-xl sm:text-2xl font-semibold mb-4">8. 📝 Задачи за упражнение</h2>
-
+          <TaskBoard>
           <div className="mb-6">
-            <h3 className="text-lg font-semibold mb-3 text-green-600 dark:text-green-400">Ниво А (Областен кръг)</h3>
+            <TaskLevel level="A" />
 
-            <Task {...task('a1')} number={1} color="border-green-500" question="Изброй слоевете на Слънцето отвътре навън и как се пренася енергията във всеки от вътрешните.">
+            <Task id="a1" number={1} color="border-green-500" question="Изброй слоевете на Слънцето отвътре навън и как се пренася енергията във всеки от вътрешните.">
               <p>Ядро (синтез) → радиационна зона (излъчване) → конвективна зона (конвекция) → фотосфера → хромосфера → корона.</p>
             </Task>
 
-            <Task {...task('a2')} number={2} color="border-green-500" question="Защо Слънцето не експлодира и не се срутва?">
+            <Task id="a2" number={2} color="border-green-500" question="Защо Слънцето не експлодира и не се срутва?">
               <p>
                 То е в хидростатично равновесие: гравитацията тегли навътре, а налягането на горещия газ – навън. Синтезът е
                 саморегулиращ се: ако се ускори, ядрото се разширява и изстива и реакциите се забавят.
               </p>
             </Task>
 
-            <Task {...task('a3')} number={3} color="border-green-500" question="Защо хромосферата и короната се виждат с просто око само при пълно слънчево затъмнение?">
+            <Task id="a3" number={3} color="border-green-500" question="Защо хромосферата и короната се виждат с просто око само при пълно слънчево затъмнение?">
               <p>
                 Те светят милиони пъти по-слабо от фотосферата и се губят в блясъка ѝ и в разсеяната светлина на небето. Когато Луната
                 закрие точно фотосферата, небето потъмнява и слабите външни слоеве стават видими.
@@ -283,20 +274,20 @@ export default function Lecture11() {
           </div>
 
           <div className="mb-6">
-            <h3 className="text-lg font-semibold mb-3 text-yellow-600 dark:text-yellow-400">Ниво В (Национален кръг)</h3>
+            <TaskLevel level="B" />
 
-            <Task {...task('b1')} number={4} color="border-yellow-500" question="Изчисли светимостта на Слънцето от слънчевата константа S = 1361 W/m² и d = 1,496 · 10¹¹ m.">
+            <Task id="b1" number={4} color="border-yellow-500" question="Изчисли светимостта на Слънцето от слънчевата константа S = 1361 W/m² и d = 1,496 · 10¹¹ m.">
               <p>L = 4πd² · S = 4π · (1,496 · 10¹¹)² · 1361</p>
               <p>L = 4π · 2,238 · 10²² · 1361 ≈ 3,83 · 10²⁶ W</p>
             </Task>
 
-            <Task {...task('b2')} number={5} color="border-yellow-500" question="Каква е слънчевата константа при Марс (1,524 AU) и при Юпитер (5,2 AU)?">
+            <Task id="b2" number={5} color="border-yellow-500" question="Каква е слънчевата константа при Марс (1,524 AU) и при Юпитер (5,2 AU)?">
               <p>S = S⊕ / d²</p>
               <p>Марс: 1361 / 1,524² = 1361 / 2,32 ≈ 586 W/m²</p>
               <p>Юпитер: 1361 / 5,2² = 1361 / 27 ≈ 50 W/m² – 27 пъти по-малко от Земята.</p>
             </Task>
 
-            <Task {...task('b3')} number={6} color="border-yellow-500" question="Изчисли средната плътност на Слънцето (M = 1,989 · 10³⁰ kg, R = 6,96 · 10⁸ m). Сравни с водата и Земята (5,5 g/cm³).">
+            <Task id="b3" number={6} color="border-yellow-500" question="Изчисли средната плътност на Слънцето (M = 1,989 · 10³⁰ kg, R = 6,96 · 10⁸ m). Сравни с водата и Земята (5,5 g/cm³).">
               <p>V = 4/3 · π · R³ = 4/3 · π · (6,96 · 10⁸)³ ≈ 1,41 · 10²⁷ m³</p>
               <p>ρ = M / V ≈ 1,41 · 10³ kg/m³ = 1,41 g/cm³</p>
               <p>
@@ -307,10 +298,10 @@ export default function Lecture11() {
           </div>
 
           <div className="mb-6">
-            <h3 className="text-lg font-semibold mb-3 text-red-600 dark:text-red-400">Ниво С (Международна олимпиада)</h3>
+            <TaskLevel level="C" />
 
             <Task
-              {...task('c1')}
+              id="c1"
               number={7}
               color="border-red-500"
               question="Келвин и Хелмхолц предполагат, че Слънцето свети, защото бавно се свива. Оцени колко дълго би светило така: t ≈ GM² / (R · L)."
@@ -324,7 +315,7 @@ export default function Lecture11() {
             </Task>
 
             <Task
-              {...task('c2')}
+              id="c2"
               number={8}
               color="border-red-500"
               question="Оцени колко дълго Слънцето може да свети с днешната си светимост, ако в ядрото изгори 10% от водорода (приеми, че цялото Слънце е водород)."
@@ -335,7 +326,7 @@ export default function Lecture11() {
             </Task>
 
             <Task
-              {...task('c3')}
+              id="c3"
               number={9}
               color="border-red-500"
               question="Всяка верига 4p → ⁴He отделя 26,7 MeV и две неутрино. Оцени потока слънчеви неутрино на Земята (1 MeV = 1,602 · 10⁻¹³ J)."
@@ -348,6 +339,7 @@ export default function Lecture11() {
               </p>
             </Task>
           </div>
+          </TaskBoard>
         </section>
 
         <section className="mb-8">

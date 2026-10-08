@@ -1,10 +1,9 @@
-import { useState } from 'react';
 import Example from '~/Example';
 import Quiz, { type Question } from '~/Quiz';
 import Theorem from '~/Theorem';
 import LunarEclipse from './components/LunarEclipse';
 import MoonPhases from './components/MoonPhases';
-import Task from './components/Task';
+import Task, { TaskBoard, TaskLevel } from './components/Task';
 
 const QUIZ: Question[] = [
   {
@@ -74,17 +73,6 @@ const MONTHS = [
 ];
 
 export default function Lecture04() {
-  const [showSolutions, setShowSolutions] = useState<{
-    [key: string]: boolean;
-  }>({});
-
-  const task = (id: string) => ({
-    id,
-    shown: !!showSolutions[id],
-    onToggle: (taskId: string) =>
-      setShowSolutions(prev => ({ ...prev, [taskId]: !prev[taskId] })),
-  });
-
   return (
     <main className="flex-1 overflow-y-auto px-4 pt-16 pb-12 sm:px-6 lg:px-10 lg:pt-10">
       <div className="max-w-4xl mx-auto">
@@ -359,14 +347,12 @@ export default function Lecture04() {
           <h2 className="text-xl sm:text-2xl font-semibold mb-4">
             7. 📝 Задачи за упражнение
           </h2>
-
+          <TaskBoard>
           <div className="mb-6">
-            <h3 className="text-lg font-semibold mb-3 text-green-600 dark:text-green-400">
-              Ниво А (Областен кръг)
-            </h3>
+            <TaskLevel level="A" />
 
             <Task
-              {...task('a1')}
+              id="a1"
               number={1}
               color="border-green-500"
               question="Колко дни продължава един пълен цикъл на лунните фази?"
@@ -382,7 +368,7 @@ export default function Lecture04() {
             </Task>
 
             <Task
-              {...task('a2')}
+              id="a2"
               number={2}
               color="border-green-500"
               question="При коя фаза на Луната може да има лунно затъмнение?"
@@ -395,7 +381,7 @@ export default function Lecture04() {
             </Task>
 
             <Task
-              {...task('a3')}
+              id="a3"
               number={3}
               color="border-green-500"
               question="Защо Луната става червена по време на пълно затъмнение?"
@@ -409,7 +395,7 @@ export default function Lecture04() {
             </Task>
 
             <Task
-              {...task('a4')}
+              id="a4"
               number={4}
               color="border-green-500"
               question="Луната е в първа четвърт. По кое време на денонощието е най-високо над хоризонта и в коя посока?"
@@ -423,7 +409,7 @@ export default function Lecture04() {
             </Task>
 
             <Task
-              {...task('a5')}
+              id="a5"
               number={5}
               color="border-green-500"
               question="Защо от Земята винаги виждаме една и съща страна на Луната?"
@@ -437,12 +423,10 @@ export default function Lecture04() {
           </div>
 
           <div className="mb-6">
-            <h3 className="text-lg font-semibold mb-3 text-yellow-600 dark:text-yellow-400">
-              Ниво В (Национален кръг)
-            </h3>
+            <TaskLevel level="B" />
 
             <Task
-              {...task('b1')}
+              id="b1"
               number={6}
               color="border-yellow-500"
               question="Защо лунните затъмнения не се случват всяко пълнолуние?"
@@ -460,7 +444,7 @@ export default function Lecture04() {
             </Task>
 
             <Task
-              {...task('b2')}
+              id="b2"
               number={7}
               color="border-yellow-500"
               question="Колко най-много може да трае пълната фаза на лунно затъмнение? При какви условия?"
@@ -477,7 +461,7 @@ export default function Lecture04() {
             </Task>
 
             <Task
-              {...task('b3')}
+              id="b3"
               number={8}
               color="border-yellow-500"
               question="Изведи формулата за синодичния месец, ако сидеричният е T★ = 27,32 дни."
@@ -493,7 +477,7 @@ export default function Lecture04() {
             </Task>
 
             <Task
-              {...task('b4')}
+              id="b4"
               number={9}
               color="border-yellow-500"
               question="С колко минути закъснява изгревът на Луната всеки следващ ден?"
@@ -512,12 +496,10 @@ export default function Lecture04() {
           </div>
 
           <div className="mb-6">
-            <h3 className="text-lg font-semibold mb-3 text-red-600 dark:text-red-400">
-              Ниво С (Международна олимпиада)
-            </h3>
+            <TaskLevel level="C" />
 
             <Task
-              {...task('c1')}
+              id="c1"
               number={10}
               color="border-red-500"
               question="Какво би видял наблюдател на Луната по време на лунно затъмнение? А по време на слънчево затъмнение на Земята?"
@@ -539,7 +521,7 @@ export default function Lecture04() {
             </Task>
 
             <Task
-              {...task('c2')}
+              id="c2"
               number={11}
               color="border-red-500"
               question="Радиусът на земната сянка на разстоянието на Луната е ~42′, а радиусът на Луната – 15,5′. Наклонът на лунната орбита е i = 5,15°. На какво най-голямо разстояние от възела трябва да е пълнолунието, за да е затъмнението пълно?"
@@ -562,7 +544,7 @@ export default function Lecture04() {
             </Task>
 
             <Task
-              {...task('c3')}
+              id="c3"
               number={12}
               color="border-red-500"
               question="Методът на Аристарх: при лунно затъмнение се вижда, че диаметърът на земната сянка на разстоянието на Луната е около 2,7 лунни диаметъра. Слънцето и Луната изглеждат еднакво големи на небето. Оцени диаметъра на Луната, ако D⊕ = 12 742 km."
@@ -584,6 +566,7 @@ export default function Lecture04() {
               </p>
             </Task>
           </div>
+          </TaskBoard>
         </section>
 
         <section className="mb-8">
