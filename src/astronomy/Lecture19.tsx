@@ -1,517 +1,370 @@
-import {useState} from 'react';
+import { useState } from 'react';
+import Example from '~/Example';
+import Quiz, { type Question } from '~/Quiz';
+import Theorem from '~/Theorem';
+import ClusterAgeLab from './components/ClusterAgeLab';
+import HRDiagram from './components/HRDiagram';
+import MainSequenceLab from './components/MainSequenceLab';
+import MSFittingLab from './components/MSFittingLab';
+import Task from './components/Task';
+
+const QUIZ: Question[] = [
+  {
+    question: 'Какво е нанесено по осите на диаграмата на Херцшпрунг–Ръсел?',
+    answers: ['Маса и възраст', 'Температура (или спектрален клас) и светимост (или абсолютна величина)', 'Разстояние и скорост', 'Радиус и маса'],
+    correctAnswer: 'Температура (или спектрален клас) и светимост (или абсолютна величина)',
+  },
+  {
+    question: 'В коя част на диаграмата са белите джуджета?',
+    answers: ['Горе вдясно', 'Горе вляво', 'Долу вляво – горещи, но с малка светимост', 'Долу вдясно'],
+    correctAnswer: 'Долу вляво – горещи, но с малка светимост',
+  },
+  {
+    question: 'Червен гигант и червено джудже имат еднаква температура. Защо гигантът е хиляди пъти по-ярък?',
+    answers: ['Защото е по-близо', 'Защото е много по-голям – има по-голяма повърхност', 'Защото е по-млад', 'Защото е по-горещ в ядрото'],
+    correctAnswer: 'Защото е много по-голям – има по-голяма повърхност',
+  },
+  {
+    question: 'Кое определя мястото на звезда по главната последователност?',
+    answers: ['Възрастта ѝ', 'Масата ѝ', 'Разстоянието до нея', 'Съзвездието, в което е'],
+    correctAnswer: 'Масата ѝ',
+  },
+  {
+    question: 'Кои звезди са най-многобройни в Галактиката?',
+    answers: ['Сините свръхгиганти', 'Звездите като Слънцето', 'Червените джуджета от клас M', 'Червените гиганти'],
+    correctAnswer: 'Червените джуджета от клас M',
+  },
+  {
+    question: 'Как се определя възрастта на звезден куп?',
+    answers: [
+      'По броя на звездите в него',
+      'По точката, в която главната последователност се отклонява – там са звездите, чийто живот е равен на възрастта на купа',
+      'По цвета на най-слабата звезда',
+      'По разстоянието до него',
+    ],
+    correctAnswer: 'По точката, в която главната последователност се отклонява – там са звездите, чийто живот е равен на възрастта на купа',
+  },
+  {
+    question: 'Звезда от главната последователност е два пъти по-масивна от Слънцето. Колко е приблизително животът ѝ?',
+    answers: ['20 млрд. години', '10 млрд. години', 'около 1–2 млрд. години', '10 млн. години'],
+    correctAnswer: 'около 1–2 млрд. години',
+  },
+];
+
+const REGIONS = [
+  {
+    icon: '🟡',
+    name: 'Главна последователност (клас V)',
+    text: 'Диагоналната ивица от горещите и ярки до студените и слаби звезди. Тук звездите превръщат водород в хелий в ядрото си – най-дългата и спокойна част от живота им. Около 90% от звездите са тук, включително Слънцето.',
+  },
+  {
+    icon: '🟠',
+    name: 'Гиганти (клас III)',
+    text: 'Горе вдясно: студени (3500–5000 K), но 10–1000 пъти по-ярки от Слънцето – значи с радиус 10–100 R☉. Звезди като Слънцето, които са изчерпали водорода в ядрото си.',
+  },
+  {
+    icon: '🟣',
+    name: 'Свръхгиганти (клас I)',
+    text: 'Най-горе, от сините (Ригел) до червените (Бетелгейзе): 10⁴–10⁶ L☉. Масивни звезди в последните си милиони години.',
+  },
+  {
+    icon: '⚪',
+    name: 'Бели джуджета',
+    text: 'Долу вляво: горещи, но слаби – с радиус колкото Земята. Оголените ядра на изгорели звезди като Слънцето, които бавно изстиват.',
+  },
+];
 
 export default function Lecture19() {
-  const [selectedStar, setSelectedStar] = useState<string | null>(null);
   const [showSolutions, setShowSolutions] = useState<{ [key: string]: boolean }>({});
 
-  const toggleSolution = (taskId: string) => {
-    setShowSolutions(prev => ({ ...prev, [taskId]: !prev[taskId] }));
-  };
-
-  // Известни звезди на HR диаграмата
-  const stars = [
-    { name: 'Ригел', x: 120, y: 50, color: 'rgb(150, 200, 255)', type: 'Син свръхгигант', temp: '11000 K', lum: '120000 L☉' },
-    { name: 'Бетелгейзе', x: 520, y: 80, color: 'rgb(255, 100, 50)', type: 'Червен свръхгигант', temp: '3500 K', lum: '100000 L☉' },
-    { name: 'Спика', x: 180, y: 150, color: 'rgb(180, 220, 255)', type: 'Син гигант', temp: '22000 K', lum: '2000 L☉' },
-    { name: 'Арктур', x: 480, y: 180, color: 'rgb(255, 180, 100)', type: 'Червен гигант', temp: '4300 K', lum: '170 L☉' },
-    { name: 'Сириус А', x: 220, y: 250, color: 'rgb(220, 230, 255)', type: 'Главна последователност', temp: '9900 K', lum: '25 L☉' },
-    { name: 'Веган', x: 240, y: 260, color: 'rgb(220, 230, 255)', type: 'Главна последователност', temp: '9600 K', lum: '40 L☉' },
-    { name: 'Слънце', x: 380, y: 300, color: 'rgb(255, 255, 150)', type: 'Главна последователност (G2V)', temp: '5778 K', lum: '1 L☉' },
-    { name: 'Проксима', x: 520, y: 380, color: 'rgb(255, 150, 150)', type: 'Червено джудже', temp: '3000 K', lum: '0.0017 L☉' },
-    { name: 'Сириус Б', x: 280, y: 420, color: 'rgb(200, 220, 255)', type: 'Бяло джудже', temp: '25000 K', lum: '0.03 L☉' },
-  ];
+  const task = (id: string) => ({
+    id,
+    shown: !!showSolutions[id],
+    onToggle: (taskId: string) => setShowSolutions(prev => ({ ...prev, [taskId]: !prev[taskId] })),
+  });
 
   return (
     <main className="flex-1 overflow-y-auto px-4 pt-16 pb-12 sm:px-6 lg:px-10 lg:pt-10">
       <div className="max-w-4xl mx-auto">
-        <h1 className="text-2xl sm:text-3xl font-bold tracking-tight mb-6 text-gray-900 dark:text-white">
-          Лекция 19: Диаграма на Херцшпрунг–Ръсел
-        </h1>
+        <h1 className="text-2xl sm:text-3xl font-bold tracking-tight mb-6 text-gray-900 dark:text-white">Лекция 19: Диаграма на Херцшпрунг–Ръсел</h1>
+
+        <div className="bg-gradient-to-br from-blue-800 to-slate-900 text-white p-6 rounded-2xl mb-8 shadow-lg">
+          <p className="text-lg sm:text-xl leading-relaxed">
+            📈 През 1905 г. датският химик Ейнар Херцшпрунг, който сам се учи на астрономия, забелязва нещо странно: червените звезди са
+            два вида. Едните са близки и много слаби, а другите – толкова ярки, че трябва да са огромни. Той ги сравнява с китове сред
+            риби и ги нарича „гиганти“ и „джуджета“. През 1913 г. американецът Хенри Ръсел нанася абсолютната величина на звездите
+            срещу спектралния им клас – и точките не се разпръскват случайно, а се подреждат в няколко ясни групи. Тази графика е за
+            астрофизиката това, което е периодичната таблица за химията.
+          </p>
+        </div>
 
         <section className="mb-8">
-          <h2 className="text-xl sm:text-2xl font-semibold mb-4">
-            1. Какво е HR диаграмата?
-          </h2>
+          <h2 className="text-xl sm:text-2xl font-semibold mb-4">1. Две оси, една картина</h2>
           <p className="mb-4 text-base sm:text-lg leading-relaxed">
-            Диаграмата на Херцшпрунг–Ръсел (HR) е графика, която показва връзката
-            между светимостта и температурата (или спектралния клас) на звездите.
-            Тя е един от най-важните инструменти в астрономията.
+            Най-важните характеристики, които измерваме за звездите, са температурата (от цвета или спектъра) и светимостта (от
+            блясъка и разстоянието). Ако ги нанесем една срещу друга, получаваме диаграмата на Херцшпрунг–Ръсел. Две особености я
+            правят малко необичайна: и двете оси са логаритмични, а температурата расте <strong>наляво</strong> – по исторически
+            причини, защото спектралните класове O B A F G K M са подредени така.
           </p>
-          <div className="bg-blue-50 dark:bg-blue-500/10 p-4 rounded-lg mb-4">
-            <p className="mb-2">Създадена независимо от:</p>
-            <ul className="list-disc list-inside space-y-1">
-              <li><strong>Ейнар Херцшпрунг</strong> (1911) – датски астроном</li>
-              <li><strong>Хенри Норис Ръсел</strong> (1913) – американски астроном</li>
-            </ul>
-          </div>
+
+          <Theorem
+            type="definition"
+            title="Диаграма на Херцшпрунг–Ръсел (HR)"
+            description="Графика на светимостта L (или абсолютната величина M) като функция на температурата на повърхността T (или спектралния клас, или показателя на цвета B − V). Когато по хоризонталната ос е B − V, а по вертикалната – видимата величина на звездите от един куп, я наричаме диаграма цвят–величина: тя се строи директно от наблюденията."
+          />
+
+          <HRDiagram />
         </section>
 
         <section className="mb-8">
-          <h2 className="text-xl sm:text-2xl font-semibold mb-4">
-            2. Интерактивна HR диаграма
-          </h2>
+          <h2 className="text-xl sm:text-2xl font-semibold mb-4">2. Скрита в диаграмата: размерът</h2>
           <p className="mb-4 text-base sm:text-lg leading-relaxed">
-            Кликнете на звездите, за да видите информация за тях:
+            От Лекция 18 знаем, че L = 4πR²σT⁴. Всяка точка от диаграмата отговаря на определен радиус – и можем да го прочетем, без
+            никога да сме виждали диска на звездата.
           </p>
 
-          <div className="bg-white dark:bg-gray-800 p-4 rounded-lg border-2 border-blue-300 dark:border-blue-600 mb-6">
-            <h3 className="font-semibold mb-3 text-center">Диаграма на Херцшпрунг–Ръсел</h3>
+          <Theorem
+            title="Линии на еднакъв радиус"
+            description="Логаритмуваме L / L☉ = (R / R☉)² · (T / T☉)⁴ и получаваме lg L = 4 lg T + 2 lg R + const. При фиксиран R това е права с наклон 4 в координати (lg T, lg L). Звездите на една такава права са с еднакъв размер. Нагоре и надясно звездите стават по-големи, надолу и наляво – по-малки."
+          />
 
-            <svg viewBox="0 0 600 500" className="w-full h-auto">
-              {/* Оси */}
-              <line x1="80" y1="450" x2="580" y2="450" stroke="currentColor" strokeWidth="2" />
-              <line x1="80" y1="450" x2="80" y2="30" stroke="currentColor" strokeWidth="2" />
+          <Example
+            description="Звезда има T = 30 000 K и L = 0,01 L☉. Колко е голяма?"
+            steps={[
+              'R / R☉ = √(L / L☉) · (T☉ / T)² = √0,01 · (5772 / 30 000)² = 0,1 · 0,037 ≈ 0,0037',
+              'R ≈ 0,0037 · 696 000 km ≈ 2600 km – по-малко от Луната!',
+              'Такава звезда е бяло джудже: много горещо, но толкова малко, че излъчва сто пъти по-малко от Слънцето.',
+            ]}
+          />
 
-              {/* Етикети на осите */}
-              <text x="330" y="485" fontSize="14" textAnchor="middle" fill="currentColor" fontWeight="bold">
-                Температура (K) →
-              </text>
-              <text x="30" y="240" fontSize="14" textAnchor="middle" fill="currentColor" fontWeight="bold" transform="rotate(-90 30 240)">
-                Светимост (L☉) →
-              </text>
-
-              {/* Температурна скала */}
-              <text x="120" y="470" fontSize="11" fill="currentColor">30000</text>
-              <text x="220" y="470" fontSize="11" fill="currentColor">10000</text>
-              <text x="380" y="470" fontSize="11" fill="currentColor">6000</text>
-              <text x="520" y="470" fontSize="11" fill="currentColor">3000</text>
-
-              {/* Светимостна скала (логаритмична) */}
-              <text x="60" y="60" fontSize="10" fill="currentColor">10⁶</text>
-              <text x="60" y="140" fontSize="10" fill="currentColor">10⁴</text>
-              <text x="60" y="220" fontSize="10" fill="currentColor">10²</text>
-              <text x="60" y="300" fontSize="10" fill="currentColor">1</text>
-              <text x="60" y="380" fontSize="10" fill="currentColor">10⁻²</text>
-              <text x="60" y="440" fontSize="10" fill="currentColor">10⁻⁴</text>
-
-              {/* Спектрални класове */}
-              <text x="120" y="25" fontSize="13" fill="rgb(150, 200, 255)" fontWeight="bold">O</text>
-              <text x="180" y="25" fontSize="13" fill="rgb(180, 220, 255)" fontWeight="bold">B</text>
-              <text x="240" y="25" fontSize="13" fill="rgb(220, 230, 255)" fontWeight="bold">A</text>
-              <text x="300" y="25" fontSize="13" fill="rgb(255, 255, 220)" fontWeight="bold">F</text>
-              <text x="360" y="25" fontSize="13" fill="rgb(255, 255, 150)" fontWeight="bold">G</text>
-              <text x="420" y="25" fontSize="13" fill="rgb(255, 200, 100)" fontWeight="bold">K</text>
-              <text x="480" y="25" fontSize="13" fill="rgb(255, 150, 100)" fontWeight="bold">M</text>
-
-              {/* Зони на диаграмата */}
-              {/* Главна последователност */}
-              <path
-                d="M 120,380 Q 200,320 280,280 Q 360,250 440,340 Q 480,380 520,420"
-                fill="none"
-                stroke="rgb(59, 130, 246)"
-                strokeWidth="40"
-                opacity="0.2"
-              />
-              <text x="300" y="320" fontSize="13" fill="rgb(59, 130, 246)" fontWeight="bold">
-                Главна последователност
-              </text>
-
-              {/* Гиганти */}
-              <ellipse cx="450" cy="150" rx="100" ry="60" fill="rgb(239, 68, 68)" opacity="0.1" />
-              <text x="450" y="155" fontSize="12" fill="rgb(239, 68, 68)" fontWeight="bold" textAnchor="middle">
-                Гиганти
-              </text>
-
-              {/* Свръхгиганти */}
-              <ellipse cx="320" cy="70" rx="200" ry="40" fill="rgb(168, 85, 247)" opacity="0.1" />
-              <text x="320" y="75" fontSize="12" fill="rgb(168, 85, 247)" fontWeight="bold" textAnchor="middle">
-                Свръхгиганти
-              </text>
-
-              {/* Бели джуджета */}
-              <ellipse cx="280" cy="420" rx="60" ry="30" fill="rgb(156, 163, 175)" opacity="0.2" />
-              <text x="280" y="425" fontSize="11" fill="rgb(100, 100, 100)" fontWeight="bold" textAnchor="middle">
-                Бели джуджета
-              </text>
-
-              {/* Звезди */}
-              {stars.map((star, i) => (
-                <g
-                  key={i}
-                  onClick={() => setSelectedStar(star.name)}
-                  className="cursor-pointer"
-                  onMouseEnter={() => setSelectedStar(star.name)}
-                >
-                  <circle
-                    cx={star.x}
-                    cy={star.y}
-                    r={selectedStar === star.name ? 10 : 7}
-                    fill={star.color}
-                    stroke="white"
-                    strokeWidth="2"
-                  >
-                    {selectedStar === star.name && (
-                      <animate
-                        attributeName="r"
-                        values="7;12;7"
-                        dur="1s"
-                        repeatCount="indefinite"
-                      />
-                    )}
-                  </circle>
-                  {selectedStar === star.name && (
-                    <text
-                      x={star.x}
-                      y={star.y - 20}
-                      fontSize="11"
-                      fontWeight="bold"
-                      textAnchor="middle"
-                      fill="currentColor"
-                    >
-                      {star.name}
-                    </text>
-                  )}
-                </g>
-              ))}
-
-              {/* Стрелка за еволюция */}
-              <path
-                d="M 380,300 Q 420,250 450,200"
-                fill="none"
-                stroke="rgb(239, 68, 68)"
-                strokeWidth="2"
-                strokeDasharray="5,5"
-                markerEnd="url(#arrowEvolution)"
-              />
-              <text x="420" y="240" fontSize="10" fill="rgb(239, 68, 68)">Еволюция</text>
-
-              <defs>
-                <marker id="arrowEvolution" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
-                  <polygon points="0 0, 10 3, 0 6" fill="rgb(239, 68, 68)" />
-                </marker>
-              </defs>
-            </svg>
-
-            {/* Информация за избраната звезда */}
-            <div className="mt-4 p-4 bg-gray-100/70 dark:bg-gray-800/70 rounded-lg min-h-[100px]">
-              {selectedStar ? (
-                <div>
-                  {stars.filter(s => s.name === selectedStar).map(star => (
-                    <div key={star.name}>
-                      <h4 className="font-bold text-lg mb-2" style={{ color: star.color }}>
-                        {star.name}
-                      </h4>
-                      <ul className="text-sm space-y-1">
-                        <li><strong>Тип:</strong> {star.type}</li>
-                        <li><strong>Температура:</strong> {star.temp}</li>
-                        <li><strong>Светимост:</strong> {star.lum}</li>
-                      </ul>
-                    </div>
-                  ))}
-                </div>
-              ) : (
-                <p className="text-sm text-gray-600 dark:text-gray-400 italic">
-                  Кликнете или преминете с мишката над звезда, за да видите информация.
+          <div className="grid sm:grid-cols-2 gap-3 mb-4">
+            {REGIONS.map(r => (
+              <div key={r.name} className="bg-white dark:bg-gray-800 p-3 rounded-lg shadow-sm">
+                <p className="font-semibold mb-1">
+                  {r.icon} {r.name}
                 </p>
-              )}
-            </div>
-          </div>
-        </section>
-
-        <section className="mb-8">
-          <h2 className="text-xl sm:text-2xl font-semibold mb-4">
-            3. Основни области на HR диаграмата
-          </h2>
-          <div className="bg-blue-50 dark:bg-blue-500/10 p-4 rounded-lg mb-4">
-            <ul className="list-disc list-inside space-y-3">
-              <li>
-                <strong className="text-blue-600 dark:text-blue-400">Главна последователност</strong> –
-                диагонална лента от горе-ляво (горещи, ярки) към долу-дясно (студени, слаби).
-                Тук звездите прекарват 90% от живота си, синтезирайки водород в хелий.
-                Слънцето е тук.
-              </li>
-              <li>
-                <strong className="text-red-600 dark:text-red-400">Червени гиганти</strong> –
-                горна дясна част. Големи и студени звезди, които са напуснали главната
-                последователност и изгарят хелий.
-              </li>
-              <li>
-                <strong className="text-purple-600 dark:text-purple-400">Свръхгиганти</strong> –
-                най-горе на диаграмата. Изключително ярки и масивни звезди. Кратък живот.
-              </li>
-              <li>
-                <strong className="text-gray-600 dark:text-gray-400">Бели джуджета</strong> –
-                долу вляво. Малки, горещи, но слаби звезди. Крайна фаза за звезди като Слънцето.
-              </li>
-            </ul>
-          </div>
-        </section>
-
-        <section className="mb-8">
-          <h2 className="text-xl sm:text-2xl font-semibold mb-4">
-            4. Еволюция на звездите на HR диаграмата
-          </h2>
-          <p className="mb-4 text-base sm:text-lg leading-relaxed">
-            HR диаграмата показва еволюционния път на звездите. Звездите не остават
-            на едно място, а се движат по диаграмата с времето.
-          </p>
-
-          <div className="bg-green-50 dark:bg-green-900/20 p-4 rounded-lg mb-4">
-            <h3 className="font-semibold mb-2">Еволюционен път на звезда като Слънцето:</h3>
-            <ol className="list-decimal list-inside space-y-2">
-              <li>Раждане на главната последователност (G2V)</li>
-              <li>10 милиарда години на главната последователност</li>
-              <li>Разширяване → червен гигант (K-M клас)</li>
-              <li>Отхвърляне на външни слоеве → планетарна мъглявина</li>
-              <li>Остава бяло джудже → бавно охлаждане</li>
-            </ol>
+                <p className="text-sm text-gray-600 dark:text-gray-400">{r.text}</p>
+              </div>
+            ))}
           </div>
 
-          <div className="bg-red-50 dark:bg-red-900/20 p-4 rounded-lg mb-4">
-            <h3 className="font-semibold mb-2">Еволюционен път на масивна звезда (&gt;8 M☉):</h3>
-            <ol className="list-decimal list-inside space-y-2">
-              <li>Раждане на главната последователност (O-B клас)</li>
-              <li>Няколко милиона години на главната последователност</li>
-              <li>Разширяване → червен/син свръхгигант</li>
-              <li>Синтез на тежки елементи до желязо</li>
-              <li>Свръхнова експлозия</li>
-              <li>Остава неутронна звезда или черна дупка</li>
-            </ol>
-          </div>
-        </section>
-
-        <section className="mb-8">
-          <h2 className="text-xl sm:text-2xl font-semibold mb-4">
-            5. Връзка маса-светимост
-          </h2>
-          <p className="mb-4 text-base sm:text-lg leading-relaxed">
-            За звездите от главната последователност съществува ясна връзка между
-            масата и светимостта:
-          </p>
-          <div className="bg-purple-50 dark:bg-purple-900/20 p-4 rounded-lg mb-4">
-            <p className="text-center text-xl font-mono my-3">L ∝ M³·⁵</p>
-            <p className="text-center mt-2">или</p>
-            <p className="text-center text-lg font-mono my-2">L / L☉ = (M / M☉)³·⁵</p>
-            <p className="mt-3">
-              <strong>Следствие:</strong> Звезда с двойна маса е около 11 пъти по-ярка,
-              но живее много по-кратко време!
+          <div className="bg-blue-50 dark:bg-blue-500/10 p-4 rounded-lg mb-4 text-sm sm:text-base">
+            <p>
+              <strong>Ефектът на подбора.</strong> Ако съберем най-ярките звезди на небето, диаграмата е пълна с гиганти и горещи звезди.
+              Ако съберем всички звезди до 10 pc, гиганти почти няма, а три четвърти са червени джуджета. Ярките звезди се виждат
+              отдалеч и затова ги откриваме в огромен обем пространство – те са „свръхпредставени“. Това е ефектът на Малмквист и
+              трябва да се помни при всяко статистическо изследване в астрономията. Проверете в диаграмата по-горе!
             </p>
           </div>
-
-          <div className="bg-blue-50 dark:bg-blue-500/10 p-4 rounded-lg mb-4">
-            <h3 className="font-semibold mb-2">Примери:</h3>
-            <ul className="list-disc list-inside space-y-2">
-              <li>Звезда с M = 2 M☉ → L ≈ 11 L☉, живот ≈ 1 млрд. години</li>
-              <li>Слънце (M = 1 M☉) → L = 1 L☉, живот ≈ 10 млрд. години</li>
-              <li>Звезда с M = 0.5 M☉ → L ≈ 0.03 L☉, живот &gt; 100 млрд. години</li>
-            </ul>
-          </div>
         </section>
 
         <section className="mb-8">
-          <h2 className="text-xl sm:text-2xl font-semibold mb-4">
-            6. Спектрална класификация
-          </h2>
-          <div className="bg-white dark:bg-gray-800 p-4 rounded-lg border-2 border-purple-300 dark:border-purple-600 mb-6">
-            <svg viewBox="0 0 700 150" className="w-full h-auto">
-              {/* Спектрални класове с цветове */}
-              {[
-                { class: 'O', color: 'rgb(150, 200, 255)', temp: '&gt;30000 K', x: 50 },
-                { class: 'B', color: 'rgb(180, 220, 255)', temp: '10000-30000', x: 140 },
-                { class: 'A', color: 'rgb(220, 230, 255)', temp: '7500-10000', x: 230 },
-                { class: 'F', color: 'rgb(255, 255, 220)', temp: '6000-7500', x: 320 },
-                { class: 'G', color: 'rgb(255, 255, 150)', temp: '5200-6000', x: 410 },
-                { class: 'K', color: 'rgb(255, 200, 100)', temp: '3700-5200', x: 500 },
-                { class: 'M', color: 'rgb(255, 150, 100)', temp: '&lt;3700', x: 590 },
-              ].map((item, i) => (
-                <g key={i}>
-                  <circle cx={item.x} cy="50" r="25" fill={item.color} stroke="white" strokeWidth="2" />
-                  <text x={item.x} y="58" fontSize="20" fontWeight="bold" textAnchor="middle" fill="black">
-                    {item.class}
-                  </text>
-                  <text x={item.x} y="95" fontSize="10" textAnchor="middle" fill="currentColor">
-                    {item.temp} K
-                  </text>
-                  {item.class === 'G' && (
-                    <text x={item.x} y="110" fontSize="9" textAnchor="middle" fill="rgb(234, 179, 8)" fontWeight="bold">
-                      ☀️ Слънце
-                    </text>
-                  )}
-                </g>
-              ))}
+          <h2 className="text-xl sm:text-2xl font-semibold mb-4">3. Главната последователност – последователност на масите</h2>
+          <p className="mb-4 text-base sm:text-lg leading-relaxed">
+            През 1924 г. Артър Едингтън показва, че за звездите от двойни системи с измерени маси светимостта зависи почти само от
+            масата. Главната последователност не е еволюционен път – звездите не пълзят по нея. Всяка звезда „сяда“ на
+            определено място според масата си и стои там, докато гори водород.
+          </p>
 
-              {/* Стрелка */}
-              <line x1="50" y1="130" x2="640" y2="130" stroke="currentColor" strokeWidth="2" markerEnd="url(#arrowTemp)" />
-              <text x="30" y="135" fontSize="11" fill="currentColor">Горещи</text>
-              <text x="650" y="135" fontSize="11" fill="currentColor">Студени</text>
+          <Theorem
+            title="Връзки маса–светимост и маса–радиус"
+            description="За звездите от главната последователност приблизително: L ∝ M^2,3 при M < 0,43 M☉; L ∝ M⁴ при 0,43–2 M☉; L ≈ 1,4 · M^3,5 при 2–55 M☉. Радиусът расте по-бавно: R ∝ M^0,8 до 1 M☉ и R ∝ M^0,57 над нея. Животът на главната последователност е t ≈ 10¹⁰ години · (M / M☉) / (L / L☉) – горивото е пропорционално на масата, а разходът – на светимостта."
+          />
 
-              <defs>
-                <marker id="arrowTemp" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
-                  <polygon points="0 0, 10 3, 0 6" fill="currentColor" />
-                </marker>
-              </defs>
-            </svg>
+          <Example
+            description="Звезда от главната последователност има маса 4 M☉. Оценете светимостта и живота ѝ."
+            steps={[
+              'L ≈ 1,4 · 4^3,5 = 1,4 · 128 ≈ 180 L☉',
+              't ≈ 10¹⁰ · 4 / 180 ≈ 2,2 · 10⁸ години',
+              'Четири пъти повече гориво, но 180 пъти по-бързо изгаряне: животът е 45 пъти по-кратък от този на Слънцето. Докато Слънцето направи една обиколка около центъра на Галактиката, такава звезда се ражда и умира.',
+            ]}
+          />
 
-            <div className="mt-4 p-4 bg-gray-100/70 dark:bg-gray-800/70 rounded-lg">
-              <p className="text-sm mb-2">
-                <strong>Мнемоника:</strong> "Oh Be A Fine Girl/Guy, Kiss Me"
-                (O B A F G K M)
+          <MainSequenceLab />
+
+          <p className="mb-4 text-base sm:text-lg leading-relaxed">
+            Главната последователност има и два края. Под ~0,08 M☉ налягането и температурата в ядрото не стигат, за да запалят
+            водорода – получава се кафяво джудже. Над ~150 M☉ светлината, която звездата излъчва, е толкова силна, че нейното налягане
+            разпръсква външните слоеве – това е границата на Едингтън.
+          </p>
+        </section>
+
+        <section className="mb-8">
+          <h2 className="text-xl sm:text-2xl font-semibold mb-4">4. Часовникът на звездните купове</h2>
+          <p className="mb-4 text-base sm:text-lg leading-relaxed">
+            Звездите в един куп са родени от един облак почти по едно и също време и са на едно и също разстояние от нас. Те са
+            естествен експеримент: еднаква възраст и състав, различни маси. Колкото е по-стар купът, толкова по-ниско по главната
+            последователност е точката, от която звездите вече са я напуснали.
+          </p>
+
+          <Theorem
+            title="Възраст по точката на отклонение"
+            description="Звездите в точката на отклонение (turnoff) са тези, чийто живот на главната последователност е точно равен на възрастта на купа: t_куп ≈ 10¹⁰ години · M_то / L_то. Ако L ∝ M^3,5, това е t ≈ 10¹⁰ години · (M_то / M☉)^(−2,5)."
+          />
+
+          <Example
+            description="Главната последователност на купа се отклонява при звезди с маса 2 M☉. Колко е стар купът?"
+            steps={['L_то ≈ 2⁴ = 16 L☉ (за 0,43–2 M☉ L ∝ M⁴)', 't ≈ 10¹⁰ · 2 / 16 ≈ 1,25 · 10⁹ години']}
+          />
+
+          <ClusterAgeLab />
+
+          <p className="mb-4 text-base sm:text-lg leading-relaxed">
+            Най-старите кълбовидни купове се отклоняват при ~0,8 M☉ – значи са на 12–13 млрд. години. През 90-те години на XX в. те дори изглеждаха
+            „по-стари от Вселената“, докато измерванията на разширяването не станаха точни. Днес двете оценки съвпадат. Какво става със
+            звездите, след като напуснат главната последователност, ще видим в Лекция 20.
+          </p>
+        </section>
+
+        <section className="mb-8">
+          <h2 className="text-xl sm:text-2xl font-semibold mb-4">5. Разстояния от диаграмата</h2>
+          <p className="mb-4 text-base sm:text-lg leading-relaxed">
+            Диаграмата работи и наобратно. Ако от спектъра знаем, че звездата е например G2V, знаем и абсолютната ѝ величина – около
+            +4,8. Сравнението с видимата величина дава разстоянието. Методът се нарича <strong>спектрален паралакс</strong> (без
+            никакъв паралакс!). Точността за една звезда е ~25%, но за цял куп е много по-добра.
+          </p>
+
+          <Example
+            description="Звезда от клас G2V има видима величина m = 12,3. На какво разстояние е?"
+            steps={['От диаграмата: M ≈ 4,8', 'm − M = 7,5 ⇒ d = 10^(7,5 / 5 + 1) = 10^2,5 ≈ 320 pc']}
+          />
+
+          <MSFittingLab />
+        </section>
+
+        <section className="mb-8">
+          <h2 className="text-xl sm:text-2xl font-semibold mb-4">6. ✅ Провери се</h2>
+          <Quiz questions={QUIZ} />
+        </section>
+
+        <section className="mb-8">
+          <h2 className="text-xl sm:text-2xl font-semibold mb-4">7. 📝 Задачи за упражнение</h2>
+
+          <div className="mb-6">
+            <h3 className="text-lg font-semibold mb-3 text-green-600 dark:text-green-400">Ниво А (Областен кръг)</h3>
+
+            <Task {...task('a1')} number={1} color="border-green-500" question="В коя област на HR диаграмата е Слънцето? Какво означава това?">
+              <p>
+                <strong>На главната последователност</strong>, приблизително по средата: T = 5772 K, L = 1 L☉. Това означава, че в
+                ядрото му водородът се превръща в хелий. Слънцето ще остане тук общо около 10 млрд. години – досега са минали 4,6.
               </p>
-              <p className="text-sm">
-                Спектралните класове се определят от температурата и спектралните линии.
-                Всеки клас се разделя на подкласове 0-9 (напр. G2 за Слънцето).
+            </Task>
+
+            <Task {...task('a2')} number={2} color="border-green-500" question="Арктур и Проксима Кентавър са почти еднакво оранжево-червени, но Арктур е 100 000 пъти по-ярък. Как е възможно?">
+              <p>
+                Еднаквият цвят значи сходна температура, т.е. всеки квадратен метър от повърхността им излъчва почти еднакво. Щом Арктур
+                излъчва 100 000 пъти повече, повърхността му е ~100 000 пъти по-голяма, а радиусът – ~√100 000 ≈ 300 пъти. Арктур е
+                гигант (~25 R☉), а Проксима – джудже (~0,15 R☉).
               </p>
-            </div>
+            </Task>
+
+            <Task {...task('a3')} number={3} color="border-green-500" question="В коя част на диаграмата са повечето звезди в Галактиката и защо не ги виждаме с просто око?">
+              <p>
+                Повечето звезди са на долния край на главната последователност – червени джуджета от клас M. Те са малки, студени и
+                стотици до хиляди пъти по-слаби от Слънцето. Дори най-близката звезда, Проксима, има видима величина 11 и не се вижда
+                без телескоп.
+              </p>
+            </Task>
+          </div>
+
+          <div className="mb-6">
+            <h3 className="text-lg font-semibold mb-3 text-yellow-600 dark:text-yellow-400">Ниво В (Национален кръг)</h3>
+
+            <Task {...task('b1')} number={4} color="border-yellow-500" question="Звезда от главната последователност има маса 4 M☉. Ако L ∝ M^3,5, колко пъти е по-ярка от Слънцето и колко живее?">
+              <p>L / L☉ = 4^3,5 = 2⁷ = 128</p>
+              <p>t = 10¹⁰ · 4 / 128 ≈ 3,1 · 10⁸ години – около 300 милиона години.</p>
+              <p>С по-точната връзка (L ≈ 1,4 · M^3,5 ≈ 180 L☉) се получава ~220 млн. години – редът на величината е същият.</p>
+            </Task>
+
+            <Task {...task('b2')} number={5} color="border-yellow-500" question="Звезда има T = 3500 K и L = 1000 L☉. Колко е радиусът ѝ? В коя област на диаграмата е?">
+              <p>R / R☉ = √1000 · (5772 / 3500)² = 31,6 · 2,72 ≈ 86</p>
+              <p>
+                <strong>~86 R☉ = 0,4 AU</strong> – почти колкото орбитата на Меркурий. Студена и ярка звезда горе вдясно: червен гигант от
+                клас M.
+              </p>
+            </Task>
+
+            <Task {...task('b3')} number={6} color="border-yellow-500" question="Звезда от клас A0V (M ≈ +0,6) има видима величина 10,6. На какво разстояние е?">
+              <p>m − M = 10,6 − 0,6 = 10</p>
+              <p>d = 10^(10 / 5 + 1) = 10³ pc = 1 kpc ≈ 3300 светлинни години</p>
+              <p>Паралаксът ѝ би бил 0,001″ = 1 mas – на границата на точност за много звезди дори при Gaia.</p>
+            </Task>
+          </div>
+
+          <div className="mb-6">
+            <h3 className="text-lg font-semibold mb-3 text-red-600 dark:text-red-400">Ниво С (Международна олимпиада)</h3>
+
+            <Task
+              {...task('c1')}
+              number={7}
+              color="border-red-500"
+              question="Главната последователност на разсеян куп се отклонява при звезди с маса 1,3 M☉. Оценете възрастта на купа, ако L ∝ M⁴, и ако L ∝ M^3,5. Колко чувствителна е оценката?"
+            >
+              <p>L ∝ M⁴: L = 1,3⁴ ≈ 2,86 L☉ ⇒ t = 10¹⁰ · 1,3 / 2,86 ≈ 4,5 · 10⁹ години</p>
+              <p>L ∝ M^3,5: t = 10¹⁰ · 1,3^(−2,5) ≈ 10¹⁰ / 1,93 ≈ 5,2 · 10⁹ години</p>
+              <p>
+                Разликата е ~15%. Купът е като M67 – почти на възрастта на Слънцето. Истинските оценки използват подробни модели на
+                звездите, но идеята е същата.
+              </p>
+            </Task>
+
+            <Task
+              {...task('c2')}
+              number={8}
+              color="border-red-500"
+              question="Звезда се разширява 10 пъти при постоянна светимост. Как се променя температурата ѝ? Ако това е Слънцето, какъв цвят би имало? В каква посока се мести точката в HR диаграмата?"
+            >
+              <p>L = 4πR²σT⁴ = const ⇒ T ∝ R^(−1/2) ⇒ T₂ = T₁ / √10 ≈ 0,316 · T₁</p>
+              <p>За Слънцето: 5772 · 0,316 ≈ 1830 K – по-студено от всяка звезда от главната последователност, тъмночервено.</p>
+              <p>
+                Точката се мести хоризонтално надясно – по линия на постоянна светимост, пресичайки линиите на еднакъв радиус. Така се
+                движат звездите, които се превръщат в гиганти (Лекция 20).
+              </p>
+            </Task>
+
+            <Task
+              {...task('c3')}
+              number={9}
+              color="border-red-500"
+              question="Звездите на далечен куп изглеждат с E(B − V) = 0,3 по-червени, отколкото трябва, заради междузвездния прах. Подреждането по главната последователност дава видим модул m − M = 11,0. Ако поглъщането е A_V = 3,1 · E(B − V), колко е истинското разстояние? Колко бихме сгрешили без поправката?"
+            >
+              <p>A_V = 3,1 · 0,3 ≈ 0,93 величини</p>
+              <p>Истински модул: (m − M)₀ = 11,0 − 0,93 ≈ 10,07 ⇒ d = 10^(10,07 / 5 + 1) ≈ 1030 pc</p>
+              <p>Без поправката: d = 10^(11 / 5 + 1) ≈ 1580 pc – грешка от над 50%!</p>
+              <p>
+                При подреждането трябва първо да изместим и еталонната линия надясно с 0,3 по B − V – иначе тя няма да пасне добре
+                на звездите.
+              </p>
+            </Task>
           </div>
         </section>
 
         <section className="mb-8">
-          <h2 className="text-xl sm:text-2xl font-semibold mb-4">
-            📝 Задачи за упражнение
-          </h2>
-
-          {/* Ниво А */}
-          <div className="mb-6">
-            <h3 className="text-lg font-semibold mb-3 text-green-600 dark:text-green-400">
-              Ниво А (Областен кръг)
-            </h3>
-
-            <div className="bg-white dark:bg-gray-800 p-4 rounded-lg mb-4 border-l-4 border-green-500">
-              <p className="font-semibold mb-2">1. В коя област на HR диаграмата се намира Слънцето?</p>
-              <button
-                onClick={() => toggleSolution('a1')}
-                className="text-blue-600 dark:text-blue-400 hover:underline text-sm"
-              >
-                {showSolutions['a1'] ? '▼ Скрий решението' : '▶ Покажи решението'}
-              </button>
-              {showSolutions['a1'] && (
-                <div className="mt-3 p-3 bg-blue-50 dark:bg-blue-900/20 rounded">
-                  <p className="font-semibold">Отговор: На главната последователност</p>
-                  <p className="mt-2">Обяснение: Слънцето е звезда от спектрален клас G2V,
-                  където V означава "главна последователност" (dwarf). То е типична звезда
-                  от главната последователност с температура 5778 K и светимост 1 L☉.</p>
-                </div>
-              )}
-            </div>
-
-            <div className="bg-white dark:bg-gray-800 p-4 rounded-lg mb-4 border-l-4 border-green-500">
-              <p className="font-semibold mb-2">2. Коя звезда е по-гореща - червена или синя?</p>
-              <button
-                onClick={() => toggleSolution('a2')}
-                className="text-blue-600 dark:text-blue-400 hover:underline text-sm"
-              >
-                {showSolutions['a2'] ? '▼ Скрий решението' : '▶ Покажи решението'}
-              </button>
-              {showSolutions['a2'] && (
-                <div className="mt-3 p-3 bg-blue-50 dark:bg-blue-900/20 rounded">
-                  <p className="font-semibold">Отговор: Синята звезда</p>
-                  <p className="mt-2">Обяснение: Цветът на звездата зависи от температурата ѝ.
-                  По-горещите звезди са сини (O, B класове, &gt;10000 K), по-студените са червени
-                  (K, M класове, &lt;5000 K). Това е според закона на Вин.</p>
-                </div>
-              )}
-            </div>
-          </div>
-
-          {/* Ниво В */}
-          <div className="mb-6">
-            <h3 className="text-lg font-semibold mb-3 text-yellow-600 dark:text-yellow-400">
-              Ниво В (Национален кръг)
-            </h3>
-
-            <div className="bg-white dark:bg-gray-800 p-4 rounded-lg mb-4 border-l-4 border-yellow-500">
-              <p className="font-semibold mb-2">3. Звезда има маса 4 M☉. Изчисли светимостта ѝ,
-              ако е на главната последователност. (L ∝ M³·⁵)</p>
-              <button
-                onClick={() => toggleSolution('b3')}
-                className="text-blue-600 dark:text-blue-400 hover:underline text-sm"
-              >
-                {showSolutions['b3'] ? '▼ Скрий решението' : '▶ Покажи решението'}
-              </button>
-              {showSolutions['b3'] && (
-                <div className="mt-3 p-3 bg-blue-50 dark:bg-blue-900/20 rounded">
-                  <p className="font-semibold">Решение:</p>
-                  <p className="mt-2">L / L☉ = (M / M☉)³·⁵</p>
-                  <p>L / L☉ = 4³·⁵</p>
-                  <p>L / L☉ = 4³ × 4⁰·⁵ = 64 × 2 = 128</p>
-                  <p className="mt-2"><strong>Отговор: L ≈ 128 L☉</strong></p>
-                  <p className="mt-2 text-sm">Звездата е 128 пъти по-ярка от Слънцето, но ще живее
-                  много по-кратко време (около 500 милиона години).</p>
-                </div>
-              )}
-            </div>
-
-            <div className="bg-white dark:bg-gray-800 p-4 rounded-lg mb-4 border-l-4 border-yellow-500">
-              <p className="font-semibold mb-2">4. Защо червените гиганти са толкова ярки, въпреки
-              че са студени?</p>
-              <button
-                onClick={() => toggleSolution('b4')}
-                className="text-blue-600 dark:text-blue-400 hover:underline text-sm"
-              >
-                {showSolutions['b4'] ? '▼ Скрий решението' : '▶ Покажи решението'}
-              </button>
-              {showSolutions['b4'] && (
-                <div className="mt-3 p-3 bg-blue-50 dark:bg-blue-900/20 rounded">
-                  <p className="font-semibold">Решение:</p>
-                  <p className="mt-2">Светимостта зависи от температурата И размера на звездата:</p>
-                  <p className="font-mono mt-2">L = 4πR² × σT⁴</p>
-                  <p className="mt-2">Червените гиганти имат ниска температура (3000-5000 K), но
-                  <strong> огромен радиус</strong> (10-100 пъти по-голям от Слънцето). Големият
-                  размер компенсира ниската температура.</p>
-                  <p className="mt-2">Пример: Бетелгейзе има T ≈ 3500 K (по-студена от Слънцето),
-                  но R ≈ 900 R☉ → L ≈ 100000 L☉!</p>
-                </div>
-              )}
-            </div>
-          </div>
-
-          {/* Ниво С */}
-          <div className="mb-6">
-            <h3 className="text-lg font-semibold mb-3 text-red-600 dark:text-red-400">
-              Ниво С (Международна олимпиада)
-            </h3>
-
-            <div className="bg-white dark:bg-gray-800 p-4 rounded-lg mb-4 border-l-4 border-red-500">
-              <p className="font-semibold mb-2">5. Две звезди имат еднаква температура 6000 K, но
-              една е 100 пъти по-ярка от другата. Изчисли съотношението на радиусите им.</p>
-              <button
-                onClick={() => toggleSolution('c5')}
-                className="text-blue-600 dark:text-blue-400 hover:underline text-sm"
-              >
-                {showSolutions['c5'] ? '▼ Скрий решението' : '▶ Покажи решението'}
-              </button>
-              {showSolutions['c5'] && (
-                <div className="mt-3 p-3 bg-blue-50 dark:bg-blue-900/20 rounded">
-                  <p className="font-semibold">Решение:</p>
-                  <p className="mt-2">Светимостта на звезда: L = 4πR²σT⁴</p>
-                  <p className="mt-2">За две звезди с еднаква температура:</p>
-                  <p className="font-mono">L₁ / L₂ = R₁² / R₂²</p>
-                  <p className="mt-2">Ако L₁ / L₂ = 100, то:</p>
-                  <p>R₁² / R₂² = 100</p>
-                  <p>R₁ / R₂ = √100 = 10</p>
-                  <p className="mt-2"><strong>Отговор: R₁ = 10 × R₂</strong></p>
-                  <p className="mt-2">По-яркатаta звезда има 10 пъти по-голям радиус. Това означава,
-                  че едната е вероятно гигант, а другата - звезда от главната последователност.</p>
-                </div>
-              )}
-            </div>
-          </div>
-        </section>
-
-        <section className="mb-8">
-          <h2 className="text-xl sm:text-2xl font-semibold mb-4">
-            Обобщение
-          </h2>
-          <div className="bg-gradient-to-r from-blue-50 to-purple-50 dark:from-gray-800 dark:to-gray-700 p-6 rounded-lg">
+          <h2 className="text-xl sm:text-2xl font-semibold mb-4">8. Обобщение</h2>
+          <div className="bg-gradient-to-r from-blue-50 to-yellow-50 dark:from-gray-800 dark:to-gray-700 p-6 rounded-lg">
             <ul className="space-y-2">
-              <li>✓ HR диаграмата показва връзка между светимост и температура</li>
-              <li>✓ Главната последователност - 90% от живота на звездата</li>
-              <li>✓ Спектрални класове: O B A F G K M (от горещи към студени)</li>
-              <li>✓ L ∝ M³·⁵ за главната последователност</li>
-              <li>✓ L = 4πR²σT⁴ (светимост зависи от размер И температура)</li>
-              <li>✓ Еволюцията на звездите се вижда като движение по диаграмата</li>
+              <li>✓ HR диаграмата: светимост срещу температура; горещите звезди са вляво, и двете оси са логаритмични</li>
+              <li>✓ Области: главна последователност (~90%), гиганти, свръхгиганти, бели джуджета</li>
+              <li>✓ Линиите на еднакъв радиус са прави: lg L = 4 lg T + 2 lg R + const</li>
+              <li>✓ Главната последователност е последователност на масите: L ∝ M^3,5–4, t ≈ 10¹⁰ г. · M / L</li>
+              <li>✓ Повечето звезди са червени джуджета, но най-ярките на небето са гиганти и горещи звезди – ефект на подбора</li>
+              <li>✓ Възраст на куп: по точката на отклонение от главната последователност</li>
+              <li>✓ Разстояние: спектрален паралакс и подреждане по главната последователност, m − M = 5 lg(d / 10 pc)</li>
             </ul>
           </div>
         </section>
 
         <section className="mb-8">
           <div className="bg-yellow-50 dark:bg-yellow-900/20 border-l-4 border-yellow-500 p-4 rounded">
-            <h3 className="font-semibold mb-2">💡 Интересен факт</h3>
+            <h3 className="font-semibold mb-2 flex items-center gap-2">
+              <span>💡</span>
+              <span>Интересен факт</span>
+            </h3>
             <p>
-              HR диаграмата е създадена независимо от Ейнар Херцшпрунг (1911) и
-              Хенри Норис Ръсел (1913). Тя е революционизирала разбирането ни за
-              звездите и тяхната еволюция. Днес HR диаграмата е основен инструмент
-              за определяне на възрастта на звездни купове и изследване на звездната еволюция!
+              Нито едно червено джудже с маса под ~0,25 M☉ никога не е напуснало главната последователност: животът им е хиляди пъти
+              по-дълъг от възрастта на Вселената. Моделите предсказват, че след трилиони години те няма да се превърнат в гиганти,
+              а ще станат по-горещи – „сини джуджета“, – преди да изстинат като бели джуджета. Тази част от HR диаграмата все още е
+              празна и ще се запълни чак в далечното бъдеще на Вселената.
             </p>
           </div>
         </section>

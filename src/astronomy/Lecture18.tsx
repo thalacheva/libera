@@ -1,67 +1,91 @@
 import { useState } from 'react';
+import Example from '~/Example';
+import Quiz, { type Question } from '~/Quiz';
+import Theorem from '~/Theorem';
+import ColorIndexLab from './components/ColorIndexLab';
+import DistanceLab from './components/DistanceLab';
+import MagnitudeLab from './components/MagnitudeLab';
+import SpectralClassLab from './components/SpectralClassLab';
+import StarSizeLab from './components/StarSizeLab';
+import Task from './components/Task';
+import { CLASSES } from './components/starData';
+
+const QUIZ: Question[] = [
+  {
+    question: 'Звезда A има m = 1, звезда B – m = 6. Колко пъти A изглежда по-ярка?',
+    answers: ['5 пъти', '6 пъти', '100 пъти', '500 пъти'],
+    correctAnswer: '100 пъти',
+  },
+  {
+    question: 'Какво показва абсолютната звездна величина M?',
+    answers: [
+      'Колко ярка изглежда звездата от Земята',
+      'Колко ярка би изглеждала звездата от разстояние 10 pc',
+      'Колко е масивна звездата',
+      'Колко е стара звездата',
+    ],
+    correctAnswer: 'Колко ярка би изглеждала звездата от разстояние 10 pc',
+  },
+  {
+    question: 'Коя звезда е най-гореща?',
+    answers: ['Червена (клас M)', 'Жълта (клас G)', 'Бяла (клас A)', 'Синя (клас O)'],
+    correctAnswer: 'Синя (клас O)',
+  },
+  {
+    question: 'Защо линиите на водорода са най-силни в звездите от клас A, а не в най-горещите?',
+    answers: [
+      'Звездите от клас A имат повече водород',
+      'При ~9500 K най-много водородни атоми са с електрон на второто ниво; при по-висока температура водородът е йонизиран',
+      'Горещите звезди нямат водород',
+      'Клас A е най-близо до Земята',
+    ],
+    correctAnswer: 'При ~9500 K най-много водородни атоми са с електрон на второто ниво; при по-висока температура водородът е йонизиран',
+  },
+  {
+    question: 'Две звезди имат еднаква температура, но едната е 100 пъти по-ярка. Колко пъти е по-голям радиусът ѝ?',
+    answers: ['100 пъти', '10 пъти', '4 пъти', 'Еднакви са'],
+    correctAnswer: '10 пъти',
+  },
+  {
+    question: 'Как се измерва масата на звезда?',
+    answers: [
+      'По цвета ѝ',
+      'По движението на спътник или звезда в двойна система (трети закон на Кеплер)',
+      'По блясъка ѝ',
+      'По разстоянието до нея',
+    ],
+    correctAnswer: 'По движението на спътник или звезда в двойна система (трети закон на Кеплер)',
+  },
+  {
+    question: 'Какво откри Сесилия Пейн през 1925 г.?',
+    answers: [
+      'Че звездите са изградени предимно от водород и хелий',
+      'Че Слънцето се върти',
+      'Първата планета около друга звезда',
+      'Че звездите се раждат в мъглявини',
+    ],
+    correctAnswer: 'Че звездите са изградени предимно от водород и хелий',
+  },
+];
+
+const MEASURED = [
+  { what: 'Блясък', how: 'фотометрия', gives: 'видима величина m' },
+  { what: 'Отместване от паралакса', how: 'астрометрия (Gaia)', gives: 'разстояние d' },
+  { what: 'm + d', how: 'закон на обратните квадрати', gives: 'светимост L, абсолютна величина M' },
+  { what: 'Цвят', how: 'филтри B и V', gives: 'температура T' },
+  { what: 'Спектър', how: 'спектроскопия', gives: 'T, състав, клас светимост, скорост' },
+  { what: 'L + T', how: 'закон на Стефан–Болцман', gives: 'радиус R' },
+  { what: 'Орбита в двойна система', how: 'трети закон на Кеплер', gives: 'маса M' },
+];
 
 export default function Lecture18() {
-  const [selectedStar, setSelectedStar] = useState<string>('sun');
   const [showSolutions, setShowSolutions] = useState<{ [key: string]: boolean }>({});
 
-  const toggleSolution = (taskId: string) => {
-    setShowSolutions(prev => ({ ...prev, [taskId]: !prev[taskId] }));
-  };
-
-  const stars = {
-    sun: {
-      name: 'Слънце',
-      type: 'G2V',
-      temp: 5778,
-      mass: 1,
-      radius: 1,
-      luminosity: 1,
-      color: 'rgb(255, 255, 150)',
-      size: 30,
-    },
-    sirius: {
-      name: 'Сириус А',
-      type: 'A1V',
-      temp: 9940,
-      mass: 2.02,
-      radius: 1.71,
-      luminosity: 25,
-      color: 'rgb(220, 230, 255)',
-      size: 35,
-    },
-    betelgeuse: {
-      name: 'Бетелгейзе',
-      type: 'M1-2',
-      temp: 3500,
-      mass: 20,
-      radius: 900,
-      luminosity: 100000,
-      color: 'rgb(255, 100, 50)',
-      size: 80,
-    },
-    rigel: {
-      name: 'Ригел',
-      type: 'B8',
-      temp: 11000,
-      mass: 21,
-      radius: 78,
-      luminosity: 120000,
-      color: 'rgb(150, 200, 255)',
-      size: 50,
-    },
-    proxima: {
-      name: 'Проксима Кентавър',
-      type: 'M5.5V',
-      temp: 3042,
-      mass: 0.12,
-      radius: 0.14,
-      luminosity: 0.0017,
-      color: 'rgb(255, 150, 150)',
-      size: 15,
-    },
-  };
-
-  const star = stars[selectedStar as keyof typeof stars];
+  const task = (id: string) => ({
+    id,
+    shown: !!showSolutions[id],
+    onToggle: (taskId: string) => setShowSolutions(prev => ({ ...prev, [taskId]: !prev[taskId] })),
+  });
 
   return (
     <main className="flex-1 overflow-y-auto px-4 pt-16 pb-12 sm:px-6 lg:px-10 lg:pt-10">
@@ -70,538 +94,351 @@ export default function Lecture18() {
           Лекция 18: Звезди – основни характеристики
         </h1>
 
-        <section className="mb-8">
-          <h2 className="text-xl sm:text-2xl font-semibold mb-4">
-            1. Какво е звезда?
-          </h2>
-          <p className="mb-4 text-base sm:text-lg leading-relaxed">
-            Звездата е самосветещо небесно тяло, което произвежда енергия чрез
-            ядрен синтез в ядрото си.
+        <div className="bg-gradient-to-br from-indigo-700 to-slate-900 text-white p-6 rounded-2xl mb-8 shadow-lg">
+          <p className="text-lg sm:text-xl leading-relaxed">
+            🌟 1925 г., Харвард. 25-годишната Сесилия Пейн завършва докторската си дисертация. Тя прилага новата атомна физика към
+            стотиците хиляди звездни спектри, събрани в обсерваторията, и стига до невероятен извод: звездите са изградени почти само от
+            водород и хелий – милион пъти повече, отколкото всичко останало. Всички смятат, че Слънцето е от същото като Земята.
+            Най-влиятелният астроном в Америка, Хенри Ръсел, я убеждава да напише, че резултатът „почти сигурно не е реален“. Четири
+            години по-късно самият Ръсел потвърждава, че тя е била права. Как от една светла точка научаваме толкова много?
           </p>
-        </section>
+        </div>
 
         <section className="mb-8">
-          <h2 className="text-xl sm:text-2xl font-semibold mb-4">
-            2. Интерактивно сравнение на звезди
-          </h2>
+          <h2 className="text-xl sm:text-2xl font-semibold mb-4">1. Какво научаваме от една светла точка</h2>
+          <p className="mb-4 text-base sm:text-lg leading-relaxed">
+            Дори в най-големите телескопи звездите (с няколко изключения) са точки. Не можем да ги докоснем, а светлината им пътува
+            до нас години и векове. И все пак знаем температурата, размера, масата, състава и възрастта на милиони звезди. Ето как:
+          </p>
 
-          {/* Избор на звезда */}
-          <div className="flex justify-center gap-2 mb-4 flex-wrap">
-            <button
-              onClick={() => setSelectedStar('proxima')}
-              className={`px-3 py-2 rounded text-sm ${selectedStar === 'proxima' ? 'bg-red-500 text-white' : 'bg-gray-200 dark:bg-gray-700'}`}
-            >
-              Проксима (M)
-            </button>
-            <button
-              onClick={() => setSelectedStar('sun')}
-              className={`px-3 py-2 rounded text-sm ${selectedStar === 'sun' ? 'bg-yellow-500 text-white' : 'bg-gray-200 dark:bg-gray-700'}`}
-            >
-              ☀️ Слънце (G)
-            </button>
-            <button
-              onClick={() => setSelectedStar('sirius')}
-              className={`px-3 py-2 rounded text-sm ${selectedStar === 'sirius' ? 'bg-blue-300 text-white' : 'bg-gray-200 dark:bg-gray-700'}`}
-            >
-              Сириус (A)
-            </button>
-            <button
-              onClick={() => setSelectedStar('rigel')}
-              className={`px-3 py-2 rounded text-sm ${selectedStar === 'rigel' ? 'bg-blue-500 text-white' : 'bg-gray-200 dark:bg-gray-700'}`}
-            >
-              Ригел (B)
-            </button>
-            <button
-              onClick={() => setSelectedStar('betelgeuse')}
-              className={`px-3 py-2 rounded text-sm ${selectedStar === 'betelgeuse' ? 'bg-orange-500 text-white' : 'bg-gray-200 dark:bg-gray-700'}`}
-            >
-              Бетелгейзе (M)
-            </button>
-          </div>
+          <Theorem
+            type="definition"
+            title="Звезда"
+            description="Звездата е кълбо от горещ газ (плазма), което се държи от собствената си гравитация и излъчва енергия, освобождавана от термоядрен синтез в недрата му. Тежестта на горните слоеве се уравновесява от налягането на горещия газ – звездата е в хидростатично равновесие. Тела с маса под ~0,08 M☉ не могат да запалят синтеза на водород – това са кафявите джуджета."
+          />
 
-          <div className="bg-white dark:bg-gray-800 p-4 rounded-lg border-2 border-blue-300 dark:border-blue-600 mb-6">
-            <h3 className="font-semibold mb-3 text-center">{star.name}</h3>
-            
-            <svg viewBox="0 0 700 400" className="w-full h-auto">
-              {/* Фон */}
-              <rect x="0" y="0" width="700" height="400" fill="rgb(10, 10, 30)" />
-              
-              {/* Звезди на фона */}
-              {[...Array(80)].map((_, i) => (
-                <circle
-                  key={i}
-                  cx={Math.random() * 700}
-                  cy={Math.random() * 400}
-                  r={Math.random() * 1.5}
-                  fill="white"
-                  opacity={Math.random() * 0.6 + 0.2}
-                />
-              ))}
-
-              {/* Избраната звезда */}
-              <circle
-                cx="350"
-                cy="200"
-                r={star.size}
-                fill={star.color}
-              >
-                <animate
-                  attributeName="opacity"
-                  values="0.8;1;0.8"
-                  dur="3s"
-                  repeatCount="indefinite"
-                />
-              </circle>
-              
-              {/* Корона/светимост */}
-              <circle
-                cx="350"
-                cy="200"
-                r={star.size + 10}
-                fill={star.color}
-                opacity="0.3"
-              >
-                <animate
-                  attributeName="r"
-                  values={`${star.size + 5};${star.size + 15};${star.size + 5}`}
-                  dur="4s"
-                  repeatCount="indefinite"
-                />
-              </circle>
-
-              {/* Слънце за сравнение (малко, отстрани) */}
-              <circle cx="600" cy="350" r="15" fill="rgb(255, 255, 150)" opacity="0.5" />
-              <text x="600" y="375" fontSize="10" textAnchor="middle" fill="white">
-                Слънце (за сравнение)
-              </text>
-
-              {/* Информационна карта */}
-              <g transform="translate(20, 20)">
-                <rect x="0" y="0" width="250" height="180" fill="rgba(0, 0, 0, 0.8)" rx="10" />
-                <text x="125" y="30" fontSize="16" fontWeight="bold" textAnchor="middle" fill={star.color}>
-                  {star.name}
-                </text>
-                
-                <text x="15" y="55" fontSize="12" fill="white">
-                  Спектрален клас: <tspan fontWeight="bold" fill={star.color}>{star.type}</tspan>
-                </text>
-                <text x="15" y="75" fontSize="12" fill="white">
-                  Температура: <tspan fontWeight="bold">{star.temp} K</tspan>
-                </text>
-                <text x="15" y="95" fontSize="12" fill="white">
-                  Маса: <tspan fontWeight="bold">{star.mass} M☉</tspan>
-                </text>
-                <text x="15" y="115" fontSize="12" fill="white">
-                  Радиус: <tspan fontWeight="bold">{star.radius} R☉</tspan>
-                </text>
-                <text x="15" y="135" fontSize="12" fill="white">
-                  Светимост: <tspan fontWeight="bold">{star.luminosity} L☉</tspan>
-                </text>
-                
-                {/* Цветна лента за температура */}
-                <rect x="15" y="145" width="220" height="20" fill={star.color} rx="5" />
-                <text x="125" y="160" fontSize="10" textAnchor="middle" fill="black" fontWeight="bold">
-                  Цвят
-                </text>
-              </g>
-            </svg>
-
-            <div className="mt-4 p-4 bg-gray-100/70 dark:bg-gray-800/70 rounded-lg">
-              <h4 className="font-semibold mb-2">Сравнение със Слънцето:</h4>
-              <div className="grid grid-cols-2 gap-2 text-sm">
-                <div>Маса: {star.mass}x</div>
-                <div>Радиус: {star.radius}x</div>
-                <div>Светимост: {star.luminosity}x</div>
-                <div>Температура: {(star.temp / 5778).toFixed(2)}x</div>
-              </div>
-            </div>
+          <div className="overflow-x-auto mb-4">
+            <table className="w-full text-sm">
+              <thead>
+                <tr className="border-b border-gray-300 dark:border-gray-600 text-gray-600 dark:text-gray-400">
+                  <th className="text-left py-2 pr-2">Измерваме</th>
+                  <th className="text-left py-2 px-2">С помощта на</th>
+                  <th className="text-left py-2 pl-2">Научаваме</th>
+                </tr>
+              </thead>
+              <tbody>
+                {MEASURED.map(r => (
+                  <tr key={r.what} className="border-b border-gray-200 dark:border-gray-700">
+                    <td className="py-1 pr-2">{r.what}</td>
+                    <td className="py-1 px-2 text-gray-600 dark:text-gray-400">{r.how}</td>
+                    <td className="py-1 pl-2 font-semibold">{r.gives}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
         </section>
 
         <section className="mb-8">
-          <h2 className="text-xl sm:text-2xl font-semibold mb-4">
-            3. Основни параметри на звездите
-          </h2>
-          <div className="bg-blue-50 dark:bg-blue-500/10 p-4 rounded-lg mb-4">
-            <ul className="list-disc list-inside space-y-2">
-              <li><strong>Маса</strong> – от 0.08 до 200 слънчеви маси (M☉)</li>
-              <li><strong>Радиус</strong> – от 0.1 до 1000 слънчеви радиуса (R☉)</li>
-              <li><strong>Температура</strong> – от 2000 до 50 000 K</li>
-              <li><strong>Светимост</strong> – от 0.0001 до 1 000 000 слънчеви светимости (L☉)</li>
-              <li><strong>Цвят</strong> – червени, оранжеви, жълти, бели, сини</li>
+          <h2 className="text-xl sm:text-2xl font-semibold mb-4">2. Звездни величини</h2>
+          <p className="mb-4 text-base sm:text-lg leading-relaxed">
+            Преди повече от 2000 години Хипарх разделя видимите звезди на шест „величини“: най-ярките са от първа, а едва видимите – от
+            шеста. През 1856 г. Норман Погсън забелязва, че звезда от първа величина е около 100 пъти по-ярка от звезда от шеста. Той
+            предлага точно определение, което използваме и днес. Скалата е обърната – по-голямо число значи по-слаб обект – и
+            логаритмична, точно като усещането на окото ни.
+          </p>
+
+          <Theorem
+            title="Формула на Погсън"
+            description="m₁ − m₂ = −2,5 · lg(F₁ / F₂), където F₁ и F₂ са потоците (енергия за секунда на квадратен метър), които идват от двата обекта. Разлика от 5 величини е точно 100 пъти, а разлика от 1 величина е ⁵√100 ≈ 2,512 пъти. Ярките обекти имат отрицателни величини."
+          />
+
+          <Example
+            description="Сириус има m = −1,46, а Полярната звезда – m = +1,98. Колко пъти Сириус изглежда по-ярък?"
+            steps={['Δm = 1,98 − (−1,46) = 3,44', 'F_Сириус / F_Полярна = 10^(0,4 · 3,44) = 10^1,376 ≈ 24 пъти']}
+          />
+
+          <MagnitudeLab />
+        </section>
+
+        <section className="mb-8">
+          <h2 className="text-xl sm:text-2xl font-semibold mb-4">3. Разстояние и светимост</h2>
+          <p className="mb-4 text-base sm:text-lg leading-relaxed">
+            Звездата може да изглежда ярка, защото е близо, или защото наистина излъчва много. Енергията, която звездата излъчва за
+            секунда, се нарича <strong>светимост</strong> L. Тя се разпределя по повърхността на сфера, която расте с разстоянието,
+            затова потокът намалява като 1/d². Разстоянието до близките звезди се мери с <strong>паралакса</strong>: звезда с паралакс 1″
+            е на 1 парсек (3,26 светлинни години). Сондата Gaia измери паралаксите на почти 2 милиарда звезди. Подробно ще говорим за
+            това в Лекция 24.
+          </p>
+
+          <Theorem
+            title="Модул на разстоянието"
+            description="F = L / (4πd²). Абсолютната звездна величина M е видимата величина, която звездата би имала на 10 pc. Тогава m − M = 5 · lg(d / 10 pc). Величината m − M се нарича модул на разстоянието. За Слънцето M = 4,83 и светимостта на всяка звезда е L / L☉ ≈ 10^(0,4 · (4,83 − M))."
+          />
+
+          <Example
+            description="Ригел има m = 0,13 и е на 264 pc. Намерете абсолютната му величина и светимостта му във видимата област."
+            steps={[
+              'M = m − 5 · lg(d / 10) = 0,13 − 5 · lg 26,4 = 0,13 − 7,11 ≈ −7,0',
+              'L / L☉ = 10^(0,4 · (4,83 + 7,0)) = 10^4,73 ≈ 54 000 – във видимата област',
+              'Пълната (болометрична) светимост е ~120 000 L☉: Ригел е толкова горещ, че по-голямата част от излъчването му е в ултравиолетовото, което окото не вижда.',
+            ]}
+          />
+
+          <DistanceLab />
+        </section>
+
+        <section className="mb-8">
+          <h2 className="text-xl sm:text-2xl font-semibold mb-4">4. Цвят и температура</h2>
+          <p className="mb-4 text-base sm:text-lg leading-relaxed">
+            В Лекция 9 видяхме, че нагрятото тяло излъчва непрекъснат спектър, чийто максимум се измества към по-късите вълни с
+            растежа на температурата (закон на Вин: λ_max · T = 2,898 · 10⁻³ m·K). Звездите са приблизително черни тела. Но вместо да
+            измерват целия спектър, астрономите често сравняват блясъка на звездата през два стандартни филтъра.
+          </p>
+
+          <Theorem
+            type="definition"
+            title="Показател на цвета"
+            description="B − V = m_B − m_V е разликата между звездните величини през син филтър (B, ~445 nm) и зелено-жълт филтър (V, ~551 nm). Тъй като скалата е логаритмична, B − V зависи от отношението на двата потока, т.е. от формата на спектъра, а не от разстоянието. Приблизително: T ≈ 4600 K · (1 / (0,92(B − V) + 1,7) + 1 / (0,92(B − V) + 0,62)) – формула на Балестерос."
+          />
+
+          <ColorIndexLab />
+        </section>
+
+        <section className="mb-8">
+          <h2 className="text-xl sm:text-2xl font-semibold mb-4">5. Спектрални класове</h2>
+          <p className="mb-4 text-base sm:text-lg leading-relaxed">
+            В края на XIX в. обсерваторията в Харвард наема група жени – „компютрите на Харвард“ – да класифицират спектрите на звезди,
+            заснети на фотоплаки. Уилямина Флеминг подрежда звездите в класове по буквите A, B, C… според силата на водородните линии.
+            Ани Джъмп Кенън класифицира сама около 350 000 звезди – понякога по три за минута. Тя разбира, че класовете трябва да се
+            подредят по температура, и така се появява днешната последователност <strong>O B A F G K M</strong> (запомня се с „Oh Be A
+            Fine Girl/Guy, Kiss Me“). Всеки клас се дели на подкласове от 0 (най-горещ) до 9: Слънцето е G2.
+          </p>
+
+          <SpectralClassLab />
+
+          <div className="overflow-x-auto mb-4">
+            <table className="w-full text-sm">
+              <thead>
+                <tr className="border-b border-gray-300 dark:border-gray-600 text-gray-600 dark:text-gray-400">
+                  <th className="text-left py-2 pr-2">Клас</th>
+                  <th className="text-right py-2 px-2">T (K)</th>
+                  <th className="text-left py-2 px-2">Характерни линии</th>
+                  <th className="text-left py-2 pl-2">Примери</th>
+                </tr>
+              </thead>
+              <tbody>
+                {CLASSES.map(c => (
+                  <tr key={c.letter} className="border-b border-gray-200 dark:border-gray-700">
+                    <td className="py-1 pr-2 font-bold">
+                      <span className="inline-block w-3 h-3 rounded-full mr-1 align-middle" style={{ background: c.color }} />
+                      {c.letter}
+                    </td>
+                    <td className="text-right px-2 whitespace-nowrap">
+                      {c.from.toLocaleString('bg-BG')}–{c.to.toLocaleString('bg-BG')}
+                    </td>
+                    <td className="px-2">{c.lines}</td>
+                    <td className="pl-2 text-gray-600 dark:text-gray-400">{c.examples}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          <div className="bg-purple-50 dark:bg-purple-500/10 p-4 rounded-lg mb-4 text-sm sm:text-base">
+            <h3 className="font-semibold mb-2">Класове светимост</h3>
+            <p className="mb-2">
+              Звезди с една и съща температура могат да бъдат джуджета или гиганти. В разредената атмосфера на гиганта атомите се
+              блъскат по-рядко и линиите са по-тесни. Така Морган и Кийнан (1943) въвеждат втори знак – клас светимост:
+            </p>
+            <ul className="list-disc list-inside space-y-1">
+              <li>
+                <strong>Ia, Ib</strong> – свръхгиганти (Бетелгейзе M1-2Ia, Ригел B8Ia)
+              </li>
+              <li>
+                <strong>II</strong> – ярки гиганти; <strong>III</strong> – гиганти (Арктур K1,5III)
+              </li>
+              <li>
+                <strong>IV</strong> – субгиганти; <strong>V</strong> – джуджета от главната последователност (Слънцето G2V, Сириус A1V)
+              </li>
             </ul>
+            <p className="mt-2">Как се подреждат всички тези звезди, ще видим в Лекция 19 – диаграмата на Херцшпрунг–Ръсел.</p>
           </div>
         </section>
 
         <section className="mb-8">
-          <h2 className="text-xl sm:text-2xl font-semibold mb-4">
-            4. Спектрална класификация
-          </h2>
-          
-          <div className="bg-white dark:bg-gray-800 p-4 rounded-lg border-2 border-purple-300 dark:border-purple-600 mb-6">
-            <h3 className="font-semibold mb-3 text-center">Спектрални класове (O B A F G K M)</h3>
-            
-            <svg viewBox="0 0 700 300" className="w-full h-auto">
-              {/* Фон */}
-              <rect x="0" y="0" width="700" height="300" fill="rgb(10, 10, 30)" />
-
-              {/* Спектрални класове с цветове и размери */}
-              {[
-                { class: 'O', temp: '30000+', color: 'rgb(150, 200, 255)', size: 35, y: 80 },
-                { class: 'B', temp: '10000-30000', color: 'rgb(180, 220, 255)', size: 32, y: 90 },
-                { class: 'A', temp: '7500-10000', color: 'rgb(220, 230, 255)', size: 28, y: 100 },
-                { class: 'F', temp: '6000-7500', color: 'rgb(255, 255, 220)', size: 25, y: 110 },
-                { class: 'G', temp: '5200-6000', color: 'rgb(255, 255, 150)', size: 22, y: 120 },
-                { class: 'K', temp: '3700-5200', color: 'rgb(255, 200, 100)', size: 20, y: 130 },
-                { class: 'M', temp: '<3700', color: 'rgb(255, 150, 100)', size: 18, y: 140 },
-              ].map((item, i) => (
-                <g key={i} transform={`translate(${50 + i * 90}, 0)`}>
-                  {/* Звезда */}
-                  <circle cx="50" cy={item.y} r={item.size} fill={item.color}>
-                    <animate
-                      attributeName="opacity"
-                      values="0.7;1;0.7"
-                      dur={`${2 + i * 0.3}s`}
-                      repeatCount="indefinite"
-                    />
-                  </circle>
-                  
-                  {/* Спектрален клас */}
-                  <text x="50" y={item.y + 8} fontSize="24" fontWeight="bold" textAnchor="middle" fill="black">
-                    {item.class}
-                  </text>
-                  
-                  {/* Температура */}
-                  <text x="50" y={item.y + 60} fontSize="10" textAnchor="middle" fill="white">
-                    {item.temp} K
-                  </text>
-                  
-                  {/* Специален маркер за Слънцето */}
-                  {item.class === 'G' && (
-                    <text x="50" y={item.y + 75} fontSize="11" textAnchor="middle" fill="rgb(255, 255, 100)" fontWeight="bold">
-                      ☀️ Слънце
-                    </text>
-                  )}
-                </g>
-              ))}
-
-              {/* Стрелка за температура */}
-              <g transform="translate(0, 220)">
-                <line x1="50" y1="0" x2="650" y2="0" stroke="white" strokeWidth="2" markerEnd="url(#arrowTemp)" />
-                <text x="30" y="5" fontSize="12" fill="rgb(150, 200, 255)" fontWeight="bold">Горещи</text>
-                <text x="620" y="5" fontSize="12" fill="rgb(255, 150, 100)" fontWeight="bold">Студени</text>
-              </g>
-
-              {/* Мнемоника */}
-              <text x="350" y="270" fontSize="14" textAnchor="middle" fill="white" fontWeight="bold">
-                Oh Be A Fine Girl/Guy, Kiss Me
-              </text>
-              <text x="350" y="290" fontSize="11" textAnchor="middle" fill="gray">
-                (Мнемоника за запомняне)
-              </text>
-
-              <defs>
-                <marker id="arrowTemp" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
-                  <polygon points="0 0, 10 3, 0 6" fill="white" />
-                </marker>
-              </defs>
-            </svg>
-
-            <div className="mt-4 p-4 bg-gray-100/70 dark:bg-gray-800/70 rounded-lg">
-              <p className="text-sm">
-                <strong>O B A F G K M</strong> - от горещи към студени. Всеки клас се разделя
-                на подкласове 0-9 (напр. G2 за Слънцето). По-горещите звезди са по-сини,
-                по-студените - по-червени.
-              </p>
-            </div>
-          </div>
-        </section>
-
-        <section className="mb-8">
-          <h2 className="text-xl sm:text-2xl font-semibold mb-4">
-            5. Видима и абсолютна звездна величина
-          </h2>
+          <h2 className="text-xl sm:text-2xl font-semibold mb-4">6. Размерите на звездите</h2>
           <p className="mb-4 text-base sm:text-lg leading-relaxed">
-            Има два начина да измерим яркостта на звездите:
+            Всеки квадратен метър от повърхността на звездата излъчва σT⁴ (закон на Стефан–Болцман). Цялата повърхност е 4πR². Ако
+            знаем светимостта и температурата, намираме и радиуса – без изобщо да виждаме диска на звездата.
           </p>
 
-          <div className="bg-white dark:bg-gray-800 p-4 rounded-lg border-2 border-green-300 dark:border-green-600 mb-6">
-            <h3 className="font-semibold mb-3 text-center">Звездни величини</h3>
-            
-            <svg viewBox="0 0 700 350" className="w-full h-auto">
-              <rect x="0" y="0" width="700" height="350" fill="rgb(10, 10, 30)" />
+          <Theorem
+            title="Закон на Стефан–Болцман за звезди"
+            description="L = 4πR²σT⁴, където σ = 5,67 · 10⁻⁸ W/(m²·K⁴). Спрямо Слънцето: L / L☉ = (R / R☉)² · (T / T☉)⁴, или R / R☉ = √(L / L☉) · (T☉ / T)², където T☉ = 5772 K, L☉ = 3,83 · 10²⁶ W, R☉ = 696 000 km."
+          />
 
-              {/* Земя */}
-              <circle cx="100" cy="175" r="20" fill="rgb(59, 130, 246)" />
-              <text x="100" y="210" fontSize="12" textAnchor="middle" fill="white">🌍 Земя</text>
+          <Example
+            description="Бетелгейзе има L ≈ 90 000 L☉ и T ≈ 3600 K. Колко е голяма?"
+            steps={[
+              'R / R☉ = √90 000 · (5772 / 3600)² = 300 · 1,603² ≈ 300 · 2,57 ≈ 770',
+              'R ≈ 770 · 696 000 km ≈ 5,4 · 10⁸ km ≈ 3,6 AU',
+              'Поставена на мястото на Слънцето, Бетелгейзе би погълнала Меркурий, Венера, Земята и Марс.',
+            ]}
+          />
 
-              {/* Близка слаба звезда */}
-              <g>
-                <circle cx="250" cy="175" r="8" fill="rgb(255, 200, 150)">
-                  <animate attributeName="opacity" values="0.7;1;0.7" dur="2s" repeatCount="indefinite" />
-                </circle>
-                <line x1="100" y1="175" x2="240" y2="175" stroke="gray" strokeWidth="1" strokeDasharray="3,3" />
-                <text x="250" y="210" fontSize="11" textAnchor="middle" fill="white">Близка</text>
-                <text x="250" y="225" fontSize="10" textAnchor="middle" fill="gray">m = 5</text>
-                <text x="250" y="240" fontSize="10" textAnchor="middle" fill="rgb(100, 200, 255)">M = 5</text>
-              </g>
+          <StarSizeLab />
 
-              {/* Далечна ярка звезда */}
-              <g>
-                <circle cx="550" cy="175" r="12" fill="rgb(150, 200, 255)">
-                  <animate attributeName="opacity" values="0.7;1;0.7" dur="2.5s" repeatCount="indefinite" />
-                </circle>
-                <line x1="100" y1="175" x2="535" y2="175" stroke="gray" strokeWidth="1" strokeDasharray="3,3" />
-                <text x="550" y="210" fontSize="11" textAnchor="middle" fill="white">Далечна</text>
-                <text x="550" y="225" fontSize="10" textAnchor="middle" fill="gray">m = 5</text>
-                <text x="550" y="240" fontSize="10" textAnchor="middle" fill="rgb(100, 200, 255)">M = -5</text>
-              </g>
+          <p className="mb-4 text-base sm:text-lg leading-relaxed">
+            Само няколко десетки звезди можем да видим като диск. През 1920 г. Албърт Майкълсън и Франсис Пийз измерват ъгловия
+            диаметър на Бетелгейзе с интерферометър – 0,047″ – и за пръв път доказват директно, че гигантите са огромни. Днес
+            интерферометрите VLTI и CHARA дори снимат петна по повърхността на гигантите.
+          </p>
+        </section>
 
-              {/* Стрелки за разстояние */}
-              <text x="175" y="160" fontSize="10" fill="gray">близо</text>
-              <text x="375" y="160" fontSize="10" fill="gray">далеч</text>
+        <section className="mb-8">
+          <h2 className="text-xl sm:text-2xl font-semibold mb-4">7. Масите на звездите</h2>
+          <p className="mb-4 text-base sm:text-lg leading-relaxed">
+            Масата е най-важната характеристика – тя определя целия живот на звездата. Но е и най-трудна за измерване: може да я
+            „претеглим“ само по гравитационното ѝ влияние върху друго тяло. Почти половината звезди като Слънцето са в двойни системи
+            и именно те ни дават масите (Лекция 22).
+          </p>
 
-              {/* Обяснение */}
-              <g transform="translate(20, 270)">
-                <rect x="0" y="0" width="660" height="60" fill="rgba(0, 0, 0, 0.7)" rx="5" />
-                <text x="10" y="20" fontSize="12" fill="white">
-                  <tspan fontWeight="bold" fill="gray">Видима величина (m):</tspan> Колко ярка изглежда от Земята
-                </text>
-                <text x="10" y="40" fontSize="12" fill="white">
-                  <tspan fontWeight="bold" fill="rgb(100, 200, 255)">Абсолютна величина (M):</tspan> Колко ярка би била на 10 парсека
-                </text>
-                <text x="10" y="55" fontSize="10" fill="rgb(255, 200, 100)">
-                  Формула: m - M = 5 × log₁₀(d/10)
-                </text>
-              </g>
-            </svg>
+          <Example
+            description="Сириус B обикаля Сириус A за 50,1 години. Голямата полуос на относителната орбита е 19,8 AU. Каква е общата маса на двойката?"
+            steps={['От третия закон на Кеплер в единици AU, години и M☉: M_A + M_B = a³ / P²', 'M_A + M_B = 19,8³ / 50,1² = 7762 / 2510 ≈ 3,1 M☉ (2,06 + 1,02)']}
+          />
 
-            <div className="mt-4 p-4 bg-gray-100/70 dark:bg-gray-800/70 rounded-lg">
-              <p className="text-sm mb-2">
-                <strong>Важно:</strong> По-малка величина = по-ярка звезда!
+          <Theorem
+            title="Маса, светимост и живот"
+            description="Масите на звездите са от ~0,08 до ~200 M☉. За звездите от главната последователност светимостта расте много бързо с масата: L ≈ L☉ · (M / M☉)^3,5. Горивото им е пропорционално на M, а го харчат пропорционално на L, затова животът им е t ≈ 10¹⁰ години · (M / M☉)^(−2,5). Звезда от 10 M☉ живее ~30 млн. години, а червено джудже от 0,1 M☉ – трилиони години (Лекция 20)."
+          />
+        </section>
+
+        <section className="mb-8">
+          <h2 className="text-xl sm:text-2xl font-semibold mb-4">8. ✅ Провери се</h2>
+          <Quiz questions={QUIZ} />
+        </section>
+
+        <section className="mb-8">
+          <h2 className="text-xl sm:text-2xl font-semibold mb-4">9. 📝 Задачи за упражнение</h2>
+
+          <div className="mb-6">
+            <h3 className="text-lg font-semibold mb-3 text-green-600 dark:text-green-400">Ниво А (Областен кръг)</h3>
+
+            <Task {...task('a1')} number={1} color="border-green-500" question="Коя звезда е по-гореща – синя или червена?">
+              <p>
+                <strong>Синята.</strong> Колкото по-гореща е звездата, толкова по-къса е дължината на вълната, при която излъчва
+                най-много (закон на Вин). Сините звезди (класове O и B) са с температура над 10 000 K, червените (K и M) – под 5000 K.
               </p>
-              <ul className="text-sm space-y-1">
-                <li>m = -26.7: Слънце (от Земята)</li>
-                <li>m = -12.6: Пълнолуние</li>
-                <li>m = -1.46: Сириус (най-яркатаta звезда)</li>
-                <li>m = 0: Вега (референтна)</li>
-                <li>m = 6: Граница на видимост с просто око</li>
-                <li>m = 30: Граница на Хъбъл</li>
-              </ul>
-            </div>
+            </Task>
+
+            <Task {...task('a2')} number={2} color="border-green-500" question="Какво означава обозначението G2V на Слънцето?">
+              <p>
+                <strong>G</strong> – спектрален клас: жълтеникава звезда с температура 5200–6000 K и силни линии на калция и металите.
+              </p>
+              <p>
+                <strong>2</strong> – подклас: малко по-гореща от средата на клас G. <strong>V</strong> – клас светимост: джудже от
+                главната последователност, т.е. звезда, която спокойно превръща водород в хелий в ядрото си.
+              </p>
+            </Task>
+
+            <Task {...task('a3')} number={3} color="border-green-500" question="Звезда A има видима величина 1, а звезда B – величина 3. Коя изглежда по-ярка и колко пъти?">
+              <p>По-ярка е A – тя има по-малка величина.</p>
+              <p>F_A / F_B = 2,512^(3 − 1) = 2,512² ≈ 6,3 пъти.</p>
+            </Task>
+          </div>
+
+          <div className="mb-6">
+            <h3 className="text-lg font-semibold mb-3 text-yellow-600 dark:text-yellow-400">Ниво В (Национален кръг)</h3>
+
+            <Task {...task('b1')} number={4} color="border-yellow-500" question="Звезда има температура 10 000 K. При каква дължина на вълната излъчва най-много?">
+              <p>λ_max = 2,898 · 10⁻³ / T = 2,898 · 10⁻³ / 10 000 = 2,9 · 10⁻⁷ m = 290 nm</p>
+              <p>
+                <strong>Това е ултравиолетово.</strong> Виждаме звездата синкавобяла, защото от видимата област тя излъчва най-много в
+                синия край.
+              </p>
+            </Task>
+
+            <Task {...task('b2')} number={5} color="border-yellow-500" question="Две звезди имат еднаква видима величина m = 5. Едната е на 10 pc, другата – на 100 pc. Коя е с по-голяма светимост и колко пъти?">
+              <p>M = m − 5 · lg(d / 10)</p>
+              <p>Първата: M₁ = 5 − 5 · lg 1 = 5. Втората: M₂ = 5 − 5 · lg 10 = 0.</p>
+              <p>
+                <strong>Втората е 100 пъти по-ярка</strong> (ΔM = 5). Тя е 10 пъти по-далеч, а потокът намалява като 1/d² – 100 пъти.
+                Затова изглеждат еднакво.
+              </p>
+            </Task>
+
+            <Task {...task('b3')} number={6} color="border-yellow-500" question="Сириус има M = +1,42, а Полярната звезда – M = −3,6. Коя е с по-голяма светимост и колко пъти? Защо тогава Сириус изглежда по-ярък?">
+              <p>ΔM = 1,42 − (−3,6) = 5,02 ⇒ L_Полярна / L_Сириус = 10^(0,4 · 5,02) ≈ 100</p>
+              <p>
+                Полярната е ~100 пъти по-ярка, но е на 133 pc, а Сириус – на 2,64 pc. Разстоянието е 50 пъти по-голямо, потокът е 2500
+                пъти по-малък – и Сириус изглежда 24 пъти по-ярък.
+              </p>
+            </Task>
+          </div>
+
+          <div className="mb-6">
+            <h3 className="text-lg font-semibold mb-3 text-red-600 dark:text-red-400">Ниво С (Международна олимпиада)</h3>
+
+            <Task
+              {...task('c1')}
+              number={7}
+              color="border-red-500"
+              question="Звезда A е два пъти по-гореща и с два пъти по-голям радиус от звезда Б. Колко пъти е по-голяма светимостта ѝ? Възможно ли е и двете да са на главната последователност? (Там приблизително L ∝ M^3,5 и R ∝ M^0,8.)"
+            >
+              <p>L_A / L_Б = (R_A / R_Б)² · (T_A / T_Б)⁴ = 2² · 2⁴ = 64</p>
+              <p>
+                На главната последователност от L = 4πR²σT⁴ следва T⁴ ∝ L / R² ∝ M^(3,5 − 1,6) = M^1,9, т.е. T ∝ M^0,475.
+              </p>
+              <p>
+                За двойна температура е нужна маса 2^(1 / 0,475) ≈ 4,3 пъти по-голяма. Тогава радиусът ще е 4,3^0,8 ≈ 3,2 пъти по-голям,
+                а не 2. <strong>Двете звезди не може да са на главната последователност</strong> – температурата, радиусът и светимостта
+                на джуджетата не са независими, всички се определят от масата.
+              </p>
+            </Task>
+
+            <Task
+              {...task('c2')}
+              number={8}
+              color="border-red-500"
+              question="Алфа Кентавър A има m = 0,01, а Алфа Кентавър B – m = 1,33. С просто око двете не се различават. Каква е общата им видима величина? А на две еднакви звезди с m = 2?"
+            >
+              <p>Събираме потоците, а не величините: F = 10^(−0,4 · m₁) + 10^(−0,4 · m₂)</p>
+              <p>F = 10^(−0,004) + 10^(−0,532) = 0,991 + 0,294 = 1,285 ⇒ m = −2,5 · lg 1,285 ≈ −0,27</p>
+              <p>Две еднакви звезди: m = 2 − 2,5 · lg 2 = 2 − 0,75 = 1,25. Удвояването на потока винаги намалява величината с 0,75.</p>
+            </Task>
+
+            <Task
+              {...task('c3')}
+              number={9}
+              color="border-red-500"
+              question="Бетелгейзе има R ≈ 770 R☉ и е на 168 pc. Какъв е ъгловият ѝ диаметър? Може ли да бъде видян като диск от телескоп с диаметър 2,4 m (Хъбъл) при λ = 500 nm?"
+            >
+              <p>2R = 2 · 770 · 6,96 · 10⁸ m ≈ 1,07 · 10¹² m; d = 168 · 3,086 · 10¹⁶ m ≈ 5,18 · 10¹⁸ m</p>
+              <p>θ = 2R / d ≈ 2,07 · 10⁻⁷ rad · 206 265″/rad ≈ 0,043″</p>
+              <p>Разделителна способност на Хъбъл: θ_min = 1,22 λ / D = 1,22 · 5 · 10⁻⁷ / 2,4 ≈ 2,5 · 10⁻⁷ rad ≈ 0,052″</p>
+              <p>
+                Дискът е малко по-малък от границата на Хъбъл при 500 nm. В ултравиолетовото разделителната способност е по-добра – така
+                през 1996 г. Хъбъл заснема Бетелгейзе: първото изображение на диска на друга звезда. Днес повърхността ѝ се снима с
+                интерферометри, които комбинират светлината от телескопи на стотици метри един от друг. По-голям видим диск има само
+                червеният гигант R Златна рибка.
+              </p>
+            </Task>
           </div>
         </section>
 
         <section className="mb-8">
-          <h2 className="text-xl sm:text-2xl font-semibold mb-4">
-            6. Връзка между параметрите
-          </h2>
-          
-          <div className="bg-white dark:bg-gray-800 p-4 rounded-lg border-2 border-orange-300 dark:border-orange-600 mb-6">
-            <h3 className="font-semibold mb-3 text-center">Основни формули</h3>
-            
-            <svg viewBox="0 0 600 300" className="w-full h-auto">
-              <rect x="0" y="0" width="600" height="300" fill="rgb(20, 20, 40)" />
-
-              {/* Формула за светимост */}
-              <g transform="translate(50, 50)">
-                <rect x="0" y="0" width="500" height="70" fill="rgba(59, 130, 246, 0.2)" rx="10" />
-                <text x="250" y="25" fontSize="14" fontWeight="bold" textAnchor="middle" fill="white">
-                  Светимост
-                </text>
-                <text x="250" y="50" fontSize="16" fontWeight="bold" textAnchor="middle" fill="rgb(255, 200, 100)">
-                  L = 4πR² × σT⁴
-                </text>
-                <text x="20" y="65" fontSize="10" fill="white">σ = 5.67×10⁻⁸ W/(m²·K⁴) - константа на Стефан-Болцман</text>
-              </g>
-
-              {/* Формула за маса-светимост */}
-              <g transform="translate(50, 140)">
-                <rect x="0" y="0" width="500" height="70" fill="rgba(168, 85, 247, 0.2)" rx="10" />
-                <text x="250" y="25" fontSize="14" fontWeight="bold" textAnchor="middle" fill="white">
-                  Връзка маса-светимост (главна последователност)
-                </text>
-                <text x="250" y="50" fontSize="16" fontWeight="bold" textAnchor="middle" fill="rgb(255, 200, 100)">
-                  L ∝ M³·⁵
-                </text>
-                <text x="20" y="65" fontSize="10" fill="white">По-масивните звезди са много по-ярки, но живеят по-кратко</text>
-              </g>
-
-              {/* Формула за закон на Вин */}
-              <g transform="translate(50, 230)">
-                <rect x="0" y="0" width="500" height="60" fill="rgba(34, 197, 94, 0.2)" rx="10" />
-                <text x="250" y="25" fontSize="14" fontWeight="bold" textAnchor="middle" fill="white">
-                  Закон на Вин (връзка температура-цвят)
-                </text>
-                <text x="250" y="48" fontSize="16" fontWeight="bold" textAnchor="middle" fill="rgb(255, 200, 100)">
-                  λₘₐₓ × T = 2.898 × 10⁻³ m·K
-                </text>
-              </g>
-            </svg>
-          </div>
-        </section>
-
-        <section className="mb-8">
-          <h2 className="text-xl sm:text-2xl font-semibold mb-4">
-            📝 Задачи за упражнение
-          </h2>
-
-          {/* Ниво А */}
-          <div className="mb-6">
-            <h3 className="text-lg font-semibold mb-3 text-green-600 dark:text-green-400">
-              Ниво А (Областен кръг)
-            </h3>
-
-            <div className="bg-white dark:bg-gray-800 p-4 rounded-lg mb-4 border-l-4 border-green-500">
-              <p className="font-semibold mb-2">1. Коя звезда е по-гореща - синя или червена?</p>
-              <button
-                onClick={() => toggleSolution('a1')}
-                className="text-blue-600 dark:text-blue-400 hover:underline text-sm"
-              >
-                {showSolutions['a1'] ? '▼ Скрий решението' : '▶ Покажи решението'}
-              </button>
-              {showSolutions['a1'] && (
-                <div className="mt-3 p-3 bg-blue-50 dark:bg-blue-900/20 rounded">
-                  <p className="font-semibold">Отговор: Синята звезда</p>
-                  <p className="mt-2">Обяснение: Цветът на звездата зависи от температурата ѝ
-                  (закон на Вин). По-горещите звезди са сини (O, B класове, &gt;10 000 K),
-                  по-студените са червени (K, M класове, &lt;5000 K).</p>
-                </div>
-              )}
-            </div>
-
-            <div className="bg-white dark:bg-gray-800 p-4 rounded-lg mb-4 border-l-4 border-green-500">
-              <p className="font-semibold mb-2">2. Какъв е спектралният клас на Слънцето?</p>
-              <button
-                onClick={() => toggleSolution('a2')}
-                className="text-blue-600 dark:text-blue-400 hover:underline text-sm"
-              >
-                {showSolutions['a2'] ? '▼ Скрий решението' : '▶ Покажи решението'}
-              </button>
-              {showSolutions['a2'] && (
-                <div className="mt-3 p-3 bg-blue-50 dark:bg-blue-900/20 rounded">
-                  <p className="font-semibold">Отговор: G2V</p>
-                  <p className="mt-2">Обяснение: G2 означава жълта звезда с температура около 5778 K.
-                  V означава "главна последователност" (dwarf - джудже, за разлика от гигант).
-                  Слънцето е типична звезда от главната последователност.</p>
-                </div>
-              )}
-            </div>
-          </div>
-
-          {/* Ниво В */}
-          <div className="mb-6">
-            <h3 className="text-lg font-semibold mb-3 text-yellow-600 dark:text-yellow-400">
-              Ниво В (Национален кръг)
-            </h3>
-
-            <div className="bg-white dark:bg-gray-800 p-4 rounded-lg mb-4 border-l-4 border-yellow-500">
-              <p className="font-semibold mb-2">3. Звезда има температура 10 000 K. Използвайки
-              закона на Вин, изчисли при каква дължина на вълната излъчва най-интензивно.</p>
-              <button
-                onClick={() => toggleSolution('b3')}
-                className="text-blue-600 dark:text-blue-400 hover:underline text-sm"
-              >
-                {showSolutions['b3'] ? '▼ Скрий решението' : '▶ Покажи решението'}
-              </button>
-              {showSolutions['b3'] && (
-                <div className="mt-3 p-3 bg-blue-50 dark:bg-blue-900/20 rounded">
-                  <p className="font-semibold">Решение:</p>
-                  <p className="mt-2">Закон на Вин: λₘₐₓ × T = 2.898 × 10⁻³ m·K</p>
-                  <p className="mt-2">λₘₐₓ = 2.898 × 10⁻³ / T</p>
-                  <p>λₘₐₓ = 2.898 × 10⁻³ / 10 000</p>
-                  <p>λₘₐₓ = 2.898 × 10⁻⁷ m = 289.8 nm</p>
-                  <p className="mt-2"><strong>Отговор: около 290 nm (ултравиолетово)</strong></p>
-                  <p className="mt-2 text-sm">Това е в UV диапазона, затова горещите звезди
-                  изглеждат сини - пикът е в UV, но виждаме синия край на спектъра.</p>
-                </div>
-              )}
-            </div>
-
-            <div className="bg-white dark:bg-gray-800 p-4 rounded-lg mb-4 border-l-4 border-yellow-500">
-              <p className="font-semibold mb-2">4. Две звезди имат еднаква видима величина m = 5.
-              Едната е на 10 pc, другата на 100 pc. Коя е по-ярка наистина?</p>
-              <button
-                onClick={() => toggleSolution('b4')}
-                className="text-blue-600 dark:text-blue-400 hover:underline text-sm"
-              >
-                {showSolutions['b4'] ? '▼ Скрий решението' : '▶ Покажи решението'}
-              </button>
-              {showSolutions['b4'] && (
-                <div className="mt-3 p-3 bg-blue-50 dark:bg-blue-900/20 rounded">
-                  <p className="font-semibold">Решение:</p>
-                  <p className="mt-2">Използваме формулата: m - M = 5 × log₁₀(d/10)</p>
-                  
-                  <p className="mt-2"><strong>Звезда 1 (d = 10 pc):</strong></p>
-                  <p>5 - M = 5 × log₁₀(10/10) = 5 × 0 = 0</p>
-                  <p>M₁ = 5</p>
-                  
-                  <p className="mt-2"><strong>Звезда 2 (d = 100 pc):</strong></p>
-                  <p>5 - M = 5 × log₁₀(100/10) = 5 × 1 = 5</p>
-                  <p>M₂ = 0</p>
-                  
-                  <p className="mt-2"><strong>Отговор: Звезда 2 е по-ярка наистина</strong></p>
-                  <p className="mt-2">M₂ = 0 &lt; M₁ = 5 (по-малка величина = по-ярка)</p>
-                  <p className="mt-2 text-sm">Въпреки че изглеждат еднакво ярки от Земята, звезда 2
-                  е 100 пъти по-ярка наистина, но е 10 пъти по-далеч.</p>
-                </div>
-              )}
-            </div>
-          </div>
-
-          {/* Ниво С */}
-          <div className="mb-6">
-            <h3 className="text-lg font-semibold mb-3 text-red-600 dark:text-red-400">
-              Ниво С (Международна олимпиада)
-            </h3>
-
-            <div className="bg-white dark:bg-gray-800 p-4 rounded-lg mb-4 border-l-4 border-red-500">
-              <p className="font-semibold mb-2">5. Звезда А има двойна температура и двойна маса
-              спрямо звезда Б. Колко пъти е по-ярка звезда А? (Използвай L = 4πR²σT⁴ и L ∝ M³·⁵)</p>
-              <button
-                onClick={() => toggleSolution('c5')}
-                className="text-blue-600 dark:text-blue-400 hover:underline text-sm"
-              >
-                {showSolutions['c5'] ? '▼ Скрий решението' : '▶ Покажи решението'}
-              </button>
-              {showSolutions['c5'] && (
-                <div className="mt-3 p-3 bg-blue-50 dark:bg-blue-900/20 rounded">
-                  <p className="font-semibold">Решение:</p>
-                  <p className="mt-2">Имаме два подхода:</p>
-                  
-                  <p className="mt-3"><strong>Подход 1: Използваме L ∝ M³·⁵</strong></p>
-                  <p>Ако Mₐ = 2Mᵦ, то:</p>
-                  <p>Lₐ / Lᵦ = (Mₐ / Mᵦ)³·⁵ = 2³·⁵ = 2³ × 2⁰·⁵ = 8 × √2 ≈ 11.3</p>
-                  
-                  <p className="mt-3"><strong>Подход 2: Проверка с L = 4πR²σT⁴</strong></p>
-                  <p>За звезди от главната последователност: R ∝ M⁰·⁸</p>
-                  <p>Ако Mₐ = 2Mᵦ, то Rₐ = 2⁰·⁸Rᵦ ≈ 1.74Rᵦ</p>
-                  <p className="mt-2">Lₐ / Lᵦ = (Rₐ/Rᵦ)² × (Tₐ/Tᵦ)⁴</p>
-                  <p>= 1.74² × 2⁴ = 3.03 × 16 ≈ 48.5</p>
-                  
-                  <p className="mt-3"><strong>Отговор зависи от предположенията:</strong></p>
-                  <p className="mt-1">• Ако използваме само M: ~11 пъти</p>
-                  <p>• Ако T наистина е двойна (не типично за главна последователност): ~48 пъти</p>
-                  
-                  <p className="mt-3 text-sm font-semibold">Важно: За звезди от главната последователност
-                  температурата и масата са свързани, не могат да се променят независимо!</p>
-                </div>
-              )}
-            </div>
-          </div>
-        </section>
-
-        <section className="mb-8">
-          <h2 className="text-xl sm:text-2xl font-semibold mb-4">
-            Обобщение
-          </h2>
-          <div className="bg-gradient-to-r from-blue-50 to-yellow-50 dark:from-gray-800 dark:to-gray-700 p-6 rounded-lg">
+          <h2 className="text-xl sm:text-2xl font-semibold mb-4">10. Обобщение</h2>
+          <div className="bg-gradient-to-r from-indigo-50 to-yellow-50 dark:from-gray-800 dark:to-gray-700 p-6 rounded-lg">
             <ul className="space-y-2">
-              <li>✓ Основни параметри: маса, радиус, температура, светимост</li>
-              <li>✓ Спектрални класове: O B A F G K M (от горещи към студени)</li>
-              <li>✓ L = 4πR²σT⁴ (светимост от размер и температура)</li>
-              <li>✓ L ∝ M³·⁵ (за главна последователност)</li>
-              <li>✓ Видима величина (m) vs абсолютна величина (M)</li>
+              <li>✓ Погсън: m₁ − m₂ = −2,5 lg(F₁ / F₂); 5 величини = 100 пъти</li>
+              <li>✓ Модул на разстоянието: m − M = 5 lg(d / 10 pc); L / L☉ ≈ 10^(0,4(4,83 − M))</li>
+              <li>✓ Цвят → температура: закон на Вин, показател B − V</li>
+              <li>✓ Спектрални класове O B A F G K M по температура; класове светимост I–V</li>
+              <li>✓ Спектрите се различават заради температурата, а не заради състава: звездите са ~74% H и ~24% He</li>
+              <li>✓ Радиус: R / R☉ = √(L / L☉) · (T☉ / T)²</li>
+              <li>✓ Маса – от двойни звезди; L ∝ M^3,5, живот t ∝ M^(−2,5)</li>
             </ul>
           </div>
         </section>
@@ -613,12 +450,10 @@ export default function Lecture18() {
               <span>Интересен факт</span>
             </h3>
             <p>
-              Най-масивната известна звезда е R136a1 с маса около 265 M☉ и светимост
-              8.7 милиона L☉! Тя е толкова ярка, че ако беше на мястото на Слънцето,
-              щеше да изпари Земята за секунди. За щастие, тя е на 165 000 светлинни
-              години в Голямото Магеланово облаче. Най-малките звезди (червени джуджета)
-              имат маса само 0.08 M☉ и ще живеят трилиони години - по-дълго от
-              настоящата възраст на Вселената!
+              Най-масивната известна звезда, R136a1 в Голямото Магеланово облако, има около 200 слънчеви маси и е няколко милиона пъти
+              по-ярка от Слънцето. Тя ще живее само ~2 милиона години. На другия край са червените джуджета: звезда от 0,1 M☉ ще свети
+              трилиони години – стотици пъти повече от сегашната възраст на Вселената. Затова нито едно червено джудже досега не е
+              „умряло“: всички, които са се родили някога, светят и днес.
             </p>
           </div>
         </section>

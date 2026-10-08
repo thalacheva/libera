@@ -127,3 +127,12 @@ export const terrestrial = (id: PlanetId) => TERRESTRIAL.find(p => p.id === id)!
 export const equilibriumT = (d: number, albedo: number) => (278.6 * (1 - albedo) ** 0.25) / Math.sqrt(d);
 
 export const fmt = (v: number, d = 1) => v.toLocaleString('bg-BG', { maximumFractionDigits: d });
+
+const SUPERSCRIPT: Record<string, string> = { '-': '⁻', 0: '⁰', 1: '¹', 2: '²', 3: '³', 4: '⁴', 5: '⁵', 6: '⁶', 7: '⁷', 8: '⁸', 9: '⁹' };
+
+/** Число в научен запис: 2,3 · 10⁸. */
+export function sci(v: number, digits = 1) {
+  const [m, e] = v.toExponential(digits).split('e');
+  const exp = String(Number(e)).replace(/./g, ch => SUPERSCRIPT[ch] ?? ch);
+  return `${m.replace('.', ',')} · 10${exp}`;
+}
