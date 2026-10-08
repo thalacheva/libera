@@ -1,15 +1,76 @@
 import { useState } from 'react';
+import Example from '~/Example';
+import Quiz, { type Question } from '~/Quiz';
+import Theorem from '~/Theorem';
+import BlackHoleLab from './components/BlackHoleLab';
+import PulsarLab from './components/PulsarLab';
+import RemnantCompare from './components/RemnantCompare';
+import Task from './components/Task';
+import WhiteDwarfLab from './components/WhiteDwarfLab';
+
+const QUIZ: Question[] = [
+  {
+    question: 'Какво удържа бялото джудже от по-нататъшно свиване?',
+    answers: ['Ядреният синтез в центъра', 'Налягането на изродените електрони', 'Магнитното поле', 'Въртенето'],
+    correctAnswer: 'Налягането на изродените електрони',
+  },
+  {
+    question: 'Какво става с радиуса на бялото джудже, ако масата му расте?',
+    answers: ['Расте', 'Намалява', 'Не се променя', 'Първо расте, после намалява'],
+    correctAnswer: 'Намалява',
+  },
+  {
+    question: 'Защо пулсарите се въртят толкова бързо?',
+    answers: [
+      'Ускорява ги магнитното поле',
+      'При свиването на ядрото моментът на импулса се запазва – като фигурист, който прибира ръцете си',
+      'Удрят ги други звезди',
+      'Въртенето е от свръхновата',
+    ],
+    correctAnswer: 'При свиването на ядрото моментът на импулса се запазва – като фигурист, който прибира ръцете си',
+  },
+  {
+    question: 'Колко е радиусът на Шварцшилд за черна дупка с масата на Слънцето?',
+    answers: ['3 mm', '3 km', '3000 km', '696 000 km'],
+    correctAnswer: '3 km',
+  },
+  {
+    question: 'Какво би станало с орбитата на Земята, ако Слънцето се превърне в черна дупка със същата маса?',
+    answers: ['Земята ще бъде погълната', 'Нищо – гравитацията на това разстояние е същата', 'Земята ще отлети', 'Орбитата ще се свие наполовина'],
+    correctAnswer: 'Нищо – гравитацията на това разстояние е същата',
+  },
+  {
+    question: 'Около коя черна дупка астронавт може да пресече хоризонта, без да бъде разкъсан?',
+    answers: ['Около звездна черна дупка от 10 M☉', 'Около свръхмасивна черна дупка', 'Около никоя', 'Около всяка'],
+    correctAnswer: 'Около свръхмасивна черна дупка',
+  },
+  {
+    question: 'Как беше „претеглена“ черната дупка в центъра на Галактиката?',
+    answers: [
+      'По рентгеновото ѝ излъчване',
+      'По орбитите на звезди, които обикалят около нея (трети закон на Кеплер)',
+      'По сянката ѝ',
+      'По гравитационните вълни',
+    ],
+    correctAnswer: 'По орбитите на звезди, които обикалят около нея (трети закон на Кеплер)',
+  },
+];
+
+const EVIDENCE = [
+  { name: 'Лебед X-1', years: '1971', text: 'Ярък рентгенов източник, който обикаля около синя свръхгигантска звезда. Невидимият спътник е ~21 M☉ – твърде много за неутронна звезда. Първата сигурна черна дупка.' },
+  { name: 'Звездите около Sgr A*', years: '1992–2020', text: 'Райнхард Генцел и Андреа Гез следят звезди в центъра на Галактиката. Звездата S2 обикаля за 16 години около невидим обект от 4,3 млн. M☉. Нобелова награда 2020 (заедно с Роджър Пенроуз).' },
+  { name: 'GW150914', years: '2015', text: 'LIGO улавя гравитационните вълни от сливането на две черни дупки от 36 и 29 M☉ на 1,3 млрд. светлинни години. За част от секундата се излъчват ~3 M☉ енергия. Нобелова награда 2017.' },
+  { name: 'Сенките на M87* и Sgr A*', years: '2019, 2022', text: 'Телескопът „Хоризонт на събитията“ – радиотелескопи по цялата Земя, свързани в един – заснема светлия пръстен около сянката на черната дупка.' },
+];
 
 export default function Lecture21() {
-  const [blackHoleMass, setBlackHoleMass] = useState(10); // В слънчеви маси
   const [showSolutions, setShowSolutions] = useState<{ [key: string]: boolean }>({});
 
-  const toggleSolution = (taskId: string) => {
-    setShowSolutions(prev => ({ ...prev, [taskId]: !prev[taskId] }));
-  };
-
-  // Радиус на Шварцшилд: Rs = 2GM/c² ≈ 3 km × (M/M☉)
-  const schwarzschildRadius = blackHoleMass * 3; // km (опростено)
+  const task = (id: string) => ({
+    id,
+    shown: !!showSolutions[id],
+    onToggle: (taskId: string) => setShowSolutions(prev => ({ ...prev, [taskId]: !prev[taskId] })),
+  });
 
   return (
     <main className="flex-1 overflow-y-auto px-4 pt-16 pb-12 sm:px-6 lg:px-10 lg:pt-10">
@@ -18,568 +79,322 @@ export default function Lecture21() {
           Лекция 21: Бели джуджета, неутронни звезди, черни дупки
         </h1>
 
-        <section className="mb-8">
-          <h2 className="text-xl sm:text-2xl font-semibold mb-4">
-            1. Бели джуджета
-          </h2>
-          <p className="mb-4 text-base sm:text-lg leading-relaxed">
-            Остатъци от звезди с маса под 8 слънчеви маси. Много малки (размер на
-            Земята) но изключително плътни.
+        <div className="bg-gradient-to-br from-violet-800 to-slate-900 text-white p-6 rounded-2xl mb-8 shadow-lg">
+          <p className="text-lg sm:text-xl leading-relaxed">
+            📡 Кеймбридж, 1967 г. Аспирантката Джоселин Бел преглежда километри хартиена лента от новия радиотелескоп, който сама е
+            помогнала да построят. Сред шума тя забелязва малко „драскане“ – импулси, повтарящи се точно на всеки 1,337 секунди.
+            Толкова регулярни, че екипът полу на шега ги нарича LGM-1 – „малки зелени човечета“. Скоро Бел намира още три такива
+            източника в други части на небето. Не са извънземни: това са въртящи се неутронни звезди – пулсари. Тела, които
+            съществуваха само на хартия от 1934 г., изведнъж се оказват реални.
           </p>
-          <div className="bg-blue-50 dark:bg-blue-500/10 p-4 rounded-lg mb-4">
-            <ul className="list-disc list-inside space-y-2">
-              <li>Маса: до 1.4 M☉ (граница на Чандрасекар)</li>
-              <li>Радиус: около 10 000 km (като Земята)</li>
-              <li>Плътност: 1 тон/cm³</li>
-              <li>Температура: 100 000 K (в началото)</li>
-              <li>Не извършват ядрен синтез, само се охлаждат</li>
-            </ul>
+        </div>
+
+        <section className="mb-8">
+          <h2 className="text-xl sm:text-2xl font-semibold mb-4">1. Звездните трупове</h2>
+          <p className="mb-4 text-base sm:text-lg leading-relaxed">
+            В Лекция 20 видяхме, че звездата умира, когато горивото в ядрото ѝ свърши. Без енергия от синтеза налягането на горещия
+            газ вече не може да удържи гравитацията и ядрото колапсира. Докъде? Зависи от масата му – и от това каква сила на
+            природата ще успее да го спре.
+          </p>
+
+          <RemnantCompare />
+
+          <div className="overflow-x-auto mb-4">
+            <table className="w-full text-sm">
+              <thead>
+                <tr className="border-b border-gray-300 dark:border-gray-600 text-gray-600 dark:text-gray-400">
+                  <th className="text-left py-2 pr-2"></th>
+                  <th className="text-left py-2 px-2">Бяло джудже</th>
+                  <th className="text-left py-2 px-2">Неутронна звезда</th>
+                  <th className="text-left py-2 pl-2">Черна дупка</th>
+                </tr>
+              </thead>
+              <tbody>
+                {[
+                  ['Начална маса на звездата', '< 8 M☉', '8–25 M☉', '> 25 M☉'],
+                  ['Маса на остатъка', '0,5–1,4 M☉', '1,2–2,3 M☉', '> 3 M☉'],
+                  ['Размер', '~10 000 km', '~20–25 km (диаметър)', 'Rs ≈ 3 km · M/M☉'],
+                  ['Плътност', '~10⁶ g/cm³', '~10¹⁴–10¹⁵ g/cm³', '–'],
+                  ['Какво го крепи', 'изродени електрони', 'изродени неутрони', 'нищо'],
+                ].map(row => (
+                  <tr key={row[0]} className="border-b border-gray-200 dark:border-gray-700">
+                    <td className="py-1 pr-2 text-gray-600 dark:text-gray-400">{row[0]}</td>
+                    <td className="py-1 px-2">{row[1]}</td>
+                    <td className="py-1 px-2">{row[2]}</td>
+                    <td className="py-1 pl-2">{row[3]}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
         </section>
 
         <section className="mb-8">
-          <h2 className="text-xl sm:text-2xl font-semibold mb-4">
-            2. Неутронни звезди
-          </h2>
+          <h2 className="text-xl sm:text-2xl font-semibold mb-4">2. Бели джуджета</h2>
           <p className="mb-4 text-base sm:text-lg leading-relaxed">
-            Остатъци от свръхнови на звезди с маса 8-25 M☉. Състоят се почти
-            изцяло от неутрони.
-          </p>
-          <div className="bg-purple-50 dark:bg-purple-900/20 p-4 rounded-lg mb-4">
-            <ul className="list-disc list-inside space-y-2">
-              <li>Маса: 1.4-3 M☉</li>
-              <li>Радиус: около 10-20 km</li>
-              <li>Плътност: 100 милиона тона/cm³</li>
-              <li>Въртене: до 700 оборота в секунда</li>
-              <li>Магнитно поле: трилиони пъти по-силно от земното</li>
-            </ul>
-          </div>
-          <p className="mb-4 text-base sm:text-lg leading-relaxed">
-            <strong>Пулсари</strong> – бързо въртящи се неутронни звезди, които
-            излъчват радиовълни като космически фарове.
-          </p>
-        </section>
-
-        <section className="mb-8">
-          <h2 className="text-xl sm:text-2xl font-semibold mb-4">
-            3. Черни дупки
-          </h2>
-          <p className="mb-4 text-base sm:text-lg leading-relaxed">
-            Области в пространството с толкова силна гравитация, че дори светлината
-            не може да избяга. Образуват се от звезди с маса над 25 M☉.
+            Едно от първите открити бели джуджета, Сириус B, през 1915 г. озадачава астрономите: горещо е, но е 10 000 пъти по-слабо от Сириус A –
+            значи е мъничко. А масата му (от двойната орбита) е колкото тази на Слънцето. Плътност от тонове на кубичен сантиметър
+            изглеждала абсурдна. Обяснението идва от квантовата механика: <strong>принципът на Паули</strong> забранява два електрона да
+            са в едно и също състояние. Когато ги натъпчем в малък обем, те са принудени да имат големи импулси – и упражняват налягане
+            дори при нулева температура.
           </p>
 
-          {/* Интерактивна визуализация на черна дупка */}
-          <div className="bg-white dark:bg-gray-800 p-4 rounded-lg border-2 border-gray-900 dark:border-gray-600 mb-6">
-            <h3 className="font-semibold mb-3 text-center">Интерактивна черна дупка</h3>
-            <p className="text-sm text-center mb-4 text-gray-600 dark:text-gray-400">
-              Променете масата на черната дупка
+          <Theorem
+            title="Граница на Чандрасекар"
+            description="Бяло джудже, крепено от налягането на изродените електрони, не може да има маса над ~1,44 M☉. По-масивното бяло джудже е по-малко (R ∝ M^(−1/3)), електроните в него са по-бързи, а когато скоростта им се приближи до скоростта на светлината, налягането вече не може да расте достатъчно бързо. Над границата колапсът е неизбежен."
+          />
+
+          <p className="mb-4 text-base sm:text-lg leading-relaxed">
+            Субрахманян Чандрасекар пресмята тази граница през 1930 г., на 19 години, на кораба, с който пътува от Индия за Англия.
+            Знаменитият Артър Едингтън публично осмива идеята, че звезда може да колапсира безкрайно. Чандрасекар се оказва прав и
+            получава Нобелова награда през 1983 г.
+          </p>
+
+          <WhiteDwarfLab />
+
+          <Example
+            description="Сириус B има маса 1,02 M☉ и радиус 5800 km. Каква е средната му плътност?"
+            steps={[
+              'M = 1,02 · 1,99 · 10³⁰ kg ≈ 2,03 · 10³⁰ kg',
+              'V = 4π · (5,8 · 10⁶ m)³ / 3 ≈ 8,2 · 10²⁰ m³',
+              'ρ = M / V ≈ 2,5 · 10⁹ kg/m³ = 2,5 t/cm³ – една чаена лъжичка тежи колкото два камиона',
+            ]}
+          />
+
+          <div className="bg-sky-50 dark:bg-sky-500/10 p-4 rounded-lg mb-4 text-sm sm:text-base">
+            <p>
+              <strong>Бавна смърт и диаманти.</strong> Бялото джудже свети само от запасената топлина и изстива за милиарди години.
+              Докато изстива, въглеродът и кислородът в него кристализират – Gaia забеляза това по „натрупването“ на бели джуджета в
+              една ивица на HR диаграмата (2019). Ако бяло джудже в двойна система трупа вещество от съседа си и се приближи до
+              границата на Чандрасекар, то избухва като <strong>свръхнова тип Ia</strong>. Тези експлозии имат почти еднаква светимост
+              и служат като „стандартни свещи“ за измерване на разстояния до далечни галактики (Лекция 28).
             </p>
+          </div>
+        </section>
 
-            <svg viewBox="0 0 600 500" className="w-full h-auto">
-              {/* Фон - космос */}
-              <rect x="0" y="0" width="600" height="500" fill="rgb(5, 5, 15)" />
-              
-              {/* Звезди на фона */}
-              {[...Array(100)].map((_, i) => (
-                <circle
-                  key={i}
-                  cx={Math.random() * 600}
-                  cy={Math.random() * 500}
-                  r={Math.random() * 1.5}
-                  fill="white"
-                  opacity={Math.random() * 0.8 + 0.2}
-                />
-              ))}
+        <section className="mb-8">
+          <h2 className="text-xl sm:text-2xl font-semibold mb-4">3. Неутронни звезди и пулсари</h2>
+          <p className="mb-4 text-base sm:text-lg leading-relaxed">
+            Само две години след откриването на неутрона, през 1934 г., Валтер Бааде и Фриц Цвики предполагат, че при свръхнова
+            ядрото на звездата се превръща в кълбо от неутрони. Над границата на Чандрасекар електроните се „вкарват“ в протоните и
+            образуват неутрони. Сега налягането идва от изродените неутрони и от ядрените сили. Ядрото спира при плътност колкото на
+            атомното ядро – като огромно атомно ядро с размерите на град.
+          </p>
 
-              {/* Гравитационно лещиране на фона */}
-              <defs>
-                <radialGradient id="lensing">
-                  <stop offset="0%" stopColor="rgba(0,0,0,0)" />
-                  <stop offset="50%" stopColor="rgba(100,100,150,0.2)" />
-                  <stop offset="100%" stopColor="rgba(0,0,0,0)" />
-                </radialGradient>
-                <radialGradient id="accretionDisk">
-                  <stop offset="0%" stopColor="rgb(255, 200, 100)" />
-                  <stop offset="40%" stopColor="rgb(255, 150, 50)" />
-                  <stop offset="70%" stopColor="rgb(255, 100, 50)" />
-                  <stop offset="100%" stopColor="rgb(200, 50, 50)" />
-                </radialGradient>
-              </defs>
+          <Theorem
+            title="Запазване на момента на импулса и на магнитния поток"
+            description="Когато въртящо се тяло се свива без външни сили, L = Iω ∝ MR²/P остава постоянен, затова периодът намалява като R²: P₂ = P₁ · (R₂ / R₁)². Магнитният поток B · R² също се запазва, затова полето расте като 1/R². Свиване от хиляди километри до 10 km дава милисекундни периоди и полета ~10⁸–10¹⁵ гауса."
+          />
 
-              {/* Акреционен диск */}
-              <ellipse
-                cx="300"
-                cy="250"
-                rx={schwarzschildRadius * 8}
-                ry={schwarzschildRadius * 2}
-                fill="url(#accretionDisk)"
-                opacity="0.7"
-              >
-                <animateTransform
-                  attributeName="transform"
-                  type="rotate"
-                  from="0 300 250"
-                  to="360 300 250"
-                  dur="10s"
-                  repeatCount="indefinite"
-                />
-              </ellipse>
+          <Example
+            description="Ако Слънцето (R = 696 000 km, период на въртене 25 дни) се свие до радиус 10 km, колко бързо ще се върти?"
+            steps={[
+              'P₂ = P₁ · (R₂ / R₁)² = 25 · 86 400 s · (10 / 696 000)²',
+              'P₂ ≈ 2,16 · 10⁶ · 2,06 · 10⁻¹⁰ ≈ 4,5 · 10⁻⁴ s – повече от 2000 оборота в секунда!',
+              'Реално ядрото на звездата е много по-малко от цялата звезда, а част от момента на импулса се губи, затова новородените пулсари се въртят с периоди от десетки милисекунди.',
+            ]}
+          />
 
-              {/* Джетове (изхвърляния) */}
-              <g opacity="0.6">
-                <path
-                  d={`M 300,250 L 300,${250 - schwarzschildRadius * 15}`}
-                  stroke="rgb(100, 200, 255)"
-                  strokeWidth={schwarzschildRadius * 0.5}
-                  strokeLinecap="round"
-                >
-                  <animate attributeName="opacity" values="0.4;0.8;0.4" dur="2s" repeatCount="indefinite" />
-                </path>
-                <path
-                  d={`M 300,250 L 300,${250 + schwarzschildRadius * 15}`}
-                  stroke="rgb(100, 200, 255)"
-                  strokeWidth={schwarzschildRadius * 0.5}
-                  strokeLinecap="round"
-                >
-                  <animate attributeName="opacity" values="0.4;0.8;0.4" dur="2s" begin="1s" repeatCount="indefinite" />
-                </path>
-              </g>
+          <PulsarLab />
 
-              {/* Фотонна сфера */}
-              <circle
-                cx="300"
-                cy="250"
-                r={schwarzschildRadius * 1.5}
-                fill="none"
-                stroke="rgb(255, 200, 100)"
-                strokeWidth="2"
-                strokeDasharray="5,5"
-                opacity="0.5"
-              />
-              <text
-                x="300"
-                y={250 - schwarzschildRadius * 1.5 - 10}
-                fontSize="10"
-                textAnchor="middle"
-                fill="rgb(255, 200, 100)"
-              >
-                Фотонна сфера
-              </text>
+          <div className="grid sm:grid-cols-2 gap-3 mb-4">
+            <div className="bg-white dark:bg-gray-800 p-3 rounded-lg shadow-sm">
+              <p className="font-semibold mb-1">🧲 Магнетари</p>
+              <p className="text-sm text-gray-600 dark:text-gray-400">
+                Неутронни звезди с поле до 10¹⁵ гауса. На 27 декември 2004 г. изригване на магнетара SGR 1806−20, на 50 000 светлинни
+                години, за 0,2 s отделя повече енергия, отколкото Слънцето за стотици хиляди години – и смущава йоносферата на Земята.
+              </p>
+            </div>
+            <div className="bg-white dark:bg-gray-800 p-3 rounded-lg shadow-sm">
+              <p className="font-semibold mb-1">⏱️ Двойни пулсари</p>
+              <p className="text-sm text-gray-600 dark:text-gray-400">
+                Хълс и Тейлър откриват през 1974 г. пулсар в двойка с друга неутронна звезда. Орбитата им бавно се свива точно толкова,
+                колкото предсказва Айнщайн за излъчване на гравитационни вълни – първото доказателство, че те съществуват. Нобелова
+                награда 1993.
+              </p>
+            </div>
+            <div className="bg-white dark:bg-gray-800 p-3 rounded-lg shadow-sm">
+              <p className="font-semibold mb-1">💥 Сливане GW170817</p>
+              <p className="text-sm text-gray-600 dark:text-gray-400">
+                През 2017 г. LIGO и Virgo улавят гравитационните вълни от сливането на две неутронни звезди, а 70 телескопа виждат
+                светлината на „килоновата“ – и в нея линии на новосъздадени тежки елементи (Лекция 20).
+              </p>
+            </div>
+            <div className="bg-white dark:bg-gray-800 p-3 rounded-lg shadow-sm">
+              <p className="font-semibold mb-1">⚖️ Колко може да тежи?</p>
+              <p className="text-sm text-gray-600 dark:text-gray-400">
+                Над ~2,2–2,3 M☉ (граница на Толман–Опенхаймер–Волков) и неутроните не издържат. Най-масивната измерена неутронна
+                звезда, PSR J0952−0607, е ~2,35 M☉. Точната граница зависи от свойствата на веществото при свръхядрени плътности, които
+                не можем да създадем в лаборатория.
+              </p>
+            </div>
+          </div>
+        </section>
 
-              {/* Хоризонт на събитията */}
-              <circle
-                cx="300"
-                cy="250"
-                r={schwarzschildRadius}
-                fill="rgb(0, 0, 0)"
-                stroke="rgb(255, 100, 100)"
-                strokeWidth="3"
-              />
-              <text
-                x="300"
-                y={250 - schwarzschildRadius - 10}
-                fontSize="11"
-                textAnchor="middle"
-                fill="rgb(255, 100, 100)"
-                fontWeight="bold"
-              >
-                Хоризонт на събитията
-              </text>
-              <text
-                x="300"
-                y={250 - schwarzschildRadius - 25}
-                fontSize="10"
-                textAnchor="middle"
-                fill="rgb(255, 100, 100)"
-              >
-                Rs = {schwarzschildRadius} km
-              </text>
+        <section className="mb-8">
+          <h2 className="text-xl sm:text-2xl font-semibold mb-4">4. Черни дупки</h2>
+          <p className="mb-4 text-base sm:text-lg leading-relaxed">
+            Още през 1783 г. английският свещеник Джон Мичъл се пита: какво ще стане, ако втората космическа скорост на една звезда
+            е по-голяма от скоростта на светлината? Звездата ще е невидима – „тъмна звезда“. През 1916 г., месеци след като Айнщайн
+            публикува общата теория на относителността, Карл Шварцшилд намира точното ѝ решение за точкова маса. То съдържа граница,
+            отвъд която нищо не може да излезе.
+          </p>
 
-              {/* Сингулярност */}
-              <circle cx="300" cy="250" r="3" fill="white">
-                <animate attributeName="opacity" values="1;0.5;1" dur="1s" repeatCount="indefinite" />
-              </circle>
-              <text x="315" y="255" fontSize="10" fill="white" fontWeight="bold">
-                Сингулярност
-              </text>
+          <Theorem
+            title="Радиус на Шварцшилд"
+            description="Rs = 2GM / c² ≈ 2,95 km · (M / M☉). Сферата с този радиус е хоризонтът на събитията. На 1,5 Rs е фотонната сфера – там светлината може да обикаля по кръгова орбита. Под 3 Rs не съществуват устойчиви кръгови орбити за вещество. Далеч от черната дупка гравитацията ѝ е същата като на всяко друго тяло със същата маса."
+          />
 
-              {/* Частици, падащи към черната дупка */}
-              {[0, 120, 240].map((angle, i) => {
-                const rad = (angle * Math.PI) / 180;
-                return (
-                  <g key={i}>
-                    <circle
-                      cx={300 + schwarzschildRadius * 10 * Math.cos(rad)}
-                      cy={250 + schwarzschildRadius * 10 * Math.sin(rad)}
-                      r="4"
-                      fill="rgb(255, 200, 100)"
-                    >
-                      <animateMotion
-                        path={`M ${schwarzschildRadius * 10 * Math.cos(rad)},${schwarzschildRadius * 10 * Math.sin(rad)} 
-                                L ${schwarzschildRadius * 1.2 * Math.cos(rad)},${schwarzschildRadius * 1.2 * Math.sin(rad)}`}
-                        dur={`${3 + i}s`}
-                        repeatCount="indefinite"
-                      />
-                      <animate
-                        attributeName="opacity"
-                        values="1;0"
-                        dur={`${3 + i}s`}
-                        repeatCount="indefinite"
-                      />
-                    </circle>
-                  </g>
-                );
-              })}
+          <Example
+            description="Колко е радиусът на Шварцшилд за Слънцето и за Земята (M = 5,97 · 10²⁴ kg)?"
+            steps={[
+              'Слънце: Rs = 2 · 6,674 · 10⁻¹¹ · 1,989 · 10³⁰ / (3 · 10⁸)² ≈ 2950 m ≈ 3 km',
+              'Земя: Rs = 2 · 6,674 · 10⁻¹¹ · 5,97 · 10²⁴ / 9 · 10¹⁶ ≈ 8,9 · 10⁻³ m ≈ 9 mm',
+              'За да стане черна дупка, Земята трябва да се свие до размера на лешник.',
+            ]}
+          />
 
-              {/* Легенда */}
-              <g transform="translate(20, 20)">
-                <rect x="0" y="0" width="200" height="120" fill="rgba(0, 0, 0, 0.8)" rx="5" />
-                <text x="10" y="25" fontSize="13" fill="white" fontWeight="bold">
-                  Черна дупка
-                </text>
-                <text x="10" y="45" fontSize="11" fill="white">
-                  Маса: {blackHoleMass} M☉
-                </text>
-                <text x="10" y="60" fontSize="11" fill="white">
-                  Rs: {schwarzschildRadius} km
-                </text>
-                <text x="10" y="80" fontSize="9" fill="rgb(255, 100, 100)">
-                  ⚫ Хоризонт на събитията
-                </text>
-                <text x="10" y="95" fontSize="9" fill="rgb(255, 200, 100)">
-                  🟡 Фотонна сфера (1.5 Rs)
-                </text>
-                <text x="10" y="110" fontSize="9" fill="rgb(255, 150, 50)">
-                  🔥 Акреционен диск
-                </text>
-              </g>
+          <BlackHoleLab />
 
-              {/* Информация за гравитация */}
-              <g transform="translate(380, 420)">
-                <text x="0" y="0" fontSize="10" fill="rgb(255, 100, 100)" fontWeight="bold">
-                  ⚠️ Нищо не може да избяга от хоризонта!
-                </text>
-                <text x="0" y="15" fontSize="9" fill="white">
-                  Дори светлината е уловена завинаги
-                </text>
-              </g>
-            </svg>
-
-            {/* Контрола за маса */}
-            <div className="mt-4">
-              <label className="block text-sm font-semibold mb-2 text-center">
-                Маса на черната дупка: {blackHoleMass} M☉ → Радиус на Шварцшилд: {schwarzschildRadius} km
-              </label>
-              <input
-                type="range"
-                min="3"
-                max="100"
-                value={blackHoleMass}
-                onChange={(e) => setBlackHoleMass(Number(e.target.value))}
-                className="w-full"
-              />
-              <div className="flex justify-between text-xs text-gray-600 dark:text-gray-400 mt-1">
-                <span>Звездна (3 M☉)</span>
-                <span>Междинна (100 M☉)</span>
+          <div className="grid sm:grid-cols-2 gap-3 mb-4">
+            {EVIDENCE.map(e => (
+              <div key={e.name} className="bg-white dark:bg-gray-800 p-3 rounded-lg shadow-sm">
+                <p className="font-semibold mb-1">
+                  🔭 {e.name} <span className="font-normal text-sm text-gray-500 dark:text-gray-400">({e.years})</span>
+                </p>
+                <p className="text-sm text-gray-600 dark:text-gray-400">{e.text}</p>
               </div>
-            </div>
-
-            <div className="mt-4 p-4 bg-gray-100/70 dark:bg-gray-800/70 rounded-lg">
-              <h4 className="font-semibold mb-2">Елементи на черната дупка:</h4>
-              <ul className="text-sm space-y-2">
-                <li>
-                  <strong className="text-red-600 dark:text-red-400">Хоризонт на събитията:</strong> 
-                  Границата на черната дупка (Rs = {schwarzschildRadius} km). Нищо не може да избяга отвътре.
-                </li>
-                <li>
-                  <strong className="text-yellow-600 dark:text-yellow-400">Фотонна сфера:</strong> 
-                  На 1.5 × Rs. Светлината може да обикаля черната дупка по кръгови орбити.
-                </li>
-                <li>
-                  <strong className="text-orange-600 dark:text-orange-400">Акреционен диск:</strong> 
-                  Материя, която пада към черната дупка. Нагрява се до милиони градуси и излъчва рентгенови лъчи.
-                </li>
-                <li>
-                  <strong className="text-blue-600 dark:text-blue-400">Джетове:</strong> 
-                  Мощни изхвърляния на материя по оста на въртене.
-                </li>
-                <li>
-                  <strong>Сингулярност:</strong> 
-                  Точка с безкрайна плътност в центъра (физиката се "разваля").
-                </li>
-              </ul>
-            </div>
+            ))}
           </div>
+
+          <p className="mb-4 text-base sm:text-lg leading-relaxed">
+            Черните дупки не са „космически прахосмукачки“ – те привличат точно толкова, колкото звезда със същата маса. Опасни са
+            само отблизо. Срещат се в три размера: <strong>звездни</strong> (3–100 M☉), остатъци от масивни звезди;{' '}
+            <strong>свръхмасивни</strong> (милиони до милиарди M☉) в центровете на почти всички големи галактики; и по-редките{' '}
+            <strong>междинни</strong>. Стивън Хокинг показва през 1974 г., че квантовите ефекти карат черните дупки бавно да
+            „изпаряват“, но за звездна черна дупка това би отнело ~10⁶⁷ години.
+          </p>
         </section>
 
         <section className="mb-8">
-          <h2 className="text-xl sm:text-2xl font-semibold mb-4">
-            Сравнение на размерите
-          </h2>
-          
-          <div className="bg-white dark:bg-gray-800 p-4 rounded-lg border-2 border-blue-300 dark:border-blue-600 mb-6">
-            <svg viewBox="0 0 700 300" className="w-full h-auto">
-              <rect x="0" y="0" width="700" height="300" fill="rgb(20, 20, 40)" />
-
-              {/* Земя (за сравнение) */}
-              <circle cx="100" cy="150" r="40" fill="rgb(59, 130, 246)" />
-              <circle cx="100" cy="150" r="40" fill="none" stroke="rgb(34, 197, 94)" strokeWidth="2" />
-              <text x="100" y="210" fontSize="12" textAnchor="middle" fill="white" fontWeight="bold">
-                Земя
-              </text>
-              <text x="100" y="225" fontSize="10" textAnchor="middle" fill="gray">
-                R = 6371 km
-              </text>
-
-              {/* Бяло джудже */}
-              <circle cx="250" cy="150" r="38" fill="rgb(220, 220, 255)" />
-              <text x="250" y="210" fontSize="12" textAnchor="middle" fill="white" fontWeight="bold">
-                Бяло джудже
-              </text>
-              <text x="250" y="225" fontSize="10" textAnchor="middle" fill="gray">
-                R ≈ 10000 km
-              </text>
-              <text x="250" y="240" fontSize="9" textAnchor="middle" fill="gray">
-                M = 1 M☉
-              </text>
-
-              {/* Неутронна звезда */}
-              <circle cx="400" cy="150" r="8" fill="rgb(200, 150, 255)" />
-              <circle cx="400" cy="150" r="15" fill="none" stroke="rgb(200, 150, 255)" strokeWidth="1" strokeDasharray="2,2" />
-              <text x="400" y="180" fontSize="12" textAnchor="middle" fill="white" fontWeight="bold">
-                Неутронна звезда
-              </text>
-              <text x="400" y="195" fontSize="10" textAnchor="middle" fill="gray">
-                R ≈ 10-20 km
-              </text>
-              <text x="400" y="210" fontSize="9" textAnchor="middle" fill="gray">
-                M = 1.4-3 M☉
-              </text>
-
-              {/* Черна дупка */}
-              <circle cx="550" cy="150" r="12" fill="rgb(0, 0, 0)" stroke="rgb(255, 100, 100)" strokeWidth="3" />
-              <circle cx="550" cy="150" r="25" fill="none" stroke="rgb(255, 200, 100)" strokeWidth="1" strokeDasharray="3,3" opacity="0.5" />
-              <text x="550" y="190" fontSize="12" textAnchor="middle" fill="white" fontWeight="bold">
-                Черна дупка
-              </text>
-              <text x="550" y="205" fontSize="10" textAnchor="middle" fill="gray">
-                Rs = {schwarzschildRadius} km
-              </text>
-              <text x="550" y="220" fontSize="9" textAnchor="middle" fill="gray">
-                M = {blackHoleMass} M☉
-              </text>
-
-              {/* Стрелки за плътност */}
-              <text x="350" y="50" fontSize="13" textAnchor="middle" fill="rgb(255, 200, 100)" fontWeight="bold">
-                Плътност нараства →
-              </text>
-            </svg>
-          </div>
+          <h2 className="text-xl sm:text-2xl font-semibold mb-4">5. ✅ Провери се</h2>
+          <Quiz questions={QUIZ} />
         </section>
 
         <section className="mb-8">
-          <h2 className="text-xl sm:text-2xl font-semibold mb-4">
-            4. Видове черни дупки
-          </h2>
-          <div className="bg-green-50 dark:bg-green-900/20 p-4 rounded-lg mb-4">
-            <ul className="list-disc list-inside space-y-2">
-              <li>
-                <strong>Звездни черни дупки</strong> – от свръхнови (5-100 M☉)
-                <br/>Rs ≈ 15-300 km
-              </li>
-              <li>
-                <strong>Междинни черни дупки</strong> – 100-100 000 M☉
-                <br/>Rs ≈ 300 km - 300 000 km
-              </li>
-              <li>
-                <strong>Свръхмасивни черни дупки</strong> – в центрове на галактики (милиони-милиарди M☉)
-                <br/>Rs ≈ милиони km (като орбитата на Земята!)
-              </li>
-              <li>
-                <strong>Първични черни дупки</strong> – хипотетични, от ранната Вселена
-              </li>
-            </ul>
-          </div>
-        </section>
+          <h2 className="text-xl sm:text-2xl font-semibold mb-4">6. 📝 Задачи за упражнение</h2>
 
-        <section className="mb-8">
-          <h2 className="text-xl sm:text-2xl font-semibold mb-4">
-            5. Формули
-          </h2>
-          <div className="bg-blue-50 dark:bg-blue-500/10 p-4 rounded-lg mb-4">
-            <ul className="space-y-3">
-              <li>
-                <strong>Радиус на Шварцшилд:</strong>
-                <p className="font-mono mt-1">Rs = 2GM / c²</p>
-                <p className="text-sm">Rs ≈ 3 km × (M / M☉)</p>
-              </li>
-              <li>
-                <strong>Граница на Чандрасекар:</strong>
-                <p className="mt-1">Максимална маса на бяло джудже: 1.4 M☉</p>
-              </li>
-              <li>
-                <strong>Граница на Толман–Опенхаймер–Волков:</strong>
-                <p className="mt-1">Максимална маса на неутронна звезда: около 2-3 M☉</p>
-              </li>
-            </ul>
-          </div>
-        </section>
-
-        <section className="mb-8">
-          <h2 className="text-xl sm:text-2xl font-semibold mb-4">
-            📝 Задачи за упражнение
-          </h2>
-
-          {/* Ниво А */}
           <div className="mb-6">
-            <h3 className="text-lg font-semibold mb-3 text-green-600 dark:text-green-400">
-              Ниво А (Областен кръг)
-            </h3>
+            <h3 className="text-lg font-semibold mb-3 text-green-600 dark:text-green-400">Ниво А (Областен кръг)</h3>
 
-            <div className="bg-white dark:bg-gray-800 p-4 rounded-lg mb-4 border-l-4 border-green-500">
-              <p className="font-semibold mb-2">1. Какво е хоризонт на събитията?</p>
-              <button
-                onClick={() => toggleSolution('a1')}
-                className="text-blue-600 dark:text-blue-400 hover:underline text-sm"
-              >
-                {showSolutions['a1'] ? '▼ Скрий решението' : '▶ Покажи решението'}
-              </button>
-              {showSolutions['a1'] && (
-                <div className="mt-3 p-3 bg-blue-50 dark:bg-blue-900/20 rounded">
-                  <p className="font-semibold">Решение:</p>
-                  <p className="mt-2">Хоризонтът на събитията е границата на черната дупка.
-                  Всичко, което премине през тази граница, не може да избяга - дори светлината.
-                  Радиусът на хоризонта се нарича радиус на Шварцшилд (Rs).</p>
-                </div>
-              )}
-            </div>
+            <Task {...task('a1')} number={1} color="border-green-500" question="Какво е хоризонт на събитията?">
+              <p>
+                Границата около черната дупка, отвъд която нищо, дори светлината, не може да се върне. Тя не е твърда повърхност –
+                падащо тяло я пресича, без да „удари“ нещо. Радиусът ѝ е радиусът на Шварцшилд Rs = 2GM / c².
+              </p>
+            </Task>
 
-            <div className="bg-white dark:bg-gray-800 p-4 rounded-lg mb-4 border-l-4 border-green-500">
-              <p className="font-semibold mb-2">2. Каква е максималната маса на бяло джудже?</p>
-              <button
-                onClick={() => toggleSolution('a2')}
-                className="text-blue-600 dark:text-blue-400 hover:underline text-sm"
-              >
-                {showSolutions['a2'] ? '▼ Скрий решението' : '▶ Покажи решението'}
-              </button>
-              {showSolutions['a2'] && (
-                <div className="mt-3 p-3 bg-blue-50 dark:bg-blue-900/20 rounded">
-                  <p className="font-semibold">Отговор: 1.4 M☉ (граница на Чандрасекар)</p>
-                  <p className="mt-2">Обяснение: Ако бялото джудже надхвърли тази маса, гравитацията
-                  надвива налягането на електроните и то колапсира - или става неутронна звезда
-                  (ако има свръхнова), или директно черна дупка.</p>
-                </div>
-              )}
-            </div>
+            <Task {...task('a2')} number={2} color="border-green-500" question="Каква е максималната маса на бяло джудже? Какво става, ако я надхвърли?">
+              <p>
+                <strong>~1,44 M☉ – границата на Чандрасекар.</strong> Над нея налягането на изродените електрони не може да удържи
+                гравитацията. Ако бялото джудже трупа вещество от съсед, при доближаване до границата въглеродът се запалва изведнъж и
+                то избухва като свръхнова тип Ia.
+              </p>
+            </Task>
+
+            <Task {...task('a3')} number={3} color="border-green-500" question="Защо пулсарите „мигат“, при положение че излъчват непрекъснато?">
+              <p>
+                Излъчването е съсредоточено в два тесни лъча по магнитната ос, която е наклонена спрямо оста на въртене. При всяко
+                завъртане лъчът помита Земята за кратко – като светлината на фар. Затова виждаме импулси с периода на въртене.
+              </p>
+            </Task>
           </div>
 
-          {/* Ниво В */}
           <div className="mb-6">
-            <h3 className="text-lg font-semibold mb-3 text-yellow-600 dark:text-yellow-400">
-              Ниво В (Национален кръг)
-            </h3>
+            <h3 className="text-lg font-semibold mb-3 text-yellow-600 dark:text-yellow-400">Ниво В (Национален кръг)</h3>
 
-            <div className="bg-white dark:bg-gray-800 p-4 rounded-lg mb-4 border-l-4 border-yellow-500">
-              <p className="font-semibold mb-2">3. Изчисли радиуса на Шварцшилд за черна дупка с
-              маса 10 M☉. (Rs ≈ 3 km × M/M☉)</p>
-              <button
-                onClick={() => toggleSolution('b3')}
-                className="text-blue-600 dark:text-blue-400 hover:underline text-sm"
-              >
-                {showSolutions['b3'] ? '▼ Скрий решението' : '▶ Покажи решението'}
-              </button>
-              {showSolutions['b3'] && (
-                <div className="mt-3 p-3 bg-blue-50 dark:bg-blue-900/20 rounded">
-                  <p className="font-semibold">Решение:</p>
-                  <p className="mt-2">Rs = 3 km × (M / M☉)</p>
-                  <p>Rs = 3 km × 10 = 30 km</p>
-                  <p className="mt-2"><strong>Отговор: 30 km</strong></p>
-                  <p className="mt-2 text-sm">За сравнение: София е на около 30 km от север до юг!</p>
-                </div>
-              )}
-            </div>
+            <Task {...task('b1')} number={4} color="border-yellow-500" question="Колко е радиусът на Шварцшилд за черна дупка от 10 M☉? А за Sgr A* (4,3 · 10⁶ M☉)?">
+              <p>Rs ≈ 2,95 km · 10 ≈ 30 km – колкото София от единия до другия край.</p>
+              <p>Sgr A*: Rs ≈ 2,95 · 4,3 · 10⁶ km ≈ 1,27 · 10⁷ km ≈ 18 R☉ ≈ 0,085 AU – по-малко от орбитата на Меркурий.</p>
+            </Task>
 
-            <div className="bg-white dark:bg-gray-800 p-4 rounded-lg mb-4 border-l-4 border-yellow-500">
-              <p className="font-semibold mb-2">4. Колко е плътността на неутронна звезда, ако
-              има маса 1.4 M☉ и радиус 10 km?</p>
-              <button
-                onClick={() => toggleSolution('b4')}
-                className="text-blue-600 dark:text-blue-400 hover:underline text-sm"
-              >
-                {showSolutions['b4'] ? '▼ Скрий решението' : '▶ Покажи решението'}
-              </button>
-              {showSolutions['b4'] && (
-                <div className="mt-3 p-3 bg-blue-50 dark:bg-blue-900/20 rounded">
-                  <p className="font-semibold">Решение:</p>
-                  <p className="mt-2">Обем на сфера: V = (4/3)πR³</p>
-                  <p>V = (4/3) × 3.14159 × (10 km)³ = 4189 km³</p>
-                  <p className="mt-2">Маса: M = 1.4 M☉ = 1.4 × 2 × 10³⁰ kg = 2.8 × 10³⁰ kg</p>
-                  <p className="mt-2">Плътност: ρ = M / V = 2.8 × 10³⁰ kg / (4.189 × 10¹² m³)</p>
-                  <p>ρ ≈ 6.7 × 10¹⁷ kg/m³</p>
-                  <p className="mt-2"><strong>Отговор: около 7 × 10¹⁷ kg/m³</strong></p>
-                  <p className="mt-2 text-sm">Това е около 100 милиона тона на кубичен сантиметър!
-                  Лъжичка от неутронна звезда би тежала колкото всички хора на Земята заедно.</p>
-                </div>
-              )}
-            </div>
+            <Task {...task('b2')} number={5} color="border-yellow-500" question="Неутронна звезда има маса 1,4 M☉ и радиус 10 km. Каква е средната ѝ плътност? Колко тежи една чаена лъжичка (5 cm³) от нея?">
+              <p>V = 4π · (10⁴ m)³ / 3 ≈ 4,19 · 10¹² m³; M = 1,4 · 1,99 · 10³⁰ ≈ 2,8 · 10³⁰ kg</p>
+              <p>ρ = M / V ≈ 6,7 · 10¹⁷ kg/m³ = 6,7 · 10¹⁴ g/cm³</p>
+              <p>
+                Лъжичка: 5 · 6,7 · 10¹⁴ g ≈ 3,3 · 10¹⁵ g = <strong>3,3 милиарда тона</strong> – колкото планина. Това е плътността на
+                атомното ядро.
+              </p>
+            </Task>
+
+            <Task {...task('b3')} number={6} color="border-yellow-500" question="Пулсарът в мъглявината Рак се върти с период 33,5 ms. С каква скорост се движи точка от екватора му, ако радиусът е 12 km? А пулсарът J1748−2446ad (1,4 ms)?">
+              <p>v = 2πR / P = 2π · 12 km / 0,0335 s ≈ 2250 km/s – 0,75% от скоростта на светлината.</p>
+              <p>J1748−2446ad: v = 2π · 12 / 0,0014 ≈ 54 000 km/s ≈ 18% c.</p>
+              <p>
+                При още по-бързо въртене центробежната сила би разкъсала звездата – затова не се наблюдават пулсари с период под ~1 ms.
+              </p>
+            </Task>
           </div>
 
-          {/* Ниво С */}
           <div className="mb-6">
-            <h3 className="text-lg font-semibold mb-3 text-red-600 dark:text-red-400">
-              Ниво С (Международна олимпиада)
-            </h3>
+            <h3 className="text-lg font-semibold mb-3 text-red-600 dark:text-red-400">Ниво С (Международна олимпиада)</h3>
 
-            <div className="bg-white dark:bg-gray-800 p-4 rounded-lg mb-4 border-l-4 border-red-500">
-              <p className="font-semibold mb-2">5. Ако Слънцето стане черна дупка (хипотетично),
-              какъв ще бъде радиусът на Шварцшилд? Ще се промени ли орбитата на Земята?</p>
-              <button
-                onClick={() => toggleSolution('c5')}
-                className="text-blue-600 dark:text-blue-400 hover:underline text-sm"
-              >
-                {showSolutions['c5'] ? '▼ Скрий решението' : '▶ Покажи решението'}
-              </button>
-              {showSolutions['c5'] && (
-                <div className="mt-3 p-3 bg-blue-50 dark:bg-blue-900/20 rounded">
-                  <p className="font-semibold">Решение:</p>
-                  <p className="mt-2"><strong>Радиус на Шварцшилд:</strong></p>
-                  <p>Rs = 3 km × (M / M☉) = 3 km × 1 = 3 km</p>
-                  <p className="mt-2">Слънцето (R = 696 000 km) би се свило до 3 km!</p>
-                  
-                  <p className="mt-3"><strong>Орбитата на Земята:</strong></p>
-                  <p className="mt-2">НЕ, орбитата няма да се промени!</p>
-                  
-                  <p className="mt-2">Обяснение: Гравитацията зависи само от масата и разстоянието,
-                  не от размера на обекта. Формула:</p>
-                  <p className="font-mono mt-1">F = GMm / r²</p>
-                  
-                  <p className="mt-2">Масата на "черната дупка-Слънце" е същата (1 M☉), разстоянието
-                  до Земята е същото (1 AU = 150 млн km), значи силата е същата.</p>
-                  
-                  <p className="mt-3">Земята ще продължи да обикаля по същата орбита. Единствената
-                  разлика ще бъде, че няма да получаваме светлина и топлина!</p>
-                  
-                  <p className="mt-3 font-semibold">Важно: Черните дупки не "засмукват" всичко около
-                  себе си. Те имат същата гравитация като звездата, от която са образувани.
-                  Опасни са само ако се приближите много близо (под няколко Rs).</p>
-                </div>
-              )}
-            </div>
+            <Task
+              {...task('c1')}
+              number={7}
+              color="border-red-500"
+              question="Ако Слънцето хипотетично се превърне в черна дупка със същата маса, какъв ще бъде радиусът на Шварцшилд? Ще се промени ли орбитата на Земята?"
+            >
+              <p>Rs ≈ 2,95 km – Слънцето би трябвало да се свие от 696 000 km до 3 km.</p>
+              <p>
+                <strong>Орбитата няма да се промени.</strong> Извън тялото гравитацията зависи само от масата и разстоянието (F = GMm / r²
+                – теорема на Нютон за сферичните тела). Масата и разстоянието са същите, значи и силата. Земята ще продължи да обикаля
+                по същата орбита – само в тъмнина и студ.
+              </p>
+            </Task>
+
+            <Task
+              {...task('c2')}
+              number={8}
+              color="border-red-500"
+              question="Астронавт с ръст 2 m е на хоризонта на черна дупка. Оценете разликата между ускоренията на главата и краката му, ако черната дупка е 10 M☉ и ако е Sgr A* (4,3 · 10⁶ M☉)."
+            >
+              <p>Приливно ускорение: Δa ≈ 2GM · L / r³, при r = Rs = 2GM / c²</p>
+              <p>10 M☉: Rs ≈ 2,95 · 10⁴ m ⇒ Δa ≈ 2 · 6,674 · 10⁻¹¹ · 1,99 · 10³¹ · 2 / (2,95 · 10⁴)³ ≈ 2 · 10⁸ m/s² – 20 милиона g!</p>
+              <p>Sgr A*: Rs ≈ 1,27 · 10¹⁰ m ⇒ Δa ≈ 2 · 6,674 · 10⁻¹¹ · 8,6 · 10³⁶ · 2 / (1,27 · 10¹⁰)³ ≈ 1,1 · 10⁻³ m/s²</p>
+              <p>
+                Δa на хоризонта ∝ M / Rs³ ∝ 1 / M². Около звездна черна дупка астронавтът е „спагетизиран“ хиляди километри преди
+                хоризонта. Около свръхмасивна той го пресича, без да усети нищо – и вече не може да се върне.
+              </p>
+            </Task>
+
+            <Task
+              {...task('c3')}
+              number={9}
+              color="border-red-500"
+              question="Звездата S2 обикаля около Sgr A* с период 16,05 години. Голямата полуос на орбитата се вижда под ъгъл 0,1255″ от разстояние 8,28 kpc. Намерете масата на Sgr A*."
+            >
+              <p>a = 0,1255″ · 8280 pc = 1039 AU (при 1 pc един ъглов секунд отговаря на 1 AU)</p>
+              <p>От третия закон на Кеплер в единици AU, години и M☉: M = a³ / P² = 1039³ / 16,05² ≈ 1,12 · 10⁹ / 257,6 ≈ 4,3 · 10⁶ M☉</p>
+              <p>
+                В перицентъра S2 минава само на ~120 AU от черната дупка, със скорост ~7700 km/s. При такава маса в толкова малък обем
+                не може да има нищо друго освен черна дупка.
+              </p>
+            </Task>
           </div>
         </section>
 
         <section className="mb-8">
-          <h2 className="text-xl sm:text-2xl font-semibold mb-4">
-            Обобщение
-          </h2>
-          <div className="bg-gradient-to-r from-blue-50 to-purple-50 dark:from-gray-800 dark:to-gray-700 p-6 rounded-lg">
+          <h2 className="text-xl sm:text-2xl font-semibold mb-4">7. Обобщение</h2>
+          <div className="bg-gradient-to-r from-violet-50 to-slate-100 dark:from-gray-800 dark:to-gray-700 p-6 rounded-lg">
             <ul className="space-y-2">
-              <li>✓ Бели джуджета: M &lt; 1.4 M☉, R ≈ 10 000 km, ρ ≈ 1 т/cm³</li>
-              <li>✓ Неутронни звезди: M = 1.4-3 M☉, R ≈ 10-20 km, ρ ≈ 10⁸ т/cm³</li>
-              <li>✓ Черни дупки: M &gt; 3 M☉, Rs = 2GM/c² ≈ 3 km × (M/M☉)</li>
-              <li>✓ Хоризонт на събитията - точка на невръщане</li>
-              <li>✓ Първа снимка на черна дупка - M87*, 2019 г.</li>
+              <li>✓ Бяло джудже: крепи се от изродените електрони; R ∝ M^(−1/3); граница на Чандрасекар 1,44 M☉</li>
+              <li>✓ Неутронна звезда: ~1,4 M☉ в кълбо от ~20 km, плътност на атомно ядро; граница ~2,3 M☉</li>
+              <li>✓ Запазване на момента на импулса: P ∝ R² – затова пулсарите се въртят до стотици пъти в секунда</li>
+              <li>✓ Пулсар: лъчи по наклонената магнитна ос помитат Земята като фар</li>
+              <li>✓ Черна дупка: Rs = 2GM / c² ≈ 3 km · M/M☉; фотонна сфера 1,5 Rs, последна устойчива орбита 3 Rs</li>
+              <li>✓ Приливът на хоризонта ∝ 1/M²: свръхмасивните черни дупки са „по-нежни“</li>
+              <li>✓ Доказателства: Лебед X-1, орбитите около Sgr A*, гравитационните вълни, сенките от EHT</li>
             </ul>
           </div>
         </section>
@@ -591,12 +406,11 @@ export default function Lecture21() {
               <span>Интересен факт</span>
             </h3>
             <p>
-              Първата снимка на черна дупка беше направена през 2019 г. от Event
-              Horizon Telescope – свръхмасивната черна дупка в центъра на галактика
-              M87, с маса 6.5 милиарда слънчеви маси! За да я "снимат", са използвали
-              мрежа от телескопи по целия свят, създавайки виртуален телескоп с
-              размер на Земята. През 2022 г. снимаха и нашата черна дупка - Sgr A*
-              в центъра на Млечния път (4 милиона M☉).
+              Тяло, което пада от далеч върху неутронна звезда, отделя при удара енергия GM / R ≈ 1,6 · 10¹⁶ J на килограм – около 20%
+              от mc². Ако пуснете бонбон от 10 g, той ще се удари със скорост над половината от скоростта на светлината и ще освободи енергия колкото атомна бомба. А
+              Джоселин Бел не получи Нобеловата награда за откритието на пулсарите – тя отиде при ръководителя ѝ през 1974 г. През 2018
+              г. Бел получи наградата Breakthrough и дари всичките 3 милиона долара за стипендии за студенти от слабо представени в
+              науката групи.
             </p>
           </div>
         </section>

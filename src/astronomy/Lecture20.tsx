@@ -1,574 +1,386 @@
-import {useState} from 'react';
+import { useState } from 'react';
+import Example from '~/Example';
+import Quiz, { type Question } from '~/Quiz';
+import Theorem from '~/Theorem';
+import CosmicOrigins from './components/CosmicOrigins';
+import EvolutionTrack from './components/EvolutionTrack';
+import JeansLab from './components/JeansLab';
+import OnionLab from './components/OnionLab';
+import Task from './components/Task';
+
+const QUIZ: Question[] = [
+  {
+    question: 'Защо звездите се раждат на групи, в купове?',
+    answers: [
+      'Привличат се една друга след раждането си',
+      'Големият облак се разпада на много сгъстявания, всяко от които надхвърля масата на Джинс',
+      'Раждат се една от друга',
+      'Случайно съвпадение',
+    ],
+    correctAnswer: 'Големият облак се разпада на много сгъстявания, всяко от които надхвърля масата на Джинс',
+  },
+  {
+    question: 'Защо Слънцето не може да свети за сметка на свиването си?',
+    answers: [
+      'Ще стигне само за ~30 млн. години, а Земята е на 4,5 млрд.',
+      'Защото не се свива',
+      'Защото е газово',
+      'Защото гравитацията не отделя енергия',
+    ],
+    correctAnswer: 'Ще стигне само за ~30 млн. години, а Земята е на 4,5 млрд.',
+  },
+  {
+    question: 'Какво става със Слънцето, когато водородът в ядрото му свърши?',
+    answers: [
+      'Веднага избухва като свръхнова',
+      'Ядрото се свива, обвивката се раздува и то става червен гигант',
+      'Изгасва и става черна дупка',
+      'Става по-малко и по-синьо',
+    ],
+    correctAnswer: 'Ядрото се свива, обвивката се раздува и то става червен гигант',
+  },
+  {
+    question: 'Защо синтезът в масивните звезди спира при желязото?',
+    answers: [
+      'Желязото е твърдо',
+      'Ядрата около желязото са най-здраво свързани – синтезът на по-тежки ядра поглъща енергия',
+      'Желязото е магнитно',
+      'Звездата свършва горивото си случайно точно тогава',
+    ],
+    correctAnswer: 'Ядрата около желязото са най-здраво свързани – синтезът на по-тежки ядра поглъща енергия',
+  },
+  {
+    question: 'Каква част от енергията на свръхнова от колапс на ядрото се отнася от неутриното?',
+    answers: ['~1%', '~10%', '~50%', '~99%'],
+    correctAnswer: '~99%',
+  },
+  {
+    question: 'Какво остава след звезда с начална маса 3 M☉?',
+    answers: ['Черна дупка', 'Неутронна звезда', 'Бяло джудже', 'Нищо'],
+    correctAnswer: 'Бяло джудже',
+  },
+  {
+    question: 'Откъде идва златото на Земята?',
+    answers: [
+      'От Големия взрив',
+      'От ядрото на Слънцето',
+      'Главно от сливания на неутронни звезди',
+      'От вулканите',
+    ],
+    correctAnswer: 'Главно от сливания на неутронни звезди',
+  },
+];
+
+const BIRTH = [
+  { icon: '☁️', name: 'Молекулен облак', text: 'Студен (10–20 K) газ и прах, от стотици до милиони слънчеви маси. Сгъстява се от ударни вълни на свръхнови или от спиралните ръкави на Галактиката.' },
+  { icon: '🌀', name: 'Протозвезда', text: 'Колапсиращото сгъстяване се върти все по-бързо и образува диск. Половината от освободената гравитационна енергия нагрява газа, другата половина се излъчва. Протозвездата е скрита в прах и се вижда само в инфрачервено.' },
+  { icon: '✨', name: 'Звезда тип T Телец', text: 'Ветровете разчистват праха и звездата се показва. Тя още се свива и е по-ярка от бъдещото си място на главната последователност. От двата полюса бликат струи с ~200 km/s.' },
+  { icon: '🪐', name: 'Протопланетен диск', text: 'Около младата звезда остава диск от газ и прах – суровината за планети. ALMA засне през 2014 г. диска около HL Телец с пръстени и пролуки, издълбани от раждащи се планети.' },
+];
+
+const FATES = [
+  { mass: '< 0,08 M☉', fate: 'Кафяво джудже', text: 'Синтезът на водород не започва. Тялото само изстива.' },
+  { mass: '0,08–0,5 M☉', fate: 'Хелиево бяло джудже', text: 'Червените джуджета живеят трилиони години – нито едно още не е умряло.' },
+  { mass: '0,5–8 M☉', fate: 'Въглеродно-кислородно бяло джудже', text: 'Червен гигант → планетарна мъглявина → бяло джудже. Така ще свърши и Слънцето.' },
+  { mass: '8–25 M☉', fate: 'Свръхнова → неутронна звезда', text: 'Желязното ядро колапсира в кълбо от неутрони с диаметър ~20 km.' },
+  { mass: '> 25 M☉', fate: 'Свръхнова → черна дупка', text: 'Ядрото е толкова масивно, че нищо не може да спре колапса. Понякога звездата може да изчезне и без ярка свръхнова.' },
+];
 
 export default function Lecture20() {
-  const [selectedPath, setSelectedPath] = useState<'solar' | 'massive'>('solar');
-  const [evolutionStage, setEvolutionStage] = useState(0);
   const [showSolutions, setShowSolutions] = useState<{ [key: string]: boolean }>({});
 
-  const toggleSolution = (taskId: string) => {
-    setShowSolutions(prev => ({ ...prev, [taskId]: !prev[taskId] }));
-  };
-
-  const solarStages = [
-    { name: 'Молекулен облак', x: 100, y: 100, size: 60, color: 'rgba(150, 150, 150, 0.5)' },
-    { name: 'Протозвезда', x: 200, y: 150, size: 30, color: 'rgba(255, 150, 100, 0.7)' },
-    { name: 'Главна последователност', x: 300, y: 250, size: 25, color: 'rgb(255, 255, 150)' },
-    { name: 'Червен гигант', x: 450, y: 150, size: 70, color: 'rgb(255, 100, 50)' },
-    { name: 'Планетарна мъглявина', x: 550, y: 200, size: 50, color: 'rgba(100, 200, 255, 0.4)' },
-    { name: 'Бяло джудже', x: 550, y: 350, size: 15, color: 'rgb(200, 220, 255)' },
-  ];
-
-  const massiveStages = [
-    { name: 'Молекулен облак', x: 100, y: 100, size: 80, color: 'rgba(150, 150, 150, 0.5)' },
-    { name: 'Протозвезда', x: 200, y: 120, size: 40, color: 'rgba(255, 150, 100, 0.7)' },
-    { name: 'Главна последователност', x: 280, y: 180, size: 35, color: 'rgb(150, 200, 255)' },
-    { name: 'Свръхгигант', x: 420, y: 100, size: 90, color: 'rgb(255, 50, 50)' },
-    { name: 'Свръхнова', x: 520, y: 180, size: 100, color: 'rgba(255, 255, 100, 0.8)' },
-    { name: 'Неутронна звезда / Черна дупка', x: 550, y: 320, size: 20, color: 'rgb(50, 50, 50)' },
-  ];
-
-  const stages = selectedPath === 'solar' ? solarStages : massiveStages;
-  const currentStage = stages[evolutionStage];
+  const task = (id: string) => ({
+    id,
+    shown: !!showSolutions[id],
+    onToggle: (taskId: string) => setShowSolutions(prev => ({ ...prev, [taskId]: !prev[taskId] })),
+  });
 
   return (
     <main className="flex-1 overflow-y-auto px-4 pt-16 pb-12 sm:px-6 lg:px-10 lg:pt-10">
       <div className="max-w-4xl mx-auto">
-        <h1 className="text-2xl sm:text-3xl font-bold tracking-tight mb-6 text-gray-900 dark:text-white">
-          Лекция 20: Еволюция на звездите
-        </h1>
+        <h1 className="text-2xl sm:text-3xl font-bold tracking-tight mb-6 text-gray-900 dark:text-white">Лекция 20: Еволюция на звездите</h1>
 
-        <section className="mb-8">
-          <h2 className="text-xl sm:text-2xl font-semibold mb-4">
-            1. Раждане на звездите
-          </h2>
-          <p className="mb-4 text-base sm:text-lg leading-relaxed">
-            Звездите се раждат в молекулни облаци от газ и прах. Гравитацията
-            причинява свиване на облака, което води до повишаване на температурата
-            и налягането в центъра.
+        <div className="bg-gradient-to-br from-orange-800 to-slate-900 text-white p-6 rounded-2xl mb-8 shadow-lg">
+          <p className="text-lg sm:text-xl leading-relaxed">
+            💥 23 февруари 1987 г., 7:35 ч. Три подземни детектора – в Япония, САЩ и СССР – за 13 секунди регистрират общо 25 неутрино.
+            Три часа по-късно светлината от експлозията стига до Земята: в Голямото Магеланово облако, на 168 000 светлинни години,
+            пламва свръхнова, видима с просто око – първата от 1604 г. Неутриното са излетели от колапсиращото ядро веднага, а
+            светлината е трябвало да чака ударната вълна да си пробие път през звездата. За пръв път човечеството „видя“ сърцето на
+            умираща звезда – точно както предсказва теорията за звездната еволюция.
           </p>
-          <div className="bg-blue-50 dark:bg-blue-500/10 p-4 rounded-lg mb-4">
-            <h3 className="font-semibold mb-2">Етапи на формиране:</h3>
-            <ol className="list-decimal list-inside space-y-2">
-              <li><strong>Молекулен облак</strong> – студен газ (10-100 K), плътност увеличава</li>
-              <li><strong>Гравитационно свиване</strong> – облакът колапсира, температурата расте</li>
-              <li><strong>Протозвезда</strong> – центърът се нагрява, но все още няма ядрен синтез</li>
-              <li><strong>Главна последователност</strong> – започва синтез на водород → хелий</li>
-            </ol>
-          </div>
-        </section>
+        </div>
 
         <section className="mb-8">
-          <h2 className="text-xl sm:text-2xl font-semibold mb-4">
-            2. Интерактивна еволюция на звездите
-          </h2>
+          <h2 className="text-xl sm:text-2xl font-semibold mb-4">1. Раждането на звездите</h2>
+          <p className="mb-4 text-base sm:text-lg leading-relaxed">
+            Пространството между звездите не е празно. В гигантските молекулни облаци – като мъглявината Орион – има газ и прах за
+            хиляди звезди. Защо тогава облакът не се свива веднага? Защото молекулите му се движат и газът има налягане. Кой ще
+            победи – налягането или гравитацията?
+          </p>
 
-          {/* Избор на тип звезда */}
-          <div className="flex justify-center gap-4 mb-4">
-            <button
-              onClick={() => { setSelectedPath('solar'); setEvolutionStage(0); }}
-              className={`px-6 py-3 rounded-lg ${selectedPath === 'solar' ? 'bg-yellow-500 text-white' : 'bg-gray-200 dark:bg-gray-700'}`}
-            >
-              ☀️ Звезда като Слънцето (1 M☉)
-            </button>
-            <button
-              onClick={() => { setSelectedPath('massive'); setEvolutionStage(0); }}
-              className={`px-6 py-3 rounded-lg ${selectedPath === 'massive' ? 'bg-blue-500 text-white' : 'bg-gray-200 dark:bg-gray-700'}`}
-            >
-              ⭐ Масивна звезда (&gt;8 M☉)
-            </button>
-          </div>
+          <Theorem
+            title="Критерий на Джинс"
+            description="Облак с температура T и плътност ρ колапсира, ако масата му надвишава масата на Джинс: M_J ≈ (5kT / (Gμm_H))^(3/2) · (3 / (4πρ))^(1/2), където μ ≈ 2,33 е средната маса на частица в единици m_H. Колапсът трае около времето за свободно падане t_ff = √(3π / (32Gρ)) – то не зависи от размера, а само от плътността."
+          />
 
-          <div className="bg-white dark:bg-gray-800 p-4 rounded-lg border-2 border-blue-300 dark:border-blue-600 mb-6">
-            <h3 className="font-semibold mb-3 text-center">
-              {selectedPath === 'solar' ? 'Еволюция на звезда като Слънцето' : 'Еволюция на масивна звезда'}
-            </h3>
+          <Example
+            description="Ядро на молекулен облак има T = 10 K и концентрация n = 10⁴ молекули/cm³. Намерете масата на Джинс и времето за колапс."
+            steps={[
+              'ρ = n · μ · m_H = 10¹⁰ m⁻³ · 2,33 · 1,673 · 10⁻²⁷ kg ≈ 3,9 · 10⁻¹⁷ kg/m³',
+              '5kT / (Gμm_H) = 5 · 1,381 · 10⁻²³ · 10 / (6,674 · 10⁻¹¹ · 2,33 · 1,673 · 10⁻²⁷) ≈ 2,66 · 10¹⁵',
+              'M_J ≈ (2,66 · 10¹⁵)^1,5 · (3 / (4π · 3,9 · 10⁻¹⁷))^0,5 ≈ 1,37 · 10²³ · 7,8 · 10⁷ ≈ 1,1 · 10³¹ kg ≈ 5 M☉',
+              't_ff = √(3π / (32 · 6,674 · 10⁻¹¹ · 3,9 · 10⁻¹⁷)) ≈ 1,1 · 10¹³ s ≈ 340 000 години',
+            ]}
+          />
 
-            <svg viewBox="0 0 650 400" className="w-full h-auto">
-              {/* Фон */}
-              <rect x="0" y="0" width="650" height="400" fill="rgb(10, 10, 30)" />
-              {[...Array(100)].map((_, i) => (
-                <circle
-                  key={i}
-                  cx={Math.random() * 650}
-                  cy={Math.random() * 400}
-                  r={Math.random() * 1.5}
-                  fill="white"
-                  opacity={Math.random() * 0.8 + 0.2}
-                />
-              ))}
+          <JeansLab />
 
-              {/* Път на еволюцията */}
-              {stages.map((stage, i) => {
-                if (i < stages.length - 1) {
-                  return (
-                    <line
-                      key={i}
-                      x1={stage.x}
-                      y1={stage.y}
-                      x2={stages[i + 1].x}
-                      y2={stages[i + 1].y}
-                      stroke="rgb(100, 150, 200)"
-                      strokeWidth="2"
-                      strokeDasharray="5,5"
-                      opacity={i <= evolutionStage ? 0.8 : 0.3}
-                    />
-                  );
-                }
-                return null;
-              })}
-
-              {/* Стадии */}
-              {stages.map((stage, i) => {
-                const isActive = i === evolutionStage;
-                const isPast = i < evolutionStage;
-                const opacity = isActive ? 1 : isPast ? 0.6 : 0.3;
-
-                return (
-                  <g key={i} opacity={opacity}>
-                    {/* Специални ефекти за различните стадии */}
-                    {stage.name === 'Свръхнова' && isActive && (
-                      <>
-                        <circle cx={stage.x} cy={stage.y} r={stage.size * 1.3} fill={stage.color} opacity="0.3">
-                          <animate attributeName="r" values={`${stage.size};${stage.size * 1.5};${stage.size}`} dur="1s" repeatCount="indefinite" />
-                        </circle>
-                        <circle cx={stage.x} cy={stage.y} r={stage.size * 1.6} fill="none" stroke="rgb(255, 255, 100)" strokeWidth="2">
-                          <animate attributeName="r" values={`${stage.size};${stage.size * 2};${stage.size * 2.5}`} dur="1.5s" repeatCount="indefinite" />
-                          <animate attributeName="opacity" values="1;0" dur="1.5s" repeatCount="indefinite" />
-                        </circle>
-                      </>
-                    )}
-
-                    {/* Основно тяло */}
-                    <circle
-                      cx={stage.x}
-                      cy={stage.y}
-                      r={stage.size}
-                      fill={stage.color}
-                      stroke={isActive ? 'white' : 'rgba(255, 255, 255, 0.3)'}
-                      strokeWidth={isActive ? 3 : 1}
-                    >
-                      {isActive && stage.name !== 'Свръхнова' && (
-                        <animate attributeName="opacity" values="0.8;1;0.8" dur="2s" repeatCount="indefinite" />
-                      )}
-                    </circle>
-
-                    {/* Етикет */}
-                    <text
-                      x={stage.x}
-                      y={stage.y + stage.size + 20}
-                      fontSize={isActive ? 13 : 11}
-                      fontWeight={isActive ? 'bold' : 'normal'}
-                      textAnchor="middle"
-                      fill="white"
-                    >
-                      {i + 1}. {stage.name}
-                    </text>
-
-                    {/* Номер на стадия */}
-                    <circle
-                      cx={stage.x}
-                      cy={stage.y - stage.size - 10}
-                      r="12"
-                      fill={isActive ? 'rgb(59, 130, 246)' : 'rgba(100, 100, 100, 0.5)'}
-                    />
-                    <text
-                      x={stage.x}
-                      y={stage.y - stage.size - 6}
-                      fontSize="12"
-                      fontWeight="bold"
-                      textAnchor="middle"
-                      fill="white"
-                    >
-                      {i + 1}
-                    </text>
-                  </g>
-                );
-              })}
-            </svg>
-
-            {/* Контроли */}
-            <div className="mt-4">
-              <label className="block text-sm font-semibold mb-2 text-center">
-                Стадий {evolutionStage + 1} от {stages.length}: {currentStage.name}
-              </label>
-              <input
-                type="range"
-                min="0"
-                max={stages.length - 1}
-                value={evolutionStage}
-                onChange={(e) => setEvolutionStage(Number(e.target.value))}
-                className="w-full"
-              />
-              <div className="flex justify-between text-xs text-gray-600 dark:text-gray-400 mt-1">
-                <span>Начало</span>
-                <span>Край</span>
+          <div className="grid sm:grid-cols-2 gap-3 mb-4">
+            {BIRTH.map(b => (
+              <div key={b.name} className="bg-white dark:bg-gray-800 p-3 rounded-lg shadow-sm">
+                <p className="font-semibold mb-1">
+                  {b.icon} {b.name}
+                </p>
+                <p className="text-sm text-gray-600 dark:text-gray-400">{b.text}</p>
               </div>
-            </div>
-
-            <div className="mt-4 p-4 bg-gray-100/70 dark:bg-gray-800/70 rounded-lg">
-              <h4 className="font-semibold mb-2">{currentStage.name}</h4>
-              {selectedPath === 'solar' && (
-                <>
-                  {evolutionStage === 0 && <p className="text-sm">Студен облак от газ и прах. Гравитацията започва да го свива.</p>}
-                  {evolutionStage === 1 && <p className="text-sm">Центърът се нагрява до милиони градуси, но все още няма ядрен синтез. Светимост от гравитационно свиване.</p>}
-                  {evolutionStage === 2 && <p className="text-sm">Започва синтез H → He. Звездата е стабилна за ~10 милиарда години. Слънцето е тук.</p>}
-                  {evolutionStage === 3 && <p className="text-sm">Водородът в ядрото свършва. Звездата се разширява 100-200 пъти. Изгаря хелий в ядрото.</p>}
-                  {evolutionStage === 4 && <p className="text-sm">Звездата отхвърля външните си слоеве, създавайки красива мъглявина.</p>}
-                  {evolutionStage === 5 && <p className="text-sm">Остава горещото ядро - бяло джудже. Размер на Земята, плътност 1 тон/см³. Бавно се охлажда вечно.</p>}
-                </>
-              )}
-              {selectedPath === 'massive' && (
-                <>
-                  {evolutionStage === 0 && <p className="text-sm">Много по-масивен облак. Свива се по-бързо заради по-силната гравитация.</p>}
-                  {evolutionStage === 1 && <p className="text-sm">Масивна протозвезда. Бързо достига температури за ядрен синтез.</p>}
-                  {evolutionStage === 2 && <p className="text-sm">Гореща синя звезда (O-B клас). Изгаря водород много бързо - само няколко милиона години!</p>}
-                  {evolutionStage === 3 && <p className="text-sm">Огромна звезда (до 1000 R☉). Синтезира тежки елементи: He → C → O → Si → Fe. Желязото не може да се синтезира.</p>}
-                  {evolutionStage === 4 && <p className="text-sm">Катастрофична експлозия! Ядрото колапсира за секунди. Освобождава се енергия като от 10 милиарда слънца!</p>}
-                  {evolutionStage === 5 && <p className="text-sm">Ако M &lt; 3 M☉: неутронна звезда (пулсар). Ако M &gt; 3 M☉: черна дупка. Тежките елементи се разпръскват в космоса.</p>}
-                </>
-              )}
-            </div>
+            ))}
           </div>
         </section>
 
         <section className="mb-8">
-          <h2 className="text-xl sm:text-2xl font-semibold mb-4">
-            3. Живот на главната последователност
-          </h2>
+          <h2 className="text-xl sm:text-2xl font-semibold mb-4">2. Какво поддържа звездата</h2>
           <p className="mb-4 text-base sm:text-lg leading-relaxed">
-            Звездите прекарват 90% от живота си на главната последователност,
-            където синтезират водород в хелий. Продължителността зависи от масата:
+            Свиването спира, когато в центъра стане достатъчно горещо (~10 млн. K) за синтез на водород. Звездата влиза в
+            <strong> хидростатично равновесие</strong>: тежестта на горните слоеве се уравновесява от налягането на горещия газ.
+            Равновесието е като термостат. Ако синтезът се ускори, ядрото се нагрява и разширява, изстива – и синтезът се забавя. Ако
+            се забави, ядрото се свива, нагрява – и синтезът се ускорява.
           </p>
-          <div className="bg-green-50 dark:bg-green-900/20 p-4 rounded-lg mb-4">
-            <ul className="list-disc list-inside space-y-2">
-              <li>Масивни звезди (&gt;8 M☉): няколко милиона години</li>
-              <li>Слънцето (1 M☉): около 10 милиарда години</li>
-              <li>Малки звезди (&lt;0.5 M☉): трилиони години</li>
-            </ul>
-          </div>
 
-          <div className="bg-yellow-50 dark:bg-yellow-900/20 p-4 rounded-lg mb-4">
-            <h3 className="font-semibold mb-2">Формула за живот на звездата:</h3>
-            <p className="text-center text-lg font-mono my-3">t ∝ M / L ∝ M / M³·⁵ ∝ M⁻²·⁵</p>
-            <p className="mt-2">
-              Колкото по-масивна е звездата, толкова по-бързо изгаря горивото си!
-            </p>
-          </div>
+          <Theorem
+            title="Две времеви скали"
+            description="Ако звездата свети само от свиването си, енергията стига за t_KH ≈ GM² / (RL) – време на Келвин–Хелмхолц. Ако свети от превръщане на водород в хелий (освобождава се 0,7% от масата) и се изгаря ~10% от масата, енергията стига за t_яд ≈ 0,1 · 0,007 · Mc² / L – ядрена времева скала."
+          />
+
+          <Example
+            description="Пресметнете двете времеви скали за Слънцето (M = 1,99 · 10³⁰ kg, R = 6,96 · 10⁸ m, L = 3,83 · 10²⁶ W)."
+            steps={[
+              't_KH = 6,674 · 10⁻¹¹ · (1,99 · 10³⁰)² / (6,96 · 10⁸ · 3,83 · 10²⁶) ≈ 9,9 · 10¹⁴ s ≈ 31 млн. години',
+              't_яд = 0,0007 · 1,99 · 10³⁰ · (3 · 10⁸)² / 3,83 · 10²⁶ ≈ 3,3 · 10¹⁷ s ≈ 10 млрд. години',
+              'Земята е на 4,5 млрд. години. През XIX в. лорд Келвин спори с геолозите и Дарвин, че Слънцето е само на десетки милиони години. Правото е било на геолозите – енергията идва от атомното ядро, за което Келвин не е знаел.',
+            ]}
+          />
         </section>
 
         <section className="mb-8">
-          <h2 className="text-xl sm:text-2xl font-semibold mb-4">
-            4. Еволюция на звезди като Слънцето (0.5-8 M☉)
-          </h2>
-          <div className="bg-yellow-50 dark:bg-yellow-900/20 p-4 rounded-lg mb-4">
-            <ol className="list-decimal list-inside space-y-3">
-              <li>
-                <strong>Главна последователност</strong> (10 млрд. години) – синтез H → He в ядрото
-              </li>
-              <li>
-                <strong>Червен гигант</strong> – водородът в ядрото свършва, звездата се разширява.
-                Изгаря хелий (He → C, O)
-              </li>
-              <li>
-                <strong>Планетарна мъглявина</strong> – отхвърля външни слоеве, създава красива мъглявина
-              </li>
-              <li>
-                <strong>Бяло джудже</strong> – остава горещото ядро (C, O). Охлажда се вечно,
-                няма ядрен синтез
-              </li>
-            </ol>
-          </div>
+          <h2 className="text-xl sm:text-2xl font-semibold mb-4">3. Животът след главната последователност</h2>
+          <p className="mb-4 text-base sm:text-lg leading-relaxed">
+            Когато водородът в ядрото свърши, синтезът продължава в тънък слой около хелиевото ядро. Ядрото без синтез се свива и
+            нагрява, а – колкото и странно да е – обвивката се раздува и изстива. Звездата се превръща в червен гигант. Ето как
+            изглеждат пътищата на звезди с различни маси в диаграмата на Херцшпрунг–Ръсел:
+          </p>
+
+          <EvolutionTrack />
+
+          <Theorem
+            type="definition"
+            title="Изродено вещество и хелиев проблясък"
+            description="В ядрото на червения гигант електроните са натъпкани толкова плътно, че квантовата механика (принципът на Паули) им забранява да се сближат повече. Налягането им зависи от плътността, а не от температурата – това е изродено вещество. Когато при ~100 млн. K хелият се запали, ядрото се нагрява, но не се разширява и не се охлажда – термостатът не работи. За няколко минути синтезът избухва с мощност колкото на цяла галактика (хелиев проблясък), но цялата енергия остава в звездата."
+          />
+
+          <p className="mb-4 text-base sm:text-lg leading-relaxed">
+            Накрая звездата изхвърля външните си слоеве. Оголеното ядро – бъдещо бяло джудже с температура над 100 000 K – ги осветява
+            с ултравиолетово лъчение и те светят като <strong>планетарна мъглявина</strong> (името е историческо – с планети няма
+            нищо общо). Мъглявините Пръстен в Лира, Котешко око и Охлюв са сред най-красивите обекти, заснети от Хъбъл и JWST. Те
+            живеят само ~20 000 години – миг в живота на звездата.
+          </p>
         </section>
 
         <section className="mb-8">
-          <h2 className="text-xl sm:text-2xl font-semibold mb-4">
-            5. Еволюция на масивни звезди (&gt;8 M☉)
-          </h2>
-          <div className="bg-red-50 dark:bg-red-900/20 p-4 rounded-lg mb-4">
-            <ol className="list-decimal list-inside space-y-3">
-              <li>
-                <strong>Главна последователност</strong> (няколко милиона години) – горещи сини звезди
-              </li>
-              <li>
-                <strong>Червен/Син свръхгигант</strong> – огромни размери (до 1000 R☉)
-              </li>
-              <li>
-                <strong>Синтез на тежки елементи</strong> – He → C → O → Ne → Si → Fe (като лукови слоеве)
-              </li>
-              <li>
-                <strong>Свръхнова експлозия</strong> – ядрото колапсира, външните слоеве експлодират
-              </li>
-              <li>
-                <strong>Неутронна звезда</strong> (1.4-3 M☉) или <strong>Черна дупка</strong> (&gt;3 M☉)
-              </li>
-            </ol>
-          </div>
+          <h2 className="text-xl sm:text-2xl font-semibold mb-4">4. Масивните звезди и свръхновите</h2>
+          <p className="mb-4 text-base sm:text-lg leading-relaxed">
+            При звезди над ~8 M☉ ядрото е толкова горещо, че след хелия горят въглерод, неон, кислород и силиций. Звездата заприличва на
+            лук – с концентрични слоеве, във всеки от които гори различно гориво. Всяка следваща фаза е по-кратка от предишната.
+          </p>
 
-          <div className="bg-purple-50 dark:bg-purple-900/20 p-4 rounded-lg mb-4">
-            <h3 className="font-semibold mb-2">⚠️ Защо желязото е краят?</h3>
-            <p>
-              Синтезът на елементи до желязо <strong>освобождава</strong> енергия.
-              Синтезът на по-тежки елементи от желязо <strong>изисква</strong> енергия.
-              Когато ядрото стане желязо, ядреният синтез спира, подкрепата срещу
-              гравитацията изчезва и ядрото колапсира за по-малко от секунда!
-            </p>
-          </div>
-        </section>
+          <OnionLab />
 
-        <section className="mb-8">
-          <h2 className="text-xl sm:text-2xl font-semibold mb-4">
-            6. Сравнение на еволюционните пътища
-          </h2>
+          <Example
+            description="При колапса желязно ядро от 1,4 M☉ (2,8 · 10³⁰ kg) се свива до неутронна звезда с радиус 10 km. Оценете освободената енергия."
+            steps={[
+              'E ≈ GM² / R = 6,674 · 10⁻¹¹ · (2,8 · 10³⁰)² / 10⁴ ≈ 5 · 10⁴⁶ J',
+              'Това е колкото Слънцето излъчва за ~4 · 10¹² години – стотици пъти възрастта на Вселената, – освободено за секунда.',
+              '~99% отлитат като неутрино, ~1% стават кинетична енергия на изхвърлената обвивка, а светлината на свръхновата е едва ~0,01%. И пак за седмици тя свети колкото цяла галактика.',
+            ]}
+          />
 
-          <div className="bg-white dark:bg-gray-800 p-4 rounded-lg border-2 border-green-300 dark:border-green-600 mb-6">
-            <svg viewBox="0 0 700 300" className="w-full h-auto">
-              <text x="350" y="25" fontSize="16" fontWeight="bold" textAnchor="middle" fill="currentColor">
-                Сравнение на еволюцията
-              </text>
-
-              {/* Звезда като Слънцето */}
-              <g>
-                <text x="150" y="60" fontSize="14" fontWeight="bold" fill="rgb(255, 255, 150)">
-                  Звезда като Слънцето
-                </text>
-                <circle cx="150" cy="100" r="20" fill="rgb(255, 255, 150)" />
-                <text x="150" y="130" fontSize="11" textAnchor="middle" fill="currentColor">10 млрд. г</text>
-                <line x1="150" y1="140" x2="150" y2="180" stroke="currentColor" strokeWidth="2" markerEnd="url(#arrow1)" />
-                <circle cx="150" cy="210" r="35" fill="rgb(255, 100, 50)" />
-                <text x="150" y="255" fontSize="11" textAnchor="middle" fill="currentColor">Червен гигант</text>
-                <line x1="150" y1="265" x2="150" y2="290" stroke="currentColor" strokeWidth="2" markerEnd="url(#arrow1)" />
-                <circle cx="150" cy="295" r="8" fill="rgb(200, 220, 255)" />
-                <text x="210" y="300" fontSize="11" fill="currentColor">Бяло джудже</text>
-              </g>
-
-              {/* Масивна звезда */}
-              <g transform="translate(350, 0)">
-                <text x="150" y="60" fontSize="14" fontWeight="bold" fill="rgb(150, 200, 255)">
-                  Масивна звезда
-                </text>
-                <circle cx="150" cy="100" r="25" fill="rgb(150, 200, 255)" />
-                <text x="150" y="135" fontSize="11" textAnchor="middle" fill="currentColor">5 млн. г</text>
-                <line x1="150" y1="145" x2="150" y2="170" stroke="currentColor" strokeWidth="2" markerEnd="url(#arrow2)" />
-                <circle cx="150" cy="200" r="45" fill="rgb(255, 50, 50)" />
-                <text x="150" y="255" fontSize="11" textAnchor="middle" fill="currentColor">Свръхгигант</text>
-                <line x1="150" y1="265" x2="150" y2="285" stroke="currentColor" strokeWidth="2" markerEnd="url(#arrow2)" />
-
-                {/* Свръхнова */}
-                <circle cx="150" cy="295" r="20" fill="rgb(255, 255, 100)">
-                  <animate attributeName="opacity" values="1;0.3;1" dur="1s" repeatCount="indefinite" />
-                </circle>
-                <text x="210" y="300" fontSize="11" fill="currentColor">Свръхнова</text>
-              </g>
-
-              <defs>
-                <marker id="arrow1" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto">
-                  <polygon points="0 0, 10 5, 0 10" fill="currentColor" />
-                </marker>
-                <marker id="arrow2" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto">
-                  <polygon points="0 0, 10 5, 0 10" fill="currentColor" />
-                </marker>
-              </defs>
-            </svg>
-          </div>
-
-          <div className="bg-blue-50 dark:bg-blue-500/10 p-4 rounded-lg mb-4">
-            <h3 className="font-semibold mb-2">Ключови разлики:</h3>
-            <table className="w-full text-sm mt-2">
+          <div className="overflow-x-auto mb-4">
+            <table className="w-full text-sm">
               <thead>
-                <tr className="border-b border-gray-300 dark:border-gray-600">
-                  <th className="text-left py-2">Характеристика</th>
-                  <th className="text-center py-2">Слънчев тип</th>
-                  <th className="text-center py-2">Масивна</th>
+                <tr className="border-b border-gray-300 dark:border-gray-600 text-gray-600 dark:text-gray-400">
+                  <th className="text-left py-2 pr-2">Начална маса</th>
+                  <th className="text-left py-2 px-2">Край</th>
+                  <th className="text-left py-2 pl-2">Как</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td className="py-1">Маса</td>
-                  <td className="text-center">0.5-8 M☉</td>
-                  <td className="text-center">&gt;8 M☉</td>
-                </tr>
-                <tr>
-                  <td className="py-1">Живот</td>
-                  <td className="text-center">Милиарди години</td>
-                  <td className="text-center">Милиони години</td>
-                </tr>
-                <tr>
-                  <td className="py-1">Краен стадий</td>
-                  <td className="text-center">Бяло джудже</td>
-                  <td className="text-center">Неутронна звезда/Черна дупка</td>
-                </tr>
-                <tr>
-                  <td className="py-1">Експлозия</td>
-                  <td className="text-center">Не</td>
-                  <td className="text-center">Да (свръхнова)</td>
-                </tr>
+                {FATES.map(f => (
+                  <tr key={f.mass} className="border-b border-gray-200 dark:border-gray-700">
+                    <td className="py-1 pr-2 whitespace-nowrap font-semibold">{f.mass}</td>
+                    <td className="py-1 px-2">{f.fate}</td>
+                    <td className="py-1 pl-2 text-gray-600 dark:text-gray-400">{f.text}</td>
+                  </tr>
+                ))}
               </tbody>
             </table>
           </div>
+          <p className="mb-4 text-base sm:text-lg leading-relaxed">
+            Границите са приблизителни – зависят от състава, въртенето и от това дали звездата е в двойна система. Какво точно
+            представляват белите джуджета, неутронните звезди и черните дупки, ще видим в Лекция 21.
+          </p>
         </section>
 
         <section className="mb-8">
-          <h2 className="text-xl sm:text-2xl font-semibold mb-4">
-            📝 Задачи за упражнение
-          </h2>
+          <h2 className="text-xl sm:text-2xl font-semibold mb-4">5. Ние сме звезден прах</h2>
+          <p className="mb-4 text-base sm:text-lg leading-relaxed">
+            След Големия взрив във Вселената е имало само водород, хелий и малко литий. Всичко останало – въглеродът в клетките ни,
+            кислородът, който дишаме, желязото в кръвта ни – е създадено в звезди и разпръснато в пространството от звездни ветрове и
+            експлозии. От обогатения газ се раждат нови звезди и планети. Слънцето е звезда поне от трето поколение: то съдържа ~1,4%
+            тежки елементи, а най-старите звезди в Галактиката – стотици пъти по-малко.
+          </p>
 
-          {/* Ниво А */}
+          <CosmicOrigins />
+        </section>
+
+        <section className="mb-8">
+          <h2 className="text-xl sm:text-2xl font-semibold mb-4">6. ✅ Провери се</h2>
+          <Quiz questions={QUIZ} />
+        </section>
+
+        <section className="mb-8">
+          <h2 className="text-xl sm:text-2xl font-semibold mb-4">7. 📝 Задачи за упражнение</h2>
+
           <div className="mb-6">
-            <h3 className="text-lg font-semibold mb-3 text-green-600 dark:text-green-400">
-              Ниво А (Областен кръг)
-            </h3>
+            <h3 className="text-lg font-semibold mb-3 text-green-600 dark:text-green-400">Ниво А (Областен кръг)</h3>
 
-            <div className="bg-white dark:bg-gray-800 p-4 rounded-lg mb-4 border-l-4 border-green-500">
-              <p className="font-semibold mb-2">1. Колко процента от живота си звездата прекарва на главната последователност?</p>
-              <button
-                onClick={() => toggleSolution('a1')}
-                className="text-blue-600 dark:text-blue-400 hover:underline text-sm"
-              >
-                {showSolutions['a1'] ? '▼ Скрий решението' : '▶ Покажи решението'}
-              </button>
-              {showSolutions['a1'] && (
-                <div className="mt-3 p-3 bg-blue-50 dark:bg-blue-900/20 rounded">
-                  <p className="font-semibold">Отговор: Около 90%</p>
-                  <p className="mt-2">Обяснение: Главната последователност е най-дългият и
-                  стабилен етап от живота на звездата, където тя синтезира водород в хелий.
-                  Всички останали етапи (гигант, свръхгигант и др.) са относително кратки.</p>
-                </div>
-              )}
-            </div>
+            <Task {...task('a1')} number={1} color="border-green-500" question="Каква част от живота си звездата прекарва на главната последователност и защо?">
+              <p>
+                <strong>Около 90%.</strong> Водородът е най-изобилното и най-„енергийното“ гориво: превръщането му в хелий освобождава
+                0,7% от масата, а всички следващи реакции заедно – още само ~0,1%. Освен това в по-късните фази звездите светят много
+                по-силно и харчат горивото си бързо.
+              </p>
+            </Task>
 
-            <div className="bg-white dark:bg-gray-800 p-4 rounded-lg mb-4 border-l-4 border-green-500">
-              <p className="font-semibold mb-2">2. Какво остава след смъртта на звезда като Слънцето?</p>
-              <button
-                onClick={() => toggleSolution('a2')}
-                className="text-blue-600 dark:text-blue-400 hover:underline text-sm"
-              >
-                {showSolutions['a2'] ? '▼ Скрий решението' : '▶ Покажи решението'}
-              </button>
-              {showSolutions['a2'] && (
-                <div className="mt-3 p-3 bg-blue-50 dark:bg-blue-900/20 rounded">
-                  <p className="font-semibold">Отговор: Бяло джудже</p>
-                  <p className="mt-2">Обяснение: След фазата на червен гигант, звездата отхвърля
-                  външните си слоеве (планетарна мъглявина) и остава горещото ядро - бяло джудже.
-                  То е с размер на Земята, но с маса около половината от Слънцето.</p>
-                </div>
-              )}
-            </div>
+            <Task {...task('a2')} number={2} color="border-green-500" question="Какво ще остане от Слънцето накрая?">
+              <p>
+                <strong>Бяло джудже</strong> от въглерод и кислород, с маса ~0,55 M☉ и размер колкото Земята. Преди това Слънцето ще
+                стане червен гигант, ще изхвърли обвивката си като планетарна мъглявина и ще изгуби почти половината си маса. За
+                свръхнова масата му е твърде малка.
+              </p>
+            </Task>
+
+            <Task {...task('a3')} number={3} color="border-green-500" question="Какво спира свиването на протозвездата и я превръща в звезда?">
+              <p>
+                Докато се свива, протозвездата се нагрява. Когато температурата в центъра стигне ~10 млн. K, започва синтезът на
+                водород в хелий. Енергията му поддържа налягането на газа, което уравновесява гравитацията. Звездата е на главната
+                последователност.
+              </p>
+            </Task>
           </div>
 
-          {/* Ниво В */}
           <div className="mb-6">
-            <h3 className="text-lg font-semibold mb-3 text-yellow-600 dark:text-yellow-400">
-              Ниво В (Национален кръг)
-            </h3>
+            <h3 className="text-lg font-semibold mb-3 text-yellow-600 dark:text-yellow-400">Ниво В (Национален кръг)</h3>
 
-            <div className="bg-white dark:bg-gray-800 p-4 rounded-lg mb-4 border-l-4 border-yellow-500">
-              <p className="font-semibold mb-2">3. Звезда с маса 10 M☉ живее около 20 милиона години.
-              Приблизително колко ще живее звезда с маса 2 M☉? (t ∝ M⁻²·⁵)</p>
-              <button
-                onClick={() => toggleSolution('b3')}
-                className="text-blue-600 dark:text-blue-400 hover:underline text-sm"
-              >
-                {showSolutions['b3'] ? '▼ Скрий решението' : '▶ Покажи решението'}
-              </button>
-              {showSolutions['b3'] && (
-                <div className="mt-3 p-3 bg-blue-50 dark:bg-blue-900/20 rounded">
-                  <p className="font-semibold">Решение:</p>
-                  <p className="mt-2">t ∝ M⁻²·⁵, следователно: t₁ / t₂ = (M₂ / M₁)²·⁵</p>
-                  <p className="mt-2">t₂ / 20 млн. = (10 / 2)²·⁵ = 5²·⁵</p>
-                  <p>5²·⁵ = 5² × 5⁰·⁵ = 25 × √5 ≈ 25 × 2.236 ≈ 55.9</p>
-                  <p className="mt-2">t₂ = 20 млн. × 55.9 ≈ 1118 млн. години ≈ 1.1 млрд. години</p>
-                  <p className="mt-2"><strong>Отговор: около 1.1 милиарда години</strong></p>
-                  <p className="mt-2 text-sm">Звезда с 5 пъти по-малка маса живее около 56 пъти по-дълго!</p>
-                </div>
-              )}
-            </div>
+            <Task {...task('b1')} number={4} color="border-yellow-500" question="Звезда с маса 10 M☉ живее около 20 млн. години. Колко ще живее звезда с маса 2 M☉, ако t ∝ M^(−2,5)?">
+              <p>t₂ / t₁ = (M₂ / M₁)^(−2,5) = (2 / 10)^(−2,5) = 5^2,5 = 25 · √5 ≈ 56</p>
+              <p>t₂ ≈ 20 млн. · 56 ≈ 1,1 млрд. години</p>
+              <p>Пет пъти по-малка маса – 56 пъти по-дълъг живот.</p>
+            </Task>
 
-            <div className="bg-white dark:bg-gray-800 p-4 rounded-lg mb-4 border-l-4 border-yellow-500">
-              <p className="font-semibold mb-2">4. Защо масивните звезди завършват като свръхнови,
-              а звездите като Слънцето - не?</p>
-              <button
-                onClick={() => toggleSolution('b4')}
-                className="text-blue-600 dark:text-blue-400 hover:underline text-sm"
-              >
-                {showSolutions['b4'] ? '▼ Скрий решението' : '▶ Покажи решението'}
-              </button>
-              {showSolutions['b4'] && (
-                <div className="mt-3 p-3 bg-blue-50 dark:bg-blue-900/20 rounded">
-                  <p className="font-semibold">Решение:</p>
-                  <p className="mt-2">Разликата е в масата на ядрото:</p>
-                  <p className="mt-2"><strong>Звезди като Слънцето:</strong> Ядрото не е достатъчно
-                  масивно, за да достигне температурите, необходими за синтез на елементи по-тежки
-                  от въглерод и кислород. Звездата бавно губи външни слоеве.</p>
-                  <p className="mt-2"><strong>Масивни звезди:</strong> Ядрото е достатъчно масивно
-                  и горещо, за да синтезира елементи до желязо. Когато се образува желязно ядро,
-                  синтезът спира. Без енергия от синтеза, ядрото колапсира катастрофално за &lt;1
-                  секунда, причинявайки свръхнова експлозия.</p>
-                </div>
-              )}
-            </div>
+            <Task {...task('b2')} number={5} color="border-yellow-500" question="Като червен гигант Слънцето ще достигне L ≈ 2600 L☉ и R ≈ 200 R☉. Каква ще е температурата на повърхността му? Ако Земята оцелее на 1,5 AU (орбитата ѝ се разширява, когато Слънцето губи маса), каква ще е равновесната ѝ температура (T ≈ 279 K · L^(1/4) / √d при албедо 0)?">
+              <p>T = 5772 · (L / R²)^(1/4) = 5772 · (2600 / 40 000)^(1/4) = 5772 · 0,505 ≈ 2900 K</p>
+              <p>T_Земя ≈ 279 · 2600^(1/4) / √1,5 ≈ 279 · 7,14 / 1,22 ≈ 1600 K</p>
+              <p>
+                Над точката на топене на повечето скали (~1400 K). Дори да не бъде погълната, Земята ще стане свят от разтопена
+                лава. Океаните обаче ще изчезнат много преди това – след около милиард години, докато Слънцето още е на главната
+                последователност.
+              </p>
+            </Task>
+
+            <Task {...task('b3')} number={6} color="border-yellow-500" question="Защо масивните звезди завършват като свръхнови, а звездите като Слънцето – не?">
+              <p>
+                <strong>Звезди като Слънцето:</strong> ядрото им никога не става достатъчно горещо за горене на въглерод. Изроденото
+                въглеродно-кислородно ядро е под 1,4 M☉ и налягането на електроните го удържа. Звездата спокойно изхвърля обвивката си.
+              </p>
+              <p>
+                <strong>Масивни звезди:</strong> ядрото им стига до горене на силиций и се образува желязо. Синтезът на желязо не
+                освобождава енергия. Желязното ядро расте, надхвърля ~1,4 M☉ и колапсира за по-малко от секунда – свръхнова.
+              </p>
+            </Task>
           </div>
 
-          {/* Ниво С */}
           <div className="mb-6">
-            <h3 className="text-lg font-semibold mb-3 text-red-600 dark:text-red-400">
-              Ниво С (Международна олимпиада)
-            </h3>
+            <h3 className="text-lg font-semibold mb-3 text-red-600 dark:text-red-400">Ниво С (Международна олимпиада)</h3>
 
-            <div className="bg-white dark:bg-gray-800 p-4 rounded-lg mb-4 border-l-4 border-red-500">
-              <p className="font-semibold mb-2">5. Обясни защо всички тежки елементи във Вселената
-              (включително в нашите тела) са били създадени в звезди. Кои елементи се създават
-              в нормални звезди и кои - при свръхнови?</p>
-              <button
-                onClick={() => toggleSolution('c5')}
-                className="text-blue-600 dark:text-blue-400 hover:underline text-sm"
-              >
-                {showSolutions['c5'] ? '▼ Скрий решението' : '▶ Покажи решението'}
-              </button>
-              {showSolutions['c5'] && (
-                <div className="mt-3 p-3 bg-blue-50 dark:bg-blue-900/20 rounded">
-                  <p className="font-semibold">Решение:</p>
-                  <p className="mt-2">След Големия взрив Вселената е съдържала само водород,
-                  хелий и малко литий. Всички по-тежки елементи са създадени в звезди.</p>
+            <Task
+              {...task('c1')}
+              number={7}
+              color="border-red-500"
+              question="Каква е масата на Джинс и времето за колапс в облак с T = 20 K и n = 10³ cm⁻³? Използвайте, че при T = 10 K и n = 10⁴ cm⁻³ M_J ≈ 5 M☉ и t_ff ≈ 340 000 години."
+            >
+              <p>M_J ∝ T^(3/2) · ρ^(−1/2); t_ff ∝ ρ^(−1/2)</p>
+              <p>M_J = 5 · 2^1,5 · 10^0,5 ≈ 5 · 2,83 · 3,16 ≈ 45 M☉</p>
+              <p>t_ff = 340 000 · √10 ≈ 1,1 млн. години</p>
+              <p>
+                По-топлите и по-редки облаци трудно се свиват и раждат по-масивни сгъстявания. Затова звездите се образуват в най-студените
+                и плътни части на облаците.
+              </p>
+            </Task>
 
-                  <p className="mt-3"><strong>В нормални звезди (ядрен синтез):</strong></p>
-                  <ul className="list-disc list-inside mt-1 space-y-1">
-                    <li>Главна последователност: H → He</li>
-                    <li>Червени гиганти: He → C, O</li>
-                    <li>Масивни звезди: C → Ne → Mg → Si → Fe</li>
-                  </ul>
+            <Task
+              {...task('c2')}
+              number={8}
+              color="border-red-500"
+              question="Масата на атома на водорода е 1,007825 u, а на хелия – 4,002603 u. Каква част от масата се превръща в енергия при синтеза 4H → He? Колко би живяло Слънцето, ако светеше от горене на въглища (3 · 10⁷ J/kg)?"
+            >
+              <p>Δm = 4 · 1,007825 − 4,002603 = 0,028697 u ⇒ Δm / m = 0,028697 / 4,0313 ≈ 0,71%</p>
+              <p>
+                Въглища: t = M · q / L = 1,99 · 10³⁰ · 3 · 10⁷ / 3,83 · 10²⁶ ≈ 1,6 · 10¹¹ s ≈ <strong>5000 години</strong> – колкото е
+                писаната история на човечеството.
+              </p>
+              <p>
+                Ядреният синтез е ~10⁷ пъти по-ефективен от химичното горене: от 1 kg водород се получават 6 · 10¹⁴ J, от 1 kg въглища –
+                3 · 10⁷ J.
+              </p>
+            </Task>
 
-                  <p className="mt-3"><strong>При свръхнови (r-процес и s-процес):</strong></p>
-                  <ul className="list-disc list-inside mt-1 space-y-1">
-                    <li>Елементи по-тежки от желязо (Cu, Zn, Au, Pb, U и др.)</li>
-                    <li>Огромната енергия позволява синтез на тежки ядра</li>
-                  </ul>
-
-                  <p className="mt-3"><strong>Заключение:</strong> Ние сме буквално направени от
-                  звезден прах! Въглеродът в телата ни, кислородът, който дишаме, калцият в
-                  костите ни, желязото в кръвта ни - всички са били създадени в ядрата на звезди,
-                  които са живели и умрели преди милиарди години. Златото и другите тежки метали
-                  са създадени при свръхнови експлозии.</p>
-
-                  <p className="mt-3 font-semibold">Карл Сейгън е казал: "Ние сме начин на космоса
-                  да познае себе си."</p>
-                </div>
-              )}
-            </div>
+            <Task
+              {...task('c3')}
+              number={9}
+              color="border-red-500"
+              question="Свръхновата SN 1987A е на 51,4 kpc. При колапса са излъчени ~3 · 10⁴⁶ J в неутрино със средна енергия 15 MeV. Колко неутрино са минали през всеки квадратен сантиметър на Земята? През тялото ви (площ ~0,5 m²)?"
+            >
+              <p>Брой неутрино: N = 3 · 10⁴⁶ / (15 · 1,602 · 10⁻¹³ J) ≈ 1,25 · 10⁵⁸</p>
+              <p>d = 51,4 · 10³ · 3,086 · 10¹⁶ m ≈ 1,59 · 10²¹ m ⇒ 4πd² ≈ 3,2 · 10⁴³ m²</p>
+              <p>На 1 m²: 1,25 · 10⁵⁸ / 3,2 · 10⁴³ ≈ 4 · 10¹⁴ ⇒ на 1 cm²: ~4 · 10¹⁰</p>
+              <p>
+                През тялото на всеки човек тогава са минали ~2 · 10¹⁴ неутрино от свръхновата – и почти никой не е взаимодействал с
+                него. Затова огромните детектори с хиляди тонове вода са уловили само 25.
+              </p>
+            </Task>
           </div>
         </section>
 
         <section className="mb-8">
-          <h2 className="text-xl sm:text-2xl font-semibold mb-4">
-            Обобщение
-          </h2>
-          <div className="bg-gradient-to-r from-yellow-50 to-red-50 dark:from-gray-800 dark:to-gray-700 p-6 rounded-lg">
+          <h2 className="text-xl sm:text-2xl font-semibold mb-4">8. Обобщение</h2>
+          <div className="bg-gradient-to-r from-orange-50 to-violet-50 dark:from-gray-800 dark:to-gray-700 p-6 rounded-lg">
             <ul className="space-y-2">
-              <li>✓ Звездите се раждат в молекулни облаци</li>
-              <li>✓ 90% от живота - на главната последователност</li>
-              <li>✓ Живот ∝ M⁻²·⁵ (по-масивни = по-кратък живот)</li>
-              <li>✓ Звезди &lt;8 M☉ → бели джуджета</li>
-              <li>✓ Звезди &gt;8 M☉ → свръхнова → неутронна звезда/черна дупка</li>
-              <li>✓ Всички тежки елементи са създадени в звезди</li>
+              <li>✓ Звездите се раждат в студени молекулни облаци, по-масивни от масата на Джинс; колапсът трае ~t_ff</li>
+              <li>✓ Синтезът (t_яд ~ 10¹⁰ г.), а не свиването (t_KH ~ 3 · 10⁷ г.), захранва Слънцето</li>
+              <li>✓ ~90% от живота – на главната последователност; после червен гигант (ядрото се свива, обвивката се раздува)</li>
+              <li>✓ Звезди до ~8 M☉: червен гигант → планетарна мъглявина → бяло джудже</li>
+              <li>✓ Масивни звезди: H → He → C → Ne → O → Si → Fe, все по-кратко; желязото е краят</li>
+              <li>✓ Колапс на ядрото → свръхнова тип II (99% от енергията в неутрино) → неутронна звезда или черна дупка</li>
+              <li>✓ Тежките елементи са създадени в звезди, свръхнови и сливания на неутронни звезди – ние сме звезден прах</li>
             </ul>
           </div>
         </section>
@@ -580,12 +392,10 @@ export default function Lecture20() {
               <span>Интересен факт</span>
             </h3>
             <p>
-              Всички тежки елементи във Вселената (включително тези в нашите тела)
-              са били създадени в ядрата на звезди или при свръхнови експлозии.
-              Ние сме буквално направени от звезден прах! Атомите в лявата ви ръка
-              вероятно идват от различна звезда от тези в дясната ви ръка. Свръхновите
-              не само създават тежки елементи, но и ги разпръскват в космоса, давайки
-              материал за нови звезди, планети и живот!
+              Бетелгейзе е червен свръхгигант и ще избухне като свръхнова – може би утре, може би след 100 000 години. От 168 pc тя ще
+              свети колкото полумесеца, ще се вижда денем и ще хвърля сенки нощем в продължение на седмици. За нас е напълно
+              безопасна: опасно близки са свръхновите на под ~15 pc. А неутриното от нея ще пристигнат часове преди светлината – и
+              детекторите по света ще предупредят астрономите да насочат телескопите си.
             </p>
           </div>
         </section>
