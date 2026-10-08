@@ -1,9 +1,9 @@
 import {Menu, X} from 'lucide-react';
 import {useEffect, useState} from 'react';
 import {Navigate, Route, Routes} from 'react-router-dom';
-import {Circle, Quadrangle, Similarity, Triangle, Trigonometry} from '~/geometry';
+import {Circle, Quadrangle, Similarity, Triangle, Trigonometry, Vectors} from '~/geometry';
 import SidebarMenu from '~/SidebarMenu';
-import {Inequalities, LinearEquations, QuadraticEquations, SystemsOfEquations} from './algebra';
+import {Fractions, Inequalities, LinearEquations, Logarithms, Powers, QuadraticEquations, Sequences, SystemsOfEquations} from './algebra';
 import {
   Lecture01, Lecture02, Lecture03, Lecture04, Lecture05,
   Lecture06, Lecture07, Lecture08, Lecture09, Lecture10,
@@ -18,6 +18,7 @@ import {
   LinearFunctions,
   QuadraticFunctions,
 } from './functions';
+import {Probability} from './probability';
 
 function App() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -47,10 +48,14 @@ function App() {
         <Routes>
           <Route path="/" element={<Navigate to="/algebra/linear" replace />} />
           <Route path="algebra">
+            <Route path="fractions" element={<Fractions />} />
+            <Route path="powers" element={<Powers />} />
+            <Route path="logarithms" element={<Logarithms />} />
             <Route path="linear" element={<LinearEquations />} />
             <Route path="quadratic" element={<QuadraticEquations />} />
             <Route path="systems" element={<SystemsOfEquations />} />
             <Route path="inequalities" element={<Inequalities />} />
+            <Route path="sequences" element={<Sequences />} />
           </Route>
           <Route path="functions">
             <Route path="linear" element={<LinearFunctions />} />
@@ -61,8 +66,12 @@ function App() {
             <Route path="triangle" element={<Triangle />} />
             <Route path="similar" element={<Similarity />} />
             <Route path="trigonometry" element={<Trigonometry />} />
+            <Route path="vectors" element={<Vectors />} />
             <Route path="quadrilateral" element={<Quadrangle />} />
             <Route path="circle" element={<Circle />} />
+          </Route>
+          <Route path="probability">
+            <Route path="basics" element={<Probability />} />
           </Route>
           <Route path="astronomy">
             <Route path="lecture01" element={<Lecture01 />} />

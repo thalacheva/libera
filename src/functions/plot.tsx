@@ -242,6 +242,35 @@ export function PlotPolyline({ points, tone = 'blue', width = 3 }: { points: Poi
   return <polyline points={d} fill="none" className={tones[tone].stroke} strokeWidth={width} strokeLinecap="round" strokeLinejoin="round" />;
 }
 
+/** Стрелка (вектор) от p до q с връх в пиксели – еднакъв при всеки мащаб. */
+export function PlotArrow({ p, q, tone = 'blue', width = 3, dashed = false }: { p: Point; q: Point; tone?: Tone; width?: number; dashed?: boolean }) {
+  const { toSvg } = useFrame();
+  const a = toSvg(p);
+  const b = toSvg(q);
+  const len = Math.hypot(b.x - a.x, b.y - a.y);
+  if (len < 1) return null;
+  const u = { x: (b.x - a.x) / len, y: (b.y - a.y) / len };
+  const head = Math.min(14, len * 0.6);
+  // Линията свършва в основата на върха, за да не стърчи през него
+  const base = { x: b.x - u.x * head, y: b.y - u.y * head };
+  const side = { x: -u.y * head * 0.45, y: u.x * head * 0.45 };
+  return (
+    <g>
+      <line
+        x1={a.x}
+        y1={a.y}
+        x2={base.x}
+        y2={base.y}
+        className={tones[tone].stroke}
+        strokeWidth={width}
+        strokeDasharray={dashed ? '6 5' : undefined}
+        strokeLinecap="round"
+      />
+      <polygon points={`${b.x},${b.y} ${base.x + side.x},${base.y + side.y} ${base.x - side.x},${base.y - side.y}`} className={tones[tone].fill} />
+    </g>
+  );
+}
+
 /** Вертикална права x = c през цялата графика (напр. ос на симетрия). */
 export function VLine({ x: c, tone = 'gray', dashed = true }: { x: number; tone?: Tone; dashed?: boolean }) {
   const { y } = useFrame();

@@ -7,10 +7,14 @@ const mathTopics = [
     name: 'Алгебра',
     path: '/algebra',
     subtopics: [
+      { name: 'Дроби и проценти', path: '/fractions' },
+      { name: 'Степени и корени', path: '/powers' },
+      { name: 'Логаритми', path: '/logarithms' },
       { name: 'Линейни уравнения', path: '/linear' },
       { name: 'Квадратни уравнения', path: '/quadratic' },
       { name: 'Системи уравнения', path: '/systems' },
       { name: 'Неравенства', path: '/inequalities' },
+      { name: 'Прогресии', path: '/sequences' },
     ],
   },
   {
@@ -29,8 +33,16 @@ const mathTopics = [
       { name: 'Триъгълник', path: '/triangle' },
       { name: 'Подобни триъгълници', path: '/similar' },
       { name: 'Тригонометрия', path: '/trigonometry' },
+      { name: 'Вектори', path: '/vectors' },
       { name: 'Четириъгълник', path: '/quadrilateral' },
       { name: 'Окръжност и кръг', path: '/circle' },
+    ],
+  },
+  {
+    name: 'Вероятности',
+    path: '/probability',
+    subtopics: [
+      { name: 'Вероятности и статистика', path: '/basics' },
     ],
   },
 ];
