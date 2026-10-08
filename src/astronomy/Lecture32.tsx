@@ -5,7 +5,7 @@ import CCDNoiseLab from './components/CCDNoiseLab';
 import GWChirpLab from './components/GWChirpLab';
 import MultiwavelengthLab from './components/MultiwavelengthLab';
 import SeeingAOLab from './components/SeeingAOLab';
-import Task, { TaskBoard, TaskLevel } from './components/Task';
+import Task, { TaskBoard, TaskLevel } from '~/Task';
 
 const QUIZ: Question[] = [
   {

@@ -5,7 +5,7 @@ import Theorem from '~/Theorem';
 import LightClockLab from './components/LightClockLab';
 import MuonLab from './components/MuonLab';
 import SuperluminalLab from './components/SuperluminalLab';
-import Task, { TaskBoard, TaskLevel } from './components/Task';
+import Task, { TaskBoard, TaskLevel } from '~/Task';
 import TwinParadoxLab from './components/TwinParadoxLab';
 import { fmt } from './components/terrestrialData';
 

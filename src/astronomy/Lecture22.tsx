@@ -4,7 +4,7 @@ import Theorem from '~/Theorem';
 import BinaryOrbitLab from './components/BinaryOrbitLab';
 import EclipsingLab from './components/EclipsingLab';
 import RocheLobeLab from './components/RocheLobeLab';
-import Task, { TaskBoard, TaskLevel } from './components/Task';
+import Task, { TaskBoard, TaskLevel } from '~/Task';
 
 const QUIZ: Question[] = [
   {

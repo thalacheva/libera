@@ -4,7 +4,7 @@ import Theorem from '~/Theorem';
 import FoucaultPendulum from './components/FoucaultPendulum';
 import SeasonsExplorer from './components/SeasonsExplorer';
 import SiderealSolarDay from './components/SiderealSolarDay';
-import Task, { TaskBoard, TaskLevel } from './components/Task';
+import Task, { TaskBoard, TaskLevel } from '~/Task';
 
 const QUIZ: Question[] = [
   {

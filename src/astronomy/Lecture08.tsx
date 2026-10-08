@@ -3,7 +3,7 @@ import Quiz, { type Question } from '~/Quiz';
 import Theorem from '~/Theorem';
 import HohmannTransfer from './components/HohmannTransfer';
 import OrbitAltitudeExplorer from './components/OrbitAltitudeExplorer';
-import Task, { TaskBoard, TaskLevel } from './components/Task';
+import Task, { TaskBoard, TaskLevel } from '~/Task';
 import VisVivaLab from './components/VisVivaLab';
 
 const QUIZ: Question[] = [

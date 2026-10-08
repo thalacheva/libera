@@ -5,7 +5,7 @@ import CometOrbit from './components/CometOrbit';
 import MeteorEntryLab from './components/MeteorEntryLab';
 import RadiantSky from './components/RadiantSky';
 import ShowerCalendar from './components/ShowerCalendar';
-import Task, { TaskBoard, TaskLevel } from './components/Task';
+import Task, { TaskBoard, TaskLevel } from '~/Task';
 import { SHOWERS } from './components/showerData';
 
 const QUIZ: Question[] = [

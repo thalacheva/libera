@@ -4,7 +4,7 @@ import Theorem from '~/Theorem';
 import BlackHoleLab from './components/BlackHoleLab';
 import PulsarLab from './components/PulsarLab';
 import RemnantCompare from './components/RemnantCompare';
-import Task, { TaskBoard, TaskLevel } from './components/Task';
+import Task, { TaskBoard, TaskLevel } from '~/Task';
 import WhiteDwarfLab from './components/WhiteDwarfLab';
 
 const QUIZ: Question[] = [

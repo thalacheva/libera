@@ -6,7 +6,7 @@ import GiantInteriors from './components/GiantInteriors';
 import GiantPlanets from './components/GiantPlanets';
 import JupiterBands from './components/JupiterBands';
 import RocheLab from './components/RocheLab';
-import Task, { TaskBoard, TaskLevel } from './components/Task';
+import Task, { TaskBoard, TaskLevel } from '~/Task';
 import { GIANTS, rotationText } from './components/giantData';
 import { fmt } from './components/terrestrialData';
 

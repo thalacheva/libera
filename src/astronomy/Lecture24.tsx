@@ -4,7 +4,7 @@ import Theorem from '~/Theorem';
 import LadderLab from './components/LadderLab';
 import ParallaxLab from './components/ParallaxLab';
 import StandardCandleLab from './components/StandardCandleLab';
-import Task, { TaskBoard, TaskLevel } from './components/Task';
+import Task, { TaskBoard, TaskLevel } from '~/Task';
 
 const QUIZ: Question[] = [
   {

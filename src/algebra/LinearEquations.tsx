@@ -418,9 +418,7 @@ const wordProblems: WordProblem[] = [
       'x = 10',
     ],
     answer: '10 km',
-
     check: [10],
-
     ask: ['километри'],
   },
   {
@@ -433,9 +431,7 @@ const wordProblems: WordProblem[] = [
       '18 = x',
     ],
     answer: 'След 18 години (майката ще е на 56, а дъщерята – на 28)',
-
     check: [18],
-
     ask: ['след колко години'],
   },
   {
@@ -448,9 +444,7 @@ const wordProblems: WordProblem[] = [
       'x = −40',
     ],
     answer: '−40° (−40 °C = −40 °F)',
-
     check: [-40],
-
     ask: ['температура, °'],
   },
 ];

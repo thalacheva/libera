@@ -4,7 +4,7 @@ import Theorem from '~/Theorem';
 import ExpansionGridLab from './components/ExpansionGridLab';
 import FriedmannLab from './components/FriedmannLab';
 import HubbleDiagramLab from './components/HubbleDiagramLab';
-import Task, { TaskBoard, TaskLevel } from './components/Task';
+import Task, { TaskBoard, TaskLevel } from '~/Task';
 
 const QUIZ: Question[] = [
   {

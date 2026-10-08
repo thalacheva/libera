@@ -4,7 +4,7 @@ import Theorem from '~/Theorem';
 import ExoPopulationLab from './components/ExoPopulationLab';
 import HabitableZoneLab from './components/HabitableZoneLab';
 import RVDetectionLab from './components/RVDetectionLab';
-import Task, { TaskBoard, TaskLevel } from './components/Task';
+import Task, { TaskBoard, TaskLevel } from '~/Task';
 import TransitLab from './components/TransitLab';
 
 const QUIZ: Question[] = [

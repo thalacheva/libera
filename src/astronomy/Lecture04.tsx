@@ -3,7 +3,7 @@ import Quiz, { type Question } from '~/Quiz';
 import Theorem from '~/Theorem';
 import LunarEclipse from './components/LunarEclipse';
 import MoonPhases from './components/MoonPhases';
-import Task, { TaskBoard, TaskLevel } from './components/Task';
+import Task, { TaskBoard, TaskLevel } from '~/Task';
 
 const QUIZ: Question[] = [
   {

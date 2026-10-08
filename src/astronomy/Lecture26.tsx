@@ -3,7 +3,7 @@ import Quiz, { type Question } from '~/Quiz';
 import Theorem from '~/Theorem';
 import MilkyWayMapLab from './components/MilkyWayMapLab';
 import SgrAStarsLab from './components/SgrAStarsLab';
-import Task, { TaskBoard, TaskLevel } from './components/Task';
+import Task, { TaskBoard, TaskLevel } from '~/Task';
 import WindingLab from './components/WindingLab';
 
 const QUIZ: Question[] = [

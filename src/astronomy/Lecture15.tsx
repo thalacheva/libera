@@ -6,7 +6,7 @@ import PlanetTest from './components/PlanetTest';
 import PlutoResonance from './components/PlutoResonance';
 import RoundnessLab from './components/RoundnessLab';
 import SmallBodyMap from './components/SmallBodyMap';
-import Task, { TaskBoard, TaskLevel } from './components/Task';
+import Task, { TaskBoard, TaskLevel } from '~/Task';
 import { DWARFS } from './components/dwarfData';
 import { fmt } from './components/terrestrialData';
 

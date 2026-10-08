@@ -5,7 +5,7 @@ import AGNLab from './components/AGNLab';
 import GalaxyCollisionLab from './components/GalaxyCollisionLab';
 import HubbleForkLab from './components/HubbleForkLab';
 import RotationCurveLab from './components/RotationCurveLab';
-import Task, { TaskBoard, TaskLevel } from './components/Task';
+import Task, { TaskBoard, TaskLevel } from '~/Task';
 
 const QUIZ: Question[] = [
   {

@@ -3,7 +3,7 @@ import Quiz, { type Question } from '~/Quiz';
 import Theorem from '~/Theorem';
 import LeavittLab from './components/LeavittLab';
 import PulsatingStarLab from './components/PulsatingStarLab';
-import Task, { TaskBoard, TaskLevel } from './components/Task';
+import Task, { TaskBoard, TaskLevel } from '~/Task';
 import VariableMap from './components/VariableMap';
 
 const QUIZ: Question[] = [

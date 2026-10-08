@@ -3,7 +3,7 @@ import Quiz, { type Question } from '~/Quiz';
 import Theorem from '~/Theorem';
 import KeplerOrbitLab from './components/KeplerOrbitLab';
 import KeplerThirdLaw from './components/KeplerThirdLaw';
-import Task, { TaskBoard, TaskLevel } from './components/Task';
+import Task, { TaskBoard, TaskLevel } from '~/Task';
 
 const QUIZ: Question[] = [
   {

@@ -4,7 +4,7 @@ import Theorem from '~/Theorem';
 import BiosignatureLab from './components/BiosignatureLab';
 import DrakeLab from './components/DrakeLab';
 import LifeClockLab from './components/LifeClockLab';
-import Task, { TaskBoard, TaskLevel } from './components/Task';
+import Task, { TaskBoard, TaskLevel } from '~/Task';
 
 const QUIZ: Question[] = [
   {

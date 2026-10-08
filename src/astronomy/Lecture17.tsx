@@ -5,7 +5,7 @@ import AsteroidSizeLab from './components/AsteroidSizeLab';
 import DeflectionLab from './components/DeflectionLab';
 import ImpactLab from './components/ImpactLab';
 import KirkwoodGaps from './components/KirkwoodGaps';
-import Task, { TaskBoard, TaskLevel } from './components/Task';
+import Task, { TaskBoard, TaskLevel } from '~/Task';
 import TrojanLab from './components/TrojanLab';
 
 const QUIZ: Question[] = [

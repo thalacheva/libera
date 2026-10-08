@@ -5,7 +5,7 @@ import CosmicOrigins from './components/CosmicOrigins';
 import EvolutionTrack from './components/EvolutionTrack';
 import JeansLab from './components/JeansLab';
 import OnionLab from './components/OnionLab';
-import Task, { TaskBoard, TaskLevel } from './components/Task';
+import Task, { TaskBoard, TaskLevel } from '~/Task';
 
 const QUIZ: Question[] = [
   {

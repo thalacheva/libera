@@ -5,7 +5,7 @@ import SolarCycleChart from './components/SolarCycleChart';
 import SolarDynamo from './components/SolarDynamo';
 import SpaceWeatherLab from './components/SpaceWeatherLab';
 import SunspotRotation from './components/SunspotRotation';
-import Task, { TaskBoard, TaskLevel } from './components/Task';
+import Task, { TaskBoard, TaskLevel } from '~/Task';
 
 const QUIZ: Question[] = [
   {

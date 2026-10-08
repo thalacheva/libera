@@ -4,7 +4,7 @@ import Theorem from '~/Theorem';
 import ClusterMassLab from './components/ClusterMassLab';
 import CosmicBudgetLab from './components/CosmicBudgetLab';
 import LensingLab from './components/LensingLab';
-import Task, { TaskBoard, TaskLevel } from './components/Task';
+import Task, { TaskBoard, TaskLevel } from '~/Task';
 
 const QUIZ: Question[] = [
   {

@@ -3,7 +3,7 @@ import Quiz, { type Question } from '~/Quiz';
 import Theorem from '~/Theorem';
 import GravityPlayground from './components/GravityPlayground';
 import NewtonCannon from './components/NewtonCannon';
-import Task, { TaskBoard, TaskLevel } from './components/Task';
+import Task, { TaskBoard, TaskLevel } from '~/Task';
 import TidesExplorer from './components/TidesExplorer';
 import WeightOnWorlds from './components/WeightOnWorlds';
 

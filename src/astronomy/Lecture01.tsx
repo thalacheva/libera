@@ -2,7 +2,7 @@ import Example from '~/Example';
 import Quiz, { type Question } from '~/Quiz';
 import Theorem from '~/Theorem';
 import CelestialSphere from './components/CelestialSphere';
-import Task, { TaskBoard, TaskLevel } from './components/Task';
+import Task, { TaskBoard, TaskLevel } from '~/Task';
 import PoleAltitudeDiagram from './components/PoleAltitudeDiagram';
 import SkyView from './components/SkyView';
 

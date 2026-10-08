@@ -5,7 +5,7 @@ import ClusterAgeLab from './components/ClusterAgeLab';
 import HRDiagram from './components/HRDiagram';
 import MainSequenceLab from './components/MainSequenceLab';
 import MSFittingLab from './components/MSFittingLab';
-import Task, { TaskBoard, TaskLevel } from './components/Task';
+import Task, { TaskBoard, TaskLevel } from '~/Task';
 
 const QUIZ: Question[] = [
   {

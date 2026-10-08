@@ -5,7 +5,7 @@ import PhotonRandomWalk from './components/PhotonRandomWalk';
 import ProtonProtonChain from './components/ProtonProtonChain';
 import SolarConstantLab from './components/SolarConstantLab';
 import SunInterior from './components/SunInterior';
-import Task, { TaskBoard, TaskLevel } from './components/Task';
+import Task, { TaskBoard, TaskLevel } from '~/Task';
 
 const QUIZ: Question[] = [
   {

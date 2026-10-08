@@ -7,7 +7,7 @@ import EMSpectrumExplorer from './components/EMSpectrumExplorer';
 import HydrogenAtom from './components/HydrogenAtom';
 import KirchhoffLab from './components/KirchhoffLab';
 import SpectrumDetective from './components/SpectrumDetective';
-import Task, { TaskBoard, TaskLevel } from './components/Task';
+import Task, { TaskBoard, TaskLevel } from '~/Task';
 
 const QUIZ: Question[] = [
   {

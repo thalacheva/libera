@@ -4,7 +4,7 @@ import Theorem from '~/Theorem';
 import BBNLab from './components/BBNLab';
 import CMBLab from './components/CMBLab';
 import CosmicTimelineLab from './components/CosmicTimelineLab';
-import Task, { TaskBoard, TaskLevel } from './components/Task';
+import Task, { TaskBoard, TaskLevel } from '~/Task';
 
 const QUIZ: Question[] = [
   {

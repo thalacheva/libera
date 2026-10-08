@@ -6,7 +6,7 @@ import DistanceLab from './components/DistanceLab';
 import MagnitudeLab from './components/MagnitudeLab';
 import SpectralClassLab from './components/SpectralClassLab';
 import StarSizeLab from './components/StarSizeLab';
-import Task, { TaskBoard, TaskLevel } from './components/Task';
+import Task, { TaskBoard, TaskLevel } from '~/Task';
 import { CLASSES } from './components/starData';
 
 const QUIZ: Question[] = [

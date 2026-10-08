@@ -5,7 +5,7 @@ import AtmosphereEscapeLab from './components/AtmosphereEscapeLab';
 import GreenhouseLab from './components/GreenhouseLab';
 import PlanetInteriors from './components/PlanetInteriors';
 import SolarDayLab from './components/SolarDayLab';
-import Task, { TaskBoard, TaskLevel } from './components/Task';
+import Task, { TaskBoard, TaskLevel } from '~/Task';
 import TerrestrialPlanets from './components/TerrestrialPlanets';
 import { fmt, TERRESTRIAL } from './components/terrestrialData';
 

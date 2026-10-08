@@ -3,7 +3,7 @@ import Quiz, { type Question } from '~/Quiz';
 import Theorem from '~/Theorem';
 import ApertureLab from './components/ApertureLab';
 import ResolutionLab from './components/ResolutionLab';
-import Task, { TaskBoard, TaskLevel } from './components/Task';
+import Task, { TaskBoard, TaskLevel } from '~/Task';
 import TelescopeOptics from './components/TelescopeOptics';
 import TelescopeSizes from './components/TelescopeSizes';
 
