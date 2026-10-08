@@ -15,7 +15,11 @@ export function roots(a: number, b: number, c: number) {
 export const point = (p: Point) => `(${num(p.x)}; ${num(p.y)})`;
 
 /** Число с истински знак минус. */
-export const num = (v: number, digits = 2) => fmt(v, digits).replace('-', '−');
+export const num = (v: number, digits = 2) => {
+  const s = fmt(v, digits);
+  // −0 и малки отрицателни числа, закръглени до 0, се показват като 0
+  return s === '-0' ? '0' : s.replace('-', '−');
+};
 
 /** Събираемо със знак: „+ 3“, „− 3“; нулевите събираеми се пропускат. */
 const term = (coef: number, variable: string, first: boolean) => {

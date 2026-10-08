@@ -9,6 +9,8 @@ const mathTopics = [
     subtopics: [
       { name: 'Линейни уравнения', path: '/linear' },
       { name: 'Квадратни уравнения', path: '/quadratic' },
+      { name: 'Системи уравнения', path: '/systems' },
+      { name: 'Неравенства', path: '/inequalities' },
     ],
   },
   {
@@ -25,6 +27,8 @@ const mathTopics = [
     path: '/geometry',
     subtopics: [
       { name: 'Триъгълник', path: '/triangle' },
+      { name: 'Подобни триъгълници', path: '/similar' },
+      { name: 'Тригонометрия', path: '/trigonometry' },
       { name: 'Четириъгълник', path: '/quadrilateral' },
       { name: 'Окръжност и кръг', path: '/circle' },
     ],

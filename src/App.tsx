@@ -1,9 +1,9 @@
 import {Menu, X} from 'lucide-react';
 import {useEffect, useState} from 'react';
 import {Navigate, Route, Routes} from 'react-router-dom';
-import {Circle, Quadrangle, Triangle} from '~/geometry';
+import {Circle, Quadrangle, Similarity, Triangle, Trigonometry} from '~/geometry';
 import SidebarMenu from '~/SidebarMenu';
-import {LinearEquations, QuadraticEquations} from './algebra';
+import {Inequalities, LinearEquations, QuadraticEquations, SystemsOfEquations} from './algebra';
 import {
   Lecture01, Lecture02, Lecture03, Lecture04, Lecture05,
   Lecture06, Lecture07, Lecture08, Lecture09, Lecture10,
@@ -49,6 +49,8 @@ function App() {
           <Route path="algebra">
             <Route path="linear" element={<LinearEquations />} />
             <Route path="quadratic" element={<QuadraticEquations />} />
+            <Route path="systems" element={<SystemsOfEquations />} />
+            <Route path="inequalities" element={<Inequalities />} />
           </Route>
           <Route path="functions">
             <Route path="linear" element={<LinearFunctions />} />
@@ -57,6 +59,8 @@ function App() {
           </Route>
           <Route path="geometry">
             <Route path="triangle" element={<Triangle />} />
+            <Route path="similar" element={<Similarity />} />
+            <Route path="trigonometry" element={<Trigonometry />} />
             <Route path="quadrilateral" element={<Quadrangle />} />
             <Route path="circle" element={<Circle />} />
           </Route>
