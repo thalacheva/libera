@@ -277,7 +277,7 @@ export default function Lecture21() {
         </section>
 
         <section className="mb-8">
-          <h2 className="text-xl sm:text-2xl font-semibold mb-4">5. ✅ Провери се</h2>
+          <h2 className="text-xl sm:text-2xl font-semibold mb-4">5. 🎯 Бърз тест</h2>
           <Quiz questions={QUIZ} />
         </section>
 

@@ -272,7 +272,7 @@ export default function Lecture08() {
 
         <section className="mb-8">
           <h2 className="text-xl sm:text-2xl font-semibold mb-4">
-            5. ✅ Провери се
+            5. 🎯 Бърз тест
           </h2>
           <Quiz questions={QUIZ} />
         </section>

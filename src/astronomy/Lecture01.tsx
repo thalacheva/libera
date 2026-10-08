@@ -504,7 +504,7 @@ export default function Lecture01() {
 
         <section className="mb-8">
           <h2 className="text-xl sm:text-2xl font-semibold mb-4">
-            10. ✅ Провери се
+            10. 🎯 Бърз тест
           </h2>
           <Quiz questions={QUIZ} />
         </section>

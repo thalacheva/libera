@@ -195,7 +195,7 @@ export default function Lecture27() {
         </section>
 
         <section className="mb-8">
-          <h2 className="text-xl sm:text-2xl font-semibold mb-4">6. ✅ Провери се</h2>
+          <h2 className="text-xl sm:text-2xl font-semibold mb-4">6. 🎯 Бърз тест</h2>
           <Quiz questions={QUIZ} />
         </section>
 
