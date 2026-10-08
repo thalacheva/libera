@@ -1,4 +1,4 @@
-import {BookOpen, ChevronDown, ChevronRight, Sigma, Telescope} from 'lucide-react';
+import {BookOpen, ChevronDown, ChevronRight, Mail, Sigma, Telescope} from 'lucide-react';
 import {useEffect, useRef, useState} from 'react';
 import {Link, useLocation} from 'react-router-dom';
 
@@ -212,6 +212,19 @@ export default function SidebarMenu({
             )}
           </div>
         </nav>
+
+        <div className="px-5 py-4 border-t border-gray-100 dark:border-gray-800">
+          <div className="text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400 mb-1">
+            Контакт
+          </div>
+          <a
+            href="mailto:ninelibera@gmail.com"
+            className="inline-flex items-center gap-2 text-sm text-gray-600 hover:text-blue-700 dark:text-gray-400 dark:hover:text-blue-300 transition-colors"
+          >
+            <Mail size={16} />
+            ninelibera@gmail.com
+          </a>
+        </div>
       </aside>
     </>
   );
