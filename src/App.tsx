@@ -1,7 +1,7 @@
 import {Menu, X} from 'lucide-react';
 import {useEffect, useState} from 'react';
 import {Navigate, Route, Routes} from 'react-router-dom';
-import {Circle, Quadrangle, Similarity, Triangle, Trigonometry, Vectors} from '~/geometry';
+import {Circle, Polygons, Quadrangle, Similarity, Solids, Triangle, Trigonometry, Vectors} from '~/geometry';
 import SidebarMenu from '~/SidebarMenu';
 import {Fractions, Inequalities, LinearEquations, Logarithms, Powers, QuadraticEquations, Sequences, SystemsOfEquations} from './algebra';
 import {
@@ -18,7 +18,7 @@ import {
   LinearFunctions,
   QuadraticFunctions,
 } from './functions';
-import {Probability} from './probability';
+import {Combinatorics, Probability} from './probability';
 
 function App() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -68,9 +68,12 @@ function App() {
             <Route path="trigonometry" element={<Trigonometry />} />
             <Route path="vectors" element={<Vectors />} />
             <Route path="quadrilateral" element={<Quadrangle />} />
+            <Route path="polygons" element={<Polygons />} />
             <Route path="circle" element={<Circle />} />
+            <Route path="solids" element={<Solids />} />
           </Route>
           <Route path="probability">
+            <Route path="combinatorics" element={<Combinatorics />} />
             <Route path="basics" element={<Probability />} />
           </Route>
           <Route path="astronomy">

@@ -35,13 +35,16 @@ const mathTopics = [
       { name: 'Тригонометрия', path: '/trigonometry' },
       { name: 'Вектори', path: '/vectors' },
       { name: 'Четириъгълник', path: '/quadrilateral' },
+      { name: 'Многоъгълници и лица', path: '/polygons' },
       { name: 'Окръжност и кръг', path: '/circle' },
+      { name: 'Стереометрия', path: '/solids' },
     ],
   },
   {
     name: 'Вероятности',
     path: '/probability',
     subtopics: [
+      { name: 'Комбинаторика', path: '/combinatorics' },
       { name: 'Вероятности и статистика', path: '/basics' },
     ],
   },
