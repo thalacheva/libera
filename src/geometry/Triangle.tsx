@@ -1,10 +1,14 @@
 import Example from '~/Example';
-import Quiz, { Question } from '~/Quiz';
+import Quiz, { type Question } from '~/Quiz';
+import Task, { TaskBoard, TaskLevel } from '~/Task';
 import Theorem from '~/Theorem';
-import { InteractiveTriangle } from './InteractiveTriangle';
 import { WordProblems, type WordProblem } from '~/WordProblems';
+import { CentersLab } from './CentersLab';
+import { CongruenceLab } from './CongruenceLab';
+import { InteractiveTriangle } from './InteractiveTriangle';
+import { PythagorasLab } from './PythagorasLab';
 
-const h2 = 'text-lg sm:text-xl font-semibold mb-2 sm:mb-3 text-gray-800 dark:text-gray-100';
+const h2 = 'text-xl sm:text-2xl font-semibold mb-3 text-gray-800 dark:text-gray-100';
 const text = 'text-sm sm:text-base text-gray-700 dark:text-gray-300 leading-relaxed';
 const card = 'bg-white dark:bg-gray-800 p-3 sm:p-4 rounded-lg shadow-sm';
 
@@ -57,6 +61,22 @@ const wordProblems: WordProblem[] = [
     check: [6],
     ask: ['плат, m²'],
   },
+  {
+    title: '⛺ Въжето на мачтата',
+    problem: 'Мачта е висока 12 m. Опъваме въже от върха ѝ до колче в земята на 5 m от основата. Колко дълго е въжето?',
+    solution: ['Мачтата, земята и въжето образуват правоъгълен триъгълник с катети 12 и 5.', 'x² = 12² + 5² = 144 + 25 = 169', 'x = 13'],
+    answer: '13 m',
+    check: [13],
+    ask: ['дължина, m'],
+  },
+  {
+    title: '📺 Екранът',
+    problem: 'Екран със съотношение на страните 4 : 3 има диагонал 50 инча. Колко са широчината и височината му?',
+    solution: ['Страните са 4k и 3k.', '(4k)² + (3k)² = 50² ⇒ 25k² = 2500', 'k = 10 ⇒ 40 и 30 инча'],
+    answer: '40 × 30 инча',
+    check: [40, 30],
+    ask: ['широчина, инча', 'височина, инча'],
+  },
 ];
 
 const triangleQuiz: Question[] = [
@@ -90,24 +110,40 @@ const triangleQuiz: Question[] = [
     answers: ['16 cm²', '30 cm²', '60 cm²', '15 cm²'],
     correctAnswer: '30 cm²',
   },
+  {
+    question: 'Триъгълник има страни 6, 7 и 9. Какъв е той?',
+    answers: ['Остроъгълен', 'Правоъгълен', 'Тъпоъгълен', 'Не съществува'],
+    correctAnswer: 'Остроъгълен',
+  },
+  {
+    question: 'Кой от изброените НЕ е признак за еднаквост на триъгълници?',
+    answers: ['ССС', 'СЪС', 'ЪСЪ', 'ССЪ (ъгълът не е между страните)'],
+    correctAnswer: 'ССЪ (ъгълът не е между страните)',
+  },
 ];
 
 export function Triangle() {
   return (
     <main className="flex-1 overflow-y-auto px-4 pt-16 pb-12 sm:px-6 lg:px-10 lg:pt-10">
       <div className="max-w-4xl mx-auto">
-        <h1 className="text-2xl sm:text-3xl font-bold tracking-tight mb-6 text-gray-900 dark:text-white">
-          Триъгълник
-        </h1>
+        <h1 className="text-2xl sm:text-3xl font-bold tracking-tight mb-6 text-gray-900 dark:text-white">Триъгълник</h1>
 
-        <section className="mb-6 sm:mb-8">
+        <div className="bg-gradient-to-br from-violet-800 to-slate-900 text-white p-6 rounded-2xl mb-8 shadow-lg">
+          <p className="text-lg sm:text-xl leading-relaxed">
+            🪢 Разказва се, че древноегипетските землемери – „опъвачите на въже“ – след всяко разливане на Нил възстановявали границите на
+            нивите с едно въже с 12 равноотдалечени възела. Опънато в триъгълник със страни 3, 4 и 5 деления, то дава точно прав ъгъл. Дали
+            е било така, историците спорят – но трикът работи и днес: зидари проверяват ъгъла на стена с рулетка и правилото „3 – 4 – 5“. Зад
+            него стои най-известната теорема в математиката – и още много изненади, скрити в най-простата фигура.
+          </p>
+        </div>
+
+        <section className="mb-8">
+          <h2 className={h2}>1. Триъгълник и видове триъгълници</h2>
           <div className="bg-amber-50 dark:bg-amber-900/20 border-l-4 border-amber-500 p-4 rounded mb-4">
             <p className={text}>
-              🤔 <strong>Загадка:</strong> Защо мостовете, кулите и покривите са пълни с
-              триъгълници? Сглоби четириъгълник от четири пръчки – той лесно се „сгъва“.
-              Триъгълникът от три пръчки обаче не може да промени формата си: щом дължините на
-              страните са избрани, формата е напълно определена. Затова триъгълникът е най-здравата
-              фигура в строителството.
+              🤔 <strong>Загадка:</strong> Защо мостовете, кулите и покривите са пълни с триъгълници? Сглоби четириъгълник от четири пръчки –
+              той лесно се „сгъва“. Триъгълникът от три пръчки обаче не може да промени формата си: щом дължините на страните са избрани,
+              формата е напълно определена. Затова триъгълникът е най-здравата фигура в строителството.
             </p>
           </div>
           <Theorem
@@ -115,10 +151,6 @@ export function Triangle() {
             title="Триъгълник"
             description="Триъгълник е фигура, образувана от три точки, които не лежат на една права (върхове), и трите отсечки, които ги свързват (страни). Обикновено върховете се означават с A, B, C, а срещуположните им страни – с малките букви a, b, c. Ъглите при върховете се означават с α, β, γ."
           />
-        </section>
-
-        <section className="mb-6 sm:mb-8">
-          <h2 className={h2}>Видове триъгълници</h2>
           <div className="grid sm:grid-cols-2 gap-4 text-sm sm:text-base text-gray-700 dark:text-gray-300">
             {classifications.map(({ title, kinds }) => (
               <div key={title}>
@@ -139,18 +171,17 @@ export function Triangle() {
           </div>
         </section>
 
-        <section className="mb-6 sm:mb-8">
-          <h2 className={h2}>Ъгли в триъгълника</h2>
+        <section className="mb-8">
+          <h2 className={h2}>2. Ъгли в триъгълника</h2>
           <Theorem
             title="Сбор на ъглите в триъгълник"
             description="Сборът на трите вътрешни ъгъла на всеки триъгълник е 180°: α + β + γ = 180°."
             graphic={<InteractiveTriangle type="angles" />}
           />
           <p className={`${text} mb-6`}>
-            <strong>Защо?</strong> Прекарай през върха C права, успоредна на AB. Двата ъгъла,
-            които тя сключва със страните CA и CB, са равни на α и β (кръстни ъгли). Заедно с γ
-            трите ъгъла образуват изправен ъгъл – точно 180°. От това следва, че триъгълникът може
-            да има най-много един прав или тъп ъгъл.
+            <strong>Защо?</strong> Прекарай през върха C права, успоредна на AB. Двата ъгъла, които тя сключва със страните CA и CB, са равни
+            на α и β (кръстни ъгли). Заедно с γ трите ъгъла образуват изправен ъгъл – точно 180°. От това следва, че триъгълникът може да има
+            най-много един прав или тъп ъгъл.
           </p>
           <Theorem
             title="Външен ъгъл на триъгълник"
@@ -168,17 +199,16 @@ export function Triangle() {
           />
         </section>
 
-        <section className="mb-6 sm:mb-8">
-          <h2 className={h2}>Страни в триъгълника</h2>
+        <section className="mb-8">
+          <h2 className={h2}>3. Страни в триъгълника</h2>
           <Theorem
             title="Неравенство на триъгълника"
             description="Всяка страна на триъгълник е по-малка от сбора на другите две и по-голяма от тяхната разлика: |b − c| < a < b + c."
             graphic={<InteractiveTriangle type="inequality" />}
           />
           <p className={`${text} mb-4`}>
-            Това е причината правият път да е най-краткият: ако минеш през трета точка, винаги
-            изминаваш повече. За да провериш дали три отсечки могат да образуват триъгълник, е
-            достатъчно да сравниш <strong>най-дългата</strong> със сбора на другите две.
+            Това е причината правият път да е най-краткият: ако минеш през трета точка, винаги изминаваш повече. За да провериш дали три
+            отсечки могат да образуват триъгълник, е достатъчно да сравниш <strong>най-дългата</strong> със сбора на другите две.
           </p>
           <Theorem
             title="Страни и ъгли"
@@ -186,13 +216,26 @@ export function Triangle() {
           />
         </section>
 
-        <section className="mb-6 sm:mb-8">
-          <h2 className={h2}>Забележителни отсечки</h2>
+        <section className="mb-8">
+          <h2 className={h2}>4. Еднакви триъгълници</h2>
           <p className={`${text} mb-4`}>
-            Във всеки триъгълник от всеки връх можем да прекараме по една височина, медиана и
-            ъглополовяща. Трите отсечки от един и същи вид винаги се пресичат в една точка.
+            Два триъгълника са еднакви, ако могат да се наложат един върху друг – имат равни съответни страни и ъгли. За да го докажем, не е
+            нужно да сравняваме всичките шест елемента: достатъчни са три подходящо избрани.
           </p>
-          <div className="grid sm:grid-cols-2 gap-3 text-sm sm:text-base text-gray-700 dark:text-gray-300">
+          <Theorem
+            title="Признаци за еднаквост"
+            description="Два триъгълника са еднакви, ако имат съответно равни: 1) две страни и ъгъла между тях (СЪС); 2) страна и двата ъгъла до нея (ЪСЪ); 3) три страни (ССС). Две страни и ъгъл, който НЕ е между тях (ССЪ), в общия случай не са достатъчни."
+          />
+          <CongruenceLab />
+        </section>
+
+        <section className="mb-8">
+          <h2 className={h2}>5. Забележителни отсечки и точки</h2>
+          <p className={`${text} mb-4`}>
+            Във всеки триъгълник от всеки връх можем да прекараме по една височина, медиана и ъглополовяща. Трите отсечки от един и същи вид
+            винаги се пресичат в една точка – това е една от малките „магии“ на геометрията.
+          </p>
+          <div className="grid sm:grid-cols-2 gap-3 text-sm sm:text-base text-gray-700 dark:text-gray-300 mb-4">
             {segments.map(([name, desc, point]) => (
               <div key={name} className={card}>
                 <p className="font-semibold">{name}</p>
@@ -204,17 +247,18 @@ export function Triangle() {
               </div>
             ))}
           </div>
+          <CentersLab />
         </section>
 
-        <section className="mb-6 sm:mb-8">
-          <h2 className={h2}>Питагорова теорема</h2>
+        <section className="mb-8">
+          <h2 className={h2}>6. Питагорова теорема</h2>
           <Theorem
             title="Питагорова теорема"
-            description="В правоъгълен триъгълник квадратът на хипотенузата е равен на сбора от квадратите на катетите: c² = a² + b². Вярно е и обратното: ако за страните на триъгълник c² = a² + b², то той е правоъгълен."
+            description="В правоъгълен триъгълник квадратът на хипотенузата е равен на сбора от квадратите на катетите: c² = a² + b². Вярно е и обратното: ако за страните на триъгълник c² = a² + b², то той е правоъгълен. Освен това: ако c² < a² + b², ъгълът срещу c е остър, а ако c² > a² + b² – тъп."
           />
+          <PythagorasLab />
           <p className={`${text} mb-4`}>
-            Тройки цели числа, за които c² = a² + b², се наричат <strong>питагорови тройки</strong>.
-            Най-известните са:
+            Тройки цели числа, за които c² = a² + b², се наричат <strong>питагорови тройки</strong>. Най-известните са:
           </p>
           <div className="flex flex-wrap gap-2 mb-4">
             {['3, 4, 5', '5, 12, 13', '8, 15, 17', '7, 24, 25', '6, 8, 10'].map(triple => (
@@ -223,39 +267,39 @@ export function Triangle() {
               </span>
             ))}
           </div>
+          <Example
+            description="Катетите на правоъгълен триъгълник са 9 cm и 12 cm. Намери хипотенузата и височината към нея."
+            steps={['c² = 81 + 144 = 225 ⇒ c = 15 cm', 'Лицето по два начина: S = 9 · 12 / 2 = 54 и S = c · h / 2', 'h = 2S / c = 108 / 15 = 7,2 cm']}
+          />
         </section>
 
-        <section className="mb-6 sm:mb-8">
-          <h2 className={h2}>Лице на триъгълник</h2>
+        <section className="mb-8">
+          <h2 className={h2}>7. Лице на триъгълник</h2>
           <div className="bg-blue-50 dark:bg-blue-900/20 border-l-4 border-blue-500 p-3 sm:p-4 mb-4 space-y-2 font-mono text-center text-gray-800 dark:text-gray-100">
             <p className="text-base sm:text-lg">S = a · hₐ / 2</p>
             <p className="text-sm sm:text-base">правоъгълен: S = a · b / 2 (a и b – катети)</p>
             <p className="text-sm sm:text-base">Херон: S = √(p(p − a)(p − b)(p − c)), p = (a + b + c) / 2</p>
           </div>
           <p className={`${text} mb-4`}>
-            Основната формула идва от правоъгълника: два еднакви триъгълника се долепват в
-            успоредник с основа a и височина hₐ. Формулата на Херон е полезна, когато знаем само
-            трите страни.
+            Основната формула идва от правоъгълника: два еднакви триъгълника се долепват в успоредник с основа a и височина hₐ. Формулата на
+            Херон е полезна, когато знаем само трите страни.
           </p>
           <Example
             description="Намери лицето на триъгълник със страни 13 cm, 14 cm и 15 cm."
-            steps={[
-              'Полупериметър: p = (13 + 14 + 15) / 2 = 21',
-              'p − a = 8, p − b = 7, p − c = 6',
-              'S = √(21 · 8 · 7 · 6) = √7056',
-              'S = 84 cm²',
-            ]}
+            steps={['Полупериметър: p = (13 + 14 + 15) / 2 = 21', 'p − a = 8, p − b = 7, p − c = 6', 'S = √(21 · 8 · 7 · 6) = √7056', 'S = 84 cm²']}
           />
         </section>
 
-        <section className="mb-6 sm:mb-8">
-          <h2 className={h2}>⚠️ Чести грешки</h2>
-          <div className="space-y-2 sm:space-y-3 text-sm sm:text-base text-gray-700 dark:text-gray-300">
+        <section className="mb-8">
+          <h2 className={h2}>8. ⚠️ Чести грешки</h2>
+          <div className="grid sm:grid-cols-2 gap-3 text-sm sm:text-base text-gray-700 dark:text-gray-300">
             {[
               ['Питагорова теорема за всеки триъгълник', 'c² = a² + b² за всеки триъгълник', 'само за правоъгълен, като c е хипотенузата'],
               ['Хипотенузата като сбор', 'катети 6 и 8 → c = 6 + 8 = 14', 'c = √(36 + 64) = 10'],
               ['Забравено делене на 2', 'S = a · hₐ', 'S = a · hₐ / 2'],
               ['Височината винаги е вътре', 'височината пада върху страната', 'при тъпоъгълен триъгълник две от височините падат извън него'],
+              ['Признак „ССЪ“', 'две страни и ъгъл ⇒ еднакви', 'само ако ъгълът е между двете страни (СЪС)'],
+              ['Медиана и височина', 'медианата е перпендикулярна на страната', 'само в равнобедрен триъгълник към основата'],
             ].map(([title, wrong, right]) => (
               <div key={title} className={card}>
                 <p className="font-semibold mb-1">{title}</p>
@@ -266,26 +310,99 @@ export function Triangle() {
           </div>
         </section>
 
-        <section className="mb-6 sm:mb-8">
-          <h2 className={h2}>Задачи от живота</h2>
+        <section className="mb-8">
+          <h2 className={h2}>9. Задачи от живота</h2>
           <WordProblems problems={wordProblems} />
         </section>
 
-        <section className="mb-6 sm:mb-8">
-          <h2 className="text-lg sm:text-xl font-semibold mb-4 text-gray-800 dark:text-gray-100">
-            Упражнения
-          </h2>
+        <section className="mb-8">
+          <h2 className={h2}>10. 🎯 Бърз тест</h2>
           <Quiz questions={triangleQuiz} />
+        </section>
+
+        <section className="mb-8">
+          <h2 className={h2}>11. 📝 Задачи за упражнение</h2>
+          <TaskBoard>
+            <div className="mb-6">
+              <TaskLevel level="A" />
+              <Task id="a1" number={1} color="border-green-500" question="Ъглите на триъгълник се отнасят както 2 : 3 : 4. Намери ги.">
+                <p>Нека ъглите са 2x, 3x и 4x: 2x + 3x + 4x = 180° ⇒ 9x = 180° ⇒ x = 20°</p>
+                <p>Ъглите са 40°, 60° и 80° – триъгълникът е остроъгълен.</p>
+              </Task>
+              <Task id="a2" number={2} color="border-green-500" question="Правоъгълен ли е триъгълникът със страни 5, 12, 13? А със страни 6, 7, 9?">
+                <p>5² + 12² = 25 + 144 = 169 = 13² ⇒ правоъгълен (обратната Питагорова теорема).</p>
+                <p>6² + 7² = 85, 9² = 81 &lt; 85 ⇒ най-големият ъгъл е остър – триъгълникът е остроъгълен.</p>
+              </Task>
+              <Task id="a3" number={3} color="border-green-500" question="Равнобедрен триъгълник има периметър 32 cm и основа 8 cm. Намери бедрата, височината към основата и лицето.">
+                <p>Бедра: (32 − 8)/2 = 12 cm</p>
+                <p>Височината към основата я разполовява: h² = 12² − 4² = 128 ⇒ h = 8√2 ≈ 11,3 cm</p>
+                <p>S = 8 · 8√2 / 2 = 32√2 ≈ 45,3 cm²</p>
+              </Task>
+            </div>
+
+            <div className="mb-6">
+              <TaskLevel level="B" />
+              <Task id="b1" number={4} color="border-yellow-500" question="Катетите на правоъгълен триъгълник са 9 и 12. Намери хипотенузата, височината и медианата към нея.">
+                <p>c = √(81 + 144) = 15</p>
+                <p>h = ab/c = 108/15 = 7,2</p>
+                <p>Медианата към хипотенузата е равна на половината от нея: m = 7,5 (тя е радиусът на описаната окръжност!)</p>
+              </Task>
+              <Task id="b2" number={5} color="border-yellow-500" question="В триъгълник ABC ∠A = 2∠B, а външният ъгъл при C е 120°. Намери ъглите на триъгълника.">
+                <p>Външният ъгъл при C = ∠A + ∠B ⇒ 2∠B + ∠B = 120° ⇒ ∠B = 40°</p>
+                <p>∠A = 80°, ∠C = 180° − 120° = 60°</p>
+              </Task>
+              <Task id="b3" number={6} color="border-yellow-500" question="Триъгълник има страни 5, 5 и 6. Намери лицето му, радиуса на вписаната окръжност r = S/p и на описаната R = abc/(4S).">
+                <p>p = 8, S = √(8 · 3 · 3 · 2) = √144 = 12 (или: височина към основата 4, S = 6 · 4 / 2 = 12)</p>
+                <p>r = S/p = 12/8 = 1,5</p>
+                <p>R = abc/(4S) = 150/48 = 3,125</p>
+              </Task>
+            </div>
+
+            <div className="mb-6">
+              <TaskLevel level="C" />
+              <Task id="c1" number={7} color="border-red-500" question="Докажи, че трите медиани разделят триъгълника на шест триъгълника с равни лица.">
+                <p>Ключово наблюдение: триъгълници с равни основи и обща височина имат равни лица.</p>
+                <p>Нека G е медицентърът. Тогава GBMₐ и GMₐC имат равни лица – означаваме ги с x; аналогично GCM_b и GM_bA – с y, а GAM_c и GM_cB – с z.</p>
+                <p>Медианата AMₐ дели ABC на две равни части: x + 2z = x + 2y ⇒ y = z. Медианата BM_b: y + 2x = y + 2z ⇒ x = z.</p>
+                <p>Значи x = y = z – всяка от шестте части има лице S/6, а триъгълникът ABG има лице S/3.</p>
+              </Task>
+              <Task id="c2" number={8} color="border-red-500" question="В триъгълник ABC: AB = 10, BC = 6, ∠A = 35°. Колко такива триъгълника има? Намери възможните дължини на AC (sin 35° ≈ 0,574, cos 35° ≈ 0,819).">
+                <p>Нека AC = x. По косинусовата теорема: 6² = x² + 10² − 2 · 10 · x · cos 35° ⇒ x² − 16,38x + 64 = 0</p>
+                <p>D/4 = 8,19² − 64 ≈ 3,1 &gt; 0 ⇒ два корена: x ≈ 8,19 ± 1,76</p>
+                <p>AC ≈ 9,95 или AC ≈ 6,43 – два различни триъгълника (пробвай в лабораторията ССЪ!).</p>
+                <p>Причината: 10 · sin 35° ≈ 5,74 &lt; 6 &lt; 10.</p>
+              </Task>
+              <Task id="c3" number={9} color="border-red-500" question="Докажи, че за всеки естествени m > n числата m² − n², 2mn и m² + n² са питагорова тройка. Намери всички правоъгълни триъгълници с цели страни и хипотенуза 25.">
+                <p>(m² − n²)² + (2mn)² = m⁴ − 2m²n² + n⁴ + 4m²n² = (m² + n²)² ✓</p>
+                <p>m² + n² = 25: m = 4, n = 3 ⇒ 7, 24, 25. Освен това кратни на по-малки тройки: 5 · (3, 4, 5) = 15, 20, 25.</p>
+                <p>Отговор: катети 7 и 24 или 15 и 20.</p>
+              </Task>
+            </div>
+          </TaskBoard>
+        </section>
+
+        <section className="mb-8">
+          <h2 className={h2}>12. Обобщение</h2>
+          <div className="bg-gradient-to-r from-violet-50 to-blue-50 dark:from-gray-800 dark:to-gray-700 p-6 rounded-lg">
+            <ul className="space-y-2 text-sm sm:text-base">
+              <li>✓ α + β + γ = 180°; външният ъгъл е равен на сбора на двата несъседни вътрешни</li>
+              <li>✓ |b − c| &lt; a &lt; b + c; срещу по-голямата страна лежи по-големият ъгъл</li>
+              <li>✓ Признаци за еднаквост: СЪС, ЪСЪ, ССС (но не ССЪ)</li>
+              <li>✓ Медиани, височини, ъглополовящи и симетрали се пресичат в една точка; G дели медианите 2 : 1</li>
+              <li>✓ Питагор: c² = a² + b² ⇔ γ = 90°; c² &lt; a² + b² – остър, c² &gt; a² + b² – тъп</li>
+              <li>✓ S = a · hₐ / 2; Херон: S = √(p(p − a)(p − b)(p − c))</li>
+            </ul>
+          </div>
         </section>
 
         <section className="mb-8">
           <div className="bg-yellow-50 dark:bg-yellow-900/20 border-l-4 border-yellow-500 p-4 rounded">
             <p className="font-semibold mb-2">💡 Интересен факт</p>
             <p className={text}>
-              Питагоровите тройки са познати много преди Питагор (VI век пр.н.е.). Вавилонската
-              глинена плочка „Плимптън 322“, написана около 1800 г. пр.н.е., съдържа таблица с
-              петнадесет такива тройки – някои с числа над 10 000. Вавилонците са ги използвали
-              повече от хилядолетие преди гърците да докажат теоремата.
+              Питагоровите тройки са познати много преди Питагор (VI век пр.н.е.). Вавилонската глинена плочка „Плимптън 322“, написана около
+              1800 г. пр.н.е., съдържа таблица с петнадесет такива тройки – някои с числа над 10 000. Вавилонците са ги използвали повече от
+              хилядолетие преди гърците да докажат теоремата. А днес са известни стотици различни доказателства на Питагоровата теорема – едно
+              от тях е измислил дори американският президент Джеймс Гарфийлд (1876 г.).
             </p>
           </div>
         </section>

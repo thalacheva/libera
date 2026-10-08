@@ -228,6 +228,20 @@ export function PlotLine({ p, q, tone = 'gray', width = 2, dashed = false }: { p
   );
 }
 
+/** Запълнен многоъгълник по върхове в математически координати. */
+export function PlotPolygon({ points, tone = 'blue' }: { points: Point[]; tone?: Tone }) {
+  const { toSvg } = useFrame();
+  const d = points.map(p => toSvg(p)).map(q => `${q.x},${q.y}`).join(' ');
+  return <polygon points={d} className={`${tones[tone].soft} ${tones[tone].stroke}`} strokeWidth="1.5" />;
+}
+
+/** Начупена линия (напр. параметрична крива) по точки в математически координати. */
+export function PlotPolyline({ points, tone = 'blue', width = 3 }: { points: Point[]; tone?: Tone; width?: number }) {
+  const { toSvg } = useFrame();
+  const d = points.map(p => toSvg(p)).map(q => `${q.x.toFixed(2)},${q.y.toFixed(2)}`).join(' ');
+  return <polyline points={d} fill="none" className={tones[tone].stroke} strokeWidth={width} strokeLinecap="round" strokeLinejoin="round" />;
+}
+
 /** Вертикална права x = c през цялата графика (напр. ос на симетрия). */
 export function VLine({ x: c, tone = 'gray', dashed = true }: { x: number; tone?: Tone; dashed?: boolean }) {
   const { y } = useFrame();

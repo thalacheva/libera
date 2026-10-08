@@ -1,8 +1,13 @@
 import { CheckCircle, RotateCcw, Sparkles, XCircle } from 'lucide-react';
 import { useState } from 'react';
 import Example from '~/Example';
+import Quiz, { type Question } from '~/Quiz';
+import Task, { TaskBoard, TaskLevel } from '~/Task';
+import Theorem from '~/Theorem';
 import { WordProblems, type WordProblem } from '~/WordProblems';
-import Quiz, { Question } from '~/Quiz';
+import BiquadraticLab from './BiquadraticLab';
+import RootsParameterLab from './RootsParameterLab';
+import VietaLab from './VietaLab';
 
 // ---------- Помощни функции ----------
 
@@ -483,59 +488,65 @@ const wordProblems: WordProblem[] = [
     check: [10],
     ask: ['участници'],
   },
+  {
+    title: '🖼️ Рамка',
+    problem: 'Снимка 20 cm × 30 cm е поставена в рамка с еднаква ширина от всички страни. Заедно с рамката лицето е 1200 cm². Колко е широка рамката?',
+    solution: ['Нека рамката е широка x cm. Размерите с рамката са (20 + 2x) и (30 + 2x).', '(20 + 2x)(30 + 2x) = 1200', '4x² + 100x − 600 = 0  | : 4', 'x² + 25x − 150 = 0, D = 625 + 600 = 1225', 'x₁ = (−25 + 35)/2 = 5,  x₂ = −30 (отпада)'],
+    answer: '5 cm',
+    check: [5],
+    ask: ['ширина на рамката, cm'],
+  },
+  {
+    title: '🚆 Влакът',
+    problem: 'Влак изминава 120 km. Ако скоростта му беше с 20 km/h по-голяма, щеше да пристигне 1 час по-рано. Каква е скоростта му?',
+    solution: ['Нека скоростта е v. Времената са 120/v и 120/(v + 20).', '120/v − 120/(v + 20) = 1', '120(v + 20) − 120v = v(v + 20)', 'v² + 20v − 2400 = 0, D = 400 + 9600 = 10 000', 'v₁ = (−20 + 100)/2 = 40,  v₂ = −60 (отпада)'],
+    answer: '40 km/h',
+    check: [40],
+    ask: ['скорост, km/h'],
+  },
 ];
 
 // ---------- Тест ----------
 
 const quadraticEquationsQuiz: Question[] = [
   {
-    question: 'Реши уравнението: x² - 7x + 12 = 0',
+    question: 'Реши уравнението: x² − 7x + 12 = 0',
     answers: [
       'x₁ = 3, x₂ = 4',
       'x₁ = 2, x₂ = 6',
       'x₁ = 1, x₂ = 12',
-      'x₁ = -3, x₂ = -4',
+      'x₁ = −3, x₂ = −4',
     ],
     correctAnswer: 'x₁ = 3, x₂ = 4',
-  },
-  {
-    question: 'Реши уравнението: 2x² - 8x + 6 = 0',
-    answers: [
-      'x₁ = 1, x₂ = 3',
-      'x₁ = 2, x₂ = 4',
-      'x₁ = -1, x₂ = -3',
-      'x₁ = 0, x₂ = 2',
-    ],
-    correctAnswer: 'x₁ = 1, x₂ = 3',
   },
   {
     question: 'Реши уравнението: x² + 6x + 9 = 0',
     answers: [
       'x₁ = 3, x₂ = 3 (двоен корен)',
-      'x₁ = -3, x₂ = -3 (двоен корен)',
-      'x₁ = 3, x₂ = -3',
+      'x₁ = −3, x₂ = −3 (двоен корен)',
+      'x₁ = 3, x₂ = −3',
       'Няма реални корени',
     ],
-    correctAnswer: 'x₁ = -3, x₂ = -3 (двоен корен)',
+    correctAnswer: 'x₁ = −3, x₂ = −3 (двоен корен)',
   },
   {
-    question: 'Реши уравнението: x² - 16 = 0',
-    answers: ['x = 4', 'x = 8', 'x₁ = -4, x₂ = 4', 'Няма реални корени'],
-    correctAnswer: 'x₁ = -4, x₂ = 4',
+    question: 'Реши уравнението: x² − 16 = 0',
+    answers: ['x = 4', 'x = 8', 'x₁ = −4, x₂ = 4', 'Няма реални корени'],
+    correctAnswer: 'x₁ = −4, x₂ = 4',
   },
   {
-    question: 'Реши уравнението: 5x² - 15x = 0',
-    answers: ['x = 3', 'x₁ = 0, x₂ = 3', 'x₁ = 0, x₂ = -3', 'x₁ = 3, x₂ = 5'],
+    question: 'Реши уравнението: 5x² − 15x = 0',
+    answers: ['x = 3', 'x₁ = 0, x₂ = 3', 'x₁ = 0, x₂ = −3', 'x₁ = 3, x₂ = 5'],
     correctAnswer: 'x₁ = 0, x₂ = 3',
   },
   {
-    question: 'Колко е дискриминантата на 2x² + 3x - 2 = 0?',
-    answers: ['D = -7', 'D = 25', 'D = 17', 'D = 1'],
+    question: 'Колко е дискриминантата на 2x² + 3x − 2 = 0?',
+    answers: ['D = −7', 'D = 25', 'D = 17', 'D = 1'],
     correctAnswer: 'D = 25',
   },
   {
-    question: 'Без да решаваш: на колко е равна сумата на корените на x² - 7x + 10 = 0?',
-    answers: ['-7', '10', '7', '-10'],
+    question: 'Без да решаваш: на колко е равна сумата на корените на x² − 7x + 10 = 0?',
+    answers: ['−7', '10', '7', '−10'],
     correctAnswer: '7',
   },
   {
@@ -543,59 +554,54 @@ const quadraticEquationsQuiz: Question[] = [
     answers: ['Два', 'Един (двоен)', 'Нито един', 'Безброй много'],
     correctAnswer: 'Нито един',
   },
+  {
+    question: 'Как се разлага x² − 9x + 20?',
+    answers: ['(x − 4)(x − 5)', '(x + 4)(x + 5)', '(x − 2)(x − 10)', '(x − 4)(x + 5)'],
+    correctAnswer: '(x − 4)(x − 5)',
+  },
+  {
+    question: 'Колко реални корена има x⁴ − 5x² + 4 = 0?',
+    answers: ['Нито един', 'Два', 'Три', 'Четири'],
+    correctAnswer: 'Четири',
+  },
 ];
 
 // ---------- Страница ----------
 
-export function QuadraticEquations() {
+const h2 = 'text-xl sm:text-2xl font-semibold mb-3 text-gray-800 dark:text-gray-100';
+const text = 'mb-4 text-sm sm:text-base text-gray-700 dark:text-gray-300 leading-relaxed';
 
+export function QuadraticEquations() {
   return (
     <main className="flex-1 overflow-y-auto px-4 pt-16 pb-12 sm:px-6 lg:px-10 lg:pt-10">
       <div className="max-w-4xl mx-auto">
-        <h1 className="text-2xl sm:text-3xl font-bold tracking-tight mb-6 text-gray-900 dark:text-white">
-          Решаване на квадратни уравнения
-        </h1>
+        <h1 className="text-2xl sm:text-3xl font-bold tracking-tight mb-6 text-gray-900 dark:text-white">Квадратни уравнения</h1>
 
-        <section className="mb-6 sm:mb-8">
+        <div className="bg-gradient-to-br from-indigo-800 to-slate-900 text-white p-6 rounded-2xl mb-8 shadow-lg">
+          <p className="text-lg sm:text-xl leading-relaxed">
+            🏺 В Британския музей се пази глинена плочка от Вавилон, написана преди близо 4000 години (BM 13901). Първата задача върху нея
+            гласи: „Събрах лицето и страната на моя квадрат и получих 3/4. Колко е страната?“ Днес бихме написали x² + x = 3/4. Писарят не
+            знае нито буквите, нито отрицателните числа – но описва стъпка по стъпка точно метода, който ще видим в т. 3: допълване до точен
+            квадрат. И получава верния отговор: 1/2.
+          </p>
+        </div>
+
+        <section className="mb-8">
+          <h2 className={h2}>1. Какво е квадратно уравнение?</h2>
           <div className="bg-amber-50 dark:bg-amber-900/20 border-l-4 border-amber-500 p-4 rounded mb-4">
             <p className="text-sm sm:text-base text-gray-700 dark:text-gray-300">
-              🤔 <strong>Загадка:</strong> Квадратна стая има лице 36 m². Колко е дълга стената?
-              Лесно – 6 m. А ако стаята е с 5 m по-дълга, отколкото е широка, и лицето ѝ е 36 m²?
-              Тогава x(x + 5) = 36, т.е. <span className="font-mono">x² + 5x − 36 = 0</span>.
-              Отговорът (4 m × 9 m) вече не се вижда толкова лесно – затова ни трябват инструментите
-              от този урок.
+              🤔 <strong>Загадка:</strong> Квадратна стая има лице 36 m². Колко е дълга стената? Лесно – 6 m. А ако стаята е с 5 m по-дълга,
+              отколкото е широка, и лицето ѝ е 36 m²? Тогава x(x + 5) = 36, т.е. <span className="font-mono">x² + 5x − 36 = 0</span>. Отговорът
+              (4 m × 9 m) вече не се вижда толкова лесно – затова ни трябват инструментите от този урок.
             </p>
           </div>
-        </section>
-
-        <section className="mb-6 sm:mb-8">
-          <h2 className="text-lg sm:text-xl font-semibold mb-2 sm:mb-3 text-gray-800 dark:text-gray-100">
-            Квадратно уравнение
-          </h2>
-          <p className="mb-3 sm:mb-4 text-sm sm:text-base text-gray-700 dark:text-gray-300">
-            Квадратното уравнение е алгебрично уравнение от вида:
-          </p>
-          <div className="bg-blue-50 dark:bg-blue-900/20 border-l-4 border-blue-500 p-3 sm:p-4 mb-3 sm:mb-4">
-            <p className="text-base sm:text-lg font-mono text-center break-all text-gray-800 dark:text-gray-100">
-              ax² + bx + c = 0, където a ≠ 0
-            </p>
-          </div>
-          <p className="text-sm sm:text-base text-gray-700 dark:text-gray-300">
-            Коефициентите <strong>a</strong>, <strong>b</strong> и{' '}
-            <strong>c</strong> са реални числа, като <strong>a</strong> се нарича
-            главен коефициент, а <strong>c</strong> – свободен член. Графиката на
-            y = ax² + bx + c е <strong>парабола</strong>, а корените на уравнението са
-            точките, в които тя пресича оста Ox.
-          </p>
-        </section>
-
-        <section className="mb-6 sm:mb-8">
-          <h2 className="text-lg sm:text-xl font-semibold mb-2 sm:mb-3 text-gray-800 dark:text-gray-100">
-            Непълни квадратни уравнения
-          </h2>
-          <p className="mb-3 sm:mb-4 text-sm sm:text-base text-gray-700 dark:text-gray-300">
-            Когато b или c е 0, уравнението се решава бързо и без формула:
-          </p>
+          <Theorem
+            type="definition"
+            title="Квадратно уравнение"
+            description="Уравнение от вида ax² + bx + c = 0, където a, b, c са числа и a ≠ 0. Числото a е главният коефициент, b – коефициентът пред x, c – свободният член. Графиката на y = ax² + bx + c е парабола, а корените на уравнението са точките, в които тя пресича оста Ox."
+          />
+          <h3 className="text-lg font-semibold mb-2 text-gray-800 dark:text-gray-100">Непълни квадратни уравнения</h3>
+          <p className={text}>Когато b или c е 0, уравнението се решава бързо и без формула:</p>
           <div className="grid sm:grid-cols-2 gap-3 text-sm sm:text-base text-gray-700 dark:text-gray-300">
             <div className="bg-white dark:bg-gray-800 p-3 sm:p-4 rounded shadow-sm">
               <p className="font-semibold text-blue-600 dark:text-blue-400 font-mono">b = 0: ax² + c = 0</p>
@@ -614,134 +620,103 @@ export function QuadraticEquations() {
           </div>
         </section>
 
-        <section className="mb-6 sm:mb-8">
-          <h2 className="text-lg sm:text-xl font-semibold mb-2 sm:mb-3 text-gray-800 dark:text-gray-100">
-            Откъде идва формулата? Допълване до точен квадрат
-          </h2>
-          <p className="mb-4 text-sm sm:text-base text-gray-700 dark:text-gray-300 leading-relaxed">
-            Преди 1200 години, без отрицателни числа и без буквени означения, ал-Хорезми е решавал
-            квадратни уравнения с... рисунки. Натисни бутона и виж как една фигура се превръща в
-            точен квадрат.
+        <section className="mb-8">
+          <h2 className={h2}>2. Допълване до точен квадрат</h2>
+          <p className={text}>
+            Преди 1200 години, без отрицателни числа и без буквени означения, ал-Хорезми е решавал квадратни уравнения с... рисунки. Натисни
+            бутона и виж как една фигура се превръща в точен квадрат.
           </p>
           <CompletingTheSquare />
-          <p className="text-sm sm:text-base text-gray-700 dark:text-gray-300 leading-relaxed">
-            Ако направим същото с общото уравнение ax² + bx + c = 0, ще получим
-            (x + b/2a)² = (b² − 4ac) / 4a². Изразът b² − 4ac е толкова важен, че си има собствено име.
+          <p className={text}>
+            Ако направим същото с общото уравнение ax² + bx + c = 0, ще получим (x + b/2a)² = (b² − 4ac) / 4a². Изразът b² − 4ac е толкова
+            важен, че си има собствено име.
           </p>
-        </section>
-
-        <section className="mb-6 sm:mb-8">
-          <h2 className="text-lg sm:text-xl font-semibold mb-2 sm:mb-3 text-gray-800 dark:text-gray-100">
-            Дискриминанта
-          </h2>
-          <p className="mb-3 sm:mb-4 text-sm sm:text-base text-gray-700 dark:text-gray-300">
-            Дискриминантата е израз, който определя броя и вида на корените на
-            квадратното уравнение:
-          </p>
-          <div className="bg-green-50 dark:bg-green-900/20 border-l-4 border-green-500 p-3 sm:p-4 mb-3 sm:mb-4">
-            <p className="text-base sm:text-lg font-mono text-center text-gray-800 dark:text-gray-100">
-              D = b² - 4ac
-            </p>
-          </div>
-          <p className="mb-4 text-sm sm:text-base text-gray-700 dark:text-gray-300">
-            Промени коефициентите и наблюдавай как знакът на D решава съдбата на параболата:
-          </p>
-          <ParabolaExplorer />
-        </section>
-
-        <section className="mb-6 sm:mb-8">
-          <h2 className="text-lg sm:text-xl font-semibold mb-2 sm:mb-3 text-gray-800 dark:text-gray-100">
-            Формула за корените
-          </h2>
-          <p className="mb-3 sm:mb-4 text-sm sm:text-base text-gray-700 dark:text-gray-300">
-            Когато D ≥ 0, корените на квадратното уравнение се намират по
-            формулата:
-          </p>
-          <div className="bg-purple-50 dark:bg-purple-900/20 border-l-4 border-purple-500 p-3 sm:p-4 mb-3 sm:mb-4">
-            <p className="text-base sm:text-lg font-mono text-center mb-2 break-all text-gray-800 dark:text-gray-100">
-              x₁,₂ = (-b ± √D) / (2a)
-            </p>
-            <p className="text-center text-gray-600 dark:text-gray-400 text-xs sm:text-sm">
-              или
-            </p>
-            <p className="text-base sm:text-lg font-mono text-center mt-2 break-all text-gray-800 dark:text-gray-100">
-              x₁,₂ = (-b ± √(b² - 4ac)) / (2a)
-            </p>
-          </div>
-          <p className="text-sm sm:text-base text-gray-700 dark:text-gray-300">
-            където знакът ± означава, че <span className="font-mono">x₁</span> се
-            получава с +, а <span className="font-mono">x₂</span> се получава с -.
-            Числото −b/2a (без ±) е точно абсцисата на върха на параболата – корените са
-            симетрично разположени около него.
-          </p>
-        </section>
-
-        <section className="mb-6 sm:mb-8">
-          <h2 className="text-lg sm:text-xl font-semibold mb-2 sm:mb-3 text-gray-800 dark:text-gray-100">
-            Формули на Виет (Viète)
-          </h2>
-          <p className="mb-3 sm:mb-4 text-sm sm:text-base text-gray-700 dark:text-gray-300">
-            Формулите на Виет свързват корените на квадратното уравнение с
-            неговите коефициенти:
-          </p>
-          <div className="bg-orange-50 dark:bg-orange-900/20 border-l-4 border-orange-500 p-3 sm:p-4 mb-3 sm:mb-4">
-            <div className="space-y-2 sm:space-y-3">
-              <div>
-                <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-400 mb-1">
-                  Сума на корените:
-                </p>
-                <p className="text-base sm:text-lg font-mono text-center text-gray-800 dark:text-gray-100">
-                  x₁ + x₂ = -b/a
-                </p>
-              </div>
-              <div className="border-t border-gray-200 dark:border-gray-700 pt-2 sm:pt-3">
-                <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-400 mb-1">
-                  Произведение на корените:
-                </p>
-                <p className="text-base sm:text-lg font-mono text-center text-gray-800 dark:text-gray-100">
-                  x₁ · x₂ = c/a
-                </p>
-              </div>
-            </div>
-          </div>
-          <div className="bg-blue-100 dark:bg-blue-900/30 p-3 sm:p-4 rounded">
-            <p className="font-semibold mb-2 text-sm sm:text-base text-blue-900 dark:text-blue-300">
-              💡 Трик за устно решаване:
-            </p>
-            <p className="text-sm sm:text-base text-gray-700 dark:text-gray-300">
-              При a = 1 търсим две числа със сума −b и произведение c. За x² − 7x + 12 = 0
-              питаме: кои две числа дават сума 7 и произведение 12? Това са 3 и 4 – готово, без
-              дискриминанта! Формулите на Виет са полезни и за проверка на намерените корени.
-            </p>
-          </div>
         </section>
 
         <section className="mb-8">
+          <h2 className={h2}>3. Дискриминанта и формула за корените</h2>
+          <Theorem
+            title="Формула за корените"
+            description="Дискриминантата на ax² + bx + c = 0 е D = b² − 4ac. Ако D > 0, уравнението има два различни корена x₁,₂ = (−b ± √D) / 2a; ако D = 0 – един двоен корен x = −b/2a; ако D < 0 – няма реални корени. Когато b е четно (b = 2k), е удобна съкратената формула x₁,₂ = (−k ± √(k² − ac)) / a."
+          />
+          <p className={text}>Промени коефициентите и наблюдавай как знакът на D решава съдбата на параболата:</p>
+          <ParabolaExplorer />
+          <p className={text}>
+            Числото −b/2a (без ±) е абсцисата на върха на параболата – корените са симетрично разположени около него.
+          </p>
           <Example
-            description="Да решим уравнението: x² - 5x + 6 = 0"
+            description="Да решим уравнението x² − 5x + 6 = 0"
             steps={[
-              'Идентифицираме коефициентите: a = 1, b = -5, c = 6',
-              'Намираме дискриминантата: D = b² - 4ac = (-5)² - 4(1)(6) = 25 - 24 = 1',
-              'Тъй като D > 0, има два различни реални корена',
-              'x₁ = (-b + √D) / (2a) = (5 + 1) / 2 = 3',
-              'x₂ = (-b - √D) / (2a) = (5 - 1) / 2 = 2',
-              'Проверка с Виет: x₁ + x₂ = 3 + 2 = 5 = -(-5)/1 ✓',
-              'Проверка с Виет: x₁ · x₂ = 3 · 2 = 6 = 6/1 ✓',
+              'Коефициентите: a = 1, b = −5, c = 6',
+              'D = b² − 4ac = (−5)² − 4 · 1 · 6 = 25 − 24 = 1 > 0 – два корена',
+              'x₁ = (5 + 1)/2 = 3,  x₂ = (5 − 1)/2 = 2',
+              'Проверка: 3² − 5 · 3 + 6 = 0 ✓ и 2² − 5 · 2 + 6 = 0 ✓',
             ]}
           />
         </section>
 
-        <section className="mb-6 sm:mb-8">
-          <h2 className="text-lg sm:text-xl font-semibold mb-2 sm:mb-3 text-gray-800 dark:text-gray-100">
-            ⚠️ Чести грешки
-          </h2>
-          <div className="space-y-2 sm:space-y-3 text-sm sm:text-base text-gray-700 dark:text-gray-300">
+        <section className="mb-8">
+          <h2 className={h2}>4. Формули на Виет и разлагане</h2>
+          <Theorem
+            title="Теорема на Виет"
+            description="Ако x₁ и x₂ са корените на ax² + bx + c = 0, то x₁ + x₂ = −b/a и x₁ · x₂ = c/a. Обратно: числата x₁ и x₂ са корени на x² − (x₁ + x₂)x + x₁x₂ = 0. Следствие (разлагане на квадратния тричлен): ax² + bx + c = a(x − x₁)(x − x₂)."
+          />
+          <div className="bg-blue-100 dark:bg-blue-900/30 p-3 sm:p-4 rounded mb-4">
+            <p className="font-semibold mb-2 text-sm sm:text-base text-blue-900 dark:text-blue-300">💡 Трик за устно решаване:</p>
+            <p className="text-sm sm:text-base text-gray-700 dark:text-gray-300">
+              При a = 1 търсим две числа със сума −b и произведение c. За x² − 7x + 12 = 0 питаме: кои две числа дават сума 7 и произведение
+              12? Това са 3 и 4 – готово, без дискриминанта!
+            </p>
+          </div>
+          <VietaLab />
+          <Example
+            description="Без да решаваш уравнението x² − 5x + 3 = 0, намери x₁² + x₂²."
+            steps={[
+              'По Виет: x₁ + x₂ = 5, x₁x₂ = 3',
+              'x₁² + x₂² = (x₁ + x₂)² − 2x₁x₂',
+              '= 25 − 6 = 19',
+              'Корените са ирационални ((5 ± √13)/2), но сборът от квадратите им е цяло число!',
+            ]}
+          />
+        </section>
+
+        <section className="mb-8">
+          <h2 className={h2}>5. Уравнения, които се свеждат до квадратни</h2>
+          <p className={text}>
+            Уравнение от вида ax⁴ + bx² + c = 0 се нарича <strong>биквадратно</strong>. Със смяната t = x² то става квадратно: at² + bt + c =
+            0. Същата идея работи винаги, когато един израз се повтаря – например (x² + x)² − 8(x² + x) + 12 = 0 със смяна t = x² + x.
+          </p>
+          <BiquadraticLab />
+          <Example
+            description="Да решим x⁴ − 10x² + 9 = 0"
+            steps={['Смяна t = x² (t ≥ 0): t² − 10t + 9 = 0', 't₁ = 1, t₂ = 9 (по Виет: сбор 10, произведение 9)', 'x² = 1 ⇒ x = ±1;  x² = 9 ⇒ x = ±3', 'Отговор: четири корена −3, −1, 1, 3']}
+          />
+        </section>
+
+        <section className="mb-8">
+          <h2 className={h2}>6. Квадратни уравнения с параметър</h2>
+          <p className={text}>
+            Броят на корените зависи от знака на D, а знаците им – от Виет: ако c/a &lt; 0, корените са с различни знаци; ако c/a &gt; 0 – с
+            еднакви, и тогава знакът на сбора −b/a казва дали са положителни или отрицателни. Не забравяй случая a = 0 – тогава уравнението не е
+            квадратно!
+          </p>
+          <Example
+            description="За кои стойности на m уравнението x² − 6x + m = 0 има два различни корена?"
+            steps={['D = 36 − 4m', 'Два различни корена ⇔ D > 0 ⇔ 36 − 4m > 0', 'm < 9', 'При m = 9 – двоен корен x = 3; при m > 9 – няма реални корени']}
+          />
+          <RootsParameterLab />
+        </section>
+
+        <section className="mb-8">
+          <h2 className={h2}>7. ⚠️ Чести грешки</h2>
+          <div className="grid sm:grid-cols-2 gap-3 text-sm sm:text-base text-gray-700 dark:text-gray-300">
             {[
               ['Изгубен корен при коренуване', 'x² = 9 → x = 3', 'x = ±3'],
               ['Делене на x (губим корена 0)', 'x² = 5x → x = 5', 'x² − 5x = 0 → x(x − 5) = 0 → x₁ = 0, x₂ = 5'],
               ['Знакът на −b при отрицателно b', 'x² − 5x + 6 = 0 → x = (−5 ± 1)/2', 'x = (5 ± 1)/2'],
               ['Квадрат на отрицателно число', 'b = −4 → b² = −16', 'b² = (−4)² = 16'],
               ['2a дели само корена', 'x = −b ± √D / 2a', 'x = (−b ± √D) / 2a – дели се целият числител'],
+              ['Отрицателно t при смяна t = x²', 't = −4 → x = ±2', 't = −4 → x² = −4 няма решение'],
             ].map(([title, wrong, right]) => (
               <div key={title} className="bg-white dark:bg-gray-800 p-3 sm:p-4 rounded shadow-sm">
                 <p className="font-semibold mb-1">{title}</p>
@@ -752,42 +727,112 @@ export function QuadraticEquations() {
           </div>
         </section>
 
-        <section className="mb-6 sm:mb-8">
-          <h2 className="text-lg sm:text-xl font-semibold mb-2 sm:mb-3 text-gray-800 dark:text-gray-100">
-            Задачи от живота
-          </h2>
-          <p className="mb-4 text-sm sm:text-base text-gray-700 dark:text-gray-300">
-            Квадратните уравнения се появяват навсякъде, където има лица, падане на предмети
-            или броене на двойки. Внимавай – понякога единият корен няма смисъл в задачата!
+        <section className="mb-8">
+          <h2 className={h2}>8. Задачи от живота</h2>
+          <p className={text}>
+            Квадратните уравнения се появяват навсякъде, където има лица, падане на предмети или броене на двойки. Внимавай – понякога единият
+            корен няма смисъл в задачата!
           </p>
           <WordProblems problems={wordProblems} />
         </section>
 
-        <section className="mb-6 sm:mb-8">
-          <h2 className="text-lg sm:text-xl font-semibold mb-2 sm:mb-3 text-gray-800 dark:text-gray-100 flex items-center gap-2">
-            <Sparkles size={20} className="text-sky-500" /> Тренажор
+        <section className="mb-8">
+          <h2 className={`${h2} flex items-center gap-2`}>
+            <Sparkles size={22} className="text-sky-500" /> 9. Тренажор
           </h2>
-          <p className="mb-4 text-sm sm:text-base text-gray-700 dark:text-gray-300">
-            Безкраен брой уравнения! Някои имат два корена, някои – двоен, а някои – нито един.
-          </p>
+          <p className={text}>Безкраен брой уравнения! Някои имат два корена, някои – двоен, а някои – нито един.</p>
           <Trainer />
         </section>
 
         <section className="mb-8">
-          <h2 className="text-lg sm:text-xl font-semibold mb-4 text-gray-800 dark:text-gray-100">
-            Упражнения
-          </h2>
+          <h2 className={h2}>10. 🎯 Бърз тест</h2>
           <Quiz questions={quadraticEquationsQuiz} />
+        </section>
+
+        <section className="mb-8">
+          <h2 className={h2}>11. 📝 Задачи за упражнение</h2>
+          <TaskBoard>
+            <div className="mb-6">
+              <TaskLevel level="A" />
+              <Task id="a1" number={1} color="border-green-500" question="Реши уравнението 3x² − 12 = 0.">
+                <p>3x² = 12 ⇒ x² = 4</p>
+                <p>x₁ = −2, x₂ = 2 (не забравяй и отрицателния корен!)</p>
+              </Task>
+              <Task id="a2" number={2} color="border-green-500" question="Реши уравнението x² − 2x − 15 = 0.">
+                <p>D = 4 + 60 = 64, √D = 8</p>
+                <p>x₁ = (2 − 8)/2 = −3, x₂ = (2 + 8)/2 = 5</p>
+                <p>Проверка по Виет: −3 + 5 = 2 ✓, (−3) · 5 = −15 ✓</p>
+              </Task>
+              <Task id="a3" number={3} color="border-green-500" question="Разложи на множители x² − x − 6.">
+                <p>Търсим две числа със сбор 1 и произведение −6: това са 3 и −2.</p>
+                <p>x² − x − 6 = (x − 3)(x + 2)</p>
+              </Task>
+            </div>
+
+            <div className="mb-6">
+              <TaskLevel level="B" />
+              <Task id="b1" number={4} color="border-yellow-500" question="Реши уравнението x⁴ − 13x² + 36 = 0.">
+                <p>Смяна t = x² ≥ 0: t² − 13t + 36 = 0</p>
+                <p>t₁ = 4, t₂ = 9 (сбор 13, произведение 36)</p>
+                <p>x² = 4 ⇒ x = ±2; x² = 9 ⇒ x = ±3. Четири корена: −3, −2, 2, 3.</p>
+              </Task>
+              <Task id="b2" number={5} color="border-yellow-500" question="Корените на x² − 5x + 3 = 0 са x₁ и x₂. Без да ги намираш, пресметни 1/x₁ + 1/x₂ и x₁²x₂ + x₁x₂².">
+                <p>По Виет: x₁ + x₂ = 5, x₁x₂ = 3</p>
+                <p>1/x₁ + 1/x₂ = (x₁ + x₂)/(x₁x₂) = 5/3</p>
+                <p>x₁²x₂ + x₁x₂² = x₁x₂(x₁ + x₂) = 3 · 5 = 15</p>
+              </Task>
+              <Task id="b3" number={6} color="border-yellow-500" question="За кои стойности на m уравнението x² + mx + 9 = 0 има двоен корен? Намери го.">
+                <p>Двоен корен ⇔ D = 0: m² − 36 = 0 ⇒ m = ±6</p>
+                <p>При m = 6: x = −m/2 = −3; при m = −6: x = 3.</p>
+                <p>Наистина x² + 6x + 9 = (x + 3)² и x² − 6x + 9 = (x − 3)².</p>
+              </Task>
+            </div>
+
+            <div className="mb-6">
+              <TaskLevel level="C" />
+              <Task id="c1" number={7} color="border-red-500" question="За кои стойности на m двата корена на x² − 2(m + 1)x + m² + 3 = 0 са реални и положителни?">
+                <p>Реални: D/4 = (m + 1)² − (m² + 3) = 2m − 2 ≥ 0 ⇒ m ≥ 1</p>
+                <p>Положителни: произведение m² + 3 &gt; 0 винаги; сбор 2(m + 1) &gt; 0 ⇒ m &gt; −1</p>
+                <p>Отговор: m ≥ 1 (при m = 1 коренът е двоен – x = 2).</p>
+              </Task>
+              <Task id="c2" number={8} color="border-red-500" question="Реши уравнението (x² + x)² − 8(x² + x) + 12 = 0.">
+                <p>Смяна t = x² + x: t² − 8t + 12 = 0 ⇒ t₁ = 2, t₂ = 6</p>
+                <p>x² + x = 2 ⇒ x² + x − 2 = 0 ⇒ x = 1 или x = −2</p>
+                <p>x² + x = 6 ⇒ x² + x − 6 = 0 ⇒ x = 2 или x = −3</p>
+                <p>Отговор: −3, −2, 1, 2. (Без смяната щяхме да имаме уравнение от четвърта степен!)</p>
+              </Task>
+              <Task id="c3" number={9} color="border-red-500" question="Правоъгълник има това свойство: ако отрежем от него квадрат със страна, равна на по-малката му страна, остава правоъгълник, подобен на първия. Колко е отношението на страните му?">
+                <p>Нека страните са x и 1 (x &gt; 1). След отрязване на квадрат 1 × 1 остава правоъгълник 1 × (x − 1).</p>
+                <p>Подобие: x/1 = 1/(x − 1) ⇒ x(x − 1) = 1 ⇒ x² − x − 1 = 0</p>
+                <p>x = (1 + √5)/2 ≈ 1,618 (отрицателният корен отпада)</p>
+                <p>Това е „златното сечение“ φ – среща се в изкуството, архитектурата и в числата на Фибоначи.</p>
+              </Task>
+            </div>
+          </TaskBoard>
+        </section>
+
+        <section className="mb-8">
+          <h2 className={h2}>12. Обобщение</h2>
+          <div className="bg-gradient-to-r from-indigo-50 to-blue-50 dark:from-gray-800 dark:to-gray-700 p-6 rounded-lg">
+            <ul className="space-y-2 text-sm sm:text-base">
+              <li>✓ ax² + bx + c = 0, a ≠ 0; непълните (b = 0 или c = 0) се решават без формула</li>
+              <li>✓ D = b² − 4ac: D &gt; 0 – два корена, D = 0 – двоен, D &lt; 0 – няма реални</li>
+              <li>✓ x₁,₂ = (−b ± √D) / 2a; върхът на параболата е при x = −b/2a</li>
+              <li>✓ Виет: x₁ + x₂ = −b/a, x₁x₂ = c/a; ax² + bx + c = a(x − x₁)(x − x₂)</li>
+              <li>✓ Биквадратни и други уравнения – смяна на повтарящия се израз; t = x² не може да е отрицателно</li>
+              <li>✓ Параметър: знак на D за броя на корените, Виет за знаците им, отделно случая a = 0</li>
+            </ul>
+          </div>
         </section>
 
         <section className="mb-8">
           <div className="bg-yellow-50 dark:bg-yellow-900/20 border-l-4 border-yellow-500 p-4 rounded">
             <p className="font-semibold mb-2">💡 Интересен факт</p>
             <p className="text-sm sm:text-base text-gray-700 dark:text-gray-300">
-              Вавилонските писари са решавали квадратни уравнения преди близо 4000 години –
-              задачите им са запазени върху глинени плочки. Формулата във вида, в който я
-              използваме днес, с букви за коефициентите, става възможна едва около 1600 г.,
-              когато френският математик Франсоа Виет въвежда буквените означения в алгебрата.
+              Формула за корените има и за уравненията от трета и четвърта степен – италианците Тарталя, Кардано и Ферари я намират през XVI
+              век, след истински математически дуели. Но за пета степен двеста години никой не успява. През 1824 г. норвежецът Нилс Абел доказва
+              защо: обща формула с корени за уравненията от пета степен не съществува. Скоро след това Еварист Галоа, загинал на 20 години в
+              дуел, обяснява кои уравнения все пак могат да се решат така.
             </p>
           </div>
         </section>

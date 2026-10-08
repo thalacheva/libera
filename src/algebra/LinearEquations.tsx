@@ -1,8 +1,13 @@
 import { CheckCircle, RotateCcw, Sparkles, XCircle } from 'lucide-react';
 import { useState } from 'react';
 import Example from '~/Example';
+import Quiz, { type Question } from '~/Quiz';
+import Task, { TaskBoard, TaskLevel } from '~/Task';
+import Theorem from '~/Theorem';
 import { WordProblems, type WordProblem } from '~/WordProblems';
-import Quiz, { Question } from '~/Quiz';
+import AbsValueLab from './AbsValueLab';
+import MeetingLab from './MeetingLab';
+import ParameterLab from './ParameterLab';
 
 // ---------- Помощни функции за форматиране ----------
 
@@ -410,11 +415,11 @@ function Trainer() {
 const wordProblems: WordProblem[] = [
   {
     title: '🚕 Такси',
-    problem: 'Таксито взима 3 лв. за качване и 1.50 лв. на километър. Платили сме 18 лв. Колко километра сме пътували?',
+    problem: 'Таксито взима 3 € за качване и 1,50 € на километър. Платили сме 18 €. Колко километра сме пътували?',
     solution: [
       'Нека x е броят километри.',
-      '3 + 1.5x = 18',
-      '1.5x = 15',
+      '3 + 1,5x = 18',
+      '1,5x = 15',
       'x = 10',
     ],
     answer: '10 km',
@@ -436,16 +441,32 @@ const wordProblems: WordProblem[] = [
   },
   {
     title: '🌡️ Температура',
-    problem: 'Градусите по Фаренхайт се пресмятат с F = 1.8C + 32. При каква температура двата термометъра показват едно и също число?',
+    problem: 'Градусите по Фаренхайт се пресмятат с F = 1,8C + 32. При каква температура двата термометъра показват едно и също число?',
     solution: [
       'Търсим x, за което F = C = x.',
-      'x = 1.8x + 32',
-      '−0.8x = 32',
+      'x = 1,8x + 32',
+      '−0,8x = 32',
       'x = −40',
     ],
     answer: '−40° (−40 °C = −40 °F)',
     check: [-40],
     ask: ['температура, °'],
+  },
+  {
+    title: '🏷️ Намаление',
+    problem: 'След намаление с 20% якето струва 36 €. Колко е струвало преди намалението?',
+    solution: ['Нека x е старата цена. Намалението е 0,2x.', 'x − 0,2x = 36', '0,8x = 36', 'x = 36 : 0,8 = 45'],
+    answer: '45 €',
+    check: [45],
+    ask: ['стара цена, €'],
+  },
+  {
+    title: '🍎 Пазар',
+    problem: '2 kg ябълки и 3 kg круши струват 13,50 €. Килограм круши е с 0,50 € по-скъп от килограм ябълки. Колко струва килограм ябълки?',
+    solution: ['Нека x е цената на ябълките, тогава крушите са x + 0,5.', '2x + 3(x + 0,5) = 13,5', '5x + 1,5 = 13,5', '5x = 12 ⇒ x = 2,4'],
+    answer: '2,40 € (крушите – 2,90 €)',
+    check: [2.4],
+    ask: ['ябълки, €/kg'],
   },
 ];
 
@@ -482,63 +503,75 @@ const linearEquationsQuiz: Question[] = [
     answers: ['Едно', 'Две', 'Нито едно', 'Безброй много'],
     correctAnswer: 'Безброй много',
   },
+  {
+    question: 'Колко са решенията на |x − 2| = 5?',
+    answers: ['Само x = 7', 'x = 7 и x = −3', 'x = 3 и x = −7', 'Няма решение'],
+    correctAnswer: 'x = 7 и x = −3',
+  },
+  {
+    question: 'При кое a уравнението (a − 1)x = 3 няма решение?',
+    answers: ['a = 0', 'a = 1', 'a = 3', 'a = −1'],
+    correctAnswer: 'a = 1',
+  },
 ];
 
 // ---------- Страница ----------
 
-export function LinearEquations() {
+const h2 = 'text-xl sm:text-2xl font-semibold mb-3 text-gray-800 dark:text-gray-100';
+const text = 'mb-4 text-sm sm:text-base text-gray-700 dark:text-gray-300 leading-relaxed';
 
+export function LinearEquations() {
   return (
     <main className="flex-1 overflow-y-auto px-4 pt-16 pb-12 sm:px-6 lg:px-10 lg:pt-10">
       <div className="max-w-4xl mx-auto">
-        <h1 className="text-2xl sm:text-3xl font-bold tracking-tight mb-6 text-gray-900 dark:text-white">
-          Решаване на линейни уравнения
-        </h1>
+        <h1 className="text-2xl sm:text-3xl font-bold tracking-tight mb-6 text-gray-900 dark:text-white">Линейни уравнения</h1>
 
-        <section className="mb-6 sm:mb-8">
+        <div className="bg-gradient-to-br from-blue-800 to-slate-900 text-white p-6 rounded-2xl mb-8 shadow-lg">
+          <p className="text-lg sm:text-xl leading-relaxed">
+            🏛️ Върху гроба на Диофант Александрийски, „бащата на алгебрата“ (III век), според легендата е издълбана загадка: „Шестата част
+            от живота му беше детство, една дванадесета – юношество, а след още една седма той се ожени. Пет години по-късно му се роди син,
+            който живя наполовина колкото баща си. Четири години след сина си Диофант почина.“ На колко години е починал? Днес всеки
+            седмокласник може да реши тази загадка за две минути – с едно линейно уравнение. Ще го направиш в задача 6.
+          </p>
+        </div>
+
+        <section className="mb-8">
+          <h2 className={h2}>1. Какво е линейно уравнение?</h2>
           <div className="bg-amber-50 dark:bg-amber-900/20 border-l-4 border-amber-500 p-4 rounded mb-4">
             <p className="text-sm sm:text-base text-gray-700 dark:text-gray-300">
-              🤔 <strong>Загадка:</strong> Намислих число. Умножих го по 3, добавих 7 и получих 31.
-              Кое е числото? Ако си отговорил „8“, ти току-що реши линейно уравнение:{' '}
-              <span className="font-mono">3x + 7 = 31</span>.
+              🤔 <strong>Загадка:</strong> Намислих число. Умножих го по 3, добавих 7 и получих 31. Кое е числото? Ако си отговорил „8“, ти
+              току-що реши линейно уравнение: <span className="font-mono">3x + 7 = 31</span>.
             </p>
           </div>
-          <p className="mb-4 text-sm sm:text-base text-gray-700 dark:text-gray-300 leading-relaxed">
-            Линейно уравнение с едно неизвестно е уравнение, което след опростяване може да се
-            запише във вида:
-          </p>
-          <div className="bg-blue-50 dark:bg-blue-900/20 border-l-4 border-blue-500 p-3 sm:p-4 mb-4">
-            <p className="text-base sm:text-lg font-mono text-center text-gray-800 dark:text-gray-100">
-              ax + b = 0, където a ≠ 0
-            </p>
-            <p className="text-base sm:text-lg font-mono text-center mt-2 text-gray-800 dark:text-gray-100">
-              Решение: x = −b / a
-            </p>
-          </div>
-          <p className="text-sm sm:text-base text-gray-700 dark:text-gray-300 leading-relaxed">
-            Наричаме го „линейно“, защото неизвестното x е само на първа степен – няма x², √x
-            или 1/x. Да решим уравнението означава да намерим онова число, което превръща
-            равенството във вярно твърдение.
+          <Theorem
+            type="definition"
+            title="Линейно уравнение"
+            description="Уравнение с едно неизвестно, което след опростяване може да се запише във вида ax + b = 0 (a и b са числа). Ако a ≠ 0, то има единствено решение x = −b/a. Наричаме го „линейно“, защото неизвестното е само на първа степен – няма x², √x или 1/x."
+          />
+          <p className={text}>
+            Да решим уравнението означава да намерим онова число, което превръща равенството във вярно твърдение. Две уравнения са
+            <strong> равносилни</strong>, ако имат едни и същи решения – а решаването е верига от равносилни уравнения, всяко по-просто от
+            предишното.
           </p>
         </section>
 
-        <section className="mb-6 sm:mb-8">
-          <h2 className="text-lg sm:text-xl font-semibold mb-2 sm:mb-3 text-gray-800 dark:text-gray-100">
-            Златното правило
-          </h2>
-          <p className="mb-4 text-sm sm:text-base text-gray-700 dark:text-gray-300 leading-relaxed">
-            Уравнението е като везна в равновесие. Можем да добавяме, изваждаме, умножаваме или
-            делим, стига да правим <strong>едно и също с двете страни</strong> – тогава
-            равновесието се запазва. Натисни бутона и виж как се решава уравнението стъпка по стъпка.
+        <section className="mb-8">
+          <h2 className={h2}>2. Златното правило</h2>
+          <p className={text}>
+            Уравнението е като везна в равновесие. Можем да добавяме, изваждаме, умножаваме или делим, стига да правим{' '}
+            <strong>едно и също с двете страни</strong> – тогава равновесието се запазва. Натисни бутона и виж как се решава уравнението стъпка
+            по стъпка.
           </p>
+          <Theorem
+            title="Равносилни преобразувания"
+            description="Уравнението не променя решенията си, ако: 1) към двете му страни прибавим (или извадим) едно и също число или израз; 2) умножим (или разделим) двете страни на едно и също число, различно от 0. Следствие: член може да се прехвърли от едната страна в другата с обратен знак."
+          />
           <BalanceScale />
         </section>
 
-        <section className="mb-6 sm:mb-8">
-          <h2 className="text-lg sm:text-xl font-semibold mb-2 sm:mb-3 text-gray-800 dark:text-gray-100">
-            Алгоритъм за решаване
-          </h2>
-          <div className="space-y-2 sm:space-y-3 text-sm sm:text-base text-gray-700 dark:text-gray-300">
+        <section className="mb-8">
+          <h2 className={h2}>3. Алгоритъм за решаване</h2>
+          <div className="space-y-2 sm:space-y-3 text-sm sm:text-base text-gray-700 dark:text-gray-300 mb-6">
             {[
               ['1', 'Разкриваме скобите', '3(x − 2) → 3x − 6'],
               ['2', 'Освобождаваме се от знаменателите', 'умножаваме двете страни по общия знаменател'],
@@ -548,9 +581,7 @@ export function LinearEquations() {
               ['6', 'Проверка', 'заместваме x в началното уравнение'],
             ].map(([n, title, hint]) => (
               <div key={n} className="bg-white dark:bg-gray-800 p-3 sm:p-4 rounded shadow-sm flex gap-3 items-start">
-                <span className="flex-shrink-0 w-7 h-7 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold text-sm">
-                  {n}
-                </span>
+                <span className="flex-shrink-0 w-7 h-7 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold text-sm">{n}</span>
                 <div>
                   <p className="font-semibold">{title}</p>
                   <p className="text-gray-600 dark:text-gray-400 font-mono text-xs sm:text-sm">{hint}</p>
@@ -558,9 +589,6 @@ export function LinearEquations() {
               </div>
             ))}
           </div>
-        </section>
-
-        <section className="mb-6 sm:mb-8">
           <Example
             description="Да решим уравнението 2(x + 3) − 5 = 4x − 7"
             steps={[
@@ -579,19 +607,15 @@ export function LinearEquations() {
               'Разкриваме скобите: 3x − 3 + 2x = 18',
               'Привеждаме: 5x − 3 = 18',
               'Прехвърляме: 5x = 21',
-              'Делим на 5: x = 21/5 = 4.2',
+              'Делим на 5: x = 21/5 = 4,2',
             ]}
           />
         </section>
 
-        <section className="mb-6 sm:mb-8">
-          <h2 className="text-lg sm:text-xl font-semibold mb-2 sm:mb-3 text-gray-800 dark:text-gray-100">
-            Колко решения може да има?
-          </h2>
-          <p className="mb-3 sm:mb-4 text-sm sm:text-base text-gray-700 dark:text-gray-300">
-            Понякога x „изчезва“ при опростяването и остава уравнение от вида 0 · x = b:
-          </p>
-          <div className="space-y-2 sm:space-y-3 text-sm sm:text-base text-gray-700 dark:text-gray-300">
+        <section className="mb-8">
+          <h2 className={h2}>4. Колко решения може да има?</h2>
+          <p className={text}>Понякога x „изчезва“ при опростяването и остава уравнение от вида 0 · x = b:</p>
+          <div className="grid sm:grid-cols-3 gap-3 mb-6 text-sm sm:text-base text-gray-700 dark:text-gray-300">
             <div className="bg-white dark:bg-gray-800 p-3 sm:p-4 rounded shadow-sm">
               <p className="font-semibold text-green-600 dark:text-green-400">a ≠ 0 → едно решение</p>
               <p className="font-mono text-sm">2x + 1 = 7 → x = 3</p>
@@ -602,32 +626,68 @@ export function LinearEquations() {
             </div>
             <div className="bg-white dark:bg-gray-800 p-3 sm:p-4 rounded shadow-sm">
               <p className="font-semibold text-yellow-600 dark:text-yellow-400">0 · x = 0 → безброй решения</p>
-              <p className="font-mono text-sm">2(x + 1) = 2x + 2 → 0 · x = 0 ✓ за всяко x</p>
+              <p className="font-mono text-sm">2(x + 1) = 2x + 2 → 0 · x = 0 ✓</p>
             </div>
           </div>
-        </section>
-
-        <section className="mb-6 sm:mb-8">
-          <h2 className="text-lg sm:text-xl font-semibold mb-2 sm:mb-3 text-gray-800 dark:text-gray-100">
-            Как изглежда на графика?
-          </h2>
-          <p className="mb-4 text-sm sm:text-base text-gray-700 dark:text-gray-300 leading-relaxed">
-            Изразът ax + b описва права линия y = ax + b. Решението на ax + b = 0 е точката, в
-            която правата пресича оста Ox. Промени a и b и наблюдавай как се мести решението.
+          <p className={text}>
+            Изразът ax + b описва права линия y = ax + b. Решението на ax + b = 0 е точката, в която правата пресича оста Ox. Промени a и b и
+            наблюдавай как се мести решението.
           </p>
           <GraphExplorer />
         </section>
 
-        <section className="mb-6 sm:mb-8">
-          <h2 className="text-lg sm:text-xl font-semibold mb-2 sm:mb-3 text-gray-800 dark:text-gray-100">
-            ⚠️ Чести грешки
-          </h2>
-          <div className="space-y-2 sm:space-y-3 text-sm sm:text-base text-gray-700 dark:text-gray-300">
+        <section className="mb-8">
+          <h2 className={h2}>5. Уравнения с параметър</h2>
+          <p className={text}>
+            Често в уравнението освен x има и друга буква – <strong>параметър</strong>. „Да решим уравнението“ тогава означава да кажем какво е
+            решението <em>за всяка</em> стойност на параметъра. Ключът е коефициентът пред x: щом той може да стане 0, трябва да разгледаме този
+            случай отделно.
+          </p>
+          <Example
+            description="Да решим уравнението (a − 2)x = a² − 4 за всяка стойност на a."
+            steps={[
+              'Коефициентът пред x е a − 2. Той е 0 при a = 2.',
+              'Ако a ≠ 2: делим на a − 2 и получаваме x = (a − 2)(a + 2)/(a − 2) = a + 2.',
+              'Ако a = 2: уравнението става 0 · x = 0 – всяко x е решение.',
+              'Отговор: при a ≠ 2 – едно решение x = a + 2; при a = 2 – безброй решения.',
+            ]}
+          />
+          <ParameterLab />
+        </section>
+
+        <section className="mb-8">
+          <h2 className={h2}>6. Уравнения с модул</h2>
+          <Theorem
+            title="Уравнението |x − a| = b"
+            description="Модулът |x − a| е разстоянието между числата x и a на числовата ос. Затова: при b > 0 има две решения, x = a − b и x = a + b; при b = 0 – едно решение, x = a; при b < 0 – няма решение. Алгебрично: |E| = b (b ≥ 0) ⇔ E = b или E = −b."
+          />
+          <AbsValueLab />
+          <Example
+            description="Да решим уравнението |2x − 3| = 7"
+            steps={['Изразът в модула е 7 или −7:', '2x − 3 = 7 ⇒ 2x = 10 ⇒ x = 5', '2x − 3 = −7 ⇒ 2x = −4 ⇒ x = −2', 'Отговор: x = 5 или x = −2']}
+          />
+        </section>
+
+        <section className="mb-8">
+          <h2 className={h2}>7. От текст към уравнение</h2>
+          <p className={text}>
+            Най-трудната част е да превърнем текста в уравнение. Избери кое е неизвестното, означи го с x и запиши условието като равенство. В
+            задачите за движение използваме <span className="font-mono">път = скорост · време</span>.
+          </p>
+          <MeetingLab />
+          <WordProblems problems={wordProblems} />
+        </section>
+
+        <section className="mb-8">
+          <h2 className={h2}>8. ⚠️ Чести грешки</h2>
+          <div className="grid sm:grid-cols-2 gap-3 text-sm sm:text-base text-gray-700 dark:text-gray-300">
             {[
               ['Забравен знак при прехвърляне', '3x + 5 = 2 → 3x = 2 + 5', '3x = 2 − 5 = −3'],
               ['Делене само на част от страната', '2x + 6 = 10 → x + 6 = 5', 'x + 3 = 5 (делим всеки член)'],
               ['Скоба с минус пред нея', '5 − (x − 2) = 1 → 5 − x − 2 = 1', '5 − x + 2 = 1'],
-              ['Делене на коефициента обърнато', '4x = 2 → x = 4/2 = 2', 'x = 2/4 = 0.5'],
+              ['Делене на коефициента обърнато', '4x = 2 → x = 4/2 = 2', 'x = 2/4 = 0,5'],
+              ['Делене на израз, който може да е 0', '(a − 1)x = a − 1 → x = 1 за всяко a', 'при a = 1 всяко x е решение'],
+              ['Модул равен на отрицателно число', '|x + 1| = −3 → x = −4 или x = 2', 'няма решение – модулът е ≥ 0'],
             ].map(([title, wrong, right]) => (
               <div key={title} className="bg-white dark:bg-gray-800 p-3 sm:p-4 rounded shadow-sm">
                 <p className="font-semibold mb-1">{title}</p>
@@ -638,42 +698,108 @@ export function LinearEquations() {
           </div>
         </section>
 
-        <section className="mb-6 sm:mb-8">
-          <h2 className="text-lg sm:text-xl font-semibold mb-2 sm:mb-3 text-gray-800 dark:text-gray-100">
-            Задачи от живота
+        <section className="mb-8">
+          <h2 className={`${h2} flex items-center gap-2`}>
+            <Sparkles size={22} className="text-sky-500" /> 9. Тренажор
           </h2>
-          <p className="mb-4 text-sm sm:text-base text-gray-700 dark:text-gray-300">
-            Най-трудната част е да превърнем текста в уравнение. Избери кое е неизвестното,
-            означи го с x и запиши условието като равенство.
-          </p>
-          <WordProblems problems={wordProblems} />
-        </section>
-
-        <section className="mb-6 sm:mb-8">
-          <h2 className="text-lg sm:text-xl font-semibold mb-2 sm:mb-3 text-gray-800 dark:text-gray-100 flex items-center gap-2">
-            <Sparkles size={20} className="text-sky-500" /> Тренажор
-          </h2>
-          <p className="mb-4 text-sm sm:text-base text-gray-700 dark:text-gray-300">
-            Безкраен брой уравнения! Колко поредни верни отговора можеш да постигнеш?
-          </p>
+          <p className={text}>Безкраен брой уравнения! Колко поредни верни отговора можеш да постигнеш?</p>
           <Trainer />
         </section>
 
-        <section className="mb-6 sm:mb-8">
-          <h2 className="text-lg sm:text-xl font-semibold mb-4 text-gray-800 dark:text-gray-100">
-            Упражнения
-          </h2>
+        <section className="mb-8">
+          <h2 className={h2}>10. 🎯 Бърз тест</h2>
           <Quiz questions={linearEquationsQuiz} />
+        </section>
+
+        <section className="mb-8">
+          <h2 className={h2}>11. 📝 Задачи за упражнение</h2>
+          <TaskBoard>
+            <div className="mb-6">
+              <TaskLevel level="A" />
+              <Task id="a1" number={1} color="border-green-500" question="Реши уравнението 5(x − 2) − 3(x + 1) = 7.">
+                <p>Разкриваме скобите: 5x − 10 − 3x − 3 = 7</p>
+                <p>Привеждаме: 2x − 13 = 7 ⇒ 2x = 20</p>
+                <p>x = 10. Проверка: 5 · 8 − 3 · 11 = 40 − 33 = 7 ✓</p>
+              </Task>
+              <Task id="a2" number={2} color="border-green-500" question="Реши уравнението (2x − 1)/3 − (x + 2)/4 = 1.">
+                <p>Умножаваме по общия знаменател 12: 4(2x − 1) − 3(x + 2) = 12</p>
+                <p>8x − 4 − 3x − 6 = 12 ⇒ 5x − 10 = 12</p>
+                <p>5x = 22 ⇒ x = 4,4</p>
+              </Task>
+              <Task id="a3" number={3} color="border-green-500" question="Сборът на три последователни естествени числа е 87. Кои са числата?">
+                <p>Нека най-малкото е n. Тогава числата са n, n + 1, n + 2.</p>
+                <p>n + (n + 1) + (n + 2) = 87 ⇒ 3n + 3 = 87 ⇒ 3n = 84 ⇒ n = 28</p>
+                <p>Числата са 28, 29 и 30. (По-кратко: средното е 87 : 3 = 29.)</p>
+              </Task>
+            </div>
+
+            <div className="mb-6">
+              <TaskLevel level="B" />
+              <Task id="b1" number={4} color="border-yellow-500" question="Реши уравнението |3 − 2x| = 9.">
+                <p>3 − 2x = 9 или 3 − 2x = −9</p>
+                <p>−2x = 6 ⇒ x = −3; &nbsp; −2x = −12 ⇒ x = 6</p>
+                <p>Отговор: x = −3 или x = 6. (Геометрично: |x − 1,5| = 4,5 – точките на разстояние 4,5 от 1,5.)</p>
+              </Task>
+              <Task id="b2" number={5} color="border-yellow-500" question="От два града на разстояние 300 km един срещу друг тръгват две коли – първата със 70 km/h, а втората половин час по-късно с 80 km/h. Кога и къде ще се срещнат?">
+                <p>Нека t е времето на първата кола (в часове). Втората е пътувала t − 0,5 часа.</p>
+                <p>70t + 80(t − 0,5) = 300 ⇒ 150t − 40 = 300 ⇒ t = 340/150 ≈ 2,27 h</p>
+                <p>t ≈ 2 ч 16 мин след тръгването на първата кола, на 70 · 2,27 ≈ 158,7 km от нейния град.</p>
+              </Task>
+              <Task id="b3" number={6} color="border-yellow-500" question="Реши загадката на Диофант от началото на урока: x/6 + x/12 + x/7 + 5 + x/2 + 4 = x.">
+                <p>Общият знаменател на 6, 12, 7 и 2 е 84. Умножаваме по 84:</p>
+                <p>14x + 7x + 12x + 420 + 42x + 336 = 84x</p>
+                <p>75x + 756 = 84x ⇒ 9x = 756 ⇒ x = 84</p>
+                <p>Диофант е починал на 84 години, синът му е живял 42 години.</p>
+              </Task>
+            </div>
+
+            <div className="mb-6">
+              <TaskLevel level="C" />
+              <Task id="c1" number={7} color="border-red-500" question="Реши уравнението a(x − 1) = 2x + 3 в зависимост от параметъра a. За кои цели стойности на a решението е цяло число?">
+                <p>ax − a = 2x + 3 ⇒ (a − 2)x = a + 3</p>
+                <p>При a = 2: 0 · x = 5 – няма решение. При a ≠ 2: x = (a + 3)/(a − 2).</p>
+                <p>Отделяме цяла част: x = 1 + 5/(a − 2). Цяло е ⇔ a − 2 дели 5 ⇔ a − 2 ∈ {'{'}±1, ±5{'}'}.</p>
+                <p>a ∈ {'{'}−3, 1, 3, 7{'}'}, съответно x = 0, −4, 6, 2.</p>
+              </Task>
+              <Task id="c2" number={8} color="border-red-500" question="Реши уравнението |x − 1| + |x − 3| = 4.">
+                <p>Нулите на модулите 1 и 3 разделят оста на три интервала.</p>
+                <p>x &lt; 1: (1 − x) + (3 − x) = 4 ⇒ 4 − 2x = 4 ⇒ x = 0 ✓</p>
+                <p>1 ≤ x ≤ 3: (x − 1) + (3 − x) = 2 ≠ 4 – няма решение в този интервал.</p>
+                <p>x &gt; 3: (x − 1) + (x − 3) = 4 ⇒ 2x = 8 ⇒ x = 4 ✓</p>
+                <p>Отговор: x = 0 или x = 4. Геометрично: сборът от разстоянията до 1 и до 3 е 4 – а между тях винаги е 2.</p>
+              </Task>
+              <Task id="c3" number={9} color="border-red-500" question="Точно в 12:00 часовата и минутната стрелка на часовника се застъпват. След колко минути ще се застъпят отново за първи път?">
+                <p>Минутната стрелка се върти с 360° за 60 мин = 6° в минута, часовата – с 30° за 60 мин = 0,5° в минута.</p>
+                <p>Минутната трябва да „настигне“ часовата с цяла обиколка: 6t = 360 + 0,5t</p>
+                <p>5,5t = 360 ⇒ t = 720/11 = 65 5/11 мин</p>
+                <p>Около 1:05:27 ч. Това е задача за движение – „гонене“ по окръжност!</p>
+              </Task>
+            </div>
+          </TaskBoard>
+        </section>
+
+        <section className="mb-8">
+          <h2 className={h2}>12. Обобщение</h2>
+          <div className="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-gray-800 dark:to-gray-700 p-6 rounded-lg">
+            <ul className="space-y-2 text-sm sm:text-base">
+              <li>✓ Линейно уравнение: ax + b = 0; при a ≠ 0 решението е x = −b/a</li>
+              <li>✓ Равносилни преобразувания: едно и също действие с двете страни (делим само на число ≠ 0)</li>
+              <li>✓ Алгоритъм: скоби → знаменатели → прехвърляне → привеждане → делене → проверка</li>
+              <li>✓ 0 · x = b: няма решение при b ≠ 0, безброй решения при b = 0</li>
+              <li>✓ Параметър: разглеждаме отделно стойностите, при които коефициентът пред x е 0</li>
+              <li>✓ |x − a| = b – точките на разстояние b от a: x = a ± b при b &gt; 0</li>
+              <li>✓ Текстови задачи: неизвестно → уравнение → решение → проверка на смисъла</li>
+            </ul>
+          </div>
         </section>
 
         <section className="mb-8">
           <div className="bg-yellow-50 dark:bg-yellow-900/20 border-l-4 border-yellow-500 p-4 rounded">
             <p className="font-semibold mb-2">💡 Интересен факт</p>
             <p className="text-sm sm:text-base text-gray-700 dark:text-gray-300">
-              Думата „алгебра“ идва от книгата на персийския математик ал-Хорезми (IX век)
-              „Китаб ал-джабр ва-л-мукабала“. „Ал-джабр“ означава „възстановяване“ – точно
-              прехвърлянето на член от едната страна на другата, което правим при решаване на
-              уравнения. А от името на самия ал-Хорезми идва думата „алгоритъм“!
+              Думата „алгебра“ идва от книгата на персийския математик ал-Хорезми (IX век) „Китаб ал-джабр ва-л-мукабала“. „Ал-джабр“
+              означава „възстановяване“ – точно прехвърлянето на член от едната страна на другата, което правим при решаване на уравнения. А от
+              името на самия ал-Хорезми идва думата „алгоритъм“!
             </p>
           </div>
         </section>
