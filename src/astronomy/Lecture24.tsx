@@ -1,692 +1,340 @@
 import { useState } from 'react';
+import Example from '~/Example';
+import Quiz, { type Question } from '~/Quiz';
+import Theorem from '~/Theorem';
+import LadderLab from './components/LadderLab';
+import ParallaxLab from './components/ParallaxLab';
+import StandardCandleLab from './components/StandardCandleLab';
+import Task from './components/Task';
+
+const QUIZ: Question[] = [
+  {
+    question: 'Какво е парсек?',
+    answers: [
+      'Разстоянието, което светлината изминава за една секунда',
+      'Разстоянието, от което 1 AU се вижда под ъгъл 1″',
+      'Разстоянието до най-близката звезда',
+      'Половината от светлинната година',
+    ],
+    correctAnswer: 'Разстоянието, от което 1 AU се вижда под ъгъл 1″',
+  },
+  {
+    question: 'Звезда има паралакс 0,1″. Колко е далеч?',
+    answers: ['0,1 pc', '1 pc', '10 pc', '100 pc'],
+    correctAnswer: '10 pc',
+  },
+  {
+    question: 'Защо древните гърци смятали, че Земята не се движи?',
+    answers: [
+      'Не усещали движението',
+      'Не наблюдавали паралакс на звездите – а звездите всъщност са твърде далеч, за да го видят',
+      'Слънцето изгрява всеки ден',
+      'Луната винаги е обърната с една страна',
+    ],
+    correctAnswer: 'Не наблюдавали паралакс на звездите – а звездите всъщност са твърде далеч, за да го видят',
+  },
+  {
+    question: 'Как с радар е измерена астрономическата единица?',
+    answers: [
+      'Измерено е времето, за което радиосигнал отива до Венера и се връща',
+      'Измерено е разстоянието до Слънцето с лазер',
+      'Изчислено е от размера на Слънцето',
+      'Измерено е с паралакс на Слънцето от две места на Земята',
+    ],
+    correctAnswer: 'Измерено е времето, за което радиосигнал отива до Венера и се връща',
+  },
+  {
+    question: 'Какво е „стандартна свещ“?',
+    answers: [
+      'Звезда, която свети винаги еднакво',
+      'Обект, чиято истинска светимост знаем – затова по видимия блясък намираме разстоянието',
+      'Най-ярката звезда в галактиката',
+      'Единица за яркост',
+    ],
+    correctAnswer: 'Обект, чиято истинска светимост знаем – затова по видимия блясък намираме разстоянието',
+  },
+  {
+    question: 'Защо свръхновите Ia са най-доброто средство за много големи разстояния?',
+    answers: [
+      'Защото са най-близо',
+      'Защото са изключително ярки и светимостта им е почти еднаква (след поправката по скоростта на угасване)',
+      'Защото се случват всеки ден',
+      'Защото не се влияят от праха',
+    ],
+    correctAnswer: 'Защото са изключително ярки и светимостта им е почти еднаква (след поправката по скоростта на угасване)',
+  },
+  {
+    question: 'Какво става, ако калибровката на първото стъпало на стълбата е сгрешена с 5%?',
+    answers: [
+      'Грешката засяга само близките звезди',
+      'Всички по-далечни разстояния са сгрешени с 5% в същата посока',
+      'Грешките се компенсират',
+      'Само свръхновите се засягат',
+    ],
+    correctAnswer: 'Всички по-далечни разстояния са сгрешени с 5% в същата посока',
+  },
+];
+
+const UNITS = [
+  { name: 'Астрономическа единица (AU)', value: '149 597 870 700 m (точно, по определение от 2012 г.)', note: 'средно разстояние Земя–Слънце; светлината я изминава за 499 s' },
+  { name: 'Светлинна година (ly)', value: '9,461 · 10¹⁵ m = 63 241 AU', note: 'разстоянието, което светлината изминава за една година' },
+  { name: 'Парсек (pc)', value: '3,086 · 10¹⁶ m = 206 265 AU = 3,26 ly', note: 'разстоянието, от което 1 AU се вижда под ъгъл 1″' },
+  { name: 'Килопарсек, мегапарсек, гигапарсек', value: '10³, 10⁶, 10⁹ pc', note: 'за галактиката, за съседните галактики, за Вселената' },
+];
+
+const GEOMETRIC = [
+  { icon: '🚶', name: 'Движещ се куп', text: 'Звездите от един куп се движат успоредно и сякаш се събират към една точка на небето. От ъгъла до нея, радиалната скорост и собственото движение следва разстоянието. Така е измерено разстоянието до Хиадите – първото стъпало отвъд паралакса за десетилетия.' },
+  { icon: '🌗', name: 'Затъмняващи двойни', text: 'Скоростите и затъмненията дават истинския радиус в km, а показателят на цвета – повърхностната яркост. Сравнението с видимия блясък дава разстоянието. Така Големият Магеланов облак е измерен с точност 1% (49,6 kpc).' },
+  { icon: '💧', name: 'Мазери', text: 'Облаци водна пара, които излъчват като естествени лазери, обикалят около черната дупка в NGC 4258. Знаем скоростта им в km/s и ъгловата им скорост в микросекунди дъга за година – и пряко получаваме разстоянието: 7,6 Mpc.' },
+  { icon: '🌊', name: 'Стандартни сирени', text: 'Гравитационните вълни от сливане на неутронни звезди носят в себе си абсолютната „сила на звука“. Амплитудата им дава разстоянието директно, без стълба. GW170817 беше на ~40 Mpc.' },
+];
 
 export default function Lecture24() {
-  const [selectedMethod, setSelectedMethod] = useState<'parallax' | 'cepheid' | 'supernova'>('parallax');
-  const [parallaxAngle, setParallaxAngle] = useState(0.5); // ъглови секунди
   const [showSolutions, setShowSolutions] = useState<{ [key: string]: boolean }>({});
 
-  const toggleSolution = (taskId: string) => {
-    setShowSolutions(prev => ({ ...prev, [taskId]: !prev[taskId] }));
-  };
-
-  // Изчисляване на разстояние от паралакс
-  const distance = 1 / parallaxAngle; // в парсеки
+  const task = (id: string) => ({
+    id,
+    shown: !!showSolutions[id],
+    onToggle: (taskId: string) => setShowSolutions(prev => ({ ...prev, [taskId]: !prev[taskId] })),
+  });
 
   return (
     <main className="flex-1 overflow-y-auto px-4 pt-16 pb-12 sm:px-6 lg:px-10 lg:pt-10">
       <div className="max-w-4xl mx-auto">
-        <h1 className="text-2xl sm:text-3xl font-bold tracking-tight mb-6 text-gray-900 dark:text-white">
-          Лекция 24: Разстояния в астрономията
-        </h1>
+        <h1 className="text-2xl sm:text-3xl font-bold tracking-tight mb-6 text-gray-900 dark:text-white">Лекция 24: Разстояния в астрономията</h1>
+
+        <div className="bg-gradient-to-br from-blue-800 to-slate-900 text-white p-6 rounded-2xl mb-8 shadow-lg">
+          <p className="text-lg sm:text-xl leading-relaxed">
+            📐 Повече от 2000 години паралаксът на звездите е най-силният довод срещу Коперник. Ако Земята обикаля Слънцето, близките
+            звезди трябва да се люшкат на фона на далечните. Аристотел, а после и Тихо Брахе, не виждат никакво люшкане – значи Земята
+            стои на място. Или звездите са невъобразимо далеч. През 1838 г. Фридрих Бесел насочва телескопа си към 61 Лебед – „летящата
+            звезда“, която се мести по небето по-бързо от всички. Щом се движи толкова бързо, може би е близо. Година наблюдения и Бесел
+            обявява: паралакс 0,314″ – като монета, гледана от 10 km. Звездата е на 11 светлинни години. За пръв път човечеството
+            знае колко далеч е звезда.
+          </p>
+        </div>
 
         <section className="mb-8">
-          <h2 className="text-xl sm:text-2xl font-semibold mb-4">
-            1. Единици за разстояние
-          </h2>
-          <div className="bg-blue-50 dark:bg-blue-500/10 p-4 rounded-lg mb-4">
-            <ul className="list-disc list-inside space-y-2">
-              <li><strong>Астрономическа единица (AU)</strong> – разстоянието Земя-Слънце = 149.6 млн. km</li>
-              <li><strong>Светлинна година (ly)</strong> – разстояние, което светлината изминава за 1 година = 9.46 трилиона km</li>
-              <li><strong>Парсек (pc)</strong> – 3.26 светлинни години = 206 265 AU = 3.086 × 10¹³ km</li>
-              <li><strong>Килопарсек (kpc)</strong> – 1000 парсека</li>
-              <li><strong>Мегапарсек (Mpc)</strong> – 1 милион парсека</li>
-            </ul>
+          <h2 className="text-xl sm:text-2xl font-semibold mb-4">1. Мерни единици</h2>
+          <p className="mb-4 text-base sm:text-lg leading-relaxed">
+            Километрите са безполезни отвъд Земята – до най-близката звезда са 40 трилиона. Затова астрономите използват единици, свързани
+            с начина, по който мерят.
+          </p>
+          <div className="overflow-x-auto mb-4">
+            <table className="w-full text-sm">
+              <tbody>
+                {UNITS.map(u => (
+                  <tr key={u.name} className="border-b border-gray-200 dark:border-gray-700">
+                    <td className="py-2 pr-2 font-semibold">{u.name}</td>
+                    <td className="py-2 px-2">{u.value}</td>
+                    <td className="py-2 pl-2 text-gray-600 dark:text-gray-400">{u.note}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
+          <Example
+            description="Колко парсека и колко km е светлинната година?"
+            steps={['1 ly = 9,461 · 10¹⁵ m; 1 pc = 3,086 · 10¹⁶ m', '1 ly = 9,461 · 10¹⁵ / 3,086 · 10¹⁶ ≈ 0,307 pc – около 9,5 трилиона km']}
+          />
         </section>
 
         <section className="mb-8">
-          <h2 className="text-xl sm:text-2xl font-semibold mb-4">
-            2. Космическа стълба на разстоянията
-          </h2>
+          <h2 className="text-xl sm:text-2xl font-semibold mb-4">2. Първото стъпало: размерът на Слънчевата система</h2>
           <p className="mb-4 text-base sm:text-lg leading-relaxed">
-            Различни методи се използват за различни разстояния. Всеки метод се
-            калибрира с предходния.
+            Третият закон на Кеплер дава относителните размери на орбитите: Венера е на 0,723 AU, Марс – на 1,524 AU. Но колко е 1 AU в
+            метри? През XVIII в. учените пътуват до краищата на света, за да наблюдават преминаването на Венера пред Слънцето (1761 и
+            1769 г.) – експедицията на Джеймс Кук до Таити е една от тях. Сравнението на времената от различни места дава AU с точност
+            ~1%. Днес AU се мери с радар.
           </p>
 
-          {/* Избор на метод */}
-          <div className="flex justify-center gap-2 mb-4 flex-wrap">
-            <button
-              onClick={() => setSelectedMethod('parallax')}
-              className={`px-4 py-2 rounded ${selectedMethod === 'parallax' ? 'bg-blue-500 text-white' : 'bg-gray-200 dark:bg-gray-700'}`}
-            >
-              📐 Паралакс
-            </button>
-            <button
-              onClick={() => setSelectedMethod('cepheid')}
-              className={`px-4 py-2 rounded ${selectedMethod === 'cepheid' ? 'bg-purple-500 text-white' : 'bg-gray-200 dark:bg-gray-700'}`}
-            >
-              ⭐ Цефеиди
-            </button>
-            <button
-              onClick={() => setSelectedMethod('supernova')}
-              className={`px-4 py-2 rounded ${selectedMethod === 'supernova' ? 'bg-red-500 text-white' : 'bg-gray-200 dark:bg-gray-700'}`}
-            >
-              💥 Свръхнови
-            </button>
-          </div>
-
-          {/* Визуализация на паралакс */}
-          {selectedMethod === 'parallax' && (
-            <div className="bg-white dark:bg-gray-800 p-4 rounded-lg border-2 border-blue-300 dark:border-blue-600 mb-6">
-              <h3 className="font-semibold mb-3 text-center">Тригонометричен паралакс</h3>
-              
-              <svg viewBox="0 0 700 400" className="w-full h-auto">
-                {/* Фон */}
-                <rect x="0" y="0" width="700" height="400" fill="rgb(10, 10, 30)" />
-                
-                {/* Далечни звезди (фон) */}
-                {[...Array(50)].map((_, i) => (
-                  <circle
-                    key={i}
-                    cx={50 + Math.random() * 600}
-                    cy={50 + Math.random() * 300}
-                    r="1"
-                    fill="white"
-                    opacity="0.3"
-                  />
-                ))}
-
-                {/* Орбита на Земята */}
-                <ellipse cx="350" cy="300" rx="100" ry="30" fill="none" stroke="rgb(100, 150, 200)" strokeWidth="2" strokeDasharray="5,5" />
-                
-                {/* Слънце */}
-                <circle cx="350" cy="300" r="15" fill="rgb(251, 191, 36)" />
-                <text x="350" y="330" fontSize="11" textAnchor="middle" fill="white">☀️ Слънце</text>
-
-                {/* Земя - позиция 1 (януари) */}
-                <circle cx="450" cy="300" r="8" fill="rgb(59, 130, 246)" />
-                <text x="450" y="320" fontSize="10" textAnchor="middle" fill="white">Земя (януари)</text>
-
-                {/* Земя - позиция 2 (юли) */}
-                <circle cx="250" cy="300" r="8" fill="rgb(59, 130, 246)" opacity="0.5" />
-                <text x="250" y="320" fontSize="10" textAnchor="middle" fill="white">Земя (юли)</text>
-
-                {/* Близка звезда */}
-                <circle cx="350" cy="100" r="8" fill="rgb(255, 255, 100)">
-                  <animate attributeName="opacity" values="0.8;1;0.8" dur="2s" repeatCount="indefinite" />
-                </circle>
-                <text x="350" y="85" fontSize="12" textAnchor="middle" fill="rgb(255, 255, 100)" fontWeight="bold">
-                  Близка звезда
-                </text>
-
-                {/* Линии на видимост */}
-                <line x1="450" y1="300" x2="350" y2="100" stroke="rgb(100, 200, 255)" strokeWidth="2" strokeDasharray="3,3" />
-                <line x1="250" y1="300" x2="350" y2="100" stroke="rgb(100, 200, 255)" strokeWidth="2" strokeDasharray="3,3" />
-
-                {/* Ъгъл на паралакса */}
-                <path
-                  d={`M 350,280 L 350,250 A 50,50 0 0,1 ${350 + 50 * Math.sin(parallaxAngle * 0.1)},${280 - 50 * Math.cos(parallaxAngle * 0.1)}`}
-                  fill="none"
-                  stroke="rgb(255, 100, 100)"
-                  strokeWidth="2"
-                />
-                <text x="380" y="265" fontSize="11" fill="rgb(255, 100, 100)" fontWeight="bold">
-                  p = {parallaxAngle}"
-                </text>
-
-                {/* База (1 AU) */}
-                <line x1="250" y1="340" x2="450" y2="340" stroke="rgb(34, 197, 94)" strokeWidth="2" />
-                <line x1="250" y1="335" x2="250" y2="345" stroke="rgb(34, 197, 94)" strokeWidth="2" />
-                <line x1="450" y1="335" x2="450" y2="345" stroke="rgb(34, 197, 94)" strokeWidth="2" />
-                <text x="350" y="360" fontSize="11" textAnchor="middle" fill="rgb(34, 197, 94)" fontWeight="bold">
-                  1 AU (база)
-                </text>
-              </svg>
-
-              {/* Контрола */}
-              <div className="mt-4">
-                <label className="block text-sm font-semibold mb-2 text-center">
-                  Паралакс: {parallaxAngle}" → Разстояние: {distance.toFixed(2)} парсека ({(distance * 3.26).toFixed(1)} св.г.)
-                </label>
-                <input
-                  type="range"
-                  min="0.01"
-                  max="1"
-                  step="0.01"
-                  value={parallaxAngle}
-                  onChange={(e) => setParallaxAngle(Number(e.target.value))}
-                  className="w-full"
-                />
-                <div className="flex justify-between text-xs text-gray-600 dark:text-gray-400 mt-1">
-                  <span>Малък ъгъл (далеч)</span>
-                  <span>Голям ъгъл (близо)</span>
-                </div>
-              </div>
-
-              <div className="mt-4 p-4 bg-gray-100/70 dark:bg-gray-800/70 rounded-lg">
-                <h4 className="font-semibold mb-2">Формула:</h4>
-                <p className="font-mono text-center text-lg my-2">d (парсеки) = 1 / p (ъглови секунди)</p>
-                <p className="text-sm mt-2">
-                  <strong>Обхват:</strong> До около 100 парсека (300 св.г.) от Земята.
-                  Спътникът Gaia измерва паралакси с точност до 0.00002" (микроъглови секунди)!
-                </p>
-              </div>
-            </div>
-          )}
-
-          {/* Визуализация на цефеиди */}
-          {selectedMethod === 'cepheid' && (
-            <div className="bg-white dark:bg-gray-800 p-4 rounded-lg border-2 border-purple-300 dark:border-purple-600 mb-6">
-              <h3 className="font-semibold mb-3 text-center">Цефеиди - "Стандартни свещи"</h3>
-              
-              <svg viewBox="0 0 700 400" className="w-full h-auto">
-                {/* Фон */}
-                <rect x="0" y="0" width="700" height="400" fill="rgb(10, 10, 30)" />
-
-                {/* График период-светимост */}
-                <g transform="translate(50, 50)">
-                  {/* Оси */}
-                  <line x1="0" y1="300" x2="600" y2="300" stroke="white" strokeWidth="2" />
-                  <line x1="0" y1="300" x2="0" y2="0" stroke="white" strokeWidth="2" />
-                  
-                  <text x="300" y="330" fontSize="14" textAnchor="middle" fill="white" fontWeight="bold">
-                    Период (дни)
-                  </text>
-                  <text x="-150" y="15" fontSize="14" textAnchor="middle" fill="white" fontWeight="bold" transform="rotate(-90 -150 15)">
-                    Светимост (L☉)
-                  </text>
-
-                  {/* Скала на осите */}
-                  <text x="100" y="320" fontSize="10" fill="white">1</text>
-                  <text x="300" y="320" fontSize="10" fill="white">10</text>
-                  <text x="500" y="320" fontSize="10" fill="white">100</text>
-                  
-                  <text x="-15" y="280" fontSize="10" fill="white">10³</text>
-                  <text x="-15" y="180" fontSize="10" fill="white">10⁴</text>
-                  <text x="-15" y="80" fontSize="10" fill="white">10⁵</text>
-
-                  {/* Линия период-светимост */}
-                  <path
-                    d="M 50,250 Q 200,180 350,120 Q 450,80 550,50"
-                    fill="none"
-                    stroke="rgb(168, 85, 247)"
-                    strokeWidth="3"
-                  />
-
-                  {/* Примерни цефеиди */}
-                  {[
-                    { period: 3, lum: 1000, x: 150, y: 220 },
-                    { period: 10, lum: 5000, x: 300, y: 150 },
-                    { period: 30, lum: 15000, x: 450, y: 90 },
-                    { period: 100, lum: 40000, x: 550, y: 50 },
-                  ].map((star, i) => (
-                    <g key={i}>
-                      <circle cx={star.x} cy={star.y} r="6" fill="rgb(255, 255, 100)">
-                        <animate attributeName="r" values="6;9;6" dur={`${2 + i * 0.5}s`} repeatCount="indefinite" />
-                      </circle>
-                      <text x={star.x} y={star.y - 15} fontSize="9" textAnchor="middle" fill="white">
-                        P={star.period}d
-                      </text>
-                    </g>
-                  ))}
-
-                  {/* Обяснение */}
-                  <rect x="380" y="180" width="200" height="100" fill="rgba(0, 0, 0, 0.7)" rx="5" />
-                  <text x="480" y="205" fontSize="13" textAnchor="middle" fill="white" fontWeight="bold">
-                    Връзка период-светимост
-                  </text>
-                  <text x="390" y="230" fontSize="10" fill="white">
-                    • По-дълъг период →
-                  </text>
-                  <text x="390" y="245" fontSize="10" fill="white">
-                    по-ярка звезда
-                  </text>
-                  <text x="390" y="265" fontSize="10" fill="rgb(100, 200, 255)">
-                    Открито от Хенриета
-                  </text>
-                  <text x="390" y="278" fontSize="10" fill="rgb(100, 200, 255)">
-                    Левит (1912)
-                  </text>
-                </g>
-              </svg>
-
-              <div className="mt-4 p-4 bg-gray-100/70 dark:bg-gray-800/70 rounded-lg">
-                <h4 className="font-semibold mb-2">Как работи методът:</h4>
-                <ol className="text-sm list-decimal list-inside space-y-2">
-                  <li>Наблюдаваме цефеидата и измерваме периода на пулсация</li>
-                  <li>От периода определяме абсолютната светимост (колко ярка е наистина)</li>
-                  <li>Измерваме видимата светимост (колко ярка изглежда от Земята)</li>
-                  <li>Сравняваме двете светимости и изчисляваме разстоянието</li>
-                </ol>
-                <p className="text-sm mt-3 font-semibold">
-                  Обхват: До 30 Mpc (100 милиона светлинни години)
-                </p>
-              </div>
-            </div>
-          )}
-
-          {/* Визуализация на свръхнови */}
-          {selectedMethod === 'supernova' && (
-            <div className="bg-white dark:bg-gray-800 p-4 rounded-lg border-2 border-red-300 dark:border-red-600 mb-6">
-              <h3 className="font-semibold mb-3 text-center">Свръхнови тип Ia - "Стандартни бомби"</h3>
-              
-              <svg viewBox="0 0 700 400" className="w-full h-auto">
-                {/* Фон */}
-                <rect x="0" y="0" width="700" height="400" fill="rgb(10, 10, 30)" />
-
-                {/* Крива на светимостта */}
-                <g transform="translate(50, 50)">
-                  {/* Оси */}
-                  <line x1="0" y1="300" x2="600" y2="300" stroke="white" strokeWidth="2" />
-                  <line x1="0" y1="300" x2="0" y2="0" stroke="white" strokeWidth="2" />
-                  
-                  <text x="300" y="330" fontSize="14" textAnchor="middle" fill="white" fontWeight="bold">
-                    Време (дни)
-                  </text>
-                  <text x="-150" y="15" fontSize="14" textAnchor="middle" fill="white" fontWeight="bold" transform="rotate(-90 -150 15)">
-                    Видима звездна величина
-                  </text>
-
-                  {/* Скала */}
-                  <text x="100" y="320" fontSize="10" fill="white">10</text>
-                  <text x="300" y="320" fontSize="10" fill="white">50</text>
-                  <text x="500" y="320" fontSize="10" fill="white">100</text>
-
-                  {/* Крива на светимостта на свръхнова */}
-                  <path
-                    d="M 50,280 L 100,250 Q 150,80 200,50 Q 250,60 300,100 Q 400,180 500,240 L 550,260"
-                    fill="none"
-                    stroke="rgb(255, 100, 100)"
-                    strokeWidth="3"
-                  />
-
-                  {/* Пик на светимостта */}
-                  <circle cx="200" cy="50" r="8" fill="rgb(255, 200, 100)">
-                    <animate attributeName="r" values="8;12;8" dur="1s" repeatCount="indefinite" />
-                  </circle>
-                  <text x="200" y="35" fontSize="11" textAnchor="middle" fill="rgb(255, 200, 100)" fontWeight="bold">
-                    Максимум
-                  </text>
-                  <text x="200" y="20" fontSize="10" textAnchor="middle" fill="white">
-                    M = -19.3
-                  </text>
-
-                  {/* Анотации */}
-                  <text x="80" y="260" fontSize="10" fill="rgb(100, 200, 255)">Експлозия</text>
-                  <text x="400" y="200" fontSize="10" fill="rgb(100, 200, 255)">Избледняване</text>
-
-                  {/* Обяснение */}
-                  <rect x="350" y="120" width="230" height="90" fill="rgba(0, 0, 0, 0.7)" rx="5" />
-                  <text x="465" y="145" fontSize="12" textAnchor="middle" fill="white" fontWeight="bold">
-                    Свръхнова тип Ia
-                  </text>
-                  <text x="360" y="165" fontSize="10" fill="white">
-                    • Еднаква светимост
-                  </text>
-                  <text x="360" y="180" fontSize="10" fill="white">
-                    • M = -19.3 (пик)
-                  </text>
-                  <text x="360" y="195" fontSize="10" fill="white">
-                    • Видима до 1000 Mpc
-                  </text>
-                </g>
-              </svg>
-
-              <div className="mt-4 p-4 bg-gray-100/70 dark:bg-gray-800/70 rounded-lg">
-                <h4 className="font-semibold mb-2">Защо са "стандартни":</h4>
-                <p className="text-sm mb-2">
-                  Свръхновите тип Ia се случват, когато бяло джудже достигне точно 1.4 M☉
-                  (граница на Чандрасекар) и експлодира. Тъй като масата е винаги еднаква,
-                  експлозията освобождава еднакво количество енергия.
-                </p>
-                <p className="text-sm mt-2 font-semibold">
-                  Обхват: До 1000 Mpc (3 милиарда светлинни години)
-                </p>
-              </div>
-            </div>
-          )}
-
-          {/* Визуализация на цефеиди - крива на светимостта */}
-          {selectedMethod === 'cepheid' && (
-            <div className="bg-white dark:bg-gray-800 p-4 rounded-lg border-2 border-purple-300 dark:border-purple-600 mb-6">
-              <h3 className="font-semibold mb-3 text-center">Пулсация на цефеида</h3>
-              
-              <svg viewBox="0 0 700 350" className="w-full h-auto">
-                <rect x="0" y="0" width="700" height="350" fill="rgb(10, 10, 30)" />
-
-                {/* График на пулсацията */}
-                <g transform="translate(50, 50)">
-                  {/* Оси */}
-                  <line x1="0" y1="200" x2="600" y2="200" stroke="white" strokeWidth="2" />
-                  <line x1="0" y1="200" x2="0" y2="0" stroke="white" strokeWidth="2" />
-                  
-                  <text x="300" y="230" fontSize="14" textAnchor="middle" fill="white" fontWeight="bold">
-                    Време (дни)
-                  </text>
-                  <text x="-100" y="15" fontSize="14" textAnchor="middle" fill="white" fontWeight="bold" transform="rotate(-90 -100 15)">
-                    Яркост
-                  </text>
-
-                  {/* Синусоидална крива на пулсацията */}
-                  <path
-                    d="M 0,100 Q 75,50 150,100 Q 225,150 300,100 Q 375,50 450,100 Q 525,150 600,100"
-                    fill="none"
-                    stroke="rgb(255, 200, 100)"
-                    strokeWidth="3"
-                  />
-
-                  {/* Анимирана звезда */}
-                  {[0, 150, 300, 450].map((x, i) => (
-                    <circle
-                      key={i}
-                      cx={x}
-                      cy="100"
-                      r="8"
-                      fill="rgb(255, 255, 100)"
-                    >
-                      <animate
-                        attributeName="r"
-                        values="8;12;8"
-                        dur="3s"
-                        begin={`${i * 0.75}s`}
-                        repeatCount="indefinite"
-                      />
-                      <animate
-                        attributeName="opacity"
-                        values="0.6;1;0.6"
-                        dur="3s"
-                        begin={`${i * 0.75}s`}
-                        repeatCount="indefinite"
-                      />
-                    </circle>
-                  ))}
-
-                  {/* Период */}
-                  <line x1="0" y1="220" x2="150" y2="220" stroke="rgb(100, 200, 255)" strokeWidth="2" />
-                  <line x1="0" y1="215" x2="0" y2="225" stroke="rgb(100, 200, 255)" strokeWidth="2" />
-                  <line x1="150" y1="215" x2="150" y2="225" stroke="rgb(100, 200, 255)" strokeWidth="2" />
-                  <text x="75" y="245" fontSize="12" textAnchor="middle" fill="rgb(100, 200, 255)" fontWeight="bold">
-                    Период (P)
-                  </text>
-
-                  {/* Обяснение */}
-                  <rect x="350" y="20" width="230" height="100" fill="rgba(0, 0, 0, 0.7)" rx="5" />
-                  <text x="465" y="45" fontSize="13" textAnchor="middle" fill="white" fontWeight="bold">
-                    Цефеидна променлива
-                  </text>
-                  <text x="360" y="65" fontSize="10" fill="white">
-                    Звездата пулсира редовно
-                  </text>
-                  <text x="360" y="80" fontSize="10" fill="white">
-                    Период: 1-100 дни
-                  </text>
-                  <text x="360" y="95" fontSize="10" fill="rgb(255, 200, 100)">
-                    По-дълъг период =
-                  </text>
-                  <text x="360" y="110" fontSize="10" fill="rgb(255, 200, 100)">
-                    по-ярка звезда
-                  </text>
-                </g>
-              </svg>
-
-              <div className="mt-4 p-4 bg-gray-100/70 dark:bg-gray-800/70 rounded-lg">
-                <h4 className="font-semibold mb-2">Връзка период-светимост:</h4>
-                <p className="text-sm mb-2">
-                  Хенриета Левит открива (1912), че колкото по-дълъг е периодът на цефеидата,
-                  толкова по-ярка е звездата. Това прави цефеидите "стандартни свещи".
-                </p>
-                <p className="text-sm mt-2">
-                  <strong>Как се използва:</strong> Измерваме периода → знаем абсолютната светимост
-                  → сравняваме с видимата светимост → изчисляваме разстоянието
-                </p>
-              </div>
-            </div>
-          )}
+          <Example
+            description="При най-голямото сближаване радиоимпулс до Венера и обратно пътува 276,5 s. Голямата полуос на Венера е 0,7233 AU. Колко е 1 AU?"
+            steps={[
+              'Разстояние до Венера: d = c · t / 2 = 3 · 10⁸ · 138,25 ≈ 4,15 · 10¹⁰ m',
+              'В единици AU това е 1 − 0,7233 = 0,2767 AU (при кръгови орбити)',
+              '1 AU = 4,15 · 10¹⁰ / 0,2767 ≈ 1,50 · 10¹¹ m',
+            ]}
+          />
         </section>
 
         <section className="mb-8">
-          <h2 className="text-xl sm:text-2xl font-semibold mb-4">
-            3. Космическа стълба на разстоянията
-          </h2>
-          
-          <div className="bg-white dark:bg-gray-800 p-4 rounded-lg border-2 border-green-300 dark:border-green-600 mb-6">
-            <svg viewBox="0 0 600 400" className="w-full h-auto">
-              {/* Стълба */}
-              <g>
-                {/* Стъпало 1: Паралакс */}
-                <rect x="100" y="320" width="150" height="60" fill="rgb(100, 150, 255)" stroke="white" strokeWidth="2" />
-                <text x="175" y="345" fontSize="13" textAnchor="middle" fill="white" fontWeight="bold">
-                  Паралакс
-                </text>
-                <text x="175" y="365" fontSize="10" textAnchor="middle" fill="white">
-                  До 100 pc
-                </text>
+          <h2 className="text-xl sm:text-2xl font-semibold mb-4">3. Тригонометричен паралакс</h2>
+          <p className="mb-4 text-base sm:text-lg leading-relaxed">
+            Изпънете ръка, вдигнете пръст и го погледнете ту с едното, ту с другото око: пръстът „подскача“ на фона на стаята. Колкото
+            по-близо е пръстът, толкова повече. Същото прави и близката звезда, когато я гледаме от двата края на земната орбита.
+          </p>
 
-                {/* Стъпало 2: Цефеиди */}
-                <rect x="150" y="240" width="150" height="60" fill="rgb(168, 85, 247)" stroke="white" strokeWidth="2" />
-                <text x="225" y="265" fontSize="13" textAnchor="middle" fill="white" fontWeight="bold">
-                  Цефеиди
-                </text>
-                <text x="225" y="285" fontSize="10" textAnchor="middle" fill="white">
-                  До 30 Mpc
-                </text>
+          <Theorem
+            title="Паралакс и разстояние"
+            description="Годишният паралакс p е ъгълът, под който от звездата се вижда радиусът на земната орбита (1 AU). При малки ъгли d = 1 AU / p (p в радиани), или по-удобно d (pc) = 1 / p (″). Грешката в разстоянието е σ_d / d ≈ σ_p / p – затова паралаксът е точен само докато p е много по-голям от точността на инструмента."
+          />
 
-                {/* Стъпало 3: Свръхнови Ia */}
-                <rect x="200" y="160" width="150" height="60" fill="rgb(239, 68, 68)" stroke="white" strokeWidth="2" />
-                <text x="275" y="185" fontSize="13" textAnchor="middle" fill="white" fontWeight="bold">
-                  Свръхнови Ia
-                </text>
-                <text x="275" y="205" fontSize="10" textAnchor="middle" fill="white">
-                  До 1000 Mpc
-                </text>
+          <Example
+            description="Днес паралаксът на 61 Лебед е измерен 0,286″. Колко е далеч? Колко е грешал Бесел с неговите 0,314″?"
+            steps={['d = 1 / 0,286 ≈ 3,50 pc ≈ 11,4 светлинни години', 'Бесел: d = 1 / 0,314 ≈ 3,18 pc – грешка ~9%, забележително за телескопите от 1838 г.']}
+          />
 
-                {/* Стъпало 4: Червено изместване */}
-                <rect x="250" y="80" width="150" height="60" fill="rgb(255, 150, 100)" stroke="white" strokeWidth="2" />
-                <text x="325" y="105" fontSize="13" textAnchor="middle" fill="white" fontWeight="bold">
-                  Червено изместване
-                </text>
-                <text x="325" y="125" fontSize="10" textAnchor="middle" fill="white">
-                  До края на Вселената
-                </text>
+          <ParallaxLab />
 
-                {/* Стрелки между стъпалата */}
-                <path d="M 225,320 L 225,300" stroke="rgb(100, 200, 255)" strokeWidth="2" markerEnd="url(#arrowUp1)" />
-                <path d="M 275,240 L 275,220" stroke="rgb(100, 200, 255)" strokeWidth="2" markerEnd="url(#arrowUp2)" />
-                <path d="M 325,160 L 325,140" stroke="rgb(100, 200, 255)" strokeWidth="2" markerEnd="url(#arrowUp3)" />
+          <p className="mb-4 text-base sm:text-lg leading-relaxed">
+            Сателитът Hipparcos (1989–1993) измерва паралаксите на 118 000 звезди с точност 1 mas. Неговият наследник Gaia (2013–2025)
+            мери ~1,5 милиарда звезди с точност до ~0,02 mas – 50 пъти по-добре – и картографира Млечния път в три измерения. С 10%
+            точност Gaia стига до ~5 kpc. Отвъд това паралаксите са твърде малки и трябват други методи.
+          </p>
+        </section>
 
-                {/* Текст - калибриране */}
-                <text x="240" y="315" fontSize="9" fill="rgb(100, 200, 255)">калибрира</text>
-                <text x="290" y="235" fontSize="9" fill="rgb(100, 200, 255)">калибрира</text>
-                <text x="340" y="155" fontSize="9" fill="rgb(100, 200, 255)">калибрира</text>
+        <section className="mb-8">
+          <h2 className="text-xl sm:text-2xl font-semibold mb-4">4. Стандартни свещи</h2>
+          <p className="mb-4 text-base sm:text-lg leading-relaxed">
+            Ако знаем колко вата е една крушка, по това колко ярка изглежда ще кажем колко е далеч. В астрономията такива „крушки“ са
+            обекти, чиято светимост можем да познаем по нещо друго – периода, скоростта на угасване, скоростта на въртене.
+          </p>
 
-                {/* Обяснение */}
-                <rect x="420" y="200" width="160" height="80" fill="rgba(0, 0, 0, 0.7)" rx="5" />
-                <text x="500" y="225" fontSize="12" textAnchor="middle" fill="white" fontWeight="bold">
-                  Космическа стълба
-                </text>
-                <text x="430" y="245" fontSize="9" fill="white">
-                  Всеки метод се калибрира
-                </text>
-                <text x="430" y="260" fontSize="9" fill="white">
-                  с предходния, създавайки
-                </text>
-                <text x="430" y="275" fontSize="9" fill="white">
-                  "стълба" за все по-големи
-                </text>
-              </g>
+          <Theorem
+            title="Стандартна свещ"
+            description="Ако абсолютната величина M на обекта е известна, от видимата величина m и поглъщането A следва d = 10^((m − M − A) / 5 + 1) pc. Ключът е калибровката: M трябва да бъде определено поне за няколко обекта с разстояние, измерено по друг, независим начин."
+          />
 
-              <defs>
-                <marker id="arrowUp1" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto">
-                  <polygon points="0 10, 5 0, 10 10" fill="rgb(100, 200, 255)" />
-                </marker>
-                <marker id="arrowUp2" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto">
-                  <polygon points="0 10, 5 0, 10 10" fill="rgb(100, 200, 255)" />
-                </marker>
-                <marker id="arrowUp3" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto">
-                  <polygon points="0 10, 5 0, 10 10" fill="rgb(100, 200, 255)" />
-                </marker>
-              </defs>
-            </svg>
+          <StandardCandleLab />
 
-            <div className="mt-4 p-4 bg-gray-100/70 dark:bg-gray-800/70 rounded-lg">
-              <p className="text-sm">
-                Всеки метод работи в определен диапазон от разстояния. За да измерим
-                много далечни обекти, трябва да "изкачим стълбата" - всеки метод се
-                калибрира с предходния.
+          <Example
+            description="Свръхнова Ia в далечна галактика достига в максимума m = 19,3. Скоростта ѝ на угасване е типична (M = −19,3). Колко е далеч галактиката?"
+            steps={['m − M = 19,3 + 19,3 = 38,6', 'd = 10^(38,6 / 5 + 1) = 10^8,72 ≈ 5,2 · 10⁸ pc ≈ 520 Mpc – 1,7 милиарда светлинни години']}
+          />
+        </section>
+
+        <section className="mb-8">
+          <h2 className="text-xl sm:text-2xl font-semibold mb-4">5. Стълбата на разстоянията</h2>
+          <p className="mb-4 text-base sm:text-lg leading-relaxed">
+            Нито един метод не покрива всички разстояния. Затова ги нареждаме в стълба: радарът дава AU, AU е базата на паралакса,
+            паралаксите калибрират цефеидите, цефеидите – свръхновите Ia, свръхновите – закона на Хъбъл. Всяко стъпало стои на
+            предишното.
+          </p>
+
+          <LadderLab />
+
+          <div className="grid sm:grid-cols-2 gap-3 mb-4">
+            {GEOMETRIC.map(g => (
+              <div key={g.name} className="bg-white dark:bg-gray-800 p-3 rounded-lg shadow-sm">
+                <p className="font-semibold mb-1">
+                  {g.icon} {g.name}
+                </p>
+                <p className="text-sm text-gray-600 dark:text-gray-400">{g.text}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section className="mb-8">
+          <h2 className="text-xl sm:text-2xl font-semibold mb-4">6. ✅ Провери се</h2>
+          <Quiz questions={QUIZ} />
+        </section>
+
+        <section className="mb-8">
+          <h2 className="text-xl sm:text-2xl font-semibold mb-4">7. 📝 Задачи за упражнение</h2>
+
+          <div className="mb-6">
+            <h3 className="text-lg font-semibold mb-3 text-green-600 dark:text-green-400">Ниво А (Областен кръг)</h3>
+
+            <Task {...task('a1')} number={1} color="border-green-500" question="Колко парсека е една светлинна година?">
+              <p>1 pc = 3,26 ly ⇒ 1 ly = 1 / 3,26 ≈ 0,307 pc.</p>
+              <p>Парсекът е по-голямата единица – около три пъти по-голям от светлинната година.</p>
+            </Task>
+
+            <Task {...task('a2')} number={2} color="border-green-500" question="Звезда има паралакс 0,5″. На какво разстояние е?">
+              <p>d = 1 / p = 1 / 0,5 = 2 pc = 2 · 3,26 ≈ 6,5 светлинни години.</p>
+              <p>Всъщност такава звезда няма: най-голям паралакс има Проксима Кентавър – 0,768″ (1,30 pc).</p>
+            </Task>
+
+            <Task {...task('a3')} number={3} color="border-green-500" question="Защо не можем да измерим паралакса на галактиката Андромеда?">
+              <p>Андромеда е на ~765 kpc ⇒ p = 1 / 765 000 ≈ 1,3 · 10⁻⁶ ″ = 1,3 µas.</p>
+              <p>
+                Gaia мери паралакси с точност ~20 µas – 15 пъти по-голяма от самия ъгъл. Затова разстоянията до галактиките се мерят със
+                стандартни свещи – цефеиди, червени гиганти, свръхнови.
               </p>
-            </div>
+            </Task>
+          </div>
+
+          <div className="mb-6">
+            <h3 className="text-lg font-semibold mb-3 text-yellow-600 dark:text-yellow-400">Ниво В (Национален кръг)</h3>
+
+            <Task {...task('b1')} number={4} color="border-yellow-500" question="Цефеида с период 10 дни има видима величина m = 15 и абсолютна M = −4. На какво разстояние е?">
+              <p>m − M = 5 lg d − 5 ⇒ 15 + 4 = 5 lg d − 5 ⇒ lg d = 4,8</p>
+              <p>d = 10^4,8 ≈ 63 000 pc = 63 kpc ≈ 206 000 светлинни години – колкото Малкия Магеланов облак.</p>
+            </Task>
+
+            <Task {...task('b2')} number={5} color="border-yellow-500" question="Радиоимпулс до Марс в противопоставяне и обратно пътува 523 s. Голямата полуос на Марс е 1,524 AU. Колко е 1 AU (приемете кръгови орбити)?">
+              <p>d = c · t / 2 = 3 · 10⁸ · 261,5 ≈ 7,85 · 10¹⁰ m</p>
+              <p>В AU: 1,524 − 1 = 0,524 AU ⇒ 1 AU = 7,85 · 10¹⁰ / 0,524 ≈ 1,50 · 10¹¹ m</p>
+              <p>Истинската стойност е 1,496 · 10¹¹ m. В действителност орбитата на Марс е доста издължена (e = 0,09), затова при точните измервания се използват пълните елиптични орбити.</p>
+            </Task>
+
+            <Task {...task('b3')} number={6} color="border-yellow-500" question="Двата края на земната орбита са на 2 AU. Ако наблюдаваме от телескоп в орбита около Нептун (30 AU), колко по-далеч ще стигаме с паралакс при същата точност?">
+              <p>Паралаксът е пропорционален на базата: при радиус 30 AU ъгълът е 30 пъти по-голям.</p>
+              <p>При същата точност ще мерим 30 пъти по-далечни звезди – с Gaia до ~150 kpc, т.е. до Магелановите облаци.</p>
+              <p>За съжаление обиколката на Нептун трае 165 години – трябва да се чака дълго за пълна елипса.</p>
+            </Task>
+          </div>
+
+          <div className="mb-6">
+            <h3 className="text-lg font-semibold mb-3 text-red-600 dark:text-red-400">Ниво С (Международна олимпиада)</h3>
+
+            <Task
+              {...task('c1')}
+              number={7}
+              color="border-red-500"
+              question="Обяснете защо грешка в паралаксите на близките цефеиди води до систематична грешка в разстоянията до далечните галактики и в H₀."
+            >
+              <p>Стълбата е верига: паралакс → цефеиди в Галактиката → цефеиди в близки галактики → свръхнови Ia в същите галактики → далечни свръхнови → H₀.</p>
+              <p>
+                Ако паралаксите са системно по-малки с 5%, близките цефеиди ни изглеждат 5% по-далеч и по-ярки, отколкото са. Тогава всички
+                цефеиди, всички свръхнови и всички разстояния до галактики излизат 5% по-големи, а H₀ = v / d – 5% по-малка.
+              </p>
+              <p>
+                Това е <strong>систематична</strong> грешка: тя не намалява, ако измерим повече галактики. Затова точността на Gaia е
+                толкова важна за космологията.
+              </p>
+            </Task>
+
+            <Task
+              {...task('c2')}
+              number={8}
+              color="border-red-500"
+              question="Gaia мери паралакса на звезда с точност 20 µas. До какво разстояние разстоянието се определя с точност по-добра от 10%? А колко е грешката за звезда в центъра на Галактиката (8,2 kpc)?"
+            >
+              <p>σ_d / d ≈ σ_p / p ≤ 0,1 ⇒ p ≥ 10 · 20 µas = 0,2 mas ⇒ d ≤ 1 / 0,0002 = 5000 pc = 5 kpc</p>
+              <p>За 8,2 kpc: p ≈ 0,122 mas ⇒ σ_p / p ≈ 0,02 / 0,122 ≈ 16%</p>
+              <p>
+                За една звезда грешката е голяма, но за куп от 100 звезди на същото разстояние тя намалява √100 = 10 пъти – до ~1,6%.
+                (Затова е важно грешките да не са систематични.)
+              </p>
+            </Task>
+
+            <Task
+              {...task('c3')}
+              number={9}
+              color="border-red-500"
+              question="Звездите от Хиадите се движат успоредно с радиална скорост 39 km/s, а точката, към която сякаш се събират, е на 30° от центъра на купа. Собственото движение на купа е 0,11″ годишно. Намерете разстоянието."
+            >
+              <p>Тангенциалната скорост: v_t = v_r · tg θ = 39 · tg 30° ≈ 22,5 km/s</p>
+              <p>Собствено движение μ (″/год.) при разстояние d (pc) отговаря на v_t = 4,74 · μ · d km/s (4,74 km/s е 1 AU годишно)</p>
+              <p>d = v_t / (4,74 · μ) = 22,5 / (4,74 · 0,11) ≈ 43 pc – близо до днешните 47 pc от Gaia.</p>
+            </Task>
           </div>
         </section>
 
         <section className="mb-8">
-          <h2 className="text-xl sm:text-2xl font-semibold mb-4">
-            📝 Задачи за упражнение
-          </h2>
-
-          {/* Ниво А */}
-          <div className="mb-6">
-            <h3 className="text-lg font-semibold mb-3 text-green-600 dark:text-green-400">
-              Ниво А (Областен кръг)
-            </h3>
-
-            <div className="bg-white dark:bg-gray-800 p-4 rounded-lg mb-4 border-l-4 border-green-500">
-              <p className="font-semibold mb-2">1. Колко парсека е 1 светлинна година?</p>
-              <button
-                onClick={() => toggleSolution('a1')}
-                className="text-blue-600 dark:text-blue-400 hover:underline text-sm"
-              >
-                {showSolutions['a1'] ? '▼ Скрий решението' : '▶ Покажи решението'}
-              </button>
-              {showSolutions['a1'] && (
-                <div className="mt-3 p-3 bg-blue-50 dark:bg-blue-900/20 rounded">
-                  <p className="font-semibold">Отговор: 1 ly = 0.307 pc (или 1 pc = 3.26 ly)</p>
-                  <p className="mt-2">Обяснение: Парсекът е по-голяма единица от светлинната година.
-                  1 парсек = 3.26 светлинни години.</p>
-                </div>
-              )}
-            </div>
-
-            <div className="bg-white dark:bg-gray-800 p-4 rounded-lg mb-4 border-l-4 border-green-500">
-              <p className="font-semibold mb-2">2. Звезда има паралакс 0.5". На какво разстояние е?</p>
-              <button
-                onClick={() => toggleSolution('a2')}
-                className="text-blue-600 dark:text-blue-400 hover:underline text-sm"
-              >
-                {showSolutions['a2'] ? '▼ Скрий решението' : '▶ Покажи решението'}
-              </button>
-              {showSolutions['a2'] && (
-                <div className="mt-3 p-3 bg-blue-50 dark:bg-blue-900/20 rounded">
-                  <p className="font-semibold">Решение:</p>
-                  <p className="mt-2">Формула: d = 1 / p</p>
-                  <p>d = 1 / 0.5" = 2 парсека</p>
-                  <p className="mt-2">В светлинни години: 2 × 3.26 = 6.52 св.г.</p>
-                  <p className="mt-2"><strong>Отговор: 2 парсека или 6.5 светлинни години</strong></p>
-                </div>
-              )}
-            </div>
-          </div>
-
-          {/* Ниво В */}
-          <div className="mb-6">
-            <h3 className="text-lg font-semibold mb-3 text-yellow-600 dark:text-yellow-400">
-              Ниво В (Национален кръг)
-            </h3>
-
-            <div className="bg-white dark:bg-gray-800 p-4 rounded-lg mb-4 border-l-4 border-yellow-500">
-              <p className="font-semibold mb-2">3. Цефеида има период 10 дни и видима звездна величина
-              m = 15. Ако абсолютната ѝ величина е M = -4, на какво разстояние е?</p>
-              <button
-                onClick={() => toggleSolution('b3')}
-                className="text-blue-600 dark:text-blue-400 hover:underline text-sm"
-              >
-                {showSolutions['b3'] ? '▼ Скрий решението' : '▶ Покажи решението'}
-              </button>
-              {showSolutions['b3'] && (
-                <div className="mt-3 p-3 bg-blue-50 dark:bg-blue-900/20 rounded">
-                  <p className="font-semibold">Решение:</p>
-                  <p className="mt-2">Използваме формулата за модул на разстоянието:</p>
-                  <p className="font-mono mt-2">m - M = 5 × log₁₀(d) - 5</p>
-                  <p className="mt-2">15 - (-4) = 5 × log₁₀(d) - 5</p>
-                  <p>19 = 5 × log₁₀(d) - 5</p>
-                  <p>24 = 5 × log₁₀(d)</p>
-                  <p>log₁₀(d) = 4.8</p>
-                  <p>d = 10⁴·⁸ ≈ 63 096 парсека ≈ 63 kpc</p>
-                  <p className="mt-2"><strong>Отговор: около 63 килопарсека (206 000 св.г.)</strong></p>
-                </div>
-              )}
-            </div>
-
-            <div className="bg-white dark:bg-gray-800 p-4 rounded-lg mb-4 border-l-4 border-yellow-500">
-              <p className="font-semibold mb-2">4. Защо паралаксът не може да се използва за
-              измерване на разстояния до други галактики?</p>
-              <button
-                onClick={() => toggleSolution('b4')}
-                className="text-blue-600 dark:text-blue-400 hover:underline text-sm"
-              >
-                {showSolutions['b4'] ? '▼ Скрий решението' : '▶ Покажи решението'}
-              </button>
-              {showSolutions['b4'] && (
-                <div className="mt-3 p-3 bg-blue-50 dark:bg-blue-900/20 rounded">
-                  <p className="font-semibold">Решение:</p>
-                  <p className="mt-2">Паралаксът работи само за близки обекти, защото ъгълът
-                  става изключително малък за далечни обекти.</p>
-                  <p className="mt-2">Най-близката галактика (Андромеда) е на около 780 kpc.
-                  Паралаксът би бил:</p>
-                  <p className="font-mono mt-2">p = 1 / 780000 ≈ 0.0000013" (1.3 микроъглови секунди)</p>
-                  <p className="mt-2">Това е извън възможностите дори на най-добрите телескопи
-                  (Gaia измерва до ~0.00002"). Затова за галактики използваме цефеиди,
-                  свръхнови и червено изместване.</p>
-                </div>
-              )}
-            </div>
-          </div>
-
-          {/* Ниво С */}
-          <div className="mb-6">
-            <h3 className="text-lg font-semibold mb-3 text-red-600 dark:text-red-400">
-              Ниво С (Международна олимпиада)
-            </h3>
-
-            <div className="bg-white dark:bg-gray-800 p-4 rounded-lg mb-4 border-l-4 border-red-500">
-              <p className="font-semibold mb-2">5. Обясни защо грешка в измерването на разстоянието
-              до близките цефеиди води до систематична грешка в измерването на разстоянията
-              до далечните галактики.</p>
-              <button
-                onClick={() => toggleSolution('c5')}
-                className="text-blue-600 dark:text-blue-400 hover:underline text-sm"
-              >
-                {showSolutions['c5'] ? '▼ Скрий решението' : '▶ Покажи решението'}
-              </button>
-              {showSolutions['c5'] && (
-                <div className="mt-3 p-3 bg-blue-50 dark:bg-blue-900/20 rounded">
-                  <p className="font-semibold">Решение:</p>
-                  <p className="mt-2">Космическата стълба на разстоянията е верига от методи,
-                  където всеки следващ метод се калибрира с предходния:</p>
-                  <ol className="list-decimal list-inside mt-2 space-y-2">
-                    <li><strong>Паралакс</strong> → измерва разстояния до близки цефеиди</li>
-                    <li><strong>Близки цефеиди</strong> → калибрират връзката период-светимост</li>
-                    <li><strong>Далечни цефеиди</strong> → измерват разстояния до галактики</li>
-                    <li><strong>Свръхнови в тези галактики</strong> → калибрират светимостта на свръхновите</li>
-                    <li><strong>Далечни свръхнови</strong> → измерват космологични разстояния</li>
-                  </ol>
-                  <p className="mt-3">Ако направим грешка в стъпка 1 (паралакс до близки цефеиди),
-                  тази грешка се <strong>умножава</strong> през всички следващи стъпки. Например:</p>
-                  <ul className="list-disc list-inside mt-2">
-                    <li>10% грешка в паралакса → 10% грешка в калибрацията на цефеидите</li>
-                    <li>→ 10% грешка в разстоянията до галактики</li>
-                    <li>→ 10% грешка в калибрацията на свръхновите</li>
-                    <li>→ 10% грешка в космологичните разстояния</li>
-                  </ul>
-                  <p className="mt-3">Това е <strong>систематична грешка</strong> - засяга всички
-                  измервания в една посока. Затова прецизното измерване на паралаксите (като с
-                  Gaia) е критично за цялата космология!</p>
-                </div>
-              )}
-            </div>
-          </div>
-        </section>
-
-        <section className="mb-8">
-          <h2 className="text-xl sm:text-2xl font-semibold mb-4">
-            Обобщение
-          </h2>
-          <div className="bg-gradient-to-r from-blue-50 to-green-50 dark:from-gray-800 dark:to-gray-700 p-6 rounded-lg">
+          <h2 className="text-xl sm:text-2xl font-semibold mb-4">8. Обобщение</h2>
+          <div className="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-gray-800 dark:to-gray-700 p-6 rounded-lg">
             <ul className="space-y-2">
-              <li>✓ Паралакс: d (pc) = 1 / p (") - до 100 pc</li>
-              <li>✓ Цефеиди: период-светимост - до 30 Mpc</li>
-              <li>✓ Свръхнови Ia: стандартни свещи - до 1000 Mpc</li>
-              <li>✓ Червено изместване: закон на Хъбъл - до края на Вселената</li>
-              <li>✓ Всеки метод калибрира следващия</li>
+              <li>✓ 1 pc = 206 265 AU = 3,26 ly; AU се мери с радар</li>
+              <li>✓ Паралакс: d (pc) = 1 / p (″); Gaia стига до ~5 kpc с 10% точност</li>
+              <li>✓ Стандартни свещи: d = 10^((m − M − A)/5 + 1) pc – RR Лира, цефеиди, връх на гигантите, свръхнови Ia</li>
+              <li>✓ Свръхнови Ia: M ≈ −19,3, поправка по скоростта на угасване; виждат се на милиарди светлинни години</li>
+              <li>✓ Геометрични методи: движещ се куп, затъмняващи двойни, мазери, стандартни сирени</li>
+              <li>✓ Стълбата: всяко стъпало калибрира следващото – систематичните грешки се пренасят нагоре</li>
+              <li>✓ Напрежение на Хъбъл: стълбата дава H₀ ≈ 73, реликтовото излъчване – 67 km/s/Mpc</li>
             </ul>
           </div>
         </section>
@@ -698,10 +346,10 @@ export default function Lecture24() {
               <span>Интересен факт</span>
             </h3>
             <p>
-              Спътникът Gaia на ЕКА измерва позициите на над 1 милиард звезди с
-              невероятна точност (до 20 микроъглови секунди)! Това е като да видите
-              монета на Луната от Земята. Gaia революционизира нашите познания за
-              Млечния път и прави космическата стълба много по-точна!
+              Най-добрите измервания на Gaia са с точност ~10 µas – ъгълът, под който се вижда монета от 2 cm на повърхността на
+              Луната. За 11 години Gaia наблюдава всяка звезда средно над сто пъти. Тя спря наблюденията си през януари 2025 г. и беше изключена
+              през март същата година, но учените още обработват данните ѝ: следващият каталог (DR4) ще бъде още по-точен и ще включи
+              хиляди нови екзопланети, открити по клатенето на звездите им.
             </p>
           </div>
         </section>

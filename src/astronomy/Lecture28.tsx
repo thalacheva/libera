@@ -1,568 +1,285 @@
 import { useState } from 'react';
+import Example from '~/Example';
+import Quiz, { type Question } from '~/Quiz';
+import Theorem from '~/Theorem';
+import ExpansionGridLab from './components/ExpansionGridLab';
+import FriedmannLab from './components/FriedmannLab';
+import HubbleDiagramLab from './components/HubbleDiagramLab';
+import Task from './components/Task';
+
+const QUIZ: Question[] = [
+  {
+    question: 'Какво гласи законът на Хъбъл–Льометр?',
+    answers: [
+      'Всички галактики се приближават към нас',
+      'Галактиките се отдалечават със скорост, пропорционална на разстоянието: v = H₀ · d',
+      'Галактиките се въртят с еднаква скорост',
+      'Далечните галактики са по-ярки',
+    ],
+    correctAnswer: 'Галактиките се отдалечават със скорост, пропорционална на разстоянието: v = H₀ · d',
+  },
+  {
+    question: 'Какво означава червено отместване z = 1?',
+    answers: [
+      'Галактиката се движи със скоростта на светлината',
+      'Светлината е излъчена, когато разстоянията във Вселената са били наполовина по-малки',
+      'Галактиката е на 1 Mpc',
+      'Галактиката е червена',
+    ],
+    correctAnswer: 'Светлината е излъчена, когато разстоянията във Вселената са били наполовина по-малки',
+  },
+  {
+    question: 'Ако всички галактики се отдалечават от нас, означава ли това, че сме в центъра на Вселената?',
+    answers: [
+      'Да',
+      'Не – от всяка галактика всички останали се отдалечават по същия начин',
+      'Да, но само в Млечния път',
+      'Не знаем',
+    ],
+    correctAnswer: 'Не – от всяка галактика всички останали се отдалечават по същия начин',
+  },
+  {
+    question: 'Какво е времето на Хъбъл 1/H₀?',
+    answers: ['~14 млн. години', '~14 млрд. години', '~140 млрд. години', '~1,4 млрд. години'],
+    correctAnswer: '~14 млрд. години',
+  },
+  {
+    question: 'Какво откриха през 1998 г. екипите, наблюдавали далечни свръхнови Ia?',
+    answers: [
+      'Че Вселената се свива',
+      'Че разширяването на Вселената се ускорява',
+      'Че свръхновите не са стандартни свещи',
+      'Че Вселената е безкрайно стара',
+    ],
+    correctAnswer: 'Че разширяването на Вселената се ускорява',
+  },
+  {
+    question: 'Какво е „напрежението на Хъбъл“?',
+    answers: [
+      'Разлика между H₀ от стълбата на разстоянията (~73) и от реликтовото излъчване (~67 km/s/Mpc)',
+      'Механично напрежение в телескопа Хъбъл',
+      'Спор между Хъбъл и Льометр',
+      'Разлика между скоростите на две галактики',
+    ],
+    correctAnswer: 'Разлика между H₀ от стълбата на разстоянията (~73) и от реликтовото излъчване (~67 km/s/Mpc)',
+  },
+  {
+    question: 'Може ли далечна галактика да се отдалечава от нас по-бързо от светлината?',
+    answers: [
+      'Не, нищо не е по-бързо от светлината',
+      'Да – разширява се пространството, а забраната на относителността е за движение през пространството',
+      'Само ако е квазар',
+      'Само в миналото',
+    ],
+    correctAnswer: 'Да – разширява се пространството, а забраната на относителността е за движение през пространството',
+  },
+];
 
 export default function Lecture28() {
-  const [time, setTime] = useState(0); // 0-100 за анимация на разширяването
   const [showSolutions, setShowSolutions] = useState<{ [key: string]: boolean }>({});
 
-  const toggleSolution = (taskId: string) => {
-    setShowSolutions(prev => ({ ...prev, [taskId]: !prev[taskId] }));
-  };
-
-  // Мащабен фактор (колко се е разширила Вселената)
-  const scaleFactor = 1 + time * 0.02;
+  const task = (id: string) => ({
+    id,
+    shown: !!showSolutions[id],
+    onToggle: (taskId: string) => setShowSolutions(prev => ({ ...prev, [taskId]: !prev[taskId] })),
+  });
 
   return (
     <main className="flex-1 overflow-y-auto px-4 pt-16 pb-12 sm:px-6 lg:px-10 lg:pt-10">
       <div className="max-w-4xl mx-auto">
-        <h1 className="text-2xl sm:text-3xl font-bold tracking-tight mb-6 text-gray-900 dark:text-white">
-          Лекция 28: Разширяване на Вселената
-        </h1>
+        <h1 className="text-2xl sm:text-3xl font-bold tracking-tight mb-6 text-gray-900 dark:text-white">Лекция 28: Разширяване на Вселената</h1>
 
-        <section className="mb-8">
-          <h2 className="text-xl sm:text-2xl font-semibold mb-4">
-            1. Закон на Хъбъл
-          </h2>
-          <p className="mb-4 text-base sm:text-lg leading-relaxed">
-            Едуин Хъбъл открива (1929), че галактиките се отдалечават от нас със
-            скорост, пропорционална на разстоянието им.
+        <div className="bg-gradient-to-br from-orange-700 to-slate-900 text-white p-6 rounded-2xl mb-8 shadow-lg">
+          <p className="text-lg sm:text-xl leading-relaxed">
+            📈 През 1912–1917 г. Весто Слайфър в обсерваторията Лоуел измерва спектрите на спиралните мъглявини и открива, че почти всички
+            се отдалечават – някои с над 1000 km/s. Никой още не знае колко са далеч. През 1927 г. Жорж Льометр съчетава данните на
+            Слайфър с груби разстояния и в малко известно белгийско списание стига до извода, че Вселената се разширява. Две години
+            по-късно Едуин Хъбъл публикува графика – скоростите срещу разстоянията на 24 галактики – и на нея точките лежат приблизително
+            на права. Айнщайн, който дотогава смята Вселената за неизменна, посещава Хъбъл и признава: Вселената не стои на място. През
+            2018 г. Международният астрономически съюз преименува закона на „закон на Хъбъл–Льометр“.
           </p>
-          <div className="bg-blue-50 dark:bg-blue-500/10 p-4 rounded-lg mb-4">
-            <p className="text-center text-xl font-mono my-3">v = H₀ × d</p>
-            <ul className="list-disc list-inside space-y-2">
-              <li>v – скорост на отдалечаване (km/s)</li>
-              <li>H₀ – константа на Хъбъл (около 70 km/s/Mpc)</li>
-              <li>d – разстояние (Mpc - мегапарсек)</li>
-            </ul>
-          </div>
-        </section>
+        </div>
 
         <section className="mb-8">
-          <h2 className="text-xl sm:text-2xl font-semibold mb-4">
-            Интерактивна визуализация на разширяването
-          </h2>
+          <h2 className="text-xl sm:text-2xl font-semibold mb-4">1. Червеното отместване</h2>
           <p className="mb-4 text-base sm:text-lg leading-relaxed">
-            Наблюдавайте как галактиките се отдалечават една от друга:
+            Спектралните линии на далечните галактики са изместени към по-дълги вълни. При близките галактики това прилича на ефекта на
+            Доплер. Но истинската причина е друга: докато светлината пътува, пространството се разтяга и разтяга заедно с него вълната.
           </p>
-
-          <div className="bg-white dark:bg-gray-800 p-4 rounded-lg border-2 border-blue-300 dark:border-blue-600 mb-6">
-            <h3 className="font-semibold mb-3 text-center">Разширяване на Вселената</h3>
-            
-            <svg viewBox="0 0 600 400" className="w-full h-auto">
-              {/* Фон */}
-              <rect x="0" y="0" width="600" height="400" fill="rgb(10, 10, 30)" />
-
-              {/* Мрежа (разширяваща се) */}
-              {[...Array(10)].map((_, i) => (
-                <g key={`grid-${i}`}>
-                  {/* Вертикални линии */}
-                  <line
-                    x1={100 + i * 40 * scaleFactor}
-                    y1="50"
-                    x2={100 + i * 40 * scaleFactor}
-                    y2="350"
-                    stroke="rgb(100, 100, 150)"
-                    strokeWidth="1"
-                    strokeDasharray="5,5"
-                    opacity="0.3"
-                  />
-                  {/* Хоризонтални линии */}
-                  <line
-                    x1="100"
-                    y1={50 + i * 30 * scaleFactor}
-                    x2="500"
-                    y2={50 + i * 30 * scaleFactor}
-                    stroke="rgb(100, 100, 150)"
-                    strokeWidth="1"
-                    strokeDasharray="5,5"
-                    opacity="0.3"
-                  />
-                </g>
-              ))}
-
-              {/* Наша галактика (в центъра, референтна точка) */}
-              <g>
-                <circle cx="300" cy="200" r="12" fill="rgb(255, 200, 100)" />
-                <circle cx="300" cy="200" r="8" fill="rgb(255, 255, 200)" />
-                <text x="300" y="235" fontSize="11" textAnchor="middle" fill="white" fontWeight="bold">
-                  Млечен път
-                </text>
-                <text x="300" y="250" fontSize="9" textAnchor="middle" fill="gray">
-                  (референтна точка)
-                </text>
-              </g>
-
-              {/* Околни галактики - отдалечават се */}
-              {[
-                { angle: 0, distance: 80, name: 'Галактика A', color: 'rgb(150, 200, 255)' },
-                { angle: 45, distance: 100, name: 'Галактика B', color: 'rgb(200, 150, 255)' },
-                { angle: 90, distance: 60, name: 'Галактика C', color: 'rgb(255, 150, 200)' },
-                { angle: 135, distance: 90, name: 'Галактика D', color: 'rgb(150, 255, 200)' },
-                { angle: 180, distance: 70, name: 'Галактика E', color: 'rgb(255, 200, 150)' },
-                { angle: 225, distance: 110, name: 'Галактика F', color: 'rgb(200, 255, 150)' },
-                { angle: 270, distance: 85, name: 'Галактика G', color: 'rgb(255, 150, 255)' },
-                { angle: 315, distance: 95, name: 'Галактика H', color: 'rgb(150, 255, 255)' },
-              ].map((galaxy, i) => {
-                const rad = (galaxy.angle * Math.PI) / 180;
-                const dist = galaxy.distance * scaleFactor;
-                const x = 300 + dist * Math.cos(rad);
-                const y = 200 + dist * Math.sin(rad);
-                
-                // Скорост на отдалечаване (Хъбъл)
-                const velocity = Math.round(galaxy.distance * scaleFactor * 0.7); // km/s (опростено)
-                
-                return (
-                  <g key={i}>
-                    {/* Галактика */}
-                    <circle cx={x} cy={y} r="10" fill={galaxy.color} opacity="0.7" />
-                    <circle cx={x} cy={y} r="5" fill="white" opacity="0.9" />
-                    
-                    {/* Стрелка показваща посоката на движение */}
-                    {time > 20 && (
-                      <line
-                        x1={300 + galaxy.distance * 0.8 * Math.cos(rad)}
-                        y1={200 + galaxy.distance * 0.8 * Math.sin(rad)}
-                        x2={x}
-                        y2={y}
-                        stroke="rgb(255, 100, 100)"
-                        strokeWidth="2"
-                        markerEnd="url(#arrowGalaxy)"
-                        opacity="0.6"
-                      />
-                    )}
-                    
-                    {/* Етикет */}
-                    <text
-                      x={x}
-                      y={y + 20}
-                      fontSize="9"
-                      textAnchor="middle"
-                      fill="white"
-                    >
-                      {velocity} km/s
-                    </text>
-                  </g>
-                );
-              })}
-
-              <defs>
-                <marker id="arrowGalaxy" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
-                  <polygon points="0 0, 10 3, 0 6" fill="rgb(255, 100, 100)" />
-                </marker>
-              </defs>
-            </svg>
-
-            {/* Контрола */}
-            <div className="mt-4">
-              <label className="block text-sm font-semibold mb-2 text-center">
-                Време: {time === 0 ? 'Начало' : `След ${(time * 0.1).toFixed(1)} млрд години`}
-                {time > 0 && ` (мащаб: ${scaleFactor.toFixed(2)}x)`}
-              </label>
-              <input
-                type="range"
-                min="0"
-                max="100"
-                value={time}
-                onChange={(e) => setTime(Number(e.target.value))}
-                className="w-full"
-              />
-              <div className="flex justify-between text-xs text-gray-600 dark:text-gray-400 mt-1">
-                <span>Миналото (по-близо)</span>
-                <span>Бъдещето (по-далеч)</span>
-              </div>
-            </div>
-
-            <div className="mt-4 p-4 bg-gray-100/70 dark:bg-gray-800/70 rounded-lg">
-              <h4 className="font-semibold mb-2">Наблюдения:</h4>
-              <ul className="text-sm space-y-2">
-                <li>🌌 Всички галактики се отдалечават от нас</li>
-                <li>📏 По-далечните галактики се движат по-бързо (закон на Хъбъл)</li>
-                <li>🌐 Разширява се самото пространство, не галактиките през него</li>
-                <li>🎯 Няма "център" на разширяването - всяка точка изглежда като център</li>
-              </ul>
-            </div>
-          </div>
+          <Theorem
+            title="Космологично червено отместване"
+            description="z = (λ_набл − λ_изл) / λ_изл. Ако мащабният фактор при излъчването е a, а днес е 1, то 1 + z = 1 / a: дължината на вълната е нараснала толкова пъти, колкото всички разстояния. При малки z скоростта на отдалечаване е v ≈ c · z."
+          />
+          <Example
+            description="Линията Hα (656,3 nm) в спектъра на галактика се наблюдава при 721,9 nm. Колко е z? С колко се е разширила Вселената оттогава?"
+            steps={['z = (721,9 − 656,3) / 656,3 ≈ 0,10', 'v ≈ c · z ≈ 30 000 km/s', '1 + z = 1,1: разстоянията са нараснали с 10%, докато светлината е пътувала']}
+          />
         </section>
 
         <section className="mb-8">
-          <h2 className="text-xl sm:text-2xl font-semibold mb-4">
-            2. Червено изместване
-          </h2>
+          <h2 className="text-xl sm:text-2xl font-semibold mb-4">2. Законът на Хъбъл–Льометр</h2>
+          <Theorem
+            title="Закон на Хъбъл–Льометр"
+            description="v = H₀ · d, където H₀ е константата на Хъбъл – днешната скорост на разширение. H₀ ≈ 70 km/s/Mpc: галактика на 1 Mpc се отдалечава със 70 km/s, на 100 Mpc – със 7000 km/s. Величината 1/H₀ ≈ 14 млрд. години (време на Хъбъл) е времето, за което, ако скоростите не се менят, всички галактики биха се събрали в една точка."
+          />
+          <HubbleDiagramLab />
+          <Example
+            description="Колко е времето на Хъбъл при H₀ = 70 km/s/Mpc?"
+            steps={[
+              '1 Mpc = 3,086 · 10¹⁹ km ⇒ H₀ = 70 / 3,086 · 10¹⁹ s⁻¹ ≈ 2,27 · 10⁻¹⁸ s⁻¹',
+              '1/H₀ ≈ 4,4 · 10¹⁷ s ≈ 14 млрд. години',
+              'Удобна формула: 1/H₀ ≈ 978 / H₀ млрд. години (H₀ в km/s/Mpc).',
+            ]}
+          />
+        </section>
+
+        <section className="mb-8">
+          <h2 className="text-xl sm:text-2xl font-semibold mb-4">3. Разширение без център</h2>
           <p className="mb-4 text-base sm:text-lg leading-relaxed">
-            Светлината от отдалечаващи се галактики се измества към червения край
-            на спектъра заради разширяването на пространството.
+            Законът на Хъбъл има странно следствие: ако разстоянията растат пропорционално, всяка галактика вижда същата картина. Няма
+            „център“ на разширението и няма ръб. Галактиките не летят през пространството – пространството между тях се разтяга. Самите
+            галактики, звездите и атомите не се разширяват: тях ги държат гравитацията и електромагнитните сили.
           </p>
-
-          <div className="bg-white dark:bg-gray-800 p-4 rounded-lg border-2 border-red-300 dark:border-red-600 mb-6">
-            <h3 className="font-semibold mb-3 text-center">Червено изместване (Redshift)</h3>
-            
-            <svg viewBox="0 0 700 250" className="w-full h-auto">
-              {/* Близка галактика */}
-              <g>
-                <circle cx="100" cy="125" r="20" fill="rgb(200, 200, 255)" />
-                <text x="100" y="160" fontSize="12" textAnchor="middle" fill="currentColor" fontWeight="bold">
-                  Близка галактика
-                </text>
-                <text x="100" y="175" fontSize="10" textAnchor="middle" fill="gray">
-                  z = 0.01
-                </text>
-                
-                {/* Спектър */}
-                <rect x="60" y="190" width="80" height="15" fill="url(#spectrum)" />
-                <line x1="100" y1="185" x2="100" y2="210" stroke="rgb(0, 255, 0)" strokeWidth="2" />
-                <text x="100" y="225" fontSize="9" textAnchor="middle" fill="rgb(0, 255, 0)">
-                  λ = 500 nm
-                </text>
-              </g>
-
-              {/* Средна галактика */}
-              <g transform="translate(200, 0)">
-                <circle cx="100" cy="125" r="20" fill="rgb(255, 200, 200)" />
-                <text x="100" y="160" fontSize="12" textAnchor="middle" fill="currentColor" fontWeight="bold">
-                  Средна галактика
-                </text>
-                <text x="100" y="175" fontSize="10" textAnchor="middle" fill="gray">
-                  z = 0.5
-                </text>
-                
-                {/* Спектър с изместване */}
-                <rect x="60" y="190" width="80" height="15" fill="url(#spectrum)" />
-                <line x1="110" y1="185" x2="110" y2="210" stroke="rgb(255, 165, 0)" strokeWidth="2" />
-                <text x="110" y="225" fontSize="9" textAnchor="middle" fill="rgb(255, 165, 0)">
-                  λ = 750 nm
-                </text>
-              </g>
-
-              {/* Далечна галактика */}
-              <g transform="translate(400, 0)">
-                <circle cx="100" cy="125" r="20" fill="rgb(255, 150, 150)" />
-                <text x="100" y="160" fontSize="12" textAnchor="middle" fill="currentColor" fontWeight="bold">
-                  Далечна галактика
-                </text>
-                <text x="100" y="175" fontSize="10" textAnchor="middle" fill="gray">
-                  z = 2.0
-                </text>
-                
-                {/* Спектър с голямо изместване */}
-                <rect x="60" y="190" width="80" height="15" fill="url(#spectrum)" />
-                <line x1="120" y1="185" x2="120" y2="210" stroke="rgb(255, 0, 0)" strokeWidth="2" />
-                <text x="120" y="225" fontSize="9" textAnchor="middle" fill="rgb(255, 0, 0)">
-                  λ = 1500 nm
-                </text>
-              </g>
-
-              {/* Стрелки показващи изместване */}
-              <path d="M 100,205 L 110,205" stroke="rgb(255, 100, 100)" strokeWidth="2" markerEnd="url(#arrowRed1)" />
-              <path d="M 300,205 L 320,205" stroke="rgb(255, 100, 100)" strokeWidth="2" markerEnd="url(#arrowRed2)" />
-
-              <defs>
-                <linearGradient id="spectrum" x1="0%" y1="0%" x2="100%" y2="0%">
-                  <stop offset="0%" style={{ stopColor: 'rgb(138, 43, 226)', stopOpacity: 1 }} />
-                  <stop offset="20%" style={{ stopColor: 'rgb(0, 0, 255)', stopOpacity: 1 }} />
-                  <stop offset="40%" style={{ stopColor: 'rgb(0, 255, 0)', stopOpacity: 1 }} />
-                  <stop offset="60%" style={{ stopColor: 'rgb(255, 255, 0)', stopOpacity: 1 }} />
-                  <stop offset="80%" style={{ stopColor: 'rgb(255, 165, 0)', stopOpacity: 1 }} />
-                  <stop offset="100%" style={{ stopColor: 'rgb(255, 0, 0)', stopOpacity: 1 }} />
-                </linearGradient>
-                <marker id="arrowRed1" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
-                  <polygon points="0 0, 10 3, 0 6" fill="rgb(255, 100, 100)" />
-                </marker>
-                <marker id="arrowRed2" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
-                  <polygon points="0 0, 10 3, 0 6" fill="rgb(255, 100, 100)" />
-                </marker>
-              </defs>
-            </svg>
-
-            <div className="mt-4 p-4 bg-gray-100/70 dark:bg-gray-800/70 rounded-lg">
-              <h4 className="font-semibold mb-2">Червено изместване (z):</h4>
-              <p className="text-sm mb-2">z = Δλ / λ = (λ_наблюдавана - λ_излъчена) / λ_излъчена</p>
-              <ul className="text-sm space-y-1">
-                <li>z = 0: Няма изместване (локални обекти)</li>
-                <li>z = 0.01-0.1: Близки галактики</li>
-                <li>z = 0.5-2: Далечни галактики</li>
-                <li>z &gt; 6: Най-ранните галактики</li>
-                <li>z = 1089: CMB (най-далечното наблюдаемо)</li>
-              </ul>
-            </div>
+          <ExpansionGridLab />
+          <div className="bg-orange-50 dark:bg-orange-500/10 p-4 rounded-lg mb-4 text-sm sm:text-base">
+            <p>
+              <strong>По-бързо от светлината?</strong> Галактиките на разстояние над c / H₀ ≈ 4300 Mpc се отдалечават по-бързо от
+              светлината. Това не противоречи на теорията на относителността: тя забранява движение през пространството по-бързо от
+              светлината, а тук се разтяга самото пространство. Някои от галактиките, които виждаме днес, никога няма да видим каквито
+              ще бъдат след милиарди години – светлината им вече не може да ни догони.
+            </p>
           </div>
         </section>
 
         <section className="mb-8">
-          <h2 className="text-xl sm:text-2xl font-semibold mb-4">
-            3. Анимация на разширяването
-          </h2>
-
-          <div className="bg-white dark:bg-gray-800 p-4 rounded-lg border-2 border-purple-300 dark:border-purple-600 mb-6">
-            <h3 className="font-semibold mb-3 text-center">Как се разширява Вселената</h3>
-            
-            <svg viewBox="0 0 600 300" className="w-full h-auto">
-              <rect x="0" y="0" width="600" height="300" fill="rgb(20, 20, 50)" />
-
-              {/* Галактики на мрежа */}
-              {[0, 1, 2, 3, 4].map((row) =>
-                [0, 1, 2, 3, 4].map((col) => {
-                  const baseX = 100 + col * 100;
-                  const baseY = 50 + row * 50;
-                  const x = 300 + (baseX - 300) * scaleFactor;
-                  const y = 150 + (baseY - 150) * scaleFactor;
-                  
-                  // Скорост (пропорционална на разстоянието)
-                  const dx = baseX - 300;
-                  const dy = baseY - 150;
-                  const distance = Math.sqrt(dx * dx + dy * dy);
-                  const velocity = Math.round(distance * 0.5 * (scaleFactor - 1) * 10);
-                  
-                  return (
-                    <g key={`${row}-${col}`}>
-                      <circle
-                        cx={x}
-                        cy={y}
-                        r="6"
-                        fill={row === 2 && col === 2 ? 'rgb(255, 200, 100)' : 'rgb(150, 200, 255)'}
-                        stroke="white"
-                        strokeWidth="1"
-                      />
-                      {/* Показваме скорост за някои галактики */}
-                      {time > 30 && (row === 0 || row === 4) && col === 2 && velocity > 0 && (
-                        <text
-                          x={x}
-                          y={y + 15}
-                          fontSize="8"
-                          textAnchor="middle"
-                          fill="rgb(255, 100, 100)"
-                          fontWeight="bold"
-                        >
-                          {velocity} km/s
-                        </text>
-                      )}
-                    </g>
-                  );
-                })
-              )}
-
-              {/* Текст */}
-              <text x="300" y="25" fontSize="13" textAnchor="middle" fill="white" fontWeight="bold">
-                Разширяване на пространството
-              </text>
-            </svg>
-
-            {/* Контрола */}
-            <div className="mt-4">
-              <label className="block text-sm font-semibold mb-2 text-center">
-                Мащаб на Вселената: {scaleFactor.toFixed(2)}x
-              </label>
-              <input
-                type="range"
-                min="0"
-                max="100"
-                value={time}
-                onChange={(e) => setTime(Number(e.target.value))}
-                className="w-full"
-              />
-              <div className="flex justify-between text-xs text-gray-600 dark:text-gray-400 mt-1">
-                <span>Миналото (1x)</span>
-                <span>Бъдещето (3x)</span>
-              </div>
-            </div>
-
-            <div className="mt-4 p-4 bg-gray-100/70 dark:bg-gray-800/70 rounded-lg">
-              <h4 className="font-semibold mb-2">Ключови наблюдения:</h4>
-              <ul className="text-sm space-y-2">
-                <li>📐 Разстоянията между галактиките нарастват пропорционално</li>
-                <li>🚀 По-далечните галактики се отдалечават по-бързо (v ∝ d)</li>
-                <li>🌐 Всяка галактика вижда същата картина - няма център</li>
-                <li>📏 Мрежата се разтяга - пространството се разширява</li>
-              </ul>
-            </div>
-          </div>
-        </section>
-
-        <section className="mb-8">
-          <h2 className="text-xl sm:text-2xl font-semibold mb-4">
-            4. Ускорено разширяване
-          </h2>
+          <h2 className="text-xl sm:text-2xl font-semibold mb-4">4. Ускореното разширение</h2>
           <p className="mb-4 text-base sm:text-lg leading-relaxed">
-            През 1998 г. е открито, че разширяването на Вселената се ускорява!
-            Това откритие е донесло Нобелова награда и е довело до концепцията за
-            тъмна енергия.
+            Гравитацията на цялото вещество във Вселената би трябвало да забавя разширението. През 90-те години два екипа – на Сол
+            Пърлмутър и на Брайън Шмит и Адам Рийс – мерят далечни свръхнови Ia, за да видят колко се е забавило. Резултатът (1998) е
+            шокиращ: далечните свръхнови са по-слаби, значи по-далеч, отколкото трябва. Разширението не се забавя, а се ускорява – вече
+            ~5–6 млрд. години. Причината е наречена <strong>тъмна енергия</strong> (Лекция 29). Нобелова награда 2011.
           </p>
-          <div className="bg-purple-50 dark:bg-purple-900/20 p-4 rounded-lg mb-4">
-            <p className="font-semibold mb-2">Наблюдения на далечни свръхнови тип Ia показват:</p>
-            <ul className="list-disc list-inside space-y-2">
-              <li>Разширяването се е забавяло в миналото (гравитация)</li>
-              <li>Преди около 5 милиарда години е започнало ускорение</li>
-              <li>Тъмната енергия доминира днес (~68% от Вселената)</li>
-            </ul>
+        </section>
+
+        <section className="mb-8">
+          <h2 className="text-xl sm:text-2xl font-semibold mb-4">5. Модели и съдбата на Вселената</h2>
+          <p className="mb-4 text-base sm:text-lg leading-relaxed">
+            През 1922 г. Александър Фридман решава уравненията на Айнщайн за еднородна Вселена. Те показват как скоростта на разширение
+            зависи от съдържанието на Вселената.
+          </p>
+          <Theorem
+            title="Критична плътност"
+            description="Уравнение на Фридман (без налягане): H² = (8πG / 3) ρ − k c² / a². Ако плътността е равна на критичната ρ_c = 3H₀² / (8πG), пространството е плоско. Плътностите се изразяват като Ω = ρ / ρ_c. По Planck: Ω_вещество ≈ 0,315 (от тях обикновеното вещество – 0,049), Ω_тъмна енергия ≈ 0,685, а сумата е 1 с точност 0,2% – Вселената е плоска."
+          />
+          <Example
+            description="Пресметнете критичната плътност при H₀ = 70 km/s/Mpc."
+            steps={[
+              'H₀ ≈ 2,27 · 10⁻¹⁸ s⁻¹',
+              'ρ_c = 3 · (2,27 · 10⁻¹⁸)² / (8π · 6,674 · 10⁻¹¹) ≈ 1,55 · 10⁻³⁵ / 1,68 · 10⁻⁹ ≈ 9,2 · 10⁻²⁷ kg/m³',
+              'Това са ~5,5 протона в кубичен метър. Обикновеното вещество е само 5% от това – по-малко от един атом на 3 кубични метра.',
+            ]}
+          />
+          <FriedmannLab />
+          <div className="bg-indigo-50 dark:bg-indigo-500/10 p-4 rounded-lg mb-4 text-sm sm:text-base">
+            <p>
+              <strong>Напрежението на Хъбъл.</strong> Двата най-точни начина за измерване на H₀ не се съгласяват. Стълбата на разстоянията
+              (цефеиди и свръхнови, Лекция 24) дава ~73 km/s/Mpc с точност ~1,5%. Реликтовото излъчване заедно с модела ΛCDM дава
+              67,4 ± 0,5. Разликата е над 5σ. Или някъде има скрита грешка, или моделът ни на Вселената е непълен – например тъмната
+              енергия се променя с времето, както подсказват и първите резултати на обзора DESI (2024–2025). Това е една от най-горещите
+              загадки на космологията днес.
+            </p>
           </div>
         </section>
 
         <section className="mb-8">
-          <h2 className="text-xl sm:text-2xl font-semibold mb-4">
-            5. Съдба на Вселената
-          </h2>
-          <div className="bg-green-50 dark:bg-green-900/20 p-4 rounded-lg mb-4">
-            <p className="mb-2 font-semibold">Възможни сценарии:</p>
-            <ul className="list-disc list-inside space-y-2">
-              <li>
-                <strong>Голямо замръзване</strong> – вечно разширяване, Вселената става
-                студена и тъмна (най-вероятно)
-              </li>
-              <li>
-                <strong>Голямо свиване</strong> – Вселената колапсира обратно (малко вероятно)
-              </li>
-              <li>
-                <strong>Голямо разкъсване</strong> – тъмната енергия разкъсва всичко
-                (зависи от свойствата на тъмната енергия)
-              </li>
-            </ul>
-          </div>
+          <h2 className="text-xl sm:text-2xl font-semibold mb-4">6. ✅ Провери се</h2>
+          <Quiz questions={QUIZ} />
         </section>
 
         <section className="mb-8">
-          <h2 className="text-xl sm:text-2xl font-semibold mb-4">
-            📝 Задачи за упражнение
-          </h2>
+          <h2 className="text-xl sm:text-2xl font-semibold mb-4">7. 📝 Задачи за упражнение</h2>
 
-          {/* Ниво А */}
           <div className="mb-6">
-            <h3 className="text-lg font-semibold mb-3 text-green-600 dark:text-green-400">
-              Ниво А (Областен кръг)
-            </h3>
-
-            <div className="bg-white dark:bg-gray-800 p-4 rounded-lg mb-4 border-l-4 border-green-500">
-              <p className="font-semibold mb-2">1. Какво казва законът на Хъбъл?</p>
-              <button
-                onClick={() => toggleSolution('a1')}
-                className="text-blue-600 dark:text-blue-400 hover:underline text-sm"
-              >
-                {showSolutions['a1'] ? '▼ Скрий решението' : '▶ Покажи решението'}
-              </button>
-              {showSolutions['a1'] && (
-                <div className="mt-3 p-3 bg-blue-50 dark:bg-blue-900/20 rounded">
-                  <p className="font-semibold">Отговор:</p>
-                  <p className="mt-2">Законът на Хъбъл казва, че галактиките се отдалечават от нас
-                  със скорост, пропорционална на разстоянието им: v = H₀ × d</p>
-                  <p className="mt-2">Колкото по-далеч е галактиката, толкова по-бързо се отдалечава.</p>
-                </div>
-              )}
-            </div>
-
-            <div className="bg-white dark:bg-gray-800 p-4 rounded-lg mb-4 border-l-4 border-green-500">
-              <p className="font-semibold mb-2">2. Какво е червено изместване?</p>
-              <button
-                onClick={() => toggleSolution('a2')}
-                className="text-blue-600 dark:text-blue-400 hover:underline text-sm"
-              >
-                {showSolutions['a2'] ? '▼ Скрий решението' : '▶ Покажи решението'}
-              </button>
-              {showSolutions['a2'] && (
-                <div className="mt-3 p-3 bg-blue-50 dark:bg-blue-900/20 rounded">
-                  <p className="font-semibold">Решение:</p>
-                  <p className="mt-2">Червеното изместване е изместване на спектралните линии към
-                  по-дълги дължини на вълната (червения край на спектъра). То се дължи на
-                  разширяването на пространството между нас и далечните галактики.</p>
-                  <p className="mt-2">Колкото по-голямо е червеното изместване (z), толкова
-                  по-далеч е обектът и толкова по-бързо се отдалечава.</p>
-                </div>
-              )}
-            </div>
+            <h3 className="text-lg font-semibold mb-3 text-green-600 dark:text-green-400">Ниво А (Областен кръг)</h3>
+            <Task {...task('a1')} number={1} color="border-green-500" question="Какво казва законът на Хъбъл–Льометр?">
+              <p>
+                Галактиките се отдалечават от нас със скорост, пропорционална на разстоянието: v = H₀ · d. Колкото по-далеч е галактиката,
+                толкова по-бързо се отдалечава. Това е признак, че Вселената се разширява.
+              </p>
+            </Task>
+            <Task {...task('a2')} number={2} color="border-green-500" question="Какво е червено отместване и защо е „космологично“, а не обикновен ефект на Доплер?">
+              <p>
+                Изместване на спектралните линии към по-дълги вълни. При космологичното отместване светлината се разтяга, докато пътува
+                през разширяващото се пространство: 1 + z показва колко пъти са нараснали разстоянията. Ефектът на Доплер е от движение
+                през пространството; при близките галактики двата ефекта дават почти едно и също (v ≈ cz).
+              </p>
+            </Task>
+            <Task {...task('a3')} number={3} color="border-green-500" question="Ако всички галактики се отдалечават от нас, в центъра на Вселената ли сме?">
+              <p>
+                <strong>Не.</strong> Разширява се самото пространство и разстоянието между всеки две галактики расте пропорционално. Представете си
+                балон с нарисувани точки: когато го надуваме, от всяка точка всички останали се отдалечават, и то толкова по-бързо, колкото
+                са по-далеч. Нито една точка не е център – центърът на балона не е на повърхността му.
+              </p>
+            </Task>
           </div>
 
-          {/* Ниво В */}
           <div className="mb-6">
-            <h3 className="text-lg font-semibold mb-3 text-yellow-600 dark:text-yellow-400">
-              Ниво В (Национален кръг)
-            </h3>
-
-            <div className="bg-white dark:bg-gray-800 p-4 rounded-lg mb-4 border-l-4 border-yellow-500">
-              <p className="font-semibold mb-2">3. Галактика е на разстояние 100 Mpc. С каква скорост
-              се отдалечава, ако H₀ = 70 km/s/Mpc?</p>
-              <button
-                onClick={() => toggleSolution('b3')}
-                className="text-blue-600 dark:text-blue-400 hover:underline text-sm"
-              >
-                {showSolutions['b3'] ? '▼ Скрий решението' : '▶ Покажи решението'}
-              </button>
-              {showSolutions['b3'] && (
-                <div className="mt-3 p-3 bg-blue-50 dark:bg-blue-900/20 rounded">
-                  <p className="font-semibold">Решение:</p>
-                  <p className="mt-2">Използваме закона на Хъбъл: v = H₀ × d</p>
-                  <p className="mt-2">v = 70 km/s/Mpc × 100 Mpc = 7000 km/s</p>
-                  <p className="mt-2"><strong>Отговор: 7000 km/s</strong></p>
-                  <p className="mt-2 text-sm">Това е около 2.3% от скоростта на светлината!</p>
-                </div>
-              )}
-            </div>
-
-            <div className="bg-white dark:bg-gray-800 p-4 rounded-lg mb-4 border-l-4 border-yellow-500">
-              <p className="font-semibold mb-2">4. Галактика има червено изместване z = 0.1.
-              Изчисли скоростта на отдалечаване. (За малки z: v ≈ c × z)</p>
-              <button
-                onClick={() => toggleSolution('b4')}
-                className="text-blue-600 dark:text-blue-400 hover:underline text-sm"
-              >
-                {showSolutions['b4'] ? '▼ Скрий решението' : '▶ Покажи решението'}
-              </button>
-              {showSolutions['b4'] && (
-                <div className="mt-3 p-3 bg-blue-50 dark:bg-blue-900/20 rounded">
-                  <p className="font-semibold">Решение:</p>
-                  <p className="mt-2">За малки червени измествания: v ≈ c × z</p>
-                  <p className="mt-2">v = 300 000 km/s × 0.1 = 30 000 km/s</p>
-                  <p className="mt-2"><strong>Отговор: 30 000 km/s (10% от скоростта на светлината)</strong></p>
-                  <p className="mt-2 text-sm">Забележка: При по-големи z трябва да се използва
-                  релативистката формула.</p>
-                </div>
-              )}
-            </div>
+            <h3 className="text-lg font-semibold mb-3 text-yellow-600 dark:text-yellow-400">Ниво В (Национален кръг)</h3>
+            <Task {...task('b1')} number={4} color="border-yellow-500" question="Галактика е на 100 Mpc. С каква скорост се отдалечава (H₀ = 70 km/s/Mpc)? Какво е червеното ѝ отместване?">
+              <p>v = 70 · 100 = 7000 km/s – около 2,3% от скоростта на светлината</p>
+              <p>z ≈ v / c ≈ 0,023</p>
+            </Task>
+            <Task {...task('b2')} number={5} color="border-yellow-500" question="Галактика има червено отместване z = 0,1. С каква скорост се отдалечава и на какво разстояние е?">
+              <p>v ≈ c · z = 30 000 km/s</p>
+              <p>d = v / H₀ = 30 000 / 70 ≈ 430 Mpc ≈ 1,4 млрд. светлинни години</p>
+              <p>(При z ≳ 0,3 трябват точните формули на космологията – приближението v ≈ cz вече не работи добре.)</p>
+            </Task>
+            <Task {...task('b3')} number={6} color="border-yellow-500" question="Хъбъл получава H₀ ≈ 500 km/s/Mpc. Каква възраст на Вселената следва от това? Защо това е било проблем?">
+              <p>1/H₀ = 978 / 500 ≈ 2 млрд. години</p>
+              <p>
+                Геолозите вече знаят, че скалите на Земята са на над 3 млрд. години. Вселената не може да е по-млада от Земята! Кризата е
+                разрешена след поправките на Бааде (1952) и Сандидж (1958) на калибровката на цефеидите.
+              </p>
+            </Task>
           </div>
 
-          {/* Ниво С */}
           <div className="mb-6">
-            <h3 className="text-lg font-semibold mb-3 text-red-600 dark:text-red-400">
-              Ниво С (Международна олимпиада)
-            </h3>
-
-            <div className="bg-white dark:bg-gray-800 p-4 rounded-lg mb-4 border-l-4 border-red-500">
-              <p className="font-semibold mb-2">5. Обясни парадокса: Ако всички галактики се
-              отдалечават от нас, означава ли това, че ние сме в центъра на Вселената?</p>
-              <button
-                onClick={() => toggleSolution('c5')}
-                className="text-blue-600 dark:text-blue-400 hover:underline text-sm"
-              >
-                {showSolutions['c5'] ? '▼ Скрий решението' : '▶ Покажи решението'}
-              </button>
-              {showSolutions['c5'] && (
-                <div className="mt-3 p-3 bg-blue-50 dark:bg-blue-900/20 rounded">
-                  <p className="font-semibold">Решение:</p>
-                  <p className="mt-2"><strong>Не, ние НЕ сме в центъра!</strong></p>
-                  <p className="mt-2">Ключът е да разберем, че <strong>самото пространство се
-                  разширява</strong>, а не че галактиките се движат през пространството.</p>
-                  <p className="mt-3">Аналогия с балон:</p>
-                  <p className="mt-1">Представете си точки на повърхността на балон. Когато
-                  надуваме балона, всяка точка вижда всички останали точки да се отдалечават.
-                  Няма "център" на повърхността - всяка точка изглежда като център от своя
-                  гледна точка.</p>
-                  <p className="mt-3">Същото е с Вселената: всеки наблюдател (на всяка галактика)
-                  вижда всички останали галактики да се отдалечават според закона на Хъбъл.
-                  Няма привилегирована позиция или център на разширяването.</p>
-                  <p className="mt-3 font-semibold">Това е космологичният принцип: Вселената изглежда
-                  еднаква от всяка точка (хомогенна и изотропна).</p>
-                </div>
-              )}
-            </div>
+            <h3 className="text-lg font-semibold mb-3 text-red-600 dark:text-red-400">Ниво С (Международна олимпиада)</h3>
+            <Task {...task('c1')} number={7} color="border-red-500" question="Покажете, че в Айнщайн–де Ситеровата Вселена (само вещество, плоска) a ∝ t^(2/3) и възрастта е t₀ = (2/3) / H₀. Колко е тя при H₀ = 70 km/s/Mpc?">
+              <p>При Ω = 1, k = 0: H² = (ȧ / a)² = H₀² / a³ ⇒ ȧ = H₀ a^(−1/2) ⇒ a^(1/2) da = H₀ dt</p>
+              <p>(2/3) a^(3/2) = H₀ t ⇒ a = (3H₀t / 2)^(2/3) ∝ t^(2/3); днес a = 1 ⇒ t₀ = 2 / (3H₀)</p>
+              <p>t₀ = (2/3) · 14 ≈ 9,3 млрд. години – по-малко от възрастта на най-старите звезди (~13). Само тъмната енергия решава този проблем.</p>
+            </Task>
+            <Task {...task('c2')} number={8} color="border-red-500" question="На какво разстояние скоростта на отдалечаване по закона на Хъбъл става равна на скоростта на светлината? Колко Mpc е това и колко светлинни години?">
+              <p>d_H = c / H₀ = 300 000 / 70 ≈ 4300 Mpc ≈ 14 млрд. светлинни години</p>
+              <p>
+                Това е радиусът на Хъбъл. Галактиките отвъд него днес се отдалечават по-бързо от светлината – но ние ги виждаме, защото
+                светлината им е тръгнала, когато разширението е било различно. Границата на наблюдаемата Вселена е още по-далеч – ~14 Gpc
+                (46 млрд. светлинни години) в днешни разстояния.
+              </p>
+            </Task>
+            <Task {...task('c3')} number={9} color="border-red-500" question="Ускорението на разширяването се описва с параметъра на забавяне q₀ = Ω_м / 2 − Ω_Λ. Пресметнете го за нашата Вселена. При какво Ω_Λ ускорението би започнало днес, ако Ω_м = 0,3?">
+              <p>q₀ = 0,315 / 2 − 0,685 ≈ −0,53 &lt; 0 ⇒ разширението се ускорява.</p>
+              <p>q₀ = 0 при Ω_Λ = Ω_м / 2 = 0,15.</p>
+              <p>
+                В миналото Ω_м е било по-голямо (веществото се разрежда като a⁻³, а тъмната енергия остава постоянна), затова разширението
+                се е забавяло. Двете влияния се изравняват при a ≈ (Ω_м / (2Ω_Λ))^(1/3) ≈ 0,61 – преди ~6 млрд. години.
+              </p>
+            </Task>
           </div>
         </section>
 
         <section className="mb-8">
-          <h2 className="text-xl sm:text-2xl font-semibold mb-4">
-            Обобщение
-          </h2>
-          <div className="bg-gradient-to-r from-blue-50 to-purple-50 dark:from-gray-800 dark:to-gray-700 p-6 rounded-lg">
+          <h2 className="text-xl sm:text-2xl font-semibold mb-4">8. Обобщение</h2>
+          <div className="bg-gradient-to-r from-orange-50 to-indigo-50 dark:from-gray-800 dark:to-gray-700 p-6 rounded-lg">
             <ul className="space-y-2">
-              <li>✓ Закон на Хъбъл: v = H₀ × d (H₀ ≈ 70 km/s/Mpc)</li>
-              <li>✓ Червено изместване: z = Δλ / λ</li>
-              <li>✓ Разширява се пространството, не галактиките през него</li>
-              <li>✓ Разширяването се ускорява (тъмна енергия)</li>
-              <li>✓ Няма център на разширяването</li>
+              <li>✓ Червено отместване: z = Δλ / λ; 1 + z = 1 / a; при малки z: v ≈ cz</li>
+              <li>✓ Закон на Хъбъл–Льометр: v = H₀ d, H₀ ≈ 70 km/s/Mpc; време на Хъбъл 1/H₀ ≈ 14 млрд. години</li>
+              <li>✓ Разширява се пространството – няма център и ръб</li>
+              <li>✓ Уравнение на Фридман и критична плътност ρ_c = 3H₀² / (8πG) ≈ 9 · 10⁻²⁷ kg/m³</li>
+              <li>✓ Вселената е плоска: Ω_м ≈ 0,32, Ω_Λ ≈ 0,68</li>
+              <li>✓ От 1998 г. знаем, че разширението се ускорява – заради тъмната енергия</li>
+              <li>✓ Напрежение на Хъбъл: 73 срещу 67 km/s/Mpc – още неразрешена загадка</li>
             </ul>
           </div>
         </section>
@@ -574,13 +291,10 @@ export default function Lecture28() {
               <span>Интересен факт</span>
             </h3>
             <p>
-              Разширяването на Вселената не означава, че галактиките се движат
-              през пространството. Самото пространство се разширява, като носи
-              галактиките със себе си! Това е като да рисувате точки на балон и
-              после да го надувате - точките се отдалечават, но не се движат по
-              повърхността. Поради това галактики могат да се "отдалечават" по-бързо
-              от светлината - не нарушават относителността, защото не се движат
-              през пространството!
+              През 1917 г. Айнщайн добавя към уравненията си „космологична константа“ Λ, за да получи неизменна Вселена. Когато научава за
+              разширяването, той я нарича (според Георгий Гамов) „най-голямата грешка в живота си“. Осемдесет години по-късно точно тази
+              константа – днес наричана тъмна енергия – се оказва нужна, за да обясни ускореното разширение. Понякога и грешките на
+              гения са прави.
             </p>
           </div>
         </section>
