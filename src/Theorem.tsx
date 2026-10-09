@@ -1,3 +1,5 @@
+import {MathText} from './MathText';
+
 export default function Theorem({
   title,
   description,
@@ -45,10 +47,10 @@ export default function Theorem({
         </div>
         <div className="flex-1">
           <h2 className={`text-base sm:text-lg font-bold ${textColor} mb-2`}>
-            {title}
+            <MathText>{title}</MathText>
           </h2>
           <p className="text-sm sm:text-base text-gray-700 dark:text-gray-300 leading-relaxed">
-            {description}
+            <MathText>{description}</MathText>
           </p>
         </div>
       </div>

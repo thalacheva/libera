@@ -6,6 +6,7 @@ import SolarDynamo from './components/SolarDynamo';
 import SpaceWeatherLab from './components/SpaceWeatherLab';
 import SunspotRotation from './components/SunspotRotation';
 import Task, { TaskBoard, TaskLevel } from '~/Task';
+import { MathText, Tex } from '~/MathText';
 
 const QUIZ: Question[] = [
   {
@@ -73,8 +74,8 @@ const QUIZ: Question[] = [
 const FEATURES = [
   { icon: '✨', title: 'Факели', text: 'Ярки области около петната в близост до ръба на диска. Там магнитните тръби са тесни и ни позволяват да виждаме по-дълбоките и горещи слоеве.' },
   { icon: '🔥', title: 'Протуберанси', text: 'Огромни облаци хладна плазма, задържани от магнитни примки над повърхността. Върху диска се виждат като тъмни нишки – филаменти. Могат да съществуват седмици.' },
-  { icon: '⚡', title: 'Изригвания (флеъри)', text: 'Внезапно освобождаване на магнитна енергия, когато заплетени магнитни линии се „прескачат“. За минути се отделят до 10²⁵ J – колкото милиарди мегатона тротил.' },
-  { icon: '☁️', title: 'Коронални изхвърляния (CME)', text: 'Милиарди тона плазма с магнитно поле, изстреляни в космоса с 300–3000 km/s. Именно те причиняват най-силните геомагнитни бури.' },
+  { icon: '⚡', title: 'Изригвания (флеъри)', text: 'Внезапно освобождаване на магнитна енергия, когато заплетени магнитни линии се „прескачат“. За минути се отделят до $10^{25}\\ \\mathrm{J}$ – колкото милиарди мегатона тротил.' },
+  { icon: '☁️', title: 'Коронални изхвърляния (CME)', text: 'Милиарди тона плазма с магнитно поле, изстреляни в космоса с $300\\text{–}3000\\ \\mathrm{km/s}$. Именно те причиняват най-силните геомагнитни бури.' },
 ];
 
 const STORMS = [
@@ -130,11 +131,11 @@ export default function Lecture12() {
 
           <Theorem
             title="Число на Волф"
-            description="От 1848 г. активността се измерва с числото на петната R = k · (10g + f), където g е броят на групите, f – броят на отделните петна, а k е коефициент, който отчита телескопа и наблюдателя. Групите тежат повече, защото най-добре отразяват броя на активните области."
+            description="От 1848 г. активността се измерва с числото на петната $R = k \cdot (10g + f)$, където $g$ е броят на групите, $f$ – броят на отделните петна, а $k$ е коефициент, който отчита телескопа и наблюдателя. Групите тежат повече, защото най-добре отразяват броя на активните области."
           />
           <Example
-            description="Наблюдател вижда 3 групи с общо 17 петна (k = 1). Колко е числото на Волф?"
-            steps={['R = k · (10g + f) = 1 · (10 · 3 + 17)', 'R = 47']}
+            description="Наблюдател вижда 3 групи с общо 17 петна ($k = 1$). Колко е числото на Волф?"
+            steps={['$R = k \\cdot (10g + f) = 1 \\cdot (10 \\cdot 3 + 17)$', '$R = 47$']}
           />
         </section>
 
@@ -181,15 +182,15 @@ export default function Lecture12() {
             {FEATURES.map(f => (
               <div key={f.title} className="bg-white dark:bg-gray-800 p-3 rounded-lg shadow-sm">
                 <p className="font-semibold mb-1">
-                  {f.icon} {f.title}
+                  <MathText>{f.icon}</MathText> <MathText>{f.title}</MathText>
                 </p>
-                <p className="text-sm text-gray-600 dark:text-gray-400">{f.text}</p>
+                <p className="text-sm text-gray-600 dark:text-gray-400"><MathText>{f.text}</MathText></p>
               </div>
             ))}
           </div>
           <Theorem
             title="Класове на изригванията"
-            description="Изригванията се класифицират по максималния рентгенов поток при Земята (1–8 Å): A, B, C, M и X, всеки клас 10 пъти по-силен от предходния. C1 = 10⁻⁶ W/m², M1 = 10⁻⁵ W/m², X1 = 10⁻⁴ W/m². Числото след буквата е множител: X10 е 10 пъти по-силно от X1."
+            description="Изригванията се класифицират по максималния рентгенов поток при Земята (1–8 Å): A, B, C, M и X, всеки клас 10 пъти по-силен от предходния. C1 = $10^{-6}\ \mathrm{W/m^2}$, M1 = $10^{-5}\ \mathrm{W/m^2}$, X1 = $10^{-4}\ \mathrm{W/m^2}$. Числото след буквата е множител: X10 е 10 пъти по-силно от X1."
           />
         </section>
 
@@ -202,14 +203,14 @@ export default function Lecture12() {
           </p>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mb-4">
             {[
-              { label: 'Бавен вятър', value: '~400 km/s' },
-              { label: 'Бърз вятър (от коронални дупки)', value: '~750 km/s' },
+              { label: 'Бавен вятър', value: '~$400\\ \\mathrm{km/s}$' },
+              { label: 'Бърз вятър (от коронални дупки)', value: '~$750\\ \\mathrm{km/s}$' },
               { label: 'Плътност при Земята', value: '~5 протона/cm³' },
-              { label: 'Загуба на маса', value: '~1,5 млн. t/s' },
+              { label: 'Загуба на маса', value: '~1,5 млн. $\\mathrm{t/s}$' },
             ].map(s => (
               <div key={s.label} className="bg-white dark:bg-gray-800 p-3 rounded-lg shadow-sm">
-                <p className="text-xs text-gray-500 dark:text-gray-400">{s.label}</p>
-                <p className="font-semibold">{s.value}</p>
+                <p className="text-xs text-gray-500 dark:text-gray-400"><MathText>{s.label}</MathText></p>
+                <p className="font-semibold"><MathText>{s.value}</MathText></p>
               </div>
             ))}
           </div>
@@ -244,9 +245,9 @@ export default function Lecture12() {
           <div className="space-y-2 mb-4">
             {STORMS.map(s => (
               <div key={s.year} className="flex gap-3 bg-white dark:bg-gray-800 p-3 rounded-lg shadow-sm">
-                <span className="font-mono font-bold text-purple-700 dark:text-purple-300 w-12 flex-shrink-0">{s.year}</span>
+                <span className="font-mono font-bold text-purple-700 dark:text-purple-300 w-12 flex-shrink-0"><MathText>{s.year}</MathText></span>
                 <div className="text-sm">
-                  <span className="font-semibold">{s.name}</span> – <span className="text-gray-600 dark:text-gray-400">{s.text}</span>
+                  <span className="font-semibold"><MathText>{s.name}</MathText></span> – <span className="text-gray-600 dark:text-gray-400"><MathText>{s.text}</MathText></span>
                 </div>
               </div>
             ))}
@@ -290,16 +291,16 @@ export default function Lecture12() {
           <div className="mb-6">
             <TaskLevel level="B" />
 
-            <Task id="b1" number={4} color="border-yellow-500" question="Сянката на петно е с 3800 K, а фотосферата – с 5800 K. Колко пъти по-малко енергия излъчва 1 m² от петното?">
-              <p>F ∝ T⁴ ⇒ F_п / F_ф = (3800 / 5800)⁴ ≈ 0,655⁴ ≈ 0,18</p>
+            <Task id="b1" number={4} color="border-yellow-500" question="Сянката на петно е с 3800 K, а фотосферата – с 5800 K. Колко пъти по-малко енергия излъчва $1\ \mathrm{m}^2$ от петното?">
+              <p><Tex>{'F \\propto T^4 \\Rightarrow F_{\\text{п}} / F_{\\text{ф}} = (3800 / 5800)^4 \\approx 0{,}655^4 \\approx 0{,}18'}</Tex></p>
               <p>
                 <strong>Около 5,4 пъти по-малко.</strong>
               </p>
             </Task>
 
-            <Task id="b2" number={5} color="border-yellow-500" question="CME напуска Слънцето с 1500 km/s. След колко време ще стигне Земята? А светлината от изригването?">
-              <p>t = 1,496 · 10⁸ km / 1500 km/s ≈ 1,0 · 10⁵ s ≈ 28 часа.</p>
-              <p>Светлината: 1,496 · 10⁸ / 3 · 10⁵ ≈ 500 s ≈ 8,3 минути.</p>
+            <Task id="b2" number={5} color="border-yellow-500" question="CME напуска Слънцето с $1500\ \mathrm{km/s}$. След колко време ще стигне Земята? А светлината от изригването?">
+              <p><Tex>{'t = 1{,}496 \\cdot 10^8\\ \\mathrm{km} / 1500\\ \\mathrm{km/s} \\approx 1{,}0 \\cdot 10^5\\ \\mathrm{s} \\approx 28'}</Tex> часа.</p>
+              <p>Светлината: <Tex>{'1{,}496 \\cdot 10^8 / 3 \\cdot 10^5 \\approx 500\\ \\mathrm{s} \\approx 8{,}3'}</Tex> минути.</p>
               <p>Затова изригването „предупреждава“ за бурята повече от ден по-рано.</p>
             </Task>
 
@@ -309,10 +310,10 @@ export default function Lecture12() {
               color="border-yellow-500"
               question="Петно на екватора се връща на същото място на диска след 27,3 дни. Какъв е истинският (сидеричен) период на въртене на Слънцето?"
             >
-              <p>Земята обикаля в същата посока, затова 1 / P_сид = 1 / P_син + 1 / 365,25</p>
-              <p>1 / P_сид = 1 / 27,3 + 1 / 365,25 = 0,03663 + 0,00274 = 0,03937</p>
+              <p>Земята обикаля в същата посока, затова <Tex>{'1 / P_{\\text{сид}} = 1 / P_{\\text{син}} + 1 / 365{,}25'}</Tex></p>
+              <p><Tex>{'1 / P_{\\text{сид}} = 1 / 27{,}3 + 1 / 365{,}25 = 0{,}03663 + 0{,}00274 = 0{,}03937'}</Tex></p>
               <p>
-                <strong>P_сид ≈ 25,4 дни</strong>
+                <strong><Tex>{'P_{\\text{сид}} \\approx 25{,}4'}</Tex> дни</strong>
               </p>
             </Task>
           </div>
@@ -324,10 +325,10 @@ export default function Lecture12() {
               id="c1"
               number={7}
               color="border-red-500"
-              question="Магнитното поле в петно е B = 0,3 T. Сравни магнитното налягане B² / (2μ₀) с налягането на газа във фотосферата (n ≈ 10²³ m⁻³, T = 5800 K)."
+              question="Магнитното поле в петно е $B = 0{,}3\ \mathrm{T}$. Сравни магнитното налягане $\frac{B^2}{2\mu_0}$ с налягането на газа във фотосферата ($n \approx 10^{23}\ \mathrm{m^{-3}},\ T = 5800\ \mathrm{K}$)."
             >
-              <p>P_B = 0,3² / (2 · 4π · 10⁻⁷) ≈ 3,6 · 10⁴ Pa</p>
-              <p>P_газ = n k T = 10²³ · 1,38 · 10⁻²³ · 5800 ≈ 8 · 10³ Pa</p>
+              <p><Tex>{'P_B = \\frac{0{,}3^2}{2 \\cdot 4\\pi \\cdot 10^{-7}} \\approx 3{,}6 \\cdot 10^4\\ \\mathrm{Pa}'}</Tex></p>
+              <p><Tex>{'P_{\\text{газ}} = n k T = 10^{23} \\cdot 1{,}38 \\cdot 10^{-23} \\cdot 5800 \\approx 8 \\cdot 10^3\\ \\mathrm{Pa}'}</Tex></p>
               <p>
                 Магнитното налягане е няколко пъти по-голямо. За да е в равновесие с околността, газът в петното трябва да е по-разреден
                 и по-студен – затова петното е тъмно и леко „хлътнало“ (ефект на Уилсън).
@@ -338,10 +339,10 @@ export default function Lecture12() {
               id="c2"
               number={8}
               color="border-red-500"
-              question="При Земята слънчевият вятър има n = 5 протона/cm³ и v = 400 km/s. Оцени колко маса губи Слънцето чрез вятъра и сравни със загубата от синтеза (4,3 · 10⁹ kg/s)."
+              question="При Земята слънчевият вятър има $n = 5$ протона/cm³ и $v = 400\ \mathrm{km/s}$. Оцени колко маса губи Слънцето чрез вятъра и сравни със загубата от синтеза ($4{,}3 \cdot 10^9\ \mathrm{kg/s}$)."
             >
-              <p>Ṁ = 4πd² · n · m_p · v = 4π · (1,496 · 10¹¹)² · 5 · 10⁶ · 1,67 · 10⁻²⁷ · 4 · 10⁵</p>
-              <p>Ṁ ≈ 2,81 · 10²³ · 3,34 · 10⁻¹⁵ ≈ 9 · 10⁸ kg/s – около милион тона в секунда.</p>
+              <p><Tex>{'\\dot M = 4\\pi d^2 \\cdot n \\cdot m_p \\cdot v = 4\\pi \\cdot (1{,}496 \\cdot 10^{11})^2 \\cdot 5 \\cdot 10^6 \\cdot 1{,}67 \\cdot 10^{-27} \\cdot 4 \\cdot 10^5'}</Tex></p>
+              <p><Tex>{'\\dot M \\approx 2{,}81 \\cdot 10^{23} \\cdot 3{,}34 \\cdot 10^{-15} \\approx 9 \\cdot 10^8\\ \\mathrm{kg/s}'}</Tex> – около милион тона в секунда.</p>
               <p>
                 Това е ~5 пъти по-малко от загубата от синтеза. За 4,6 млрд. години вятърът е отнесъл ~0,007% от масата на Слънцето.
               </p>
@@ -353,8 +354,8 @@ export default function Lecture12() {
               color="border-red-500"
               question="Червеното сияние свети на ~300 km височина. От какво разстояние може да се види ниско над хоризонта? На колко градуса ширина отговаря това?"
             >
-              <p>Разстояние до хоризонта: d ≈ √(2Rh) = √(2 · 6371 · 300) km ≈ 1955 km</p>
-              <p>В градуси по земната повърхност: 1955 / 111 ≈ 17,6°</p>
+              <p>Разстояние до хоризонта: <Tex>{'d \\approx \\sqrt{2Rh} = \\sqrt{2 \\cdot 6371 \\cdot 300}\\ \\mathrm{km} \\approx 1955\\ \\mathrm{km}'}</Tex></p>
+              <p>В градуси по земната повърхност: <Tex>{'1955 / 111 \\approx 17{,}6^\\circ'}</Tex></p>
               <p>
                 Значи ако овалът е над ~55° ширина, червеното сияние се вижда ниско над хоризонта до ~38° – тъкмо това се случи в
                 България през май 2024 г.
@@ -369,10 +370,10 @@ export default function Lecture12() {
           <div className="bg-gradient-to-r from-purple-50 to-orange-50 dark:from-gray-800 dark:to-gray-700 p-6 rounded-lg">
             <ul className="space-y-2">
               <li>✓ Активността идва от магнитното поле, навивано от диференциалното въртене</li>
-              <li>✓ Петната са по-студени (~3800 K) области със силно поле; число на Волф R = k(10g + f)</li>
+              <li>✓ Петната са по-студени (~3800 K) области със силно поле; число на Волф <Tex>{'R = k(10g + f)'}</Tex></li>
               <li>✓ Цикъл ~11 години (магнитен – 22); закон на Шпьорер; минимум на Маундер 1645–1715</li>
-              <li>✓ Изригвания (класове A–X) и коронални изхвърляния (CME) с 300–3000 km/s</li>
-              <li>✓ Слънчевият вятър (~400 km/s) образува хелиосферата (~120 AU)</li>
+              <li>✓ Изригвания (класове A–X) и коронални изхвърляния (CME) с <Tex>{'300\\text{–}3000\\ \\mathrm{km/s}'}</Tex></li>
+              <li>✓ Слънчевият вятър (~<Tex>{'400\\ \\mathrm{km/s}'}</Tex>) образува хелиосферата (~120 AU)</li>
               <li>✓ Светлината идва за 8 min, частиците – за минути до часове, CME – за 1–4 дни</li>
             </ul>
           </div>

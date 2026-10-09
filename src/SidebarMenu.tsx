@@ -1,4 +1,4 @@
-import {BookOpen, ChevronDown, ChevronRight, Mail, Sigma, Telescope} from 'lucide-react';
+import {BookMarked, BookOpen, ChevronDown, ChevronRight, Mail, Sigma, Telescope} from 'lucide-react';
 import {useEffect, useRef, useState} from 'react';
 import {Link, useLocation} from 'react-router-dom';
 
@@ -137,6 +137,15 @@ export default function SidebarMenu({
         </div>
 
         <nav className="px-3 py-4 space-y-6">
+          <NavItem
+            to="/reference/formulas"
+            active={location.pathname === '/reference/formulas'}
+            accent="blue"
+            onClick={onClose}
+          >
+            <BookMarked size={16} className="mr-2 flex-shrink-0" />
+            <span className="font-medium">Справочник с формули</span>
+          </NavItem>
           {/* Математика секция */}
           <div>
             <SectionHeader

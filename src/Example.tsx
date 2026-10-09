@@ -1,4 +1,5 @@
 import {PencilLine} from 'lucide-react';
+import {MathText} from './MathText';
 
 export default function Example({
   description,
@@ -18,14 +19,14 @@ export default function Example({
             Пример
           </h2>
           <p className="text-sm sm:text-base text-gray-700 dark:text-gray-300 mb-3">
-            {description}
+            <MathText>{description}</MathText>
           </p>
         </div>
       </div>
       <ol className="list-decimal marker:text-emerald-600 dark:marker:text-emerald-400 ml-10 sm:ml-12 space-y-2 text-sm sm:text-base text-gray-700 dark:text-gray-300">
         {steps.map((step, index) => (
           <li key={index} className="leading-relaxed">
-            {step}
+            <MathText>{step}</MathText>
           </li>
         ))}
       </ol>

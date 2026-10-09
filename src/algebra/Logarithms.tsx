@@ -10,6 +10,7 @@ import { fracText } from './fractionMath';
 import LogGraphLab from './LogGraphLab';
 import LogRulerLab from './LogRulerLab';
 import SlideRuleLab from './SlideRuleLab';
+import { MathText, Tex } from '~/MathText';
 
 const h2 = 'text-xl sm:text-2xl font-semibold mb-3 text-gray-800 dark:text-gray-100';
 const text = 'mb-4 text-sm sm:text-base text-gray-700 dark:text-gray-300 leading-relaxed';
@@ -190,16 +191,16 @@ function Trainer() {
 const wordProblems: WordProblem[] = [
   {
     title: '🧪 pH',
-    problem: 'Киселинността се мери с pH = −lg[H⁺], където [H⁺] е концентрацията на водородни йони (в mol/l). Каква е pH на разтвор с [H⁺] = 0,001 mol/l?',
-    solution: ['0,001 = 10⁻³', 'lg 10⁻³ = −3', 'pH = −(−3) = 3 (кисел разтвор – като оцет)'],
-    answer: 'pH = 3',
+    problem: 'Киселинността се мери с $\\mathrm{pH} = -\\lg [\\mathrm{H}^+]$, където $[\\mathrm{H}^+]$ е концентрацията на водородни йони (в mol/l). Каква е pH на разтвор с $[\\mathrm{H}^+] = 0{,}001\\ \\mathrm{mol/l}$?',
+    solution: ['$0{,}001 = 10^{-3}$', '$\\lg 10^{-3} = -3$', '$\\mathrm{pH} = -(-3) = 3$ (кисел разтвор – като оцет)'],
+    answer: '$\\mathrm{pH} = 3$',
     check: [3],
     ask: ['pH'],
   },
   {
     title: '🔊 Децибели',
-    problem: 'Силата на звука в децибели е L = 10 · lg(I/I₀). С колко децибела се увеличава тя, ако интензитетът на звука нарасне 1000 пъти?',
-    solution: ['ΔL = 10 · lg 1000', 'lg 1000 = 3', 'ΔL = 30 dB'],
+    problem: 'Силата на звука в децибели е $L = 10 \\cdot \\lg \\left(\\frac{I}{I_0}\\right)$. С колко децибела се увеличава тя, ако интензитетът на звука нарасне 1000 пъти?',
+    solution: ['$\\Delta L = 10 \\cdot \\lg 1000$', '$\\lg 1000 = 3$', '$\\Delta L = 30\\ \\mathrm{dB}$'],
     answer: 'С 30 dB',
     check: [30],
     ask: ['увеличение, dB'],
@@ -207,31 +208,31 @@ const wordProblems: WordProblem[] = [
   {
     title: '⭐ Звездни величини',
     problem: 'В астрономията разлика от 5 звездни величини отговаря на 100 пъти разлика в яркостта. Колко пъти звезда от 1-ва величина е по-ярка от звезда от 6-та?',
-    solution: ['Разликата е 6 − 1 = 5 величини.', 'Отношението на яркостите е 100^(5/5) = 100.', 'Обратно: m₁ − m₂ = −2,5 · lg(E₁/E₂) – логаритмична скала.'],
+    solution: ['Разликата е $6 - 1 = 5$ величини.', 'Отношението на яркостите е $100^{5/5} = 100$.', 'Обратно: $m_1 - m_2 = -2{,}5 \\cdot \\lg \\left(\\frac{E_1}{E_2}\\right)$ – логаритмична скала.'],
     answer: '100 пъти',
     check: [100],
     ask: ['пъти'],
   },
   {
     title: '🏦 Удвояване на вложение',
-    problem: 'След колко години вложение при 7% годишна сложна лихва ще се удвои? (Решете 1,07ᵗ = 2.)',
-    solution: ['Логаритмуваме: t · lg 1,07 = lg 2', 't = lg 2 / lg 1,07 ≈ 0,3010 / 0,02938', 't ≈ 10,24 години (т.е. на 11-ата година)'],
-    answer: '≈ 10,24 години',
+    problem: 'След колко години вложение при 7% годишна сложна лихва ще се удвои? (Решете $1{,}07^t = 2$.)',
+    solution: ['Логаритмуваме: $t \\cdot \\lg 1{,}07 = \\lg 2$', '$t = \\frac{\\lg 2}{\\lg 1{,}07} \\approx \\frac{0{,}3010}{0{,}02938}$', '$t \\approx 10{,}24$ години (т.е. на 11-ата година)'],
+    answer: '$\\approx 10{,}24$ години',
     check: [10.24],
     ask: ['години'],
   },
   {
     title: '🌋 Земетресения',
     problem: 'По скалата на Рихтер всяка единица отговаря на 10 пъти по-голяма амплитуда на трептенията. Колко пъти е по-голяма амплитудата при земетресение 7 спрямо земетресение 5?',
-    solution: ['Разликата е 2 единици.', '10² = 100', 'Освободената енергия расте още по-бързо – приблизително 1000 пъти.'],
+    solution: ['Разликата е 2 единици.', '$10^2 = 100$', 'Освободената енергия расте още по-бързо – приблизително 1000 пъти.'],
     answer: '100 пъти',
     check: [100],
     ask: ['пъти'],
   },
   {
     title: '🔢 Колко цифри?',
-    problem: 'Колко цифри има числото 2¹⁰⁰? (lg 2 ≈ 0,30103)',
-    solution: ['Число N има k цифри, когато 10ᵏ⁻¹ ≤ N < 10ᵏ, т.е. k − 1 ≤ lg N < k.', 'lg 2¹⁰⁰ = 100 · lg 2 ≈ 30,103', 'Значи 2¹⁰⁰ има 31 цифри.'],
+    problem: 'Колко цифри има числото $2^{100}$? ($\\lg 2 \\approx 0{,}30103$)',
+    solution: ['Число $N$ има $k$ цифри, когато $10^{k-1} \\le N < 10^k$, т.е. $k - 1 \\le \\lg N < k$.', '$\\lg 2^{100} = 100 \\cdot \\lg 2 \\approx 30{,}103$', 'Значи $2^{100}$ има 31 цифри.'],
     answer: '31 цифри',
     check: [31],
     ask: ['цифри'],
@@ -242,49 +243,49 @@ const wordProblems: WordProblem[] = [
 
 const logQuiz: Question[] = [
   {
-    question: 'На колко е равно log₂ 8?',
-    answers: ['3', '4', '6', '16'],
-    correctAnswer: '3',
+    question: 'На колко е равно $\\log _2 8$?',
+    answers: ['$3$', '$4$', '$6$', '$16$'],
+    correctAnswer: '$3$',
   },
   {
-    question: 'На колко е равно lg 0,01?',
-    answers: ['2', '−2', '0,2', '−0,01'],
-    correctAnswer: '−2',
+    question: 'На колко е равно $\\lg 0{,}01$?',
+    answers: ['$2$', '$-2$', '$0{,}2$', '$-0{,}01$'],
+    correctAnswer: '$-2$',
   },
   {
-    question: 'На колко е равно log₅ 1?',
-    answers: ['0', '1', '5', 'не е дефинирано'],
-    correctAnswer: '0',
+    question: 'На колко е равно $\\log _5 1$?',
+    answers: ['$0$', '$1$', '$5$', 'не е дефинирано'],
+    correctAnswer: '$0$',
   },
   {
-    question: 'На колко е равно lg 2 + lg 5?',
-    answers: ['lg 7', '1', '10', 'lg 2 · lg 5'],
-    correctAnswer: '1',
+    question: 'На колко е равно $\\lg 2 + \\lg 5$?',
+    answers: ['$\\lg 7$', '$1$', '$10$', '$\\lg 2 \\cdot \\lg 5$'],
+    correctAnswer: '$1$',
   },
   {
-    question: 'Ако log₂ x = 5, колко е x?',
-    answers: ['10', '25', '32', '2,5'],
-    correctAnswer: '32',
+    question: 'Ако $\\log _2 x = 5$, колко е $x$?',
+    answers: ['$10$', '$25$', '$32$', '$2{,}5$'],
+    correctAnswer: '$32$',
   },
   {
-    question: 'Решението на уравнението 2ˣ = 10 е:',
-    answers: ['x = 5', 'x = log₂ 10', 'x = log₁₀ 2', 'x = 10/2'],
-    correctAnswer: 'x = log₂ 10',
+    question: 'Решението на уравнението $2^x = 10$ е:',
+    answers: ['$x = 5$', '$x = \\log _2 10$', '$x = \\log _{10} 2$', '$x = \\frac{10}{2}$'],
+    correctAnswer: '$x = \\log _2 10$',
   },
   {
-    question: 'На колко е равно ln e?',
-    answers: ['0', '1', 'e', '10'],
-    correctAnswer: '1',
+    question: 'На колко е равно $\\ln e$?',
+    answers: ['$0$', '$1$', '$e$', '$10$'],
+    correctAnswer: '$1$',
   },
   {
-    question: 'На колко е равно log₄ 8?',
-    answers: ['2', '1/2', '3/2', '2/3'],
-    correctAnswer: '3/2',
+    question: 'На колко е равно $\\log _4 8$?',
+    answers: ['$2$', '$\\frac{1}{2}$', '$\\frac{3}{2}$', '$\\frac{2}{3}$'],
+    correctAnswer: '$\\frac{3}{2}$',
   },
   {
-    question: 'Кога е дефиниран log_a b?',
-    answers: ['при a > 0, a ≠ 1, b > 0', 'при всяко a и b', 'при a > 0 и b ≥ 0', 'при a ≠ 0 и b ≠ 0'],
-    correctAnswer: 'при a > 0, a ≠ 1, b > 0',
+    question: 'Кога е дефиниран $\\log _a b$?',
+    answers: ['при $a > 0,\\ a \\ne 1,\\ b > 0$', 'при всяко $a$ и $b$', 'при $a > 0$ и $b \\ge 0$', 'при $a \\ne 0$ и $b \\ne 0$'],
+    correctAnswer: 'при $a > 0,\\ a \\ne 1,\\ b > 0$',
   },
 ];
 
@@ -310,13 +311,13 @@ export function Logarithms() {
           <div className="bg-amber-50 dark:bg-amber-900/20 border-l-4 border-amber-500 p-4 rounded mb-4">
             <p className="text-sm sm:text-base text-gray-700 dark:text-gray-300">
               🤔 <strong>Загадка:</strong> На каква степен трябва да повдигнем 2, за да получим 8? Лесно – на 3. А за да получим 10? Между 3 и
-              4 – но точно колко? Отговорът има име: log₂ 10 ≈ 3,32. Логаритъмът е <em>неизвестният показател</em>.
+              4 – но точно колко? Отговорът има име: <Tex>{'\\log _2 10 \\approx 3{,}32'}</Tex>. Логаритъмът е <em>неизвестният показател</em>.
             </p>
           </div>
           <Theorem
             type="definition"
             title="Логаритъм"
-            description="Логаритъм от числото b при основа a (a > 0, a ≠ 1, b > 0) е показателят, на който трябва да повдигнем a, за да получим b: log_a b = c ⇔ aᶜ = b. Например log₂ 8 = 3, защото 2³ = 8; log₃ (1/9) = −2, защото 3⁻² = 1/9. Основно тъждество: a^(log_a b) = b."
+            description="Логаритъм от числото $b$ при основа $a$ ($a > 0,\ a \ne 1,\ b > 0$) е показателят, на който трябва да повдигнем $a$, за да получим $b$: $\log _a b = c \iff a^c = b$. Например $\log _2 8 = 3$, защото $2^3 = 8$; $\log _3 \left(\frac{1}{9}\right) = -2$, защото $3^{-2} = \frac{1}{9}$. Основно тъждество: $a^{\log _a b} = b$."
           />
           <LogRulerLab />
           <p className={text}>
@@ -333,35 +334,35 @@ export function Logarithms() {
           <h2 className={h2}>2. Свойства на логаритмите</h2>
           <Theorem
             title="Основни свойства"
-            description="За a > 0, a ≠ 1 и x, y > 0: log_a (xy) = log_a x + log_a y; log_a (x/y) = log_a x − log_a y; log_a (xⁿ) = n · log_a x; log_a 1 = 0; log_a a = 1. Смяна на основата: log_a b = log_c b / log_c a (за всяко c > 0, c ≠ 1). Те следват директно от правилата за степени: aᵐ · aⁿ = aᵐ⁺ⁿ."
+            description="За $a > 0,\ a \ne 1$ и $x,\ y > 0$: $\log _a (xy) = \log _a x + \log _a y$; $\log _a \left(\frac{x}{y}\right) = \log _a x - \log _a y$; $\log _a (x^n) = n \cdot \log _a x$; $\log _a 1 = 0$; $\log _a a = 1$. Смяна на основата: $\log _a b = \frac{\log _c b}{\log _c a}$ (за всяко $c > 0,\ c \ne 1$). Те следват директно от правилата за степени: $a^m \cdot a^n = a^{m+n}$."
           />
           <SlideRuleLab />
           <Example
-            description="Да пресметнем lg 4 + lg 25 и log₂ 12 − log₂ 3."
-            steps={['lg 4 + lg 25 = lg (4 · 25) = lg 100 = 2', 'log₂ 12 − log₂ 3 = log₂ (12 : 3) = log₂ 4 = 2']}
+            description="Да пресметнем $\lg 4 + \lg 25$ и $\log _2 12 - \log _2 3$."
+            steps={['$\\lg 4 + \\lg 25 = \\lg (4 \\cdot 25) = \\lg 100 = 2$', '$\\log _2 12 - \\log _2 3 = \\log _2 (12 : 3) = \\log _2 4 = 2$']}
           />
           <Example
-            description="Да пресметнем log₄ 8."
-            steps={['Смяна на основата: log₄ 8 = log₂ 8 / log₂ 4 = 3/2', 'Проверка: 4^(3/2) = (√4)³ = 2³ = 8 ✓']}
+            description="Да пресметнем $\log _4 8$."
+            steps={['Смяна на основата: $\\log _4 8 = \\log _2 8 / \\log _2 4 = \\frac{3}{2}$', 'Проверка: $4^{3/2} = (\\sqrt{4})^3 = 2^3 = 8$ ✓']}
           />
         </section>
 
         <section className="mb-8">
           <h2 className={h2}>3. Десетичен и натурален логаритъм</h2>
           <p className={text}>
-            Два логаритъма имат специални означения. <strong>Десетичният</strong> lg x = log₁₀ x е удобен, защото системата ни е десетична:
-            lg 1000 = 3, а броят на цифрите на число N е цялата част на lg N плюс 1. <strong>Натуралният</strong> ln x = logₑ x има за основа
-            числото e ≈ 2,71828 – то се появява навсякъде, където нещо расте „непрекъснато“: в сложната лихва, в разпада на радиоактивни
+            Два логаритъма имат специални означения. <strong>Десетичният</strong> <Tex>{'\\lg x = \\log _{10} x'}</Tex> е удобен, защото системата ни е десетична:
+            {' '}<Tex>{'\\lg 1000 = 3'}</Tex>, а броят на цифрите на число <Tex>{'N'}</Tex> е цялата част на <Tex>{'\\lg N'}</Tex> плюс 1. <strong>Натуралният</strong> <Tex>{'\\ln x = \\log _e x'}</Tex> има за основа
+            числото <Tex>{'e \\approx 2{,}71828'}</Tex> – то се появява навсякъде, където нещо расте „непрекъснато“: в сложната лихва, в разпада на радиоактивни
             вещества, в растежа на популации. На калкулатора са бутоните <span className="font-mono">log</span> и{' '}
-            <span className="font-mono">ln</span>; всеки друг логаритъм се пресмята със смяна на основата: log₂ 10 = lg 10 / lg 2 ≈ 3,32.
+            <span className="font-mono">ln</span>; всеки друг логаритъм се пресмята със смяна на основата: <Tex>{'\\log _2 10 = \\lg 10 / \\lg 2 \\approx 3{,}32'}</Tex>.
           </p>
         </section>
 
         <section className="mb-8">
           <h2 className={h2}>4. Логаритмичната функция</h2>
           <Theorem
-            title="Свойства на y = log_a x"
-            description="Дефинирана е за x > 0, приема всички реални стойности и графиката ѝ минава през (1; 0). При a > 1 е растяща, при 0 < a < 1 – намаляваща. Тя е обратна на показателната функция y = aˣ, затова графиките им са симетрични спрямо правата y = x."
+            title="Свойства на $y = \log _a x$"
+            description="Дефинирана е за $x > 0$, приема всички реални стойности и графиката ѝ минава през $(1; 0)$. При $a > 1$ е растяща, при $0 < a < 1$ – намаляваща. Тя е обратна на показателната функция $y = a^x$, затова графиките им са симетрични спрямо правата $y = x$."
           />
           <LogGraphLab />
         </section>
@@ -369,16 +370,16 @@ export function Logarithms() {
         <section className="mb-8">
           <h2 className={h2}>5. Показателни и логаритмични уравнения</h2>
           <Example
-            description="Да решим уравнението 3ˣ = 20."
-            steps={['Логаритмуваме двете страни: x · lg 3 = lg 20', 'x = lg 20 / lg 3 ≈ 1,3010 / 0,4771', 'x ≈ 2,727 (проверка: 3²·⁷²⁷ ≈ 20 ✓)']}
+            description="Да решим уравнението $3^x = 20$."
+            steps={['Логаритмуваме двете страни: $x \\cdot \\lg 3 = \\lg 20$', '$x = \\lg 20 / \\lg 3 \\approx 1{,}3010 / 0{,}4771$', '$x \\approx 2{,}727$ (проверка: $3^{2{,}727} \\approx 20$ ✓)']}
           />
           <Example
-            description="Да решим уравнението log₂ (x − 1) + log₂ (x + 1) = 3."
+            description="Да решим уравнението $\log _2 (x - 1) + \log _2 (x + 1) = 3$."
             steps={[
-              'Допустими стойности: x − 1 > 0 и x + 1 > 0 ⇒ x > 1',
-              'log₂ ((x − 1)(x + 1)) = 3 ⇒ x² − 1 = 2³ = 8',
-              'x² = 9 ⇒ x = 3 или x = −3',
-              'x = −3 не е допустимо ⇒ отговор x = 3',
+              'Допустими стойности: $x - 1 > 0$ и $x + 1 > 0 \\Rightarrow x > 1$',
+              '$\\log _2 ((x - 1)(x + 1)) = 3 \\Rightarrow x^2 - 1 = 2^3 = 8$',
+              '$x^2 = 9 \\Rightarrow x = 3$ или $x = -3$',
+              '$x = -3$ не е допустимо ⇒ отговор $x = 3$',
             ]}
           />
         </section>
@@ -408,17 +409,17 @@ export function Logarithms() {
           <h2 className={h2}>8. ⚠️ Чести грешки</h2>
           <div className="grid sm:grid-cols-2 gap-3 text-sm sm:text-base text-gray-700 dark:text-gray-300">
             {[
-              ['Логаритъм от сбор', 'lg (2 + 5) = lg 2 + lg 5', 'lg 2 + lg 5 = lg (2 · 5) = 1'],
-              ['Логаритъм от произведение', 'log (xy) = log x · log y', 'log (xy) = log x + log y'],
-              ['Квадрат на логаритъм', '(lg x)² = 2 lg x', 'lg (x²) = 2 lg x, а (lg x)² е друго'],
-              ['Частно на логаритми', 'lg 8 / lg 2 = lg 4', 'lg 8 / lg 2 = log₂ 8 = 3'],
-              ['Логаритъм от неположително число', 'lg (−10) = −1', 'не е дефиниран – трябва b > 0'],
-              ['Без проверка на допустимите стойности', 'log₂(x − 1) + log₂(x + 1) = 3 ⇒ x = ±3', 'x = −3 отпада ⇒ само x = 3'],
+              ['Логаритъм от сбор', '$\\lg (2 + 5) = \\lg 2 + \\lg 5$', '$\\lg 2 + \\lg 5 = \\lg (2 \\cdot 5) = 1$'],
+              ['Логаритъм от произведение', '$\\log (xy) = \\log x \\cdot \\log y$', '$\\log (xy) = \\log x + \\log y$'],
+              ['Квадрат на логаритъм', '$(\\lg x)^2 = 2 \\lg x$', '$\\lg (x^2) = 2 \\lg x$, а $(\\lg x)^2$ е друго'],
+              ['Частно на логаритми', '$\\lg 8 / \\lg 2 = \\lg 4$', '$\\lg 8 / \\lg 2 = \\log _2 8 = 3$'],
+              ['Логаритъм от неположително число', '$\\lg (-10) = -1$', 'не е дефиниран – трябва $b > 0$'],
+              ['Без проверка на допустимите стойности', '$\\log _2(x - 1) + \\log _2(x + 1) = 3 \\Rightarrow x = \\pm 3$', '$x = -3$ отпада ⇒ само $x = 3$'],
             ].map(([title, wrong, right]) => (
               <div key={title} className="bg-white dark:bg-gray-800 p-3 sm:p-4 rounded shadow-sm">
-                <p className="font-semibold mb-1">{title}</p>
-                <p className="font-mono text-xs sm:text-sm text-red-600 dark:text-red-400">✗ {wrong}</p>
-                <p className="font-mono text-xs sm:text-sm text-green-600 dark:text-green-400">✓ {right}</p>
+                <p className="font-semibold mb-1"><MathText displayStyle>{title}</MathText></p>
+                <p className="text-xs sm:text-sm text-red-600 dark:text-red-400">✗ <MathText displayStyle>{wrong}</MathText></p>
+                <p className="text-xs sm:text-sm text-green-600 dark:text-green-400">✓ <MathText displayStyle>{right}</MathText></p>
               </div>
             ))}
           </div>
@@ -434,54 +435,54 @@ export function Logarithms() {
           <TaskBoard>
             <div className="mb-6">
               <TaskLevel level="A" />
-              <Task id="a1" number={1} color="border-green-500" question="Пресметнете log₂ 64, log₃ (1/27) и lg 0,001.">
-                <p>64 = 2⁶ ⇒ log₂ 64 = 6</p>
-                <p>1/27 = 3⁻³ ⇒ log₃ (1/27) = −3</p>
-                <p>0,001 = 10⁻³ ⇒ lg 0,001 = −3</p>
+              <Task id="a1" number={1} color="border-green-500" question="Пресметнете $\log _2 64$, $\log _3 \left(\frac{1}{27}\right)$ и $\lg 0{,}001$.">
+                <p><Tex>{'64 = 2^6 \\Rightarrow \\log _2 64 = 6'}</Tex></p>
+                <p><Tex>{'\\frac{1}{27} = 3^{-3} \\Rightarrow \\log _3 \\left(\\frac{1}{27}\\right) = -3'}</Tex></p>
+                <p><Tex>{'0{,}001 = 10^{-3} \\Rightarrow \\lg 0{,}001 = -3'}</Tex></p>
               </Task>
-              <Task id="a2" number={2} color="border-green-500" question="Пресметнете lg 4 + lg 25.">
-                <p>lg 4 + lg 25 = lg (4 · 25) = lg 100</p>
-                <p>= 2</p>
+              <Task id="a2" number={2} color="border-green-500" question="Пресметнете $\lg 4 + \lg 25$.">
+                <p><Tex>{'\\lg 4 + \\lg 25 = \\lg (4 \\cdot 25) = \\lg 100'}</Tex></p>
+                <p><Tex>{'= 2'}</Tex></p>
               </Task>
-              <Task id="a3" number={3} color="border-green-500" question="Намерете x, ако logₓ 49 = 2.">
-                <p>По определение x² = 49, x &gt; 0, x ≠ 1.</p>
-                <p>x = 7</p>
+              <Task id="a3" number={3} color="border-green-500" question="Намерете $x$, ако $\log _x 49 = 2$.">
+                <p>По определение <Tex>{'x^2 = 49,\\ x > 0,\\ x \\ne 1'}</Tex>.</p>
+                <p><Tex>{'x = 7'}</Tex></p>
               </Task>
             </div>
 
             <div className="mb-6">
               <TaskLevel level="B" />
-              <Task id="b1" number={4} color="border-yellow-500" question="Решете уравнението 3ˣ = 20 (lg 3 ≈ 0,4771, lg 20 ≈ 1,3010).">
-                <p>x · lg 3 = lg 20</p>
-                <p>x = 1,3010 / 0,4771 ≈ 2,727</p>
+              <Task id="b1" number={4} color="border-yellow-500" question="Решете уравнението $3^x = 20$ ($\lg 3 \approx 0{,}4771$, $\lg 20 \approx 1{,}3010$).">
+                <p><Tex>{'x \\cdot \\lg 3 = \\lg 20'}</Tex></p>
+                <p><Tex>{'x = 1{,}3010 / 0{,}4771 \\approx 2{,}727'}</Tex></p>
               </Task>
-              <Task id="b2" number={5} color="border-yellow-500" question="Решете уравнението log₂ (x − 1) + log₂ (x + 1) = 3.">
-                <p>Допустими: x &gt; 1.</p>
-                <p>log₂ (x² − 1) = 3 ⇒ x² − 1 = 8 ⇒ x = ±3</p>
-                <p>Отговор: x = 3.</p>
+              <Task id="b2" number={5} color="border-yellow-500" question="Решете уравнението $\log _2 (x - 1) + \log _2 (x + 1) = 3$.">
+                <p>Допустими: <Tex>{'x > 1'}</Tex>.</p>
+                <p><Tex>{'\\log _2 (x^2 - 1) = 3 \\Rightarrow x^2 - 1 = 8 \\Rightarrow x = \\pm 3'}</Tex></p>
+                <p>Отговор: <Tex>{'x = 3'}</Tex>.</p>
               </Task>
-              <Task id="b3" number={6} color="border-yellow-500" question="Пресметнете log₄ 8 и log₂₇ 9.">
-                <p>log₄ 8 = log₂ 8 / log₂ 4 = 3/2</p>
-                <p>log₂₇ 9 = log₃ 9 / log₃ 27 = 2/3</p>
+              <Task id="b3" number={6} color="border-yellow-500" question="Пресметнете $\log _4 8$ и $\log _{27} 9$.">
+                <p><Tex>{'\\log _4 8 = \\log _2 8 / \\log _2 4 = \\frac{3}{2}'}</Tex></p>
+                <p><Tex>{'\\log _{27} 9 = \\log _3 9 / \\log _3 27 = \\frac{2}{3}'}</Tex></p>
               </Task>
             </div>
 
             <div className="mb-6">
               <TaskLevel level="C" />
-              <Task id="c1" number={7} color="border-red-500" question="Докажете, че log_a b · log_b a = 1, и пресметнете log₂ 3 · log₃ 4 · log₄ 5 · log₅ 6 · log₆ 7 · log₇ 8.">
-                <p>Смяна на основата: log_a b = lg b / lg a и log_b a = lg a / lg b ⇒ произведението е 1.</p>
-                <p>Аналогично произведението става (lg 3/lg 2) · (lg 4/lg 3) · … · (lg 8/lg 7) – съкращава се „верижно“.</p>
-                <p>Остава lg 8 / lg 2 = log₂ 8 = 3.</p>
+              <Task id="c1" number={7} color="border-red-500" question="Докажете, че $\log _a b \cdot \log _b a = 1$, и пресметнете $\log _2 3 \cdot \log _3 4 \cdot \log _4 5 \cdot \log _5 6 \cdot \log _6 7 \cdot \log _7 8$.">
+                <p>Смяна на основата: <Tex>{'\\log _a b = \\lg b / \\lg a'}</Tex> и <Tex>{'\\log _b a = \\lg a / \\lg b \\Rightarrow'}</Tex> произведението е 1.</p>
+                <p>Аналогично произведението става <Tex>{'\\left(\\frac{\\lg 3}{\\lg 2}\\right) \\cdot \\left(\\frac{\\lg 4}{\\lg 3}\\right) \\cdot \\ldots \\cdot \\left(\\frac{\\lg 8}{\\lg 7}\\right)'}</Tex> – съкращава се „верижно“.</p>
+                <p>Остава <Tex>{'\\lg 8 / \\lg 2 = \\log _2 8 = 3'}</Tex>.</p>
               </Task>
-              <Task id="c2" number={8} color="border-red-500" question="Колко цифри има числото 3⁵⁰? (lg 3 ≈ 0,4771)">
-                <p>lg 3⁵⁰ = 50 · lg 3 ≈ 23,86</p>
-                <p>10²³ ≤ 3⁵⁰ &lt; 10²⁴</p>
+              <Task id="c2" number={8} color="border-red-500" question="Колко цифри има числото $3^{50}$? ($\lg 3 \approx 0{,}4771$)">
+                <p><Tex>{'\\lg 3^{50} = 50 \\cdot \\lg 3 \\approx 23{,}86'}</Tex></p>
+                <p><Tex>{'10^{23} \\le 3^{50} < 10^{24}'}</Tex></p>
                 <p>Числото има 24 цифри.</p>
               </Task>
-              <Task id="c3" number={9} color="border-red-500" question="Кое е по-голямо: log₂ 3 или log₃ 5? (Без калкулатор.)">
-                <p>Сравняваме с 3/2: 3² = 9 &gt; 8 = 2³ ⇒ 3 &gt; 2^(3/2) ⇒ log₂ 3 &gt; 3/2.</p>
-                <p>5² = 25 &lt; 27 = 3³ ⇒ 5 &lt; 3^(3/2) ⇒ log₃ 5 &lt; 3/2.</p>
-                <p>Значи log₂ 3 &gt; 3/2 &gt; log₃ 5. (Наистина: ≈ 1,585 и ≈ 1,465.)</p>
+              <Task id="c3" number={9} color="border-red-500" question="Кое е по-голямо: $\log _2 3$ или $\log _3 5$? (Без калкулатор.)">
+                <p>Сравняваме с <Tex>{'\\frac{3}{2}'}</Tex>: <Tex>{'3^2 = 9 > 8 = 2^3 \\Rightarrow 3 > 2^{3/2} \\Rightarrow \\log _2 3 > \\frac{3}{2}'}</Tex>.</p>
+                <p><Tex>{'5^2 = 25 < 27 = 3^3 \\Rightarrow 5 < 3^{3/2} \\Rightarrow \\log _3 5 < \\frac{3}{2}'}</Tex>.</p>
+                <p>Значи <Tex>{'\\log _2 3 > \\frac{3}{2} > \\log _3 5'}</Tex>. (Наистина: <Tex>{'\\approx 1{,}585'}</Tex> и <Tex>{'\\approx 1{,}465'}</Tex>.)</p>
               </Task>
             </div>
           </TaskBoard>
@@ -491,11 +492,11 @@ export function Logarithms() {
           <h2 className={h2}>11. Обобщение</h2>
           <div className="bg-gradient-to-r from-teal-50 to-cyan-50 dark:from-gray-800 dark:to-gray-700 p-6 rounded-lg">
             <ul className="space-y-2 text-sm sm:text-base">
-              <li>✓ log_a b = c ⇔ aᶜ = b (a &gt; 0, a ≠ 1, b &gt; 0)</li>
-              <li>✓ log (xy) = log x + log y; log (x/y) = log x − log y; log xⁿ = n log x</li>
-              <li>✓ Смяна на основата: log_a b = lg b / lg a</li>
-              <li>✓ lg – основа 10, ln – основа e ≈ 2,718</li>
-              <li>✓ y = log_a x е обратна на y = aˣ; графиките са симетрични спрямо y = x</li>
+              <li>✓ <Tex>{'\\log _a b = c \\iff a^c = b'}</Tex> (<Tex>{'a > 0,\\ a \\ne 1,\\ b > 0'}</Tex>)</li>
+              <li>✓ <Tex>{'\\log (xy) = \\log x + \\log y'}</Tex>; <Tex>{'\\log \\left(\\frac{x}{y}\\right) = \\log x - \\log y'}</Tex>; <Tex>{'\\log x^n = n \\log x'}</Tex></li>
+              <li>✓ Смяна на основата: <Tex>{'\\log _a b = \\lg b / \\lg a'}</Tex></li>
+              <li>✓ lg – основа 10, ln – основа <Tex>{'e \\approx 2{,}718'}</Tex></li>
+              <li>✓ <Tex>{'y = \\log _a x'}</Tex> е обратна на <Tex>{'y = a^x'}</Tex>; графиките са симетрични спрямо <Tex>{'y = x'}</Tex></li>
               <li>✓ В уравненията проверяваме допустимите стойности</li>
               <li>✓ Логаритмичните скали: pH, децибели, Рихтер, звездни величини</li>
             </ul>

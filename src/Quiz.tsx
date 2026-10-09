@@ -1,5 +1,6 @@
 import { CheckCircle2, ChevronLeft, ChevronRight, RotateCcw, Trophy, XCircle } from 'lucide-react';
 import { useMemo, useState, type KeyboardEvent } from 'react';
+import { MathText } from './MathText';
 
 export type Question = {
   question: string;
@@ -121,8 +122,8 @@ export default function Quiz({ questions }: { questions: Question[] }) {
             <p className="text-sm font-semibold text-amber-900 dark:text-amber-200">Правилните отговори на пропуснатите въпроси:</p>
             {missed.map(i => (
               <div key={i} className="text-sm bg-white/80 dark:bg-gray-900/60 rounded-xl px-3 py-2 border border-amber-200/60 dark:border-amber-500/20">
-                <p className="text-gray-600 dark:text-gray-400">{questions[i].question}</p>
-                <p className="mt-1 font-medium text-green-700 dark:text-green-400">✓ {questions[i].correctAnswer}</p>
+                <p className="text-gray-600 dark:text-gray-400"><MathText>{questions[i].question}</MathText></p>
+                <p className="mt-1 font-medium text-green-700 dark:text-green-400">✓ <MathText>{questions[i].correctAnswer}</MathText></p>
               </div>
             ))}
           </div>
@@ -160,7 +161,7 @@ export default function Quiz({ questions }: { questions: Question[] }) {
         </span>
       </div>
 
-      <h3 className="text-base sm:text-lg font-bold text-amber-950 dark:text-amber-100 mb-3">{q.question}</h3>
+      <h3 className="text-base sm:text-lg font-bold text-amber-950 dark:text-amber-100 mb-3"><MathText displayStyle>{q.question}</MathText></h3>
 
       <div className={`grid gap-2 ${answers.every(a => a.length < 45) ? 'sm:grid-cols-2' : ''}`}>
         {answers.map((ans, i) => {
@@ -188,7 +189,7 @@ export default function Quiz({ questions }: { questions: Question[] }) {
               >
                 {state === 'right' ? '✓' : state === 'wrong' ? '✗' : LETTERS[i]}
               </span>
-              <span className="pt-px">{ans}</span>
+              <span className="pt-px"><MathText displayStyle>{ans}</MathText></span>
             </button>
           );
         })}

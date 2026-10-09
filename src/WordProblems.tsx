@@ -1,5 +1,6 @@
 import { CheckCircle2, Lightbulb, ListChecks, RotateCcw, XCircle } from 'lucide-react';
 import { useState } from 'react';
+import { MathText } from './MathText';
 
 export type WordProblem = {
   title: string;
@@ -74,7 +75,7 @@ function Problem({ p, status, setStatus }: { p: WordProblem; status?: Status; se
         <span className="flex-1">{p.title}</span>
         {solved && <CheckCircle2 size={18} className="flex-shrink-0 mt-0.5 text-green-600 dark:text-green-400" />}
       </p>
-      <p className="text-sm text-gray-700 dark:text-gray-300 mb-3 flex-1">{p.problem}</p>
+      <p className="text-sm text-gray-700 dark:text-gray-300 mb-3 flex-1"><MathText>{p.problem}</MathText></p>
 
       {fields.length > 0 && !solved && (
         <form
@@ -116,19 +117,19 @@ function Problem({ p, status, setStatus }: { p: WordProblem; status?: Status; se
       )}
       {solved && (
         <p className="mb-2 flex items-center gap-1.5 text-sm font-semibold text-green-700 dark:text-green-400">
-          <CheckCircle2 size={16} /> {feedback === 'right' ? 'Вярно! Браво!' : 'Решена'} · {p.answer}
+          <CheckCircle2 size={16} /> {feedback === 'right' ? 'Вярно! Браво!' : 'Решена'} · <MathText>{p.answer}</MathText>
         </p>
       )}
 
       {revealed > 0 && (
         <div className="mb-2 p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg text-sm space-y-1">
           {p.solution.slice(0, revealed).map((line, i) => (
-            <p key={line} className="font-mono flex gap-2">
+            <p key={line} className="flex gap-2">
               <span className="text-blue-400 dark:text-blue-500 select-none">{i + 1}.</span>
-              <span>{line}</span>
+              <span><MathText>{line}</MathText></span>
             </p>
           ))}
-          {allShown && <p className="pt-1 font-semibold">Отговор: {p.answer}</p>}
+          {allShown && <p className="pt-1 font-semibold">Отговор: <MathText>{p.answer}</MathText></p>}
         </div>
       )}
 

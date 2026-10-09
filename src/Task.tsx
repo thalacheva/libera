@@ -1,5 +1,6 @@
 import { CheckCircle2, ChevronDown, Eye, EyeOff, Lightbulb, ListChecks, RotateCcw } from 'lucide-react';
 import { Children, createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from 'react';
+import { MathText } from './MathText';
 
 type Level = 'A' | 'B' | 'C';
 type Status = 'solved' | 'retry';
@@ -215,7 +216,7 @@ export default function Task({
         <span className={`flex-shrink-0 w-7 h-7 rounded-lg flex items-center justify-center text-sm font-bold ${solved ? 'bg-green-600 text-white' : L.badge}`}>
           {solved ? <CheckCircle2 size={16} /> : number}
         </span>
-        <span className={`flex-1 font-semibold ${collapsed ? 'text-gray-500 dark:text-gray-400 line-clamp-1' : ''}`}>{question}</span>
+        <span className={`flex-1 font-semibold ${collapsed ? 'text-gray-500 dark:text-gray-400 line-clamp-1' : ''}`}>{typeof question === 'string' ? <MathText>{question}</MathText> : question}</span>
         {solved && <ChevronDown size={18} className={`flex-shrink-0 mt-1 text-gray-400 transition-transform ${open ? 'rotate-180' : ''}`} />}
       </button>
 

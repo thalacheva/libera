@@ -9,6 +9,7 @@ import { WordProblems, type WordProblem } from '~/WordProblems';
 import { RightTrigLab } from './RightTrigLab';
 import { TriangleLawsLab } from './TriangleLawsLab';
 import { UnitCircleLab } from './UnitCircleLab';
+import { MathText, Tex } from '~/MathText';
 
 const h2 = 'text-xl sm:text-2xl font-semibold mb-3 text-gray-800 dark:text-gray-100';
 const text = 'mb-4 text-sm sm:text-base text-gray-700 dark:text-gray-300 leading-relaxed';
@@ -125,49 +126,49 @@ const wordProblems: WordProblem[] = [
   {
     title: '🪜 Стълба',
     problem: 'Стълба с дължина 5 m е опряна на стена и сключва със земята ъгъл 70°. На каква височина достига горният ѝ край?',
-    solution: ['Стълбата е хипотенуза, височината е катетът срещу ъгъла 70°.', 'h = 5 · sin 70° ≈ 5 · 0,940', 'h ≈ 4,70'],
-    answer: '≈ 4,70 m',
+    solution: ['Стълбата е хипотенуза, височината е катетът срещу ъгъла 70°.', '$h = 5 \\cdot \\sin 70^\\circ \\approx 5 \\cdot 0{,}940$', '$h \\approx 4{,}70$'],
+    answer: '$\\approx 4{,}70\\ \\mathrm{m}$',
     check: [4.7],
     ask: ['височина, m'],
   },
   {
     title: '⛰️ Пътен знак',
     problem: 'Знакът „Стръмен наклон 10%“ означава, че пътят се изкачва с 10 m на всеки 100 m по хоризонтала. Какъв ъгъл сключва пътят с хоризонталата?',
-    solution: ['Наклонът в проценти е tg на ъгъла: tg α = 10/100 = 0,1', 'α = arctg 0,1 ≈ 5,71°'],
-    answer: '≈ 5,7° – много по-малко, отколкото изглежда!',
+    solution: ['Наклонът в проценти е $\\tg$ на ъгъла: $\\tg \\alpha = \\frac{10}{100} = 0{,}1$', '$\\alpha = \\arctg 0{,}1 \\approx 5{,}71^\\circ$'],
+    answer: '$\\approx 5{,}7^\\circ$ – много по-малко, отколкото изглежда!',
     check: [5.71],
     ask: ['ъгъл, °'],
   },
   {
     title: '🏢 Сграда',
     problem: 'Стоиш на 30 m от сграда и виждаш върха ѝ под ъгъл 40° спрямо хоризонталата. Очите ти са на 1,6 m над земята. Колко е висока сградата?',
-    solution: ['Над нивото на очите: x = 30 · tg 40° ≈ 30 · 0,839 ≈ 25,17 m', 'Добавяме височината на очите: h ≈ 25,17 + 1,6 ≈ 26,8 m'],
-    answer: '≈ 26,8 m',
+    solution: ['Над нивото на очите: $x = 30 \\cdot \\tg 40^\\circ \\approx 30 \\cdot 0{,}839 \\approx 25{,}17\\ \\mathrm{m}$', 'Добавяме височината на очите: $h \\approx 25{,}17 + 1{,}6 \\approx 26{,}8\\ \\mathrm{m}$'],
+    answer: '$\\approx 26{,}8\\ \\mathrm{m}$',
     check: [26.8],
     ask: ['височина, m'],
   },
   {
     title: '🪁 Хвърчило',
     problem: 'Конецът на хвърчило е опънат и дълъг 50 m, а ъгълът му с хоризонталата е 35°. На каква височина над ръката е хвърчилото?',
-    solution: ['h = 50 · sin 35°', 'sin 35° ≈ 0,574', 'h ≈ 28,7'],
-    answer: '≈ 28,7 m',
+    solution: ['$h = 50 \\cdot \\sin 35^\\circ$', '$\\sin 35^\\circ \\approx 0{,}574$', '$h \\approx 28{,}7$'],
+    answer: '$\\approx 28{,}7\\ \\mathrm{m}$',
     check: [28.7],
     ask: ['височина, m'],
   },
   {
     title: '🌊 Ширина на езеро',
     problem:
-      'Не можем да измерим директно разстоянието между точките A и B на двата бряга на езеро. От точка C на сушата измерваме CA = 300 m, CB = 400 m и ∠ACB = 60°. Колко е AB?',
-    solution: ['Косинусова теорема: AB² = 300² + 400² − 2 · 300 · 400 · cos 60°', 'AB² = 90 000 + 160 000 − 120 000 = 130 000', 'AB = √130 000 ≈ 360,6'],
-    answer: '≈ 360,6 m',
+      'Не можем да измерим директно разстоянието между точките $A$ и $B$ на двата бряга на езеро. От точка $C$ на сушата измерваме $CA = 300\\ \\mathrm{m},\\ CB = 400\\ \\mathrm{m}$ и $\\angle ACB = 60^\\circ$. Колко е $AB$?',
+    solution: ['Косинусова теорема: $AB^2 = 300^2 + 400^2 - 2 \\cdot 300 \\cdot 400 \\cdot \\cos 60^\\circ$', '$AB^2 = 90\\,000 + 160\\,000 - 120\\,000 = 130\\,000$', '$AB = \\sqrt{130\\,000} \\approx 360{,}6$'],
+    answer: '$\\approx 360{,}6\\ \\mathrm{m}$',
     check: [360.6],
     ask: ['разстояние, m'],
   },
   {
     title: '🌾 Нива',
     problem: 'Триъгълна нива има две страни 40 m и 50 m, които сключват ъгъл 30°. Колко квадратни метра е тя?',
-    solution: ['S = ½ · a · b · sin γ', 'S = ½ · 40 · 50 · sin 30° = ½ · 40 · 50 · ½', 'S = 500'],
-    answer: '500 m²',
+    solution: ['$S = \\tfrac{1}{2} \\cdot a \\cdot b \\cdot \\sin \\gamma$', '$S = \\tfrac{1}{2} \\cdot 40 \\cdot 50 \\cdot \\sin 30^\\circ = \\tfrac{1}{2} \\cdot 40 \\cdot 50 \\cdot \\tfrac{1}{2}$', '$S = 500$'],
+    answer: '$500\\ \\mathrm{m}^2$',
     check: [500],
     ask: ['лице, m²'],
   },
@@ -177,49 +178,49 @@ const wordProblems: WordProblem[] = [
 
 const trigQuiz: Question[] = [
   {
-    question: 'В правоъгълен триъгълник sin α е отношението на:',
+    question: 'В правоъгълен триъгълник $\\sin \\alpha$ е отношението на:',
     answers: ['противолежащия катет към хипотенузата', 'прилежащия катет към хипотенузата', 'противолежащия към прилежащия катет', 'хипотенузата към противолежащия катет'],
     correctAnswer: 'противолежащия катет към хипотенузата',
   },
   {
-    question: 'На колко е равно sin 30°?',
-    answers: ['1/2', '√2/2', '√3/2', '√3/3'],
-    correctAnswer: '1/2',
+    question: 'На колко е равно $\\sin 30^\\circ$?',
+    answers: ['$\\frac{1}{2}$', '$\\frac{\\sqrt{2}}{2}$', '$\\frac{\\sqrt{3}}{2}$', '$\\frac{\\sqrt{3}}{3}$'],
+    correctAnswer: '$\\frac{1}{2}$',
   },
   {
-    question: 'На колко е равно tg 45°?',
-    answers: ['0', '1/2', '1', '√3'],
-    correctAnswer: '1',
+    question: 'На колко е равно $\\tg 45^\\circ$?',
+    answers: ['$0$', '$\\frac{1}{2}$', '$1$', '$\\sqrt{3}$'],
+    correctAnswer: '$1$',
   },
   {
-    question: 'Ъгълът α е остър и sin α = 0,6. На колко е равно cos α?',
-    answers: ['0,4', '0,8', '0,36', '0,64'],
-    correctAnswer: '0,8',
+    question: 'Ъгълът $\\alpha$ е остър и $\\sin \\alpha = 0{,}6$. На колко е равно $\\cos \\alpha$?',
+    answers: ['$0{,}4$', '$0{,}8$', '$0{,}36$', '$0{,}64$'],
+    correctAnswer: '$0{,}8$',
   },
   {
-    question: 'На колко е равно sin 150°?',
-    answers: ['−1/2', '1/2', '−√3/2', '√3/2'],
-    correctAnswer: '1/2',
+    question: 'На колко е равно $\\sin 150^\\circ$?',
+    answers: ['$-\\frac{1}{2}$', '$\\frac{1}{2}$', '$-\\frac{\\sqrt{3}}{2}$', '$\\frac{\\sqrt{3}}{2}$'],
+    correctAnswer: '$\\frac{1}{2}$',
   },
   {
-    question: 'На колко е равно cos 120°?',
-    answers: ['1/2', '−1/2', '√3/2', '−√3/2'],
-    correctAnswer: '−1/2',
+    question: 'На колко е равно $\\cos 120^\\circ$?',
+    answers: ['$\\frac{1}{2}$', '$-\\frac{1}{2}$', '$\\frac{\\sqrt{3}}{2}$', '$-\\frac{\\sqrt{3}}{2}$'],
+    correctAnswer: '$-\\frac{1}{2}$',
   },
   {
-    question: 'Коя е косинусовата теорема за страната c срещу ъгъла γ?',
-    answers: ['c² = a² + b² − 2ab · cos γ', 'c² = a² + b² + 2ab · cos γ', 'c = a · cos β + b · cos α · sin γ', 'c² = a² + b² − 2ab · sin γ'],
-    correctAnswer: 'c² = a² + b² − 2ab · cos γ',
+    question: 'Коя е косинусовата теорема за страната $c$ срещу ъгъла $\\gamma$?',
+    answers: ['$c^2 = a^2 + b^2 - 2ab \\cdot \\cos \\gamma$', '$c^2 = a^2 + b^2 + 2ab \\cdot \\cos \\gamma$', '$c = a \\cdot \\cos \\beta + b \\cdot \\cos \\alpha \\cdot \\sin \\gamma$', '$c^2 = a^2 + b^2 - 2ab \\cdot \\sin \\gamma$'],
+    correctAnswer: '$c^2 = a^2 + b^2 - 2ab \\cdot \\cos \\gamma$',
   },
   {
-    question: 'В триъгълник a = 10 и α = 30°. Колко е радиусът R на описаната окръжност?',
-    answers: ['5', '10', '20', '5√3'],
-    correctAnswer: '10',
+    question: 'В триъгълник $a = 10$ и $\\alpha = 30^\\circ$. Колко е радиусът $R$ на описаната окръжност?',
+    answers: ['$5$', '$10$', '$20$', '$5\\sqrt{3}$'],
+    correctAnswer: '$10$',
   },
   {
     question: 'Две страни на триъгълник са 6 и 8, а ъгълът между тях е 30°. Колко е лицето му?',
-    answers: ['12', '24', '48', '12√3'],
-    correctAnswer: '12',
+    answers: ['$12$', '$24$', '$48$', '$12\\sqrt{3}$'],
+    correctAnswer: '$12$',
   },
 ];
 
@@ -255,7 +256,7 @@ export function Trigonometry() {
           <Theorem
             type="definition"
             title="Тригонометрични функции на остър ъгъл"
-            description="В правоъгълен триъгълник с остър ъгъл α, хипотенуза c, противолежащ катет a и прилежащ катет b: sin α = a/c, cos α = b/c, tg α = a/b, cotg α = b/a. Те зависят само от ъгъла α, не от размера на триъгълника."
+            description="В правоъгълен триъгълник с остър ъгъл $\alpha$, хипотенуза $c$, противолежащ катет $a$ и прилежащ катет $b$: $\sin \alpha = \frac{a}{c},\ \cos \alpha = \frac{b}{c},\ \tg \alpha = \frac{a}{b},\ \cotg \alpha = \frac{b}{a}$. Те зависят само от ъгъла $\alpha$, не от размера на триъгълника."
           />
           <RightTrigLab />
         </section>
@@ -264,14 +265,14 @@ export function Trigonometry() {
           <h2 className={h2}>2. Стойности за 30°, 45° и 60°</h2>
           <p className={text}>
             Тези стойности се извеждат от две фигури. Диагоналът дели квадрата на два равнобедрени правоъгълни триъгълника с ъгли 45° и катети
-            1 и 1, а хипотенуза √2. Височината дели равностранния триъгълник със страна 2 на два триъгълника с ъгли 30° и 60°, катети 1 и √3 и
+            1 и 1, а хипотенуза <Tex>{'\\sqrt{2}'}</Tex>. Височината дели равностранния триъгълник със страна 2 на два триъгълника с ъгли 30° и 60°, катети 1 и <Tex>{'\\sqrt{3}'}</Tex> и
             хипотенуза 2.
           </p>
           <div className="overflow-x-auto mb-4">
             <table className="w-full text-sm sm:text-base text-center text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 rounded shadow-sm font-mono">
               <thead>
                 <tr className="border-b border-gray-200 dark:border-gray-700">
-                  <th className="p-2 sm:p-3 text-left font-sans">α</th>
+                  <th className="p-2 sm:p-3 text-left font-sans"><Tex>{'\\alpha'}</Tex></th>
                   {['0°', '30°', '45°', '60°', '90°'].map(d => (
                     <th key={d} className="p-2 sm:p-3">
                       {d}
@@ -281,16 +282,16 @@ export function Trigonometry() {
               </thead>
               <tbody>
                 {[
-                  ['sin α', '0', '1/2', '√2/2', '√3/2', '1'],
-                  ['cos α', '1', '√3/2', '√2/2', '1/2', '0'],
-                  ['tg α', '0', '√3/3', '1', '√3', '—'],
-                  ['cotg α', '—', '√3', '1', '√3/3', '0'],
+                  ['$\\sin \\alpha$', '$0$', '$\\frac{1}{2}$', '$\\frac{\\sqrt{2}}{2}$', '$\\frac{\\sqrt{3}}{2}$', '$1$'],
+                  ['$\\cos \\alpha$', '$1$', '$\\frac{\\sqrt{3}}{2}$', '$\\frac{\\sqrt{2}}{2}$', '$\\frac{1}{2}$', '$0$'],
+                  ['$\\tg \\alpha$', '$0$', '$\\frac{\\sqrt{3}}{3}$', '$1$', '$\\sqrt{3}$', '—'],
+                  ['$\\cotg \\alpha$', '—', '$\\sqrt{3}$', '$1$', '$\\frac{\\sqrt{3}}{3}$', '$0$'],
                 ].map(([name, ...vals]) => (
                   <tr key={name} className="border-b last:border-0 border-gray-100 dark:border-gray-700/60">
-                    <td className="p-2 sm:p-3 text-left">{name}</td>
+                    <td className="p-2 sm:p-3 text-left"><MathText>{name}</MathText></td>
                     {vals.map((v, i) => (
                       <td key={i} className="p-2 sm:p-3">
-                        {v}
+                        <MathText displayStyle>{v}</MathText>
                       </td>
                     ))}
                   </tr>
@@ -299,7 +300,7 @@ export function Trigonometry() {
             </table>
           </div>
           <p className={text}>
-            Лесно за запомняне: sin за 0°, 30°, 45°, 60°, 90° е √0/2, √1/2, √2/2, √3/2, √4/2 – а cos е същият ред, обърнат.
+            Лесно за запомняне: <Tex>{'\\sin'}</Tex> за 0°, 30°, 45°, 60°, 90° е <Tex>{'\\frac{\\sqrt{0}}{2},\\ \\frac{\\sqrt{1}}{2},\\ \\frac{\\sqrt{2}}{2},\\ \\frac{\\sqrt{3}}{2},\\ \\frac{\\sqrt{4}}{2}'}</Tex> – а <Tex>{'\\cos'}</Tex> е същият ред, обърнат.
           </p>
         </section>
 
@@ -307,11 +308,11 @@ export function Trigonometry() {
           <h2 className={h2}>3. Основни тъждества</h2>
           <Theorem
             title="Връзки между функциите на един ъгъл"
-            description="sin²α + cos²α = 1 (Питагоровата теорема, разделена на c²); tg α = sin α / cos α; cotg α = cos α / sin α; tg α · cotg α = 1. За допълнителни ъгли: sin(90° − α) = cos α и cos(90° − α) = sin α – двата остри ъгъла в правоъгълен триъгълник си разменят катетите."
+            description="$\sin^2 \alpha + \cos^2 \alpha = 1$ (Питагоровата теорема, разделена на $c^2$); $\tg \alpha = \sin \alpha / \cos \alpha$; $\cotg \alpha = \cos \alpha / \sin \alpha$; $\tg \alpha \cdot \cotg \alpha = 1$. За допълнителни ъгли: $\sin (90^\circ - \alpha) = \cos \alpha$ и $\cos (90^\circ - \alpha) = \sin \alpha$ – двата остри ъгъла в правоъгълен триъгълник си разменят катетите."
           />
           <Example
-            description="Ъгълът α е остър и cos α = 5/13. Да намерим sin α и tg α."
-            steps={['sin²α = 1 − cos²α = 1 − 25/169 = 144/169', 'α е остър ⇒ sin α > 0 ⇒ sin α = 12/13', 'tg α = sin α / cos α = (12/13) : (5/13) = 12/5']}
+            description="Ъгълът $\alpha$ е остър и $\cos \alpha = \frac{5}{13}$. Да намерим $\sin \alpha$ и $\tg \alpha$."
+            steps={['$\\sin^2 \\alpha = 1 - \\cos^2 \\alpha = 1 - \\frac{25}{169} = \\frac{144}{169}$', '$\\alpha$ е остър $\\Rightarrow \\sin \\alpha > 0 \\Rightarrow \\sin \\alpha = \\frac{12}{13}$', '$\\tg \\alpha = \\sin \\alpha / \\cos \\alpha = \\frac{12}{13} : \\frac{5}{13} = \\frac{12}{5}$']}
           />
         </section>
 
@@ -322,12 +323,12 @@ export function Trigonometry() {
             правия ъгъл), поне единият от които е страна.
           </p>
           <Example
-            description="Хипотенузата е c = 10, а острият ъгъл α = 30°. Да намерим катетите и другия ъгъл."
-            steps={['β = 90° − 30° = 60°', 'a = c · sin α = 10 · 1/2 = 5', 'b = c · cos α = 10 · √3/2 = 5√3 ≈ 8,66']}
+            description="Хипотенузата е $c = 10$, а острият ъгъл $\alpha = 30^\circ$. Да намерим катетите и другия ъгъл."
+            steps={['$\\beta = 90^\\circ - 30^\\circ = 60^\\circ$', '$a = c \\cdot \\sin \\alpha = 10 \\cdot \\frac{1}{2} = 5$', '$b = c \\cdot \\cos \\alpha = 10 \\cdot \\frac{\\sqrt{3}}{2} = 5\\sqrt{3} \\approx 8{,}66$']}
           />
           <Example
-            description="Катетите са a = 7 и b = 24. Да намерим хипотенузата и ъглите."
-            steps={['c = √(49 + 576) = √625 = 25', 'tg α = 7/24 ≈ 0,292 ⇒ α ≈ 16,3° (с калкулатор: tan⁻¹)', 'β = 90° − α ≈ 73,7°']}
+            description="Катетите са $a = 7$ и $b = 24$. Да намерим хипотенузата и ъглите."
+            steps={['$c = \\sqrt{49 + 576} = \\sqrt{625} = 25$', '$\\tg \\alpha = \\frac{7}{24} \\approx 0{,}292 \\Rightarrow \\alpha \\approx 16{,}3^\\circ$ (с калкулатор: $\\tan^{-1}$)', '$\\beta = 90^\\circ - \\alpha \\approx 73{,}7^\\circ$']}
           />
         </section>
 
@@ -335,11 +336,11 @@ export function Trigonometry() {
           <h2 className={h2}>5. Ъгли до 180° и единичната окръжност</h2>
           <p className={text}>
             В правоъгълен триъгълник ъгълът е винаги остър. За тъпи ъгли (а и за ъгли над 180°) имаме нужда от нова дефиниция. Нанасяме ъгъла
-            в единична окръжност и казваме: cos α е абсцисата, а sin α – ординатата на точката. За острите ъгли тя съвпада със старата.
+            в единична окръжност и казваме: <Tex>{'\\cos \\alpha'}</Tex> е абсцисата, а <Tex>{'\\sin \\alpha'}</Tex> – ординатата на точката. За острите ъгли тя съвпада със старата.
           </p>
           <Theorem
-            title="Формули за 180° − α"
-            description="sin(180° − α) = sin α; cos(180° − α) = −cos α; tg(180° − α) = −tg α. Следствие: за тъпите ъгли синусът е положителен, а косинусът и тангенсът – отрицателни. Например sin 150° = sin 30° = 1/2, cos 120° = −cos 60° = −1/2."
+            title="Формули за $180^\circ - \alpha$"
+            description="$\sin (180^\circ - \alpha) = \sin \alpha$; $\cos (180^\circ - \alpha) = -\cos \alpha$; $\tg (180^\circ - \alpha) = -\tg \alpha$. Следствие: за тъпите ъгли синусът е положителен, а косинусът и тангенсът – отрицателни. Например $\sin 150^\circ = \sin 30^\circ = \frac{1}{2},\ \cos 120^\circ = -\cos 60^\circ = -\frac{1}{2}$."
           />
           <UnitCircleLab />
         </section>
@@ -349,24 +350,24 @@ export function Trigonometry() {
           <p className={text}>Тези две теореми решават произволен триъгълник – не само правоъгълен.</p>
           <Theorem
             title="Синусова теорема"
-            description="Във всеки триъгълник a/sin α = b/sin β = c/sin γ = 2R, където R е радиусът на описаната окръжност. Използваме я, когато знаем страна и срещулежащия ѝ ъгъл."
+            description="Във всеки триъгълник $\frac{a}{\sin \alpha} = \frac{b}{\sin \beta} = \frac{c}{\sin \gamma} = 2R$, където $R$ е радиусът на описаната окръжност. Използваме я, когато знаем страна и срещулежащия ѝ ъгъл."
           />
           <Theorem
             title="Косинусова теорема"
-            description="Във всеки триъгълник c² = a² + b² − 2ab · cos γ (и аналогично за другите страни). При γ = 90° тя е Питагоровата теорема. Използваме я, когато знаем две страни и ъгъла между тях или трите страни."
+            description="Във всеки триъгълник $c^2 = a^2 + b^2 - 2ab \cdot \cos \gamma$ (и аналогично за другите страни). При $\gamma = 90^\circ$ тя е Питагоровата теорема. Използваме я, когато знаем две страни и ъгъла между тях или трите страни."
           />
           <Theorem
             title="Лице чрез синус"
-            description="S = ½ · a · b · sin γ – половината от произведението на две страни и синуса на ъгъла между тях. Като заместим sin γ = c/(2R), получаваме и S = abc/(4R)."
+            description="$S = \tfrac{1}{2} \cdot a \cdot b \cdot \sin \gamma$ – половината от произведението на две страни и синуса на ъгъла между тях. Като заместим $\sin \gamma = \frac{c}{2R}$, получаваме и $S = \frac{abc}{4R}$."
           />
           <TriangleLawsLab />
           <Example
-            description="Страните на триъгълник са a = 7, b = 8 и c = 13. Да намерим най-големия ъгъл."
-            steps={['Най-големият ъгъл е срещу най-голямата страна – γ срещу c = 13', 'cos γ = (a² + b² − c²)/(2ab) = (49 + 64 − 169)/112 = −56/112 = −1/2', 'γ = 120° (тъп ъгъл – косинусът е отрицателен)']}
+            description="Страните на триъгълник са $a = 7,\ b = 8$ и $c = 13$. Да намерим най-големия ъгъл."
+            steps={['Най-големият ъгъл е срещу най-голямата страна – $\\gamma$ срещу $c = 13$', '$\\cos \\gamma = \\frac{a^2 + b^2 - c^2}{2ab} = \\frac{49 + 64 - 169}{112} = -\\frac{56}{112} = -\\frac{1}{2}$', '$\\gamma = 120^\\circ$ (тъп ъгъл – косинусът е отрицателен)']}
           />
           <Example
-            description="В триъгълник a = 6, α = 30° и β = 45°. Да намерим b и R."
-            steps={['Синусова теорема: b = a · sin β / sin α = 6 · (√2/2) : (1/2) = 6√2 ≈ 8,49', '2R = a / sin α = 6 : (1/2) = 12 ⇒ R = 6']}
+            description="В триъгълник $a = 6,\ \alpha = 30^\circ$ и $\beta = 45^\circ$. Да намерим $b$ и $R$."
+            steps={['Синусова теорема: $b = a \\cdot \\sin \\beta / \\sin \\alpha = 6 \\cdot \\frac{\\sqrt{2}}{2} : \\frac{1}{2} = 6\\sqrt{2} \\approx 8{,}49$', '$2R = a / \\sin \\alpha = 6 : \\frac{1}{2} = 12 \\Rightarrow R = 6$']}
           />
         </section>
 
@@ -390,17 +391,17 @@ export function Trigonometry() {
           <h2 className={h2}>9. ⚠️ Чести грешки</h2>
           <div className="grid sm:grid-cols-2 gap-3 text-sm sm:text-base text-gray-700 dark:text-gray-300">
             {[
-              ['Калкулатор в радиани', 'sin 30 = −0,988', 'режим DEG: sin 30° = 0,5'],
-              ['Объркани отношения', 'sin α = противолежащ / прилежащ', 'това е tg α; sin α = противолежащ / хипотенуза'],
-              ['„Изваждане“ на числото пред ъгъла', 'sin 60° = 2 · sin 30° = 1', 'sin 60° = √3/2 ≈ 0,866'],
-              ['Знак при тъп ъгъл', 'cos 120° = 1/2', 'cos 120° = −cos 60° = −1/2'],
-              ['Ъгъл по синус – изгубено решение', 'sin β = 1/2 ⇒ β = 30°', 'β = 30° или β = 150° (ако е възможно)'],
-              ['Косинусова теорема с грешен ъгъл', 'c² = a² + b² − 2ab · cos α', 'ъгълът е срещу c, т.е. между a и b: γ'],
+              ['Калкулатор в радиани', '$\\sin 30 = -0{,}988$', 'режим DEG: $\\sin 30^\\circ = 0{,}5$'],
+              ['Объркани отношения', '$\\sin \\alpha =$ противолежащ / прилежащ', 'това е $\\tg \\alpha$; $\\sin \\alpha =$ противолежащ / хипотенуза'],
+              ['„Изваждане“ на числото пред ъгъла', '$\\sin 60^\\circ = 2 \\cdot \\sin 30^\\circ = 1$', '$\\sin 60^\\circ = \\frac{\\sqrt{3}}{2} \\approx 0{,}866$'],
+              ['Знак при тъп ъгъл', '$\\cos 120^\\circ = \\frac{1}{2}$', '$\\cos 120^\\circ = -\\cos 60^\\circ = -\\frac{1}{2}$'],
+              ['Ъгъл по синус – изгубено решение', '$\\sin \\beta = \\frac{1}{2} \\Rightarrow \\beta = 30^\\circ$', '$\\beta = 30^\\circ$ или $\\beta = 150^\\circ$ (ако е възможно)'],
+              ['Косинусова теорема с грешен ъгъл', '$c^2 = a^2 + b^2 - 2ab \\cdot \\cos \\alpha$', 'ъгълът е срещу $c$, т.е. между $a$ и $b$: $\\gamma$'],
             ].map(([title, wrong, right]) => (
               <div key={title} className="bg-white dark:bg-gray-800 p-3 sm:p-4 rounded shadow-sm">
-                <p className="font-semibold mb-1">{title}</p>
-                <p className="font-mono text-xs sm:text-sm text-red-600 dark:text-red-400">✗ {wrong}</p>
-                <p className="font-mono text-xs sm:text-sm text-green-600 dark:text-green-400">✓ {right}</p>
+                <p className="font-semibold mb-1"><MathText displayStyle>{title}</MathText></p>
+                <p className="text-xs sm:text-sm text-red-600 dark:text-red-400">✗ <MathText displayStyle>{wrong}</MathText></p>
+                <p className="text-xs sm:text-sm text-green-600 dark:text-green-400">✓ <MathText displayStyle>{right}</MathText></p>
               </div>
             ))}
           </div>
@@ -416,57 +417,57 @@ export function Trigonometry() {
           <TaskBoard>
             <div className="mb-6">
               <TaskLevel level="A" />
-              <Task id="a1" number={1} color="border-green-500" question="Катетите на правоъгълен триъгълник са 3 и 4. Намерете sin, cos и tg на ъгъла α срещу катета 3.">
-                <p>Хипотенузата е √(9 + 16) = 5.</p>
-                <p>sin α = 3/5 = 0,6; cos α = 4/5 = 0,8; tg α = 3/4 = 0,75</p>
-                <p>Проверка: 0,6² + 0,8² = 0,36 + 0,64 = 1 ✓</p>
+              <Task id="a1" number={1} color="border-green-500" question="Катетите на правоъгълен триъгълник са 3 и 4. Намерете $\sin$, $\cos$ и $\tg$ на ъгъла $\alpha$ срещу катета 3.">
+                <p>Хипотенузата е <Tex>{'\\sqrt{9 + 16} = 5'}</Tex>.</p>
+                <p><Tex>{'\\sin \\alpha = \\frac{3}{5} = 0{,}6'}</Tex>; <Tex>{'\\cos \\alpha = \\frac{4}{5} = 0{,}8'}</Tex>; <Tex>{'\\tg \\alpha = \\frac{3}{4} = 0{,}75'}</Tex></p>
+                <p>Проверка: <Tex>{'0{,}6^2 + 0{,}8^2 = 0{,}36 + 0{,}64 = 1'}</Tex> ✓</p>
               </Task>
               <Task id="a2" number={2} color="border-green-500" question="Хипотенузата на правоъгълен триъгълник е 10, а единият му ъгъл е 30°. Намерете катетите.">
-                <p>Катетът срещу 30° е a = 10 · sin 30° = 5 (половината от хипотенузата).</p>
-                <p>Другият катет е b = 10 · cos 30° = 5√3 ≈ 8,66.</p>
+                <p>Катетът срещу 30° е <Tex>{'a = 10 \\cdot \\sin 30^\\circ = 5'}</Tex> (половината от хипотенузата).</p>
+                <p>Другият катет е <Tex>{'b = 10 \\cdot \\cos 30^\\circ = 5\\sqrt{3} \\approx 8{,}66'}</Tex>.</p>
               </Task>
-              <Task id="a3" number={3} color="border-green-500" question="Пресметнете sin²30° + cos²60° + tg 45°.">
-                <p>sin 30° = 1/2 ⇒ sin²30° = 1/4</p>
-                <p>cos 60° = 1/2 ⇒ cos²60° = 1/4</p>
-                <p>1/4 + 1/4 + 1 = 1,5</p>
+              <Task id="a3" number={3} color="border-green-500" question="Пресметнете $\sin^2 30^\circ + \cos^2 60^\circ + \tg 45^\circ$.">
+                <p><Tex>{'\\sin 30^\\circ = \\frac{1}{2} \\Rightarrow \\sin^2 30^\\circ = \\frac{1}{4}'}</Tex></p>
+                <p><Tex>{'\\cos 60^\\circ = \\frac{1}{2} \\Rightarrow \\cos^2 60^\\circ = \\frac{1}{4}'}</Tex></p>
+                <p><Tex>{'\\frac{1}{4} + \\frac{1}{4} + 1 = 1{,}5'}</Tex></p>
               </Task>
             </div>
 
             <div className="mb-6">
               <TaskLevel level="B" />
-              <Task id="b1" number={4} color="border-yellow-500" question="Ъгълът α е остър и tg α = 2. Намерете sin α и cos α.">
-                <p>Нека a = 2 и b = 1 (катети с отношение 2). Хипотенузата е √5.</p>
-                <p>sin α = 2/√5 = 2√5/5 ≈ 0,894</p>
-                <p>cos α = 1/√5 = √5/5 ≈ 0,447</p>
+              <Task id="b1" number={4} color="border-yellow-500" question="Ъгълът $\alpha$ е остър и $\tg \alpha = 2$. Намерете $\sin \alpha$ и $\cos \alpha$.">
+                <p>Нека <Tex>{'a = 2'}</Tex> и <Tex>{'b = 1'}</Tex> (катети с отношение 2). Хипотенузата е <Tex>{'\\sqrt{5}'}</Tex>.</p>
+                <p><Tex>{'\\sin \\alpha = \\frac{2}{\\sqrt{5}} = \\frac{2\\sqrt{5}}{5} \\approx 0{,}894'}</Tex></p>
+                <p><Tex>{'\\cos \\alpha = \\frac{1}{\\sqrt{5}} = \\frac{\\sqrt{5}}{5} \\approx 0{,}447'}</Tex></p>
               </Task>
               <Task id="b2" number={5} color="border-yellow-500" question="Страните на триъгълник са 7, 8 и 13. Намерете най-големия му ъгъл.">
-                <p>Той е срещу страната 13: cos γ = (7² + 8² − 13²)/(2 · 7 · 8) = (49 + 64 − 169)/112</p>
-                <p>cos γ = −56/112 = −1/2</p>
-                <p>γ = 120°</p>
+                <p>Той е срещу страната 13: <Tex>{'\\cos \\gamma = \\frac{7^2 + 8^2 - 13^2}{2 \\cdot 7 \\cdot 8} = \\frac{49 + 64 - 169}{112}'}</Tex></p>
+                <p><Tex>{'\\cos \\gamma = -\\frac{56}{112} = -\\frac{1}{2}'}</Tex></p>
+                <p><Tex>{'\\gamma = 120^\\circ'}</Tex></p>
               </Task>
-              <Task id="b3" number={6} color="border-yellow-500" question="В триъгълник a = 6, α = 30° и β = 45°. Намерете b и радиуса на описаната окръжност.">
-                <p>a/sin α = 6 : (1/2) = 12 = 2R ⇒ R = 6</p>
-                <p>b = 2R · sin β = 12 · √2/2 = 6√2 ≈ 8,49</p>
+              <Task id="b3" number={6} color="border-yellow-500" question="В триъгълник $a = 6,\ \alpha = 30^\circ$ и $\beta = 45^\circ$. Намерете $b$ и радиуса на описаната окръжност.">
+                <p><Tex>{'\\frac{a}{\\sin \\alpha} = 6 : \\frac{1}{2} = 12 = 2R \\Rightarrow R = 6'}</Tex></p>
+                <p><Tex>{'b = 2R \\cdot \\sin \\beta = 12 \\cdot \\frac{\\sqrt{2}}{2} = 6\\sqrt{2} \\approx 8{,}49'}</Tex></p>
               </Task>
             </div>
 
             <div className="mb-6">
               <TaskLevel level="C" />
-              <Task id="c1" number={7} color="border-red-500" question="Докажи, че за всеки триъгълник S = abc/(4R).">
-                <p>Лицето е S = ½ · a · b · sin γ.</p>
-                <p>От синусовата теорема c = 2R · sin γ, т.е. sin γ = c/(2R).</p>
-                <p>S = ½ · a · b · c/(2R) = abc/(4R).</p>
+              <Task id="c1" number={7} color="border-red-500" question="Докажи, че за всеки триъгълник $S = \frac{abc}{4R}$.">
+                <p>Лицето е <Tex>{'S = \\tfrac{1}{2} \\cdot a \\cdot b \\cdot \\sin \\gamma'}</Tex>.</p>
+                <p>От синусовата теорема <Tex>{'c = 2R \\cdot \\sin \\gamma'}</Tex>, т.е. <Tex>{'\\sin \\gamma = \\frac{c}{2R}'}</Tex>.</p>
+                <p><Tex>{'S = \\tfrac{1}{2} \\cdot a \\cdot b \\cdot \\frac{c}{2R} = \\frac{abc}{4R}'}</Tex>.</p>
               </Task>
-              <Task id="c2" number={8} color="border-red-500" question="Изведи формулата за медианата mc = ½√(2a² + 2b² − c²) и я приложи за страни a = 5, b = 6, c = 7.">
-                <p>Нека M е средата на AB, ∠AMC = φ, ∠BMC = 180° − φ. Косинусова теорема в двата триъгълника:</p>
-                <p>b² = m² + c²/4 − m · c · cos φ и a² = m² + c²/4 + m · c · cos φ (защото cos(180° − φ) = −cos φ).</p>
-                <p>Събираме: a² + b² = 2m² + c²/2 ⇒ m² = (2a² + 2b² − c²)/4.</p>
-                <p>За 5, 6, 7: m² = (50 + 72 − 49)/4 = 73/4 ⇒ m = √73/2 ≈ 4,27.</p>
+              <Task id="c2" number={8} color="border-red-500" question="Изведи формулата за медианата $m_c = \tfrac{1}{2}\sqrt{2a^2 + 2b^2 - c^2}$ и я приложи за страни $a = 5,\ b = 6,\ c = 7$.">
+                <p>Нека <Tex>{'M'}</Tex> е средата на <Tex>{'AB'}</Tex>, <Tex>{'\\angle AMC = \\varphi'}</Tex>, <Tex>{'\\angle BMC = 180^\\circ - \\varphi'}</Tex>. Косинусова теорема в двата триъгълника:</p>
+                <p><Tex>{'b^2 = m^2 + \\frac{c^2}{4} - m \\cdot c \\cdot \\cos \\varphi'}</Tex> и <Tex>{'a^2 = m^2 + \\frac{c^2}{4} + m \\cdot c \\cdot \\cos \\varphi'}</Tex> (защото <Tex>{'\\cos (180^\\circ - \\varphi) = -\\cos \\varphi'}</Tex>).</p>
+                <p>Събираме: <Tex>{'a^2 + b^2 = 2m^2 + \\frac{c^2}{2} \\Rightarrow m^2 = \\frac{2a^2 + 2b^2 - c^2}{4}'}</Tex>.</p>
+                <p>За 5, 6, 7: <Tex>{'m^2 = \\frac{50 + 72 - 49}{4} = \\frac{73}{4} \\Rightarrow m = \\frac{\\sqrt{73}}{2} \\approx 4{,}27'}</Tex>.</p>
               </Task>
               <Task id="c3" number={9} color="border-red-500" question="Страните на триъгълник са 5, 6 и 7. Намерете лицето му и радиуса на описаната окръжност.">
-                <p>cos γ (срещу 7) = (25 + 36 − 49)/60 = 1/5 ⇒ sin γ = √(1 − 1/25) = 2√6/5</p>
-                <p>S = ½ · 5 · 6 · 2√6/5 = 6√6 ≈ 14,70</p>
-                <p>R = abc/(4S) = 210/(24√6) = 35√6/24 ≈ 3,57</p>
+                <p><Tex>{'\\cos \\gamma'}</Tex> (срещу 7) <Tex>{'= \\frac{25 + 36 - 49}{60} = \\frac{1}{5} \\Rightarrow \\sin \\gamma = \\sqrt{1 - \\frac{1}{25}} = \\frac{2\\sqrt{6}}{5}'}</Tex></p>
+                <p><Tex>{'S = \\tfrac{1}{2} \\cdot 5 \\cdot 6 \\cdot \\frac{2\\sqrt{6}}{5} = 6\\sqrt{6} \\approx 14{,}70'}</Tex></p>
+                <p><Tex>{'R = \\frac{abc}{4S} = \\frac{210}{24\\sqrt{6}} = \\frac{35\\sqrt{6}}{24} \\approx 3{,}57'}</Tex></p>
               </Task>
             </div>
           </TaskBoard>
@@ -476,13 +477,13 @@ export function Trigonometry() {
           <h2 className={h2}>12. Обобщение</h2>
           <div className="bg-gradient-to-r from-sky-50 to-indigo-50 dark:from-gray-800 dark:to-gray-700 p-6 rounded-lg">
             <ul className="space-y-2 text-sm sm:text-base">
-              <li>✓ sin α = a/c, cos α = b/c, tg α = a/b – зависят само от ъгъла (подобни триъгълници)</li>
-              <li>✓ 30°, 45°, 60°: sin = 1/2, √2/2, √3/2; cos – в обратен ред</li>
-              <li>✓ sin²α + cos²α = 1; tg α = sin α / cos α; sin(90° − α) = cos α</li>
-              <li>✓ Единична окръжност: cos α = x, sin α = y; sin(180° − α) = sin α, cos(180° − α) = −cos α</li>
-              <li>✓ Синусова теорема: a/sin α = b/sin β = c/sin γ = 2R</li>
-              <li>✓ Косинусова теорема: c² = a² + b² − 2ab · cos γ</li>
-              <li>✓ Лице: S = ½ab · sin γ = abc/(4R)</li>
+              <li>✓ <Tex>{'\\sin \\alpha = \\frac{a}{c},\\ \\cos \\alpha = \\frac{b}{c},\\ \\tg \\alpha = \\frac{a}{b}'}</Tex> – зависят само от ъгъла (подобни триъгълници)</li>
+              <li>✓ 30°, 45°, 60°: <Tex>{'\\sin = \\frac{1}{2},\\ \\frac{\\sqrt{2}}{2},\\ \\frac{\\sqrt{3}}{2}'}</Tex>; <Tex>{'\\cos'}</Tex> – в обратен ред</li>
+              <li>✓ <Tex>{'\\sin^2 \\alpha + \\cos^2 \\alpha = 1'}</Tex>; <Tex>{'\\tg \\alpha = \\sin \\alpha / \\cos \\alpha'}</Tex>; <Tex>{'\\sin (90^\\circ - \\alpha) = \\cos \\alpha'}</Tex></li>
+              <li>✓ Единична окръжност: <Tex>{'\\cos \\alpha = x,\\ \\sin \\alpha = y'}</Tex>; <Tex>{'\\sin (180^\\circ - \\alpha) = \\sin \\alpha,\\ \\cos (180^\\circ - \\alpha) = -\\cos \\alpha'}</Tex></li>
+              <li>✓ Синусова теорема: <Tex>{'\\frac{a}{\\sin \\alpha} = \\frac{b}{\\sin \\beta} = \\frac{c}{\\sin \\gamma} = 2R'}</Tex></li>
+              <li>✓ Косинусова теорема: <Tex>{'c^2 = a^2 + b^2 - 2ab \\cdot \\cos \\gamma'}</Tex></li>
+              <li>✓ Лице: <Tex>{'S = \\tfrac{1}{2}ab \\cdot \\sin \\gamma = \\frac{abc}{4R}'}</Tex></li>
             </ul>
           </div>
         </section>

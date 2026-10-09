@@ -26,6 +26,7 @@ const Trigonometry = lazy(() => import('./geometry/Trigonometry').then(m => ({de
 const Vectors = lazy(() => import('./geometry/Vectors').then(m => ({default: m.Vectors})));
 const Combinatorics = lazy(() => import('./probability/Combinatorics').then(m => ({default: m.Combinatorics})));
 const Probability = lazy(() => import('./probability/Probability').then(m => ({default: m.Probability})));
+const Formulas = lazy(() => import('./reference/Formulas').then(m => ({default: m.Formulas})));
 const Tonight = lazy(() => import('./tonight/Tonight').then(m => ({default: m.Tonight})));
 const Lecture01 = lazy(() => import('./astronomy/Lecture01'));
 const Lecture02 = lazy(() => import('./astronomy/Lecture02'));
@@ -118,6 +119,9 @@ function App() {
             <Route path="probability">
               <Route path="combinatorics" element={<Combinatorics />} />
               <Route path="basics" element={<Probability />} />
+            </Route>
+            <Route path="reference">
+              <Route path="formulas" element={<Formulas />} />
             </Route>
             <Route path="astronomy">
               <Route path="tonight" element={<Tonight />} />

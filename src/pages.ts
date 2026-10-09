@@ -49,6 +49,12 @@ const astronomy = (n: number, topic: string, about: string): PageMeta => ({
 });
 
 export const lessonPages: PageMeta[] = [
+  {
+    path: '/reference/formulas',
+    title: 'Справочник: формули и константи',
+    description:
+      'Всички основни формули по алгебра, геометрия, вероятности и астрономия на едно място, с търсене и физични и астрономически константи – за преговор преди контролно или олимпиада.',
+  },
   algebra(
     'fractions',
     'Дроби и проценти',
