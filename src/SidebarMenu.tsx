@@ -203,6 +203,17 @@ export default function SidebarMenu({
             />
             {expandedSections.astronomy && (
               <ul className="mt-2 space-y-0.5">
+                <li className="pb-1">
+                  <NavItem
+                    to="/astronomy/tonight"
+                    active={location.pathname === '/astronomy/tonight'}
+                    accent="purple"
+                    onClick={onClose}
+                  >
+                    <span className="w-6 flex-shrink-0">🔭</span>
+                    <span className="font-medium">Тази вечер</span>
+                  </NavItem>
+                </li>
                 {astronomyTopics.flatMap(topic =>
                   topic.subtopics.map((subtopic, index) => {
                     const fullPath = topic.path + subtopic.path;
