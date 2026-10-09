@@ -2,6 +2,7 @@ import {Menu, X} from 'lucide-react';
 import {useEffect, useState} from 'react';
 import {Navigate, Route, Routes} from 'react-router-dom';
 import {Circle, Polygons, Quadrangle, Similarity, Solids, Triangle, Trigonometry, Vectors} from '~/geometry';
+import Seo from '~/Seo';
 import SidebarMenu from '~/SidebarMenu';
 import {Fractions, Inequalities, LinearEquations, Logarithms, Powers, QuadraticEquations, Sequences, SystemsOfEquations} from './algebra';
 import {
@@ -40,6 +41,7 @@ function App() {
       >
         {sidebarOpen ? <X size={24} /> : <Menu size={24} />}
       </button>
+      <Seo />
       <div className="flex flex-1 overflow-hidden">
         <SidebarMenu
           isOpen={sidebarOpen}
