@@ -17,6 +17,10 @@ const SystemsOfEquations = lazy(() => import('./algebra/SystemsOfEquations').the
 const FunctionGraph = lazy(() => import('./functions/FunctionGraph').then(m => ({default: m.FunctionGraph})));
 const LinearFunctions = lazy(() => import('./functions/LinearFunctions').then(m => ({default: m.LinearFunctions})));
 const QuadraticFunctions = lazy(() => import('./functions/QuadraticFunctions').then(m => ({default: m.QuadraticFunctions})));
+const Derivatives = lazy(() => import('./analysis/Derivatives').then(m => ({default: m.Derivatives})));
+const Integrals = lazy(() => import('./analysis/Integrals').then(m => ({default: m.Integrals})));
+const DifferentialEquations = lazy(() => import('./analysis/DifferentialEquations').then(m => ({default: m.DifferentialEquations})));
+const ComplexNumbers = lazy(() => import('./algebra/ComplexNumbers').then(m => ({default: m.ComplexNumbers})));
 const Circle = lazy(() => import('./geometry/Circle').then(m => ({default: m.Circle})));
 const Polygons = lazy(() => import('./geometry/Polygons').then(m => ({default: m.Polygons})));
 const Quadrangle = lazy(() => import('./geometry/Quadrangle').then(m => ({default: m.Quadrangle})));
@@ -101,11 +105,17 @@ function App() {
               <Route path="systems" element={<SystemsOfEquations />} />
               <Route path="inequalities" element={<Inequalities />} />
               <Route path="sequences" element={<Sequences />} />
+              <Route path="complex" element={<ComplexNumbers />} />
             </Route>
             <Route path="functions">
               <Route path="linear" element={<LinearFunctions />} />
               <Route path="quadratic" element={<QuadraticFunctions />} />
               <Route path="grapher" element={<FunctionGraph />} />
+            </Route>
+            <Route path="analysis">
+              <Route path="derivatives" element={<Derivatives />} />
+              <Route path="integrals" element={<Integrals />} />
+              <Route path="differential-equations" element={<DifferentialEquations />} />
             </Route>
             <Route path="geometry">
               <Route path="triangle" element={<Triangle />} />

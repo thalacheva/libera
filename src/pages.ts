@@ -30,6 +30,12 @@ const functions = (path: string, topic: string, about: string): PageMeta => ({
   description: `${topic}: ${about} Интерактивни графики, бърз тест и задачи за олимпиади.`,
 });
 
+const analysis = (path: string, topic: string, about: string): PageMeta => ({
+  path: `/analysis/${path}`,
+  title: `${topic} — урок по математически анализ`,
+  description: `${topic}: ${about} Интерактивни графики, бърз тест и задачи за олимпиади.`,
+});
+
 const geometry = (path: string, topic: string, about: string): PageMeta => ({
   path: `/geometry/${path}`,
   title: `${topic} — урок по геометрия`,
@@ -95,6 +101,11 @@ export const lessonPages: PageMeta[] = [
     'Прогресии',
     'аритметична и геометрична прогресия, сбор на членове и безкрайна намаляваща прогресия.'
   ),
+  algebra(
+    'complex',
+    'Комплексни числа',
+    'имагинерна единица, действия, комплексна равнина, тригонометричен вид, формула на Моавър и корени от единицата.'
+  ),
 
   functions(
     'linear',
@@ -110,6 +121,22 @@ export const lessonPages: PageMeta[] = [
     'grapher',
     'Графики на функции',
     'четене на графики, основни функции, преместване, отразяване, разтягане и графично решаване.'
+  ),
+
+  analysis(
+    'derivatives',
+    'Производни',
+    'определение и смисъл, допирателна, таблица и правила за диференциране, екстремуми и оптимизация.'
+  ),
+  analysis(
+    'integrals',
+    'Интеграли',
+    'суми на Риман, определен и неопределен интеграл, формула на Нютон–Лайбниц, лица и обеми.'
+  ),
+  analysis(
+    'differential-equations',
+    'Диференциални уравнения',
+    'поле от направления, разделящи се променливи, растеж и разпад, изстиване, трептения и метод на Ойлер.'
   ),
 
   geometry(

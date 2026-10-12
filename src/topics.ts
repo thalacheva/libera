@@ -13,6 +13,7 @@ export const mathTopics = [
       { name: 'Системи уравнения', path: '/systems' },
       { name: 'Неравенства', path: '/inequalities' },
       { name: 'Прогресии', path: '/sequences' },
+      { name: 'Комплексни числа', path: '/complex' },
     ],
   },
   {
@@ -22,6 +23,15 @@ export const mathTopics = [
       { name: 'Линейни функции', path: '/linear' },
       { name: 'Квадратни функции', path: '/quadratic' },
       { name: 'Графики на функции', path: '/grapher' },
+    ],
+  },
+  {
+    name: 'Анализ',
+    path: '/analysis',
+    subtopics: [
+      { name: 'Производни', path: '/derivatives' },
+      { name: 'Интеграли', path: '/integrals' },
+      { name: 'Диференциални уравнения', path: '/differential-equations' },
     ],
   },
   {

@@ -206,6 +206,44 @@ export const MATH: Section = {
       ],
     },
     {
+      id: 'complex',
+      title: 'Комплексни числа',
+      formulas: [
+        {
+          name: 'Имагинерна единица',
+          formula: 'i^2 = -1 \\qquad z = a + bi',
+          note: 'a – реална част, b – имагинерна част',
+          lesson: '/algebra/complex',
+        },
+        {
+          name: 'Умножение',
+          formula: '(a + bi)(c + di) = (ac - bd) + (ad + bc)i',
+          lesson: '/algebra/complex',
+        },
+        {
+          name: 'Спрегнато число и деление',
+          formula: '\\bar{z} = a - bi \\qquad \\frac{a + bi}{c + di} = \\frac{(a + bi)(c - di)}{c^2 + d^2}',
+          lesson: '/algebra/complex',
+        },
+        {
+          name: 'Модул',
+          formula: '|z| = \\sqrt{a^2 + b^2} \\qquad z\\bar{z} = |z|^2',
+          lesson: '/algebra/complex',
+        },
+        {
+          name: 'Тригонометричен вид и формула на Моавър',
+          formula: 'z = r(\\cos \\varphi + i\\sin \\varphi) \\qquad z^n = r^n(\\cos n\\varphi + i\\sin n\\varphi)',
+          lesson: '/algebra/complex',
+        },
+        {
+          name: 'Корени от единицата',
+          formula: 'z^n = 1 \\Rightarrow \\varepsilon_k = \\cos \\frac{2\\pi k}{n} + i\\sin \\frac{2\\pi k}{n}',
+          note: 'k = 0, 1, …, n − 1',
+          lesson: '/algebra/complex',
+        },
+      ],
+    },
+    {
       id: 'sequences',
       title: 'Прогресии',
       formulas: [
@@ -284,6 +322,90 @@ export const MATH: Section = {
           formula: 'y = \\log_a x \\iff x = a^y',
           note: 'графиките са симетрични спрямо y = x',
           lesson: '/algebra/logarithms',
+        },
+      ],
+    },
+    {
+      id: 'analysis',
+      title: 'Анализ',
+      formulas: [
+        {
+          name: 'Производна',
+          formula: "f'(x_0) = \\lim_{h \\to 0} \\frac{f(x_0 + h) - f(x_0)}{h}",
+          lesson: '/analysis/derivatives',
+        },
+        {
+          name: 'Допирателна',
+          formula: "y = f(x_0) + f'(x_0)(x - x_0)",
+          lesson: '/analysis/derivatives',
+        },
+        {
+          name: 'Основни производни',
+          formula: "(x^n)' = nx^{n-1} \\qquad (\\sin x)' = \\cos x \\qquad (\\cos x)' = -\\sin x",
+          lesson: '/analysis/derivatives',
+        },
+        {
+          name: 'Показателна и логаритмична функция',
+          formula: "(e^x)' = e^x \\qquad (a^x)' = a^x \\ln a \\qquad (\\ln x)' = \\frac{1}{x}",
+          lesson: '/analysis/derivatives',
+        },
+        {
+          name: 'Произведение и частно',
+          formula: "(uv)' = u'v + uv' \\qquad \\left(\\frac{u}{v}\\right)' = \\frac{u'v - uv'}{v^2}",
+          lesson: '/analysis/derivatives',
+        },
+        {
+          name: 'Верижно правило',
+          formula: "(f(g(x)))' = f'(g(x)) \\cdot g'(x)",
+          lesson: '/analysis/derivatives',
+        },
+        {
+          name: 'Основни интеграли',
+          formula: '\\int x^n\\,dx = \\frac{x^{n+1}}{n+1} + C \\qquad \\int \\frac{1}{x}\\,dx = \\ln |x| + C',
+          note: 'n ≠ −1',
+          lesson: '/analysis/integrals',
+        },
+        {
+          name: 'Интеграли на eˣ, синус и косинус',
+          formula: '\\int e^x\\,dx = e^x + C \\qquad \\int \\sin x\\,dx = -\\cos x + C \\qquad \\int \\cos x\\,dx = \\sin x + C',
+          lesson: '/analysis/integrals',
+        },
+        {
+          name: 'Формула на Нютон–Лайбниц',
+          formula: "\\int_a^b f(x)\\,dx = F(b) - F(a), \\quad F' = f",
+          lesson: '/analysis/integrals',
+        },
+        {
+          name: 'Лице между криви',
+          formula: '\\int_a^b \\left(f(x) - g(x)\\right) dx',
+          note: 'f(x) ≥ g(x) в [a; b]',
+          lesson: '/analysis/integrals',
+        },
+        {
+          name: 'Обем на ротационно тяло',
+          formula: 'V = \\pi \\int_a^b f(x)^2\\,dx',
+          lesson: '/analysis/integrals',
+        },
+        {
+          name: 'Експоненциален растеж и разпад',
+          formula: "y' = ky \\Rightarrow y = y_0 e^{kt} \\qquad T_{1/2} = \\frac{\\ln 2}{|k|}",
+          lesson: '/analysis/differential-equations',
+        },
+        {
+          name: 'Закон на Нютон за изстиването',
+          formula: 'T(t) = T_s + (T_0 - T_s)e^{-kt}',
+          note: 'Tₛ – температура на околната среда',
+          lesson: '/analysis/differential-equations',
+        },
+        {
+          name: 'Хармонично трептене',
+          formula: "x'' = -\\omega^2 x \\Rightarrow x = A\\cos(\\omega t + \\varphi), \\quad T = \\frac{2\\pi}{\\omega}",
+          lesson: '/analysis/differential-equations',
+        },
+        {
+          name: 'Метод на Ойлер',
+          formula: 'y_{n+1} = y_n + h \\cdot f(x_n, y_n)',
+          lesson: '/analysis/differential-equations',
         },
       ],
     },
