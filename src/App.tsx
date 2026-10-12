@@ -1,10 +1,11 @@
 import {Menu, X} from 'lucide-react';
 import {lazy, Suspense, useEffect, useState} from 'react';
-import {Navigate, Route, Routes} from 'react-router-dom';
+import {Route, Routes} from 'react-router-dom';
 import Seo from '~/Seo';
 import SidebarMenu from '~/SidebarMenu';
 
 // Всеки урок се зарежда отделно, едва когато се отвори.
+const Home = lazy(() => import('./Home').then(m => ({default: m.Home})));
 const Fractions = lazy(() => import('./algebra/Fractions').then(m => ({default: m.Fractions})));
 const Inequalities = lazy(() => import('./algebra/Inequalities').then(m => ({default: m.Inequalities})));
 const LinearEquations = lazy(() => import('./algebra/LinearEquations').then(m => ({default: m.LinearEquations})));
@@ -90,7 +91,7 @@ function App() {
         />
         <Suspense fallback={<PageLoading />}>
           <Routes>
-            <Route path="/" element={<Navigate to="/algebra/linear" replace />} />
+            <Route path="/" element={<Home />} />
             <Route path="algebra">
               <Route path="fractions" element={<Fractions />} />
               <Route path="powers" element={<Powers />} />

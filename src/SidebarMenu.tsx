@@ -1,96 +1,7 @@
 import {BookMarked, BookOpen, ChevronDown, ChevronRight, Mail, Sigma, Telescope} from 'lucide-react';
 import {useEffect, useRef, useState} from 'react';
 import {Link, useLocation} from 'react-router-dom';
-
-const mathTopics = [
-  {
-    name: 'Алгебра',
-    path: '/algebra',
-    subtopics: [
-      { name: 'Дроби и проценти', path: '/fractions' },
-      { name: 'Степени и корени', path: '/powers' },
-      { name: 'Логаритми', path: '/logarithms' },
-      { name: 'Линейни уравнения', path: '/linear' },
-      { name: 'Квадратни уравнения', path: '/quadratic' },
-      { name: 'Системи уравнения', path: '/systems' },
-      { name: 'Неравенства', path: '/inequalities' },
-      { name: 'Прогресии', path: '/sequences' },
-    ],
-  },
-  {
-    name: 'Функции',
-    path: '/functions',
-    subtopics: [
-      { name: 'Линейни функции', path: '/linear' },
-      { name: 'Квадратни функции', path: '/quadratic' },
-      { name: 'Графики на функции', path: '/grapher' },
-    ],
-  },
-  {
-    name: 'Геометрия',
-    path: '/geometry',
-    subtopics: [
-      { name: 'Триъгълник', path: '/triangle' },
-      { name: 'Подобни триъгълници', path: '/similar' },
-      { name: 'Тригонометрия', path: '/trigonometry' },
-      { name: 'Вектори', path: '/vectors' },
-      { name: 'Четириъгълник', path: '/quadrilateral' },
-      { name: 'Многоъгълници и лица', path: '/polygons' },
-      { name: 'Окръжност и кръг', path: '/circle' },
-      { name: 'Стереометрия', path: '/solids' },
-    ],
-  },
-  {
-    name: 'Вероятности',
-    path: '/probability',
-    subtopics: [
-      { name: 'Комбинаторика', path: '/combinatorics' },
-      { name: 'Вероятности и статистика', path: '/basics' },
-    ],
-  },
-];
-
-const astronomyTopics = [
-  {
-    name: 'Астрономия',
-    path: '/astronomy',
-    subtopics: [
-      { name: 'Небесната сфера', path: '/lecture01' },
-      { name: 'Небесни координати', path: '/lecture02' },
-      { name: 'Движение на Земята', path: '/lecture03' },
-      { name: 'Фази на Луната', path: '/lecture04' },
-      { name: 'Слънчеви затъмнения', path: '/lecture05' },
-      { name: 'Гравитация', path: '/lecture06' },
-      { name: 'Закони на Кеплер', path: '/lecture07' },
-      { name: 'Орбити и скорости', path: '/lecture08' },
-      { name: 'Светлина и спектри', path: '/lecture09' },
-      { name: 'Телескопи', path: '/lecture10' },
-      { name: 'Слънцето', path: '/lecture11' },
-      { name: 'Слънчева активност', path: '/lecture12' },
-      { name: 'Планети от земен тип', path: '/lecture13' },
-      { name: 'Газови гиганти', path: '/lecture14' },
-      { name: 'Малки тела', path: '/lecture15' },
-      { name: 'Комети и метеори', path: '/lecture16' },
-      { name: 'Астероиди', path: '/lecture17' },
-      { name: 'Звезди', path: '/lecture18' },
-      { name: 'HR диаграма', path: '/lecture19' },
-      { name: 'Еволюция на звездите', path: '/lecture20' },
-      { name: 'Бели джуджета и черни дупки', path: '/lecture21' },
-      { name: 'Двойни звезди', path: '/lecture22' },
-      { name: 'Променливи звезди', path: '/lecture23' },
-      { name: 'Разстояния', path: '/lecture24' },
-      { name: 'Галактики', path: '/lecture25' },
-      { name: 'Млечният път', path: '/lecture26' },
-      { name: 'Големият взрив', path: '/lecture27' },
-      { name: 'Разширяване на Вселената', path: '/lecture28' },
-      { name: 'Тъмна материя', path: '/lecture29' },
-      { name: 'Екзопланети', path: '/lecture30' },
-      { name: 'Астробиология', path: '/lecture31' },
-      { name: 'Методи за наблюдение', path: '/lecture32' },
-      { name: 'Специална теория на относителността', path: '/lecture33' },
-    ],
-  },
-];
+import {astronomyTopics, mathTopics} from '~/topics';
 
 interface SidebarMenuProps {
   isOpen?: boolean;
@@ -122,7 +33,11 @@ export default function SidebarMenu({
       <aside
         className={`fixed lg:static inset-y-0 left-0 z-50 w-72 flex-shrink-0 bg-white dark:bg-gray-900 border-r border-gray-200 dark:border-gray-800 overflow-y-auto transform transition-transform duration-300 ease-in-out ${isOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}`}
       >
-        <div className="flex items-center gap-3 px-5 pt-16 pb-5 lg:pt-6 border-b border-gray-100 dark:border-gray-800">
+        <Link
+          to="/"
+          onClick={onClose}
+          className="flex items-center gap-3 px-5 pt-16 pb-5 lg:pt-6 border-b border-gray-100 dark:border-gray-800"
+        >
           <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-blue-500 to-indigo-600 text-white shadow-sm">
             <BookOpen size={18} />
           </div>
@@ -134,7 +49,7 @@ export default function SidebarMenu({
               Учи свободно
             </div>
           </div>
-        </div>
+        </Link>
 
         <nav className="px-3 py-4 space-y-6">
           <NavItem
