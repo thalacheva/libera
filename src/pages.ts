@@ -62,6 +62,12 @@ const astronomy = (n: number, topic: string, about: string): PageMeta => ({
 
 export const lessonPages: PageMeta[] = [
   {
+    path: '/progress',
+    title: 'Моят напредък',
+    description:
+      'Решените задачи, резултатите от бързите тестове и сгрешените въпроси за преговор – по всички уроци по математика и астрономия.',
+  },
+  {
     path: '/reference/formulas',
     title: 'Справочник: формули и константи',
     description:

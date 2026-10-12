@@ -24,6 +24,7 @@ const ComplexNumbers = lazy(() => import('./algebra/ComplexNumbers').then(m => (
 const Divisibility = lazy(() => import('./numbers/Divisibility').then(m => ({default: m.Divisibility})));
 const Gcd = lazy(() => import('./numbers/Gcd').then(m => ({default: m.Gcd})));
 const Modular = lazy(() => import('./numbers/Modular').then(m => ({default: m.Modular})));
+const MyProgress = lazy(() => import('./MyProgress').then(m => ({default: m.MyProgress})));
 const Circle = lazy(() => import('./geometry/Circle').then(m => ({default: m.Circle})));
 const Polygons = lazy(() => import('./geometry/Polygons').then(m => ({default: m.Polygons})));
 const Quadrangle = lazy(() => import('./geometry/Quadrangle').then(m => ({default: m.Quadrangle})));
@@ -99,6 +100,7 @@ function App() {
         <Suspense fallback={<PageLoading />}>
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="progress" element={<MyProgress />} />
             <Route path="algebra">
               <Route path="fractions" element={<Fractions />} />
               <Route path="powers" element={<Powers />} />

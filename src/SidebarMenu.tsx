@@ -1,4 +1,4 @@
-import {BookMarked, BookOpen, ChevronDown, ChevronRight, Mail, Sigma, Telescope} from 'lucide-react';
+import {BookMarked, BookOpen, ChevronDown, ChevronRight, Mail, Sigma, Telescope, TrendingUp} from 'lucide-react';
 import {useEffect, useRef, useState} from 'react';
 import {Link, useLocation} from 'react-router-dom';
 import {astronomyTopics, mathTopics} from '~/topics';
@@ -52,15 +52,26 @@ export default function SidebarMenu({
         </Link>
 
         <nav className="px-3 py-4 space-y-6">
-          <NavItem
-            to="/reference/formulas"
-            active={location.pathname === '/reference/formulas'}
-            accent="blue"
-            onClick={onClose}
-          >
-            <BookMarked size={16} className="mr-2 flex-shrink-0" />
-            <span className="font-medium">Справочник с формули</span>
-          </NavItem>
+          <div className="space-y-0.5">
+            <NavItem
+              to="/progress"
+              active={location.pathname === '/progress'}
+              accent="blue"
+              onClick={onClose}
+            >
+              <TrendingUp size={16} className="mr-2 flex-shrink-0" />
+              <span className="font-medium">Моят напредък</span>
+            </NavItem>
+            <NavItem
+              to="/reference/formulas"
+              active={location.pathname === '/reference/formulas'}
+              accent="blue"
+              onClick={onClose}
+            >
+              <BookMarked size={16} className="mr-2 flex-shrink-0" />
+              <span className="font-medium">Справочник с формули</span>
+            </NavItem>
+          </div>
           {/* Математика секция */}
           <div>
             <SectionHeader

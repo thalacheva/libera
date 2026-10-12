@@ -1,6 +1,7 @@
 import { CheckCircle2, ChevronLeft, ChevronRight, RotateCcw, Trophy, XCircle } from 'lucide-react';
 import { useMemo, useState, type KeyboardEvent } from 'react';
 import { MathText } from './MathText';
+import { currentPath, saveQuizResult } from './progress';
 
 export type Question = {
   question: string;
@@ -30,7 +31,16 @@ function verdict(score: number, total: number) {
   return { stars: 0, text: 'Прочети лекцията още веднъж – после ще се справиш по-добре.' };
 }
 
-export default function Quiz({ questions }: { questions: Question[] }) {
+export default function Quiz({
+  questions,
+  record = true,
+  onAnswer,
+}: {
+  questions: Question[];
+  /** Да се запише ли резултатът в „Моят напредък“ (при преговора на грешките – не). */
+  record?: boolean;
+  onAnswer?: (question: Question, correct: boolean) => void;
+}) {
   const [attempt, setAttempt] = useState(0);
   const [current, setCurrent] = useState(0);
   const [chosen, setChosen] = useState<(string | null)[]>(() => questions.map(() => null));
@@ -62,10 +72,14 @@ export default function Quiz({ questions }: { questions: Question[] }) {
   const pick = (ans: string) => {
     if (answered) return;
     setChosen(prev => prev.map((c, i) => (i === qi ? ans : c)));
+    onAnswer?.(q, ans === q.correctAnswer);
   };
   const next = () => {
     if (current < total - 1) setCurrent(current + 1);
-    else if (done === total) setFinished(true);
+    else if (done === total) {
+      setFinished(true);
+      if (record) saveQuizResult(currentPath(), score, total, order.filter(i => !isRight(i)).map(i => questions[i]));
+    }
   };
   const restart = () => {
     setAttempt(a => a + 1);

@@ -1,6 +1,7 @@
 import { CheckCircle2, Lightbulb, ListChecks, RotateCcw, XCircle } from 'lucide-react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { MathText } from './MathText';
+import { currentPath, saveProblemsTotal } from './progress';
 
 export type WordProblem = {
   title: string;
@@ -180,6 +181,9 @@ export function WordProblems({ problems }: { problems: WordProblem[] }) {
     });
   const solved = problems.filter(p => status[p.title] === 'solved').length;
   const [round, setRound] = useState(0);
+
+  // Общият брой задачи – за страницата „Моят напредък“
+  useEffect(() => saveProblemsTotal(currentPath(), problems.length), [problems.length]);
 
   return (
     <div>

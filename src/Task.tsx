@@ -1,6 +1,7 @@
 import { CheckCircle2, ChevronDown, Eye, EyeOff, Lightbulb, ListChecks, RotateCcw } from 'lucide-react';
 import { Children, createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from 'react';
 import { MathText } from './MathText';
+import { currentPath, saveTasksTotal } from './progress';
 
 type Level = 'A' | 'B' | 'C';
 type Status = 'solved' | 'retry';
@@ -82,6 +83,11 @@ export function TaskBoard({ children }: { children: ReactNode }) {
     });
   }, []);
   const ctx = useMemo(() => ({ status, setStatus, register, filter, hideSolved, entries }), [status, setStatus, register, filter, hideSolved, entries]);
+
+  // Общият брой задачи – за страницата „Моят напредък“
+  useEffect(() => {
+    if (entries.length) saveTasksTotal(currentPath(), entries.length);
+  }, [entries.length]);
 
   const solved = entries.filter(e => status[e.id] === 'solved').length;
   const reset = () => entries.forEach(e => setStatus(e.id, null));
