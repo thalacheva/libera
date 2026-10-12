@@ -244,6 +244,60 @@ export const MATH: Section = {
       ],
     },
     {
+      id: 'number-theory',
+      title: 'Теория на числата',
+      formulas: [
+        {
+          name: 'Деление с остатък',
+          formula: 'a = bq + r, \\quad 0 \\le r < b',
+          lesson: '/numbers/divisibility',
+        },
+        {
+          name: 'Каноничен вид',
+          formula: 'n = p_1^{a_1} \\cdot p_2^{a_2} \\cdots p_k^{a_k}',
+          note: 'p₁, …, pₖ – различни прости числа',
+          lesson: '/numbers/divisibility',
+        },
+        {
+          name: 'Брой делители',
+          formula: '(a_1 + 1)(a_2 + 1) \\cdots (a_k + 1)',
+          lesson: '/numbers/divisibility',
+        },
+        {
+          name: 'НОД и НОК',
+          formula: '\\text{НОД}(a,\\ b) \\cdot \\text{НОК}(a,\\ b) = a \\cdot b',
+          lesson: '/numbers/gcd',
+        },
+        {
+          name: 'Алгоритъм на Евклид',
+          formula: 'a = bq + r \\Rightarrow \\text{НОД}(a,\\ b) = \\text{НОД}(b,\\ r)',
+          lesson: '/numbers/gcd',
+        },
+        {
+          name: 'Линейно диофантово уравнение',
+          formula: 'ax + by = c: \\quad x = x_0 + \\frac{b}{d}t, \\quad y = y_0 - \\frac{a}{d}t',
+          note: 'd = НОД(a, b); решения има точно когато d дели c',
+          lesson: '/numbers/gcd',
+        },
+        {
+          name: 'Сравнение по модул',
+          formula: 'a \\equiv b \\pmod{m} \\iff m \\mid a - b',
+          lesson: '/numbers/modular',
+        },
+        {
+          name: 'Малка теорема на Ферма',
+          formula: 'a^{p-1} \\equiv 1 \\pmod{p}',
+          note: 'p – просто, p не дели a',
+          lesson: '/numbers/modular',
+        },
+        {
+          name: 'Нули в края на n!',
+          formula: '\\left[\\frac{n}{5}\\right] + \\left[\\frac{n}{25}\\right] + \\left[\\frac{n}{125}\\right] + \\ldots',
+          lesson: '/numbers/divisibility',
+        },
+      ],
+    },
+    {
       id: 'sequences',
       title: 'Прогресии',
       formulas: [

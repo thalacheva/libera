@@ -17,6 +17,15 @@ export const mathTopics = [
     ],
   },
   {
+    name: 'Теория на числата',
+    path: '/numbers',
+    subtopics: [
+      { name: 'Делимост и прости числа', path: '/divisibility' },
+      { name: 'НОД и НОК', path: '/gcd' },
+      { name: 'Остатъци и сравнения', path: '/modular' },
+    ],
+  },
+  {
     name: 'Функции',
     path: '/functions',
     subtopics: [

@@ -21,6 +21,9 @@ const Derivatives = lazy(() => import('./analysis/Derivatives').then(m => ({defa
 const Integrals = lazy(() => import('./analysis/Integrals').then(m => ({default: m.Integrals})));
 const DifferentialEquations = lazy(() => import('./analysis/DifferentialEquations').then(m => ({default: m.DifferentialEquations})));
 const ComplexNumbers = lazy(() => import('./algebra/ComplexNumbers').then(m => ({default: m.ComplexNumbers})));
+const Divisibility = lazy(() => import('./numbers/Divisibility').then(m => ({default: m.Divisibility})));
+const Gcd = lazy(() => import('./numbers/Gcd').then(m => ({default: m.Gcd})));
+const Modular = lazy(() => import('./numbers/Modular').then(m => ({default: m.Modular})));
 const Circle = lazy(() => import('./geometry/Circle').then(m => ({default: m.Circle})));
 const Polygons = lazy(() => import('./geometry/Polygons').then(m => ({default: m.Polygons})));
 const Quadrangle = lazy(() => import('./geometry/Quadrangle').then(m => ({default: m.Quadrangle})));
@@ -106,6 +109,11 @@ function App() {
               <Route path="inequalities" element={<Inequalities />} />
               <Route path="sequences" element={<Sequences />} />
               <Route path="complex" element={<ComplexNumbers />} />
+            </Route>
+            <Route path="numbers">
+              <Route path="divisibility" element={<Divisibility />} />
+              <Route path="gcd" element={<Gcd />} />
+              <Route path="modular" element={<Modular />} />
             </Route>
             <Route path="functions">
               <Route path="linear" element={<LinearFunctions />} />
