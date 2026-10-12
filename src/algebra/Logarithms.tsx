@@ -435,16 +435,16 @@ export function Logarithms() {
           <TaskBoard>
             <div className="mb-6">
               <TaskLevel level="A" />
-              <Task id="a1" number={1} color="border-green-500" question="Пресметнете $\log _2 64$, $\log _3 \left(\frac{1}{27}\right)$ и $\lg 0{,}001$.">
+              <Task id="a1" number={1} color="border-green-500" question="Пресметнете $\log _2 64$, $\log _3 \left(\frac{1}{27}\right)$ и $\lg 0{,}001$." check={[6, -3, -3]} ask={['$\\log _2 64$', '$\\log _3 \\frac{1}{27}$', '$\\lg 0{,}001$']}>
                 <p><Tex>{'64 = 2^6 \\Rightarrow \\log _2 64 = 6'}</Tex></p>
                 <p><Tex>{'\\frac{1}{27} = 3^{-3} \\Rightarrow \\log _3 \\left(\\frac{1}{27}\\right) = -3'}</Tex></p>
                 <p><Tex>{'0{,}001 = 10^{-3} \\Rightarrow \\lg 0{,}001 = -3'}</Tex></p>
               </Task>
-              <Task id="a2" number={2} color="border-green-500" question="Пресметнете $\lg 4 + \lg 25$.">
+              <Task id="a2" number={2} color="border-green-500" question="Пресметнете $\lg 4 + \lg 25$." check={[2]}>
                 <p><Tex>{'\\lg 4 + \\lg 25 = \\lg (4 \\cdot 25) = \\lg 100'}</Tex></p>
                 <p><Tex>{'= 2'}</Tex></p>
               </Task>
-              <Task id="a3" number={3} color="border-green-500" question="Намерете $x$, ако $\log _x 49 = 2$.">
+              <Task id="a3" number={3} color="border-green-500" question="Намерете $x$, ако $\log _x 49 = 2$." check={[7]} ask={['$x$']}>
                 <p>По определение <Tex>{'x^2 = 49,\\ x > 0,\\ x \\ne 1'}</Tex>.</p>
                 <p><Tex>{'x = 7'}</Tex></p>
               </Task>
@@ -452,16 +452,16 @@ export function Logarithms() {
 
             <div className="mb-6">
               <TaskLevel level="B" />
-              <Task id="b1" number={4} color="border-yellow-500" question="Решете уравнението $3^x = 20$ ($\lg 3 \approx 0{,}4771$, $\lg 20 \approx 1{,}3010$).">
+              <Task id="b1" number={4} color="border-yellow-500" question="Решете уравнението $3^x = 20$ ($\lg 3 \approx 0{,}4771$, $\lg 20 \approx 1{,}3010$)." check={[2.727]} ask={['$x$ (с 3 знака след запетаята)']}>
                 <p><Tex>{'x \\cdot \\lg 3 = \\lg 20'}</Tex></p>
                 <p><Tex>{'x = 1{,}3010 / 0{,}4771 \\approx 2{,}727'}</Tex></p>
               </Task>
-              <Task id="b2" number={5} color="border-yellow-500" question="Решете уравнението $\log _2 (x - 1) + \log _2 (x + 1) = 3$.">
+              <Task id="b2" number={5} color="border-yellow-500" question="Решете уравнението $\log _2 (x - 1) + \log _2 (x + 1) = 3$." check={[3]} ask={['$x$']}>
                 <p>Допустими: <Tex>{'x > 1'}</Tex>.</p>
                 <p><Tex>{'\\log _2 (x^2 - 1) = 3 \\Rightarrow x^2 - 1 = 8 \\Rightarrow x = \\pm 3'}</Tex></p>
                 <p>Отговор: <Tex>{'x = 3'}</Tex>.</p>
               </Task>
-              <Task id="b3" number={6} color="border-yellow-500" question="Пресметнете $\log _4 8$ и $\log _{27} 9$.">
+              <Task id="b3" number={6} color="border-yellow-500" question="Пресметнете $\log _4 8$ и $\log _{27} 9$." check={[3 / 2, 2 / 3]} ask={['$\\log _4 8$', '$\\log _{27} 9$']}>
                 <p><Tex>{'\\log _4 8 = \\log _2 8 / \\log _2 4 = \\frac{3}{2}'}</Tex></p>
                 <p><Tex>{'\\log _{27} 9 = \\log _3 9 / \\log _3 27 = \\frac{2}{3}'}</Tex></p>
               </Task>
@@ -469,12 +469,12 @@ export function Logarithms() {
 
             <div className="mb-6">
               <TaskLevel level="C" />
-              <Task id="c1" number={7} color="border-red-500" question="Докажете, че $\log _a b \cdot \log _b a = 1$, и пресметнете $\log _2 3 \cdot \log _3 4 \cdot \log _4 5 \cdot \log _5 6 \cdot \log _6 7 \cdot \log _7 8$.">
+              <Task id="c1" number={7} color="border-red-500" question="Докажете, че $\log _a b \cdot \log _b a = 1$, и пресметнете $\log _2 3 \cdot \log _3 4 \cdot \log _4 5 \cdot \log _5 6 \cdot \log _6 7 \cdot \log _7 8$." check={[3]} ask={['произведението']}>
                 <p>Смяна на основата: <Tex>{'\\log _a b = \\lg b / \\lg a'}</Tex> и <Tex>{'\\log _b a = \\lg a / \\lg b \\Rightarrow'}</Tex> произведението е 1.</p>
                 <p>Аналогично произведението става <Tex>{'\\left(\\frac{\\lg 3}{\\lg 2}\\right) \\cdot \\left(\\frac{\\lg 4}{\\lg 3}\\right) \\cdot \\ldots \\cdot \\left(\\frac{\\lg 8}{\\lg 7}\\right)'}</Tex> – съкращава се „верижно“.</p>
                 <p>Остава <Tex>{'\\lg 8 / \\lg 2 = \\log _2 8 = 3'}</Tex>.</p>
               </Task>
-              <Task id="c2" number={8} color="border-red-500" question="Колко цифри има числото $3^{50}$? ($\lg 3 \approx 0{,}4771$)">
+              <Task id="c2" number={8} color="border-red-500" question="Колко цифри има числото $3^{50}$? ($\lg 3 \approx 0{,}4771$)" check={[24]} ask={['брой цифри']}>
                 <p><Tex>{'\\lg 3^{50} = 50 \\cdot \\lg 3 \\approx 23{,}86'}</Tex></p>
                 <p><Tex>{'10^{23} \\le 3^{50} < 10^{24}'}</Tex></p>
                 <p>Числото има 24 цифри.</p>

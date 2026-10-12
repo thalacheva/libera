@@ -287,11 +287,11 @@ export function QuadraticFunctions() {
           <TaskBoard>
             <div className="mb-6">
               <TaskLevel level="A" />
-              <Task id="a1" number={1} color="border-green-500" question="Намери върха и нулите на функцията $y = x^2 - 6x + 5$.">
+              <Task id="a1" number={1} color="border-green-500" question="Намери върха и нулите на функцията $y = x^2 - 6x + 5$." check={[3, -4, 1, 5]} ask={['$x_0$', '$y_0$', '$x_1$ (по-малката нула)', '$x_2$ (по-голямата нула)']}>
                 <p><Tex>{'x_0 = \\frac{6}{2} = 3,\\ y_0 = 9 - 18 + 5 = -4 \\Rightarrow V(3;\\ -4)'}</Tex></p>
                 <p>Нули: <Tex>{'x^2 - 6x + 5 = 0 \\Rightarrow x_1 = 1,\\ x_2 = 5'}</Tex> (симетрични спрямо <Tex>{'x = 3'}</Tex> ✓)</p>
               </Task>
-              <Task id="a2" number={2} color="border-green-500" question="Коя е най-голямата стойност на функцията $y = -x^2 + 4x$ и при кое $x$ се достига?">
+              <Task id="a2" number={2} color="border-green-500" question="Коя е най-голямата стойност на функцията $y = -x^2 + 4x$ и при кое $x$ се достига?" check={[4, 2]} ask={['най-голяма стойност', '$x$']}>
                 <p><Tex>{'a = -1 < 0'}</Tex> – параболата е „шапка“, максимумът е във върха.</p>
                 <p><Tex>{'x_0 = -\\frac{4}{2 \\cdot (-1)} = 2,\\ y_0 = -4 + 8 = 4'}</Tex></p>
                 <p>Най-голямата стойност е 4 при <Tex>{'x = 2'}</Tex>.</p>
@@ -313,7 +313,7 @@ export function QuadraticFunctions() {
                 <p><Tex>{'a = 1 > 0'}</Tex>. Тричленът е положителен за всяко <Tex>{'x'}</Tex> <Tex>{'\\iff'}</Tex> параболата е изцяло над Ox <Tex>{'\\iff D < 0'}</Tex>.</p>
                 <p><Tex>{'D = 16 - 4m < 0 \\Rightarrow m > 4'}</Tex></p>
               </Task>
-              <Task id="b3" number={6} color="border-yellow-500" question="Две числа имат сбор 10. Кога сборът от квадратите им е най-малък?">
+              <Task id="b3" number={6} color="border-yellow-500" question="Две числа имат сбор 10. Кога сборът от квадратите им е най-малък?" check={[5, 50]} ask={['всяко от числата', 'най-малък сбор от квадратите']}>
                 <p>Числата са <Tex>{'x'}</Tex> и <Tex>{'10 - x'}</Tex>: <Tex>{'S(x) = x^2 + (10 - x)^2 = 2x^2 - 20x + 100'}</Tex></p>
                 <p><Tex>{'x_0 = \\frac{20}{4} = 5 \\Rightarrow'}</Tex> двете числа са равни: 5 и 5</p>
                 <p>Най-малкият сбор от квадратите е <Tex>{'S(5) = 50'}</Tex>.</p>
@@ -328,7 +328,7 @@ export function QuadraticFunctions() {
                 <p>Изваждаме: <Tex>{'a = 2,\\ b = -3 \\Rightarrow y = 2x^2 - 3x + 1'}</Tex></p>
                 <p>Три точки (не на една права) определят параболата еднозначно.</p>
               </Task>
-              <Task id="c2" number={8} color="border-red-500" question="Намери най-малката и най-голямата стойност на $f(x) = x^2 - 2x + 3$ в интервала $[-1;\ 2]$.">
+              <Task id="c2" number={8} color="border-red-500" question="Намери най-малката и най-голямата стойност на $f(x) = x^2 - 2x + 3$ в интервала $[-1;\ 2]$." check={[2, 6]} ask={['най-малка стойност', 'най-голяма стойност']}>
                 <p>Върхът е при <Tex>{'x_0 = 1'}</Tex> – той е в интервала: <Tex>{'f(1) = 2'}</Tex>.</p>
                 <p>Краищата: <Tex>{'f(-1) = 1 + 2 + 3 = 6,\\ f(2) = 4 - 4 + 3 = 3'}</Tex>.</p>
                 <p>Най-малка стойност 2 (при <Tex>{'x = 1'}</Tex>), най-голяма 6 (при <Tex>{'x = -1'}</Tex>).</p>

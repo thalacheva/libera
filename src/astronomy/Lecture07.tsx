@@ -297,6 +297,8 @@ export default function Lecture07() {
               number={3}
               color="border-green-500"
               question="Астероид обикаля Слънцето на средно разстояние 4 AU. Какъв е периодът му?"
+              check={[8]}
+              ask={['период, години']}
             >
               <p><Tex>{'T^2 = a^3 = 4^3 = 64 \\to T = 8'}</Tex> години.</p>
               <p>
@@ -314,6 +316,8 @@ export default function Lecture07() {
               number={4}
               color="border-yellow-500"
               question="Комета има перихелий 0,6 AU и афелий 35 AU. Изчисли голямата полуос, ексцентрицитета и периода."
+              check={[17.8, 0.966, 75.1]}
+              ask={['голяма полуос, AU', 'ексцентрицитет', 'период, години']}
             >
               <p><Tex>{'a = \\frac{0{,}6 + 35}{2} = 17{,}8\\ \\mathrm{AU}'}</Tex></p>
               <p><Tex>{'e = \\frac{35 - 0{,}6}{35 + 0{,}6} \\approx 0{,}966'}</Tex></p>
@@ -328,6 +332,8 @@ export default function Lecture07() {
               number={5}
               color="border-yellow-500"
               question="Каква е голямата полуос на орбита с период 1000 години? А период на тяло на 0,1 AU?"
+              check={[100, 11.5]}
+              ask={['голяма полуос, AU', 'период, дни']}
             >
               <p><Tex>{'a = T^{2/3} = 1000^{2/3} = 100\\ \\mathrm{AU}'}</Tex>.</p>
               <p><Tex>{'T = 0{,}1^{3/2} = 0{,}0316'}</Tex> години <Tex>{'\\approx 11{,}5'}</Tex> дни.</p>
@@ -338,6 +344,8 @@ export default function Lecture07() {
               number={6}
               color="border-yellow-500"
               question="Изчисли радиуса на геостационарната орбита, като знаеш, че Луната обикаля Земята на 384 400 km за 27,32 дни."
+              check={[42300]}
+              ask={['радиус, km']}
             >
               <p>
                 Геостационарният спътник обикаля за 1 звезден ден <Tex>{'= 0{,}9973'}</Tex> дни.
@@ -377,6 +385,8 @@ export default function Lecture07() {
               number={8}
               color="border-red-500"
               question="Луната Йо обикаля Юпитер на 421 700 km за 1,769 дни. Колко пъти Юпитер е по-масивен от Земята? (Луната: 384 400 km, 27,32 дни)"
+              check={[315]}
+              ask={['пъти']}
             >
               <p>От <Tex>{'T^2 = \\frac{4\\pi^2a^3}{GM}'}</Tex> следва <Tex>{'M \\propto a^3 / T^2'}</Tex>. Затова:</p>
               <p className="font-mono"><Tex>{'M_{\\text{♃}} / M_{\\oplus} = (a_{\\text{Йо}} / a_{\\text{☾}})^3 \\cdot (T_{\\text{☾}} / T_{\\text{Йо}})^2'}</Tex></p>
@@ -392,6 +402,8 @@ export default function Lecture07() {
               number={9}
               color="border-red-500"
               question="Кометата на Халей има период 76 години и перихелий 0,586 AU. Намери афелия, ексцентрицитета и отношението на скоростите в перихелия и афелия."
+              check={[35.3, 0.967, 60]}
+              ask={['афелий, AU', 'ексцентрицитет', '$v_p / v_a$']}
             >
               <p><Tex>{'a = 76^{2/3} \\approx 17{,}9\\ \\mathrm{AU}'}</Tex></p>
               <p>

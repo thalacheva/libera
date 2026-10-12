@@ -364,15 +364,15 @@ export function Polygons() {
           <TaskBoard>
             <div className="mb-6">
               <TaskLevel level="A" />
-              <Task id="a1" number={1} color="border-green-500" question="Намерете сбора на вътрешните ъгли на 12-ъгълник и вътрешния ъгъл на правилен 12-ъгълник.">
+              <Task id="a1" number={1} color="border-green-500" question="Намерете сбора на вътрешните ъгли на 12-ъгълник и вътрешния ъгъл на правилен 12-ъгълник." check={[1800, 150]} ask={['сбор на ъглите, °', 'вътрешен ъгъл, °']}>
                 <p><Tex>{'(12 - 2) \\cdot 180^\\circ = 1800^\\circ'}</Tex></p>
                 <p><Tex>{'1800^\\circ : 12 = 150^\\circ'}</Tex></p>
               </Task>
-              <Task id="a2" number={2} color="border-green-500" question="Колко страни има многоъгълник с 27 диагонала?">
+              <Task id="a2" number={2} color="border-green-500" question="Колко страни има многоъгълник с 27 диагонала?" check={[9]} ask={['брой страни']}>
                 <p><Tex>{'\\frac{n(n - 3)}{2} = 27 \\Rightarrow n^2 - 3n - 54 = 0'}</Tex></p>
                 <p><Tex>{'n = \\frac{3 + \\sqrt{9 + 216}}{2} = \\frac{3 + 15}{2} = 9'}</Tex></p>
               </Task>
-              <Task id="a3" number={3} color="border-green-500" question="Намерете лицето на правилен шестоъгълник със страна 4 cm.">
+              <Task id="a3" number={3} color="border-green-500" question="Намерете лицето на правилен шестоъгълник със страна 4 cm." check={[41.57]} ask={['лице, cm² (приближено)']}>
                 <p><Tex>{'S = \\frac{3\\sqrt{3}\\,a^2}{2} = \\frac{3\\sqrt{3} \\cdot 16}{2} = 24\\sqrt{3}'}</Tex></p>
                 <p><Tex>{'\\approx 41{,}57\\ \\mathrm{cm}^2'}</Tex></p>
               </Task>
@@ -380,17 +380,17 @@ export function Polygons() {
 
             <div className="mb-6">
               <TaskLevel level="B" />
-              <Task id="b1" number={4} color="border-yellow-500" question="Намерете лицето на четириъгълника с върхове (1; 1), (5; 2), (4; 6), (0; 4).">
+              <Task id="b1" number={4} color="border-yellow-500" question="Намерете лицето на четириъгълника с върхове (1; 1), (5; 2), (4; 6), (0; 4)." check={[15.5]} ask={['лице, кв. ед.']}>
                 <p>Формула на Гаус: <Tex>{'\\tfrac{1}{2} |(1\\cdot 2 - 5\\cdot 1) + (5\\cdot 6 - 4\\cdot 2) + (4\\cdot 4 - 0\\cdot 6) + (0\\cdot 1 - 1\\cdot 4)|'}</Tex></p>
                 <p><Tex>{'= \\tfrac{1}{2} |-3 + 22 + 16 - 4| = \\tfrac{1}{2} \\cdot 31'}</Tex></p>
                 <p><Tex>{'= 15{,}5'}</Tex></p>
               </Task>
-              <Task id="b2" number={5} color="border-yellow-500" question="От квадрат със страна 10 cm изрязваме четирите ъгъла (равнобедрени правоъгълни триъгълници), така че да остане правилен осмоъгълник. Колко е страната му?">
+              <Task id="b2" number={5} color="border-yellow-500" question="От квадрат със страна 10 cm изрязваме четирите ъгъла (равнобедрени правоъгълни триъгълници), така че да остане правилен осмоъгълник. Колко е страната му?" check={[4.142]} ask={['страна, cm (приближено)']}>
                 <p>Нека страната на осмоъгълника е <Tex>{'x'}</Tex>. Катетите на изрязаните триъгълници са <Tex>{'\\frac{x}{\\sqrt{2}}'}</Tex>.</p>
                 <p>Страната на квадрата: <Tex>{'\\frac{x}{\\sqrt{2}} + x + \\frac{x}{\\sqrt{2}} = 10 \\Rightarrow x(1 + \\sqrt{2}) = 10'}</Tex></p>
                 <p><Tex>{'x = \\frac{10}{1 + \\sqrt{2}} = 10(\\sqrt{2} - 1) \\approx 4{,}14\\ \\mathrm{cm}'}</Tex></p>
               </Task>
-              <Task id="b3" number={6} color="border-yellow-500" question="Външният ъгъл на правилен многоъгълник е 24°. Колко страни и колко диагонала има той?">
+              <Task id="b3" number={6} color="border-yellow-500" question="Външният ъгъл на правилен многоъгълник е 24°. Колко страни и колко диагонала има той?" check={[15, 90]} ask={['брой страни', 'брой диагонали']}>
                 <p><Tex>{'n = 360^\\circ : 24^\\circ = 15'}</Tex></p>
                 <p>Диагонали: <Tex>{'15 \\cdot 12 / 2 = 90'}</Tex></p>
               </Task>

@@ -277,6 +277,8 @@ export default function Lecture08() {
               number={1}
               color="border-green-500"
               question="Каква е първата космическа скорост за Земята и какво означава тя?"
+              check={[7.9]}
+              ask={['скорост, km/s']}
             >
               <p className="font-semibold">
                 Отговор: <Tex>{'v_1 \\approx 7{,}9\\ \\mathrm{km/s}'}</Tex> (~<Tex>{'28\\,400\\ \\mathrm{km/h}'}</Tex>)
@@ -329,6 +331,8 @@ export default function Lecture08() {
               number={4}
               color="border-yellow-500"
               question="Изчисли орбиталната скорост и периода на спътник на височина $400\ \mathrm{km}$ ($R = 6371\ \mathrm{km}$, $GM = 3{,}986\cdot 10^{14}\ \mathrm{m^{3}/s^{2}}$)."
+              check={[7.67, 92.5]}
+              ask={['скорост, km/s', 'период, min']}
             >
               <p><Tex>{'r = 6371 + 400 = 6771\\ \\mathrm{km} = 6{,}771\\cdot 10^6\\ \\mathrm{m}'}</Tex></p>
               <p>
@@ -357,6 +361,8 @@ export default function Lecture08() {
               number={6}
               color="border-yellow-500"
               question="Изчисли скоростта за бягство от Луната ($M = 7{,}35\cdot 10^{22}\ \mathrm{kg},\ R = 1737\ \mathrm{km}$). Защо Луната няма атмосфера?"
+              check={[2.38]}
+              ask={['скорост, km/s']}
             >
               <p>
                 <Tex>{'v_2 = \\sqrt{\\frac{2GM}{R}} = \\sqrt{\\frac{2 \\cdot 6{,}674\\cdot 10^{-11} \\cdot 7{,}35\\cdot 10^{22}}{1{,}737\\cdot 10^6}} \\approx \\sqrt{5{,}65\\cdot 10^6} \\approx'}</Tex> <strong><Tex>{'2{,}38\\ \\mathrm{km/s}'}</Tex></strong>
@@ -374,6 +380,8 @@ export default function Lecture08() {
               number={7}
               color="border-yellow-500"
               question="Спътник се движи по елипса с перигей на височина 300 km и апогей 35 786 km. Каква е скоростта му в перигея? (Използвай vis-viva.)"
+              check={[10.16]}
+              ask={['скорост, km/s']}
             >
               <p><Tex>{'r_p = 6671\\ \\mathrm{km},\\ r_a = 42\\,157\\ \\mathrm{km},\\ a = \\frac{r_p + r_a}{2} = 24\\,414\\ \\mathrm{km}'}</Tex></p>
               <p>
@@ -394,18 +402,20 @@ export default function Lecture08() {
               number={8}
               color="border-red-500"
               question="Астронавт на МКС ($h = 400\ \mathrm{km},\ T \approx 92{,}5\ \mathrm{min}$) хвърля топка напред със скорост $1\ \mathrm{m/s}$ спрямо станцията. Къде ще е топката след една обиколка?"
+              check={[16.65]}
+              ask={['изоставане зад станцията, km']}
             >
               <p>
                 Топката получава <Tex>{'\\Delta v = +1\\ \\mathrm{m/s}'}</Tex> и тръгва по елипса с перигей в
                 точката на хвърлянето. Голямата ѝ полуос нараства с <Tex>{'\\Delta a = 2a\\cdot \\Delta v / v = 2 \\cdot 6771\\ \\mathrm{km} \\cdot 1 / 7670 \\approx 1{,}77\\ \\mathrm{km}'}</Tex>.
               </p>
               <p>
-                След половин обиколка тя е ~3,5 km <em>по-високо</em> от
+                След половин обиколка тя е ~3,53 km <em>по-високо</em> от
                 станцията (в апогея).
               </p>
               <p>
-                Периодът ѝ е по-дълъг: <Tex>{'\\Delta T / T = 1{,}5 \\cdot \\Delta a / a \\approx 3{,}9\\cdot 10^{-4}'}</Tex>, т.е. <Tex>{'\\Delta T \\approx 2{,}2\\ \\mathrm{s}'}</Tex>. След една обиколка топката се връща на височината на
-                МКС, но <strong>изостава зад нея с ~<Tex>{'3\\cdot \\Delta v\\cdot T \\approx 17\\ \\mathrm{km}'}</Tex></strong>!
+                Периодът ѝ е по-дълъг: <Tex>{'\\Delta T / T = 1{,}5 \\cdot \\Delta a / a \\approx 3{,}91\\cdot 10^{-4}'}</Tex>, т.е. <Tex>{'\\Delta T \\approx 2{,}17\\ \\mathrm{s}'}</Tex>. След една обиколка топката се връща на височината на
+                МКС, но <strong>изостава зад нея с ~<Tex>{'3\\cdot \\Delta v\\cdot T \\approx 16{,}65\\ \\mathrm{km}'}</Tex></strong>!
               </p>
               <p>
                 Парадокс: хвърлена напред, топката се озовава отзад. Хвърлена
@@ -438,16 +448,18 @@ export default function Lecture08() {
               number={10}
               color="border-red-500"
               question="Кораб лети до Марс ($a = 1{,}524\ \mathrm{AU}$) по преход на Хоман. Колко трае полетът? Под какъв ъгъл пред Земята трябва да е Марс при старта и колко често се повтаря такава възможност?"
+              check={[259, 44.3, 2.14]}
+              ask={['продължителност на полета, дни', 'ъгъл на Марс пред Земята, °', 'период на повторение, години']}
             >
               <p><Tex>{'a_{\\text{пр}} = \\frac{1 + 1{,}524}{2} = 1{,}262\\ \\mathrm{AU}'}</Tex></p>
               <p><Tex>{'t = \\tfrac{1}{2} \\cdot a^{3/2} = \\tfrac{1}{2} \\cdot 1{,}262^{1{,}5} \\approx 0{,}709'}</Tex> години <Tex>{'\\approx 259'}</Tex> дни</p>
               <p>
-                За това време Марс изминава <Tex>{'360^\\circ \\cdot 0{,}709 / 1{,}881 \\approx 136^\\circ'}</Tex>. Той
+                За това време Марс изминава <Tex>{'360^\\circ \\cdot 0{,}709 / 1{,}881 \\approx 135{,}7^\\circ'}</Tex>. Той
                 трябва да пристигне в точката, противоположна на старта (180°),
-                значи при старта е <strong>~44° пред Земята</strong>.
+                значи при старта е <strong>~44,3° пред Земята</strong>.
               </p>
               <p>
-                Същото взаимно положение се повтаря през синодичния период: <Tex>{'\\frac{1}{S} = 1 - \\frac{1}{1{,}881} \\to S \\approx 2{,}14'}</Tex> години ≈ <strong>26 месеца</strong>.
+                Същото взаимно положение се повтаря през синодичния период: <Tex>{'\\frac{1}{S} = 1 - \\frac{1}{1{,}881} \\to S \\approx 2{,}14'}</Tex> години ≈ <strong>25,6 месеца</strong>.
               </p>
             </Task>
           </div>

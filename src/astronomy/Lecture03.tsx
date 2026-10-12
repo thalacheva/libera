@@ -59,7 +59,7 @@ const KEY_MOMENTS = [
     date: '$\\approx 21$ юни',
     dec: '$+23{,}4^\\circ$',
     noon: '$70{,}7^\\circ$',
-    day: '$15^{\\mathrm{h}}\\,09^{\\mathrm{m}}$',
+    day: '$15^{\\mathrm{h}}\\,08^{\\mathrm{m}}$',
     color: 'text-yellow-600 dark:text-yellow-400',
   },
   {
@@ -433,6 +433,8 @@ export default function Lecture03() {
               number={1}
               color="border-green-500"
               question="Колко трае едно звездно денонощие?"
+              check={[23, 56, 4]}
+              ask={['часове', 'минути', 'секунди']}
             >
               <p className="font-semibold">Отговор: <Tex>{'23^{\\mathrm{h}}\\,56^{\\mathrm{m}}\\,04^{\\mathrm{s}}'}</Tex></p>
               <p>
@@ -461,6 +463,8 @@ export default function Lecture03() {
               number={3}
               color="border-green-500"
               question="Колко градуса е наклонена земната ос спрямо перпендикуляра към равнината на орбитата?"
+              check={[23.4]}
+              ask={['наклон, °']}
             >
               <p className="font-semibold">Отговор: <Tex>{'23^\\circ26\' \\approx 23{,}4^\\circ'}</Tex></p>
               <p>
@@ -473,6 +477,8 @@ export default function Lecture03() {
               number={4}
               color="border-green-500"
               question="На каква височина е Слънцето по пладне в София ($\varphi = 42{,}7^\circ$) на 21 юни и на 21 декември?"
+              check={[70.7, 23.9]}
+              ask={['височина на 21 юни, °', 'височина на 21 декември, °']}
             >
               <p><Tex>{'h = 90^\\circ - \\varphi + \\delta_{\\odot}'}</Tex>.</p>
               <p>
@@ -516,6 +522,8 @@ export default function Lecture03() {
               number={6}
               color="border-yellow-500"
               question="Изчисли линейната скорост на точка от екватора заради въртенето на Земята ($R = 6371\ \mathrm{km}$)."
+              check={[465]}
+              ask={['скорост, m/s']}
             >
               <p>
                 Използваме звездното денонощие <Tex>{'T = 23^{\\mathrm{h}}\\,56^{\\mathrm{m}} \\approx 23{,}93\\ \\mathrm{h}'}</Tex> (оборот
@@ -557,6 +565,8 @@ export default function Lecture03() {
               number={8}
               color="border-yellow-500"
               question="За колко време ще направи пълен оборот равнината на махало на Фуко в София ($\varphi = 42{,}7^\circ$)?"
+              check={[35.3]}
+              ask={['период, h']}
             >
               <p>
                 <Tex>{'T = T_{\\star} / \\sin \\varphi = 23{,}93\\ \\mathrm{h} / \\sin 42{,}7^\\circ = 23{,}93 / 0{,}678 \\approx'}</Tex>{' '}
@@ -600,6 +610,8 @@ export default function Lecture03() {
               number={10}
               color="border-red-500"
               question="Изчисли средната орбитална скорост на Земята ($1\ \mathrm{AU} = 149{,}6$ млн. km, 1 година = 365,26 денонощия)."
+              check={[29.8]}
+              ask={['скорост, km/s']}
             >
               <p>Приемаме орбитата за окръжност.</p>
               <p><Tex>{'L = 2\\pi r = 2\\pi \\cdot 149{,}6'}</Tex> млн. km <Tex>{'\\approx 940'}</Tex> млн. km</p>
@@ -615,19 +627,21 @@ export default function Lecture03() {
               number={11}
               color="border-red-500"
               question="Пресметни продължителността на най-дългия ден в София ($\varphi = 42{,}7^\circ$). Защо измерената стойност (~$15^{\mathrm{h}}\,20^{\mathrm{m}}$) е по-голяма?"
+              check={[15, 8]}
+              ask={['продължителност на деня – часове', 'продължителност на деня – минути']}
             >
               <p>
-                На 21 юни <Tex>{'\\delta_{\\odot} = +23{,}4^\\circ'}</Tex>: <Tex>{'\\cos t_0 = -\\tg 42{,}7^\\circ \\cdot \\tg 23{,}4^\\circ = -0{,}923 \\cdot 0{,}433 \\approx -0{,}400'}</Tex>.
+                На 21 юни <Tex>{'\\delta_{\\odot} = +23{,}4^\\circ'}</Tex>: <Tex>{'\\cos t_0 = -\\tg 42{,}7^\\circ \\cdot \\tg 23{,}4^\\circ = -0{,}9228 \\cdot 0{,}4327 \\approx -0{,}399'}</Tex>.
               </p>
               <p>
-                <Tex>{'t_0 \\approx 113{,}6^\\circ = 7{,}57\\ \\mathrm{h}'}</Tex>, денят е <Tex>{'2t_0 \\approx 15{,}15\\ \\mathrm{h} ='}</Tex>{' '}
-                <strong><Tex>{'15^{\\mathrm{h}}\\,09^{\\mathrm{m}}'}</Tex></strong>.
+                <Tex>{'t_0 \\approx 113{,}5^\\circ = 7{,}57\\ \\mathrm{h}'}</Tex>, денят е <Tex>{'2t_0 \\approx 15{,}14\\ \\mathrm{h} ='}</Tex>{' '}
+                <strong><Tex>{'15^{\\mathrm{h}}\\,08^{\\mathrm{m}}'}</Tex></strong>.
               </p>
               <p>
                 В действителност изгревът и залезът се отчитат по горния край на
                 слънчевия диск (радиус ~16′), а атмосферната рефракция повдига
                 Слънцето с ~35′ на хоризонта. Затова Слънцето изгрява по-рано и
-                залязва по-късно – с общо около 10 минути.
+                залязва по-късно – с общо около 11 минути.
               </p>
             </Task>
 
@@ -636,6 +650,8 @@ export default function Lecture03() {
               number={12}
               color="border-red-500"
               question="Наклонът на оста на Марс е 25,2°. На каква ширина са марсианските полярни кръгове и тропици? Има ли Марс сезони?"
+              check={[64.8, 25.2]}
+              ask={['полярни кръгове – ширина, °', 'тропици – ширина, °']}
             >
               <p>
                 Тропици: <Tex>{'\\varphi = \\pm 25{,}2^\\circ'}</Tex>. Полярни кръгове: <Tex>{'\\varphi = \\pm (90^\\circ - 25{,}2^\\circ) ='}</Tex>{' '}

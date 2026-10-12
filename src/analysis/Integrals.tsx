@@ -403,11 +403,11 @@ export function Integrals() {
                 <p><Tex>{'\\int (3x^2 - 4x + 5)\\,dx = x^3 - 2x^2 + 5x + C'}</Tex></p>
                 <p>Проверка: <Tex>{"(x^3 - 2x^2 + 5x + C)' = 3x^2 - 4x + 5"}</Tex> ✓</p>
               </Task>
-              <Task id="a2" number={2} color="border-green-500" question="Пресметнете $\int_1^2 x^3\,dx$.">
+              <Task id="a2" number={2} color="border-green-500" question="Пресметнете $\int_1^2 x^3\,dx$." check={[15 / 4]}>
                 <p><Tex>{'\\left[\\frac{x^4}{4}\\right]_1^2 = \\frac{16}{4} - \\frac{1}{4}'}</Tex></p>
                 <p><Tex>{'= \\frac{15}{4} = 3{,}75'}</Tex></p>
               </Task>
-              <Task id="a3" number={3} color="border-green-500" question="Пресметнете $\int_1^e \frac{1}{x}\,dx$.">
+              <Task id="a3" number={3} color="border-green-500" question="Пресметнете $\int_1^e \frac{1}{x}\,dx$." check={[1]}>
                 <p><Tex>{'\\left[\\ln x\\right]_1^e = \\ln e - \\ln 1'}</Tex></p>
                 <p><Tex>{'= 1 - 0 = 1'}</Tex></p>
               </Task>
@@ -415,18 +415,18 @@ export function Integrals() {
 
             <div className="mb-6">
               <TaskLevel level="B" />
-              <Task id="b1" number={4} color="border-yellow-500" question="Намерете лицето на фигурата между $y = x^2$ и $y = 2x$.">
+              <Task id="b1" number={4} color="border-yellow-500" question="Намерете лицето на фигурата между $y = x^2$ и $y = 2x$." check={[4 / 3]} ask={['лице']}>
                 <p>Пресечни точки: <Tex>{'x^2 = 2x \\Rightarrow x = 0'}</Tex> или <Tex>{'x = 2'}</Tex>; между тях <Tex>{'2x \\ge x^2'}</Tex>.</p>
                 <p><Tex>{'S = \\int_0^2 (2x - x^2)\\,dx = \\left[x^2 - \\frac{x^3}{3}\\right]_0^2 = 4 - \\frac{8}{3}'}</Tex></p>
                 <p><Tex>{'S = \\frac{4}{3}'}</Tex></p>
               </Task>
-              <Task id="b2" number={5} color="border-yellow-500" question="Намерете лицето на фигурата между графиката на $y = x^3 - x$ и оста $Ox$.">
+              <Task id="b2" number={5} color="border-yellow-500" question="Намерете лицето на фигурата между графиката на $y = x^3 - x$ и оста $Ox$." check={[1 / 2]} ask={['лице']}>
                 <p>Нули: <Tex>{'x^3 - x = x(x - 1)(x + 1) = 0 \\Rightarrow x = -1,\\ 0,\\ 1'}</Tex>.</p>
                 <p>При <Tex>{'-1 < x < 0'}</Tex> функцията е положителна, при <Tex>{'0 < x < 1'}</Tex> – отрицателна.</p>
                 <p><Tex>{'\\int_{-1}^{0} (x^3 - x)\\,dx = \\left[\\frac{x^4}{4} - \\frac{x^2}{2}\\right]_{-1}^{0} = \\frac{1}{4}'}</Tex>, а от 0 до 1 интегралът е <Tex>{'-\\frac{1}{4}'}</Tex>.</p>
                 <p><Tex>{'S = \\frac{1}{4} + \\frac{1}{4} = \\frac{1}{2}'}</Tex> (а интегралът от <Tex>{'-1'}</Tex> до <Tex>{'1'}</Tex> е 0).</p>
               </Task>
-              <Task id="b3" number={6} color="border-yellow-500" question="Пресметнете обема на тялото, получено при въртене на $y = \sqrt{x}$, $0 \le x \le 4$, около $Ox$.">
+              <Task id="b3" number={6} color="border-yellow-500" question="Пресметнете обема на тялото, получено при въртене на $y = \sqrt{x}$, $0 \le x \le 4$, около $Ox$." check={[25.133]} ask={['обем (приближено)']}>
                 <p><Tex>{'V = \\pi \\int_0^4 (\\sqrt{x})^2\\,dx = \\pi \\int_0^4 x\\,dx'}</Tex></p>
                 <p><Tex>{'= \\pi \\left[\\frac{x^2}{2}\\right]_0^4 = 8\\pi \\approx 25{,}13'}</Tex></p>
               </Task>
@@ -434,17 +434,17 @@ export function Integrals() {
 
             <div className="mb-6">
               <TaskLevel level="C" />
-              <Task id="c1" number={7} color="border-red-500" question="Пресметнете $\int_0^{\pi/2} \sin x \cos x\,dx$.">
+              <Task id="c1" number={7} color="border-red-500" question="Пресметнете $\int_0^{\pi/2} \sin x \cos x\,dx$." check={[1 / 2]}>
                 <p>Полагаме <Tex>{'u = \\sin x'}</Tex>; тогава <Tex>{'du = \\cos x\\,dx'}</Tex>, а границите стават от <Tex>{'u = 0'}</Tex> до <Tex>{'u = 1'}</Tex>.</p>
                 <p><Tex>{'\\int_0^1 u\\,du = \\left[\\frac{u^2}{2}\\right]_0^1 = \\frac{1}{2}'}</Tex></p>
                 <p>(Друг начин: <Tex>{'\\sin x \\cos x = \\frac{1}{2}\\sin 2x'}</Tex>.)</p>
               </Task>
-              <Task id="c2" number={8} color="border-red-500" question="Намерете границата $\lim_{n \to \infty} \frac{1^2 + 2^2 + \ldots + n^2}{n^3}$, като я представите като интеграл.">
+              <Task id="c2" number={8} color="border-red-500" question="Намерете границата $\lim_{n \to \infty} \frac{1^2 + 2^2 + \ldots + n^2}{n^3}$, като я представите като интеграл." check={[1 / 3]} ask={['граница']}>
                 <p><Tex>{'\\frac{1^2 + 2^2 + \\ldots + n^2}{n^3} = \\sum_{i=1}^{n} \\left(\\frac{i}{n}\\right)^2 \\cdot \\frac{1}{n}'}</Tex></p>
                 <p>Това е сума на Риман за <Tex>{'f(x) = x^2'}</Tex> върху <Tex>{'[0;\\ 1]'}</Tex> с <Tex>{'n'}</Tex> ивици с ширина <Tex>{'\\frac{1}{n}'}</Tex> (десни краища).</p>
                 <p>Границата е <Tex>{'\\int_0^1 x^2\\,dx = \\frac{1}{3}'}</Tex>.</p>
               </Task>
-              <Task id="c3" number={9} color="border-red-500" question="При коя стойност на $a > 0$ лицето на фигурата между параболата $y = x^2$ и правата $y = a$ е 36?">
+              <Task id="c3" number={9} color="border-red-500" question="При коя стойност на $a > 0$ лицето на фигурата между параболата $y = x^2$ и правата $y = a$ е 36?" check={[9]} ask={['$a$']}>
                 <p>Пресечни точки: <Tex>{'x = \\pm\\sqrt{a}'}</Tex>.</p>
                 <p><Tex>{'S = \\int_{-\\sqrt{a}}^{\\sqrt{a}} (a - x^2)\\,dx = 2\\left(a\\sqrt{a} - \\frac{a\\sqrt{a}}{3}\\right) = \\frac{4}{3}a\\sqrt{a}'}</Tex></p>
                 <p><Tex>{'\\frac{4}{3}a^{3/2} = 36 \\Rightarrow a^{3/2} = 27 \\Rightarrow a = 9'}</Tex></p>

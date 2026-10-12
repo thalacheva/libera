@@ -417,16 +417,16 @@ export function Trigonometry() {
           <TaskBoard>
             <div className="mb-6">
               <TaskLevel level="A" />
-              <Task id="a1" number={1} color="border-green-500" question="Катетите на правоъгълен триъгълник са 3 и 4. Намерете $\sin$, $\cos$ и $\tg$ на ъгъла $\alpha$ срещу катета 3.">
+              <Task id="a1" number={1} color="border-green-500" question="Катетите на правоъгълен триъгълник са 3 и 4. Намерете $\sin$, $\cos$ и $\tg$ на ъгъла $\alpha$ срещу катета 3." check={[3 / 5, 4 / 5, 3 / 4]} ask={['$\\sin \\alpha$', '$\\cos \\alpha$', '$\\tg \\alpha$']}>
                 <p>Хипотенузата е <Tex>{'\\sqrt{9 + 16} = 5'}</Tex>.</p>
                 <p><Tex>{'\\sin \\alpha = \\frac{3}{5} = 0{,}6'}</Tex>; <Tex>{'\\cos \\alpha = \\frac{4}{5} = 0{,}8'}</Tex>; <Tex>{'\\tg \\alpha = \\frac{3}{4} = 0{,}75'}</Tex></p>
                 <p>Проверка: <Tex>{'0{,}6^2 + 0{,}8^2 = 0{,}36 + 0{,}64 = 1'}</Tex> ✓</p>
               </Task>
-              <Task id="a2" number={2} color="border-green-500" question="Хипотенузата на правоъгълен триъгълник е 10, а единият му ъгъл е 30°. Намерете катетите.">
+              <Task id="a2" number={2} color="border-green-500" question="Хипотенузата на правоъгълен триъгълник е 10, а единият му ъгъл е 30°. Намерете катетите." check={[5, 8.66]} ask={['катетът срещу 30°', 'другият катет (приближено)']}>
                 <p>Катетът срещу 30° е <Tex>{'a = 10 \\cdot \\sin 30^\\circ = 5'}</Tex> (половината от хипотенузата).</p>
                 <p>Другият катет е <Tex>{'b = 10 \\cdot \\cos 30^\\circ = 5\\sqrt{3} \\approx 8{,}66'}</Tex>.</p>
               </Task>
-              <Task id="a3" number={3} color="border-green-500" question="Пресметнете $\sin^2 30^\circ + \cos^2 60^\circ + \tg 45^\circ$.">
+              <Task id="a3" number={3} color="border-green-500" question="Пресметнете $\sin^2 30^\circ + \cos^2 60^\circ + \tg 45^\circ$." check={[3 / 2]}>
                 <p><Tex>{'\\sin 30^\\circ = \\frac{1}{2} \\Rightarrow \\sin^2 30^\\circ = \\frac{1}{4}'}</Tex></p>
                 <p><Tex>{'\\cos 60^\\circ = \\frac{1}{2} \\Rightarrow \\cos^2 60^\\circ = \\frac{1}{4}'}</Tex></p>
                 <p><Tex>{'\\frac{1}{4} + \\frac{1}{4} + 1 = 1{,}5'}</Tex></p>
@@ -435,17 +435,17 @@ export function Trigonometry() {
 
             <div className="mb-6">
               <TaskLevel level="B" />
-              <Task id="b1" number={4} color="border-yellow-500" question="Ъгълът $\alpha$ е остър и $\tg \alpha = 2$. Намерете $\sin \alpha$ и $\cos \alpha$.">
+              <Task id="b1" number={4} color="border-yellow-500" question="Ъгълът $\alpha$ е остър и $\tg \alpha = 2$. Намерете $\sin \alpha$ и $\cos \alpha$." check={[0.8944, 0.4472]} ask={['$\\sin \\alpha$ (приближено)', '$\\cos \\alpha$ (приближено)']}>
                 <p>Нека <Tex>{'a = 2'}</Tex> и <Tex>{'b = 1'}</Tex> (катети с отношение 2). Хипотенузата е <Tex>{'\\sqrt{5}'}</Tex>.</p>
                 <p><Tex>{'\\sin \\alpha = \\frac{2}{\\sqrt{5}} = \\frac{2\\sqrt{5}}{5} \\approx 0{,}894'}</Tex></p>
                 <p><Tex>{'\\cos \\alpha = \\frac{1}{\\sqrt{5}} = \\frac{\\sqrt{5}}{5} \\approx 0{,}447'}</Tex></p>
               </Task>
-              <Task id="b2" number={5} color="border-yellow-500" question="Страните на триъгълник са 7, 8 и 13. Намерете най-големия му ъгъл.">
+              <Task id="b2" number={5} color="border-yellow-500" question="Страните на триъгълник са 7, 8 и 13. Намерете най-големия му ъгъл." check={[120]} ask={['най-големият ъгъл, °']}>
                 <p>Той е срещу страната 13: <Tex>{'\\cos \\gamma = \\frac{7^2 + 8^2 - 13^2}{2 \\cdot 7 \\cdot 8} = \\frac{49 + 64 - 169}{112}'}</Tex></p>
                 <p><Tex>{'\\cos \\gamma = -\\frac{56}{112} = -\\frac{1}{2}'}</Tex></p>
                 <p><Tex>{'\\gamma = 120^\\circ'}</Tex></p>
               </Task>
-              <Task id="b3" number={6} color="border-yellow-500" question="В триъгълник $a = 6,\ \alpha = 30^\circ$ и $\beta = 45^\circ$. Намерете $b$ и радиуса на описаната окръжност.">
+              <Task id="b3" number={6} color="border-yellow-500" question="В триъгълник $a = 6,\ \alpha = 30^\circ$ и $\beta = 45^\circ$. Намерете $b$ и радиуса на описаната окръжност." check={[8.485, 6]} ask={['$b$ (приближено)', '$R$']}>
                 <p><Tex>{'\\frac{a}{\\sin \\alpha} = 6 : \\frac{1}{2} = 12 = 2R \\Rightarrow R = 6'}</Tex></p>
                 <p><Tex>{'b = 2R \\cdot \\sin \\beta = 12 \\cdot \\frac{\\sqrt{2}}{2} = 6\\sqrt{2} \\approx 8{,}49'}</Tex></p>
               </Task>
@@ -458,13 +458,13 @@ export function Trigonometry() {
                 <p>От синусовата теорема <Tex>{'c = 2R \\cdot \\sin \\gamma'}</Tex>, т.е. <Tex>{'\\sin \\gamma = \\frac{c}{2R}'}</Tex>.</p>
                 <p><Tex>{'S = \\tfrac{1}{2} \\cdot a \\cdot b \\cdot \\frac{c}{2R} = \\frac{abc}{4R}'}</Tex>.</p>
               </Task>
-              <Task id="c2" number={8} color="border-red-500" question="Изведи формулата за медианата $m_c = \tfrac{1}{2}\sqrt{2a^2 + 2b^2 - c^2}$ и я приложи за страни $a = 5,\ b = 6,\ c = 7$.">
+              <Task id="c2" number={8} color="border-red-500" question="Изведи формулата за медианата $m_c = \tfrac{1}{2}\sqrt{2a^2 + 2b^2 - c^2}$ и я приложи за страни $a = 5,\ b = 6,\ c = 7$." check={[4.272]} ask={['$m_c$ (приближено)']}>
                 <p>Нека <Tex>{'M'}</Tex> е средата на <Tex>{'AB'}</Tex>, <Tex>{'\\angle AMC = \\varphi'}</Tex>, <Tex>{'\\angle BMC = 180^\\circ - \\varphi'}</Tex>. Косинусова теорема в двата триъгълника:</p>
                 <p><Tex>{'b^2 = m^2 + \\frac{c^2}{4} - m \\cdot c \\cdot \\cos \\varphi'}</Tex> и <Tex>{'a^2 = m^2 + \\frac{c^2}{4} + m \\cdot c \\cdot \\cos \\varphi'}</Tex> (защото <Tex>{'\\cos (180^\\circ - \\varphi) = -\\cos \\varphi'}</Tex>).</p>
                 <p>Събираме: <Tex>{'a^2 + b^2 = 2m^2 + \\frac{c^2}{2} \\Rightarrow m^2 = \\frac{2a^2 + 2b^2 - c^2}{4}'}</Tex>.</p>
                 <p>За 5, 6, 7: <Tex>{'m^2 = \\frac{50 + 72 - 49}{4} = \\frac{73}{4} \\Rightarrow m = \\frac{\\sqrt{73}}{2} \\approx 4{,}27'}</Tex>.</p>
               </Task>
-              <Task id="c3" number={9} color="border-red-500" question="Страните на триъгълник са 5, 6 и 7. Намерете лицето му и радиуса на описаната окръжност.">
+              <Task id="c3" number={9} color="border-red-500" question="Страните на триъгълник са 5, 6 и 7. Намерете лицето му и радиуса на описаната окръжност." check={[14.7, 3.572]} ask={['лице (приближено)', '$R$ (приближено)']}>
                 <p><Tex>{'\\cos \\gamma'}</Tex> (срещу 7) <Tex>{'= \\frac{25 + 36 - 49}{60} = \\frac{1}{5} \\Rightarrow \\sin \\gamma = \\sqrt{1 - \\frac{1}{25}} = \\frac{2\\sqrt{6}}{5}'}</Tex></p>
                 <p><Tex>{'S = \\tfrac{1}{2} \\cdot 5 \\cdot 6 \\cdot \\frac{2\\sqrt{6}}{5} = 6\\sqrt{6} \\approx 14{,}70'}</Tex></p>
                 <p><Tex>{'R = \\frac{abc}{4S} = \\frac{210}{24\\sqrt{6}} = \\frac{35\\sqrt{6}}{24} \\approx 3{,}57'}</Tex></p>

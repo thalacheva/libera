@@ -548,18 +548,18 @@ export function SystemsOfEquations() {
           <TaskBoard>
             <div className="mb-6">
               <TaskLevel level="A" />
-              <Task id="a1" number={1} color="border-green-500" question="Реши системата $2x + 3y = 13,\ x - y = -1$.">
+              <Task id="a1" number={1} color="border-green-500" question="Реши системата $2x + 3y = 13,\ x - y = -1$." check={[2, 3]} ask={['$x$', '$y$']}>
                 <p>От второто уравнение: <Tex>{'x = y - 1'}</Tex></p>
                 <p>Заместваме: <Tex>{'2(y - 1) + 3y = 13 \\Rightarrow 5y - 2 = 13 \\Rightarrow y = 3'}</Tex></p>
                 <p><Tex>{'x = 3 - 1 = 2'}</Tex>. Отговор: (2; 3)</p>
               </Task>
-              <Task id="a2" number={2} color="border-green-500" question="Реши системата $4x - 3y = 2,\ 6x + 5y = 41$.">
+              <Task id="a2" number={2} color="border-green-500" question="Реши системата $4x - 3y = 2,\ 6x + 5y = 41$." check={[3.5, 4]} ask={['$x$', '$y$']}>
                 <p>Изравняваме коефициентите пред <Tex>{'x'}</Tex>: първото по 3, второто по 2.</p>
                 <p><Tex>{'12x - 9y = 6'}</Tex> и <Tex>{'12x + 10y = 82'}</Tex></p>
                 <p>Изваждаме първото от второто: <Tex>{'19y = 76 \\Rightarrow y = 4'}</Tex></p>
                 <p><Tex>{'4x - 12 = 2 \\Rightarrow x = 3{,}5'}</Tex>. Отговор: (3,5; 4)</p>
               </Task>
-              <Task id="a3" number={3} color="border-green-500" question="В клас има 28 ученици, а момичетата са с 4 повече от момчетата. Колко са момичетата и колко момчетата?">
+              <Task id="a3" number={3} color="border-green-500" question="В клас има 28 ученици, а момичетата са с 4 повече от момчетата. Колко са момичетата и колко момчетата?" check={[16, 12]} ask={['момичета', 'момчета']}>
                 <p>Нека <Tex>{'m'}</Tex> са момичетата, <Tex>{'b'}</Tex> – момчетата: <Tex>{'m + b = 28'}</Tex> и <Tex>{'m - b = 4'}</Tex></p>
                 <p>Събираме: <Tex>{'2m = 32 \\Rightarrow m = 16'}</Tex></p>
                 <p><Tex>{'b = 28 - 16 = 12'}</Tex>. Отговор: 16 момичета и 12 момчета</p>
@@ -568,7 +568,7 @@ export function SystemsOfEquations() {
 
             <div className="mb-6">
               <TaskLevel level="B" />
-              <Task id="b1" number={4} color="border-yellow-500" question="Реши системата $\frac{x}{3} + \frac{y}{4} = 3,\ \frac{x}{2} - \frac{y}{4} = 2$.">
+              <Task id="b1" number={4} color="border-yellow-500" question="Реши системата $\frac{x}{3} + \frac{y}{4} = 3,\ \frac{x}{2} - \frac{y}{4} = 2$." check={[6, 4]} ask={['$x$', '$y$']}>
                 <p>Коефициентите пред <Tex>{'y'}</Tex> вече са противоположни – събираме уравненията:</p>
                 <p><Tex>{'\\frac{x}{3} + \\frac{x}{2} = 5 \\Rightarrow \\frac{5x}{6} = 5 \\Rightarrow x = 6'}</Tex></p>
                 <p><Tex>{'\\frac{6}{3} + \\frac{y}{4} = 3 \\Rightarrow \\frac{y}{4} = 1 \\Rightarrow y = 4'}</Tex>. Отговор: (6; 4)</p>
@@ -588,7 +588,7 @@ export function SystemsOfEquations() {
 
             <div className="mb-6">
               <TaskLevel level="C" />
-              <Task id="c1" number={7} color="border-red-500" question="Реши системата с три неизвестни: $x + y + z = 6,\ x - y + 2z = 5,\ 2x + y - z = 1$.">
+              <Task id="c1" number={7} color="border-red-500" question="Реши системата с три неизвестни: $x + y + z = 6,\ x - y + 2z = 5,\ 2x + y - z = 1$." check={[1, 2, 3]} ask={['$x$', '$y$', '$z$']}>
                 <p>Събираме първото и второто: <Tex>{'2x + 3z = 11'}</Tex>. Събираме второто и третото: <Tex>{'3x + z = 6'}</Tex>.</p>
                 <p>Получихме система с две неизвестни. От второто: <Tex>{'z = 6 - 3x'}</Tex>.</p>
                 <p><Tex>{'2x + 3(6 - 3x) = 11 \\Rightarrow 18 - 7x = 11 \\Rightarrow x = 1,\\ z = 3'}</Tex></p>

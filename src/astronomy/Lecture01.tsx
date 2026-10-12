@@ -573,6 +573,8 @@ export default function Lecture01() {
               number={5}
               color="border-green-500"
               question="Каква е височината на зенита над хоризонта?"
+              check={[90]}
+              ask={['височина, °']}
             >
               <p className="font-semibold">Отговор: 90°</p>
               <p>
@@ -590,6 +592,8 @@ export default function Lecture01() {
               number={6}
               color="border-yellow-500"
               question="Наблюдател се намира на географска ширина 45° с.ш. На каква височина над хоризонта ще види северния небесен полюс?"
+              check={[45]}
+              ask={['височина, °']}
             >
               <p className="font-semibold">Отговор: 45°</p>
               <p>
@@ -649,6 +653,8 @@ export default function Lecture01() {
               number={10}
               color="border-yellow-500"
               question="Вега има деклинация $\delta = +38{,}8^\circ$. На каква най-голяма височина се издига над хоризонта в София ($\varphi = 42{,}7^\circ$)? От коя страна на зенита минава?"
+              check={[86.1]}
+              ask={['най-голяма височина, °']}
             >
               <p>
                 При горна кулминация <Tex>{'h_{\\mathrm{max}} = 90^\\circ - |\\varphi - \\delta| = 90^\\circ - 3{,}9^\\circ ='}</Tex> <strong><Tex>{'86{,}1^\\circ'}</Tex></strong>.
@@ -707,6 +713,8 @@ export default function Lecture01() {
               number={13}
               color="border-red-500"
               question="Незалязваща звезда има горна кулминация на височина 70° на юг от зенита и долна кулминация на височина 20° над северната точка. Намерете географската ширина $\varphi$ на наблюдателя и деклинацията $\delta$ на звездата."
+              check={[65, 45]}
+              ask={['$\\varphi$, °', '$\\delta$, °']}
             >
               <p>
                 Горна кулминация на юг от зенита: <Tex>{'h_1 = 90^\\circ - \\varphi + \\delta = 70^\\circ'}</Tex>.

@@ -302,7 +302,7 @@ export function LinearFunctions() {
           <TaskBoard>
             <div className="mb-6">
               <TaskLevel level="A" />
-              <Task id="a1" number={1} color="border-green-500" question="Дадена е функцията $f(x) = -3x + 6$. Намери $f(-2)$, нулата на функцията и пресечната точка с оста Oy. Растяща ли е?">
+              <Task id="a1" number={1} color="border-green-500" question="Дадена е функцията $f(x) = -3x + 6$. Намери $f(-2)$, нулата на функцията и пресечната точка с оста Oy. Растяща ли е?" check={[12, 2, 6]} ask={['$f(-2)$', 'нула ($x$)', 'пресечна с Oy: $y$']}>
                 <p><Tex>{'f(-2) = -3 \\cdot (-2) + 6 = 12'}</Tex></p>
                 <p>Нула: <Tex>{'-3x + 6 = 0 \\Rightarrow x = 2'}</Tex>; пресечна точка с Oy: <Tex>{'(0; 6)'}</Tex></p>
                 <p><Tex>{'a = -3 < 0'}</Tex> – функцията е намаляваща.</p>
@@ -320,16 +320,16 @@ export function LinearFunctions() {
 
             <div className="mb-6">
               <TaskLevel level="B" />
-              <Task id="b1" number={4} color="border-yellow-500" question="За кое $a$ правата $y = (a - 1)x + 3$ е успоредна на $y = 2x - 7$? А перпендикулярна на нея?">
+              <Task id="b1" number={4} color="border-yellow-500" question="За кое $a$ правата $y = (a - 1)x + 3$ е успоредна на $y = 2x - 7$? А перпендикулярна на нея?" check={[3, 1 / 2]} ask={['$a$ (успоредни)', '$a$ (перпендикулярни)']}>
                 <p>Успоредни: еднакъв наклон <Tex>{'\\Rightarrow a - 1 = 2 \\Rightarrow a = 3'}</Tex> (и <Tex>{'3 \\ne -7'}</Tex>, значи не съвпадат).</p>
                 <p>Перпендикулярни: <Tex>{'(a - 1) \\cdot 2 = -1 \\Rightarrow a - 1 = -\\tfrac{1}{2} \\Rightarrow a = \\tfrac{1}{2}'}</Tex></p>
               </Task>
-              <Task id="b2" number={5} color="border-yellow-500" question="План А струва 8 € месечно и 0,10 € на минута, план Б – 0,30 € на минута без такса. При колко минути двата плана струват еднакво? Кой е по-изгоден при 60 минути?">
+              <Task id="b2" number={5} color="border-yellow-500" question="План А струва 8 € месечно и 0,10 € на минута, план Б – 0,30 € на минута без такса. При колко минути двата плана струват еднакво? Кой е по-изгоден при 60 минути?" check={[40]} ask={['минути']}>
                 <p><Tex>{'8 + 0{,}1x = 0{,}3x \\Rightarrow 0{,}2x = 8 \\Rightarrow x = 40'}</Tex> минути</p>
                 <p>При 60 минути: А = 8 + 6 = 14 €, Б = 18 € ⇒ А е по-изгоден.</p>
                 <p>Над 40 минути печели А (по-малката цена на минута), под 40 – Б (няма такса).</p>
               </Task>
-              <Task id="b3" number={6} color="border-yellow-500" question="Намери лицето на триъгълника, който правата $y = 2x - 4$ отсича от координатните оси.">
+              <Task id="b3" number={6} color="border-yellow-500" question="Намери лицето на триъгълника, който правата $y = 2x - 4$ отсича от координатните оси." check={[4]} ask={['лице, кв. ед.']}>
                 <p>Пресечни точки: с Ox – <Tex>{'(2; 0)'}</Tex>, с Oy – <Tex>{'(0; -4)'}</Tex>.</p>
                 <p>Триъгълникът е правоъгълен с катети 2 и 4.</p>
                 <p><Tex>{'S = \\frac{2 \\cdot 4}{2} = 4'}</Tex> кв. единици.</p>
@@ -344,7 +344,7 @@ export function LinearFunctions() {
                 <p><Tex>{'(1 - 2k)^2 = -8k \\Rightarrow 4k^2 + 4k + 1 = 0 \\Rightarrow (2k + 1)^2 = 0 \\Rightarrow k = -\\tfrac{1}{2}'}</Tex></p>
                 <p><Tex>{'b = 2'}</Tex>, правата е <Tex>{'y = -\\tfrac{1}{2}x + 2'}</Tex> – единствената. (Всъщност 4 е най-малкото възможно лице за права през <Tex>{'(2; 1)'}</Tex>!)</p>
               </Task>
-              <Task id="c2" number={8} color="border-red-500" question="Начертай графиката на $y = |x - 1| + |x + 1|$. Коя е най-малката стойност на функцията и при кои $x$ се достига?">
+              <Task id="c2" number={8} color="border-red-500" question="Начертай графиката на $y = |x - 1| + |x + 1|$. Коя е най-малката стойност на функцията и при кои $x$ се достига?" check={[2]} ask={['най-малка стойност']}>
                 <p><Tex>{'x \\le -1'}</Tex>: <Tex>{'y = (1 - x) + (-x - 1) = -2x'}</Tex></p>
                 <p><Tex>{'-1 \\le x \\le 1'}</Tex>: <Tex>{'y = (1 - x) + (x + 1) = 2'}</Tex></p>
                 <p><Tex>{'x \\ge 1'}</Tex>: <Tex>{'y = (x - 1) + (x + 1) = 2x'}</Tex></p>

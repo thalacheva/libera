@@ -384,6 +384,8 @@ export default function Lecture02() {
               number={1}
               color="border-green-500"
               question="Намери зенитното разстояние при $h = 40^\circ$."
+              check={[50]}
+              ask={['$z$, °']}
             >
               <p><Tex>{'z = 90^\\circ - h = 90^\\circ - 40^\\circ = 50^\\circ'}</Tex>.</p>
               <p>
@@ -396,6 +398,8 @@ export default function Lecture02() {
               number={2}
               color="border-green-500"
               question="Каква е височината на звезда, която е в зенита? А на звезда, която изгрява?"
+              check={[90, 0]}
+              ask={['височина в зенита, °', 'височина при изгрев, °']}
             >
               <p>
                 В зенита <Tex>{'z = 0^\\circ'}</Tex>, следователно <Tex>{'h = 90^\\circ'}</Tex>. При изгрев звездата е на
@@ -408,6 +412,8 @@ export default function Lecture02() {
               number={3}
               color="border-green-500"
               question="Колко градуса съответстват на 1 час ректасцензия?"
+              check={[15]}
+              ask={['ъгъл, °']}
             >
               <p>
                 Пълната окръжност е <Tex>{'360^\\circ = 24^{\\mathrm{h}}'}</Tex>, следователно <Tex>{'1^{\\mathrm{h}} = 360^\\circ / 24 = 15^\\circ'}</Tex>.
@@ -419,6 +425,8 @@ export default function Lecture02() {
               number={4}
               color="border-green-500"
               question="Бетелгейзе има ректасцензия $\alpha = 5^{\mathrm{h}}\,55^{\mathrm{m}}$. Изрази я в градуси."
+              check={[88.75]}
+              ask={['$\\alpha$, °']}
             >
               <p><Tex>{'5^{\\mathrm{h}} = 75^\\circ'}</Tex>; <Tex>{'55^{\\mathrm{m}} = 55 \\times 15\' = 825\' = 13{,}75^\\circ'}</Tex>.</p>
               <p>
@@ -453,6 +461,8 @@ export default function Lecture02() {
               number={6}
               color="border-yellow-500"
               question="Каква трябва да е деклинацията на звезда, за да минава през зенита в София ($\varphi = 42{,}7^\circ$)? Минава ли Вега ($\delta = +38{,}8^\circ$) през зенита?"
+              check={[42.7]}
+              ask={['деклинация, °']}
             >
               <p>
                 При горна кулминация <Tex>{'h = 90^\\circ - |\\varphi - \\delta| = 90^\\circ'}</Tex> само ако <Tex>{'\\delta = \\varphi ='}</Tex>{' '}
@@ -469,6 +479,8 @@ export default function Lecture02() {
               number={7}
               color="border-yellow-500"
               question="В кой момент (по звездно време) кулминира Сириус ($\alpha = 6^{\mathrm{h}}\,45^{\mathrm{m}},\ \delta = -16{,}7^\circ$) и на каква височина е тогава в София ($\varphi = 42{,}7^\circ$)?"
+              check={[6, 45, 30.6]}
+              ask={['звездно време – часове', 'звездно време – минути', 'височина, °']}
             >
               <p>
                 Кулминацията е при <Tex>{'t = 0'}</Tex>, т.е. <Tex>{'S = \\alpha ='}</Tex> <strong><Tex>{'6^{\\mathrm{h}}\\,45^{\\mathrm{m}}'}</Tex></strong>.
@@ -484,6 +496,8 @@ export default function Lecture02() {
               number={8}
               color="border-yellow-500"
               question="Звездното време е $S = 2^{\mathrm{h}}\,00^{\mathrm{m}}$. Звезда има часов ъгъл $t = 22^{\mathrm{h}}\,30^{\mathrm{m}}$. Каква е ректасцензията ѝ? Кулминирала ли е вече?"
+              check={[3, 30]}
+              ask={['ректасцензия – часове', 'ректасцензия – минути']}
             >
               <p>
                 <Tex>{'\\alpha = S - t = 2^{\\mathrm{h}}\\,00^{\\mathrm{m}} - 22^{\\mathrm{h}}\\,30^{\\mathrm{m}} = -20^{\\mathrm{h}}\\,30^{\\mathrm{m}} \\to +24^{\\mathrm{h}} ='}</Tex>{' '}
@@ -525,6 +539,8 @@ export default function Lecture02() {
               number={10}
               color="border-red-500"
               question="Наблюдател на $\varphi = 43^\circ$ с.ш. вижда звезда с $\delta = +20^\circ$ при часов ъгъл $t = 3^{\mathrm{h}}$. Намери височината ѝ."
+              check={[46]}
+              ask={['височина, °']}
             >
               <p><Tex>{'t = 3^{\\mathrm{h}} = 45^\\circ'}</Tex>.</p>
               <p>

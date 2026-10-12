@@ -343,7 +343,7 @@ export default function Lecture17() {
           <div className="mb-6">
             <TaskLevel level="B" />
 
-            <Task id="b1" number={4} color="border-yellow-500" question="Проверете правилото на Тициус–Боде ($a = 0{,}4 + 0{,}3 \cdot 2^n$) за $n = 3$, 6 и 7 и сравнете с Церера (2,77 AU), Уран (19,2 AU) и Нептун (30,1 AU).">
+            <Task id="b1" number={4} color="border-yellow-500" question="Проверете правилото на Тициус–Боде ($a = 0{,}4 + 0{,}3 \cdot 2^n$) за $n = 3$, 6 и 7 и сравнете с Церера (2,77 AU), Уран (19,2 AU) и Нептун (30,1 AU)." check={[2.8, 19.6, 38.8]} ask={['$a$ при $n = 3$, AU', '$a$ при $n = 6$, AU', '$a$ при $n = 7$, AU']}>
               <p><Tex>{'n = 3'}</Tex>: <Tex>{'0{,}4 + 0{,}3 \\cdot 8 = 2{,}8\\ \\mathrm{AU}'}</Tex> – Церера: съвпадение с 1%.</p>
               <p><Tex>{'n = 6'}</Tex>: <Tex>{'0{,}4 + 0{,}3 \\cdot 64 = 19{,}6\\ \\mathrm{AU}'}</Tex> – Уран: 2%.</p>
               <p>
@@ -362,7 +362,7 @@ export default function Lecture17() {
               </p>
             </Task>
 
-            <Task id="b3" number={6} color="border-yellow-500" question="Намерете къде са резонансите $2 : 1$ и $3 : 2$ с Юпитер. Защо при първия има пролука, а при втория – група астероиди (Хилди)?">
+            <Task id="b3" number={6} color="border-yellow-500" question="Намерете къде са резонансите $2 : 1$ и $3 : 2$ с Юпитер. Защо при първия има пролука, а при втория – група астероиди (Хилди)?" check={[3.28, 3.97]} ask={['резонанс $2 : 1$, AU', 'резонанс $3 : 2$, AU']}>
               <p><Tex>{'2 : 1'}</Tex>: <Tex>{'a = 5{,}20 \\cdot (1/2)^{2/3} = 5{,}20 \\cdot 0{,}630 \\approx 3{,}28\\ \\mathrm{AU}'}</Tex> – външният ръб на пояса.</p>
               <p><Tex>{'3 : 2'}</Tex>: <Tex>{'a = 5{,}20 \\cdot (2/3)^{2/3} = 5{,}20 \\cdot 0{,}763 \\approx 3{,}97\\ \\mathrm{AU}'}</Tex> – Хилдите.</p>
               <p>
@@ -381,12 +381,14 @@ export default function Lecture17() {
               number={7}
               color="border-red-500"
               question="Открит е околоземен астероид с $H = 22$. Оценете диаметъра и масата му, ако е тъмен C-астероид ($p = 0{,}05,\ \rho = 1{,}4\ \mathrm{g/cm^{3}}$) или светъл S-астероид ($p = 0{,}25,\ \rho = 2{,}7\ \mathrm{g/cm^{3}}$). Колко пъти се различават енергиите при удар с една и съща скорост?"
+              check={[237, 9.71, 106, 1.67, 5.8]}
+              ask={['диаметър на C-астероида, m', 'маса на C-астероида, $10^9$ kg', 'диаметър на S-астероида, m', 'маса на S-астероида, $10^9$ kg', 'отношение на енергиите']}
             >
               <p><Tex>{'10^{-22/5} = 10^{-4{,}4} \\approx 3{,}98 \\cdot 10^{-5}'}</Tex></p>
-              <p>C: <Tex>{'D = 1329 / \\sqrt{0{,}05} \\cdot 3{,}98 \\cdot 10^{-5} \\approx 5944 \\cdot 3{,}98 \\cdot 10^{-5} \\approx 0{,}24\\ \\mathrm{km}'}</Tex>; <Tex>{'m = 1400 \\cdot \\frac{\\pi}{6} \\cdot 237^3 \\approx 9{,}7 \\cdot 10^9\\ \\mathrm{kg}'}</Tex></p>
-              <p>S: <Tex>{'D = 1329 / \\sqrt{0{,}25} \\cdot 3{,}98 \\cdot 10^{-5} \\approx 0{,}11\\ \\mathrm{km}'}</Tex>; <Tex>{'m = 2700 \\cdot \\frac{\\pi}{6} \\cdot 106^3 \\approx 1{,}7 \\cdot 10^9\\ \\mathrm{kg}'}</Tex></p>
+              <p>C: <Tex>{'D = 1329 / \\sqrt{0{,}05} \\cdot 3{,}98 \\cdot 10^{-5} \\approx 5944 \\cdot 3{,}98 \\cdot 10^{-5} \\approx 0{,}2366\\ \\mathrm{km} \\approx 237\\ \\mathrm{m}'}</Tex>; <Tex>{'m = 1400 \\cdot \\frac{\\pi}{6} \\cdot 236{,}6^3 \\approx 9{,}71 \\cdot 10^9\\ \\mathrm{kg}'}</Tex></p>
+              <p>S: <Tex>{'D = 1329 / \\sqrt{0{,}25} \\cdot 3{,}98 \\cdot 10^{-5} \\approx 0{,}1058\\ \\mathrm{km} \\approx 106\\ \\mathrm{m}'}</Tex>; <Tex>{'m = 2700 \\cdot \\frac{\\pi}{6} \\cdot 105{,}8^3 \\approx 1{,}67 \\cdot 10^9\\ \\mathrm{kg}'}</Tex></p>
               <p>
-                Енергията е пропорционална на масата: ~5,7 пъти разлика. Само от блясъка не можем да кажем дали ни заплашва регионална
+                Енергията е пропорционална на масата: <Tex>{'\\frac{m_C}{m_S} = (\\sqrt{5})^3 \\cdot \\frac{1{,}4}{2{,}7} \\approx 5{,}80'}</Tex> пъти разлика. Само от блясъка не можем да кажем дали ни заплашва регионална
                 катастрофа или „само“ разрушен град – трябва да измерим албедото.
               </p>
             </Task>
@@ -396,12 +398,14 @@ export default function Lecture17() {
               number={8}
               color="border-red-500"
               question="След удара на DART периодът на Диморфос около Дидимос намалява от 11 h 55 min с 33 min. Радиусът на орбитата е ~1,19 km. Приемете кръгова орбита и тласък по посока на движението: $\Delta T / T = 3 \cdot \Delta v / v$. Намерете $\Delta v$ и $\beta$, ако масата на Диморфос е $4{,}3 \cdot 10^9\ \mathrm{kg}$, а DART е с маса 580 kg и скорост $6{,}14\ \mathrm{km/s}$."
+              check={[2.68, 3.24]}
+              ask={['$\\Delta v$, mm/s', '$\\beta$']}
             >
               <p><Tex>{'T = 11\\ \\mathrm{h}\\ 55\\ \\mathrm{min} = 42\\,900\\ \\mathrm{s}'}</Tex>; <Tex>{'v = 2\\pi a / T = 2\\pi \\cdot 1190 / 42\\,900 \\approx 0{,}174\\ \\mathrm{m/s}'}</Tex> – колкото бавна разходка!</p>
-              <p><Tex>{'\\Delta T / T = 33 / 715 \\approx 0{,}046 \\Rightarrow \\Delta v = v \\cdot \\frac{\\Delta T / T}{3} \\approx 0{,}174 \\cdot 0{,}046 / 3 \\approx 2{,}7\\ \\mathrm{mm/s}'}</Tex></p>
-              <p>Импулс на сондата: <Tex>{'m \\cdot u = 580 \\cdot 6140 \\approx 3{,}56 \\cdot 10^6\\ \\mathrm{kg\\cdot m/s} \\Rightarrow'}</Tex> без усилване <Tex>{'\\Delta v_0 = 3{,}56 \\cdot 10^6 / 4{,}3 \\cdot 10^9 \\approx 0{,}83\\ \\mathrm{mm/s}'}</Tex></p>
+              <p><Tex>{'\\Delta T / T = 33 / 715 \\approx 0{,}0462 \\Rightarrow \\Delta v = v \\cdot \\frac{\\Delta T / T}{3} \\approx 0{,}174 \\cdot 0{,}0462 / 3 \\approx 2{,}68\\ \\mathrm{mm/s}'}</Tex></p>
+              <p>Импулс на сондата: <Tex>{'m \\cdot u = 580 \\cdot 6140 \\approx 3{,}56 \\cdot 10^6\\ \\mathrm{kg\\cdot m/s} \\Rightarrow'}</Tex> без усилване <Tex>{'\\Delta v_0 = 3{,}56 \\cdot 10^6 / 4{,}3 \\cdot 10^9 \\approx 0{,}828\\ \\mathrm{mm/s}'}</Tex></p>
               <p>
-                <Tex>{'\\beta = \\Delta v / \\Delta v_0 \\approx 2{,}7 / 0{,}83 \\approx'}</Tex> <strong>3,2</strong>. Изхвърлените скали са дали два пъти повече импулс от самата сонда.
+                <Tex>{'\\beta = \\Delta v / \\Delta v_0 \\approx 2{,}68 / 0{,}828 \\approx'}</Tex> <strong>3,24</strong>. Изхвърлените скали са дали два пъти повече импулс от самата сонда.
                 По-точният анализ дава <Tex>{'\\beta \\approx 3{,}6'}</Tex>.
               </p>
             </Task>
@@ -410,13 +414,15 @@ export default function Lecture17() {
               id="c3"
               number={9}
               color="border-red-500"
-              question="Астероид с диаметър $340\ \mathrm{m}$ ($\rho = 2{,}6\ \mathrm{g/cm^3}$) ще удари Земята след 10 години. Колко апарата като DART ($580\ \mathrm{kg},\ 6{,}1\ \mathrm{km/s},\ \beta = 3$) са нужни, за да го изместим с 2 земни радиуса? А ако го открием 30 години по-рано?"
+              question="Астероид с диаметър $340\ \mathrm{m}$ ($\rho = 2{,}6\ \mathrm{g/cm^3}$) ще удари Земята след 10 години. Колко апарата като DART ($580\ \mathrm{kg},\ 6{,}1\ \mathrm{km/s},\ \beta = 3$) са нужни, за да го изместим с 2 земни радиуса? А ако го открием 30 години преди удара?"
+              check={[68, 23]}
+              ask={['брой апарати при 10 години', 'брой апарати при 30 години']}
             >
-              <p><Tex>{'M = 2600 \\cdot \\frac{\\pi}{6} \\cdot 340^3 \\approx 5{,}3 \\cdot 10^{10}\\ \\mathrm{kg}'}</Tex></p>
-              <p>Един удар: <Tex>{'\\Delta v = 3 \\cdot 580 \\cdot 6140 / 5{,}3 \\cdot 10^{10} \\approx 2{,}0 \\cdot 10^{-4}\\ \\mathrm{m/s} = 0{,}2\\ \\mathrm{mm/s}'}</Tex></p>
-              <p>Нужно: <Tex>{'\\Delta v = \\frac{2R_{\\oplus}}{3t} = \\frac{2 \\cdot 6{,}371 \\cdot 10^6}{3 \\cdot 3{,}16 \\cdot 10^8} \\approx 13{,}4\\ \\mathrm{mm/s} \\Rightarrow'}</Tex> ~67 апарата!</p>
+              <p><Tex>{'M = 2600 \\cdot \\frac{\\pi}{6} \\cdot 340^3 \\approx 5{,}35 \\cdot 10^{10}\\ \\mathrm{kg}'}</Tex></p>
+              <p>Един удар: <Tex>{'\\Delta v = 3 \\cdot 580 \\cdot 6100 / 5{,}35 \\cdot 10^{10} \\approx 1{,}98 \\cdot 10^{-4}\\ \\mathrm{m/s} = 0{,}198\\ \\mathrm{mm/s}'}</Tex></p>
+              <p>Нужно: <Tex>{'\\Delta v = \\frac{2R_{\\oplus}}{3t} = \\frac{2 \\cdot 6{,}371 \\cdot 10^6}{3 \\cdot 3{,}16 \\cdot 10^8} \\approx 13{,}4\\ \\mathrm{mm/s} \\Rightarrow 13{,}4 / 0{,}198 \\approx 67{,}7'}</Tex> – 68 апарата!</p>
               <p>
-                За 30 години: <Tex>{'4{,}5\\ \\mathrm{mm/s} \\Rightarrow'}</Tex> ~23 апарата. Изводът: за голям астероид е нужен много по-тежък апарат, по-ранно предупреждение
+                За 30 години: <Tex>{'4{,}48\\ \\mathrm{mm/s} \\Rightarrow 4{,}48 / 0{,}198 \\approx 22{,}6'}</Tex> – 23 апарата. Изводът: за голям астероид е нужен много по-тежък апарат, по-ранно предупреждение
                 или друг метод – например „гравитационен влекач“, който бавно го дърпа с привличането си. Затова основната задача на
                 планетарната защита е да открие опасните тела възможно най-рано.
               </p>

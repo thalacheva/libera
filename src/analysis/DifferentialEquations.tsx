@@ -374,11 +374,11 @@ export function DifferentialEquations() {
                 <p>Интегрираме: <Tex>{'y = x^3 - 2x + C'}</Tex>.</p>
                 <p>От <Tex>{'y(0) = C = 1'}</Tex>: <Tex>{'y = x^3 - 2x + 1'}</Tex>.</p>
               </Task>
-              <Task id="a2" number={2} color="border-green-500" question="Проверете, че $y = Ce^{-2x}$ е решение на $y' + 2y = 0$, и намерете $C$, ако $y(0) = 5$.">
+              <Task id="a2" number={2} color="border-green-500" question="Проверете, че $y = Ce^{-2x}$ е решение на $y' + 2y = 0$, и намерете $C$, ако $y(0) = 5$." check={[5]} ask={['$C$']}>
                 <p><Tex>{"y' = -2Ce^{-2x} \\Rightarrow y' + 2y = -2Ce^{-2x} + 2Ce^{-2x} = 0"}</Tex> ✓</p>
                 <p><Tex>{'y(0) = C = 5'}</Tex>, т.е. <Tex>{'y = 5e^{-2x}'}</Tex>.</p>
               </Task>
-              <Task id="a3" number={3} color="border-green-500" question="Йод-131 има период на полуразпад около 8 дни. Колко mg остават от 80 mg след 24 дни?">
+              <Task id="a3" number={3} color="border-green-500" question="Йод-131 има период на полуразпад около 8 дни. Колко mg остават от 80 mg след 24 дни?" check={[10]} ask={['остават, mg']}>
                 <p>24 дни са 3 периода.</p>
                 <p><Tex>{'80 \\cdot \\left(\\frac{1}{2}\\right)^3 = 10\\ \\mathrm{mg}'}</Tex></p>
               </Task>
@@ -391,7 +391,7 @@ export function DifferentialEquations() {
                 <p>От <Tex>{'y(0) = 2'}</Tex>: <Tex>{'C = 4'}</Tex>.</p>
                 <p><Tex>{'y = \\sqrt{x^2 + 4}'}</Tex> (клон на хипербола).</p>
               </Task>
-              <Task id="b2" number={5} color="border-yellow-500" question="Кафе с 90 °C е в стая с 20 °C. След 10 минути то е 55 °C. Каква е температурата му след 20 минути?">
+              <Task id="b2" number={5} color="border-yellow-500" question="Кафе с 90 °C е в стая с 20 °C. След 10 минути то е 55 °C. Каква е температурата му след 20 минути?" check={[37.5]} ask={['температура, °C']}>
                 <p><Tex>{'T = 20 + 70e^{-kt}'}</Tex>; от <Tex>{'T(10) = 55'}</Tex>: <Tex>{'70e^{-10k} = 35 \\Rightarrow e^{-10k} = \\frac{1}{2}'}</Tex>.</p>
                 <p><Tex>{'e^{-20k} = \\left(e^{-10k}\\right)^2 = \\frac{1}{4}'}</Tex></p>
                 <p><Tex>{'T(20) = 20 + 70 \\cdot \\frac{1}{4} = 37{,}5\\ ^{\\circ}\\mathrm{C}'}</Tex> – разликата със стаята се разполовява на всеки 10 минути.</p>

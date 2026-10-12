@@ -293,17 +293,17 @@ export function Similarity() {
           <TaskBoard>
             <div className="mb-6">
               <TaskLevel level="A" />
-              <Task id="a1" number={1} color="border-green-500" question="$\Delta ABC \sim \Delta A_1B_1C_1$, $AB = 6,\ BC = 8,\ CA = 10$ и $A_1B_1 = 9$. Намерете другите страни и периметъра на $A_1B_1C_1$.">
+              <Task id="a1" number={1} color="border-green-500" question="$\Delta ABC \sim \Delta A_1B_1C_1$, $AB = 6,\ BC = 8,\ CA = 10$ и $A_1B_1 = 9$. Намерете другите страни и периметъра на $A_1B_1C_1$." check={[12, 15, 36]} ask={['$B_1C_1$', '$C_1A_1$', 'периметър $P_1$']}>
                 <p><Tex>{'k = \\frac{A_1B_1}{AB} = \\frac{9}{6} = 1{,}5'}</Tex></p>
                 <p><Tex>{'B_1C_1 = 1{,}5 \\cdot 8 = 12'}</Tex>; <Tex>{'C_1A_1 = 1{,}5 \\cdot 10 = 15'}</Tex></p>
                 <p><Tex>{'P_1 = 9 + 12 + 15 = 36\\ (= 1{,}5 \\cdot 24)'}</Tex> ✓</p>
               </Task>
-              <Task id="a2" number={2} color="border-green-500" question="В триъгълник $ABC$ $M \in AB$, $N \in AC$ и $MN \parallel BC$. $AM = 4,\ AB = 10,\ BC = 15$. Намерете $MN$.">
+              <Task id="a2" number={2} color="border-green-500" question="В триъгълник $ABC$ $M \in AB$, $N \in AC$ и $MN \parallel BC$. $AM = 4,\ AB = 10,\ BC = 15$. Намерете $MN$." check={[6]} ask={['$MN$']}>
                 <p><Tex>{'\\Delta AMN \\sim \\Delta ABC'}</Tex> (ЪЪ – съответни ъгли при успоредни прави).</p>
                 <p><Tex>{'\\frac{MN}{BC} = \\frac{AM}{AB} = \\frac{4}{10} = 0{,}4'}</Tex></p>
                 <p><Tex>{'MN = 0{,}4 \\cdot 15 = 6'}</Tex></p>
               </Task>
-              <Task id="a3" number={3} color="border-green-500" question="Стълб с височина 6 m хвърля сянка 4 m. Колко е висок момче, чиято сянка в същия момент е 1,10 m?">
+              <Task id="a3" number={3} color="border-green-500" question="Стълб с височина 6 m хвърля сянка 4 m. Колко е висок момче, чиято сянка в същия момент е 1,10 m?" check={[1.65]} ask={['височина, m']}>
                 <p>Отношението височина : сянка е еднакво: <Tex>{'\\frac{h}{1{,}1} = \\frac{6}{4} = 1{,}5'}</Tex></p>
                 <p><Tex>{'h = 1{,}5 \\cdot 1{,}1 = 1{,}65\\ \\mathrm{m}'}</Tex></p>
               </Task>
@@ -311,17 +311,17 @@ export function Similarity() {
 
             <div className="mb-6">
               <TaskLevel level="B" />
-              <Task id="b1" number={4} color="border-yellow-500" question="Диагоналите на трапец $ABCD$ ($AB \parallel CD$) се пресичат в $O$. $AB = 12,\ CD = 4$. Ако лицето на $\Delta COD$ е $2\ \mathrm{cm}^2$, колко е лицето на $\Delta AOB$?">
+              <Task id="b1" number={4} color="border-yellow-500" question="Диагоналите на трапец $ABCD$ ($AB \parallel CD$) се пресичат в $O$. $AB = 12,\ CD = 4$. Ако лицето на $\Delta COD$ е $2\ \mathrm{cm}^2$, колко е лицето на $\Delta AOB$?" check={[18]} ask={['лице, cm²']}>
                 <p><Tex>{'\\Delta AOB \\sim \\Delta COD'}</Tex> (ЪЪ: кръстни и връхни ъгли) с <Tex>{'k = \\frac{AB}{CD} = 3'}</Tex>.</p>
                 <p>Лицата се отнасят като <Tex>{'k^2 = 9'}</Tex>.</p>
                 <p><Tex>{'S(AOB) = 9 \\cdot 2 = 18\\ \\mathrm{cm}^2'}</Tex></p>
               </Task>
-              <Task id="b2" number={5} color="border-yellow-500" question="Хипотенузата на правоъгълен триъгълник е 10, а проекцията на единия катет върху нея е 3,6. Намерете катетите и височината към хипотенузата.">
+              <Task id="b2" number={5} color="border-yellow-500" question="Хипотенузата на правоъгълен триъгълник е 10, а проекцията на единия катет върху нея е 3,6. Намерете катетите и височината към хипотенузата." check={[6, 8, 4.8]} ask={['катетът с проекция 3,6', 'другият катет', 'височина']}>
                 <p>Другата проекция: <Tex>{'10 - 3{,}6 = 6{,}4'}</Tex>.</p>
                 <p>Катетите: <Tex>{'\\sqrt{10 \\cdot 3{,}6} = \\sqrt{36} = 6'}</Tex> и <Tex>{'\\sqrt{10 \\cdot 6{,}4} = \\sqrt{64} = 8'}</Tex>.</p>
                 <p>Височината: <Tex>{'h = \\sqrt{3{,}6 \\cdot 6{,}4} = \\sqrt{23{,}04} = 4{,}8'}</Tex>.</p>
               </Task>
-              <Task id="b3" number={6} color="border-yellow-500" question="В триъгълник $ABC$ страната $BC = 12$ и височината към нея е 8. В него е вписан квадрат, едната страна на който лежи на $BC$, а другите два върха – на $AB$ и $AC$. Намерете страната на квадрата.">
+              <Task id="b3" number={6} color="border-yellow-500" question="В триъгълник $ABC$ страната $BC = 12$ и височината към нея е 8. В него е вписан квадрат, едната страна на който лежи на $BC$, а другите два върха – на $AB$ и $AC$. Намерете страната на квадрата." check={[4.8]} ask={['страна на квадрата']}>
                 <p>Нека страната е <Tex>{'x'}</Tex>. Горната страна на квадрата е успоредна на <Tex>{'BC'}</Tex> и отрязва триъгълник, подобен на <Tex>{'ABC'}</Tex>.</p>
                 <p>Височината на малкия триъгълник е <Tex>{'8 - x'}</Tex>, а основата му е <Tex>{'x'}</Tex>. От подобието: <Tex>{'\\frac{x}{12} = \\frac{8 - x}{8}'}</Tex>.</p>
                 <p><Tex>{'8x = 96 - 12x \\Rightarrow 20x = 96 \\Rightarrow x = 4{,}8'}</Tex></p>
@@ -330,19 +330,19 @@ export function Similarity() {
 
             <div className="mb-6">
               <TaskLevel level="C" />
-              <Task id="c1" number={7} color="border-red-500" question="Докажи, че ъглополовящата $AL$ в триъгълник $ABC$ дели срещулежащата страна в отношение $BL : LC = AB : AC$. Пресметни $BL$ и $LC$ при $AB = 6,\ AC = 9,\ BC = 10$.">
+              <Task id="c1" number={7} color="border-red-500" question="Докажи, че ъглополовящата $AL$ в триъгълник $ABC$ дели срещулежащата страна в отношение $BL : LC = AB : AC$. Пресметни $BL$ и $LC$ при $AB = 6,\ AC = 9,\ BC = 10$." check={[4, 6]} ask={['$BL$', '$LC$']}>
                 <p>През <Tex>{'C'}</Tex> прекарваме права, успоредна на <Tex>{'AL'}</Tex>; нека тя пресича правата <Tex>{'AB'}</Tex> в точка <Tex>{'D'}</Tex>.</p>
                 <p><Tex>{'\\angle ACD = \\angle CAL'}</Tex> (кръстни) и <Tex>{'\\angle ADC = \\angle BAL'}</Tex> (съответни); тъй като <Tex>{'\\angle BAL = \\angle CAL'}</Tex>, <Tex>{'\\Delta ACD'}</Tex> е равнобедрен: <Tex>{'AD = AC'}</Tex>.</p>
                 <p>По теоремата на Талес за ъгъла <Tex>{'B'}</Tex>: <Tex>{'\\frac{BL}{LC} = \\frac{BA}{AD} = \\frac{AB}{AC}'}</Tex>.</p>
                 <p><Tex>{'BL : LC = 6 : 9 = 2 : 3'}</Tex> и <Tex>{'BL + LC = 10 \\Rightarrow BL = 4,\\ LC = 6'}</Tex>.</p>
               </Task>
-              <Task id="c2" number={8} color="border-red-500" question="През точка вътре в триъгълник ABC са прекарани прави, успоредни на страните му. Те образуват три малки триъгълника с лица 4, 9 и 16. Намерете лицето на ABC.">
+              <Task id="c2" number={8} color="border-red-500" question="През точка вътре в триъгълник ABC са прекарани прави, успоредни на страните му. Те образуват три малки триъгълника с лица 4, 9 и 16. Намерете лицето на ABC." check={[81]} ask={['лице на $ABC$']}>
                 <p>Трите малки триъгълника са подобни на <Tex>{'ABC'}</Tex> с коефициенти <Tex>{'\\sqrt{\\frac{4}{S}}'}</Tex>, <Tex>{'\\sqrt{\\frac{9}{S}}'}</Tex> и <Tex>{'\\sqrt{\\frac{16}{S}}'}</Tex>.</p>
                 <p>Основите им върху една страна (например <Tex>{'BC'}</Tex>) – след успоредно пренасяне – съставят цялата страна: <Tex>{'k_1 + k_2 + k_3 = 1'}</Tex>.</p>
                 <p><Tex>{'\\frac{2 + 3 + 4}{\\sqrt{S}} = 1 \\Rightarrow \\sqrt{S} = 9'}</Tex></p>
                 <p><Tex>{'S = 81'}</Tex></p>
               </Task>
-              <Task id="c3" number={9} color="border-red-500" question="Основите на трапец са $a = 12$ и $b = 4$. През пресечната точка $O$ на диагоналите е прекарана отсечка, успоредна на основите, с краища върху бедрата. Намерете дължината ѝ.">
+              <Task id="c3" number={9} color="border-red-500" question="Основите на трапец са $a = 12$ и $b = 4$. През пресечната точка $O$ на диагоналите е прекарана отсечка, успоредна на основите, с краища върху бедрата. Намерете дължината ѝ." check={[6]} ask={['дължина']}>
                 <p>От <Tex>{'\\Delta AOB \\sim \\Delta COD'}</Tex>: <Tex>{'AO : OC = 12 : 4 = 3 : 1'}</Tex>, т.е. <Tex>{'\\frac{CO}{CA} = \\frac{1}{4}'}</Tex> и <Tex>{'\\frac{AO}{AC} = \\frac{3}{4}'}</Tex>.</p>
                 <p>В <Tex>{'\\Delta ACD'}</Tex> отсечката от <Tex>{'O'}</Tex> до бедрото <Tex>{'AD'}</Tex> е успоредна на <Tex>{'CD'}</Tex>: тя е <Tex>{'\\frac{AO}{AC} \\cdot CD = \\frac{3}{4} \\cdot 4 = 3'}</Tex>.</p>
                 <p>В <Tex>{'\\Delta CAB'}</Tex> аналогично частта от <Tex>{'O'}</Tex> до <Tex>{'BC'}</Tex> е <Tex>{'\\frac{CO}{CA} \\cdot AB = \\frac{1}{4} \\cdot 12 = 3'}</Tex>.</p>

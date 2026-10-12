@@ -305,21 +305,21 @@ export default function Lecture21() {
           <div className="mb-6">
             <TaskLevel level="B" />
 
-            <Task id="b1" number={4} color="border-yellow-500" question="Колко е радиусът на Шварцшилд за черна дупка от $10\,M_{\odot}$? А за Sgr A* ($4{,}3 \cdot 10^6\,M_{\odot}$)?">
-              <p><Tex>{'R_{\\mathrm{s}} \\approx 2{,}95\\ \\mathrm{km} \\cdot 10 \\approx 30\\ \\mathrm{km}'}</Tex> – колкото София от единия до другия край.</p>
-              <p>Sgr A*: <Tex>{'R_{\\mathrm{s}} \\approx 2{,}95 \\cdot 4{,}3 \\cdot 10^6\\ \\mathrm{km} \\approx 1{,}27 \\cdot 10^7\\ \\mathrm{km} \\approx 18\\,R_{\\odot} \\approx 0{,}085\\ \\mathrm{AU}'}</Tex> – по-малко от орбитата на Меркурий.</p>
+            <Task id="b1" number={4} color="border-yellow-500" question="Колко е радиусът на Шварцшилд за черна дупка от $10\,M_{\odot}$? А за Sgr A* ($4{,}3 \cdot 10^6\,M_{\odot}$)?" check={[29.5, 1.27]} ask={['$R_{\\mathrm{s}}$ за $10\\,M_{\\odot}$, km', '$R_{\\mathrm{s}}$ за Sgr A*, $10^7$ km']}>
+              <p><Tex>{'R_{\\mathrm{s}} \\approx 2{,}95\\ \\mathrm{km} \\cdot 10 \\approx 29{,}5\\ \\mathrm{km}'}</Tex> – колкото София от единия до другия край.</p>
+              <p>Sgr A*: <Tex>{'R_{\\mathrm{s}} \\approx 2{,}95 \\cdot 4{,}3 \\cdot 10^6\\ \\mathrm{km} \\approx 1{,}27 \\cdot 10^7\\ \\mathrm{km} \\approx 18{,}2\\,R_{\\odot} \\approx 0{,}0848\\ \\mathrm{AU}'}</Tex> – по-малко от орбитата на Меркурий.</p>
             </Task>
 
-            <Task id="b2" number={5} color="border-yellow-500" question="Неутронна звезда има маса $1{,}4\,M_{\odot}$ и радиус 10 km. Каква е средната ѝ плътност? Колко тежи една чаена лъжичка ($5\ \mathrm{cm^{3}}$) от нея?">
-              <p><Tex>{'V = \\frac{4\\pi \\cdot (10^4\\ \\mathrm{m})^3}{3} \\approx 4{,}19 \\cdot 10^{12}\\ \\mathrm{m^{3}}'}</Tex>; <Tex>{'M = 1{,}4 \\cdot 1{,}99 \\cdot 10^{30} \\approx 2{,}8 \\cdot 10^{30}\\ \\mathrm{kg}'}</Tex></p>
-              <p><Tex>{'\\rho = M / V \\approx 6{,}7 \\cdot 10^{17}\\ \\mathrm{kg/m^{3}} = 6{,}7 \\cdot 10^{14}\\ \\mathrm{g/cm^{3}}'}</Tex></p>
+            <Task id="b2" number={5} color="border-yellow-500" question="Неутронна звезда има маса $1{,}4\,M_{\odot}$ и радиус 10 km. Каква е средната ѝ плътност? Колко тежи една чаена лъжичка ($5\ \mathrm{cm^{3}}$) от нея?" check={[6.65, 3.33]} ask={['плътност, $10^{14}$ g/cm³', 'маса на лъжичката, млрд. тона']}>
+              <p><Tex>{'V = \\frac{4\\pi \\cdot (10^4\\ \\mathrm{m})^3}{3} \\approx 4{,}19 \\cdot 10^{12}\\ \\mathrm{m^{3}}'}</Tex>; <Tex>{'M = 1{,}4 \\cdot 1{,}99 \\cdot 10^{30} \\approx 2{,}786 \\cdot 10^{30}\\ \\mathrm{kg}'}</Tex></p>
+              <p><Tex>{'\\rho = M / V \\approx 6{,}65 \\cdot 10^{17}\\ \\mathrm{kg/m^{3}} = 6{,}65 \\cdot 10^{14}\\ \\mathrm{g/cm^{3}}'}</Tex></p>
               <p>
-                Лъжичка: <Tex>{'5 \\cdot 6{,}7 \\cdot 10^{14}\\ \\mathrm{g} \\approx 3{,}3 \\cdot 10^{15}\\ \\mathrm{g} ='}</Tex> <strong>3,3 милиарда тона</strong> – колкото планина. Това е плътността на
+                Лъжичка: <Tex>{'5 \\cdot 6{,}65 \\cdot 10^{14}\\ \\mathrm{g} \\approx 3{,}33 \\cdot 10^{15}\\ \\mathrm{g} ='}</Tex> <strong>3,33 милиарда тона</strong> – колкото планина. Това е плътността на
                 атомното ядро.
               </p>
             </Task>
 
-            <Task id="b3" number={6} color="border-yellow-500" question="Пулсарът в мъглявината Рак се върти с период 33,5 ms. С каква скорост се движи точка от екватора му, ако радиусът е 12 km? А пулсарът J1748−2446ad (1,4 ms)?">
+            <Task id="b3" number={6} color="border-yellow-500" question="Пулсарът в мъглявината Рак се върти с период 33,5 ms. С каква скорост се движи точка от екватора му, ако радиусът е 12 km? А пулсарът J1748−2446ad (1,4 ms)?" check={[2250, 54000]} ask={['скорост за пулсара в Рак, km/s', 'скорост за J1748−2446ad, km/s']}>
               <p><Tex>{'v = 2\\pi R / P = 2\\pi \\cdot 12\\ \\mathrm{km} / 0{,}0335\\ \\mathrm{s} \\approx 2250\\ \\mathrm{km/s}'}</Tex> – 0,75% от скоростта на светлината.</p>
               <p>J1748−2446ad: <Tex>{'v = 2\\pi \\cdot 12 / 0{,}0014 \\approx 54\\,000\\ \\mathrm{km/s} \\approx 18\\% c'}</Tex>.</p>
               <p>
@@ -336,6 +336,8 @@ export default function Lecture21() {
               number={7}
               color="border-red-500"
               question="Ако Слънцето хипотетично се превърне в черна дупка със същата маса, какъв ще бъде радиусът на Шварцшилд? Ще се промени ли орбитата на Земята?"
+              check={[2.95]}
+              ask={['$R_{\\mathrm{s}}$, km']}
             >
               <p><Tex>{'R_{\\mathrm{s}} \\approx 2{,}95\\ \\mathrm{km}'}</Tex> – Слънцето би трябвало да се свие от 696 000 km до 3 km.</p>
               <p>
@@ -365,9 +367,11 @@ export default function Lecture21() {
               number={9}
               color="border-red-500"
               question="Звездата S2 обикаля около Sgr A* с период 16,05 години. Голямата полуос на орбитата се вижда под ъгъл 0,1255″ от разстояние 8,28 kpc. Намерете масата на Sgr A*."
+              check={[4.36]}
+              ask={['маса на Sgr A*, $10^6\\,M_{\\odot}$']}
             >
               <p><Tex>{'a = 0{,}1255\'\' \\cdot 8280\\ \\mathrm{pc} = 1039\\ \\mathrm{AU}'}</Tex> (при 1 pc един ъглов секунд отговаря на 1 AU)</p>
-              <p>От третия закон на Кеплер в единици AU, години и <Tex>{'M_{\\odot}'}</Tex>: <Tex>{'M = a^3 / P^2 = 1039^3 / 16{,}05^2 \\approx 1{,}12 \\cdot 10^9 / 257{,}6 \\approx 4{,}3 \\cdot 10^6\\,M_{\\odot}'}</Tex></p>
+              <p>От третия закон на Кеплер в единици AU, години и <Tex>{'M_{\\odot}'}</Tex>: <Tex>{'M = a^3 / P^2 = 1039^3 / 16{,}05^2 \\approx 1{,}122 \\cdot 10^9 / 257{,}6 \\approx 4{,}36 \\cdot 10^6\\,M_{\\odot}'}</Tex></p>
               <p>
                 В перицентъра S2 минава само на ~120 AU от черната дупка, със скорост ~<Tex>{'7700\\ \\mathrm{km/s}'}</Tex>. При такава маса в толкова малък обем
                 не може да има нищо друго освен черна дупка.

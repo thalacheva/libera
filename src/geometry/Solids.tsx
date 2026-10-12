@@ -342,16 +342,16 @@ export function Solids() {
           <TaskBoard>
             <div className="mb-6">
               <TaskLevel level="A" />
-              <Task id="a1" number={1} color="border-green-500" question="Правоъгълен паралелепипед има ръбове 3, 4 и 12 cm. Намерете обема, повърхнината и диагонала му.">
+              <Task id="a1" number={1} color="border-green-500" question="Правоъгълен паралелепипед има ръбове 3, 4 и 12 cm. Намерете обема, повърхнината и диагонала му." check={[144, 192, 13]} ask={['обем, cm³', 'повърхнина, cm²', 'диагонал, cm']}>
                 <p><Tex>{'V = 3 \\cdot 4 \\cdot 12 = 144\\ \\mathrm{cm}^3'}</Tex></p>
                 <p><Tex>{'S = 2(12 + 48 + 36) = 192\\ \\mathrm{cm}^2'}</Tex></p>
                 <p><Tex>{'d = \\sqrt{9 + 16 + 144} = \\sqrt{169} = 13\\ \\mathrm{cm}'}</Tex></p>
               </Task>
-              <Task id="a2" number={2} color="border-green-500" question="Цилиндър има радиус 5 cm и височина 8 cm. Намерете обема и пълната му повърхнина.">
+              <Task id="a2" number={2} color="border-green-500" question="Цилиндър има радиус 5 cm и височина 8 cm. Намерете обема и пълната му повърхнина." check={[628.3, 408.4]} ask={['обем, cm³ (приближено)', 'пълна повърхнина, cm² (приближено)']}>
                 <p><Tex>{'V = \\pi \\cdot 25 \\cdot 8 = 200\\pi \\approx 628{,}3\\ \\mathrm{cm}^3'}</Tex></p>
                 <p><Tex>{'S = 2\\pi \\cdot 5 \\cdot 8 + 2\\pi \\cdot 25 = 80\\pi + 50\\pi = 130\\pi \\approx 408{,}4\\ \\mathrm{cm}^2'}</Tex></p>
               </Task>
-              <Task id="a3" number={3} color="border-green-500" question="Намерете обема на кълбо и лицето на сфера с радиус 6 cm.">
+              <Task id="a3" number={3} color="border-green-500" question="Намерете обема на кълбо и лицето на сфера с радиус 6 cm." check={[904.8, 452.4]} ask={['обем, cm³ (приближено)', 'лице на сферата, cm² (приближено)']}>
                 <p><Tex>{'V = \\tfrac{4}{3} \\cdot \\pi \\cdot 216 = 288\\pi \\approx 904{,}8\\ \\mathrm{cm}^3'}</Tex></p>
                 <p><Tex>{'S = 4 \\cdot \\pi \\cdot 36 = 144\\pi \\approx 452{,}4\\ \\mathrm{cm}^2'}</Tex></p>
               </Task>
@@ -359,17 +359,17 @@ export function Solids() {
 
             <div className="mb-6">
               <TaskLevel level="B" />
-              <Task id="b1" number={4} color="border-yellow-500" question="Правилна четириъгълна пирамида има основен ръб 6 cm и височина 4 cm. Намерете обема и повърхнината ѝ.">
+              <Task id="b1" number={4} color="border-yellow-500" question="Правилна четириъгълна пирамида има основен ръб 6 cm и височина 4 cm. Намерете обема и повърхнината ѝ." check={[48, 96]} ask={['обем, cm³', 'повърхнина, cm²']}>
                 <p><Tex>{'V = \\tfrac{1}{3} \\cdot 36 \\cdot 4 = 48\\ \\mathrm{cm}^3'}</Tex></p>
                 <p>Апотема: <Tex>{'\\sqrt{4^2 + 3^2} = 5\\ \\mathrm{cm}'}</Tex>; околна повърхнина <Tex>{'4 \\cdot \\tfrac{1}{2} \\cdot 6 \\cdot 5 = 60\\ \\mathrm{cm}^2'}</Tex></p>
                 <p><Tex>{'S = 36 + 60 = 96\\ \\mathrm{cm}^2'}</Tex></p>
               </Task>
-              <Task id="b2" number={5} color="border-yellow-500" question="Конус има радиус 6 cm и образувателна 10 cm. Намерете обема и пълната му повърхнина.">
+              <Task id="b2" number={5} color="border-yellow-500" question="Конус има радиус 6 cm и образувателна 10 cm. Намерете обема и пълната му повърхнина." check={[301.6, 301.6]} ask={['обем, cm³ (приближено)', 'пълна повърхнина, cm² (приближено)']}>
                 <p><Tex>{'h = \\sqrt{100 - 36} = 8\\ \\mathrm{cm}'}</Tex></p>
-                <p><Tex>{'V = \\tfrac{1}{3}\\pi \\cdot 36 \\cdot 8 = 96\\pi\\ \\mathrm{cm}^3'}</Tex></p>
-                <p><Tex>{'S = \\pi \\cdot 6 \\cdot (6 + 10) = 96\\pi\\ \\mathrm{cm}^2'}</Tex></p>
+                <p><Tex>{'V = \\tfrac{1}{3}\\pi \\cdot 36 \\cdot 8 = 96\\pi \\approx 301{,}6\\ \\mathrm{cm}^3'}</Tex></p>
+                <p><Tex>{'S = \\pi \\cdot 6 \\cdot (6 + 10) = 96\\pi \\approx 301{,}6\\ \\mathrm{cm}^2'}</Tex></p>
               </Task>
-              <Task id="b3" number={6} color="border-yellow-500" question="Куб $5 \times 5 \times 5$, сглобен от единични кубчета, е боядисан отвън и разглобен. Колко кубчета имат 3, 2, 1 и 0 боядисани стени?">
+              <Task id="b3" number={6} color="border-yellow-500" question="Куб $5 \times 5 \times 5$, сглобен от единични кубчета, е боядисан отвън и разглобен. Колко кубчета имат 3, 2, 1 и 0 боядисани стени?" check={[8, 36, 54, 27]} ask={['3 стени', '2 стени', '1 стена', '0 стени']}>
                 <p>3 стени – върховете: 8.</p>
                 <p>2 стени – по ръбовете без върховете: <Tex>{'12 \\cdot 3 = 36'}</Tex>. 1 стена – вътрешността на стените: <Tex>{'6 \\cdot 3^2 = 54'}</Tex>.</p>
                 <p>0 стени – вътрешният куб <Tex>{'3 \\times 3 \\times 3 = 27'}</Tex>. Проверка: <Tex>{'8 + 36 + 54 + 27 = 125'}</Tex> ✓</p>
@@ -383,12 +383,12 @@ export function Solids() {
                 <p>Триъгълници (60°): 3, 4 или 5 във връх (180°, 240°, 300°) – тетраедър, октаедър, икосаедър. Квадрати (90°): само 3 – куб.</p>
                 <p>Петоъгълници (108°): само 3 (324°) – додекаедър. При шестоъгълници <Tex>{'3 \\cdot 120^\\circ = 360^\\circ'}</Tex> – вече няма връх.</p>
               </Task>
-              <Task id="c2" number={8} color="border-red-500" question="Намерете обема на правилен тетраедър с ръб $a = 6$.">
+              <Task id="c2" number={8} color="border-red-500" question="Намерете обема на правилен тетраедър с ръб $a = 6$." check={[25.46]} ask={['обем (приближено)']}>
                 <p>Основата е равностранен триъгълник с лице <Tex>{'\\sqrt{3} \\cdot \\frac{36}{4} = 9\\sqrt{3}'}</Tex>.</p>
                 <p>Центърът на основата е на разстояние <Tex>{'\\frac{a}{\\sqrt{3}} = 2\\sqrt{3}'}</Tex> от върха ѝ <Tex>{'\\Rightarrow h = \\sqrt{36 - 12} = \\sqrt{24} = 2\\sqrt{6}'}</Tex>.</p>
                 <p><Tex>{'V = \\tfrac{1}{3} \\cdot 9\\sqrt{3} \\cdot 2\\sqrt{6} = 6\\sqrt{18} = 18\\sqrt{2} \\approx 25{,}46'}</Tex> (общо: <Tex>{'V = \\frac{a^3\\sqrt{2}}{12}'}</Tex>).</p>
               </Task>
-              <Task id="c3" number={9} color="border-red-500" question="В куб е вписано кълбо и около него е описано кълбо. Колко пъти обемът на описаното е по-голям от обема на вписаното?">
+              <Task id="c3" number={9} color="border-red-500" question="В куб е вписано кълбо и около него е описано кълбо. Колко пъти обемът на описаното е по-голям от обема на вписаното?" check={[5.196]} ask={['пъти (приближено)']}>
                 <p>Вписаното кълбо има радиус <Tex>{'r = \\frac{a}{2}'}</Tex>; описаното – <Tex>{'R = \\frac{d}{2} = \\frac{a\\sqrt{3}}{2}'}</Tex>.</p>
                 <p><Tex>{'R : r = \\sqrt{3} \\Rightarrow'}</Tex> обемите се отнасят като <Tex>{'(\\sqrt{3})^3 = 3\\sqrt{3}'}</Tex>.</p>
                 <p><Tex>{'\\approx 5{,}2'}</Tex> пъти.</p>

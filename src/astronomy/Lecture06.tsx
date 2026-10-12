@@ -282,6 +282,8 @@ export default function Lecture06() {
               number={1}
               color="border-green-500"
               question="Как се променя силата на привличане между две тела, ако разстоянието между тях се удвои? А ако масата на едното се удвои?"
+              check={[4, 2]}
+              ask={['при двойно разстояние – пъти по-малка', 'при двойна маса – пъти по-голяма']}
             >
               <p>
                 <Tex>{'F \\propto \\frac{1}{r^2}'}</Tex>: при двойно разстояние силата намалява{' '}
@@ -297,6 +299,8 @@ export default function Lecture06() {
               number={2}
               color="border-green-500"
               question="Космонавт има маса 80 kg. Каква е масата му на Луната и какво е теглото му там ($g_{\text{☾}} = 1{,}62\ \mathrm{m/s}^2$)?"
+              check={[80, 130]}
+              ask={['маса, kg', 'тегло, N']}
             >
               <p>
                 Масата не се променя: <strong>80 kg</strong>.
@@ -330,6 +334,8 @@ export default function Lecture06() {
               number={4}
               color="border-green-500"
               question="Земята привлича ябълка със сила 1 N. С каква сила ябълката привлича Земята? Защо не виждаме Земята да „пада“ към ябълката?"
+              check={[1]}
+              ask={['сила, N']}
             >
               <p>
                 Със същата сила – <strong>1 N</strong> (III закон на Нютон).
@@ -348,13 +354,15 @@ export default function Lecture06() {
               number={5}
               color="border-yellow-500"
               question="Изчисли $g$ на повърхността на Марс ($M = 6{,}42\cdot 10^{23}\ \mathrm{kg},\ R = 3390\ \mathrm{km}$). Колко пъти по-високо ще скочите там?"
+              check={[3.73, 2.63]}
+              ask={['$g$, m/s²', 'колко пъти по-високо']}
             >
               <p>
                 <Tex>{'g = GM / R^2 = \\frac{6{,}674\\cdot 10^{-11} \\cdot 6{,}42\\cdot 10^{23}}{(3{,}39\\cdot 10^6)^2} \\approx'}</Tex>{' '}
                 <strong><Tex>{'3{,}73\\ \\mathrm{m/s}^2'}</Tex></strong>
               </p>
               <p>
-                Височината на скока при една и съща начална скорост е <Tex>{'h = v^2 / 2g'}</Tex>, т.е. <Tex>{'h \\propto \\frac{1}{g}'}</Tex>: <Tex>{'9{,}81 / 3{,}73 \\approx'}</Tex> <strong>2,6 пъти</strong>{' '}
+                Височината на скока при една и съща начална скорост е <Tex>{'h = v^2 / 2g'}</Tex>, т.е. <Tex>{'h \\propto \\frac{1}{g}'}</Tex>: <Tex>{'9{,}81 / 3{,}73 \\approx'}</Tex> <strong>2,63 пъти</strong>{' '}
                 по-високо.
               </p>
             </Task>
@@ -364,6 +372,8 @@ export default function Lecture06() {
               number={6}
               color="border-yellow-500"
               question="На каква височина над повърхността на Земята $g$ е два пъти по-малко от $g_0$?"
+              check={[2640]}
+              ask={['височина, km']}
             >
               <p><Tex>{'\\left(\\frac{R}{R + h}\\right)^2 = \\frac{1}{2} \\to R + h = R\\sqrt{2}'}</Tex></p>
               <p>
@@ -376,6 +386,8 @@ export default function Lecture06() {
               number={7}
               color="border-yellow-500"
               question="Пресметни масата на Земята от $g = 9{,}81\ \mathrm{m/s}^2$ и $R = 6371\ \mathrm{km}$. Колко е средната ѝ плътност?"
+              check={[5.97, 5.5]}
+              ask={['маса, $10^{24}$ kg', 'плътност, g/cm³']}
             >
               <p>
                 <Tex>{'M = gR^2 / G = \\frac{9{,}81 \\cdot (6{,}371\\cdot 10^6)^2}{6{,}674\\cdot 10^{-11}} \\approx'}</Tex>{' '}
@@ -392,6 +404,8 @@ export default function Lecture06() {
               number={8}
               color="border-yellow-500"
               question="Луната Европа обикаля Юпитер по почти кръгова орбита с радиус 671 000 km за 3,55 дни. Пресметни масата на Юпитер."
+              check={[1.9]}
+              ask={['маса, $10^{27}$ kg']}
             >
               <p><Tex>{'T = 3{,}55 \\cdot 86\\,400 \\approx 3{,}07\\cdot 10^5\\ \\mathrm{s}'}</Tex>; <Tex>{'a = 6{,}71\\cdot 10^8\\ \\mathrm{m}'}</Tex></p>
               <p>
@@ -409,6 +423,8 @@ export default function Lecture06() {
               number={9}
               color="border-red-500"
               question="В коя точка между Земята и Луната силите на привличане от двете тела се уравновесяват? ($M_{\text{☾}} / M_{\oplus} = 0{,}0123,\ d = 384\,400\ \mathrm{km}$)"
+              check={[346000]}
+              ask={['разстояние от Земята, km']}
             >
               <p>
                 На разстояние <Tex>{'x'}</Tex> от Земята: <Tex>{'\\frac{GM_{\\oplus}}{x^2} = \\frac{GM_{\\text{☾}}}{(d - x)^2} \\to \\frac{d - x}{x} = \\sqrt{M_{\\text{☾}} / M_{\\oplus}} = 0{,}111'}</Tex>.
@@ -424,6 +440,8 @@ export default function Lecture06() {
               number={10}
               color="border-red-500"
               question="Покажи, че приливното действие на Слънцето е ~0,46 от това на Луната. Колко пъти сизигийните приливи са по-високи от квадратурните? ($M_{\odot} / M_{\text{☾}} = 2{,}71\cdot 10^7,\ d_{\odot} = 1{,}496\cdot 10^8\ \mathrm{km},\ d_{\text{☾}} = 3{,}844\cdot 10^5\ \mathrm{km}$)"
+              check={[0.46, 2.7]}
+              ask={['Слънце / Луна', 'сизигиен / квадратурен прилив, пъти']}
             >
               <p>
                 <Tex>{'a \\propto M / d^3'}</Tex>: <Tex>{'a_{\\odot} / a_{\\text{☾}} = (M_{\\odot} / M_{\\text{☾}}) \\cdot (d_{\\text{☾}} / d_{\\odot})^3 = 2{,}71\\cdot 10^7 \\cdot (2{,}57\\cdot 10^{-3})^3 \\approx'}</Tex> <strong>0,46</strong>
@@ -439,6 +457,8 @@ export default function Lecture06() {
               number={11}
               color="border-red-500"
               question="Звезда с маса $1\,M_{\odot}$ има планета с маса на Юпитер ($M = \frac{M_{\odot}}{1048}$) на 5,2 AU. С каква скорост „клати“ звездата около общия център на масите? (Скоростта на Юпитер е $13{,}1\ \mathrm{km/s}$.)"
+              check={[12.5]}
+              ask={['скорост, m/s']}
             >
               <p>
                 Центърът на масите е неподвижен, затова импулсите са равни: <Tex>{'M_{\\star} v_{\\star} = m v'}</Tex>.

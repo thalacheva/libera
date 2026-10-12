@@ -218,15 +218,15 @@ export default function Lecture29() {
 
           <div className="mb-6">
             <TaskLevel level="B" />
-            <Task id="b1" number={4} color="border-yellow-500" question="Куп галактики има разсейване на скоростите $750\ \mathrm{km/s}$ и размер $2{,}2\ \mathrm{Mpc}$. Каква е масата му? Ако общата светимост е $10^{13}\,L_{\odot}$, колко е $\frac{M}{L}$?">
-              <p><Tex>{'M \\approx 5 \\cdot 750^2 \\cdot 2{,}2 / 4{,}3 \\cdot 10^{-9} \\approx 1{,}4 \\cdot 10^{15}\\,M_{\\odot}'}</Tex></p>
-              <p><Tex>{'M / L \\approx 140\\,M_{\\odot}/L_{\\odot}'}</Tex> – тъмната материя преобладава.</p>
+            <Task id="b1" number={4} color="border-yellow-500" question="Куп галактики има разсейване на скоростите $750\ \mathrm{km/s}$ и размер $2{,}2\ \mathrm{Mpc}$. Каква е масата му? Ако общата светимост е $10^{13}\,L_{\odot}$, колко е $\frac{M}{L}$?" check={[1.44, 144]} ask={['маса, $10^{15}\\,M_{\\odot}$', '$M / L$, $M_{\\odot}/L_{\\odot}$']}>
+              <p><Tex>{'M \\approx 5 \\cdot 750^2 \\cdot 2{,}2 / 4{,}3 \\cdot 10^{-9} \\approx 1{,}44 \\cdot 10^{15}\\,M_{\\odot}'}</Tex></p>
+              <p><Tex>{'M / L \\approx 144\\,M_{\\odot}/L_{\\odot}'}</Tex> – тъмната материя преобладава.</p>
             </Task>
-            <Task id="b2" number={5} color="border-yellow-500" question="Колко е отклонението на светлината на звезда, която минава точно край ръба на Слънцето ($\alpha = \frac{4GM}{c^2R}$)?">
+            <Task id="b2" number={5} color="border-yellow-500" question="Колко е отклонението на светлината на звезда, която минава точно край ръба на Слънцето ($\alpha = \frac{4GM}{c^2R}$)?" check={[1.75]} ask={['отклонение, ъглови секунди']}>
               <p><Tex>{'\\alpha = \\frac{4 \\cdot 6{,}674 \\cdot 10^{-11} \\cdot 1{,}99 \\cdot 10^{30}}{9 \\cdot 10^{16} \\cdot 6{,}96 \\cdot 10^8} \\approx 8{,}5 \\cdot 10^{-6}\\ \\mathrm{rad} \\approx 1{,}75\'\''}</Tex></p>
               <p>Точно толкова измерват експедициите на Едингтън по време на пълното слънчево затъмнение на 29 май 1919 г. Нютоновата теория дава половината – 0,87″.</p>
             </Task>
-            <Task id="b3" number={6} color="border-yellow-500" question="При какво червено отместване плътността на веществото и на тъмната енергия са били равни ($\Omega_{\text{м}} = 0{,}315,\ \Omega_\Lambda = 0{,}685$)?">
+            <Task id="b3" number={6} color="border-yellow-500" question="При какво червено отместване плътността на веществото и на тъмната енергия са били равни ($\Omega_{\text{м}} = 0{,}315,\ \Omega_\Lambda = 0{,}685$)?" check={[0.3]} ask={['$z$']}>
               <p><Tex>{'\\Omega_{\\text{м}} / a^3 = \\Omega_\\Lambda \\Rightarrow a = (0{,}315 / 0{,}685)^{1/3} \\approx 0{,}77 \\Rightarrow z = 1 / a - 1 \\approx 0{,}30'}</Tex></p>
               <p>Това е било преди ~3,5–4 млрд. години. По-рано е доминирало веществото, сега – тъмната енергия.</p>
             </Task>
@@ -234,18 +234,18 @@ export default function Lecture29() {
 
           <div className="mb-6">
             <TaskLevel level="C" />
-            <Task id="c1" number={7} color="border-red-500" question="Куп с маса $5 \cdot 10^{14}\,M_{\odot}$ е на $D_l = 0{,}5\ \mathrm{Gpc}$ и лещира галактика на $D_s = 1{,}5\ \mathrm{Gpc}$ ($D_{\mathrm{ls}} \approx 1\ \mathrm{Gpc}$). Колко е радиусът на Айнщайн в ъглови секунди?">
+            <Task id="c1" number={7} color="border-red-500" question="Куп с маса $5 \cdot 10^{14}\,M_{\odot}$ е на $D_l = 0{,}5\ \mathrm{Gpc}$ и лещира галактика на $D_s = 1{,}5\ \mathrm{Gpc}$ ($D_{\mathrm{ls}} \approx 1\ \mathrm{Gpc}$). Колко е радиусът на Айнщайн в ъглови секунди?" check={[74]} ask={['радиус на Айнщайн, ъглови секунди']}>
               <p><Tex>{'4GM / c^2 = 4 \\cdot 6{,}674 \\cdot 10^{-11} \\cdot 9{,}95 \\cdot 10^{44} / 9 \\cdot 10^{16} \\approx 2{,}95 \\cdot 10^{18}\\ \\mathrm{m}'}</Tex></p>
               <p><Tex>{'\\frac{D_{\\mathrm{ls}}}{D_l D_s} = \\frac{1}{0{,}5 \\cdot 1{,}5}\\ \\mathrm{Gpc^{-1}} = \\frac{1{,}33}{3{,}086 \\cdot 10^{25}\\ \\mathrm{m}} \\approx 4{,}3 \\cdot 10^{-26}\\ \\mathrm{m^{-1}}'}</Tex></p>
               <p><Tex>{'\\theta_E = \\sqrt{2{,}95 \\cdot 10^{18} \\cdot 4{,}3 \\cdot 10^{-26}} \\approx 3{,}6 \\cdot 10^{-4}\\ \\mathrm{rad} \\approx 74\'\''}</Tex></p>
             </Task>
-            <Task id="c2" number={8} color="border-red-500" question="Ако тъмната материя в ореола беше от тела с маса $0{,}5\,M_{\odot}$, колко дълго би траело микролещиране на звезда в Големия Магеланов облак ($D_s = 50\ \mathrm{kpc}$) от тяло на $D_l = 10\ \mathrm{kpc}$, ако относителната скорост е $200\ \mathrm{km/s}$? Радиусът на Айнщайн в равнината на лещата е $R_E = \sqrt{\frac{4GM}{c^2} \cdot \frac{D_l(D_s - D_l)}{D_s}}$.">
+            <Task id="c2" number={8} color="border-red-500" question="Ако тъмната материя в ореола беше от тела с маса $0{,}5\,M_{\odot}$, колко дълго би траело микролещиране на звезда в Големия Магеланов облак ($D_s = 50\ \mathrm{kpc}$) от тяло на $D_l = 10\ \mathrm{kpc}$, ако относителната скорост е $200\ \mathrm{km/s}$? Радиусът на Айнщайн в равнината на лещата е $R_E = \sqrt{\frac{4GM}{c^2} \cdot \frac{D_l(D_s - D_l)}{D_s}}$." check={[49.4]} ask={['продължителност, дни']}>
               <p><Tex>{'4GM / c^2 \\approx 2{,}95 \\cdot 10^3\\ \\mathrm{m}'}</Tex>; <Tex>{'\\frac{D_l (D_s - D_l)}{D_s} = 10 \\cdot 40 / 50\\ \\mathrm{kpc} = 8\\ \\mathrm{kpc} \\approx 2{,}47 \\cdot 10^{20}\\ \\mathrm{m}'}</Tex></p>
-              <p><Tex>{'R_E = \\sqrt{2{,}95 \\cdot 10^3 \\cdot 2{,}47 \\cdot 10^{20}} \\approx 8{,}5 \\cdot 10^{11}\\ \\mathrm{m} \\approx 5{,}7\\ \\mathrm{AU}'}</Tex></p>
-              <p><Tex>{'t = R_E / v \\approx 8{,}5 \\cdot 10^{11} / 2 \\cdot 10^5 \\approx 4{,}3 \\cdot 10^6\\ \\mathrm{s} \\approx 50'}</Tex> дни</p>
+              <p><Tex>{'R_E = \\sqrt{2{,}95 \\cdot 10^3 \\cdot 2{,}47 \\cdot 10^{20}} \\approx 8{,}54 \\cdot 10^{11}\\ \\mathrm{m} \\approx 5{,}71\\ \\mathrm{AU}'}</Tex></p>
+              <p><Tex>{'t = R_E / v \\approx 8{,}54 \\cdot 10^{11} / 2 \\cdot 10^5 \\approx 4{,}27 \\cdot 10^6\\ \\mathrm{s} \\approx 49{,}4'}</Tex> дни</p>
               <p>Звездата бавно става по-ярка и отслабва за месеци. Проектите MACHO, EROS и OGLE следят милиони звезди години наред – събитията са твърде малко, за да обяснят тъмната материя.</p>
             </Task>
-            <Task id="c3" number={9} color="border-red-500" question="Плътността на тъмната енергия е ~$0{,}685 \cdot \rho_c \approx 6 \cdot 10^{-27}\ \mathrm{kg/m^{3}}$. Каква енергия съдържа обем колкото Земята ($1{,}08 \cdot 10^{21}\ \mathrm{m^{3}}$)? Колко тъмна енергия има в обема на Слънчевата система до Нептун (радиус 30 AU)?">
+            <Task id="c3" number={9} color="border-red-500" question="Плътността на тъмната енергия е ~$0{,}685 \cdot \rho_c \approx 6 \cdot 10^{-27}\ \mathrm{kg/m^{3}}$. Каква енергия съдържа обем колкото Земята ($1{,}08 \cdot 10^{21}\ \mathrm{m^{3}}$)? Колко тъмна енергия има в обема на Слънчевата система до Нептун (радиус 30 AU)?" check={[5.8, 2.3]} ask={['енергия, $10^{11}$ J', 'маса-еквивалент до 30 AU, $10^{12}$ kg']}>
               <p>Енергия в обема на Земята: <Tex>{'E = \\rho c^2 V \\approx 6 \\cdot 10^{-27} \\cdot 9 \\cdot 10^{16} \\cdot 1{,}08 \\cdot 10^{21} \\approx 5{,}8 \\cdot 10^{11}\\ \\mathrm{J}'}</Tex> – колкото стотина мълнии</p>
               <p><Tex>{'V(30\\ \\mathrm{AU}) = \\frac{4\\pi (4{,}5 \\cdot 10^{12})^3}{3} \\approx 3{,}8 \\cdot 10^{38}\\ \\mathrm{m^{3}}'}</Tex> ⇒ маса-еквивалент <Tex>{'\\rho V \\approx 2{,}3 \\cdot 10^{12}\\ \\mathrm{kg}'}</Tex> – колкото малък астероид</p>
               <p>Локално тъмната енергия е напълно незабележима. Тя „побеждава“ само в огромни мащаби, където веществото е разредено.</p>

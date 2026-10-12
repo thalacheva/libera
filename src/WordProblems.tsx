@@ -1,5 +1,6 @@
 import { CheckCircle2, Lightbulb, ListChecks, RotateCcw, XCircle } from 'lucide-react';
 import { useEffect, useState } from 'react';
+import { matches, parseNum } from './answerCheck';
 import { MathText } from './MathText';
 import { currentPath, saveProblemsTotal } from './progress';
 
@@ -24,24 +25,6 @@ function loadStatus(): Record<string, Status> {
   } catch {
     return {};
   }
-}
-
-const parseNum = (s: string) => {
-  const v = Number(s.trim().replace(/\s/g, '').replace(',', '.').replace('−', '-'));
-  return s.trim() === '' || Number.isNaN(v) ? null : v;
-};
-const close = (a: number, b: number) => Math.abs(a - b) <= Math.max(0.011, Math.abs(b) * 0.006);
-
-/** Всички стойности съвпадат – в произволен ред. */
-function matches(values: (number | null)[], expected: number[]) {
-  if (values.some(v => v === null)) return false;
-  const left = expected.slice();
-  for (const v of values as number[]) {
-    const k = left.findIndex(e => close(v, e));
-    if (k < 0) return false;
-    left.splice(k, 1);
-  }
-  return true;
 }
 
 function Problem({ p, status, setStatus }: { p: WordProblem; status?: Status; setStatus: (s: Status | null) => void }) {

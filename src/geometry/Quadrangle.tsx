@@ -428,15 +428,15 @@ export function Quadrangle() {
           <TaskBoard>
             <div className="mb-6">
               <TaskLevel level="A" />
-              <Task id="a1" number={1} color="border-green-500" question="Ъглите на четириъгълник се отнасят както $1 : 2 : 3 : 4$. Намери ги.">
+              <Task id="a1" number={1} color="border-green-500" question="Ъглите на четириъгълник се отнасят както $1 : 2 : 3 : 4$. Намери ги." check={[36, 72, 108, 144]} ask={['1-ви ъгъл, °', '2-ри ъгъл, °', '3-ти ъгъл, °', '4-ти ъгъл, °']}>
                 <p><Tex>{'x + 2x + 3x + 4x = 360^\\circ \\Rightarrow 10x = 360^\\circ \\Rightarrow x = 36^\\circ'}</Tex></p>
                 <p>Ъглите са 36°, 72°, 108° и 144°.</p>
               </Task>
-              <Task id="a2" number={2} color="border-green-500" question="Един ъгъл на успоредник е 3 пъти по-голям от друг. Намери ъглите на успоредника.">
+              <Task id="a2" number={2} color="border-green-500" question="Един ъгъл на успоредник е 3 пъти по-голям от друг. Намери ъглите на успоредника." check={[45, 135]} ask={['по-малкият ъгъл, °', 'по-големият ъгъл, °']}>
                 <p>Различните ъгли на успоредника са съседни, а сборът на съседните е 180°: <Tex>{'x + 3x = 180^\\circ \\Rightarrow x = 45^\\circ'}</Tex>.</p>
                 <p>Ъглите са 45°, 135°, 45°, 135°.</p>
               </Task>
-              <Task id="a3" number={3} color="border-green-500" question="Правоъгълник има страни 6 cm и 8 cm. Намери диагонала, периметъра и лицето му.">
+              <Task id="a3" number={3} color="border-green-500" question="Правоъгълник има страни 6 cm и 8 cm. Намери диагонала, периметъра и лицето му." check={[10, 28, 48]} ask={['диагонал, cm', 'периметър, cm', 'лице, cm²']}>
                 <p><Tex>{'d = \\sqrt{36 + 64} = 10\\ \\mathrm{cm}'}</Tex></p>
                 <p><Tex>{'P = 2(6 + 8) = 28\\ \\mathrm{cm}'}</Tex>; <Tex>{'S = 6 \\cdot 8 = 48\\ \\mathrm{cm}^2'}</Tex></p>
               </Task>
@@ -444,16 +444,16 @@ export function Quadrangle() {
 
             <div className="mb-6">
               <TaskLevel level="B" />
-              <Task id="b1" number={4} color="border-yellow-500" question="Ромб има страна 13 cm и диагонал 24 cm. Намери другия диагонал и лицето.">
+              <Task id="b1" number={4} color="border-yellow-500" question="Ромб има страна 13 cm и диагонал 24 cm. Намери другия диагонал и лицето." check={[10, 120]} ask={['$d_2$, cm', 'лице, cm²']}>
                 <p>Половината от диагонала е 12; диагоналите са перпендикулярни: <Tex>{'(\\frac{d_2}{2})^2 = 13^2 - 12^2 = 25 \\Rightarrow \\frac{d_2}{2} = 5'}</Tex></p>
                 <p><Tex>{'d_2 = 10\\ \\mathrm{cm}'}</Tex>; <Tex>{'S = 24 \\cdot 10 / 2 = 120\\ \\mathrm{cm}^2'}</Tex></p>
               </Task>
-              <Task id="b2" number={5} color="border-yellow-500" question="Равнобедрен трапец има основи 14 cm и 6 cm и бедро 5 cm. Намери височината и лицето му.">
+              <Task id="b2" number={5} color="border-yellow-500" question="Равнобедрен трапец има основи 14 cm и 6 cm и бедро 5 cm. Намери височината и лицето му." check={[3, 30]} ask={['височина, cm', 'лице, cm²']}>
                 <p>Височините от краищата на малката основа „отрязват“ от голямата по <Tex>{'\\frac{14 - 6}{2} = 4\\ \\mathrm{cm}'}</Tex>.</p>
                 <p><Tex>{'h = \\sqrt{5^2 - 4^2} = 3\\ \\mathrm{cm}'}</Tex></p>
                 <p><Tex>{'S = \\frac{14 + 6}{2} \\cdot 3 = 30\\ \\mathrm{cm}^2'}</Tex></p>
               </Task>
-              <Task id="b3" number={6} color="border-yellow-500" question="Кой многоъгълник има сбор на вътрешните ъгли 1440°? Колко е всеки ъгъл, ако многоъгълникът е правилен?">
+              <Task id="b3" number={6} color="border-yellow-500" question="Кой многоъгълник има сбор на вътрешните ъгли 1440°? Колко е всеки ъгъл, ако многоъгълникът е правилен?" check={[10, 144]} ask={['брой страни', 'ъгъл, °']}>
                 <p><Tex>{'(n - 2) \\cdot 180^\\circ = 1440^\\circ \\Rightarrow n - 2 = 8 \\Rightarrow n = 10'}</Tex> – десетоъгълник</p>
                 <p>Всеки ъгъл на правилния десетоъгълник: <Tex>{'1440^\\circ : 10 = 144^\\circ'}</Tex></p>
               </Task>
@@ -466,12 +466,12 @@ export function Quadrangle() {
                 <p>Сборът им е <Tex>{'\\frac{S(ABC) + S(ACD)}{4} = \\frac{S}{4}'}</Tex>. Същото за другите два ъглови триъгълника (с диагонала <Tex>{'BD'}</Tex>) – още <Tex>{'\\frac{S}{4}'}</Tex>.</p>
                 <p><Tex>{'S(MNPQ) = S - \\frac{S}{4} - \\frac{S}{4} = \\frac{S}{2}'}</Tex> ✓</p>
               </Task>
-              <Task id="c2" number={8} color="border-red-500" question="В трапец с основи 12 и 4 средната основа пресича диагоналите в точки $K$ и $L$. Намери $KL$.">
+              <Task id="c2" number={8} color="border-red-500" question="В трапец с основи 12 и 4 средната основа пресича диагоналите в точки $K$ и $L$. Намери $KL$." check={[4]} ask={['$KL$']}>
                 <p>Средната основа минава през средите на диагоналите. В триъгълника с основа 12 отсечката от бедрото до диагонала е средна отсечка: <Tex>{'\\frac{12}{2} = 6'}</Tex>.</p>
                 <p>В другия триъгълник (с основа 4) частта е <Tex>{'\\frac{4}{2} = 2'}</Tex>.</p>
                 <p><Tex>{'KL = 6 - 2 = 4'}</Tex>. Изобщо: <Tex>{'KL = \\frac{a - c}{2}'}</Tex>.</p>
               </Task>
-              <Task id="c3" number={9} color="border-red-500" question="Вътре в квадрата $ABCD$ е построен равностранен триъгълник $ABM$. Намери $\angle MCD$.">
+              <Task id="c3" number={9} color="border-red-500" question="Вътре в квадрата $ABCD$ е построен равностранен триъгълник $ABM$. Намери $\angle MCD$." check={[15]} ask={['$\\angle MCD$, °']}>
                 <p><Tex>{'MB = AB = BC \\Rightarrow'}</Tex> триъгълникът <Tex>{'MBC'}</Tex> е равнобедрен.</p>
                 <p><Tex>{'\\angle MBC = 90^\\circ - 60^\\circ = 30^\\circ \\Rightarrow \\angle BCM = \\frac{180^\\circ - 30^\\circ}{2} = 75^\\circ'}</Tex></p>
                 <p><Tex>{'\\angle MCD = 90^\\circ - 75^\\circ = 15^\\circ'}</Tex></p>

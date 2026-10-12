@@ -326,7 +326,7 @@ export function Triangle() {
           <TaskBoard>
             <div className="mb-6">
               <TaskLevel level="A" />
-              <Task id="a1" number={1} color="border-green-500" question="Ъглите на триъгълник се отнасят както $2 : 3 : 4$. Намери ги.">
+              <Task id="a1" number={1} color="border-green-500" question="Ъглите на триъгълник се отнасят както $2 : 3 : 4$. Намери ги." check={[40, 60, 80]} ask={['най-малкият ъгъл, °', 'средният ъгъл, °', 'най-големият ъгъл, °']}>
                 <p>Нека ъглите са <Tex>{'2x'}</Tex>, <Tex>{'3x'}</Tex> и <Tex>{'4x'}</Tex>: <Tex>{'2x + 3x + 4x = 180^\\circ \\Rightarrow 9x = 180^\\circ \\Rightarrow x = 20^\\circ'}</Tex></p>
                 <p>Ъглите са 40°, 60° и 80° – триъгълникът е остроъгълен.</p>
               </Task>
@@ -334,7 +334,7 @@ export function Triangle() {
                 <p><Tex>{'5^2 + 12^2 = 25 + 144 = 169 = 13^2 \\Rightarrow'}</Tex> правоъгълен (обратната Питагорова теорема).</p>
                 <p><Tex>{'6^2 + 7^2 = 85,\\ 9^2 = 81 < 85 \\Rightarrow'}</Tex> най-големият ъгъл е остър – триъгълникът е остроъгълен.</p>
               </Task>
-              <Task id="a3" number={3} color="border-green-500" question="Равнобедрен триъгълник има периметър 32 cm и основа 8 cm. Намери бедрата, височината към основата и лицето.">
+              <Task id="a3" number={3} color="border-green-500" question="Равнобедрен триъгълник има периметър 32 cm и основа 8 cm. Намери бедрата, височината към основата и лицето." check={[12, 11.31, 45.25]} ask={['бедро, cm', 'височина, cm (приближено)', 'лице, cm² (приближено)']}>
                 <p>Бедра: <Tex>{'\\frac{32 - 8}{2} = 12\\ \\mathrm{cm}'}</Tex></p>
                 <p>Височината към основата я разполовява: <Tex>{'h^2 = 12^2 - 4^2 = 128 \\Rightarrow h = 8\\sqrt{2} \\approx 11{,}3\\ \\mathrm{cm}'}</Tex></p>
                 <p><Tex>{'S = 8 \\cdot 8\\sqrt{2} / 2 = 32\\sqrt{2} \\approx 45{,}3\\ \\mathrm{cm}^2'}</Tex></p>
@@ -343,16 +343,16 @@ export function Triangle() {
 
             <div className="mb-6">
               <TaskLevel level="B" />
-              <Task id="b1" number={4} color="border-yellow-500" question="Катетите на правоъгълен триъгълник са 9 и 12. Намери хипотенузата, височината и медианата към нея.">
+              <Task id="b1" number={4} color="border-yellow-500" question="Катетите на правоъгълен триъгълник са 9 и 12. Намери хипотенузата, височината и медианата към нея." check={[15, 7.2, 7.5]} ask={['хипотенуза', 'височина', 'медиана']}>
                 <p><Tex>{'c = \\sqrt{81 + 144} = 15'}</Tex></p>
                 <p><Tex>{'h = \\frac{ab}{c} = \\frac{108}{15} = 7{,}2'}</Tex></p>
                 <p>Медианата към хипотенузата е равна на половината от нея: <Tex>{'m = 7{,}5'}</Tex> (тя е радиусът на описаната окръжност!)</p>
               </Task>
-              <Task id="b2" number={5} color="border-yellow-500" question="В триъгълник $ABC$ $\angle A = 2\angle B$, а външният ъгъл при $C$ е 120°. Намери ъглите на триъгълника.">
+              <Task id="b2" number={5} color="border-yellow-500" question="В триъгълник $ABC$ $\angle A = 2\angle B$, а външният ъгъл при $C$ е 120°. Намери ъглите на триъгълника." check={[80, 40, 60]} ask={['$\\angle A$, °', '$\\angle B$, °', '$\\angle C$, °']}>
                 <p>Външният ъгъл при <Tex>{'C'}</Tex> <Tex>{'= \\angle A + \\angle B \\Rightarrow 2\\angle B + \\angle B = 120^\\circ \\Rightarrow \\angle B = 40^\\circ'}</Tex></p>
                 <p><Tex>{'\\angle A = 80^\\circ,\\ \\angle C = 180^\\circ - 120^\\circ = 60^\\circ'}</Tex></p>
               </Task>
-              <Task id="b3" number={6} color="border-yellow-500" question="Триъгълник има страни 5, 5 и 6. Намери лицето му, радиуса на вписаната окръжност $r = \frac{S}{p}$ и на описаната $R = \frac{abc}{4S}$.">
+              <Task id="b3" number={6} color="border-yellow-500" question="Триъгълник има страни 5, 5 и 6. Намери лицето му, радиуса на вписаната окръжност $r = \frac{S}{p}$ и на описаната $R = \frac{abc}{4S}$." check={[12, 1.5, 3.125]} ask={['лице $S$', '$r$', '$R$']}>
                 <p><Tex>{'p = 8,\\ S = \\sqrt{8 \\cdot 3 \\cdot 3 \\cdot 2} = \\sqrt{144} = 12'}</Tex> (или: височина към основата <Tex>{'4'}</Tex>, <Tex>{'S = 6 \\cdot 4 / 2 = 12'}</Tex>)</p>
                 <p><Tex>{'r = \\frac{S}{p} = \\frac{12}{8} = 1{,}5'}</Tex></p>
                 <p><Tex>{'R = \\frac{abc}{4S} = \\frac{150}{48} = 3{,}125'}</Tex></p>
@@ -367,7 +367,7 @@ export function Triangle() {
                 <p>Медианата <Tex>{'AM_a'}</Tex> дели <Tex>{'ABC'}</Tex> на две равни части: <Tex>{'x + 2z = x + 2y \\Rightarrow y = z'}</Tex>. Медианата <Tex>{'BM_b'}</Tex>: <Tex>{'y + 2x = y + 2z \\Rightarrow x = z'}</Tex>.</p>
                 <p>Значи <Tex>{'x = y = z'}</Tex> – всяка от шестте части има лице <Tex>{'\\frac{S}{6}'}</Tex>, а триъгълникът <Tex>{'ABG'}</Tex> има лице <Tex>{'\\frac{S}{3}'}</Tex>.</p>
               </Task>
-              <Task id="c2" number={8} color="border-red-500" question="В триъгълник $ABC$: $AB = 10,\ BC = 6,\ \angle A = 35^\circ$. Колко такива триъгълника има? Намери възможните дължини на $AC$ ($\sin 35^\circ \approx 0{,}574$, $\cos 35^\circ \approx 0{,}819$).">
+              <Task id="c2" number={8} color="border-red-500" question="В триъгълник $ABC$: $AB = 10,\ BC = 6,\ \angle A = 35^\circ$. Колко такива триъгълника има? Намери възможните дължини на $AC$ ($\sin 35^\circ \approx 0{,}574$, $\cos 35^\circ \approx 0{,}819$)." check={[2, 9.95, 6.43]} ask={['брой триъгълници', 'по-голямата $AC$ (приближено)', 'по-малката $AC$ (приближено)']}>
                 <p>Нека <Tex>{'AC = x'}</Tex>. По косинусовата теорема: <Tex>{'6^2 = x^2 + 10^2 - 2 \\cdot 10 \\cdot x \\cdot \\cos 35^\\circ \\Rightarrow x^2 - 16{,}38x + 64 = 0'}</Tex></p>
                 <p><Tex>{'\\frac{D}{4} = 8{,}19^2 - 64 \\approx 3{,}1 > 0 \\Rightarrow'}</Tex> два корена: <Tex>{'x \\approx 8{,}19 \\pm 1{,}76'}</Tex></p>
                 <p><Tex>{'AC \\approx 9{,}95'}</Tex> или <Tex>{'AC \\approx 6{,}43'}</Tex> – два различни триъгълника (пробвай в лабораторията ССЪ!).</p>

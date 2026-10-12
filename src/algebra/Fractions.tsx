@@ -405,15 +405,15 @@ export function Fractions() {
           <TaskBoard>
             <div className="mb-6">
               <TaskLevel level="A" />
-              <Task id="a1" number={1} color="border-green-500" question="Пресметнете $\frac{2}{3} + \frac{3}{4} - \frac{5}{6}$.">
+              <Task id="a1" number={1} color="border-green-500" question="Пресметнете $\frac{2}{3} + \frac{3}{4} - \frac{5}{6}$." check={[7 / 12]}>
                 <p>Общ знаменател 12: <Tex>{'\\frac{8}{12} + \\frac{9}{12} - \\frac{10}{12}'}</Tex></p>
                 <p><Tex>{'= \\frac{7}{12}'}</Tex></p>
               </Task>
-              <Task id="a2" number={2} color="border-green-500" question="Пресметнете $\left(1\frac{1}{2} - \frac{2}{3}\right) \cdot \frac{6}{5}$.">
+              <Task id="a2" number={2} color="border-green-500" question="Пресметнете $\left(1\frac{1}{2} - \frac{2}{3}\right) \cdot \frac{6}{5}$." check={[1]}>
                 <p><Tex>{'1\\frac{1}{2} - \\frac{2}{3} = \\frac{3}{2} - \\frac{2}{3} = \\frac{9}{6} - \\frac{4}{6} = \\frac{5}{6}'}</Tex></p>
                 <p><Tex>{'\\frac{5}{6} \\cdot \\frac{6}{5} = 1'}</Tex></p>
               </Task>
-              <Task id="a3" number={3} color="border-green-500" question="Цената на велосипед е намалена от 250 € на 200 €. С колко процента е намалена?">
+              <Task id="a3" number={3} color="border-green-500" question="Цената на велосипед е намалена от 250 € на 200 €. С колко процента е намалена?" check={[20]} ask={['намаление, %']}>
                 <p>Намалението е 50 €.</p>
                 <p><Tex>{'50 : 250 = 0{,}2 = 20\\%'}</Tex> (процентът се смята от старата цена!)</p>
               </Task>
@@ -421,16 +421,16 @@ export function Fractions() {
 
             <div className="mb-6">
               <TaskLevel level="B" />
-              <Task id="b1" number={4} color="border-yellow-500" question="Запишете $0{,}1(6) = 0{,}1666\ldots$ като обикновена дроб.">
+              <Task id="b1" number={4} color="border-yellow-500" question="Запишете $0{,}1(6) = 0{,}1666\ldots$ като обикновена дроб." check={[1 / 6]} ask={['дробта']}>
                 <p><Tex>{'x = 0{,}1666\\ldots'}</Tex>; <Tex>{'10x = 1{,}666\\ldots'}</Tex>; <Tex>{'100x = 16{,}666\\ldots'}</Tex></p>
                 <p><Tex>{'100x - 10x = 15 \\Rightarrow 90x = 15'}</Tex></p>
                 <p><Tex>{'x = \\frac{15}{90} = \\frac{1}{6}'}</Tex></p>
               </Task>
-              <Task id="b2" number={5} color="border-yellow-500" question="Цена е увеличена с 25%. С колко процента трябва да се намали новата цена, за да се върне към старата?">
+              <Task id="b2" number={5} color="border-yellow-500" question="Цена е увеличена с 25%. С колко процента трябва да се намали новата цена, за да се върне към старата?" check={[20]} ask={['намаление, %']}>
                 <p>Новата цена е 1,25 пъти старата. Трябва да я умножим по <Tex>{'1 : 1{,}25 = 0{,}8'}</Tex>.</p>
                 <p>Множител 0,8 означава намаление с 20% (а не с 25%).</p>
               </Task>
-              <Task id="b3" number={6} color="border-yellow-500" question="Имаме 200 g 10% солен разтвор. Колко грама вода трябва да изпарим, за да стане 25%?">
+              <Task id="b3" number={6} color="border-yellow-500" question="Имаме 200 g 10% солен разтвор. Колко грама вода трябва да изпарим, за да стане 25%?" check={[120]} ask={['вода, g']}>
                 <p>Солта е <Tex>{'10\\%\\ \\text{от}\\ 200 = 20\\ \\mathrm{g}'}</Tex> и при изпаряването не се променя.</p>
                 <p>Новият разтвор: <Tex>{'20\\ \\mathrm{g}'}</Tex> са <Tex>{'25\\%'}</Tex> ⇒ масата му е <Tex>{'20 : 0{,}25 = 80\\ \\mathrm{g}'}</Tex>.</p>
                 <p>Изпаряваме <Tex>{'200 - 80 = 120\\ \\mathrm{g}'}</Tex> вода.</p>
@@ -439,7 +439,7 @@ export function Fractions() {
 
             <div className="mb-6">
               <TaskLevel level="C" />
-              <Task id="c1" number={7} color="border-red-500" question="Докажете, че $\frac{1}{n(n + 1)} = \frac{1}{n} - \frac{1}{n + 1}$, и пресметнете $\frac{1}{1\cdot 2} + \frac{1}{2\cdot 3} + \ldots + \frac{1}{99\cdot 100}$.">
+              <Task id="c1" number={7} color="border-red-500" question="Докажете, че $\frac{1}{n(n + 1)} = \frac{1}{n} - \frac{1}{n + 1}$, и пресметнете $\frac{1}{1\cdot 2} + \frac{1}{2\cdot 3} + \ldots + \frac{1}{99\cdot 100}$." check={[99 / 100]} ask={['сборът']}>
                 <p><Tex>{'\\frac{1}{n} - \\frac{1}{n + 1} = \\frac{n + 1 - n}{n(n + 1)} = \\frac{1}{n(n + 1)}'}</Tex> ✓</p>
                 <p>Сборът става <Tex>{'\\left(1 - \\frac{1}{2}\\right) + \\left(\\frac{1}{2} - \\frac{1}{3}\\right) + \\ldots + \\left(\\frac{1}{99} - \\frac{1}{100}\\right)'}</Tex>.</p>
                 <p>Всичко в средата се съкращава („телескопичен сбор“): остава <Tex>{'1 - \\frac{1}{100} = \\frac{99}{100}'}</Tex>.</p>
@@ -449,7 +449,7 @@ export function Fractions() {
                 <p><Tex>{'\\frac{7}{15}'}</Tex>: взимаме <Tex>{'\\frac{1}{3}'}</Tex>; <Tex>{'\\frac{7}{15} - \\frac{1}{3} = \\frac{2}{15}'}</Tex>. После <Tex>{'\\frac{1}{8}'}</Tex> (защото <Tex>{'\\frac{1}{7} > \\frac{2}{15}'}</Tex>): <Tex>{'\\frac{2}{15} - \\frac{1}{8} = \\frac{1}{120}'}</Tex>.</p>
                 <p><Tex>{'\\frac{7}{15} = \\frac{1}{3} + \\frac{1}{8} + \\frac{1}{120}'}</Tex>. Този „алчен“ метод е описан от Фибоначи и винаги завършва.</p>
               </Task>
-              <Task id="c3" number={9} color="border-red-500" question="След колко години сума при 7% годишна сложна лихва за първи път ще се удвои? Сравнете с „правилото на 72“.">
+              <Task id="c3" number={9} color="border-red-500" question="След колко години сума при 7% годишна сложна лихва за първи път ще се удвои? Сравнете с „правилото на 72“." check={[11]} ask={['години']}>
                 <p>Търсим най-малкото <Tex>{'n'}</Tex> с <Tex>{'1{,}07^n \\ge 2'}</Tex>.</p>
                 <p><Tex>{'1{,}07^{10} \\approx 1{,}967 < 2'}</Tex>, а <Tex>{'1{,}07^{11} \\approx 2{,}105 \\ge 2 \\Rightarrow n = 11'}</Tex> години.</p>
                 <p>Правилото на 72: <Tex>{'72 : 7 \\approx 10{,}3'}</Tex> години – добра бърза оценка.</p>

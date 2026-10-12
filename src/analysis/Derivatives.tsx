@@ -425,7 +425,7 @@ export function Derivatives() {
               <Task id="a1" number={1} color="border-green-500" question="Намерете производната на $f(x) = x^4 - 3x^2 + 7x - 2$.">
                 <p><Tex>{"f'(x) = 4x^3 - 6x + 7"}</Tex></p>
               </Task>
-              <Task id="a2" number={2} color="border-green-500" question="Пресметнете $f'(4)$ за $f(x) = \sqrt{x}$ и $g'(4)$ за $g(x) = \frac{1}{x}$.">
+              <Task id="a2" number={2} color="border-green-500" question="Пресметнете $f'(4)$ за $f(x) = \sqrt{x}$ и $g'(4)$ за $g(x) = \frac{1}{x}$." check={[1 / 4, -1 / 16]} ask={["$f'(4)$", "$g'(4)$"]}>
                 <p><Tex>{"f'(x) = \\frac{1}{2\\sqrt{x}} \\Rightarrow f'(4) = \\frac{1}{4}"}</Tex></p>
                 <p><Tex>{"g'(x) = -\\frac{1}{x^2} \\Rightarrow g'(4) = -\\frac{1}{16}"}</Tex></p>
               </Task>
@@ -442,7 +442,7 @@ export function Derivatives() {
                 <p>По правилото за произведение: <Tex>{"f'(x) = 2x(x - 3) + (x^2 + 1) \\cdot 1 = 3x^2 - 6x + 1"}</Tex>.</p>
                 <p>Като разкрием скобите: <Tex>{'f(x) = x^3 - 3x^2 + x - 3'}</Tex>, <Tex>{"f'(x) = 3x^2 - 6x + 1"}</Tex> – същото.</p>
               </Task>
-              <Task id="b2" number={5} color="border-yellow-500" question="Намерете интервалите на монотонност и екстремумите на $f(x) = x^3 - 6x^2 + 9x + 1$.">
+              <Task id="b2" number={5} color="border-yellow-500" question="Намерете интервалите на монотонност и екстремумите на $f(x) = x^3 - 6x^2 + 9x + 1$." check={[1, 5, 3, 1]} ask={['$x_{\\max}$', '$f_{\\max}$', '$x_{\\min}$', '$f_{\\min}$']}>
                 <p><Tex>{"f'(x) = 3x^2 - 12x + 9 = 3(x - 1)(x - 3)"}</Tex></p>
                 <p>Расте при <Tex>{'x < 1'}</Tex> и <Tex>{'x > 3'}</Tex>, намалява при <Tex>{'1 < x < 3'}</Tex>.</p>
                 <p>Максимум <Tex>{'f(1) = 5'}</Tex>, минимум <Tex>{'f(3) = 1'}</Tex>.</p>
@@ -456,7 +456,7 @@ export function Derivatives() {
 
             <div className="mb-6">
               <TaskLevel level="C" />
-              <Task id="c1" number={7} color="border-red-500" question="От правоъгълен лист $16 \times 10$ cm изрязваме в ъглите квадратчета със страна $x$ и сгъваме кутия без капак. При какво $x$ обемът е най-голям и колко е той?">
+              <Task id="c1" number={7} color="border-red-500" question="От правоъгълен лист $16 \times 10$ cm изрязваме в ъглите квадратчета със страна $x$ и сгъваме кутия без капак. При какво $x$ обемът е най-голям и колко е той?" check={[2, 144]} ask={['$x$, cm', 'обем, cm³']}>
                 <p><Tex>{'V(x) = x(16 - 2x)(10 - 2x) = 4x^3 - 52x^2 + 160x'}</Tex>, при <Tex>{'0 < x < 5'}</Tex>.</p>
                 <p><Tex>{"V'(x) = 12x^2 - 104x + 160 = 0 \\iff 3x^2 - 26x + 40 = 0 \\Rightarrow x = 2"}</Tex> или <Tex>{'x = \\frac{20}{3}'}</Tex> (не е допустимо).</p>
                 <p><Tex>{"V'"}</Tex> сменя знака от <Tex>{'+'}</Tex> на <Tex>{'-'}</Tex> при <Tex>{'x = 2'}</Tex> ⇒ максимум <Tex>{'V(2) = 2 \\cdot 12 \\cdot 6 = 144\\ \\mathrm{cm}^3'}</Tex>.</p>
@@ -466,7 +466,7 @@ export function Derivatives() {
                 <p><Tex>{"g' < 0"}</Tex> при <Tex>{'x < 0'}</Tex> и <Tex>{"g' > 0"}</Tex> при <Tex>{'x > 0'}</Tex> ⇒ най-малката стойност на <Tex>{'g'}</Tex> е <Tex>{'g(0) = 0'}</Tex>.</p>
                 <p>Значи <Tex>{'g(x) \\ge 0'}</Tex>, т.е. <Tex>{'e^x \\ge 1 + x'}</Tex>, с равенство само при <Tex>{'x = 0'}</Tex>. Правата <Tex>{'y = 1 + x'}</Tex> е допирателната в <Tex>{'(0;\\ 1)'}</Tex>.</p>
               </Task>
-              <Task id="c3" number={9} color="border-red-500" question="При коя стойност на $a$ правата $y = ax$ е допирателна към графиката на $y = e^x$?">
+              <Task id="c3" number={9} color="border-red-500" question="При коя стойност на $a$ правата $y = ax$ е допирателна към графиката на $y = e^x$?" check={[2.71828]} ask={['$a$ (приближено)']}>
                 <p>В допирната точка <Tex>{'x_0'}</Tex> трябва стойностите и наклоните да съвпадат: <Tex>{'e^{x_0} = a x_0'}</Tex> и <Tex>{'e^{x_0} = a'}</Tex>.</p>
                 <p>Тогава <Tex>{'a x_0 = a \\Rightarrow x_0 = 1'}</Tex> (защото <Tex>{'a = e^{x_0} \\ne 0'}</Tex>).</p>
                 <p><Tex>{'a = e \\approx 2{,}718'}</Tex>; допирната точка е <Tex>{'(1;\\ e)'}</Tex>.</p>

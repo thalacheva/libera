@@ -333,14 +333,14 @@ export default function Lecture33() {
           <TaskBoard>
           <div className="mb-6">
             <TaskLevel level="A" />
-            <Task id="a1" number={1} color="border-green-500" question="Кораб лети от Земята със скорост 0,6c. Космонавтът отчита по своя часовник 1 час. Колко време е минало на Земята?">
+            <Task id="a1" number={1} color="border-green-500" question="Кораб лети от Земята със скорост 0,6c. Космонавтът отчита по своя часовник 1 час. Колко време е минало на Земята?" check={[1.25]} ask={['време на Земята, h']}>
               <p><Tex>{'\\gamma = 1 / \\sqrt{1 - 0{,}6^2} = 1 / \\sqrt{0{,}64} = 1 / 0{,}8 = 1{,}25'}</Tex></p>
               <p><Tex>{'\\Delta t = \\gamma \\cdot \\Delta t_0 = 1{,}25 \\cdot 1\\ \\mathrm{h} = 1{,}25\\ \\mathrm{h}'}</Tex></p>
               <p>
                 <strong>Отговор: 1 час и 15 минути</strong>
               </p>
             </Task>
-            <Task id="a2" number={2} color="border-green-500" question="Ракета с дължина 100 m в покой лети с 0,8c. Каква дължина ще измери наблюдател на Земята?">
+            <Task id="a2" number={2} color="border-green-500" question="Ракета с дължина 100 m в покой лети с 0,8c. Каква дължина ще измери наблюдател на Земята?" check={[60]} ask={['дължина, m']}>
               <p><Tex>{'\\gamma = 1 / \\sqrt{1 - 0{,}8^2} = 1 / \\sqrt{0{,}36} = 1 / 0{,}6 \\approx 1{,}67'}</Tex></p>
               <p><Tex>{'L = L_0 / \\gamma = 100\\ \\mathrm{m} \\cdot 0{,}6 = 60\\ \\mathrm{m}'}</Tex></p>
               <p>
@@ -358,7 +358,7 @@ export default function Lecture33() {
 
           <div className="mb-6">
             <TaskLevel level="B" />
-            <Task id="b3" number={4} color="border-yellow-500" question="Мюон със собствено време на живот 2,2 µs се движи със скорост 0,995c. Какво разстояние ще измине средно според наблюдател на Земята? А колко би изминал без релативистки ефекти?">
+            <Task id="b3" number={4} color="border-yellow-500" question="Мюон със собствено време на живот 2,2 µs се движи със скорост 0,995c. Какво разстояние ще измине средно според наблюдател на Земята? А колко би изминал без релативистки ефекти?" check={[6.6, 0.66]} ask={['със СТО, km', 'без релативистки ефекти, km']}>
               <p><Tex>{'v = 0{,}995 \\cdot 3 \\cdot 10^8 \\approx 2{,}985 \\cdot 10^8\\ \\mathrm{m/s}'}</Tex></p>
               <p>Без СТО: <Tex>{'d = v \\cdot \\tau_0 = 2{,}985 \\cdot 10^8 \\cdot 2{,}2 \\cdot 10^{-6} \\approx 657\\ \\mathrm{m}'}</Tex></p>
               <p><Tex>{'\\gamma = 1 / \\sqrt{1 - 0{,}995^2} = 1 / \\sqrt{0{,}009975} \\approx 10{,}0'}</Tex></p>
@@ -367,14 +367,14 @@ export default function Lecture33() {
                 <strong>Отговор: <Tex>{'\\approx 6{,}6\\ \\mathrm{km}'}</Tex> вместо <Tex>{'\\approx 0{,}66\\ \\mathrm{km}'}</Tex></strong>
               </p>
             </Task>
-            <Task id="b4" number={5} color="border-yellow-500" question="Колко енергия се съдържа в 1 g вещество? Сравнете с енергията на 1 килотон тротил ($4{,}2 \cdot 10^{12}\ \mathrm{J}$).">
+            <Task id="b4" number={5} color="border-yellow-500" question="Колко енергия се съдържа в 1 g вещество? Сравнете с енергията на 1 килотон тротил ($4{,}2 \cdot 10^{12}\ \mathrm{J}$)." check={[9, 21.4]} ask={['енергия, $10^{13}$ J', 'килотона тротил']}>
               <p><Tex>{'E = mc^2 = 10^{-3}\\ \\mathrm{kg} \\cdot (3 \\cdot 10^8\\ \\mathrm{m/s})^2 = 9 \\cdot 10^{13}\\ \\mathrm{J}'}</Tex></p>
-              <p><Tex>{'9 \\cdot 10^{13} / 4{,}2 \\cdot 10^{12} \\approx 21'}</Tex></p>
+              <p><Tex>{'9 \\cdot 10^{13} / 4{,}2 \\cdot 10^{12} \\approx 21{,}4'}</Tex></p>
               <p>
-                <strong>Отговор: <Tex>{'9 \\cdot 10^{13}\\ \\mathrm{J} \\approx 21'}</Tex> килотона тротил</strong>
+                <strong>Отговор: <Tex>{'9 \\cdot 10^{13}\\ \\mathrm{J} \\approx 21{,}4'}</Tex> килотона тротил</strong>
               </p>
             </Task>
-            <Task id="b5" number={6} color="border-yellow-500" question="Ако галактика се отдалечаваше от нас със скорост 0,5c (като обикновен Доплеров ефект), на каква дължина на вълната бихме видели линията Hα (656,3 nm)? В кой диапазон е това?">
+            <Task id="b5" number={6} color="border-yellow-500" question="Ако галактика се отдалечаваше от нас със скорост 0,5c (като обикновен Доплеров ефект), на каква дължина на вълната бихме видели линията Hα (656,3 nm)? В кой диапазон е това?" check={[1137]} ask={['дължина на вълната, nm']}>
               <p><Tex>{'\\lambda = \\lambda_0 \\cdot \\sqrt{\\frac{1 + 0{,}5}{1 - 0{,}5}} = 656{,}3 \\cdot \\sqrt{3} \\approx 656{,}3 \\cdot 1{,}732 \\approx 1137\\ \\mathrm{nm}'}</Tex></p>
               <p><Tex>{'z = \\frac{\\lambda}{\\lambda_0} - 1 \\approx 0{,}73'}</Tex> – линията е в близкото инфрачервено, невидима за окото.</p>
               <p>Класическата формула <Tex>{'\\frac{\\Delta\\lambda}{\\lambda} = \\frac{v}{c}'}</Tex> би дала 984 nm – грешка от ~13%.</p>
@@ -383,23 +383,23 @@ export default function Lecture33() {
 
           <div className="mb-6">
             <TaskLevel level="C" />
-            <Task id="c5" number={7} color="border-red-500" question="Светимостта на Слънцето е $L = 3{,}83 \cdot 10^{26}\ \mathrm{W}$. Колко маса губи Слънцето всяка секунда? Каква част от масата си ($M = 2 \cdot 10^{30}\ \mathrm{kg}$) би загубило за 10 милиарда години?">
-              <p><Tex>{'\\frac{\\Delta m}{\\Delta t} = L / c^2 = 3{,}83 \\cdot 10^{26} / 9 \\cdot 10^{16} \\approx 4{,}3 \\cdot 10^9\\ \\mathrm{kg/s}'}</Tex></p>
+            <Task id="c5" number={7} color="border-red-500" question="Светимостта на Слънцето е $L = 3{,}83 \cdot 10^{26}\ \mathrm{W}$. Колко маса губи Слънцето всяка секунда? Каква част от масата си ($M = 2 \cdot 10^{30}\ \mathrm{kg}$) би загубило за 10 милиарда години?" check={[4.26, 0.0673]} ask={['загуба на маса, $10^9$ kg/s', 'загубена част от масата, %']}>
+              <p><Tex>{'\\frac{\\Delta m}{\\Delta t} = L / c^2 = 3{,}83 \\cdot 10^{26} / 9 \\cdot 10^{16} \\approx 4{,}26 \\cdot 10^9\\ \\mathrm{kg/s}'}</Tex></p>
               <p>10 милиарда години <Tex>{'\\approx 10^{10} \\cdot 3{,}16 \\cdot 10^7\\ \\mathrm{s} \\approx 3{,}16 \\cdot 10^{17}\\ \\mathrm{s}'}</Tex></p>
-              <p><Tex>{'\\Delta m \\approx 4{,}3 \\cdot 10^9 \\cdot 3{,}16 \\cdot 10^{17} \\approx 1{,}4 \\cdot 10^{27}\\ \\mathrm{kg}'}</Tex></p>
-              <p><Tex>{'\\Delta m / M \\approx 1{,}4 \\cdot 10^{27} / 2 \\cdot 10^{30} \\approx 0{,}07\\%'}</Tex></p>
+              <p><Tex>{'\\Delta m \\approx 4{,}26 \\cdot 10^9 \\cdot 3{,}16 \\cdot 10^{17} \\approx 1{,}346 \\cdot 10^{27}\\ \\mathrm{kg}'}</Tex></p>
+              <p><Tex>{'\\Delta m / M \\approx 1{,}346 \\cdot 10^{27} / 2 \\cdot 10^{30} \\approx 0{,}0673\\%'}</Tex></p>
               <p>
-                <strong>Отговор: <Tex>{'\\approx 4{,}3'}</Tex> милиона тона в секунда, но само <Tex>{'\\approx 0{,}07\\%'}</Tex> от масата за целия живот</strong>
+                <strong>Отговор: <Tex>{'\\approx 4{,}26'}</Tex> милиона тона в секунда, но само <Tex>{'\\approx 0{,}0673\\%'}</Tex> от масата за целия живот</strong>
               </p>
             </Task>
-            <Task id="c6" number={8} color="border-red-500" question="Две частици от космическите лъчи се движат една срещу друга, всяка със скорост 0,8c спрямо Земята. С каква скорост се движи едната спрямо другата?">
+            <Task id="c6" number={8} color="border-red-500" question="Две частици от космическите лъчи се движат една срещу друга, всяка със скорост 0,8c спрямо Земята. С каква скорост се движи едната спрямо другата?" check={[0.976]} ask={['скорост, в единици $c$']}>
               <p>Класически: <Tex>{'0{,}8c + 0{,}8c = 1{,}6c'}</Tex> – невъзможно!</p>
               <p>Релативистки: <Tex>{'u = \\frac{u\' + v}{1 + \\frac{u\'v}{c^2}} = \\frac{0{,}8 + 0{,}8}{1 + 0{,}64} c = 1{,}6 / 1{,}64 c \\approx 0{,}976c'}</Tex></p>
               <p>
                 <strong>Отговор: <Tex>{'\\approx 0{,}976c'}</Tex></strong>
               </p>
             </Task>
-            <Task id="c7" number={9} color="border-red-500" question="Петно в струята на M87 се движи по небето с видима скорост 6c. Видимата скорост е $\beta_{\text{вид}} = \frac{\beta \sin \theta}{1 - \beta \cos \theta}$. Каква е най-малката истинска скорост на петното и под какъв ъгъл към зрителния лъч трябва да се движи?">
+            <Task id="c7" number={9} color="border-red-500" question="Петно в струята на M87 се движи по небето с видима скорост 6c. Видимата скорост е $\beta_{\text{вид}} = \frac{\beta \sin \theta}{1 - \beta \cos \theta}$. Каква е най-малката истинска скорост на петното и под какъв ъгъл към зрителния лъч трябва да се движи?" check={[0.986, 9.5]} ask={['$\\beta$', 'ъгъл, °']}>
               <p>При дадено <Tex>{'\\beta'}</Tex> видимата скорост е най-голяма при <Tex>{'\\cos \\theta = \\beta'}</Tex> и е равна на <Tex>{'\\beta\\gamma'}</Tex>.</p>
               <p>Значи <Tex>{'\\beta\\gamma \\ge 6 \\Rightarrow \\frac{\\beta^2}{1 - \\beta^2} \\ge 36 \\Rightarrow \\beta \\ge 6 / \\sqrt{37} \\approx 0{,}986 (\\gamma \\ge \\sqrt{37} \\approx 6{,}1)'}</Tex></p>
               <p>Ъгъл: <Tex>{'\\cos \\theta = 0{,}986 \\Rightarrow \\theta \\approx 9{,}5^\\circ (\\tg \\theta = \\frac{1}{6})'}</Tex></p>

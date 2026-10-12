@@ -402,15 +402,15 @@ export function Sequences() {
           <TaskBoard>
             <div className="mb-6">
               <TaskLevel level="A" />
-              <Task id="a1" number={1} color="border-green-500" question="В аритметична прогресия $a_1 = 5$ и $d = -2$. Намерете $a_{20}$ и $S_{20}$.">
+              <Task id="a1" number={1} color="border-green-500" question="В аритметична прогресия $a_1 = 5$ и $d = -2$. Намерете $a_{20}$ и $S_{20}$." check={[-33, -280]} ask={['$a_{20}$', '$S_{20}$']}>
                 <p><Tex>{'a_{20} = 5 + 19 \\cdot (-2) = -33'}</Tex></p>
                 <p><Tex>{'S_{20} = 20 \\cdot \\frac{5 + (-33)}{2} = 10 \\cdot (-28) = -280'}</Tex></p>
               </Task>
-              <Task id="a2" number={2} color="border-green-500" question="В геометрична прогресия $a_1 = 3$ и $q = 2$. Намерете $a_6$ и $S_6$.">
+              <Task id="a2" number={2} color="border-green-500" question="В геометрична прогресия $a_1 = 3$ и $q = 2$. Намерете $a_6$ и $S_6$." check={[96, 189]} ask={['$a_6$', '$S_6$']}>
                 <p><Tex>{'a_6 = 3 \\cdot 2^5 = 96'}</Tex></p>
                 <p><Tex>{'S_6 = 3 \\cdot \\frac{2^6 - 1}{2 - 1} = 3 \\cdot 63 = 189'}</Tex></p>
               </Task>
-              <Task id="a3" number={3} color="border-green-500" question="Пресметнете $1 + 3 + 5 + \ldots + 99$.">
+              <Task id="a3" number={3} color="border-green-500" question="Пресметнете $1 + 3 + 5 + \ldots + 99$." check={[2500]}>
                 <p>Аритметична прогресия: <Tex>{'a_1 = 1,\\ d = 2,\\ a_n = 99 \\Rightarrow n = \\frac{99 - 1}{2} + 1 = 50'}</Tex>.</p>
                 <p><Tex>{'S = 50 \\cdot \\frac{1 + 99}{2} = 2500 = 50^2'}</Tex>. (Сборът на първите <Tex>{'n'}</Tex> нечетни числа винаги е <Tex>{'n^2'}</Tex>.)</p>
               </Task>
@@ -418,17 +418,17 @@ export function Sequences() {
 
             <div className="mb-6">
               <TaskLevel level="B" />
-              <Task id="b1" number={4} color="border-yellow-500" question="В аритметична прогресия $a_3 = 7$ и $a_8 = 22$. Намерете $S_{10}$.">
+              <Task id="b1" number={4} color="border-yellow-500" question="В аритметична прогресия $a_3 = 7$ и $a_8 = 22$. Намерете $S_{10}$." check={[145]} ask={['$S_{10}$']}>
                 <p><Tex>{'5d = 22 - 7 = 15 \\Rightarrow d = 3'}</Tex>; <Tex>{'a_1 = 7 - 2 \\cdot 3 = 1'}</Tex></p>
                 <p><Tex>{'a_{10} = 1 + 27 = 28'}</Tex></p>
                 <p><Tex>{'S_{10} = 10 \\cdot \\frac{1 + 28}{2} = 145'}</Tex></p>
               </Task>
-              <Task id="b2" number={5} color="border-yellow-500" question="В геометрична прогресия $a_2 = 6$ и $a_5 = 162$. Намерете $q$, $a_1$ и $S_5$.">
+              <Task id="b2" number={5} color="border-yellow-500" question="В геометрична прогресия $a_2 = 6$ и $a_5 = 162$. Намерете $q$, $a_1$ и $S_5$." check={[3, 2, 242]} ask={['$q$', '$a_1$', '$S_5$']}>
                 <p><Tex>{'a_5 : a_2 = q^3 = 27 \\Rightarrow q = 3'}</Tex></p>
                 <p><Tex>{'a_1 = 6 : 3 = 2'}</Tex></p>
                 <p><Tex>{'S_5 = 2 \\cdot \\frac{3^5 - 1}{2} = 242'}</Tex></p>
               </Task>
-              <Task id="b3" number={6} color="border-yellow-500" question="За кои $x$ числата $2, x, 18$ образуват геометрична прогресия? А аритметична?">
+              <Task id="b3" number={6} color="border-yellow-500" question="За кои $x$ числата $2, x, 18$ образуват геометрична прогресия? А аритметична?" check={[6, -6, 10]} ask={['$x$ (геометрична, $x > 0$)', '$x$ (геометрична, $x < 0$)', '$x$ (аритметична)']}>
                 <p>Геометрична: <Tex>{'x^2 = 2 \\cdot 18 = 36 \\Rightarrow x = 6'}</Tex> или <Tex>{'x = -6'}</Tex> (<Tex>{'q = 3'}</Tex> или <Tex>{'q = -3'}</Tex>).</p>
                 <p>Аритметична: <Tex>{'x = \\frac{2 + 18}{2} = 10'}</Tex>.</p>
               </Task>
@@ -436,12 +436,12 @@ export function Sequences() {
 
             <div className="mb-6">
               <TaskLevel level="C" />
-              <Task id="c1" number={7} color="border-red-500" question="Намерете сбора на всички числа от 1 до 1000, които не се делят на 3.">
+              <Task id="c1" number={7} color="border-red-500" question="Намерете сбора на всички числа от 1 до 1000, които не се делят на 3." check={[333667]} ask={['сборът']}>
                 <p>Сборът на всички: <Tex>{'1000 \\cdot \\frac{1001}{2} = 500\\,500'}</Tex>.</p>
                 <p>Делящите се на 3: <Tex>{'3 + 6 + \\ldots + 999 = 3 \\cdot (1 + 2 + \\ldots + 333) = 3 \\cdot 333 \\cdot \\frac{334}{2} = 166\\,833'}</Tex>.</p>
                 <p>Търсеният сбор: <Tex>{'500\\,500 - 166\\,833 = 333\\,667'}</Tex>.</p>
               </Task>
-              <Task id="c2" number={8} color="border-red-500" question="Запишете 0,(27) като обикновена дроб, като използвате безкрайна геометрична прогресия.">
+              <Task id="c2" number={8} color="border-red-500" question="Запишете 0,(27) като обикновена дроб, като използвате безкрайна геометрична прогресия." check={[3 / 11]} ask={['дробта']}>
                 <p><Tex>{'0{,}(27) = \\frac{27}{100} + \\frac{27}{100^2} + \\frac{27}{100^3} + \\ldots'}</Tex></p>
                 <p><Tex>{'a_1 = \\frac{27}{100},\\ q = \\frac{1}{100} \\Rightarrow S = \\frac{\\frac{27}{100}}{\\frac{99}{100}} = \\frac{27}{99}'}</Tex></p>
                 <p><Tex>{'= \\frac{3}{11}'}</Tex></p>

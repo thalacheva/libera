@@ -370,16 +370,16 @@ export function Gcd() {
           <TaskBoard>
             <div className="mb-6">
               <TaskLevel level="A" />
-              <Task id="a1" number={1} color="border-green-500" question="Намерете НОД и НОК на 252 и 198.">
+              <Task id="a1" number={1} color="border-green-500" question="Намерете НОД и НОК на 252 и 198." check={[18, 2772]} ask={['НОД', 'НОК']}>
                 <p><Tex>{'252 = 2^2 \\cdot 3^2 \\cdot 7'}</Tex>, <Tex>{'198 = 2 \\cdot 3^2 \\cdot 11'}</Tex></p>
                 <p><Tex>{'\\text{НОД} = 2 \\cdot 3^2 = 18'}</Tex>, <Tex>{'\\text{НОК} = 2^2 \\cdot 3^2 \\cdot 7 \\cdot 11 = 2772'}</Tex></p>
                 <p>Проверка: <Tex>{'18 \\cdot 2772 = 49\\,896 = 252 \\cdot 198'}</Tex> ✓</p>
               </Task>
-              <Task id="a2" number={2} color="border-green-500" question="Намерете $\text{НОД}(1071,\ 462)$ с алгоритъма на Евклид.">
+              <Task id="a2" number={2} color="border-green-500" question="Намерете $\text{НОД}(1071,\ 462)$ с алгоритъма на Евклид." check={[21]} ask={['НОД']}>
                 <p><Tex>{'1071 = 2 \\cdot 462 + 147'}</Tex>; <Tex>{'462 = 3 \\cdot 147 + 21'}</Tex>; <Tex>{'147 = 7 \\cdot 21'}</Tex></p>
                 <p><Tex>{'\\text{НОД} = 21'}</Tex></p>
               </Task>
-              <Task id="a3" number={3} color="border-green-500" question="Съкратете дробта $\frac{391}{667}$.">
+              <Task id="a3" number={3} color="border-green-500" question="Съкратете дробта $\frac{391}{667}$." check={[17, 29]} ask={['числител', 'знаменател']}>
                 <p>Евклид: <Tex>{'667 = 1 \\cdot 391 + 276'}</Tex>, <Tex>{'391 = 1 \\cdot 276 + 115'}</Tex>, <Tex>{'276 = 2 \\cdot 115 + 46'}</Tex>, <Tex>{'115 = 2 \\cdot 46 + 23'}</Tex>, <Tex>{'46 = 2 \\cdot 23'}</Tex>.</p>
                 <p><Tex>{'\\text{НОД} = 23'}</Tex> ⇒ <Tex>{'\\frac{391}{667} = \\frac{17}{29}'}</Tex></p>
               </Task>
@@ -409,7 +409,7 @@ export function Gcd() {
                 <p>Тогава <Tex>{'d \\mid 3(14n + 3) - 2(21n + 4) = 42n + 9 - 42n - 8 = 1'}</Tex>.</p>
                 <p><Tex>{'d = 1'}</Tex> – дробта е несъкратима.</p>
               </Task>
-              <Task id="c2" number={8} color="border-red-500" question="Кое е най-голямото цяло количество, което не може да се плати точно с монети от 3 и 5 стотинки?">
+              <Task id="c2" number={8} color="border-red-500" question="Кое е най-голямото цяло количество, което не може да се плати точно с монети от 3 и 5 стотинки?" check={[7]} ask={['сума, ст.']}>
                 <p>Платимите суми са <Tex>{'3x + 5y'}</Tex> с <Tex>{'x,\\ y \\ge 0'}</Tex>: 3, 5, 6, 8, 9, 10, 11, …</p>
                 <p>8, 9 и 10 се плащат (<Tex>{'3 + 5'}</Tex>, <Tex>{'3 \\cdot 3'}</Tex>, <Tex>{'5 \\cdot 2'}</Tex>), а всяка по-голяма сума е някоя от тях плюс няколко монети от 3.</p>
                 <p>7 не може – отговорът е 7. (Изобщо за взаимно прости <Tex>{'a'}</Tex> и <Tex>{'b'}</Tex> това е <Tex>{'ab - a - b'}</Tex>.)</p>

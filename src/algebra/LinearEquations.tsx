@@ -717,17 +717,17 @@ export function LinearEquations() {
           <TaskBoard>
             <div className="mb-6">
               <TaskLevel level="A" />
-              <Task id="a1" number={1} color="border-green-500" question="Реши уравнението $5(x - 2) - 3(x + 1) = 7$.">
+              <Task id="a1" number={1} color="border-green-500" question="Реши уравнението $5(x - 2) - 3(x + 1) = 7$." check={[10]} ask={['$x$']}>
                 <p>Разкриваме скобите: <Tex>{'5x - 10 - 3x - 3 = 7'}</Tex></p>
                 <p>Привеждаме: <Tex>{'2x - 13 = 7 \\Rightarrow 2x = 20'}</Tex></p>
                 <p><Tex>{'x = 10'}</Tex>. Проверка: <Tex>{'5 \\cdot 8 - 3 \\cdot 11 = 40 - 33 = 7'}</Tex> ✓</p>
               </Task>
-              <Task id="a2" number={2} color="border-green-500" question="Реши уравнението $\frac{2x - 1}{3} - \frac{x + 2}{4} = 1$.">
+              <Task id="a2" number={2} color="border-green-500" question="Реши уравнението $\frac{2x - 1}{3} - \frac{x + 2}{4} = 1$." check={[22 / 5]} ask={['$x$']}>
                 <p>Умножаваме по общия знаменател 12: <Tex>{'4(2x - 1) - 3(x + 2) = 12'}</Tex></p>
                 <p><Tex>{'8x - 4 - 3x - 6 = 12 \\Rightarrow 5x - 10 = 12'}</Tex></p>
                 <p><Tex>{'5x = 22 \\Rightarrow x = 4{,}4'}</Tex></p>
               </Task>
-              <Task id="a3" number={3} color="border-green-500" question="Сборът на три последователни естествени числа е 87. Кои са числата?">
+              <Task id="a3" number={3} color="border-green-500" question="Сборът на три последователни естествени числа е 87. Кои са числата?" check={[28, 29, 30]} ask={['най-малкото', 'средното', 'най-голямото']}>
                 <p>Нека най-малкото е <Tex>{'n'}</Tex>. Тогава числата са <Tex>{'n,\\ n + 1,\\ n + 2'}</Tex>.</p>
                 <p><Tex>{'n + (n + 1) + (n + 2) = 87 \\Rightarrow 3n + 3 = 87 \\Rightarrow 3n = 84 \\Rightarrow n = 28'}</Tex></p>
                 <p>Числата са 28, 29 и 30. (По-кратко: средното е <Tex>{'87 : 3 = 29'}</Tex>.)</p>
@@ -736,17 +736,17 @@ export function LinearEquations() {
 
             <div className="mb-6">
               <TaskLevel level="B" />
-              <Task id="b1" number={4} color="border-yellow-500" question="Реши уравнението $|3 - 2x| = 9$.">
+              <Task id="b1" number={4} color="border-yellow-500" question="Реши уравнението $|3 - 2x| = 9$." check={[-3, 6]} ask={['$x_1$', '$x_2$']} anyOrder>
                 <p><Tex>{'3 - 2x = 9'}</Tex> или <Tex>{'3 - 2x = -9'}</Tex></p>
                 <p><Tex>{'-2x = 6 \\Rightarrow x = -3'}</Tex>; <Tex>{'-2x = -12 \\Rightarrow x = 6'}</Tex></p>
                 <p>Отговор: <Tex>{'x = -3'}</Tex> или <Tex>{'x = 6'}</Tex>. (Геометрично: <Tex>{'|x - 1{,}5| = 4{,}5'}</Tex> – точките на разстояние 4,5 от 1,5.)</p>
               </Task>
-              <Task id="b2" number={5} color="border-yellow-500" question="От два града на разстояние $300\ \mathrm{km}$ един срещу друг тръгват две коли – първата със $70\ \mathrm{km/h}$, а втората половин час по-късно с $80\ \mathrm{km/h}$. Кога и къде ще се срещнат?">
+              <Task id="b2" number={5} color="border-yellow-500" question="От два града на разстояние $300\ \mathrm{km}$ един срещу друг тръгват две коли – първата със $70\ \mathrm{km/h}$, а втората половин час по-късно с $80\ \mathrm{km/h}$. Кога и къде ще се срещнат?" check={[34 / 15, 158.7]} ask={['време на първата кола, h', 'разстояние от нейния град, km']}>
                 <p>Нека <Tex>{'t'}</Tex> е времето на първата кола (в часове). Втората е пътувала <Tex>{'t - 0{,}5'}</Tex> часа.</p>
                 <p><Tex>{'70t + 80(t - 0{,}5) = 300 \\Rightarrow 150t - 40 = 300 \\Rightarrow t = \\frac{340}{150} \\approx 2{,}27\\ \\mathrm{h}'}</Tex></p>
                 <p><Tex>{'t \\approx 2'}</Tex> ч 16 мин след тръгването на първата кола, на <Tex>{'70 \\cdot 2{,}27 \\approx 158{,}7\\ \\mathrm{km}'}</Tex> от нейния град.</p>
               </Task>
-              <Task id="b3" number={6} color="border-yellow-500" question="Реши загадката на Диофант от началото на урока: $\frac{x}{6} + \frac{x}{12} + \frac{x}{7} + 5 + \frac{x}{2} + 4 = x$.">
+              <Task id="b3" number={6} color="border-yellow-500" question="Реши загадката на Диофант от началото на урока: $\frac{x}{6} + \frac{x}{12} + \frac{x}{7} + 5 + \frac{x}{2} + 4 = x$." check={[84]} ask={['години на Диофант']}>
                 <p>Общият знаменател на 6, 12, 7 и 2 е 84. Умножаваме по 84:</p>
                 <p><Tex>{'14x + 7x + 12x + 420 + 42x + 336 = 84x'}</Tex></p>
                 <p><Tex>{'75x + 756 = 84x \\Rightarrow 9x = 756 \\Rightarrow x = 84'}</Tex></p>
@@ -756,20 +756,20 @@ export function LinearEquations() {
 
             <div className="mb-6">
               <TaskLevel level="C" />
-              <Task id="c1" number={7} color="border-red-500" question="Реши уравнението $a(x - 1) = 2x + 3$ в зависимост от параметъра $a$. За кои цели стойности на $a$ решението е цяло число?">
+              <Task id="c1" number={7} color="border-red-500" question="Реши уравнението $a(x - 1) = 2x + 3$ в зависимост от параметъра $a$. За кои цели стойности на $a$ решението е цяло число?" check={[-3, 1, 3, 7]} ask={['$a_1$', '$a_2$', '$a_3$', '$a_4$']} anyOrder>
                 <p><Tex>{'ax - a = 2x + 3 \\Rightarrow (a - 2)x = a + 3'}</Tex></p>
                 <p>При <Tex>{'a = 2'}</Tex>: <Tex>{'0 \\cdot x = 5'}</Tex> – няма решение. При <Tex>{'a \\ne 2'}</Tex>: <Tex>{'x = \\frac{a + 3}{a - 2}'}</Tex>.</p>
                 <p>Отделяме цяла част: <Tex>{'x = 1 + \\frac{5}{a - 2}'}</Tex>. Цяло е <Tex>{'\\iff a - 2 \\mid 5 \\iff a - 2 \\in \\{\\pm 1, \\pm 5\\}'}</Tex>.</p>
                 <p><Tex>{'a \\in \\{-3, 1, 3, 7\\}'}</Tex>, съответно <Tex>{'x = 0,\\ -4,\\ 6,\\ 2'}</Tex>.</p>
               </Task>
-              <Task id="c2" number={8} color="border-red-500" question="Реши уравнението $|x - 1| + |x - 3| = 4$.">
+              <Task id="c2" number={8} color="border-red-500" question="Реши уравнението $|x - 1| + |x - 3| = 4$." check={[0, 4]} ask={['$x_1$', '$x_2$']} anyOrder>
                 <p>Нулите на модулите 1 и 3 разделят оста на три интервала.</p>
                 <p><Tex>{'x < 1'}</Tex>: <Tex>{'(1 - x) + (3 - x) = 4 \\Rightarrow 4 - 2x = 4 \\Rightarrow x = 0'}</Tex> ✓</p>
                 <p><Tex>{'1 \\le x \\le 3'}</Tex>: <Tex>{'(x - 1) + (3 - x) = 2 \\ne 4'}</Tex> – няма решение в този интервал.</p>
                 <p><Tex>{'x > 3'}</Tex>: <Tex>{'(x - 1) + (x - 3) = 4 \\Rightarrow 2x = 8 \\Rightarrow x = 4'}</Tex> ✓</p>
                 <p>Отговор: <Tex>{'x = 0'}</Tex> или <Tex>{'x = 4'}</Tex>. Геометрично: сборът от разстоянията до 1 и до 3 е 4 – а между тях винаги е 2.</p>
               </Task>
-              <Task id="c3" number={9} color="border-red-500" question="Точно в 12:00 часовата и минутната стрелка на часовника се застъпват. След колко минути ще се застъпят отново за първи път?">
+              <Task id="c3" number={9} color="border-red-500" question="Точно в 12:00 часовата и минутната стрелка на часовника се застъпват. След колко минути ще се застъпят отново за първи път?" check={[720 / 11]} ask={['минути']}>
                 <p>Минутната стрелка се върти с <Tex>{'360^\\circ'}</Tex> за 60 мин = <Tex>{'6^\\circ'}</Tex> в минута, часовата – с <Tex>{'30^\\circ'}</Tex> за 60 мин = <Tex>{'0{,}5^\\circ'}</Tex> в минута.</p>
                 <p>Минутната трябва да „настигне“ часовата с цяла обиколка: <Tex>{'6t = 360 + 0{,}5t'}</Tex></p>
                 <p><Tex>{'5{,}5t = 360 \\Rightarrow t = \\frac{720}{11} = 65\\tfrac{5}{11}'}</Tex> мин</p>

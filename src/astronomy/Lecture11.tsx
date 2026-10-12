@@ -276,18 +276,18 @@ export default function Lecture11() {
           <div className="mb-6">
             <TaskLevel level="B" />
 
-            <Task id="b1" number={4} color="border-yellow-500" question="Изчисли светимостта на Слънцето от слънчевата константа $S = 1361\ \mathrm{W/m}^2$ и $d = 1{,}496 \cdot 10^{11}\ \mathrm{m}$.">
+            <Task id="b1" number={4} color="border-yellow-500" question="Изчисли светимостта на Слънцето от слънчевата константа $S = 1361\ \mathrm{W/m}^2$ и $d = 1{,}496 \cdot 10^{11}\ \mathrm{m}$." check={[3.83]} ask={['светимост, $10^{26}$ W']}>
               <p><Tex>{'L = 4\\pi d^2 \\cdot S = 4\\pi \\cdot (1{,}496 \\cdot 10^{11})^2 \\cdot 1361'}</Tex></p>
               <p><Tex>{'L = 4\\pi \\cdot 2{,}238 \\cdot 10^{22} \\cdot 1361 \\approx 3{,}83 \\cdot 10^{26}\\ \\mathrm{W}'}</Tex></p>
             </Task>
 
-            <Task id="b2" number={5} color="border-yellow-500" question="Каква е слънчевата константа при Марс (1,524 AU) и при Юпитер (5,2 AU)?">
+            <Task id="b2" number={5} color="border-yellow-500" question="Каква е слънчевата константа при Марс (1,524 AU) и при Юпитер (5,2 AU)?" check={[586, 50.3]} ask={['при Марс, W/m²', 'при Юпитер, W/m²']}>
               <p><Tex>{'S = S_{\\oplus} / d^2'}</Tex></p>
-              <p>Марс: <Tex>{'1361 / 1{,}524^2 = 1361 / 2{,}32 \\approx 586\\ \\mathrm{W/m}^2'}</Tex></p>
-              <p>Юпитер: <Tex>{'1361 / 5{,}2^2 = 1361 / 27 \\approx 50\\ \\mathrm{W/m}^2'}</Tex> – 27 пъти по-малко от Земята.</p>
+              <p>Марс: <Tex>{'1361 / 1{,}524^2 = 1361 / 2{,}323 \\approx 586\\ \\mathrm{W/m}^2'}</Tex></p>
+              <p>Юпитер: <Tex>{'1361 / 5{,}2^2 = 1361 / 27{,}04 \\approx 50{,}3\\ \\mathrm{W/m}^2'}</Tex> – 27 пъти по-малко от Земята.</p>
             </Task>
 
-            <Task id="b3" number={6} color="border-yellow-500" question="Изчисли средната плътност на Слънцето ($M = 1{,}989 \cdot 10^{30}\ \mathrm{kg},\ R = 6{,}96 \cdot 10^8\ \mathrm{m}$). Сравни с водата и Земята ($5{,}5\ \mathrm{g/cm^{3}}$).">
+            <Task id="b3" number={6} color="border-yellow-500" question="Изчисли средната плътност на Слънцето ($M = 1{,}989 \cdot 10^{30}\ \mathrm{kg},\ R = 6{,}96 \cdot 10^8\ \mathrm{m}$). Сравни с водата и Земята ($5{,}5\ \mathrm{g/cm^{3}}$)." check={[1.41]} ask={['плътност, g/cm³']}>
               <p><Tex>{'V = \\frac{4}{3} \\cdot \\pi \\cdot R^3 = \\frac{4}{3} \\cdot \\pi \\cdot (6{,}96 \\cdot 10^8)^3 \\approx 1{,}41 \\cdot 10^{27}\\ \\mathrm{m^{3}}'}</Tex></p>
               <p><Tex>{'\\rho = M / V \\approx 1{,}41 \\cdot 10^3\\ \\mathrm{kg/m^{3}} = 1{,}41\\ \\mathrm{g/cm^{3}}'}</Tex></p>
               <p>
@@ -305,6 +305,8 @@ export default function Lecture11() {
               number={7}
               color="border-red-500"
               question="Келвин и Хелмхолц предполагат, че Слънцето свети, защото бавно се свива. Оцени колко дълго би светило така: $t \approx \frac{GM^2}{R \cdot L}$."
+              check={[9.9]}
+              ask={['време, $10^{14}$ s']}
             >
               <p><Tex>{'t = \\frac{6{,}674 \\cdot 10^{-11} \\cdot (1{,}989 \\cdot 10^{30})^2}{6{,}96 \\cdot 10^8 \\cdot 3{,}828 \\cdot 10^{26}}'}</Tex></p>
               <p><Tex>{'t \\approx \\frac{2{,}64 \\cdot 10^{50}}{2{,}66 \\cdot 10^{35}} \\approx 9{,}9 \\cdot 10^{14}\\ \\mathrm{s} \\approx 31'}</Tex> милиона години</p>
@@ -319,9 +321,11 @@ export default function Lecture11() {
               number={8}
               color="border-red-500"
               question="Оцени колко дълго Слънцето може да свети с днешната си светимост, ако в ядрото изгори 10% от водорода (приеми, че цялото Слънце е водород)."
+              check={[3.27, 10.4]}
+              ask={['време, $10^{17}$ s', 'време, милиарда години']}
             >
               <p><Tex>{'E = 0{,}1 \\cdot 0{,}007 \\cdot M \\cdot c^2 = 7 \\cdot 10^{-4} \\cdot 1{,}989 \\cdot 10^{30} \\cdot 9 \\cdot 10^{16} \\approx 1{,}25 \\cdot 10^{44}\\ \\mathrm{J}'}</Tex></p>
-              <p><Tex>{'t = E / L = \\frac{1{,}25 \\cdot 10^{44}}{3{,}828 \\cdot 10^{26}} \\approx 3{,}3 \\cdot 10^{17}\\ \\mathrm{s} \\approx 10'}</Tex> милиарда години</p>
+              <p><Tex>{'t = E / L = \\frac{1{,}25 \\cdot 10^{44}}{3{,}828 \\cdot 10^{26}} \\approx 3{,}27 \\cdot 10^{17}\\ \\mathrm{s} \\approx 10{,}4'}</Tex> милиарда години</p>
               <p>Слънцето е изминало около половината от живота си на главната последователност.</p>
             </Task>
 
@@ -330,6 +334,8 @@ export default function Lecture11() {
               number={9}
               color="border-red-500"
               question="Всяка верига $4p \to {}^{4}\mathrm{He}$ отделя 26,7 MeV и две неутрино. Оцени потока слънчеви неутрино на Земята ($1\ \mathrm{MeV} = 1{,}602 \cdot 10^{-13}\ \mathrm{J}$)."
+              check={[6.4]}
+              ask={['поток, $10^{10}$ неутрино/(cm² s)']}
             >
               <p>Реакции в секунда: <Tex>{'L / E = \\frac{3{,}828 \\cdot 10^{26}}{26{,}7 \\cdot 1{,}602 \\cdot 10^{-13}} \\approx 9 \\cdot 10^{37}\\ \\mathrm{s^{-1}}'}</Tex></p>
               <p>Неутрино: <Tex>{'2 \\cdot 9 \\cdot 10^{37} \\approx 1{,}8 \\cdot 10^{38}\\ \\mathrm{s^{-1}}'}</Tex></p>

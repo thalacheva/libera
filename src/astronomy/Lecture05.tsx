@@ -436,6 +436,8 @@ export default function Lecture05() {
               number={6}
               color="border-yellow-500"
               question="Изчисли ъгловия диаметър на Луната, ако диаметърът ѝ е 3474 km, а разстоянието – 384 400 km."
+              check={[0.52]}
+              ask={['ъглов диаметър, °']}
             >
               <p>За малки ъгли: <Tex>{'\\alpha \\approx D / d'}</Tex> (в радиани).</p>
               <p><Tex>{'\\alpha = 3474 / 384\\,400 = 0{,}00904\\ \\mathrm{rad}'}</Tex></p>
@@ -468,6 +470,8 @@ export default function Lecture05() {
               number={8}
               color="border-yellow-500"
               question="Каква е най-голямата възможна дистанция между наблюдател и Луната, при която затъмнението може да е пълно, ако Земята е в перихелий ($d_{\odot} = 147{,}1$ млн. km)?"
+              check={[367200]}
+              ask={['разстояние, km']}
             >
               <p>Условие: <Tex>{'R_{\\text{☾}} / d_{\\text{☾}} \\ge R_{\\odot} / d_{\\odot}'}</Tex>.</p>
               <p>
@@ -514,13 +518,15 @@ export default function Lecture05() {
               number={10}
               color="border-red-500"
               question="Оцени колко трае пълната фаза за наблюдател на екватора около пладне, ако сянката има диаметър 200 km. (Скорост на Луната по орбитата $1{,}02\ \mathrm{km/s}$, на повърхността на Земята при екватора – $0{,}47\ \mathrm{km/s}$.)"
+              check={[364]}
+              ask={['продължителност на пълната фаза, s']}
             >
               <p>
                 Сянката и наблюдателят се движат в една посока, така че
                 относителната скорост е <Tex>{'v \\approx 1{,}02 - 0{,}47 = 0{,}55\\ \\mathrm{km/s}'}</Tex>.
               </p>
               <p>
-                <Tex>{'t \\approx 200\\ \\mathrm{km} / 0{,}55\\ \\mathrm{km/s} \\approx 360\\ \\mathrm{s} \\approx'}</Tex> <strong>6 минути</strong>.
+                <Tex>{'t \\approx 200\\ \\mathrm{km} / 0{,}55\\ \\mathrm{km/s} \\approx 364\\ \\mathrm{s} \\approx'}</Tex> <strong>6,06 минути</strong>.
               </p>
               <p>
                 На по-високи ширини въртенето на Земята помага по-малко, а

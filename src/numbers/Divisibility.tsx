@@ -403,7 +403,7 @@ export function Divisibility() {
                 <p>Сборът от цифрите е 18 ⇒ на 3 и 9; знакопроменливият сбор <Tex>{'0 - 2 + 9 - 7 = 0'}</Tex> ⇒ на 11.</p>
                 <p>Дели се на всички: <Tex>{'7920 = 2^4 \\cdot 3^2 \\cdot 5 \\cdot 11'}</Tex>.</p>
               </Task>
-              <Task id="a3" number={3} color="border-green-500" question="Коя цифра трябва да е $x$, за да се дели числото $\overline{37x4}$ на 9?">
+              <Task id="a3" number={3} color="border-green-500" question="Коя цифра трябва да е $x$, за да се дели числото $\overline{37x4}$ на 9?" check={[4]} ask={['$x$']}>
                 <p>Сборът от цифрите <Tex>{'3 + 7 + x + 4 = 14 + x'}</Tex> трябва да се дели на 9.</p>
                 <p>Единствената цифра е <Tex>{'x = 4'}</Tex>: <Tex>{'3744 = 9 \\cdot 416'}</Tex>.</p>
               </Task>
@@ -411,7 +411,7 @@ export function Divisibility() {
 
             <div className="mb-6">
               <TaskLevel level="B" />
-              <Task id="b1" number={4} color="border-yellow-500" question="Колко делителя има числото 720? Колко от тях са точни квадрати?">
+              <Task id="b1" number={4} color="border-yellow-500" question="Колко делителя има числото 720? Колко от тях са точни квадрати?" check={[30, 6]} ask={['брой делители', 'точни квадрати']}>
                 <p><Tex>{'720 = 2^4 \\cdot 3^2 \\cdot 5'}</Tex> ⇒ <Tex>{'(4 + 1)(2 + 1)(1 + 1) = 30'}</Tex> делителя.</p>
                 <p>Точен квадрат е делител с четни показатели: за 2 – 0, 2 или 4; за 3 – 0 или 2; за 5 – само 0.</p>
                 <p><Tex>{'3 \\cdot 2 \\cdot 1 = 6'}</Tex> квадрата: 1, 4, 9, 16, 36, 144.</p>
@@ -421,7 +421,7 @@ export function Divisibility() {
                 <p>Сред тях поне едно е четно и точно едно се дели на 3.</p>
                 <p>Значи произведението се дели на 2 и на 3, т.е. на 6.</p>
               </Task>
-              <Task id="b3" number={6} color="border-yellow-500" question="С колко нули завършва числото $100!$? А $2026!$?">
+              <Task id="b3" number={6} color="border-yellow-500" question="С колко нули завършва числото $100!$? А $2026!$?" check={[24, 505]} ask={['нули в $100!$', 'нули в $2026!$']}>
                 <p><Tex>{'100!'}</Tex>: <Tex>{'\\left[\\frac{100}{5}\\right] + \\left[\\frac{100}{25}\\right] = 20 + 4 = 24'}</Tex>.</p>
                 <p><Tex>{'2026!'}</Tex>: <Tex>{'405 + 81 + 16 + 3 = 505'}</Tex> (делим на 5, 25, 125 и 625).</p>
               </Task>
@@ -429,7 +429,7 @@ export function Divisibility() {
 
             <div className="mb-6">
               <TaskLevel level="C" />
-              <Task id="c1" number={7} color="border-red-500" question="Намерете всички прости числа $p$, за които $p + 10$ и $p + 14$ също са прости.">
+              <Task id="c1" number={7} color="border-red-500" question="Намерете всички прости числа $p$, за които $p + 10$ и $p + 14$ също са прости." check={[3]} ask={['$p$']}>
                 <p>Разглеждаме остатъка на <Tex>{'p'}</Tex> при деление на 3.</p>
                 <p>Ако <Tex>{'p = 3k + 1'}</Tex>, то <Tex>{'p + 14 = 3(k + 5)'}</Tex> се дели на 3; ако <Tex>{'p = 3k + 2'}</Tex>, то <Tex>{'p + 10 = 3(k + 4)'}</Tex> се дели на 3 – и не е просто.</p>
                 <p>Остава <Tex>{'p = 3'}</Tex>: 3, 13 и 17 са прости. Отговор: <Tex>{'p = 3'}</Tex>.</p>
@@ -439,7 +439,7 @@ export function Divisibility() {
                 <p>От трите поредни числа <Tex>{'p - 1,\\ p,\\ p + 1'}</Tex> едно се дели на 3, и това не е <Tex>{'p'}</Tex> ⇒ произведението се дели на 3.</p>
                 <p>8 и 3 са взаимно прости ⇒ <Tex>{'24 \\mid p^2 - 1'}</Tex>.</p>
               </Task>
-              <Task id="c3" number={9} color="border-red-500" question="Кое е най-малкото естествено число с точно 10 делителя?">
+              <Task id="c3" number={9} color="border-red-500" question="Кое е най-малкото естествено число с точно 10 делителя?" check={[48]}>
                 <p><Tex>{'10 = 10'}</Tex> или <Tex>{'10 = 5 \\cdot 2'}</Tex>, така че <Tex>{'n = p^9'}</Tex> или <Tex>{'n = p^4 q'}</Tex>.</p>
                 <p>Най-малките такива са <Tex>{'2^9 = 512'}</Tex> и <Tex>{'2^4 \\cdot 3 = 48'}</Tex>.</p>
                 <p>Отговор: 48 (делители 1, 2, 3, 4, 6, 8, 12, 16, 24, 48).</p>

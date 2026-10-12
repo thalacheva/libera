@@ -364,11 +364,11 @@ export function Modular() {
           <TaskBoard>
             <div className="mb-6">
               <TaskLevel level="A" />
-              <Task id="a1" number={1} color="border-green-500" question="Намерете остатъка на 2026 и на $2026^2$ при деление на 7.">
+              <Task id="a1" number={1} color="border-green-500" question="Намерете остатъка на 2026 и на $2026^2$ при деление на 7." check={[3, 2]} ask={['остатък на 2026', 'остатък на $2026^2$']}>
                 <p><Tex>{'2026 = 7 \\cdot 289 + 3 \\Rightarrow 2026 \\equiv 3 \\pmod 7'}</Tex></p>
                 <p><Tex>{'2026^2 \\equiv 3^2 = 9 \\equiv 2 \\pmod 7'}</Tex></p>
               </Task>
-              <Task id="a2" number={2} color="border-green-500" question="Каква е последната цифра на $7^{2026}$?">
+              <Task id="a2" number={2} color="border-green-500" question="Каква е последната цифра на $7^{2026}$?" check={[9]} ask={['последна цифра']}>
                 <p>Последните цифри на степените на 7: 7, 9, 3, 1, 7, … – период 4.</p>
                 <p><Tex>{'2026 \\equiv 2 \\pmod 4 \\Rightarrow 7^{2026} \\equiv 7^2 \\equiv 9 \\pmod{10}'}</Tex></p>
               </Task>
@@ -381,7 +381,7 @@ export function Modular() {
 
             <div className="mb-6">
               <TaskLevel level="B" />
-              <Task id="b1" number={4} color="border-yellow-500" question="Намерете остатъка на $2^{100}$ при деление на 7.">
+              <Task id="b1" number={4} color="border-yellow-500" question="Намерете остатъка на $2^{100}$ при деление на 7." check={[2]} ask={['остатък']}>
                 <p><Tex>{'2^3 = 8 \\equiv 1 \\pmod 7'}</Tex></p>
                 <p><Tex>{'2^{100} = (2^3)^{33} \\cdot 2 \\equiv 1 \\cdot 2 = 2 \\pmod 7'}</Tex></p>
               </Task>
@@ -397,7 +397,7 @@ export function Modular() {
 
             <div className="mb-6">
               <TaskLevel level="C" />
-              <Task id="c1" number={7} color="border-red-500" question="Намерете най-малкото естествено $x$, за което $x \equiv 2 \pmod 3$, $x \equiv 3 \pmod 5$, $x \equiv 2 \pmod 7$.">
+              <Task id="c1" number={7} color="border-red-500" question="Намерете най-малкото естествено $x$, за което $x \equiv 2 \pmod 3$, $x \equiv 3 \pmod 5$, $x \equiv 2 \pmod 7$." check={[23]} ask={['$x$']}>
                 <p>От <Tex>{'x \\equiv 2'}</Tex> по модул 3 и 7 (взаимно прости): <Tex>{'x \\equiv 2 \\pmod{21}'}</Tex>, т.е. <Tex>{'x \\in \\{2, 23, 44, 65, 86\\}'}</Tex> до 105.</p>
                 <p>Остатъци по модул 5: 2, 3, 4, 0, 1 – подходящо е само 23.</p>
                 <p><Tex>{'x = 23'}</Tex>; всички решения са <Tex>{'23 + 105k'}</Tex>.</p>
@@ -407,7 +407,7 @@ export function Modular() {
                 <p>По Ферма <Tex>{'n^5 \\equiv n \\pmod 5'}</Tex>; също <Tex>{'n^3 \\equiv n \\pmod 3 \\Rightarrow n^5 = n^3 \\cdot n^2 \\equiv n^3 \\equiv n'}</Tex>; и <Tex>{'n^2 \\equiv n \\pmod 2 \\Rightarrow n^5 \\equiv n'}</Tex>.</p>
                 <p>Значи 2, 3 и 5 делят <Tex>{'n^5 - n'}</Tex>, а са взаимно прости ⇒ <Tex>{'30 \\mid n^5 - n'}</Tex>.</p>
               </Task>
-              <Task id="c3" number={9} color="border-red-500" question="Кои са последните две цифри на $3^{2026}$?">
+              <Task id="c3" number={9} color="border-red-500" question="Кои са последните две цифри на $3^{2026}$?" check={[29]} ask={['последните две цифри']}>
                 <p>Търсим остатъка по модул 100. <Tex>{'3^{10} = 59\\,049 \\equiv 49'}</Tex>, <Tex>{'3^{20} \\equiv 49^2 = 2401 \\equiv 1 \\pmod{100}'}</Tex>.</p>
                 <p><Tex>{'2026 = 20 \\cdot 101 + 6 \\Rightarrow 3^{2026} \\equiv 3^6 = 729 \\equiv 29 \\pmod{100}'}</Tex>.</p>
                 <p>Последните две цифри са 29.</p>

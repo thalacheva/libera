@@ -332,14 +332,14 @@ export default function Lecture09() {
           <div className="mb-6">
             <TaskLevel level="B" />
 
-            <Task id="b1" number={4} color="border-yellow-500" question="Звезда се приближава към нас със скорост $60\ \mathrm{km/s}$. С колко се отмества линия с $\lambda = 500\ \mathrm{nm}$ и накъде?">
+            <Task id="b1" number={4} color="border-yellow-500" question="Звезда се приближава към нас със скорост $60\ \mathrm{km/s}$. С колко се отмества линия с $\lambda = 500\ \mathrm{nm}$ и накъде?" check={[0.1]} ask={['отместване, nm']}>
               <p><Tex>{'\\Delta\\lambda = \\lambda \\cdot v / c = 500\\ \\mathrm{nm} \\cdot 60 / 300\\,000 = 0{,}1\\ \\mathrm{nm}'}</Tex></p>
               <p>
                 Звездата се приближава, затова линията се отмества към синия край: наблюдаваме я при <strong>499,9 nm</strong>.
               </p>
             </Task>
 
-            <Task id="b2" number={5} color="border-yellow-500" question="Звезда излъчва най-силно при $\lambda_{\mathrm{max}} = 500\ \mathrm{nm}$. Каква е температурата ѝ?">
+            <Task id="b2" number={5} color="border-yellow-500" question="Звезда излъчва най-силно при $\lambda_{\mathrm{max}} = 500\ \mathrm{nm}$. Каква е температурата ѝ?" check={[5800]} ask={['температура, K']}>
               <p><Tex>{'T = b / \\lambda_{\\mathrm{max}} = \\frac{2{,}898 \\cdot 10^{-3}}{5 \\cdot 10^{-7}} \\approx 5800\\ \\mathrm{K}'}</Tex></p>
               <p>
                 <strong>Отговор: около 5800 K</strong> – почти колкото Слънцето (5772 K).
@@ -351,11 +351,13 @@ export default function Lecture09() {
               number={6}
               color="border-yellow-500"
               question="Сириус A има температура $9940\ \mathrm{K}$ и радиус $1{,}71\,R_{\odot}$. Колко пъти светимостта му е по-голяма от слънчевата ($T_{\odot} = 5772\ \mathrm{K}$)?"
+              check={[25.7]}
+              ask={['светимост, $L_{\\odot}$']}
             >
               <p><Tex>{'L / L_{\\odot} = (R / R_{\\odot})^2 \\cdot (T / T_{\\odot})^4'}</Tex></p>
-              <p><Tex>{'L / L_{\\odot} = 1{,}71^2 \\cdot (9940 / 5772)^4 = 2{,}92 \\cdot 1{,}722^4 \\approx 2{,}92 \\cdot 8{,}80'}</Tex></p>
+              <p><Tex>{'L / L_{\\odot} = 1{,}71^2 \\cdot (9940 / 5772)^4 = 2{,}924 \\cdot 1{,}722^4 \\approx 2{,}924 \\cdot 8{,}795'}</Tex></p>
               <p>
-                <strong><Tex>{'L \\approx 26\\,L_{\\odot}'}</Tex></strong>
+                <strong><Tex>{'L \\approx 25{,}7\\,L_{\\odot}'}</Tex></strong>
               </p>
             </Task>
 
@@ -364,6 +366,8 @@ export default function Lecture09() {
               number={7}
               color="border-yellow-500"
               question="Изчисли дължината на вълната и енергията на фотона при прехода 4 → 2 във водородния атом. Как се казва тази линия?"
+              check={[486, 2.55]}
+              ask={['$\\lambda$, nm', 'енергия, eV']}
             >
               <p><Tex>{'\\frac{1}{\\lambda} = 1{,}097 \\cdot 10^7 \\cdot (\\frac{1}{4} - \\frac{1}{16}) = 1{,}097 \\cdot 10^7 \\cdot 0{,}1875 \\approx 2{,}057 \\cdot 10^6\\ \\mathrm{m^{-1}}'}</Tex></p>
               <p><Tex>{'\\lambda \\approx 486\\ \\mathrm{nm}'}</Tex> – синьо-зелена линия.</p>
@@ -382,6 +386,8 @@ export default function Lecture09() {
               number={8}
               color="border-red-500"
               question="Галактика има червено отместване $z = 0{,}1$. С каква скорост се отдалечава? Сравни приближената и релативистката формула."
+              check={[30000, 28500]}
+              ask={['приближено, km/s', 'релативистки, km/s']}
             >
               <p>Приближено: <Tex>{'v \\approx c \\cdot z = 0{,}1 \\cdot 300\\,000 = 30\\,000\\ \\mathrm{km/s}'}</Tex>.</p>
               <p>Релативистки: <Tex>{'1 + z = \\sqrt{\\frac{1 + \\beta}{1 - \\beta}} \\Rightarrow \\beta = \\frac{(1 + z)^2 - 1}{(1 + z)^2 + 1}'}</Tex></p>
@@ -394,9 +400,11 @@ export default function Lecture09() {
               number={9}
               color="border-red-500"
               question="Заради Юпитер Слънцето се поклаща около общия център на масите със скорост $12{,}5\ \mathrm{m/s}$. С колко се отмества линия с $\lambda = 500\ \mathrm{nm}$? Каква разделителна способност $R = \lambda / \Delta\lambda$ е нужна?"
+              check={[2.08, 2.4]}
+              ask={['$\\Delta\\lambda$, $10^{-5}$ nm', '$R$, $10^7$']}
             >
-              <p><Tex>{'\\Delta\\lambda = \\lambda \\cdot v / c = \\frac{500\\ \\mathrm{nm} \\cdot 12{,}5}{3 \\cdot 10^8} \\approx 2{,}1 \\cdot 10^{-5}\\ \\mathrm{nm} = 0{,}021\\ \\mathrm{pm}'}</Tex></p>
-              <p><Tex>{'R = \\lambda / \\Delta\\lambda \\approx \\frac{500}{2{,}1 \\cdot 10^{-5}} \\approx 2{,}4 \\cdot 10^7'}</Tex></p>
+              <p><Tex>{'\\Delta\\lambda = \\lambda \\cdot v / c = \\frac{500\\ \\mathrm{nm} \\cdot 12{,}5}{3 \\cdot 10^8} \\approx 2{,}08 \\cdot 10^{-5}\\ \\mathrm{nm} = 0{,}0208\\ \\mathrm{pm}'}</Tex></p>
+              <p><Tex>{'R = \\lambda / \\Delta\\lambda \\approx \\frac{500}{2{,}08 \\cdot 10^{-5}} \\approx 2{,}40 \\cdot 10^7'}</Tex></p>
               <p>
                 Толкова голяма разделителна способност е недостижима за един спектрограф (най-добрите имат <Tex>{'R \\approx 10^5'}</Tex>). Затова спектрографи
                 като HARPS измерват отместването едновременно на хиляди линии и го осредняват – така достигат точност под <Tex>{'1\\ \\mathrm{m/s}'}</Tex>.

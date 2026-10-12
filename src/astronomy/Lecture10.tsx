@@ -351,6 +351,8 @@ export default function Lecture10() {
               number={4}
               color="border-yellow-500"
               question="Телескоп има $D = 150\ \mathrm{mm}$ и $F = 1200\ \mathrm{mm}$. Какво увеличение дават окуляри с $f = 25\ \mathrm{mm}$ и $f = 10\ \mathrm{mm}$? Има ли смисъл окуляр с $f = 3\ \mathrm{mm}$?"
+              check={[48, 120]}
+              ask={['увеличение при $f = 25$ mm, пъти', 'увеличение при $f = 10$ mm, пъти']}
             >
               <p><Tex>{'M_1 = 1200 / 25 = 48\\times'}</Tex>; <Tex>{'M_2 = 1200 / 10 = 120\\times'}</Tex>.</p>
               <p>С <Tex>{'f = 3\\ \\mathrm{mm}'}</Tex>: <Tex>{'M = 400\\times'}</Tex>. Максималното полезно увеличение е ~<Tex>{'2D = 300\\times'}</Tex>, така че <Tex>{'400\\times'}</Tex> е „празно“ увеличение.</p>
@@ -362,9 +364,11 @@ export default function Lecture10() {
               number={5}
               color="border-yellow-500"
               question="Колко пъти повече светлина събира 10-метровият телескоп Кек от 2-метровия на Рожен? А от окото (7 mm)? С колко звездни величини по-слаби обекти вижда Кек от Рожен?"
+              check={[25, 2.04, 3.5]}
+              ask={['Кек / Рожен, пъти', 'Кек / око, $10^6$ пъти', 'разлика, звездни величини']}
             >
               <p>Кек / Рожен <Tex>{'= (10 / 2)^2 = 25'}</Tex> пъти.</p>
-              <p>Кек / око <Tex>{'= (10\\,000 / 7)^2 \\approx 2 \\cdot 10^6'}</Tex> пъти.</p>
+              <p>Кек / око <Tex>{'= (10\\,000 / 7)^2 \\approx 2{,}04 \\cdot 10^6'}</Tex> пъти.</p>
               <p><Tex>{'\\Delta m = 2{,}5 \\cdot \\lg 25 = 5 \\cdot \\lg 5 \\approx 3{,}5^{\\mathrm{m}}'}</Tex> по-слаби обекти при еднаква експозиция.</p>
             </Task>
 
@@ -373,6 +377,8 @@ export default function Lecture10() {
               number={6}
               color="border-yellow-500"
               question="Каква е разделителната способност на Хъбъл ($D = 2{,}4\ \mathrm{m}$) при $\lambda = 550\ \mathrm{nm}$? Какъв е най-малкият детайл, който може да различи на Луната (384 400 km)?"
+              check={[2.8, 107]}
+              ask={['$\\theta$, $10^{-7}$ rad', 'най-малък детайл, m']}
             >
               <p><Tex>{'\\theta = \\frac{1{,}22 \\cdot 550 \\cdot 10^{-9}}{2{,}4} \\approx 2{,}8 \\cdot 10^{-7}\\ \\mathrm{rad} \\approx 0{,}058\'\''}</Tex></p>
               <p><Tex>{'d = \\theta \\cdot r = 2{,}8 \\cdot 10^{-7} \\cdot 3{,}844 \\cdot 10^8\\ \\mathrm{m} \\approx 107\\ \\mathrm{m}'}</Tex></p>
@@ -391,6 +397,8 @@ export default function Lecture10() {
               number={7}
               color="border-red-500"
               question="EHT наблюдава при $\lambda = 1{,}3\ \mathrm{mm}$ с антени на разстояние до 10 700 km. Каква е разделителната му способност? Може ли да различи сянката на черната дупка в M87 с ъглов диаметър ~42 µas?"
+              check={[25]}
+              ask={['разделителна способност, µas']}
             >
               <p><Tex>{'\\theta \\approx \\lambda / B = \\frac{1{,}3 \\cdot 10^{-3}}{1{,}07 \\cdot 10^7} \\approx 1{,}2 \\cdot 10^{-10}\\ \\mathrm{rad}'}</Tex></p>
               <p><Tex>{'\\theta \\approx 1{,}2 \\cdot 10^{-10} \\cdot 206\\,265\'\' \\approx 2{,}5 \\cdot 10^{-5}{}\'\' = 25\\ \\mathrm{\\mu as}'}</Tex></p>
@@ -405,11 +413,13 @@ export default function Lecture10() {
               number={8}
               color="border-red-500"
               question="Плутон има видима звездна величина около $14{,}4^{\mathrm{m}}$. Какъв е най-малкият диаметър на телескоп, с който може да се види визуално? Как ще се промени отговорът под градско небе, където граничната величина е с $3^{\mathrm{m}}$ по-ярка?"
+              check={[219, 0.87]}
+              ask={['диаметър, mm', 'диаметър под градско небе, m']}
             >
-              <p><Tex>{'14{,}4 = 2{,}7 + 5 \\cdot \\lg D \\Rightarrow \\lg D = 2{,}34 \\Rightarrow D \\approx 220\\ \\mathrm{mm}'}</Tex>.</p>
+              <p><Tex>{'14{,}4 = 2{,}7 + 5 \\cdot \\lg D \\Rightarrow \\lg D = 2{,}34 \\Rightarrow D \\approx 219\\ \\mathrm{mm}'}</Tex>.</p>
               <p>
-                Под градско небе трябва <Tex>{'m_{\\text{гр}}'}</Tex> с <Tex>{'3^{\\mathrm{m}}'}</Tex> по-голяма от тъмното небе: <Tex>{'5 \\cdot \\lg (D_2 / D_1) = 3 \\Rightarrow D_2 / D_1 = 10^{0{,}6} \\approx 4'}</Tex>. Нужен е
-                телескоп от <strong>~0,9 m</strong>.
+                Под градско небе трябва <Tex>{'m_{\\text{гр}}'}</Tex> с <Tex>{'3^{\\mathrm{m}}'}</Tex> по-голяма от тъмното небе: <Tex>{'5 \\cdot \\lg (D_2 / D_1) = 3 \\Rightarrow D_2 / D_1 = 10^{0{,}6} \\approx 3{,}98'}</Tex>. Нужен е
+                телескоп от <strong>~0,87 m</strong>.
               </p>
             </Task>
 
@@ -418,6 +428,8 @@ export default function Lecture10() {
               number={9}
               color="border-red-500"
               question="Слаба галактика се заснема на фотоплака (ефективност 2%) с телескоп от 4 m за 4 часа. Колко време ще отнеме същото с CCD камера (ефективност 90%) на 8-метров телескоп?"
+              check={[80]}
+              ask={['време, s']}
             >
               <p>Броят на регистрираните фотони е <Tex>{'\\propto \\text{ефективност} \\cdot D^2 \\cdot t'}</Tex>. За еднакъв резултат:</p>
               <p><Tex>{'t_2 = t_1 \\cdot (0{,}02 / 0{,}90) \\cdot (4 / 8)^2 = 4\\ \\mathrm{h} \\cdot 0{,}0222 \\cdot 0{,}25 \\approx 0{,}022\\ \\mathrm{h}'}</Tex></p>

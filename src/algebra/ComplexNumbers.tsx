@@ -398,7 +398,7 @@ export function ComplexNumbers() {
                 <p><Tex>{'z + w = 4 - 2i'}</Tex>; <Tex>{'z - w = 2 + 6i'}</Tex></p>
                 <p><Tex>{'zw = 3 - 12i + 2i - 8i^2 = 3 - 10i + 8 = 11 - 10i'}</Tex></p>
               </Task>
-              <Task id="a2" number={2} color="border-green-500" question="Пресметнете $\frac{2 + i}{1 - i}$.">
+              <Task id="a2" number={2} color="border-green-500" question="Пресметнете $\frac{2 + i}{1 - i}$." check={[1 / 2, 3 / 2]} ask={['$\\operatorname{Re}$', '$\\operatorname{Im}$']}>
                 <p><Tex>{'\\frac{(2 + i)(1 + i)}{(1 - i)(1 + i)} = \\frac{2 + 2i + i + i^2}{1 + 1}'}</Tex></p>
                 <p><Tex>{'= \\frac{1 + 3i}{2} = \\frac{1}{2} + \\frac{3}{2}i'}</Tex></p>
               </Task>
@@ -410,17 +410,17 @@ export function ComplexNumbers() {
 
             <div className="mb-6">
               <TaskLevel level="B" />
-              <Task id="b1" number={4} color="border-yellow-500" question="Пресметнете $i^{2026}$ и $i + i^2 + i^3 + \ldots + i^{100}$.">
+              <Task id="b1" number={4} color="border-yellow-500" question="Пресметнете $i^{2026}$ и $i + i^2 + i^3 + \ldots + i^{100}$." check={[-1, 0]} ask={['$i^{2026}$', 'сборът']}>
                 <p><Tex>{'2026 = 4 \\cdot 506 + 2 \\Rightarrow i^{2026} = i^2 = -1'}</Tex></p>
                 <p>Всеки четири поредни степени дават <Tex>{'i - 1 - i + 1 = 0'}</Tex>, а 100 събираеми са 25 такива четворки.</p>
                 <p>Сборът е 0.</p>
               </Task>
-              <Task id="b2" number={5} color="border-yellow-500" question="Запишете $1 + i\sqrt{3}$ в тригонометричен вид и пресметнете $(1 + i\sqrt{3})^6$.">
+              <Task id="b2" number={5} color="border-yellow-500" question="Запишете $1 + i\sqrt{3}$ в тригонометричен вид и пресметнете $(1 + i\sqrt{3})^6$." check={[64]} ask={['$(1 + i\\sqrt{3})^6$']}>
                 <p><Tex>{'r = \\sqrt{1 + 3} = 2'}</Tex>; <Tex>{'\\cos \\varphi = \\frac{1}{2},\\ \\sin \\varphi = \\frac{\\sqrt{3}}{2} \\Rightarrow \\varphi = 60^{\\circ}'}</Tex></p>
                 <p><Tex>{'1 + i\\sqrt{3} = 2(\\cos 60^{\\circ} + i\\sin 60^{\\circ})'}</Tex></p>
                 <p><Tex>{'(1 + i\\sqrt{3})^6 = 2^6(\\cos 360^{\\circ} + i\\sin 360^{\\circ}) = 64'}</Tex></p>
               </Task>
-              <Task id="b3" number={6} color="border-yellow-500" question="Намерете реалните числа $x$ и $y$, за които $(x + yi)(2 - i) = 5 + 5i$.">
+              <Task id="b3" number={6} color="border-yellow-500" question="Намерете реалните числа $x$ и $y$, за които $(x + yi)(2 - i) = 5 + 5i$." check={[1, 3]} ask={['$x$', '$y$']}>
                 <p><Tex>{'x + yi = \\frac{5 + 5i}{2 - i} = \\frac{(5 + 5i)(2 + i)}{5}'}</Tex></p>
                 <p><Tex>{'= \\frac{10 + 5i + 10i + 5i^2}{5} = \\frac{5 + 15i}{5} = 1 + 3i'}</Tex></p>
                 <p><Tex>{'x = 1,\\ y = 3'}</Tex></p>
@@ -434,7 +434,7 @@ export function ComplexNumbers() {
                 <p><Tex>{'z_1 = 1'}</Tex>; от <Tex>{'z^2 + z + 1 = 0'}</Tex>: <Tex>{'z_{2,3} = -\\frac{1}{2} \\pm \\frac{\\sqrt{3}}{2}i'}</Tex></p>
                 <p>Сбор: <Tex>{'1 - \\frac{1}{2} - \\frac{1}{2} = 0'}</Tex> (имагинерните части се унищожават). Също от Виет: сборът на корените на <Tex>{'z^3 - 1'}</Tex> е 0.</p>
               </Task>
-              <Task id="c2" number={8} color="border-red-500" question="Комплексното число $z$ удовлетворява $z + \frac{1}{z} = 1$. Пресметнете $z^{2026} + \frac{1}{z^{2026}}$.">
+              <Task id="c2" number={8} color="border-red-500" question="Комплексното число $z$ удовлетворява $z + \frac{1}{z} = 1$. Пресметнете $z^{2026} + \frac{1}{z^{2026}}$." check={[-1]} ask={['$z^{2026} + \\frac{1}{z^{2026}}$']}>
                 <p>Умножаваме по <Tex>{'z'}</Tex>: <Tex>{'z^2 - z + 1 = 0'}</Tex>. Тогава <Tex>{'z^3 + 1 = (z + 1)(z^2 - z + 1) = 0'}</Tex>, т.е. <Tex>{'z^3 = -1'}</Tex> и <Tex>{'z^6 = 1'}</Tex>.</p>
                 <p><Tex>{'2026 = 6 \\cdot 337 + 4 \\Rightarrow z^{2026} = z^4 = -z'}</Tex>, а <Tex>{'\\frac{1}{z^{2026}} = \\frac{1}{z^4} = z^2 = z - 1'}</Tex>.</p>
                 <p>Сборът е <Tex>{'-z + z - 1 = -1'}</Tex>.</p>

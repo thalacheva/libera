@@ -430,7 +430,7 @@ export function Vectors() {
                 <p><Tex>{'|AB| = \\sqrt{9 + 16} = 5'}</Tex></p>
                 <p>Средата е M(2,5; 4).</p>
               </Task>
-              <Task id="a2" number={2} color="border-green-500" question="$a = (2;\ -1)$, $b = (-3;\ 4)$. Намерете $3a + 2b$ и дължината му.">
+              <Task id="a2" number={2} color="border-green-500" question="$a = (2;\ -1)$, $b = (-3;\ 4)$. Намерете $3a + 2b$ и дължината му." check={[0, 5, 5]} ask={['$x$-координата на $3a + 2b$', '$y$-координата на $3a + 2b$', 'дължина']}>
                 <p><Tex>{'3a = (6;\\ -3),\\ 2b = (-6;\\ 8)'}</Tex></p>
                 <p><Tex>{'3a + 2b = (0;\\ 5)'}</Tex></p>
                 <p><Tex>{'|3a + 2b| = 5'}</Tex></p>
@@ -444,17 +444,17 @@ export function Vectors() {
 
             <div className="mb-6">
               <TaskLevel level="B" />
-              <Task id="b1" number={4} color="border-yellow-500" question="$A(1;\ 1)$, $B(5;\ 2)$ и $C(2;\ 5)$ са три върха на успоредника $ABCD$. Намерете $D$.">
+              <Task id="b1" number={4} color="border-yellow-500" question="$A(1;\ 1)$, $B(5;\ 2)$ и $C(2;\ 5)$ са три върха на успоредника $ABCD$. Намерете $D$." check={[-2, 4]} ask={['$x_D$', '$y_D$']}>
                 <p>В успоредник <Tex>{'AD = BC'}</Tex>.</p>
                 <p><Tex>{'BC = (2 - 5;\\ 5 - 2) = (-3;\\ 3)'}</Tex></p>
                 <p><Tex>{'D = A + BC = (1 - 3;\\ 1 + 3) = (-2;\\ 4)'}</Tex></p>
               </Task>
-              <Task id="b2" number={5} color="border-yellow-500" question="Намерете ъгъла между векторите $a = (1;\ 2)$ и $b = (3;\ 1)$.">
+              <Task id="b2" number={5} color="border-yellow-500" question="Намерете ъгъла между векторите $a = (1;\ 2)$ и $b = (3;\ 1)$." check={[45]} ask={['ъгъл, °']}>
                 <p><Tex>{'a \\cdot b = 3 + 2 = 5'}</Tex>; <Tex>{'|a| = \\sqrt{5}'}</Tex>; <Tex>{'|b| = \\sqrt{10}'}</Tex></p>
                 <p><Tex>{'\\cos \\varphi = \\frac{5}{\\sqrt{50}} = \\frac{\\sqrt{2}}{2}'}</Tex></p>
                 <p><Tex>{'\\varphi = 45^\\circ'}</Tex></p>
               </Task>
-              <Task id="b3" number={6} color="border-yellow-500" question="При кое $k$ векторите $a = (k;\ 2)$ и $b = (3;\ -6)$ са перпендикулярни?">
+              <Task id="b3" number={6} color="border-yellow-500" question="При кое $k$ векторите $a = (k;\ 2)$ и $b = (3;\ -6)$ са перпендикулярни?" check={[4]} ask={['$k$']}>
                 <p><Tex>{'a \\perp b \\iff a \\cdot b = 0'}</Tex></p>
                 <p><Tex>{'3k - 12 = 0'}</Tex></p>
                 <p><Tex>{'k = 4'}</Tex></p>

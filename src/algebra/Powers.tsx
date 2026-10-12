@@ -377,7 +377,7 @@ export function Powers() {
           <TaskBoard>
             <div className="mb-6">
               <TaskLevel level="A" />
-              <Task id="a1" number={1} color="border-green-500" question="Пресметнете $(2^5 \cdot 2^3) : 2^6$.">
+              <Task id="a1" number={1} color="border-green-500" question="Пресметнете $(2^5 \cdot 2^3) : 2^6$." check={[4]}>
                 <p><Tex>{'2^5 \\cdot 2^3 = 2^8'}</Tex></p>
                 <p><Tex>{'2^8 : 2^6 = 2^2 = 4'}</Tex></p>
               </Task>
@@ -385,7 +385,7 @@ export function Powers() {
                 <p><Tex>{'\\sqrt{12} = 2\\sqrt{3}'}</Tex>; <Tex>{'\\sqrt{27} = 3\\sqrt{3}'}</Tex>; <Tex>{'\\sqrt{48} = 4\\sqrt{3}'}</Tex></p>
                 <p><Tex>{'2\\sqrt{3} + 3\\sqrt{3} - 4\\sqrt{3} = \\sqrt{3}'}</Tex></p>
               </Task>
-              <Task id="a3" number={3} color="border-green-500" question="Пресметнете $0{,}0005 \cdot 4 \cdot 10^6$ и запишете резултата в стандартен вид.">
+              <Task id="a3" number={3} color="border-green-500" question="Пресметнете $0{,}0005 \cdot 4 \cdot 10^6$ и запишете резултата в стандартен вид." check={[2000]}>
                 <p><Tex>{'0{,}0005 = 5 \\cdot 10^{-4}'}</Tex></p>
                 <p><Tex>{'5 \\cdot 10^{-4} \\cdot 4 \\cdot 10^6 = 20 \\cdot 10^2 = 2 \\cdot 10^3'}</Tex></p>
                 <p><Tex>{'= 2000'}</Tex></p>
@@ -404,7 +404,7 @@ export function Powers() {
                 <p><Tex>{'(\\sqrt{2} + \\sqrt{3})^2 = 5 + 2\\sqrt{6}'}</Tex>; <Tex>{'(\\sqrt{10})^2 = 10'}</Tex></p>
                 <p><Tex>{'2\\sqrt{6} = \\sqrt{24} < \\sqrt{25} = 5 \\Rightarrow 5 + 2\\sqrt{6} < 10 \\Rightarrow \\sqrt{10}'}</Tex> е по-голямото.</p>
               </Task>
-              <Task id="b3" number={6} color="border-yellow-500" question="Решете уравненията $2^{x+1} = 32$ и $9^x = 27$.">
+              <Task id="b3" number={6} color="border-yellow-500" question="Решете уравненията $2^{x+1} = 32$ и $9^x = 27$." check={[4, 1.5]} ask={['$x$ от $2^{x+1} = 32$', '$x$ от $9^x = 27$']}>
                 <p><Tex>{'32 = 2^5 \\Rightarrow x + 1 = 5 \\Rightarrow x = 4'}</Tex></p>
                 <p><Tex>{'9^x = 3^{2x}'}</Tex> и <Tex>{'27 = 3^3 \\Rightarrow 2x = 3 \\Rightarrow x = 1{,}5'}</Tex></p>
               </Task>

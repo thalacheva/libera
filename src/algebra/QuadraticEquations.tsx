@@ -754,11 +754,11 @@ export function QuadraticEquations() {
           <TaskBoard>
             <div className="mb-6">
               <TaskLevel level="A" />
-              <Task id="a1" number={1} color="border-green-500" question="Реши уравнението $3x^2 - 12 = 0$.">
+              <Task id="a1" number={1} color="border-green-500" question="Реши уравнението $3x^2 - 12 = 0$." check={[-2, 2]} ask={['$x_1$', '$x_2$']} anyOrder>
                 <p><Tex>{'3x^2 = 12 \\Rightarrow x^2 = 4'}</Tex></p>
                 <p><Tex>{'x_1 = -2,\\ x_2 = 2'}</Tex> (не забравяй и отрицателния корен!)</p>
               </Task>
-              <Task id="a2" number={2} color="border-green-500" question="Реши уравнението $x^2 - 2x - 15 = 0$.">
+              <Task id="a2" number={2} color="border-green-500" question="Реши уравнението $x^2 - 2x - 15 = 0$." check={[-3, 5]} ask={['$x_1$', '$x_2$']} anyOrder>
                 <p><Tex>{'D = 4 + 60 = 64,\\ \\sqrt{D} = 8'}</Tex></p>
                 <p><Tex>{'x_1 = \\frac{2 - 8}{2} = -3,\\ x_2 = \\frac{2 + 8}{2} = 5'}</Tex></p>
                 <p>Проверка по Виет: <Tex>{'-3 + 5 = 2'}</Tex> ✓, <Tex>{'(-3) \\cdot 5 = -15'}</Tex> ✓</p>
@@ -771,17 +771,17 @@ export function QuadraticEquations() {
 
             <div className="mb-6">
               <TaskLevel level="B" />
-              <Task id="b1" number={4} color="border-yellow-500" question="Реши уравнението $x^4 - 13x^2 + 36 = 0$.">
+              <Task id="b1" number={4} color="border-yellow-500" question="Реши уравнението $x^4 - 13x^2 + 36 = 0$." check={[-3, -2, 2, 3]} ask={['$x_1$', '$x_2$', '$x_3$', '$x_4$']} anyOrder>
                 <p>Смяна <Tex>{'t = x^2 \\ge 0'}</Tex>: <Tex>{'t^2 - 13t + 36 = 0'}</Tex></p>
                 <p><Tex>{'t_1 = 4,\\ t_2 = 9'}</Tex> (сбор 13, произведение 36)</p>
                 <p><Tex>{'x^2 = 4 \\Rightarrow x = \\pm 2'}</Tex>; <Tex>{'x^2 = 9 \\Rightarrow x = \\pm 3'}</Tex>. Четири корена: <Tex>{'-3,\\ -2,\\ 2,\\ 3'}</Tex>.</p>
               </Task>
-              <Task id="b2" number={5} color="border-yellow-500" question="Корените на $x^2 - 5x + 3 = 0$ са $x_1$ и $x_2$. Без да ги намираш, пресметни $\frac{1}{x_1} + \frac{1}{x_2}$ и $x_1^2x_2 + x_1x_2^2$.">
+              <Task id="b2" number={5} color="border-yellow-500" question="Корените на $x^2 - 5x + 3 = 0$ са $x_1$ и $x_2$. Без да ги намираш, пресметни $\frac{1}{x_1} + \frac{1}{x_2}$ и $x_1^2x_2 + x_1x_2^2$." check={[5 / 3, 15]} ask={['$\\frac{1}{x_1} + \\frac{1}{x_2}$', '$x_1^2x_2 + x_1x_2^2$']}>
                 <p>По Виет: <Tex>{'x_1 + x_2 = 5,\\ x_1x_2 = 3'}</Tex></p>
                 <p><Tex>{'\\frac{1}{x_1} + \\frac{1}{x_2} = \\frac{x_1 + x_2}{x_1x_2} = \\frac{5}{3}'}</Tex></p>
                 <p><Tex>{'x_1^2x_2 + x_1x_2^2 = x_1x_2(x_1 + x_2) = 3 \\cdot 5 = 15'}</Tex></p>
               </Task>
-              <Task id="b3" number={6} color="border-yellow-500" question="За кои стойности на $m$ уравнението $x^2 + mx + 9 = 0$ има двоен корен? Намери го.">
+              <Task id="b3" number={6} color="border-yellow-500" question="За кои стойности на $m$ уравнението $x^2 + mx + 9 = 0$ има двоен корен? Намери го." check={[6, -3, -6, 3]} ask={['$m > 0$', 'двойният корен при него', '$m < 0$', 'двойният корен при него']}>
                 <p>Двоен корен <Tex>{'\\iff D = 0'}</Tex>: <Tex>{'m^2 - 36 = 0 \\Rightarrow m = \\pm 6'}</Tex></p>
                 <p>При <Tex>{'m = 6'}</Tex>: <Tex>{'x = -\\frac{m}{2} = -3'}</Tex>; при <Tex>{'m = -6'}</Tex>: <Tex>{'x = 3'}</Tex>.</p>
                 <p>Наистина <Tex>{'x^2 + 6x + 9 = (x + 3)^2'}</Tex> и <Tex>{'x^2 - 6x + 9 = (x - 3)^2'}</Tex>.</p>
@@ -795,13 +795,13 @@ export function QuadraticEquations() {
                 <p>Положителни: произведение <Tex>{'m^2 + 3 > 0'}</Tex> винаги; сбор <Tex>{'2(m + 1) > 0 \\Rightarrow m > -1'}</Tex></p>
                 <p>Отговор: <Tex>{'m \\ge 1'}</Tex> (при <Tex>{'m = 1'}</Tex> коренът е двоен – <Tex>{'x = 2'}</Tex>).</p>
               </Task>
-              <Task id="c2" number={8} color="border-red-500" question="Реши уравнението $(x^2 + x)^2 - 8(x^2 + x) + 12 = 0$.">
+              <Task id="c2" number={8} color="border-red-500" question="Реши уравнението $(x^2 + x)^2 - 8(x^2 + x) + 12 = 0$." check={[-3, -2, 1, 2]} ask={['$x_1$', '$x_2$', '$x_3$', '$x_4$']} anyOrder>
                 <p>Смяна <Tex>{'t = x^2 + x'}</Tex>: <Tex>{'t^2 - 8t + 12 = 0 \\Rightarrow t_1 = 2,\\ t_2 = 6'}</Tex></p>
                 <p><Tex>{'x^2 + x = 2 \\Rightarrow x^2 + x - 2 = 0 \\Rightarrow x = 1'}</Tex> или <Tex>{'x = -2'}</Tex></p>
                 <p><Tex>{'x^2 + x = 6 \\Rightarrow x^2 + x - 6 = 0 \\Rightarrow x = 2'}</Tex> или <Tex>{'x = -3'}</Tex></p>
                 <p>Отговор: <Tex>{'-3,\\ -2,\\ 1,\\ 2'}</Tex>. (Без смяната щяхме да имаме уравнение от четвърта степен!)</p>
               </Task>
-              <Task id="c3" number={9} color="border-red-500" question="Правоъгълник има това свойство: ако отрежем от него квадрат със страна, равна на по-малката му страна, остава правоъгълник, подобен на първия. Колко е отношението на страните му?">
+              <Task id="c3" number={9} color="border-red-500" question="Правоъгълник има това свойство: ако отрежем от него квадрат със страна, равна на по-малката му страна, остава правоъгълник, подобен на първия. Колко е отношението на страните му?" check={[1.618]} ask={['отношението (приближено)']}>
                 <p>Нека страните са <Tex>{'x'}</Tex> и 1 (<Tex>{'x > 1'}</Tex>). След отрязване на квадрат <Tex>{'1 \\times 1'}</Tex> остава правоъгълник <Tex>{'1 \\times (x - 1)'}</Tex>.</p>
                 <p>Подобие: <Tex>{'\\frac{x}{1} = \\frac{1}{x - 1} \\Rightarrow x(x - 1) = 1 \\Rightarrow x^2 - x - 1 = 0'}</Tex></p>
                 <p><Tex>{'x = \\frac{1 + \\sqrt{5}}{2} \\approx 1{,}618'}</Tex> (отрицателният корен отпада)</p>

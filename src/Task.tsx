@@ -1,5 +1,6 @@
-import { CheckCircle2, ChevronDown, Eye, EyeOff, Lightbulb, ListChecks, RotateCcw } from 'lucide-react';
+import { CheckCircle2, ChevronDown, Eye, EyeOff, Lightbulb, ListChecks, RotateCcw, XCircle } from 'lucide-react';
 import { Children, createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from 'react';
+import { matches, matchesInOrder, parseNum } from './answerCheck';
 import { MathText } from './MathText';
 import { currentPath, saveTasksTotal } from './progress';
 
@@ -180,18 +181,30 @@ export function TaskLevel({ level }: { level: Level }) {
   );
 }
 
-/** Задача с поетапно решение и самооценка. */
+/**
+ * Задача с поетапно решение. Ако има числов отговор (`check`), ученикът го въвежда и задачата
+ * се отбелязва като решена при верен отговор; иначе (доказателства, формули) – с „Реших я“.
+ */
 export default function Task({
   id,
   number,
   color,
   question,
+  check,
+  ask,
+  anyOrder = false,
   children,
 }: {
   id: string;
   number: number;
   color: string;
   question: ReactNode;
+  /** Очакваните числени отговори – поред, освен ако `anyOrder`. */
+  check?: number[];
+  /** Какво да се въведе във всяко поле, напр. „x“ или „брой делители“. */
+  ask?: string[];
+  /** Отговорите може да са в произволен ред (напр. корените на уравнение). */
+  anyOrder?: boolean;
   children: ReactNode;
 }) {
   const board = useContext(BoardContext);
@@ -200,6 +213,10 @@ export default function Task({
   const steps = Children.toArray(children);
   const [revealed, setRevealed] = useState(0);
   const [open, setOpen] = useState(false);
+  const fields = check?.length ? (ask ?? check.map(() => 'отговор')) : [];
+  const [values, setValues] = useState<string[]>(() => fields.map(() => ''));
+  const [feedback, setFeedback] = useState<'right' | 'wrong' | null>(null);
+  const [wrong, setWrong] = useState(0);
   const register = board?.register;
   useEffect(() => register?.({ id, number, level }), [register, id, number, level]);
 
@@ -210,6 +227,20 @@ export default function Task({
 
   const collapsed = solved && !open;
   const allShown = revealed >= steps.length;
+
+  const submit = () => {
+    if (!check || !board) return;
+    const nums = values.map(parseNum);
+    if (anyOrder ? matches(nums, check) : matchesInOrder(nums, check)) {
+      setFeedback('right');
+      board.setStatus(id, 'solved');
+      // остава отворена, за да се види „Вярно!“
+      setOpen(true);
+    } else {
+      setFeedback('wrong');
+      setWrong(w => w + 1);
+    }
+  };
 
   return (
     <div
@@ -228,6 +259,55 @@ export default function Task({
 
       {!collapsed && (
         <div className="px-3 sm:px-4 pb-3 sm:pb-4 -mt-1">
+          {fields.length > 0 && !solved && board && (
+            <form
+              onSubmit={e => {
+                e.preventDefault();
+                submit();
+              }}
+              className="mb-3"
+            >
+              <div className="flex flex-wrap items-end gap-2">
+                {fields.map((label, i) => (
+                  <label key={label + i} className="w-full sm:w-auto sm:min-w-[8rem] sm:flex-1 sm:max-w-[14rem]">
+                    <span className="block text-xs text-gray-500 dark:text-gray-400 mb-0.5">
+                      <MathText>{label}</MathText>
+                    </span>
+                    <input
+                      inputMode="decimal"
+                      aria-label={label}
+                      value={values[i]}
+                      onChange={e => {
+                        const v = e.target.value;
+                        setValues(prev => prev.map((x, k) => (k === i ? v : x)));
+                        setFeedback(null);
+                      }}
+                      className={`w-full px-2.5 py-1.5 rounded-lg border text-sm font-mono bg-white dark:bg-gray-900 ${
+                        feedback === 'wrong' ? 'border-red-400 dark:border-red-500' : 'border-gray-300 dark:border-gray-600'
+                      }`}
+                    />
+                  </label>
+                ))}
+                <button type="submit" className="px-4 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold">
+                  Провери
+                </button>
+              </div>
+              {feedback === 'wrong' ? (
+                <p className="mt-1.5 flex items-center gap-1.5 text-sm text-red-700 dark:text-red-400">
+                  <XCircle size={16} /> {wrong >= 2 ? 'Пак не е. Виж подсказката!' : 'Не е вярно – опитай пак.'}
+                </p>
+              ) : (
+                <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
+                  Дробите – като 3/2, десетичните – със запетая{anyOrder && fields.length > 1 ? '; отговорите – в произволен ред' : ''}.
+                </p>
+              )}
+            </form>
+          )}
+          {feedback === 'right' && solved && (
+            <p className="mb-3 flex items-center gap-1.5 text-sm font-semibold text-green-700 dark:text-green-400">
+              <CheckCircle2 size={16} /> Вярно! Браво!
+            </p>
+          )}
           {revealed > 0 && (
             <div className="mb-3 p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg space-y-2">
               {steps.slice(0, revealed).map((s, i) => (
@@ -273,15 +353,17 @@ export default function Task({
                         ↺ Ще опитам пак
                       </button>
                     )}
-                    <button
-                      onClick={() => {
-                        board.setStatus(id, 'solved');
-                        setOpen(false);
-                      }}
-                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-semibold bg-green-600 text-white hover:bg-green-700"
-                    >
-                      <CheckCircle2 size={15} /> Реших я
-                    </button>
+                    {fields.length === 0 && (
+                      <button
+                        onClick={() => {
+                          board.setStatus(id, 'solved');
+                          setOpen(false);
+                        }}
+                        className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-semibold bg-green-600 text-white hover:bg-green-700"
+                      >
+                        <CheckCircle2 size={15} /> Реших я
+                      </button>
+                    )}
                   </>
                 )}
               </span>
