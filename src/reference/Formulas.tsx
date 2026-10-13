@@ -8,13 +8,15 @@ import {
   type Formula,
   type FormulaGroup,
   MATH,
+  PHYSICS,
 } from './formulaData';
 
-type Filter = 'all' | 'math' | 'astronomy' | 'constants';
+type Filter = 'all' | 'math' | 'physics' | 'astronomy' | 'constants';
 
 const FILTERS: { id: Filter; label: string }[] = [
   { id: 'all', label: 'Всичко' },
   { id: 'math', label: 'Математика' },
+  { id: 'physics', label: 'Физика' },
   { id: 'astronomy', label: 'Астрономия' },
   { id: 'constants', label: 'Константи' },
 ];
@@ -51,6 +53,13 @@ export function Formulas() {
         : [],
     [filter, query]
   );
+  const physics = useMemo(
+    () =>
+      filter === 'all' || filter === 'physics'
+        ? filterGroups(PHYSICS.groups, query)
+        : [],
+    [filter, query]
+  );
   const astronomy = useMemo(
     () =>
       filter === 'all' || filter === 'astronomy'
@@ -74,7 +83,7 @@ export function Formulas() {
   );
 
   const count =
-    [...math, ...astronomy].reduce((s, g) => s + g.formulas.length, 0) +
+    [...math, ...physics, ...astronomy].reduce((s, g) => s + g.formulas.length, 0) +
     constants.reduce((s, c) => s + c.items.length, 0);
 
   return (
@@ -149,6 +158,9 @@ export function Formulas() {
         {math.length > 0 && (
           <SectionBlock title="Математика" accent="blue" groups={math} />
         )}
+        {physics.length > 0 && (
+          <SectionBlock title="Физика" accent="emerald" groups={physics} />
+        )}
         {astronomy.length > 0 && (
           <SectionBlock title="Астрономия" accent="purple" groups={astronomy} />
         )}
@@ -205,6 +217,7 @@ export function Formulas() {
 const accents = {
   blue: 'text-blue-700 dark:text-blue-300',
   purple: 'text-purple-700 dark:text-purple-300',
+  emerald: 'text-emerald-700 dark:text-emerald-300',
 };
 
 function SectionBlock({

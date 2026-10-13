@@ -1,7 +1,7 @@
-import {BookMarked, BookOpen, ChevronDown, ChevronRight, Mail, Sigma, Telescope, TrendingUp} from 'lucide-react';
+import {Atom, BookMarked, BookOpen, ChevronDown, ChevronRight, Mail, Sigma, Telescope, TrendingUp} from 'lucide-react';
 import {useEffect, useRef, useState} from 'react';
 import {Link, useLocation} from 'react-router-dom';
-import {astronomyTopics, mathTopics} from '~/topics';
+import {astronomyTopics, mathTopics, physicsTopics} from '~/topics';
 
 interface SidebarMenuProps {
   isOpen?: boolean;
@@ -15,6 +15,7 @@ export default function SidebarMenu({
   const location = useLocation();
   const [expandedSections, setExpandedSections] = useState<{[key: string]: boolean}>({
     math: true,
+    physics: true,
     astronomy: true,
   });
 
@@ -81,50 +82,20 @@ export default function SidebarMenu({
               onToggle={() => toggleSection('math')}
             />
             {expandedSections.math && (
-              <ul className="mt-2 space-y-3">
-                {mathTopics.map(topic => {
-                  const defaultPath = topic.subtopics?.[0]
-                    ? topic.path + topic.subtopics[0].path
-                    : topic.path;
+              <TopicList topics={mathTopics} accent="blue" pathname={location.pathname} onClose={onClose} />
+            )}
+          </div>
 
-                  const isTopicActive = location.pathname.startsWith(topic.path);
-
-                  return (
-                    <li key={topic.name}>
-                      <Link
-                        to={defaultPath}
-                        onClick={onClose}
-                        className={`block px-3 py-1.5 rounded-lg text-sm font-semibold transition-colors ${
-                          isTopicActive
-                            ? 'text-blue-700 dark:text-blue-300'
-                            : 'text-gray-800 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-800'
-                        }`}
-                      >
-                        {topic.name}
-                      </Link>
-                      {topic.subtopics && (
-                        <ul className="ml-3 mt-1 space-y-0.5 border-l border-gray-200 dark:border-gray-800 pl-2">
-                          {topic.subtopics.map(subtopic => {
-                            const fullPath = topic.path + subtopic.path;
-                            return (
-                              <li key={subtopic.name}>
-                                <NavItem
-                                  to={fullPath}
-                                  active={location.pathname === fullPath}
-                                  accent="blue"
-                                  onClick={onClose}
-                                >
-                                  {subtopic.name}
-                                </NavItem>
-                              </li>
-                            );
-                          })}
-                        </ul>
-                      )}
-                    </li>
-                  );
-                })}
-              </ul>
+          {/* Физика секция */}
+          <div>
+            <SectionHeader
+              icon={<Atom size={16} />}
+              label="Физика"
+              expanded={expandedSections.physics}
+              onToggle={() => toggleSection('physics')}
+            />
+            {expandedSections.physics && (
+              <TopicList topics={physicsTopics} accent="emerald" pathname={location.pathname} onClose={onClose} />
             )}
           </div>
 
@@ -215,9 +186,75 @@ function SectionHeader({
   );
 }
 
+const topicAccent = {
+  blue: 'text-blue-700 dark:text-blue-300',
+  emerald: 'text-emerald-700 dark:text-emerald-300',
+};
+
+/** Групи уроци с подтеми – за математиката и физиката. */
+function TopicList({
+  topics,
+  accent,
+  pathname,
+  onClose,
+}: {
+  topics: {name: string; path: string; subtopics: {name: string; path: string}[]}[];
+  accent: keyof typeof topicAccent;
+  pathname: string;
+  onClose?: () => void;
+}) {
+  return (
+    <ul className="mt-2 space-y-3">
+        {topics.map(topic => {
+          const defaultPath = topic.subtopics?.[0]
+            ? topic.path + topic.subtopics[0].path
+            : topic.path;
+
+          const isTopicActive = pathname.startsWith(topic.path);
+
+          return (
+            <li key={topic.name}>
+              <Link
+                to={defaultPath}
+                onClick={onClose}
+                className={`block px-3 py-1.5 rounded-lg text-sm font-semibold transition-colors ${
+                  isTopicActive
+                    ? topicAccent[accent]
+                    : 'text-gray-800 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-800'
+                }`}
+              >
+                {topic.name}
+              </Link>
+              {topic.subtopics && (
+                <ul className="ml-3 mt-1 space-y-0.5 border-l border-gray-200 dark:border-gray-800 pl-2">
+                  {topic.subtopics.map(subtopic => {
+                    const fullPath = topic.path + subtopic.path;
+                    return (
+                      <li key={subtopic.name}>
+                        <NavItem
+                          to={fullPath}
+                          active={pathname === fullPath}
+                          accent={accent}
+                          onClick={onClose}
+                        >
+                          {subtopic.name}
+                        </NavItem>
+                      </li>
+                    );
+                  })}
+                </ul>
+              )}
+            </li>
+          );
+        })}
+      </ul>
+  );
+}
+
 const accentClasses = {
   blue: 'bg-blue-50 text-blue-700 dark:bg-blue-500/15 dark:text-blue-300',
   purple: 'bg-purple-50 text-purple-700 dark:bg-purple-500/15 dark:text-purple-300',
+  emerald: 'bg-emerald-50 text-emerald-700 dark:bg-emerald-500/15 dark:text-emerald-300',
 };
 
 function NavItem({

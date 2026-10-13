@@ -760,6 +760,369 @@ export const MATH: Section = {
   ],
 };
 
+export const PHYSICS: Section = {
+  id: 'physics',
+  title: 'Физика',
+  groups: [
+    {
+      id: 'measurement',
+      title: 'Величини, единици и грешки',
+      formulas: [
+        {
+          name: 'Научен запис',
+          formula: 'x = a \\cdot 10^n, \\quad 1 \\le a < 10',
+          lesson: '/physics/mechanics/units',
+        },
+        {
+          name: 'Скорост: km/h и m/s',
+          formula: '1\\ \\mathrm{m/s} = 3{,}6\\ \\mathrm{km/h}',
+          lesson: '/physics/mechanics/units',
+        },
+        {
+          name: 'Производни единици',
+          formula: '1\\ \\mathrm{N} = 1\\ \\mathrm{kg \\cdot m/s^2} \\qquad 1\\ \\mathrm{J} = 1\\ \\mathrm{N \\cdot m} \\qquad 1\\ \\mathrm{W} = 1\\ \\mathrm{J/s}',
+          lesson: '/physics/mechanics/units',
+        },
+        {
+          name: 'Относителна грешка',
+          formula: '\\varepsilon = \\frac{\\Delta x}{x}',
+          lesson: '/physics/mechanics/units',
+        },
+        {
+          name: 'Грешка на сбор и разлика',
+          formula: '\\Delta(a \\pm b) = \\Delta a + \\Delta b',
+          lesson: '/physics/mechanics/units',
+        },
+        {
+          name: 'Грешка на произведение, частно и степен',
+          formula: '\\varepsilon_{ab} = \\varepsilon_{a/b} = \\varepsilon_a + \\varepsilon_b \\qquad \\varepsilon_{a^n} = |n|\\,\\varepsilon_a',
+          lesson: '/physics/mechanics/units',
+        },
+        {
+          name: 'Период на махало (от размерностите)',
+          formula: 'T = 2\\pi\\sqrt{\\frac{l}{g}}',
+          note: 'анализът дава √(l/g), константата 2π – пълното решение',
+          lesson: '/physics/mechanics/units',
+        },
+      ],
+    },
+    {
+      id: 'kinematics',
+      title: 'Праволинейно движение',
+      formulas: [
+        {
+          name: 'Средна скорост',
+          formula: 'v_{\\text{ср}} = \\frac{s}{t}',
+          note: 'целият път през цялото време',
+          lesson: '/physics/mechanics/linear-motion',
+        },
+        {
+          name: 'Равномерно движение',
+          formula: 'x = x_0 + vt',
+          lesson: '/physics/mechanics/linear-motion',
+        },
+        {
+          name: 'Ускорение',
+          formula: 'a = \\frac{\\Delta v}{\\Delta t}',
+          lesson: '/physics/mechanics/linear-motion',
+        },
+        {
+          name: 'Равноускорително движение',
+          formula: 'v = v_0 + at \\qquad x = x_0 + v_0 t + \\frac{at^2}{2}',
+          lesson: '/physics/mechanics/linear-motion',
+        },
+        {
+          name: 'Формула без времето',
+          formula: 'v^2 - v_0^2 = 2a(x - x_0)',
+          lesson: '/physics/mechanics/linear-motion',
+        },
+        {
+          name: 'Спирачен път',
+          formula: 's = vt_r + \\frac{v^2}{2a}',
+          note: 't_r – време за реакция',
+          lesson: '/physics/mechanics/linear-motion',
+        },
+        {
+          name: 'Свободно падане',
+          formula: 'h = \\frac{gt^2}{2} \\qquad v = gt \\qquad h_{\\max} = \\frac{v_0^2}{2g}',
+          note: 'g ≈ 9,81 m/s²',
+          lesson: '/physics/mechanics/linear-motion',
+        },
+      ],
+    },
+    {
+      id: 'plane-motion',
+      title: 'Движение в равнина',
+      formulas: [
+        {
+          name: 'Компоненти на скоростта',
+          formula: 'v_x = v\\cos\\alpha \\qquad v_y = v\\sin\\alpha \\qquad v = \\sqrt{v_x^2 + v_y^2}',
+          lesson: '/physics/mechanics/plane-motion',
+        },
+        {
+          name: 'Хоризонтално хвърляне',
+          formula: 't = \\sqrt{\\frac{2h}{g}} \\qquad L = v_0\\sqrt{\\frac{2h}{g}}',
+          lesson: '/physics/mechanics/plane-motion',
+        },
+        {
+          name: 'Хвърляне под ъгъл: време на полета',
+          formula: 'T = \\frac{2v_0\\sin\\alpha}{g}',
+          lesson: '/physics/mechanics/plane-motion',
+        },
+        {
+          name: 'Максимална височина',
+          formula: 'H = \\frac{v_0^2\\sin^2\\alpha}{2g}',
+          lesson: '/physics/mechanics/plane-motion',
+        },
+        {
+          name: 'Обхват',
+          formula: 'R = \\frac{v_0^2\\sin 2\\alpha}{g} \\qquad R_{\\max} = \\frac{v_0^2}{g}',
+          note: 'най-далеч при α = 45°; α и 90° − α дават еднакъв обхват',
+          lesson: '/physics/mechanics/plane-motion',
+        },
+        {
+          name: 'Събиране на скоростите',
+          formula: '\\vec{v} = \\vec{u} + \\vec{w}',
+          note: 'скорост спрямо земята = спрямо подвижната система + на системата',
+          lesson: '/physics/mechanics/plane-motion',
+        },
+      ],
+    },
+    {
+      id: 'newton',
+      title: 'Закони на Нютон',
+      formulas: [
+        {
+          name: 'Втори закон на Нютон',
+          formula: '\\vec{F} = m\\vec{a}',
+          note: '1 N = 1 kg·m/s²',
+          lesson: '/physics/mechanics/newton',
+        },
+        {
+          name: 'Трети закон на Нютон',
+          formula: '\\vec{F}_{AB} = -\\vec{F}_{BA}',
+          note: 'силите действат на различни тела',
+          lesson: '/physics/mechanics/newton',
+        },
+        {
+          name: 'Закон на Хук',
+          formula: 'F = kx',
+          lesson: '/physics/mechanics/newton',
+        },
+        {
+          name: 'Сила на триене',
+          formula: 'F_{\\text{тр}} = \\mu N \\qquad F_{\\text{покой}} \\le \\mu_s N',
+          lesson: '/physics/mechanics/newton',
+        },
+        {
+          name: 'Наклонена равнина',
+          formula: 'N = mg\\cos\\alpha \\qquad a = g(\\sin\\alpha - \\mu\\cos\\alpha)',
+          note: 'плъзга се при tg α > μ',
+          lesson: '/physics/mechanics/newton',
+        },
+        {
+          name: 'Машина на Атууд',
+          formula: 'a = \\frac{(m_1 - m_2)g}{m_1 + m_2} \\qquad T = \\frac{2m_1 m_2 g}{m_1 + m_2}',
+          lesson: '/physics/mechanics/newton',
+        },
+        {
+          name: 'Тегло при ускорение',
+          formula: 'N = m(g + a)',
+          note: 'a > 0 нагоре; при свободно падане N = 0',
+          lesson: '/physics/mechanics/newton',
+        },
+      ],
+    },
+    {
+      id: 'energy',
+      title: 'Работа, енергия, мощност',
+      formulas: [
+        {
+          name: 'Механична работа',
+          formula: 'W = Fs\\cos\\alpha',
+          note: 'α – ъгълът между силата и преместването',
+          lesson: '/physics/mechanics/energy',
+        },
+        {
+          name: 'Кинетична енергия',
+          formula: 'E_k = \\frac{mv^2}{2} \\qquad W = E_{k2} - E_{k1}',
+          lesson: '/physics/mechanics/energy',
+        },
+        {
+          name: 'Потенциална енергия',
+          formula: 'E_p = mgh \\qquad E_p = \\frac{kx^2}{2}',
+          note: 'тежест и пружина',
+          lesson: '/physics/mechanics/energy',
+        },
+        {
+          name: 'Запазване на механичната енергия',
+          formula: 'E_k + E_p = \\text{const} \\qquad v = \\sqrt{2gh}',
+          note: 'без триене',
+          lesson: '/physics/mechanics/energy',
+        },
+        {
+          name: 'Топлина от триене',
+          formula: 'Q = F_{\\text{тр}} \\cdot s',
+          lesson: '/physics/mechanics/energy',
+        },
+        {
+          name: 'Мощност',
+          formula: 'P = \\frac{W}{t} = Fv',
+          note: '1 kWh = 3,6 MJ; 1 к.с. ≈ 735,5 W',
+          lesson: '/physics/mechanics/energy',
+        },
+        {
+          name: 'Коефициент на полезно действие',
+          formula: '\\eta = \\frac{P_{\\text{пол}}}{P_{\\text{изр}}}',
+          lesson: '/physics/mechanics/energy',
+        },
+      ],
+    },
+    {
+      id: 'momentum',
+      title: 'Импулс и удари',
+      formulas: [
+        {
+          name: 'Импулс',
+          formula: '\\vec{p} = m\\vec{v}',
+          lesson: '/physics/mechanics/momentum',
+        },
+        {
+          name: 'Импулс на силата',
+          formula: '\\vec{F}\\Delta t = \\Delta\\vec{p}',
+          note: 'Δp е лицето под графиката F(t)',
+          lesson: '/physics/mechanics/momentum',
+        },
+        {
+          name: 'Закон за запазване на импулса',
+          formula: "m_1\\vec{v}_1 + m_2\\vec{v}_2 = m_1\\vec{v}_1' + m_2\\vec{v}_2'",
+          note: 'за затворена система',
+          lesson: '/physics/mechanics/momentum',
+        },
+        {
+          name: 'Напълно нееластичен удар',
+          formula: 'v = \\frac{m_1 v_1 + m_2 v_2}{m_1 + m_2}',
+          lesson: '/physics/mechanics/momentum',
+        },
+        {
+          name: 'Еластичен централен удар',
+          formula: "v_1' = \\frac{(m_1 - m_2)v_1 + 2m_2 v_2}{m_1 + m_2} \\qquad v_2' = \\frac{(m_2 - m_1)v_2 + 2m_1 v_1}{m_1 + m_2}",
+          lesson: '/physics/mechanics/momentum',
+        },
+        {
+          name: 'Коефициент на възстановяване',
+          formula: "e = \\frac{v_2' - v_1'}{v_1 - v_2}",
+          note: 'e = 1 – еластичен, e = 0 – напълно нееластичен',
+          lesson: '/physics/mechanics/momentum',
+        },
+        {
+          name: 'Формула на Циолковски',
+          formula: '\\Delta v = u \\ln \\frac{m_0}{m_1}',
+          note: 'u – скорост на газовете спрямо ракетата',
+          lesson: '/physics/mechanics/momentum',
+        },
+      ],
+    },
+    {
+      id: 'rotation',
+      title: 'Въртене',
+      formulas: [
+        {
+          name: 'Ъглова и линейна скорост',
+          formula: '\\omega = \\frac{2\\pi}{T} = 2\\pi\\nu \\qquad v = \\omega r',
+          lesson: '/physics/mechanics/rotation',
+        },
+        {
+          name: 'Центростремително ускорение и сила',
+          formula: 'a = \\frac{v^2}{r} = \\omega^2 r \\qquad F = \\frac{mv^2}{r}',
+          note: 'F е резултантната на истинските сили, насочена към центъра',
+          lesson: '/physics/mechanics/rotation',
+        },
+        {
+          name: 'Най-малка скорост в горната точка на лупинг',
+          formula: 'v = \\sqrt{gr}',
+          lesson: '/physics/mechanics/rotation',
+        },
+        {
+          name: 'Момент на сила и основен закон за въртенето',
+          formula: 'M = Fd \\qquad M = I\\alpha',
+          note: 'd – рамо (перпендикуляр от оста до линията на силата)',
+          lesson: '/physics/mechanics/rotation',
+        },
+        {
+          name: 'Инерчни моменти',
+          formula: 'I_{\\text{обръч}} = mR^2 \\qquad I_{\\text{диск}} = \\frac{1}{2}mR^2 \\qquad I_{\\text{кълбо}} = \\frac{2}{5}mR^2',
+          lesson: '/physics/mechanics/rotation',
+        },
+        {
+          name: 'Кинетична енергия при въртене и търкаляне',
+          formula: 'E = \\frac{I\\omega^2}{2} \\qquad E = \\frac{mv^2}{2} + \\frac{I\\omega^2}{2}',
+          lesson: '/physics/mechanics/rotation',
+        },
+        {
+          name: 'Скорост при търкаляне от височина h',
+          formula: 'v = \\sqrt{\\frac{2gh}{1 + k}}, \\quad I = kmR^2',
+          lesson: '/physics/mechanics/rotation',
+        },
+        {
+          name: 'Момент на импулса',
+          formula: 'L = I\\omega \\qquad I_1\\omega_1 = I_2\\omega_2',
+          note: 'запазва се без външен момент на сила',
+          lesson: '/physics/mechanics/rotation',
+        },
+      ],
+    },
+    {
+      id: 'statics-fluids',
+      title: 'Статика и флуиди',
+      formulas: [
+        {
+          name: 'Момент на сила',
+          formula: 'M = F \\cdot d',
+          note: 'd – рамо, перпендикулярно на линията на силата',
+          lesson: '/physics/mechanics/statics-fluids',
+        },
+        {
+          name: 'Условия за равновесие',
+          formula: '\\sum \\vec{F} = 0 \\qquad \\sum M = 0',
+          lesson: '/physics/mechanics/statics-fluids',
+        },
+        {
+          name: 'Правило на лоста',
+          formula: 'F_1 d_1 = F_2 d_2',
+          lesson: '/physics/mechanics/statics-fluids',
+        },
+        {
+          name: 'Налягане',
+          formula: 'p = \\frac{F}{S} \\qquad p = p_0 + \\rho g h',
+          note: 'p₀ ≈ 101 kPa',
+          lesson: '/physics/mechanics/statics-fluids',
+        },
+        {
+          name: 'Хидравлична преса',
+          formula: '\\frac{F_2}{F_1} = \\frac{S_2}{S_1} \\qquad S_1 s_1 = S_2 s_2',
+          lesson: '/physics/mechanics/statics-fluids',
+        },
+        {
+          name: 'Архимедова сила',
+          formula: 'F_A = \\rho_{\\text{фл}}\\, g\\, V_{\\text{пот}}',
+          lesson: '/physics/mechanics/statics-fluids',
+        },
+        {
+          name: 'Плаване',
+          formula: '\\frac{V_{\\text{пот}}}{V} = \\frac{\\rho_{\\text{т}}}{\\rho_{\\text{фл}}}',
+          lesson: '/physics/mechanics/statics-fluids',
+        },
+        {
+          name: 'Непрекъснатост и Бернули',
+          formula: 'S_1 v_1 = S_2 v_2 \\qquad p + \\frac{\\rho v^2}{2} + \\rho g h = \\text{const}',
+          lesson: '/physics/mechanics/statics-fluids',
+        },
+      ],
+    },
+  ],
+};
+
 export const ASTRONOMY: Section = {
   id: 'astronomy',
   title: 'Астрономия',

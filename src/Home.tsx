@@ -1,8 +1,9 @@
-import {BookMarked, ChevronRight, FlaskConical, PencilLine, Sigma, Target, Telescope, TrendingUp, Trophy} from 'lucide-react';
+import {Atom, BookMarked, ChevronRight, FlaskConical, PencilLine, Sigma, Target, Telescope, TrendingUp, Trophy} from 'lucide-react';
 import {Link} from 'react-router-dom';
-import {astronomyTopics, mathTopics} from '~/topics';
+import {astronomyTopics, mathTopics, physicsTopics} from '~/topics';
 
 const mathCount = mathTopics.reduce((n, t) => n + t.subtopics.length, 0);
+const physicsCount = physicsTopics.reduce((n, t) => n + t.subtopics.length, 0);
 const lectures = astronomyTopics.flatMap(t => t.subtopics.map(s => ({name: s.name, path: t.path + s.path})));
 
 const FEATURES = [
@@ -34,7 +35,7 @@ export function Home() {
       <div className="max-w-5xl mx-auto">
         <div className="bg-gradient-to-br from-blue-600 to-indigo-800 text-white p-6 sm:p-10 rounded-2xl mb-8 shadow-lg">
           <h1 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4">
-            Интерактивни уроци по математика и астрономия
+            Интерактивни уроци по математика, физика и астрономия
           </h1>
           <p className="text-lg sm:text-xl leading-relaxed text-blue-50 max-w-3xl mb-6">
             Libera е безплатен сайт на български за ученици, които искат да разберат материала, а не само да го
@@ -46,6 +47,12 @@ export function Home() {
               className="inline-flex items-center gap-2 rounded-xl bg-white px-4 py-2.5 font-semibold text-indigo-700 shadow-sm hover:bg-blue-50 transition-colors"
             >
               <Sigma size={18} /> Математика
+            </Link>
+            <Link
+              to={physicsTopics[0].path + physicsTopics[0].subtopics[0].path}
+              className="inline-flex items-center gap-2 rounded-xl bg-white/15 px-4 py-2.5 font-semibold text-white ring-1 ring-white/40 hover:bg-white/25 transition-colors"
+            >
+              <Atom size={18} /> Физика
             </Link>
             <Link
               to={lectures[0].path}
@@ -113,6 +120,35 @@ export function Home() {
                       <Link
                         to={topic.path + s.path}
                         className="text-gray-700 hover:text-blue-700 hover:underline dark:text-gray-300 dark:hover:text-blue-300"
+                      >
+                        {s.name}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section className="mb-10">
+          <h2 className="text-xl sm:text-2xl font-semibold mb-4 flex items-center gap-2">
+            <Atom size={22} className="text-emerald-600 dark:text-emerald-400" />
+            Физика – {physicsCount} {physicsCount === 1 ? 'урок' : 'урока'}
+          </h2>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3">
+            {physicsTopics.map(topic => (
+              <div
+                key={topic.name}
+                className="rounded-xl border border-gray-200 bg-white p-4 dark:border-gray-800 dark:bg-gray-900"
+              >
+                <h3 className="font-semibold mb-2 text-emerald-700 dark:text-emerald-300">{topic.name}</h3>
+                <ul className="space-y-1 text-sm">
+                  {topic.subtopics.map(s => (
+                    <li key={s.path}>
+                      <Link
+                        to={topic.path + s.path}
+                        className="text-gray-700 hover:text-emerald-700 hover:underline dark:text-gray-300 dark:hover:text-emerald-300"
                       >
                         {s.name}
                       </Link>

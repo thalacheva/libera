@@ -67,6 +67,23 @@ export const mathTopics = [
   },
 ];
 
+export const physicsTopics = [
+  {
+    name: 'Механика',
+    path: '/physics/mechanics',
+    subtopics: [
+      { name: 'Величини, единици и оценки', path: '/units' },
+      { name: 'Праволинейно движение', path: '/linear-motion' },
+      { name: 'Движение в равнина', path: '/plane-motion' },
+      { name: 'Закони на Нютон', path: '/newton' },
+      { name: 'Работа, енергия, мощност', path: '/energy' },
+      { name: 'Импулс и удари', path: '/momentum' },
+      { name: 'Въртене', path: '/rotation' },
+      { name: 'Статика и флуиди', path: '/statics-fluids' },
+    ],
+  },
+];
+
 export const astronomyTopics = [
   {
     name: 'Астрономия',

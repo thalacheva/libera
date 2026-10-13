@@ -23,6 +23,14 @@ const DifferentialEquations = lazy(() => import('./analysis/DifferentialEquation
 const ComplexNumbers = lazy(() => import('./algebra/ComplexNumbers').then(m => ({default: m.ComplexNumbers})));
 const Divisibility = lazy(() => import('./numbers/Divisibility').then(m => ({default: m.Divisibility})));
 const Gcd = lazy(() => import('./numbers/Gcd').then(m => ({default: m.Gcd})));
+const PlaneMotion = lazy(() => import('./physics/mechanics/PlaneMotion').then(m => ({default: m.PlaneMotion})));
+const Newton = lazy(() => import('./physics/mechanics/Newton').then(m => ({default: m.Newton})));
+const Energy = lazy(() => import('./physics/mechanics/Energy').then(m => ({default: m.Energy})));
+const Momentum = lazy(() => import('./physics/mechanics/Momentum').then(m => ({default: m.Momentum})));
+const Rotation = lazy(() => import('./physics/mechanics/Rotation').then(m => ({default: m.Rotation})));
+const StaticsFluids = lazy(() => import('./physics/mechanics/StaticsFluids').then(m => ({default: m.StaticsFluids})));
+const LinearMotion = lazy(() => import('./physics/mechanics/LinearMotion').then(m => ({default: m.LinearMotion})));
+const Units = lazy(() => import('./physics/mechanics/Units').then(m => ({default: m.Units})));
 const Modular = lazy(() => import('./numbers/Modular').then(m => ({default: m.Modular})));
 const MyProgress = lazy(() => import('./MyProgress').then(m => ({default: m.MyProgress})));
 const Circle = lazy(() => import('./geometry/Circle').then(m => ({default: m.Circle})));
@@ -126,6 +134,18 @@ function App() {
               <Route path="derivatives" element={<Derivatives />} />
               <Route path="integrals" element={<Integrals />} />
               <Route path="differential-equations" element={<DifferentialEquations />} />
+            </Route>
+            <Route path="physics">
+              <Route path="mechanics">
+                <Route path="units" element={<Units />} />
+                <Route path="linear-motion" element={<LinearMotion />} />
+                <Route path="plane-motion" element={<PlaneMotion />} />
+                <Route path="newton" element={<Newton />} />
+                <Route path="energy" element={<Energy />} />
+                <Route path="momentum" element={<Momentum />} />
+                <Route path="rotation" element={<Rotation />} />
+                <Route path="statics-fluids" element={<StaticsFluids />} />
+              </Route>
             </Route>
             <Route path="geometry">
               <Route path="triangle" element={<Triangle />} />
