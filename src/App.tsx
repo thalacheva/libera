@@ -35,6 +35,12 @@ const Sound = lazy(() => import('./physics/waves/Sound').then(m => ({default: m.
 const Temperature = lazy(() => import('./physics/heat/Temperature').then(m => ({default: m.Temperature})));
 const IdealGas = lazy(() => import('./physics/heat/IdealGas').then(m => ({default: m.IdealGas})));
 const Thermodynamics = lazy(() => import('./physics/heat/Thermodynamics').then(m => ({default: m.Thermodynamics})));
+const Electrostatics = lazy(() => import('./physics/electricity/Electrostatics').then(m => ({default: m.Electrostatics})));
+const Capacitors = lazy(() => import('./physics/electricity/Capacitors').then(m => ({default: m.Capacitors})));
+const DirectCurrent = lazy(() => import('./physics/electricity/DirectCurrent').then(m => ({default: m.DirectCurrent})));
+const MagneticField = lazy(() => import('./physics/electricity/MagneticField').then(m => ({default: m.MagneticField})));
+const Induction = lazy(() => import('./physics/electricity/Induction').then(m => ({default: m.Induction})));
+const AcEmWaves = lazy(() => import('./physics/electricity/AcEmWaves').then(m => ({default: m.AcEmWaves})));
 const LinearMotion = lazy(() => import('./physics/mechanics/LinearMotion').then(m => ({default: m.LinearMotion})));
 const Units = lazy(() => import('./physics/mechanics/Units').then(m => ({default: m.Units})));
 const Modular = lazy(() => import('./numbers/Modular').then(m => ({default: m.Modular})));
@@ -161,6 +167,14 @@ function App() {
                 <Route path="temperature" element={<Temperature />} />
                 <Route path="ideal-gas" element={<IdealGas />} />
                 <Route path="thermodynamics" element={<Thermodynamics />} />
+              </Route>
+              <Route path="electricity">
+                <Route path="electrostatics" element={<Electrostatics />} />
+                <Route path="capacitors" element={<Capacitors />} />
+                <Route path="direct-current" element={<DirectCurrent />} />
+                <Route path="magnetic-field" element={<MagneticField />} />
+                <Route path="induction" element={<Induction />} />
+                <Route path="ac-em-waves" element={<AcEmWaves />} />
               </Route>
             </Route>
             <Route path="geometry">

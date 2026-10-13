@@ -1390,6 +1390,283 @@ export const PHYSICS: Section = {
         },
       ],
     },
+    {
+      id: 'electrostatics',
+      title: 'Електростатика',
+      formulas: [
+        {
+          name: 'Елементарен заряд',
+          formula: 'q = Ne \\qquad e = 1{,}602 \\cdot 10^{-19}\\ \\mathrm{C}',
+          note: 'зарядът се запазва и е кратен на e',
+          lesson: '/physics/electricity/electrostatics',
+        },
+        {
+          name: 'Закон на Кулон',
+          formula: 'F = k\\frac{|q_1 q_2|}{r^2} \\qquad k = \\frac{1}{4\\pi\\varepsilon_0} \\approx 8{,}99 \\cdot 10^9\\ \\mathrm{N \\cdot m^2/C^2}',
+          note: 'в диелектрик силата е ε пъти по-малка',
+          lesson: '/physics/electricity/electrostatics',
+        },
+        {
+          name: 'Интензитет на електричното поле',
+          formula: '\\vec{E} = \\frac{\\vec{F}}{q} \\qquad E = k\\frac{Q}{r^2}',
+          note: 'второто – за точков заряд; полетата се събират като вектори',
+          lesson: '/physics/electricity/electrostatics',
+        },
+        {
+          name: 'Напрежение и работа на полето',
+          formula: 'U = \\varphi_1 - \\varphi_2 = \\frac{A}{q} \\qquad \\varphi = k\\frac{Q}{r}',
+          lesson: '/physics/electricity/electrostatics',
+        },
+        {
+          name: 'Еднородно поле',
+          formula: 'E = \\frac{U}{d}',
+          note: 'между успоредни заредени плочи',
+          lesson: '/physics/electricity/electrostatics',
+        },
+        {
+          name: 'Електронволт',
+          formula: '1\\ \\mathrm{eV} = 1{,}602 \\cdot 10^{-19}\\ \\mathrm{J} \\qquad eU = \\frac{mv^2}{2}',
+          note: 'енергия на електрон, ускорен от покой с напрежение U',
+          lesson: '/physics/electricity/electrostatics',
+        },
+      ],
+    },
+    {
+      id: 'capacitors',
+      title: 'Кондензатори',
+      formulas: [
+        {
+          name: 'Капацитет',
+          formula: 'C = \\frac{q}{U}',
+          note: '1 F = 1 C/V; на практика µF, nF, pF',
+          lesson: '/physics/electricity/capacitors',
+        },
+        {
+          name: 'Плосък кондензатор',
+          formula: 'C = \\frac{\\varepsilon_0 \\varepsilon S}{d} \\qquad E = \\frac{U}{d}',
+          note: 'ε₀ ≈ 8,85 · 10⁻¹² F/m',
+          lesson: '/physics/electricity/capacitors',
+        },
+        {
+          name: 'Енергия на кондензатор',
+          formula: 'W = \\frac{CU^2}{2} = \\frac{qU}{2} = \\frac{q^2}{2C}',
+          lesson: '/physics/electricity/capacitors',
+        },
+        {
+          name: 'Успоредно свързване',
+          formula: 'C = C_1 + C_2 + \\ldots',
+          note: 'еднакво напрежение, зарядите се събират',
+          lesson: '/physics/electricity/capacitors',
+        },
+        {
+          name: 'Последователно свързване',
+          formula: '\\frac{1}{C} = \\frac{1}{C_1} + \\frac{1}{C_2} + \\ldots',
+          note: 'еднакъв заряд, напреженията се събират',
+          lesson: '/physics/electricity/capacitors',
+        },
+        {
+          name: 'Зареждане и разреждане през резистор',
+          formula: 'U_C = \\mathcal{E}\\left(1 - e^{-t/\\tau}\\right) \\qquad U_C = U_0 e^{-t/\\tau} \\qquad \\tau = RC',
+          note: 'за τ – около 63 %, за 5τ – практически напълно',
+          lesson: '/physics/electricity/capacitors',
+        },
+      ],
+    },
+    {
+      id: 'direct-current',
+      title: 'Постоянен ток',
+      formulas: [
+        {
+          name: 'Сила на тока',
+          formula: 'I = \\frac{q}{t}',
+          note: '1 A = 1 C/s; условната посока е от + към − по външната верига',
+          lesson: '/physics/electricity/direct-current',
+        },
+        {
+          name: 'Закон на Ом за участък от верига',
+          formula: 'I = \\frac{U}{R}',
+          lesson: '/physics/electricity/direct-current',
+        },
+        {
+          name: 'Съпротивление на проводник',
+          formula: 'R = \\rho\\frac{l}{S}',
+          note: 'за мед ρ ≈ 1,7 · 10⁻⁸ Ω·m',
+          lesson: '/physics/electricity/direct-current',
+        },
+        {
+          name: 'Последователно и успоредно свързване',
+          formula: 'R = R_1 + R_2 \\qquad \\frac{1}{R} = \\frac{1}{R_1} + \\frac{1}{R_2}',
+          lesson: '/physics/electricity/direct-current',
+        },
+        {
+          name: 'Правила на Кирхоф',
+          formula: '\\sum I_{\\text{вх}} = \\sum I_{\\text{изх}} \\qquad \\sum \\mathcal{E} = \\sum IR',
+          note: 'второто – по затворен контур',
+          lesson: '/physics/electricity/direct-current',
+        },
+        {
+          name: 'Работа и мощност на тока',
+          formula: 'W = UIt \\qquad P = UI = I^2R = \\frac{U^2}{R}',
+          note: '1 kWh = 3,6 MJ',
+          lesson: '/physics/electricity/direct-current',
+        },
+        {
+          name: 'Закон на Ом за цялата верига',
+          formula: 'I = \\frac{\\mathcal{E}}{R + r} \\qquad U = \\mathcal{E} - Ir',
+          lesson: '/physics/electricity/direct-current',
+        },
+        {
+          name: 'Най-голяма мощност в товара',
+          formula: 'P_{\\max} = \\frac{\\mathcal{E}^2}{4r} \\quad \\text{при } R = r',
+          note: 'тогава КПД е 50%',
+          lesson: '/physics/electricity/direct-current',
+        },
+      ],
+    },
+    {
+      id: 'magnetic-field',
+      title: 'Магнитно поле',
+      formulas: [
+        {
+          name: 'Поле на прав проводник',
+          formula: 'B = \\frac{\\mu_0 I}{2\\pi r}',
+          note: 'μ₀ = 4π · 10⁻⁷ T·m/A; посоката – по правилото на дясната ръка',
+          lesson: '/physics/electricity/magnetic-field',
+        },
+        {
+          name: 'Поле в бобина (соленоид)',
+          formula: 'B = \\mu_0 n I',
+          note: 'n – брой навивки на метър',
+          lesson: '/physics/electricity/magnetic-field',
+        },
+        {
+          name: 'Сила на Ампер',
+          formula: 'F = BIl\\sin\\alpha',
+          note: 'посоката – по правилото на лявата ръка',
+          lesson: '/physics/electricity/magnetic-field',
+        },
+        {
+          name: 'Сила между успоредни токове',
+          formula: '\\frac{F}{l} = \\frac{\\mu_0 I_1 I_2}{2\\pi d}',
+          note: 'еднопосочните токове се привличат',
+          lesson: '/physics/electricity/magnetic-field',
+        },
+        {
+          name: 'Сила на Лоренц',
+          formula: 'F = |q|vB\\sin\\alpha',
+          note: 'перпендикулярна на скоростта, не извършва работа',
+          lesson: '/physics/electricity/magnetic-field',
+        },
+        {
+          name: 'Заряд в еднородно магнитно поле',
+          formula: 'r = \\frac{mv}{|q|B} \\qquad T = \\frac{2\\pi m}{|q|B}',
+          note: 'периодът не зависи от скоростта',
+          lesson: '/physics/electricity/magnetic-field',
+        },
+        {
+          name: 'Селектор на скорости',
+          formula: 'v = \\frac{E}{B}',
+          lesson: '/physics/electricity/magnetic-field',
+        },
+        {
+          name: 'Въртящ момент на рамка с ток',
+          formula: 'M = NBIS\\sin\\theta',
+          note: 'θ – ъгълът между перпендикуляра към рамката и силовите линии',
+          lesson: '/physics/electricity/magnetic-field',
+        },
+      ],
+    },
+    {
+      id: 'induction',
+      title: 'Електромагнитна индукция',
+      formulas: [
+        {
+          name: 'Магнитен поток',
+          formula: '\\Phi = BS\\cos\\alpha',
+          note: 'α – ъгълът между B и нормалата; 1 Wb = 1 T·m²',
+          lesson: '/physics/electricity/induction',
+        },
+        {
+          name: 'Закон на Фарадей',
+          formula: '\\mathcal{E} = -N\\frac{\\Delta\\Phi}{\\Delta t}',
+          note: 'минусът е правилото на Ленц',
+          lesson: '/physics/electricity/induction',
+        },
+        {
+          name: 'ЕДН в движещ се проводник',
+          formula: '\\mathcal{E} = Blv',
+          lesson: '/physics/electricity/induction',
+        },
+        {
+          name: 'ЕДН на генератор',
+          formula: '\\mathcal{E} = NBS\\omega\\sin\\omega t \\qquad \\mathcal{E}_{\\max} = NBS\\omega',
+          lesson: '/physics/electricity/induction',
+        },
+        {
+          name: 'Самоиндукция',
+          formula: '\\mathcal{E} = -L\\frac{\\Delta I}{\\Delta t} \\qquad W = \\frac{LI^2}{2}',
+          note: 'L – индуктивност, единица хенри (H)',
+          lesson: '/physics/electricity/induction',
+        },
+        {
+          name: 'Трансформатор',
+          formula: '\\frac{U_2}{U_1} = \\frac{N_2}{N_1} \\qquad U_1 I_1 = U_2 I_2',
+          note: 'за идеален трансформатор',
+          lesson: '/physics/electricity/induction',
+        },
+        {
+          name: 'Загуби при пренос',
+          formula: 'P_{\\text{заг}} = I^2 R = \\frac{P^2 R}{U^2}',
+          note: 'десет пъти по-високо напрежение – сто пъти по-малки загуби',
+          lesson: '/physics/electricity/induction',
+        },
+      ],
+    },
+    {
+      id: 'ac-em-waves',
+      title: 'Променлив ток и ЕМ вълни',
+      formulas: [
+        {
+          name: 'Променливо напрежение',
+          formula: 'u = U_m \\sin \\omega t \\qquad \\omega = 2\\pi f = \\frac{2\\pi}{T}',
+          note: 'мрежата в Европа: 50 Hz',
+          lesson: '/physics/electricity/ac-em-waves',
+        },
+        {
+          name: 'Ефективни стойности',
+          formula: 'U = \\frac{U_m}{\\sqrt{2}} \\qquad I = \\frac{I_m}{\\sqrt{2}}',
+          note: '230 V ефективно = около 325 V максимално',
+          lesson: '/physics/electricity/ac-em-waves',
+        },
+        {
+          name: 'Средна мощност в резистор',
+          formula: 'P = UI = I^2 R = \\frac{U^2}{R}',
+          note: 'с ефективните стойности',
+          lesson: '/physics/electricity/ac-em-waves',
+        },
+        {
+          name: 'Капацитивно и индуктивно съпротивление',
+          formula: 'X_C = \\frac{1}{\\omega C} \\qquad X_L = \\omega L',
+          lesson: '/physics/electricity/ac-em-waves',
+        },
+        {
+          name: 'Импеданс на последователна RLC верига',
+          formula: 'Z = \\sqrt{R^2 + (X_L - X_C)^2}',
+          note: 'при резонанс X_L = X_C и Z = R',
+          lesson: '/physics/electricity/ac-em-waves',
+        },
+        {
+          name: 'Формула на Томсън',
+          formula: 'T = 2\\pi\\sqrt{LC} \\qquad f_0 = \\frac{1}{2\\pi\\sqrt{LC}}',
+          lesson: '/physics/electricity/ac-em-waves',
+        },
+        {
+          name: 'Скорост на електромагнитните вълни',
+          formula: 'c = \\frac{1}{\\sqrt{\\varepsilon_0 \\mu_0}} \\approx 3{,}00 \\cdot 10^8\\ \\mathrm{m/s} \\qquad c = \\lambda f',
+          lesson: '/physics/electricity/ac-em-waves',
+        },
+      ],
+    },
   ],
 };
 

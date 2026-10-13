@@ -100,6 +100,18 @@ export const physicsTopics = [
       { name: 'Термодинамика', path: '/thermodynamics' },
     ],
   },
+  {
+    name: 'Електричество и магнетизъм',
+    path: '/physics/electricity',
+    subtopics: [
+      { name: 'Електростатика', path: '/electrostatics' },
+      { name: 'Кондензатори', path: '/capacitors' },
+      { name: 'Постоянен ток', path: '/direct-current' },
+      { name: 'Магнитно поле', path: '/magnetic-field' },
+      { name: 'Електромагнитна индукция', path: '/induction' },
+      { name: 'Променлив ток и ЕМ вълни', path: '/ac-em-waves' },
+    ],
+  },
 ];
 
 export const astronomyTopics = [
