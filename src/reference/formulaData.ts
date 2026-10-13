@@ -1667,6 +1667,148 @@ export const PHYSICS: Section = {
         },
       ],
     },
+    {
+      id: 'reflection-refraction',
+      title: 'Отражение и пречупване',
+      formulas: [
+        {
+          name: 'Закон за отражението',
+          formula: "\\alpha' = \\alpha",
+          note: 'ъглите се мерят от нормалата към повърхността',
+          lesson: '/physics/optics/reflection-refraction',
+        },
+        {
+          name: 'Фокус на сферично огледало',
+          formula: 'f = \\frac{R}{2}',
+          note: 'вдлъбнато – действителен фокус, изпъкнало – мним',
+          lesson: '/physics/optics/reflection-refraction',
+        },
+        {
+          name: 'Показател на пречупване',
+          formula: 'n = \\frac{c}{v}',
+          note: 'вода 1,33; стъкло около 1,5; диамант 2,42',
+          lesson: '/physics/optics/reflection-refraction',
+        },
+        {
+          name: 'Закон на Снел',
+          formula: 'n_1 \\sin\\alpha = n_2 \\sin\\beta',
+          lesson: '/physics/optics/reflection-refraction',
+        },
+        {
+          name: 'Критичен ъгъл',
+          formula: '\\sin\\alpha_{\\text{кр}} = \\frac{n_2}{n_1}',
+          note: 'пълно вътрешно отражение само при n₁ > n₂',
+          lesson: '/physics/optics/reflection-refraction',
+        },
+        {
+          name: 'Видима дълбочина',
+          formula: "h' \\approx \\frac{h}{n}",
+          note: 'при почти отвесно гледане',
+          lesson: '/physics/optics/reflection-refraction',
+        },
+        {
+          name: 'Дъга',
+          formula: '\\theta \\approx 42^{\\circ} \\qquad \\theta_2 \\approx 51^{\\circ}',
+          note: 'от точката срещу Слънцето; червеното е отвън при основната дъга',
+          lesson: '/physics/optics/reflection-refraction',
+        },
+      ],
+    },
+    {
+      id: 'lenses',
+      title: 'Лещи и оптични уреди',
+      formulas: [
+        {
+          name: 'Оптична сила',
+          formula: 'D = \\frac{1}{f} \\qquad D = D_1 + D_2',
+          note: 'f в метри, D в диоптри; за разсейвателна леща f < 0; второто – за долепени лещи',
+          lesson: '/physics/optics/lenses',
+        },
+        {
+          name: 'Формула на тънката леща',
+          formula: "\\frac{1}{f} = \\frac{1}{d} + \\frac{1}{d'}",
+          note: "d' > 0 – реален образ, d' < 0 – въображаем",
+          lesson: '/physics/optics/lenses',
+        },
+        {
+          name: 'Увеличение',
+          formula: "\\Gamma = \\frac{h'}{h} = \\frac{|d'|}{d}",
+          note: 'реалният образ е обърнат, въображаемият – прав',
+          lesson: '/physics/optics/lenses',
+        },
+        {
+          name: 'Очила за късоглед',
+          formula: 'D = -\\frac{1}{a}',
+          note: 'a – далечната точка на окото в метри',
+          lesson: '/physics/optics/lenses',
+        },
+        {
+          name: 'Лупа',
+          formula: '\\Gamma \\approx \\frac{25\\ \\mathrm{cm}}{f} \\qquad \\Gamma = 1 + \\frac{25\\ \\mathrm{cm}}{f}',
+          note: 'образ в безкрайност / образ на 25 cm',
+          lesson: '/physics/optics/lenses',
+        },
+        {
+          name: 'Микроскоп',
+          formula: 'M \\approx \\frac{L}{f_{\\text{об}}} \\cdot \\frac{25\\ \\mathrm{cm}}{f_{\\text{ок}}}',
+          note: 'L – оптична дължина на тубуса',
+          lesson: '/physics/optics/lenses',
+        },
+      ],
+    },
+    {
+      id: 'wave-optics',
+      title: 'Вълнова оптика',
+      formulas: [
+        {
+          name: 'Опит на Юнг',
+          formula: 'd\\sin\\theta = k\\lambda \\qquad \\Delta y = \\frac{\\lambda L}{d}',
+          note: 'максимуми; минимуми при d sin θ = (k + 1/2)λ',
+          lesson: '/physics/optics/wave-optics',
+        },
+        {
+          name: 'Дифракция на една цепнатина',
+          formula: 'a\\sin\\theta = \\lambda',
+          note: 'първият минимум; a – ширина на цепнатината',
+          lesson: '/physics/optics/wave-optics',
+        },
+        {
+          name: 'Разделителна способност',
+          formula: '\\theta \\approx 1{,}22\\,\\frac{\\lambda}{D}',
+          note: 'в радиани; D – диаметър на отвора',
+          lesson: '/physics/optics/wave-optics',
+        },
+        {
+          name: 'Дифракционна решетка',
+          formula: 'd\\sin\\theta = k\\lambda \\qquad d = \\frac{1}{N} \\qquad |k| < \\frac{d}{\\lambda}',
+          note: 'N – брой линии на единица дължина',
+          lesson: '/physics/optics/wave-optics',
+        },
+        {
+          name: 'Тънък слой във въздуха',
+          formula: '2nd = \\left(k + \\frac{1}{2}\\right)\\lambda',
+          note: 'усилване при едно обръщане на фазата (сапунен филм)',
+          lesson: '/physics/optics/wave-optics',
+        },
+        {
+          name: 'Антиотражателно покритие',
+          formula: 'd = \\frac{\\lambda}{4n}',
+          lesson: '/physics/optics/wave-optics',
+        },
+        {
+          name: 'Закон на Малюс',
+          formula: 'I = I_0\\cos^2\\varphi',
+          note: 'неполяризирана светлина след поляризатор: I₀/2',
+          lesson: '/physics/optics/wave-optics',
+        },
+        {
+          name: 'Ъгъл на Брюстер',
+          formula: '\\tg\\theta_B = n',
+          note: 'отразената светлина е напълно поляризирана',
+          lesson: '/physics/optics/wave-optics',
+        },
+      ],
+    },
   ],
 };
 

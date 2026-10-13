@@ -41,6 +41,9 @@ const DirectCurrent = lazy(() => import('./physics/electricity/DirectCurrent').t
 const MagneticField = lazy(() => import('./physics/electricity/MagneticField').then(m => ({default: m.MagneticField})));
 const Induction = lazy(() => import('./physics/electricity/Induction').then(m => ({default: m.Induction})));
 const AcEmWaves = lazy(() => import('./physics/electricity/AcEmWaves').then(m => ({default: m.AcEmWaves})));
+const ReflectionRefraction = lazy(() => import('./physics/optics/ReflectionRefraction').then(m => ({default: m.ReflectionRefraction})));
+const Lenses = lazy(() => import('./physics/optics/Lenses').then(m => ({default: m.Lenses})));
+const WaveOptics = lazy(() => import('./physics/optics/WaveOptics').then(m => ({default: m.WaveOptics})));
 const LinearMotion = lazy(() => import('./physics/mechanics/LinearMotion').then(m => ({default: m.LinearMotion})));
 const Units = lazy(() => import('./physics/mechanics/Units').then(m => ({default: m.Units})));
 const Modular = lazy(() => import('./numbers/Modular').then(m => ({default: m.Modular})));
@@ -175,6 +178,11 @@ function App() {
                 <Route path="magnetic-field" element={<MagneticField />} />
                 <Route path="induction" element={<Induction />} />
                 <Route path="ac-em-waves" element={<AcEmWaves />} />
+              </Route>
+              <Route path="optics">
+                <Route path="reflection-refraction" element={<ReflectionRefraction />} />
+                <Route path="lenses" element={<Lenses />} />
+                <Route path="wave-optics" element={<WaveOptics />} />
               </Route>
             </Route>
             <Route path="geometry">

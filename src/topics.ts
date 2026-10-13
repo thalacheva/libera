@@ -112,6 +112,15 @@ export const physicsTopics = [
       { name: 'Променлив ток и ЕМ вълни', path: '/ac-em-waves' },
     ],
   },
+  {
+    name: 'Оптика',
+    path: '/physics/optics',
+    subtopics: [
+      { name: 'Отражение и пречупване', path: '/reflection-refraction' },
+      { name: 'Лещи и оптични уреди', path: '/lenses' },
+      { name: 'Вълнова оптика', path: '/wave-optics' },
+    ],
+  },
 ];
 
 export const astronomyTopics = [
