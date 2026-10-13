@@ -29,6 +29,12 @@ const Energy = lazy(() => import('./physics/mechanics/Energy').then(m => ({defau
 const Momentum = lazy(() => import('./physics/mechanics/Momentum').then(m => ({default: m.Momentum})));
 const Rotation = lazy(() => import('./physics/mechanics/Rotation').then(m => ({default: m.Rotation})));
 const StaticsFluids = lazy(() => import('./physics/mechanics/StaticsFluids').then(m => ({default: m.StaticsFluids})));
+const Oscillations = lazy(() => import('./physics/waves/Oscillations').then(m => ({default: m.Oscillations})));
+const Waves = lazy(() => import('./physics/waves/Waves').then(m => ({default: m.Waves})));
+const Sound = lazy(() => import('./physics/waves/Sound').then(m => ({default: m.Sound})));
+const Temperature = lazy(() => import('./physics/heat/Temperature').then(m => ({default: m.Temperature})));
+const IdealGas = lazy(() => import('./physics/heat/IdealGas').then(m => ({default: m.IdealGas})));
+const Thermodynamics = lazy(() => import('./physics/heat/Thermodynamics').then(m => ({default: m.Thermodynamics})));
 const LinearMotion = lazy(() => import('./physics/mechanics/LinearMotion').then(m => ({default: m.LinearMotion})));
 const Units = lazy(() => import('./physics/mechanics/Units').then(m => ({default: m.Units})));
 const Modular = lazy(() => import('./numbers/Modular').then(m => ({default: m.Modular})));
@@ -145,6 +151,16 @@ function App() {
                 <Route path="momentum" element={<Momentum />} />
                 <Route path="rotation" element={<Rotation />} />
                 <Route path="statics-fluids" element={<StaticsFluids />} />
+              </Route>
+              <Route path="waves">
+                <Route path="oscillations" element={<Oscillations />} />
+                <Route path="waves" element={<Waves />} />
+                <Route path="sound" element={<Sound />} />
+              </Route>
+              <Route path="heat">
+                <Route path="temperature" element={<Temperature />} />
+                <Route path="ideal-gas" element={<IdealGas />} />
+                <Route path="thermodynamics" element={<Thermodynamics />} />
               </Route>
             </Route>
             <Route path="geometry">

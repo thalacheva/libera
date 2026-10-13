@@ -82,6 +82,24 @@ export const physicsTopics = [
       { name: 'Статика и флуиди', path: '/statics-fluids' },
     ],
   },
+  {
+    name: 'Трептения и вълни',
+    path: '/physics/waves',
+    subtopics: [
+      { name: 'Трептения', path: '/oscillations' },
+      { name: 'Вълни', path: '/waves' },
+      { name: 'Звук', path: '/sound' },
+    ],
+  },
+  {
+    name: 'Топлина',
+    path: '/physics/heat',
+    subtopics: [
+      { name: 'Температура и топлина', path: '/temperature' },
+      { name: 'Идеален газ', path: '/ideal-gas' },
+      { name: 'Термодинамика', path: '/thermodynamics' },
+    ],
+  },
 ];
 
 export const astronomyTopics = [

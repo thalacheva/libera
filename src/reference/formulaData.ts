@@ -1120,6 +1120,276 @@ export const PHYSICS: Section = {
         },
       ],
     },
+    {
+      id: 'oscillations',
+      title: 'Трептения',
+      formulas: [
+        {
+          name: 'Период, честота и ъглова честота',
+          formula: 'f = \\frac{1}{T} \\qquad \\omega = \\frac{2\\pi}{T} = 2\\pi f',
+          lesson: '/physics/waves/oscillations',
+        },
+        {
+          name: 'Хармонично трептене',
+          formula: 'x = A\\cos(\\omega t + \\varphi) \\qquad a = -\\omega^2 x',
+          lesson: '/physics/waves/oscillations',
+        },
+        {
+          name: 'Най-голяма скорост и ускорение',
+          formula: 'v_{\\max} = A\\omega \\qquad a_{\\max} = A\\omega^2',
+          note: 'скоростта – в равновесието, ускорението – в крайните положения',
+          lesson: '/physics/waves/oscillations',
+        },
+        {
+          name: 'Пружинно махало',
+          formula: 'T = 2\\pi\\sqrt{\\frac{m}{k}}',
+          lesson: '/physics/waves/oscillations',
+        },
+        {
+          name: 'Математическо махало',
+          formula: 'T = 2\\pi\\sqrt{\\frac{l}{g}}',
+          note: 'при малки ъгли; при по-големи T ≈ T₀(1 + θ₀²/16)',
+          lesson: '/physics/waves/oscillations',
+        },
+        {
+          name: 'Енергия на трептене',
+          formula: '\\frac{kx^2}{2} + \\frac{mv^2}{2} = \\frac{kA^2}{2}',
+          lesson: '/physics/waves/oscillations',
+        },
+      ],
+    },
+    {
+      id: 'waves',
+      title: 'Вълни',
+      formulas: [
+        {
+          name: 'Скорост на вълната',
+          formula: 'v = \\lambda f = \\frac{\\lambda}{T}',
+          note: 'скоростта зависи от средата, честотата – от източника',
+          lesson: '/physics/waves/waves',
+        },
+        {
+          name: 'Скорост на вълна по струна',
+          formula: 'v = \\sqrt{\\frac{F}{\\mu}}',
+          note: 'μ – маса на единица дължина',
+          lesson: '/physics/waves/waves',
+        },
+        {
+          name: 'Бягаща вълна',
+          formula: 'y = A\\sin(\\omega t - kx) \\qquad k = \\frac{2\\pi}{\\lambda}',
+          lesson: '/physics/waves/waves',
+        },
+        {
+          name: 'Интерференция',
+          formula: '\\Delta = n\\lambda \\qquad \\Delta = \\left(n + \\frac{1}{2}\\right)\\lambda',
+          note: 'усилване и отслабване при източници в една фаза',
+          lesson: '/physics/waves/waves',
+        },
+        {
+          name: 'Стояща вълна по струна',
+          formula: 'L = n\\frac{\\lambda_n}{2} \\qquad f_n = \\frac{nv}{2L}',
+          lesson: '/physics/waves/waves',
+        },
+        {
+          name: 'Ефект на Доплер за звук',
+          formula: 'f = f_0\\,\\frac{u \\pm v_n}{u \\mp v_s}',
+          note: 'u – скорост на звука; горните знаци – при сближаване',
+          lesson: '/physics/waves/waves',
+        },
+        {
+          name: 'Конус на Мах',
+          formula: '\\sin\\theta = \\frac{u}{v}',
+          note: 'u – скорост на звука, v – на източника',
+          lesson: '/physics/waves/waves',
+        },
+      ],
+    },
+    {
+      id: 'sound',
+      title: 'Звук',
+      formulas: [
+        {
+          name: 'Скорост на звука във въздуха',
+          formula: 'v \\approx 331 + 0{,}6\\,t \\qquad v = \\lambda f',
+          note: 'v в m/s, t в °C; при 20 °C около 343 m/s',
+          lesson: '/physics/waves/sound',
+        },
+        {
+          name: 'Ехо',
+          formula: 'd = \\frac{vt}{2}',
+          note: 't – времето до връщането на ехото',
+          lesson: '/physics/waves/sound',
+        },
+        {
+          name: 'Ниво на звука',
+          formula: 'L = 10 \\lg \\frac{I}{I_0}, \\quad I_0 = 10^{-12}\\ \\mathrm{W/m^2}',
+          note: '+10 dB = 10 пъти по-голям интензитет',
+          lesson: '/physics/waves/sound',
+        },
+        {
+          name: 'Интензитет на точков източник',
+          formula: 'I = \\frac{P}{4\\pi r^2}',
+          lesson: '/physics/waves/sound',
+        },
+        {
+          name: 'Струна и отворена тръба',
+          formula: 'f_n = \\frac{nv}{2L}',
+          lesson: '/physics/waves/sound',
+        },
+        {
+          name: 'Тръба, затворена в единия край',
+          formula: 'f = \\frac{(2n - 1)v}{4L}',
+          note: 'само нечетни хармоници',
+          lesson: '/physics/waves/sound',
+        },
+        {
+          name: 'Ноти и биене',
+          formula: 'f = 440 \\cdot 2^{n/12} \\qquad f_b = |f_1 - f_2|',
+          note: 'n – полутонове от ла₄ = 440 Hz',
+          lesson: '/physics/waves/sound',
+        },
+      ],
+    },
+    {
+      id: 'temperature',
+      title: 'Температура и топлина',
+      formulas: [
+        {
+          name: 'Температурни скали',
+          formula: 'T = t + 273{,}15 \\qquad t_F = 1{,}8\\,t + 32',
+          note: 'T в K, t в °C; абсолютната нула е −273,15 °C',
+          lesson: '/physics/heat/temperature',
+        },
+        {
+          name: 'Линейно разширение',
+          formula: '\\Delta L = \\alpha L_0 \\Delta t',
+          note: 'за стомана α ≈ 1,2 · 10⁻⁵ K⁻¹',
+          lesson: '/physics/heat/temperature',
+        },
+        {
+          name: 'Количество топлина',
+          formula: 'Q = mc\\Delta t',
+          note: 'за водата c ≈ 4200 J/(kg·K)',
+          lesson: '/physics/heat/temperature',
+        },
+        {
+          name: 'Топлинен баланс',
+          formula: 'Q_{\\text{отд}} = Q_{\\text{пол}} \\qquad t = \\frac{m_1 t_1 + m_2 t_2}{m_1 + m_2}',
+          note: 'втората формула – при смесване на еднакви вещества',
+          lesson: '/physics/heat/temperature',
+        },
+        {
+          name: 'Топене и изпарение',
+          formula: 'Q = \\lambda m \\qquad Q = Lm',
+          note: 'лед: λ ≈ 334 kJ/kg; вода: L ≈ 2,26 · 10⁶ J/kg',
+          lesson: '/physics/heat/temperature',
+        },
+        {
+          name: 'Топлопроводност през стена',
+          formula: 'q = \\frac{kS\\Delta t}{d} \\qquad R = \\frac{d}{k}',
+          note: 'съпротивленията на слоевете се събират',
+          lesson: '/physics/heat/temperature',
+        },
+      ],
+    },
+    {
+      id: 'ideal-gas',
+      title: 'Идеален газ',
+      formulas: [
+        {
+          name: 'Количество вещество',
+          formula: 'n = \\frac{N}{N_A} = \\frac{m}{M}',
+          note: 'N_A = 6,022 · 10²³ mol⁻¹',
+          lesson: '/physics/heat/ideal-gas',
+        },
+        {
+          name: 'Газови закони',
+          formula: 'pV = \\text{const} \\qquad \\frac{V}{T} = \\text{const} \\qquad \\frac{p}{T} = \\text{const}',
+          note: 'Бойл–Мариот (T = const), Гей-Люсак (p = const), Шарл (V = const)',
+          lesson: '/physics/heat/ideal-gas',
+        },
+        {
+          name: 'Обединен газов закон',
+          formula: '\\frac{p_1 V_1}{T_1} = \\frac{p_2 V_2}{T_2}',
+          note: 'T – абсолютна температура, T = t + 273,15',
+          lesson: '/physics/heat/ideal-gas',
+        },
+        {
+          name: 'Уравнение на състоянието',
+          formula: 'pV = nRT = NkT',
+          note: 'R = 8,314 J/(mol·K), k = 1,381 · 10⁻²³ J/K; при 0 °C и 101,3 kPa един мол заема 22,4 L',
+          lesson: '/physics/heat/ideal-gas',
+        },
+        {
+          name: 'Плътност на газ',
+          formula: '\\rho = \\frac{pM}{RT}',
+          lesson: '/physics/heat/ideal-gas',
+        },
+        {
+          name: 'Основно уравнение на молекулно-кинетичната теория',
+          formula: 'p = \\frac{1}{3}\\rho\\,\\overline{v^2} \\qquad \\overline{E_k} = \\frac{3}{2}kT',
+          lesson: '/physics/heat/ideal-gas',
+        },
+        {
+          name: 'Средна квадратична скорост',
+          formula: 'v_{\\text{ск}} = \\sqrt{\\frac{3kT}{m_0}} = \\sqrt{\\frac{3RT}{M}}',
+          note: 'M в kg/mol',
+          lesson: '/physics/heat/ideal-gas',
+        },
+      ],
+    },
+    {
+      id: 'thermodynamics',
+      title: 'Термодинамика',
+      formulas: [
+        {
+          name: 'Вътрешна енергия на едноатомен газ',
+          formula: 'U = \\frac{3}{2}nRT = \\frac{3}{2}pV',
+          note: 'за двуатомен газ около 5/2 nRT',
+          lesson: '/physics/heat/thermodynamics',
+        },
+        {
+          name: 'Работа на газа',
+          formula: 'W = p\\Delta V \\qquad W = \\int_{V_1}^{V_2} p\\,dV',
+          note: 'лицето под кривата в p–V диаграмата',
+          lesson: '/physics/heat/thermodynamics',
+        },
+        {
+          name: 'Първи принцип на термодинамиката',
+          formula: 'Q = \\Delta U + W',
+          note: 'W – работата, извършена от газа',
+          lesson: '/physics/heat/thermodynamics',
+        },
+        {
+          name: 'Изотермен и адиабатен процес',
+          formula: 'W = nRT\\ln\\frac{V_2}{V_1} \\qquad pV^{\\gamma} = \\text{const}',
+          note: 'γ = 5/3 за едноатомен газ, около 1,4 за въздух',
+          lesson: '/physics/heat/thermodynamics',
+        },
+        {
+          name: 'КПД на топлинен двигател',
+          formula: '\\eta = \\frac{W}{Q_1} = 1 - \\frac{Q_2}{Q_1}',
+          lesson: '/physics/heat/thermodynamics',
+        },
+        {
+          name: 'КПД на Карно',
+          formula: '\\eta_{\\max} = 1 - \\frac{T_2}{T_1}',
+          note: 'температурите в келвини; 1 – нагревател, 2 – хладилник',
+          lesson: '/physics/heat/thermodynamics',
+        },
+        {
+          name: 'Термопомпа',
+          formula: '\\mathrm{COP} = \\frac{Q_1}{W} \\le \\frac{T_1}{T_1 - T_2}',
+          lesson: '/physics/heat/thermodynamics',
+        },
+        {
+          name: 'Ентропия',
+          formula: '\\Delta S = \\frac{Q}{T}',
+          note: 'в изолирана система ентропията не намалява',
+          lesson: '/physics/heat/thermodynamics',
+        },
+      ],
+    },
   ],
 };
 
