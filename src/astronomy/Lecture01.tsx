@@ -6,6 +6,7 @@ import Task, { TaskBoard, TaskLevel } from '~/Task';
 import PoleAltitudeDiagram from './components/PoleAltitudeDiagram';
 import SkyView from './components/SkyView';
 import { Tex } from '~/MathText';
+import Term from '~/Term';
 
 const QUIZ: Question[] = [
   {
@@ -127,7 +128,7 @@ export default function Lecture01() {
               </li>
               <li>
                 <strong>Астрофизика</strong> – физични процеси в звездите,
-                излъчване, спектри
+                излъчване, <Term id="spectrum">спектри</Term>
               </li>
               <li>
                 <strong>Космология</strong> – строеж и еволюция на Вселената
@@ -358,7 +359,7 @@ export default function Lecture01() {
                 <strong className="text-yellow-600 dark:text-yellow-400">
                   Лятно слънцестоене
                 </strong>{' '}
-                – Слънцето е на максимална деклинация (<Tex>{'+23{,}4^\\circ'}</Tex>) (<Tex>{'\\approx 21'}</Tex> юни).
+                – Слънцето е на максимална <Term id="declination">деклинация</Term> (<Tex>{'+23{,}4^\\circ'}</Tex>) (<Tex>{'\\approx 21'}</Tex> юни).
                 Най-дългият ден в Северното полукълбо.
               </li>
               <li>
@@ -476,8 +477,8 @@ export default function Lecture01() {
                 се движат от изток към запад
               </li>
               <li>
-                Една пълна обиколка спрямо звездите отнема 23 h 56 min (звездно
-                денонощие) → небето се завърта с ~15° на час
+                Една пълна обиколка спрямо звездите отнема 23 h 56 min (<Term id="sidereal-day">звездно
+                денонощие</Term>) → небето се завърта с ~15° на час
               </li>
               <li>Звездите близо до небесните полюси описват малки кръгове</li>
               <li>
@@ -778,7 +779,7 @@ export default function Lecture01() {
               е оптична илюзия, причинена от въртенето на нашата планета.
               Въпреки това, концепцията за небесната сфера остава полезен
               инструмент за описание на положенията на небесните тела. А
-              Полярната звезда няма да е „полярна“ вечно: заради прецесията на
+              Полярната звезда няма да е „полярна“ вечно: заради <Term id="precession">прецесията</Term> на
               земната ос след около 12 000 години полюсът ще е до Вега.
             </p>
           </div>

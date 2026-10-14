@@ -10,6 +10,7 @@ import { ArchimedesLab } from './ArchimedesLab';
 import { CubeScaleLab } from './CubeScaleLab';
 import { SolidViewerLab } from './SolidViewerLab';
 import { MathText, Tex } from '~/MathText';
+import Term from '~/Term';
 
 const h2 = 'text-xl sm:text-2xl font-semibold mb-3 text-gray-800 dark:text-gray-100';
 const text = 'mb-4 text-sm sm:text-base text-gray-700 dark:text-gray-300 leading-relaxed';
@@ -227,7 +228,7 @@ export function Solids() {
 
         <div className="bg-gradient-to-br from-sky-700 to-slate-900 text-white p-6 rounded-2xl mb-8 shadow-lg">
           <p className="text-lg sm:text-xl leading-relaxed">
-            🏛️ Архимед (III век пр.н.е.) смятал за свое най-голямо откритие не лоста и не закона за плаването, а това, че кълбо, вписано в
+            🏛️ Архимед (III век пр.н.е.) смятал за свое най-голямо откритие не <Term id="lever">лоста</Term> и не закона за плаването, а това, че кълбо, вписано в
             цилиндър, заема точно две трети от обема му – и има две трети от неговата повърхнина. Пожелал на гроба му да изобразят кълбо в
             цилиндър. Според Цицерон, който пише за това, през 75 г. пр.н.е. той открил забравения гроб в Сиракуза именно по тази рисунка.
             Добре дошли в <strong>стереометрията</strong> – геометрията на пространството.
@@ -406,7 +407,7 @@ export function Solids() {
               <li>✓ Призма: <Tex>{'V = B \\cdot h'}</Tex>; пирамида: <Tex>{'V = \\tfrac{1}{3} \\cdot B \\cdot h'}</Tex></li>
               <li>✓ Цилиндър: <Tex>{'V = \\pi r^2h'}</Tex>; конус: <Tex>{'V = \\tfrac{1}{3}\\pi r^2h'}</Tex>; кълбо: <Tex>{'V = \\tfrac{4}{3}\\pi r^3'}</Tex>; сфера: <Tex>{'S = 4\\pi r^2'}</Tex></li>
               <li>✓ Конус : кълбо : цилиндър (<Tex>{'h = 2r'}</Tex>) <Tex>{'= 1 : 2 : 3'}</Tex></li>
-              <li>✓ Подобие с коефициент <Tex>{'k'}</Tex>: лица <Tex>{'\\times k^2'}</Tex>, обеми <Tex>{'\\times k^3'}</Tex></li>
+              <li>✓ <Term id="similar-triangles">Подобие</Term> с коефициент <Tex>{'k'}</Tex>: лица <Tex>{'\\times k^2'}</Tex>, обеми <Tex>{'\\times k^3'}</Tex></li>
             </ul>
           </div>
         </section>

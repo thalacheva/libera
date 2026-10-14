@@ -10,6 +10,7 @@ import { RightTrigLab } from './RightTrigLab';
 import { TriangleLawsLab } from './TriangleLawsLab';
 import { UnitCircleLab } from './UnitCircleLab';
 import { MathText, Tex } from '~/MathText';
+import Term from '~/Term';
 
 const h2 = 'text-xl sm:text-2xl font-semibold mb-3 text-gray-800 dark:text-gray-100';
 const text = 'mb-4 text-sm sm:text-base text-gray-700 dark:text-gray-300 leading-relaxed';
@@ -264,8 +265,8 @@ export function Trigonometry() {
         <section className="mb-8">
           <h2 className={h2}>2. Стойности за 30°, 45° и 60°</h2>
           <p className={text}>
-            Тези стойности се извеждат от две фигури. Диагоналът дели квадрата на два равнобедрени правоъгълни триъгълника с ъгли 45° и катети
-            1 и 1, а хипотенуза <Tex>{'\\sqrt{2}'}</Tex>. Височината дели равностранния триъгълник със страна 2 на два триъгълника с ъгли 30° и 60°, катети 1 и <Tex>{'\\sqrt{3}'}</Tex> и
+            Тези стойности се извеждат от две фигури. Диагоналът дели квадрата на два равнобедрени правоъгълни триъгълника с ъгли 45° и <Term id="leg">катети</Term>
+            1 и 1, а <Term id="hypotenuse">хипотенуза</Term> <Tex>{'\\sqrt{2}'}</Tex>. Височината дели равностранния триъгълник със страна 2 на два триъгълника с ъгли 30° и 60°, катети 1 и <Tex>{'\\sqrt{3}'}</Tex> и
             хипотенуза 2.
           </p>
           <div className="overflow-x-auto mb-4">
@@ -477,7 +478,7 @@ export function Trigonometry() {
           <h2 className={h2}>12. Обобщение</h2>
           <div className="bg-gradient-to-r from-sky-50 to-indigo-50 dark:from-gray-800 dark:to-gray-700 p-6 rounded-lg">
             <ul className="space-y-2 text-sm sm:text-base">
-              <li>✓ <Tex>{'\\sin \\alpha = \\frac{a}{c},\\ \\cos \\alpha = \\frac{b}{c},\\ \\tg \\alpha = \\frac{a}{b}'}</Tex> – зависят само от ъгъла (подобни триъгълници)</li>
+              <li>✓ <Tex>{'\\sin \\alpha = \\frac{a}{c},\\ \\cos \\alpha = \\frac{b}{c},\\ \\tg \\alpha = \\frac{a}{b}'}</Tex> – зависят само от ъгъла (<Term id="similar-triangles">подобни триъгълници</Term>)</li>
               <li>✓ 30°, 45°, 60°: <Tex>{'\\sin = \\frac{1}{2},\\ \\frac{\\sqrt{2}}{2},\\ \\frac{\\sqrt{3}}{2}'}</Tex>; <Tex>{'\\cos'}</Tex> – в обратен ред</li>
               <li>✓ <Tex>{'\\sin^2 \\alpha + \\cos^2 \\alpha = 1'}</Tex>; <Tex>{'\\tg \\alpha = \\sin \\alpha / \\cos \\alpha'}</Tex>; <Tex>{'\\sin (90^\\circ - \\alpha) = \\cos \\alpha'}</Tex></li>
               <li>✓ Единична окръжност: <Tex>{'\\cos \\alpha = x,\\ \\sin \\alpha = y'}</Tex>; <Tex>{'\\sin (180^\\circ - \\alpha) = \\sin \\alpha,\\ \\cos (180^\\circ - \\alpha) = -\\cos \\alpha'}</Tex></li>
@@ -492,7 +493,7 @@ export function Trigonometry() {
           <div className="bg-yellow-50 dark:bg-yellow-900/20 border-l-4 border-yellow-500 p-4 rounded">
             <p className="font-semibold mb-2">💡 Интересен факт</p>
             <p className="text-sm sm:text-base text-gray-700 dark:text-gray-300">
-              Думата „синус“ има странна история. Индийските астрономи наричали половин хорда „джива“ – тетива на лък. Арабските учени
+              Думата „синус“ има странна история. Индийските астрономи наричали половин <Term id="chord">хорда</Term> „джива“ – тетива на лък. Арабските учени
               заимствали думата като „джиба“, която се пише с едни и същи съгласни като „джайб“ – „пазва, гънка“. При превода на латински през
               XII век тя е предадена като <em>sinus</em> – „гънка, извивка“. Така, според най-разпространеното обяснение, тетивата на лъка се
               превърнала в „гънка“ заради една двусмислена дума.

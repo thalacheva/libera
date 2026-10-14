@@ -11,6 +11,7 @@ import Trainer from '~/Trainer';
 import DimensionLab from './DimensionLab';
 import MeasurementLab from './MeasurementLab';
 import ScaleLab from './ScaleLab';
+import Term from '~/Term';
 
 const h2 = 'text-xl sm:text-2xl font-semibold mb-3 text-gray-800 dark:text-gray-100';
 const text = 'mb-4 text-sm sm:text-base text-gray-700 dark:text-gray-300 leading-relaxed';
@@ -279,7 +280,7 @@ export function Units() {
           <p className={text}>
             От 2019 г. всички основни единици са определени чрез природни константи, които са приети за точни. Секундата е 9 192 631 770
             трептения на излъчването на атом цезий-133; метърът е пътят, който светлината изминава за <Tex>{'\\frac{1}{299\\,792\\,458}'}</Tex>{' '}
-            от секундата; килограмът е свързан с константата на Планк. Така всяка лаборатория по света може сама да „направи“ еталон.
+            от секундата; килограмът е свързан с <Term id="planck-constant">константата на Планк</Term>. Така всяка лаборатория по света може сама да „направи“ еталон.
           </p>
           <Example
             description="Да изразим джаула и вата чрез основните единици."
@@ -293,7 +294,7 @@ export function Units() {
         <section className="mb-8">
           <h2 className={h2}>2. Представки и научен запис</h2>
           <p className={text}>
-            Физиката се занимава с размери от протона до Вселената – над 40 порядъка. Вместо да пишем много нули, използваме{' '}
+            Физиката се занимава с размери от <Term id="proton">протона</Term> до Вселената – над 40 порядъка. Вместо да пишем много нули, използваме{' '}
             <strong>научен запис</strong> (виж{' '}
             <Link to="/algebra/powers" className={link}>
               Степени и корени
@@ -422,7 +423,7 @@ export function Units() {
           />
           <p className={text}>
             Как да намалим грешката? Един от най-хубавите трикове е да измерим <strong>много наведнъж</strong>: дебелината на лист – като
-            измерим пачка от 500 листа, периода на махало – като измерим 10 или 20 трептения. Пробвай сам.
+            измерим пачка от 500 листа, периода на <Term id="simple-pendulum">махало</Term> – като измерим 10 или 20 трептения. Пробвай сам.
           </p>
           <MeasurementLab />
         </section>
@@ -460,14 +461,14 @@ export function Units() {
           <h2 className={`${h2} flex items-center gap-2`}>
             <Sparkles size={22} className="text-sky-500" /> 6. Тренажор
           </h2>
-          <p className={text}>Превърни в исканата единица или намери степента в научния запис. Десетичните отговори въвеждай като 0,45.</p>
+          <p className={text}>Превърни в исканата единица или намери степента в <Term id="scientific-notation">научния запис</Term>. Десетичните отговори въвеждай като 0,45.</p>
           <Trainer newDrill={newDrill} hint="Не съвсем. Виж решението стъпка по стъпка." />
         </section>
 
         <section className="mb-8">
           <h2 className={h2}>7. Единиците около нас</h2>
           <p className={text}>
-            Превръщането на единици не е само училищно упражнение – с него се сблъскваш при шофиране, готвене, пазаруване и сметки за ток.
+            Превръщането на единици не е само училищно упражнение – с него се сблъскваш при шофиране, готвене, пазаруване и сметки за <Term id="electric-current">ток</Term>.
           </p>
           <WordProblems problems={wordProblems} />
         </section>

@@ -10,6 +10,7 @@ import LatticePathLab from './LatticePathLab';
 import PascalLab from './PascalLab';
 import TreeLab from './TreeLab';
 import { MathText, Tex } from '~/MathText';
+import Term from '~/Term';
 
 const h2 = 'text-xl sm:text-2xl font-semibold mb-3 text-gray-800 dark:text-gray-100';
 const text = 'mb-4 text-sm sm:text-base text-gray-700 dark:text-gray-300 leading-relaxed';
@@ -284,7 +285,7 @@ export function Combinatorics() {
           <p className="text-lg sm:text-xl leading-relaxed">
             🃏 Разбъркай добре тесте от 52 карти. Почти сигурно е, че точно тази подредба не е съществувала никога досега в историята. Броят
             на всички възможни подредби е <Tex>{'52! = 52 \\cdot 51 \\cdot 50 \\cdot \\ldots \\cdot 1 \\approx 8 \\cdot 10^{67}'}</Tex>. Дори всички хора на Земята да разбъркват по едно тесте в
-            секунда от Големия взрив насам, ще са опитали нищожна част от тях. <strong>Комбинаториката</strong> е изкуството да броим, без да
+            секунда от <Term id="big-bang">Големия взрив</Term> насам, ще са опитали нищожна част от тях. <strong>Комбинаториката</strong> е изкуството да броим, без да
             изброяваме – и да получаваме такива невъзможни за изброяване числа за секунди.
           </p>
         </div>

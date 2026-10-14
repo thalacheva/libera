@@ -6,6 +6,7 @@ import OrbitAltitudeExplorer from './components/OrbitAltitudeExplorer';
 import Task, { TaskBoard, TaskLevel } from '~/Task';
 import VisVivaLab from './components/VisVivaLab';
 import { MathText, Tex } from '~/MathText';
+import Term from '~/Term';
 
 const QUIZ: Question[] = [
   {
@@ -84,7 +85,7 @@ export default function Lecture08() {
             Спътникът по орбита непрекъснато пада към Земята, но се движи
             хоризонтално толкова бързо, че повърхността „бяга“ под него (топът
             на Нютон, Лекция 6). При кръгова орбита гравитацията играе ролята на
-            центростремителна сила.
+            <Term id="centripetal-force">центростремителна сила</Term>.
           </p>
           <Theorem
             title="Кръгова (първа космическа) скорост"
@@ -119,8 +120,8 @@ export default function Lecture08() {
           </h2>
           <p className="mb-4 text-base sm:text-lg leading-relaxed">
             Каква скорост е нужна, за да напуснем Земята завинаги? Тялото трябва
-            да има достатъчно кинетична енергия, за да преодолее гравитационната
-            потенциална енергия <Tex>{'-\\frac{GMm}{r}'}</Tex>.
+            да има достатъчно <Term id="kinetic-energy">кинетична енергия</Term>, за да преодолее гравитационната
+            <Term id="potential-energy">потенциална енергия</Term> <Tex>{'-\\frac{GMm}{r}'}</Tex>.
           </p>
           <Theorem
             title="Скорост за бягство (втора космическа скорост)"
@@ -189,7 +190,7 @@ export default function Lecture08() {
             </table>
             <p className="text-sm mt-2">
               Ако <Tex>{'v_2'}</Tex> стане равна на скоростта на светлината <Tex>{'c'}</Tex>, нищо не може да
-              избяга – това е черна дупка (Лекция 21). Радиусът ѝ е <Tex>{'R = 2GM / c^2'}</Tex>.
+              избяга – това е <Term id="black-hole">черна дупка</Term> (Лекция 21). Радиусът ѝ е <Tex>{'R = 2GM / c^2'}</Tex>.
             </p>
           </div>
         </section>
@@ -228,14 +229,14 @@ export default function Lecture08() {
           <div className="bg-red-50 dark:bg-red-900/20 p-4 rounded-lg mb-4">
             <ul className="list-disc list-inside space-y-2">
               <li>
-                <strong>Преход на Хоман</strong> – елипса с перихелий на едната
-                орбита и афелий на другата. Нужни са само два импулса на
+                <strong>Преход на Хоман</strong> – <Term id="ellipse">елипса</Term> с <Term id="perihelion">перихелий</Term> на едната
+                орбита и <Term id="aphelion">афелий</Term> на другата. Нужни са само два импулса на
                 двигателя.
               </li>
               <li>
                 <strong>Стартови прозорци</strong> – до Марс може да се полети
                 удобно само веднъж на ~26 месеца, когато планетите са в правилно
-                взаимно положение (синодичният период).
+                взаимно положение (<Term id="synodic-period">синодичният период</Term>).
               </li>
               <li>
                 <strong>Гравитационна прашка</strong> – при прелитане край
@@ -477,8 +478,8 @@ export default function Lecture08() {
               <li>✓ Vis-viva: <Tex>{'v^2 = GM(\\frac{2}{r} - \\frac{1}{a})'}</Tex></li>
               <li>✓ Земя: <Tex>{'v_1 = 7{,}9\\ \\mathrm{km/s},\\ v_2 = 11{,}2\\ \\mathrm{km/s},\\ v_3 = 16{,}6\\ \\mathrm{km/s}'}</Tex></li>
               <li>
-                ✓ Окръжност (<Tex>{'e = 0'}</Tex>), елипса (<Tex>{'0 < e < 1'}</Tex>), парабола (<Tex>{'e = 1'}</Tex>),
-                хипербола (<Tex>{'e > 1'}</Tex>)
+                ✓ Окръжност (<Tex>{'e = 0'}</Tex>), елипса (<Tex>{'0 < e < 1'}</Tex>), <Term id="parabola">парабола</Term> (<Tex>{'e = 1'}</Tex>),
+                <Term id="hyperbola">хипербола</Term> (<Tex>{'e > 1'}</Tex>)
               </li>
               <li>
                 ✓ Полетите до планетите са по Кеплерови орбити – преход на Хоман

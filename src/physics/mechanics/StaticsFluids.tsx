@@ -11,6 +11,7 @@ import Trainer from '~/Trainer';
 import BuoyancyLab from './BuoyancyLab';
 import HydraulicLab from './HydraulicLab';
 import LeverLab from './LeverLab';
+import Term from '~/Term';
 
 const h2 = 'text-xl sm:text-2xl font-semibold mb-3 text-gray-800 dark:text-gray-100';
 const text = 'mb-4 text-sm sm:text-base text-gray-700 dark:text-gray-300 leading-relaxed';
@@ -250,7 +251,7 @@ export function StaticsFluids() {
             steps={['Моментите на теглата трябва да са равни: $30 \\cdot g \\cdot 2 = 75 \\cdot g \\cdot d$', '$d = \\frac{60}{75} = 0{,}8\\ \\mathrm{m}$ от опората, от другата страна.', 'Силата на опората е $(30 + 75)g$ – така е изпълнено и първото условие.']}
           />
           <p className={text}>
-            Как моментът на силата завърта телата с ъглово ускорение, ще видиш в урока{' '}
+            Как <Term id="torque">моментът на силата</Term> завърта телата с ъглово <Term id="acceleration">ускорение</Term>, ще видиш в урока{' '}
             <Link to="/physics/mechanics/rotation" className={link}>
               Въртене
             </Link>

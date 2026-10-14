@@ -11,6 +11,7 @@ import Trainer from '~/Trainer';
 import MirrorLab from './MirrorLab';
 import PrismRainbowLab from './PrismRainbowLab';
 import SnellLab from './SnellLab';
+import Term from '~/Term';
 
 const h2 = 'text-xl sm:text-2xl font-semibold mb-3 text-gray-800 dark:text-gray-100';
 const text = 'mb-4 text-sm sm:text-base text-gray-700 dark:text-gray-300 leading-relaxed';
@@ -244,11 +245,11 @@ export function ReflectionRefraction() {
           <h2 className={h2}>1. Светлината се разпространява праволинейно</h2>
           <p className={text}>
             В еднородна среда светлината върви по прави линии. Тънък сноп светлина наричаме <strong>лъч</strong>. Затова предметите хвърлят
-            резки сенки, а при слънчевите и лунните затъмнения сянката на Луната или Земята има точна форма (виж{' '}
+            резки сенки, а при слънчевите и <Term id="lunar-eclipse">лунните затъмнения</Term> сянката на Луната или Земята има точна форма (виж{' '}
             <Link to="/astronomy/lecture05" className={link}>
               Слънчеви затъмнения
             </Link>
-            ). Светлината е електромагнитна вълна (виж{' '}
+            ). Светлината е <Term id="em-wave">електромагнитна вълна</Term> (виж{' '}
             <Link to="/physics/electricity/ac-em-waves" className={link}>
               Променлив ток и ЕМ вълни
             </Link>
@@ -299,7 +300,7 @@ export function ReflectionRefraction() {
             description="За лъчи, близки до оста, фокусното разстояние е половината от радиуса на кривината: $f = \frac{R}{2}$. При вдлъбнатото огледало фокусът е действителен (пред огледалото), при изпъкналото – мним (зад него)."
           />
           <p className={text}>
-            Къде точно се получава образът на предмет пред огледало или леща и колко е голям, ще пресмятаме в урока{' '}
+            Къде точно се получава образът на предмет пред огледало или <Term id="lens">леща</Term> и колко е голям, ще пресмятаме в урока{' '}
             <Link to="/physics/optics/lenses" className={link}>
               Лещи и оптични уреди
             </Link>
@@ -384,7 +385,7 @@ export function ReflectionRefraction() {
         <section className="mb-8">
           <h2 className={h2}>6. Дисперсия и дъга</h2>
           <p className={text}>
-            Около 1666 г. Нютон пропуска слънчев лъч през стъклена призма и получава цветна ивица – <strong>спектър</strong>. С втора призма
+            Около 1666 г. Нютон пропуска слънчев лъч през стъклена <Term id="optical-prism">призма</Term> и получава цветна ивица – <strong>спектър</strong>. С втора призма
             той показва, че отделните цветове не се разлагат повече, а събрани отново дават бяла светлина. Причината е, че показателят на
             пречупване зависи от цвета: за виолетовата светлина той е малко по-голям, отколкото за червената, и тя се пречупва по-силно. Това
             явление се нарича <strong>дисперсия</strong>.
@@ -395,7 +396,7 @@ export function ReflectionRefraction() {
           />
           <PrismRainbowLab />
           <p className={text}>
-            Спектрите на звездите, които астрономите разлагат с призми и решетки, разказват от какво са направени звездите – виж{' '}
+            <Term id="spectrum">Спектрите</Term> на звездите, които астрономите разлагат с призми и решетки, разказват от какво са направени звездите – виж{' '}
             <Link to="/astronomy/lecture09" className={link}>
               Светлина и спектри
             </Link>
@@ -505,7 +506,7 @@ export function ReflectionRefraction() {
           <div className="bg-gradient-to-r from-emerald-50 to-teal-50 dark:from-gray-800 dark:to-gray-700 p-6 rounded-lg">
             <ul className="space-y-2 text-sm sm:text-base">
               <li>✓ Светлината върви праволинейно; ъглите се мерят от нормалата към повърхността</li>
-              <li>✓ Отражение: <Tex>{"\\alpha' = \\alpha"}</Tex>; образът в плоско огледало е мним, равен и толкова зад огледалото, колкото предметът е пред него</li>
+              <li>✓ Отражение: <Tex>{"\\alpha' = \\alpha"}</Tex>; образът в плоско огледало е <Term id="virtual-image">мним</Term>, равен и толкова зад огледалото, колкото предметът е пред него</li>
               <li>✓ Сферично огледало: <Tex>{'f = \\frac{R}{2}'}</Tex>; вдлъбнатото събира лъчите, изпъкналото ги разсейва</li>
               <li>✓ <Tex>{'n = \\frac{c}{v}'}</Tex>; закон на Снел <Tex>{'n_1 \\sin\\alpha = n_2 \\sin\\beta'}</Tex>; видима дълбочина <Tex>{"h' \\approx \\frac{h}{n}"}</Tex></li>
               <li>✓ Пълно вътрешно отражение при <Tex>{'n_1 > n_2'}</Tex> и <Tex>{'\\sin\\alpha > \\frac{n_2}{n_1}'}</Tex> – оптични влакна, диаманти</li>

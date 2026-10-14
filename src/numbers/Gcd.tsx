@@ -12,6 +12,7 @@ import EuclidLab from './EuclidLab';
 import JugsLab from './JugsLab';
 import LatticeLineLab from './LatticeLineLab';
 import { factorize } from './numberMath';
+import Term from '~/Term';
 
 const h2 = 'text-xl sm:text-2xl font-semibold mb-3 text-gray-800 dark:text-gray-100';
 const text = 'mb-4 text-sm sm:text-base text-gray-700 dark:text-gray-300 leading-relaxed';
@@ -222,7 +223,7 @@ export function Gcd() {
 
         <div className="bg-gradient-to-br from-sky-700 to-slate-900 text-white p-6 rounded-2xl mb-8 shadow-lg">
           <p className="text-lg sm:text-xl leading-relaxed">
-            ⚙️ В книга VII на „Елементи“ (около 300 г. пр.н.е.) Евклид описва как да намерим най-големия общ делител на две числа:
+            ⚙️ В книга VII на „Елементи“ (около 300 г. пр.н.е.) Евклид описва как да намерим най-големия общ <Term id="divisor">делител</Term> на две числа:
             изваждай по-малкото от по-голямото, докато двете не станат равни. Повече от две хиляди години по-късно Доналд Кнут – един от
             основателите на компютърните науки – го нарича „най-стария нетривиален алгоритъм, оцелял до наши дни“. И той наистина е
             оцелял: днес твоят телефон го изпълнява милиони пъти, когато се свързва защитено с банка или изпраща шифровано съобщение.
@@ -251,7 +252,7 @@ export function Gcd() {
             <Link to="/numbers/divisibility" className={link}>
               Делимост и прости числа
             </Link>
-            . С НОК намираме и общ знаменател на дроби (виж{' '}
+            . С НОК намираме и общ <Term id="denominator">знаменател</Term> на дроби (виж{' '}
             <Link to="/algebra/fractions" className={link}>
               Дроби и проценти
             </Link>
@@ -427,7 +428,7 @@ export function Gcd() {
           <h2 className={h2}>10. Обобщение</h2>
           <div className="bg-gradient-to-r from-sky-50 to-indigo-50 dark:from-gray-800 dark:to-gray-700 p-6 rounded-lg">
             <ul className="space-y-2 text-sm sm:text-base">
-              <li>✓ НОД – общите прости множители с по-малкия показател; НОК – всички с по-големия</li>
+              <li>✓ НОД – общите <Term id="prime-factorization">прости множители</Term> с по-малкия показател; НОК – всички с по-големия</li>
               <li>✓ <Tex>{'\\text{НОД}(a,\\ b) \\cdot \\text{НОК}(a,\\ b) = ab'}</Tex>; взаимно прости: <Tex>{'\\text{НОД} = 1'}</Tex></li>
               <li>✓ Евклид: <Tex>{'\\text{НОД}(a,\\ b) = \\text{НОД}(b,\\ r)'}</Tex>, докато остатъкът стане 0</li>
               <li>✓ Безу: <Tex>{'ax + by = \\text{НОД}(a,\\ b)'}</Tex> има цели решения</li>

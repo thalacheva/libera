@@ -11,6 +11,7 @@ import Trainer from '~/Trainer';
 import BrakingLab from './BrakingLab';
 import MotionGraphsLab from './MotionGraphsLab';
 import ReactionRulerLab from './ReactionRulerLab';
+import Term from '~/Term';
 
 const h2 = 'text-xl sm:text-2xl font-semibold mb-3 text-gray-800 dark:text-gray-100';
 const text = 'mb-4 text-sm sm:text-base text-gray-700 dark:text-gray-300 leading-relaxed';
@@ -278,8 +279,8 @@ export function LinearMotion() {
             description="Скоростта е $v = v_0 + at$, координатата е $x = x_0 + v_0 t + \frac{at^2}{2}$, а без времето: $v^2 - v_0^2 = 2a(x - x_0)$. Третата формула е удобна, когато времето не ни интересува – например за спирачен път."
           />
           <p className={text}>
-            Втората формула следва от графиката: лицето под правата <Tex>{'v = v_0 + at'}</Tex> е трапец с лице{' '}
-            <Tex>{'\\frac{v_0 + v}{2} \\cdot t = v_0 t + \\frac{at^2}{2}'}</Tex>. На езика на математическия анализ скоростта е производната на
+            Втората формула следва от графиката: лицето под правата <Tex>{'v = v_0 + at'}</Tex> е <Term id="trapezoid">трапец</Term> с лице{' '}
+            <Tex>{'\\frac{v_0 + v}{2} \\cdot t = v_0 t + \\frac{at^2}{2}'}</Tex>. На езика на математическия анализ скоростта е <Term id="derivative">производната</Term> на
             положението, <Tex>{"v = x'(t)"}</Tex>, а ускорението – производната на скоростта (виж{' '}
             <Link to="/analysis/derivatives" className={link}>
               Производни

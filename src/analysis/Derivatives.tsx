@@ -11,6 +11,7 @@ import { type Drill, fracTex, nonZero, paren, pick, polyTex, randInt } from '~/d
 import DerivativeGraphLab from './DerivativeGraphLab';
 import SecantLab from './SecantLab';
 import Trainer from '~/Trainer';
+import Term from '~/Term';
 
 const h2 = 'text-xl sm:text-2xl font-semibold mb-3 text-gray-800 dark:text-gray-100';
 const text = 'mb-4 text-sm sm:text-base text-gray-700 dark:text-gray-300 leading-relaxed';
@@ -344,7 +345,7 @@ export function Derivatives() {
             ]}
           />
           <p className={text}>
-            Познат пример: върхът на параболата <Tex>{'y = ax^2 + bx + c'}</Tex> е при <Tex>{'x = -\\frac{b}{2a}'}</Tex> – точно там, където{' '}
+            Познат пример: <Term id="parabola-vertex">върхът на параболата</Term> <Tex>{'y = ax^2 + bx + c'}</Tex> е при <Tex>{'x = -\\frac{b}{2a}'}</Tex> – точно там, където{' '}
             <Tex>{"y' = 2ax + b"}</Tex> става нула (виж{' '}
             <Link to="/functions/quadratic" className={link}>
               Квадратни функции
@@ -382,7 +383,7 @@ export function Derivatives() {
         <section className="mb-8">
           <h2 className={h2}>8. Производните около нас</h2>
           <p className={text}>
-            Скоростта е производна на пътя, а ускорението – на скоростта. Наклонът на пътя, растежът на население, пределната печалба в
+            Скоростта е производна на пътя, а <Term id="acceleration">ускорението</Term> – на скоростта. Наклонът на пътя, растежът на население, пределната печалба в
             икономиката – всички те са производни. Със същата математика Нютон обяснява движението на планетите (виж{' '}
             <Link to="/astronomy/lecture06" className={link}>
               лекцията за гравитацията

@@ -10,6 +10,7 @@ import Task, { TaskBoard, TaskLevel } from '~/Task';
 import { GIANTS, rotationText } from './components/giantData';
 import { fmt } from './components/terrestrialData';
 import { MathText, Tex } from '~/MathText';
+import Term from '~/Term';
 
 const QUIZ: Question[] = [
   {
@@ -143,7 +144,7 @@ export default function Lecture14() {
               <li>Ниска средна плътност: <Tex>{'0{,}7\\text{–}1{,}6\\ \\mathrm{g/cm^{3}}'}</Tex> (при скалистите планети е <Tex>{'3{,}9\\text{–}5{,}5\\ \\mathrm{g/cm^{3}}'}</Tex>)</li>
               <li>Бързо въртене – денят трае между 10 и 17 часа – и сплескване при полюсите</li>
               <li>Пръстени и многобройни спътници</li>
-              <li>Силни магнитни полета и вътрешни източници на топлина</li>
+              <li>Силни <Term id="magnetic-field">магнитни полета</Term> и вътрешни източници на топлина</li>
             </ul>
           </div>
 
@@ -527,7 +528,7 @@ export default function Lecture14() {
           <div className="bg-gradient-to-r from-orange-50 to-blue-50 dark:from-gray-800 dark:to-gray-700 p-6 rounded-lg">
             <ul className="space-y-2">
               <li>✓ Газови гиганти (Юпитер, Сатурн) – главно H и He; ледени гиганти (Уран, Нептун) – главно вода, амоняк и метан</li>
-              <li>✓ Образувани отвъд снежната линия: ледено ядро от ~<Tex>{'10\\,M_{\\oplus}'}</Tex> привлича газ от облака около Слънцето</li>
+              <li>✓ Образувани отвъд <Term id="snow-line">снежната линия</Term>: ледено ядро от ~<Tex>{'10\\,M_{\\oplus}'}</Tex> привлича газ от облака около Слънцето</li>
               <li>✓ Нямат повърхност; в Юпитер и Сатурн водородът става метален и създава силни магнитни полета</li>
               <li>✓ Юпитер, Сатурн и Нептун излъчват повече енергия, отколкото получават – от свиване и хелиев дъжд</li>
               <li>✓ Бързото въртене подрежда облаците в зони и пояси и сплесква планетите</li>

@@ -11,6 +11,7 @@ import Trainer from '~/Trainer';
 import CircularMotionLab from './CircularMotionLab';
 import RollingRaceLab from './RollingRaceLab';
 import SkaterLab from './SkaterLab';
+import Term from '~/Term';
 
 const h2 = 'text-xl sm:text-2xl font-semibold mb-3 text-gray-800 dark:text-gray-100';
 const text = 'mb-4 text-sm sm:text-base text-gray-700 dark:text-gray-300 leading-relaxed';
@@ -251,7 +252,7 @@ export function Rotation() {
         <section className="mb-8">
           <h2 className={h2}>2. Центростремително ускорение и сила</h2>
           <p className={text}>
-            При равномерно движение по окръжност големината на скоростта е постоянна, но посоката ѝ непрекъснато се мени. Значи има ускорение –
+            При <Term id="uniform-motion">равномерно движение</Term> по окръжност големината на скоростта е постоянна, но посоката ѝ непрекъснато се мени. Значи има <Term id="acceleration">ускорение</Term> –
             и то сочи към центъра.
           </p>
           <Theorem
@@ -259,8 +260,8 @@ export function Rotation() {
             description="Тяло, което се движи по окръжност с радиус $r$ със скорост $v$, има ускорение $a = \frac{v^2}{r} = \omega^2 r$, насочено към центъра. По втория закон на Нютон за това е нужна резултантна сила $F = \frac{mv^2}{r}$, също към центъра."
           />
           <p className={text}>
-            Центростремителната сила <strong>не е нова сила</strong> – това е името на резултантната на истинските сили: опънът на връвта,
-            триенето на гумите в завоя, гравитацията при спътника (виж{' '}
+            Центростремителната сила <strong>не е нова сила</strong> – това е името на резултантната на истинските сили: <Term id="tension">опънът</Term> на връвта,
+            <Term id="friction">триенето</Term> на гумите в завоя, гравитацията при спътника (виж{' '}
             <Link to="/physics/mechanics/newton" className={link}>
               Закони на Нютон
             </Link>{' '}
@@ -268,7 +269,7 @@ export function Rotation() {
             <Link to="/astronomy/lecture08" className={link}>
               Орбити и скорости
             </Link>
-            ). „Центробежната сила“, която усещаш в завиващия автобус, се появява само в отправната система на автобуса: всъщност тялото ти иска
+            ). „Центробежната сила“, която усещаш в завиващия автобус, се появява само в <Term id="reference-frame">отправната система</Term> на автобуса: всъщност тялото ти иска
             да продължи направо, а автобусът завива под него.
           </p>
           <CircularMotionLab />
@@ -321,7 +322,7 @@ export function Rotation() {
             description="Въртящо се тяло има кинетична енергия $E = \frac{I\omega^2}{2}$. Тяло, което се търкаля без плъзгане, едновременно се движи и се върти, като $v = \omega R$: $E = \frac{mv^2}{2} + \frac{I\omega^2}{2}$. Ако $I = kmR^2$, това е $E = (1 + k)\frac{mv^2}{2}$."
           />
           <p className={text}>
-            Когато тяло се търкаля по наклон, потенциалната енергия се разделя между движението напред и въртенето (виж{' '}
+            Когато тяло се търкаля по наклон, <Term id="potential-energy">потенциалната енергия</Term> се разделя между движението напред и въртенето (виж{' '}
             <Link to="/physics/mechanics/energy" className={link}>
               Работа, енергия, мощност
             </Link>
@@ -355,7 +356,7 @@ export function Rotation() {
             ]}
           />
           <p className={text}>
-            Повече за неутронните звезди – в лекцията{' '}
+            Повече за <Term id="neutron-star">неутронните звезди</Term> – в лекцията{' '}
             <Link to="/astronomy/lecture21" className={link}>
               Бели джуджета и черни дупки
             </Link>
@@ -466,7 +467,7 @@ export function Rotation() {
           <h2 className={h2}>11. Обобщение</h2>
           <div className="bg-gradient-to-r from-emerald-50 to-teal-50 dark:from-gray-800 dark:to-gray-700 p-6 rounded-lg">
             <ul className="space-y-2 text-sm sm:text-base">
-              <li>✓ <Tex>{'\\omega = \\frac{2\\pi}{T} = 2\\pi\\nu'}</Tex>, <Tex>{'v = \\omega r'}</Tex>; ъглите – в радиани</li>
+              <li>✓ <Tex>{'\\omega = \\frac{2\\pi}{T} = 2\\pi\\nu'}</Tex>, <Tex>{'v = \\omega r'}</Tex>; ъглите – в <Term id="radian">радиани</Term></li>
               <li>✓ Центростремително ускорение <Tex>{'a = \\frac{v^2}{r} = \\omega^2 r'}</Tex> към центъра; нужната сила <Tex>{'\\frac{mv^2}{r}'}</Tex> е резултантната на истинските сили</li>
               <li>✓ Момент на сила <Tex>{'M = Fd'}</Tex>; основен закон <Tex>{'M = I\\alpha'}</Tex></li>
               <li>✓ Обръч <Tex>{'mR^2'}</Tex>, диск <Tex>{'\\frac{1}{2}mR^2'}</Tex>, кълбо <Tex>{'\\frac{2}{5}mR^2'}</Tex></li>
@@ -482,7 +483,7 @@ export function Rotation() {
             <p className="text-sm sm:text-base text-gray-700 dark:text-gray-300">
               Денят на Земята бавно се удължава – средно с около 2 милисекунди на век. Приливите, които Луната предизвиква, трият океаните в
               дъното и спират въртенето на Земята, а изгубеният момент на импулса се предава на Луната. Затова тя се отдалечава от нас с около
-              3,8 cm годишно – това се измерва с лазерни лъчи, отразени от огледала, оставени на Луната. По годишните пръстени на растеж при
+              3,8 cm годишно – това се измерва с <Term id="laser">лазерни</Term> лъчи, отразени от огледала, оставени на Луната. По годишните пръстени на растеж при
               древни корали учените оценяват, че преди около 400 милиона години годината е имала приблизително 400 дни.
             </p>
           </div>

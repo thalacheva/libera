@@ -11,6 +11,7 @@ import Trainer from '~/Trainer';
 import HeatEngineLab from './HeatEngineLab';
 import HeatPumpLab from './HeatPumpLab';
 import PVCycleLab from './PVCycleLab';
+import Term from '~/Term';
 
 const h2 = 'text-xl sm:text-2xl font-semibold mb-3 text-gray-800 dark:text-gray-100';
 const text = 'mb-4 text-sm sm:text-base text-gray-700 dark:text-gray-300 leading-relaxed';
@@ -262,7 +263,7 @@ export function Thermodynamics() {
             <Link to="/physics/heat/ideal-gas" className={link}>
               Идеален газ
             </Link>
-            ). Сборът от техните енергии е <strong>вътрешната енергия</strong> <Tex>{'U'}</Tex>. При идеален газ молекулите не си
+            ). Сборът от техните енергии е <strong>вътрешната енергия</strong> <Tex>{'U'}</Tex>. При <Term id="ideal-gas">идеален газ</Term> молекулите не си
             взаимодействат, така че <Tex>{'U'}</Tex> зависи само от температурата.
           </p>
           <Theorem
@@ -275,7 +276,7 @@ export function Thermodynamics() {
             description="Когато газът се разширява с $\Delta V$ при постоянно налягане $p$, той бута буталото и извършва работа $W = p\Delta V$. В общия случай работата е лицето под кривата на процеса в p–V диаграмата. При разширение $W > 0$, при свиване $W < 0$ – тогава работа се извършва ВЪРХУ газа."
           />
           <p className={text}>
-            Лицето под кривата е интеграл: <Tex>{'W = \\int_{V_1}^{V_2} p\\,dV'}</Tex> (виж{' '}
+            Лицето под кривата е <Term id="definite-integral">интеграл</Term>: <Tex>{'W = \\int_{V_1}^{V_2} p\\,dV'}</Tex> (виж{' '}
             <Link to="/analysis/integrals" className={link}>
               Интеграли
             </Link>
@@ -299,7 +300,7 @@ export function Thermodynamics() {
             <Link to="/physics/heat/temperature" className={link}>
               Температура и топлина
             </Link>
-            ) и чрез <strong>работа</strong>. Това е законът за запазване на енергията (виж{' '}
+            ) и чрез <strong>работа</strong>. Това е <Term id="energy-conservation">законът за запазване на енергията</Term> (виж{' '}
             <Link to="/physics/mechanics/energy" className={link}>
               Работа, енергия, мощност
             </Link>
@@ -456,7 +457,7 @@ export function Thermodynamics() {
           <h2 className={`${h2} flex items-center gap-2`}>
             <Sparkles size={22} className="text-sky-500" /> 7. Тренажор
           </h2>
-          <p className={text}>Пресметни исканата величина. Десетичните отговори въвеждай като 12,5, а КПД – в проценти (без знака %).</p>
+          <p className={text}>Пресметни исканата величина. Десетичните отговори въвеждай като 12,5, а <Term id="efficiency">КПД</Term> – в проценти (без знака %).</p>
           <Trainer newDrill={newDrill} hint="Не съвсем. Виж решението стъпка по стъпка." />
         </section>
 
@@ -556,10 +557,10 @@ export function Thermodynamics() {
             <ul className="space-y-2 text-sm sm:text-base">
               <li>✓ Едноатомен идеален газ: <Tex>{'U = \\frac{3}{2}nRT'}</Tex>; работата на газа е лицето под кривата в p–V диаграмата, при <Tex>{'p = \\text{const}'}</Tex> – <Tex>{'W = p\\Delta V'}</Tex></li>
               <li>✓ Първи принцип: <Tex>{'Q = \\Delta U + W'}</Tex>, като <Tex>{'W'}</Tex> е работата, извършена от газа</li>
-              <li>✓ Изохорен: <Tex>{'W = 0'}</Tex>; изотермен: <Tex>{'\\Delta U = 0'}</Tex>; адиабатен: <Tex>{'Q = 0'}</Tex>, <Tex>{'pV^{\\gamma} = \\text{const}'}</Tex></li>
+              <li>✓ <Term id="charles-law">Изохорен</Term>: <Tex>{'W = 0'}</Tex>; <Term id="boyle-law">изотермен</Term>: <Tex>{'\\Delta U = 0'}</Tex>; адиабатен: <Tex>{'Q = 0'}</Tex>, <Tex>{'pV^{\\gamma} = \\text{const}'}</Tex></li>
               <li>✓ Двигател: <Tex>{'Q_1 = W + Q_2'}</Tex>, <Tex>{'\\eta = \\frac{W}{Q_1} \\le 1 - \\frac{T_2}{T_1}'}</Tex> (в келвини)</li>
               <li>✓ Термопомпа: <Tex>{'\\mathrm{COP} = \\frac{Q_1}{W} \\le \\frac{T_1}{T_1 - T_2}'}</Tex> – може да е много по-голям от 1</li>
-              <li>✓ Втори принцип: топлината сама тече от топло към студено; ентропията на изолирана система не намалява</li>
+              <li>✓ Втори принцип: топлината сама тече от топло към студено; ентропията на <Term id="closed-system">изолирана система</Term> не намалява</li>
             </ul>
           </div>
         </section>

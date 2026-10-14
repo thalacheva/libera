@@ -9,6 +9,7 @@ import AbsValueLab from './AbsValueLab';
 import MeetingLab from './MeetingLab';
 import ParameterLab from './ParameterLab';
 import { MathText, Tex } from '~/MathText';
+import Term from '~/Term';
 
 // ---------- Помощни функции за форматиране ----------
 
@@ -785,7 +786,7 @@ export function LinearEquations() {
             <ul className="space-y-2 text-sm sm:text-base">
               <li>✓ Линейно уравнение: <Tex>{'ax + b = 0'}</Tex>; при <Tex>{'a \\ne 0'}</Tex> решението е <Tex>{'x = -\\frac{b}{a}'}</Tex></li>
               <li>✓ Равносилни преобразувания: едно и също действие с двете страни (делим само на число <Tex>{'\\ne 0'}</Tex>)</li>
-              <li>✓ Алгоритъм: скоби → знаменатели → прехвърляне → привеждане → делене → проверка</li>
+              <li>✓ Алгоритъм: скоби → <Term id="denominator">знаменатели</Term> → прехвърляне → привеждане → делене → проверка</li>
               <li>✓ <Tex>{'0 \\cdot x = b'}</Tex>: няма решение при <Tex>{'b \\ne 0'}</Tex>, безброй решения при <Tex>{'b = 0'}</Tex></li>
               <li>✓ Параметър: разглеждаме отделно стойностите, при които коефициентът пред <Tex>{'x'}</Tex> е 0</li>
               <li>✓ <Tex>{'|x - a| = b'}</Tex> – точките на разстояние <Tex>{'b'}</Tex> от <Tex>{'a'}</Tex>: <Tex>{'x = a \\pm b'}</Tex> при <Tex>{'b > 0'}</Tex></li>

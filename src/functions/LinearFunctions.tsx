@@ -9,6 +9,7 @@ import { PointByPoint } from './InteractiveQuadraticGrapher';
 import { ModelFitLab } from './ModelFitLab';
 import { TariffLab } from './TariffLab';
 import { MathText, Tex } from '~/MathText';
+import Term from '~/Term';
 
 const h2 = 'text-xl sm:text-2xl font-semibold mb-3 text-gray-800 dark:text-gray-100';
 const text = 'text-sm sm:text-base text-gray-700 dark:text-gray-300 leading-relaxed';
@@ -186,7 +187,7 @@ export function LinearFunctions() {
           </div>
           <p className={`${text} mb-4`}>
             Числото <Tex>{'x_0 = -\\frac{b}{a}'}</Tex>, за което <Tex>{'f(x_0) = 0'}</Tex>, се нарича <strong>нула</strong> (корен) на функцията. Намирането на нулата е същото като
-            решаването на линейното уравнение <Tex>{'ax + b = 0'}</Tex>.
+            решаването на <Term id="linear-equation">линейното уравнение</Term> <Tex>{'ax + b = 0'}</Tex>.
           </p>
           <Example
             description="Намери пресечните точки на правата $y = 2x - 4$ с координатните оси."
@@ -369,7 +370,7 @@ export function LinearFunctions() {
               <li>✓ Наклон <Tex>{'a = \\frac{\\Delta y}{\\Delta x}'}</Tex>: <Tex>{'a > 0'}</Tex> – растяща, <Tex>{'a < 0'}</Tex> – намаляваща, <Tex>{'a = 0'}</Tex> – константна</li>
               <li>✓ Пресечни точки: <Tex>{'(0; b)'}</Tex> с Oy и <Tex>{'\\left(-\\frac{b}{a}; 0\\right)'}</Tex> с Ox</li>
               <li>✓ Успоредни: <Tex>{'a_1 = a_2'}</Tex>; перпендикулярни: <Tex>{'a_1 \\cdot a_2 = -1'}</Tex>; пресечна точка – от системата</li>
-              <li>✓ Права пропорционалност: <Tex>{'y = kx'}</Tex>; обратна: <Tex>{'y = \\frac{k}{x}'}</Tex>, <Tex>{'x \\cdot y = \\mathrm{const}'}</Tex> (хипербола)</li>
+              <li>✓ Права пропорционалност: <Tex>{'y = kx'}</Tex>; обратна: <Tex>{'y = \\frac{k}{x}'}</Tex>, <Tex>{'x \\cdot y = \\mathrm{const}'}</Tex> (<Term id="hyperbola">хипербола</Term>)</li>
               <li>✓ Линейните модели описват данни и позволяват прогнози</li>
             </ul>
           </div>

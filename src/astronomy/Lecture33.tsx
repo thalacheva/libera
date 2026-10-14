@@ -9,6 +9,7 @@ import Task, { TaskBoard, TaskLevel } from '~/Task';
 import TwinParadoxLab from './components/TwinParadoxLab';
 import { fmt } from './components/terrestrialData';
 import { Tex } from '~/MathText';
+import Term from '~/Term';
 
 const QUIZ: Question[] = [
   {
@@ -97,11 +98,11 @@ export default function Lecture33() {
 
         <div className="bg-gradient-to-br from-emerald-800 to-slate-900 text-white p-6 rounded-2xl mb-8 shadow-lg">
           <p className="text-lg sm:text-xl leading-relaxed">
-            ⚡ 16-годишният Алберт Айнщайн си представя, че препуска до светлинен лъч със същата скорост. Би ли видял „замръзнала“
-            електромагнитна вълна? Уравненията на Максуел казват, че такова нещо не съществува. Десет години по-късно, през 1905 г.,
+            ⚡ 16-годишният Алберт Айнщайн си представя, че препуска до <Term id="light-ray">светлинен лъч</Term> със същата скорост. Би ли видял „замръзнала“
+            <Term id="em-wave">електромагнитна вълна</Term>? Уравненията на Максуел казват, че такова нещо не съществува. Десет години по-късно, през 1905 г.,
             младият служител в патентното бюро в Берн публикува решението: скоростта на светлината е една и съща за всички. Цената е
             висока – времето и пространството престават да бъдат абсолютни. Днес тази теория работи всеки ден в GPS навигацията на
-            телефона ви, в ускорителите на частици и в струите на черните дупки.
+            телефона ви, в ускорителите на частици и в струите на <Term id="black-hole">черните дупки</Term>.
           </p>
         </div>
 
@@ -286,7 +287,7 @@ export default function Lecture33() {
           <div className="bg-yellow-50 dark:bg-yellow-900/20 p-4 rounded-lg mb-4">
             <h3 className="font-semibold mb-2">Защо свети Слънцето?</h3>
             <p>
-              В ядрото на Слънцето 4 протона се сливат в едно хелиево ядро (Лекция 11). Хелиевото ядро е с около 0,7% по-леко от четирите
+              В ядрото на Слънцето 4 <Term id="proton">протона</Term> се сливат в едно хелиево ядро (Лекция 11). Хелиевото ядро е с около 0,7% по-леко от четирите
               протона – тази „изчезнала“ маса се превръща в енергия по формулата <Tex>{'E = mc^2'}</Tex>. Така Слънцето губи около 4 милиона тона маса всяка
               секунда и въпреки това ще свети още около 5 милиарда години.
             </p>
@@ -303,7 +304,7 @@ export default function Lecture33() {
           <div className="grid sm:grid-cols-2 gap-3 mb-4">
             <div className="bg-white dark:bg-gray-800 p-3 rounded-lg shadow-sm">
               <p className="font-semibold mb-1">☄️ Космически лъчи</p>
-              <p className="text-sm text-gray-600 dark:text-gray-400">Протони с <Tex>{'\\gamma'}</Tex> над <Tex>{'10^{11}'}</Tex> – най-енергичните частици, наблюдавани във Вселената. За такъв протон Млечният път (100 000 св. г.) е свит до ~3 милиона km и го прелита за ~10 секунди по собствения си часовник!</p>
+              <p className="text-sm text-gray-600 dark:text-gray-400">Протони с <Tex>{'\\gamma'}</Tex> над <Tex>{'10^{11}'}</Tex> – най-енергичните частици, наблюдавани във Вселената. За такъв протон <Term id="milky-way">Млечният път</Term> (100 000 св. г.) е свит до ~3 милиона km и го прелита за ~10 секунди по собствения си часовник!</p>
             </div>
             <div className="bg-white dark:bg-gray-800 p-3 rounded-lg shadow-sm">
               <p className="font-semibold mb-1">🛰️ GPS</p>
@@ -316,9 +317,9 @@ export default function Lecture33() {
           <div className="bg-blue-50 dark:bg-blue-500/10 p-4 rounded-lg mb-4">
             <h3 className="font-semibold mb-2">Специална или обща теория?</h3>
             <p>
-              Специалната теория (1905) разглежда равномерно движение без гравитация. Общата теория на относителността (1915) обяснява
-              гравитацията като изкривяване на пространство-времето и е нужна за черните дупки, гравитационните лещи (Лекция 29) и
-              гравитационните вълни (Лекция 32).
+              Специалната теория (1905) разглежда <Term id="uniform-motion">равномерно движение</Term> без гравитация. Общата теория на относителността (1915) обяснява
+              гравитацията като изкривяване на пространство-времето и е нужна за черните дупки, <Term id="gravitational-lens">гравитационните лещи</Term> (Лекция 29) и
+              <Term id="gravitational-wave">гравитационните вълни</Term> (Лекция 32).
             </p>
           </div>
         </section>
@@ -414,7 +415,7 @@ export default function Lecture33() {
           <div className="bg-gradient-to-r from-blue-50 to-purple-50 dark:from-gray-800 dark:to-gray-700 p-6 rounded-lg">
             <ul className="space-y-2">
               <li>
-                ✓ <strong>Постулати:</strong> физиката е една и съща за всички инерциални наблюдатели; <Tex>{'c'}</Tex> е еднаква за всички
+                ✓ <strong>Постулати:</strong> физиката е една и съща за всички <Term id="inertial-frame">инерциални</Term> наблюдатели; <Tex>{'c'}</Tex> е еднаква за всички
               </li>
               <li>
                 ✓ <strong>Лоренцов фактор:</strong> <Tex>{'\\gamma = 1 / \\sqrt{1 - \\frac{v^2}{c^2}}'}</Tex>{' '}

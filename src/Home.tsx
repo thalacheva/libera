@@ -1,4 +1,4 @@
-import {Atom, BookMarked, ChevronRight, FlaskConical, PencilLine, Sigma, Target, Telescope, TrendingUp, Trophy} from 'lucide-react';
+import {Atom, BookA, BookMarked, ChevronRight, FlaskConical, PencilLine, Sigma, Target, Telescope, TrendingUp, Trophy} from 'lucide-react';
 import {Link} from 'react-router-dom';
 import {astronomyTopics, mathTopics, physicsTopics} from '~/topics';
 
@@ -81,7 +81,7 @@ export function Home() {
           </div>
         </section>
 
-        <section className="mb-10 grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
+        <section className="mb-10 grid sm:grid-cols-2 lg:grid-cols-4 gap-3">
           <ShortcutCard
             to="/astronomy/tonight"
             icon={<span className="text-2xl">🔭</span>}
@@ -93,6 +93,12 @@ export function Home() {
             icon={<BookMarked size={24} className="text-blue-600 dark:text-blue-300" />}
             title="Справочник с формули"
             text="Основните формули от всички уроци и физичните константи на едно място, с търсене."
+          />
+          <ShortcutCard
+            to="/reference/glossary"
+            icon={<BookA size={24} className="text-indigo-600 dark:text-indigo-300" />}
+            title="Речник на термините"
+            text="Кратко обяснение на всяко понятие от уроците, с връзка към урока."
           />
           <ShortcutCard
             to="/progress"

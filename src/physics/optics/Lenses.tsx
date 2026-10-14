@@ -11,6 +11,7 @@ import Trainer from '~/Trainer';
 import EyeLab from './EyeLab';
 import LensRayLab from './LensRayLab';
 import MicroscopeLab from './MicroscopeLab';
+import Term from '~/Term';
 
 const h2 = 'text-xl sm:text-2xl font-semibold mb-3 text-gray-800 dark:text-gray-100';
 const text = 'mb-4 text-sm sm:text-base text-gray-700 dark:text-gray-300 leading-relaxed';
@@ -259,7 +260,7 @@ export function Lenses() {
         <section className="mb-8">
           <h2 className={h2}>1. Видове лещи</h2>
           <p className={text}>
-            Лещата е прозрачно тяло, ограничено от две сферични (или една сферична и една плоска) повърхности. Тя работи заради пречупването
+            Лещата е прозрачно тяло, ограничено от две сферични (или една сферична и една плоска) повърхности. Тя работи заради <Term id="refraction">пречупването</Term>
             на светлината по границите стъкло–въздух (виж{' '}
             <Link to="/physics/optics/reflection-refraction" className={link}>
               Отражение и пречупване
@@ -372,8 +373,8 @@ export function Lenses() {
             <Link to="/astronomy/lecture10" className={link}>
               Телескопи
             </Link>
-            . Колкото и да увеличаваме, светлинният микроскоп не различава детайли, по-малки от около половин дължина на вълната –
-            заради дифракцията (виж{' '}
+            . Колкото и да увеличаваме, светлинният микроскоп не различава детайли, по-малки от около половин <Term id="wavelength">дължина на вълната</Term> –
+            заради <Term id="diffraction">дифракцията</Term> (виж{' '}
             <Link to="/physics/optics/wave-optics" className={link}>
               Вълнова оптика
             </Link>
@@ -495,7 +496,7 @@ export function Lenses() {
             <p className="font-semibold mb-2">💡 Интересен факт</p>
             <p className="text-sm sm:text-base text-gray-700 dark:text-gray-300">
               Около две трети от оптичната сила на окото (около 40 от 60 диоптъра) се дължат не на лещата, а на роговицата – границата
-              въздух–око. Под вода роговицата почти престава да пречупва, защото водата има почти същия показател на пречупване като окото.
+              въздух–око. Под вода роговицата почти престава да пречупва, защото водата има почти същия <Term id="refractive-index">показател на пречупване</Term> като окото.
               Затова без маска под водата виждаме всичко размазано, като силно далекогледи. Маската връща въздушния слой пред окото – и светът
               отново става рязък. Първите очила за четене, според повечето историци, се появяват в Италия около 80-те години на XIII век.
             </p>

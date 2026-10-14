@@ -8,6 +8,7 @@ import { InteractiveQuadrangle } from './InteractiveQuadrangle';
 import { ShapeDetectiveLab } from './ShapeDetectiveLab';
 import { VarignonLab } from './VarignonLab';
 import { MathText, Tex } from '~/MathText';
+import Term from '~/Term';
 
 const h2 = 'text-xl sm:text-2xl font-semibold mb-3 text-gray-800 dark:text-gray-100';
 const text = 'text-sm sm:text-base text-gray-700 dark:text-gray-300 leading-relaxed';
@@ -484,7 +485,7 @@ export function Quadrangle() {
           <h2 className={h2}>11. Обобщение</h2>
           <div className="bg-gradient-to-r from-teal-50 to-blue-50 dark:from-gray-800 dark:to-gray-700 p-6 rounded-lg">
             <ul className="space-y-2 text-sm sm:text-base">
-              <li>✓ Сбор на ъглите: четириъгълник 360°, <Tex>{'n'}</Tex>-ъгълник <Tex>{'(n - 2) \\cdot 180^\\circ'}</Tex>; външните ъгли – 360°</li>
+              <li>✓ Сбор на ъглите: четириъгълник 360°, <Tex>{'n'}</Tex>-ъгълник <Tex>{'(n - 2) \\cdot 180^\\circ'}</Tex>; <Term id="exterior-angle">външните ъгли</Term> – 360°</li>
               <li>✓ Успоредник ⊃ правоъгълник, ромб ⊃ квадрат; трапец – точно една двойка успоредни страни</li>
               <li>✓ Успоредник: <Tex>{'S = a \\cdot h_a'}</Tex>; ромб/делтоид: <Tex>{'S = \\frac{d_1d_2}{2}'}</Tex>; трапец: <Tex>{'S = \\frac{a + c}{2} \\cdot h'}</Tex></li>
               <li>✓ Формулите идват от правоъгълника чрез разрязване и преместване</li>

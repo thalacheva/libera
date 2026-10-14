@@ -10,6 +10,7 @@ import FractionAddLab from './FractionAddLab';
 import FractionLab from './FractionLab';
 import PercentLab from './PercentLab';
 import { MathText, Tex } from '~/MathText';
+import Term from '~/Term';
 
 const h2 = 'text-xl sm:text-2xl font-semibold mb-3 text-gray-800 dark:text-gray-100';
 const text = 'mb-4 text-sm sm:text-base text-gray-700 dark:text-gray-300 leading-relaxed';
@@ -319,7 +320,7 @@ export function Fractions() {
           <h2 className={h2}>3. Десетични дроби</h2>
           <p className={text}>
             Дроб със знаменател 10, 100, 1000… се записва като десетична: <Tex>{'\\frac{3}{4} = \\frac{75}{100} = 0{,}75'}</Tex>. Всяка обикновена дроб се превръща в десетична
-            чрез деление. Резултатът е <strong>краен</strong>, ако знаменателят на несъкратимата дроб има само прости делители 2 и 5 (<Tex>{'\\frac{1}{8} = 0{,}125'}</Tex>), и <strong>безкраен периодичен</strong> в противен случай (<Tex>{'\\frac{1}{3} = 0{,}333\\ldots = 0{,}(3)'}</Tex>; <Tex>{'\\frac{1}{6} = 0{,}1(6)'}</Tex>).
+            чрез деление. Резултатът е <strong>краен</strong>, ако знаменателят на несъкратимата дроб има само прости <Term id="divisor">делители</Term> 2 и 5 (<Tex>{'\\frac{1}{8} = 0{,}125'}</Tex>), и <strong>безкраен периодичен</strong> в противен случай (<Tex>{'\\frac{1}{3} = 0{,}333\\ldots = 0{,}(3)'}</Tex>; <Tex>{'\\frac{1}{6} = 0{,}1(6)'}</Tex>).
           </p>
           <Example
             description="Да запишем $0{,}(36) = 0{,}363636\ldots$ като обикновена дроб."

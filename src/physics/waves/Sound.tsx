@@ -11,6 +11,7 @@ import Trainer from '~/Trainer';
 import BeatsLab from './BeatsLab';
 import HarmonicsLab from './HarmonicsLab';
 import ToneLab from './ToneLab';
+import Term from '~/Term';
 
 const h2 = 'text-xl sm:text-2xl font-semibold mb-3 text-gray-800 dark:text-gray-100';
 const text = 'mb-4 text-sm sm:text-base text-gray-700 dark:text-gray-300 leading-relaxed';
@@ -316,7 +317,7 @@ export function Sound() {
             Височината на тона се определя от <strong>честотата</strong>: колкото по-голяма е, толкова по-висок е тонът. Младият човек чува
             приблизително от 20 Hz до 20 kHz; с възрастта горната граница пада и мнозина възрастни не чуват тонове над 12–15 kHz. Под 20 Hz е{' '}
             <strong>инфразвукът</strong> (слоновете общуват отчасти с него), а над 20 kHz – <strong>ултразвукът</strong>: прилепите и делфините
-            се ориентират с него, а медицинските ехографи използват честоти от няколко мегахерца.
+            се ориентират с него, а медицинските ехографи използват <Term id="frequency">честоти</Term> от няколко мегахерца.
           </p>
           <Theorem
             title="Октава и полутон"
@@ -374,7 +375,7 @@ export function Sound() {
           <p className={text}>
             Една и съща нота, изсвирена на флейта и на цигулка, звучи различно. Причината е, че истинските инструменти не трептят с една-единствена
             честота: заедно с основния тон <Tex>{'f_1'}</Tex> звучат и <strong>хармониците</strong> <Tex>{'2f_1, 3f_1, \\ldots'}</Tex> с различна
-            сила. Този „рецепт“ от хармоници наричаме <strong>тембър</strong>. Хармониците се получават от стоящите вълни в струната или в
+            сила. Този „рецепт“ от хармоници наричаме <strong>тембър</strong>. Хармониците се получават от <Term id="standing-wave">стоящите вълни</Term> в струната или в
             тръбата.
           </p>
           <Theorem
@@ -511,7 +512,7 @@ export function Sound() {
           <h2 className={h2}>12. Обобщение</h2>
           <div className="bg-gradient-to-r from-emerald-50 to-teal-50 dark:from-gray-800 dark:to-gray-700 p-6 rounded-lg">
             <ul className="space-y-2 text-sm sm:text-base">
-              <li>✓ Звукът е надлъжна механична вълна; във вакуум не се разпространява; <Tex>{'v = \\lambda f'}</Tex></li>
+              <li>✓ Звукът е <Term id="longitudinal-wave">надлъжна</Term> механична вълна; във вакуум не се разпространява; <Tex>{'v = \\lambda f'}</Tex></li>
               <li>✓ Във въздуха <Tex>{'v \\approx 343\\ \\mathrm{m/s}'}</Tex> при 20 °C; ехо: <Tex>{'d = \\frac{vt}{2}'}</Tex></li>
               <li>✓ Височината зависи от честотата: октава = ×2, полутон = <Tex>{'\\times\\sqrt[12]{2}'}</Tex>; чуваме ≈ 20 Hz – 20 kHz</li>
               <li>✓ <Tex>{'L = 10 \\lg \\frac{I}{I_0}'}</Tex>; +10 dB = 10 пъти по-голям интензитет; <Tex>{'I \\propto \\frac{1}{r^2}'}</Tex></li>
@@ -526,7 +527,7 @@ export function Sound() {
             <p className="font-semibold mb-2">💡 Интересен факт</p>
             <p className="text-sm sm:text-base text-gray-700 dark:text-gray-300">
               Прилепите „виждат“ със звук. Много видове издават ултразвукови писукания с честоти от около 20 до над 100 kHz и слушат ехото. При
-              50 kHz дължината на вълната във въздуха е само <Tex>{'\\frac{343}{50\\,000} \\approx 7\\ \\mathrm{mm}'}</Tex> – колкото малко
+              50 kHz <Term id="wavelength">дължината на вълната</Term> във въздуха е само <Tex>{'\\frac{343}{50\\,000} \\approx 7\\ \\mathrm{mm}'}</Tex> – колкото малко
               насекомо. По-дълга вълна просто би „заобиколила“ насекомото и почти не би се отразила, затова ехолокацията изисква високи честоти.
               По същата причина медицинският ултразвук работи с мегахерци: при 5 MHz вълната в тъканите е около 0,3 mm.
             </p>

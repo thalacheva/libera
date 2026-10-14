@@ -8,6 +8,7 @@ import { DiscriminantCases, InteractiveQuadraticGrapher, PointByPoint } from './
 import { SignLab } from './SignLab';
 import { ThrowLab } from './ThrowLab';
 import { MathText, Tex } from '~/MathText';
+import Term from '~/Term';
 
 const h2 = 'text-xl sm:text-2xl font-semibold mb-3 text-gray-800 dark:text-gray-100';
 const text = 'text-sm sm:text-base text-gray-700 dark:text-gray-300 leading-relaxed';
@@ -122,8 +123,8 @@ export function QuadraticFunctions() {
         <div className="bg-gradient-to-br from-orange-800 to-slate-900 text-white p-6 rounded-2xl mb-8 shadow-lg">
           <p className="text-lg sm:text-xl leading-relaxed">
             🎯 Векове наред артилеристите вярвали, че гюлето лети по права, после рязко пада надолу. Галилео Галилей търкаля топчета по наклонен
-            улей, мери с капки вода и през 1638 г. доказва: всяко хвърлено тяло описва <strong>парабола</strong>. Хоризонтално то се движи
-            равномерно, а вертикално гравитацията го забавя равномерно – и височината зависи от квадрата на времето. Същата крива имат
+            улей, мери с капки вода и през 1638 г. доказва: всяко хвърлено тяло описва <strong>парабола</strong>. Хоризонтално то се <Term id="uniform-motion">движи
+            равномерно</Term>, а вертикално гравитацията го забавя равномерно – и височината зависи от квадрата на времето. Същата крива имат
             струята на чешмата, кабелите на висящия мост под товар и чинията за сателитна телевизия.
           </p>
         </div>
@@ -173,8 +174,8 @@ export function QuadraticFunctions() {
         <section className="mb-8">
           <h2 className={h2}>3. Нули и дискриминанта</h2>
           <p className={`${text} mb-4`}>
-            Нулите на функцията са абсцисите на точките, в които параболата пресича оста Ox. Те са корените на уравнението <Tex>{'ax^2 + bx + c = 0'}</Tex>, а
-            броят им зависи от знака на дискриминантата <span className="font-mono"><Tex>{'D = b^2 - 4ac'}</Tex></span>:
+            <Term id="zero-of-function">Нулите на функцията</Term> са абсцисите на точките, в които параболата пресича оста Ox. Те са <Term id="root-of-equation">корените на уравнението</Term> <Tex>{'ax^2 + bx + c = 0'}</Tex>, а
+            броят им зависи от знака на <Term id="discriminant">дискриминантата</Term> <span className="font-mono"><Tex>{'D = b^2 - 4ac'}</Tex></span>:
           </p>
           <DiscriminantCases />
           <p className={`${text} mt-4`}>
@@ -351,7 +352,7 @@ export function QuadraticFunctions() {
               <li>✓ Връх: <Tex>{'x_0 = -\\frac{b}{2a},\\ y_0 = -\\frac{D}{4a}'}</Tex>; връхна форма <Tex>{'y = a(x - x_0)^2 + y_0'}</Tex></li>
               <li>✓ Нули: корените на <Tex>{'ax^2 + bx + c = 0'}</Tex>; броят им зависи от знака на <Tex>{'D'}</Tex></li>
               <li>✓ Най-голяма/най-малка стойност – във върха (в интервал – сравни и краищата)</li>
-              <li>✓ Знак: извън нулите – знакът на <Tex>{'a'}</Tex>, между тях – обратният ⇒ квадратни неравенства</li>
+              <li>✓ Знак: извън нулите – знакът на <Tex>{'a'}</Tex>, между тях – обратният ⇒ квадратни <Term id="inequality">неравенства</Term></li>
               <li>✓ Хвърлените тела летят по парабола; фокусът събира успоредните лъчи</li>
             </ul>
           </div>

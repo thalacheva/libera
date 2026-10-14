@@ -11,6 +11,7 @@ import Trainer from '~/Trainer';
 import PendulumLab from './PendulumLab';
 import ResonanceLab from './ResonanceLab';
 import SpringMassLab from './SpringMassLab';
+import Term from '~/Term';
 
 const h2 = 'text-xl sm:text-2xl font-semibold mb-3 text-gray-800 dark:text-gray-100';
 const text = 'mb-4 text-sm sm:text-base text-gray-700 dark:text-gray-300 leading-relaxed';
@@ -249,7 +250,7 @@ export function Oscillations() {
         <section className="mb-8">
           <h2 className={h2}>2. Хармонично трептене</h2>
           <p className={text}>
-            Ако силата, която връща тялото, е пропорционална на отклонението, <Tex>{'F = -kx'}</Tex>, от втория закон на Нютон получаваме{' '}
+            Ако силата, която връща тялото, е пропорционална на отклонението, <Tex>{'F = -kx'}</Tex>, от <Term id="newton-second-law">втория закон на Нютон</Term> получаваме{' '}
             <Tex>{"x'' = -\\omega^2 x"}</Tex> с <Tex>{'\\omega^2 = \\frac{k}{m}'}</Tex>. Решенията на това уравнение са изведени в урока{' '}
             <Link to="/analysis/differential-equations" className={link}>
               Диференциални уравнения
@@ -261,11 +262,11 @@ export function Oscillations() {
             description="$x(t) = A\cos(\omega t + \varphi)$, където $\varphi$ е началната фаза. Скоростта е $v = -A\omega\sin(\omega t + \varphi)$, а ускорението $a = -\omega^2 x$. Затова $v_{\max} = A\omega$ (в равновесието), а $a_{\max} = A\omega^2$ (в крайните положения). Периодът НЕ зависи от амплитудата."
           />
           <p className={text}>
-            Хармоничното трептене е <strong>проекция</strong> на равномерно движение по окръжност (виж{' '}
+            Хармоничното трептене е <strong>проекция</strong> на <Term id="uniform-motion">равномерно движение</Term> по окръжност (виж{' '}
             <Link to="/physics/mechanics/rotation" className={link}>
               Въртене
             </Link>
-            ): ако точка обикаля окръжност с радиус <Tex>{'A'}</Tex> и ъглова скорост <Tex>{'\\omega'}</Tex>, сянката ѝ върху диаметъра трепти
+            ): ако точка обикаля окръжност с радиус <Tex>{'A'}</Tex> и <Term id="angular-velocity">ъглова скорост</Term> <Tex>{'\\omega'}</Tex>, сянката ѝ върху диаметъра трепти
             точно по закона <Tex>{'x = A\\cos \\omega t'}</Tex>. Оттук идва и името „ъглова честота“.
           </p>
           <SpringMassLab />
@@ -283,7 +284,7 @@ export function Oscillations() {
               Работа, енергия, мощност
             </Link>
             ): в крайните положения тя е изцяло потенциална <Tex>{'\\frac{kA^2}{2}'}</Tex>, а в равновесието – изцяло кинетична{' '}
-            <Tex>{'\\frac{mv_{\\max}^2}{2}'}</Tex>. Без триене сборът е постоянен:{' '}
+            <Tex>{'\\frac{mv_{\\max}^2}{2}'}</Tex>. Без <Term id="friction">триене</Term> сборът е постоянен:{' '}
             <Tex>{'\\frac{kx^2}{2} + \\frac{mv^2}{2} = \\frac{kA^2}{2}'}</Tex>.
           </p>
           <Example
@@ -305,7 +306,7 @@ export function Oscillations() {
           />
           <p className={text}>
             Защо масата не влияе? По-тежкото топче се дърпа по-силно от тежестта, но и по-трудно се ускорява – двата ефекта се съкращават, както
-            при свободното падане. А защо формулата е само за малки ъгли? Връщащата сила е <Tex>{'mg\\sin\\theta'}</Tex>, а не{' '}
+            при <Term id="free-fall">свободното падане</Term>. А защо формулата е само за малки ъгли? Връщащата сила е <Tex>{'mg\\sin\\theta'}</Tex>, а не{' '}
             <Tex>{'mg\\theta'}</Tex>; двете почти съвпадат само при малко <Tex>{'\\theta'}</Tex>. При <Tex>{'60^\\circ'}</Tex> истинският период
             е с около 7% по-дълъг, а при <Tex>{'90^\\circ'}</Tex> – с 18%.
           </p>

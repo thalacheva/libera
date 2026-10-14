@@ -11,6 +11,7 @@ import { type Drill, fracTex, nonZero, paren, pick, polyTex, randInt } from '~/d
 import RiemannLab from './RiemannLab';
 import SignedAreaLab from './SignedAreaLab';
 import Trainer from '~/Trainer';
+import Term from '~/Term';
 
 const h2 = 'text-xl sm:text-2xl font-semibold mb-3 text-gray-800 dark:text-gray-100';
 const text = 'mb-4 text-sm sm:text-base text-gray-700 dark:text-gray-300 leading-relaxed';
@@ -209,10 +210,10 @@ export function Integrals() {
 
         <div className="bg-gradient-to-br from-emerald-700 to-slate-900 text-white p-6 rounded-2xl mb-8 shadow-lg">
           <p className="text-lg sm:text-xl leading-relaxed">
-            🏛️ Около 250 г. пр.н.е. Архимед иска да намери лицето на фигура, ограничена от парабола и права. Формула няма, затова той
+            🏛️ Около 250 г. пр.н.е. Архимед иска да намери лицето на фигура, ограничена от <Term id="parabola">парабола</Term> и права. Формула няма, затова той
             запълва фигурата с триъгълници – един голям, после два по-малки, после четири още по-малки… – и доказва, че лицето е точно{' '}
             <Tex>{'\\frac{4}{3}'}</Tex> от лицето на първия триъгълник. Почти две хиляди години по-късно Нютон и Лайбниц откриват, че такива
-            „безкрайни сборове“ се пресмятат лесно с обратното действие на производната. Лайбниц ги означава със знака <Tex>{'\\int'}</Tex> –
+            „безкрайни сборове“ се пресмятат лесно с обратното действие на <Term id="derivative">производната</Term>. Лайбниц ги означава със знака <Tex>{'\\int'}</Tex> –
             разтеглено S, от латинското <em>summa</em>, сбор.
           </p>
         </div>
@@ -462,7 +463,7 @@ export function Integrals() {
               <li>✓ <Tex>{'\\int x^n\\,dx = \\frac{x^{n+1}}{n+1} + C'}</Tex>, <Tex>{'\\int \\frac{1}{x}\\,dx = \\ln |x| + C'}</Tex>, <Tex>{'\\int e^x\\,dx = e^x + C'}</Tex></li>
               <li>✓ Нютон–Лайбниц: <Tex>{'\\int_a^b f(x)\\,dx = F(b) - F(a)'}</Tex></li>
               <li>✓ Под оста интегралът е отрицателен – за лице събираме абсолютните стойности на частите</li>
-              <li>✓ Лице между криви: <Tex>{'\\int_a^b (f - g)\\,dx'}</Tex>; обем на ротационно тяло: <Tex>{'\\pi \\int_a^b f^2\\,dx'}</Tex></li>
+              <li>✓ Лице между криви: <Tex>{'\\int_a^b (f - g)\\,dx'}</Tex>; обем на <Term id="solid-of-revolution">ротационно тяло</Term>: <Tex>{'\\pi \\int_a^b f^2\\,dx'}</Tex></li>
             </ul>
           </div>
         </section>

@@ -11,6 +11,7 @@ import Trainer from '~/Trainer';
 import CalorimetryLab from './CalorimetryLab';
 import HeatingCurveLab from './HeatingCurveLab';
 import InsulationLab from './InsulationLab';
+import Term from '~/Term';
 
 const h2 = 'text-xl sm:text-2xl font-semibold mb-3 text-gray-800 dark:text-gray-100';
 const text = 'mb-4 text-sm sm:text-base text-gray-700 dark:text-gray-300 leading-relaxed';
@@ -297,7 +298,7 @@ export function Temperature() {
             <Link to="/physics/mechanics/energy" className={link}>
               Работа, енергия, мощност
             </Link>
-            ). Тялото има вътрешна енергия, която може да се промени и с топлина, и с работа (виж{' '}
+            ). Тялото има <Term id="internal-energy">вътрешна енергия</Term>, която може да се промени и с топлина, и с работа (виж{' '}
             <Link to="/physics/heat/thermodynamics" className={link}>
               Термодинамика
             </Link>
@@ -377,7 +378,7 @@ export function Temperature() {
           <p className={text}>
             <strong>Топлопроводност</strong> – енергията минава от частица на частица в самото вещество (лъжица в горещ чай).{' '}
             <strong>Конвекция</strong> – топлият флуид се издига и носи енергията със себе си (радиатор, вятър, течения в морето).{' '}
-            <strong>Излъчване</strong> – всяко тяло излъчва електромагнитни вълни; така Слънцето ни топли през вакуума (законите на излъчването
+            <strong>Излъчване</strong> – всяко тяло излъчва <Term id="em-wave">електромагнитни вълни</Term>; така Слънцето ни топли през вакуума (законите на излъчването
             са в лекцията{' '}
             <Link to="/astronomy/lecture09" className={link}>
               Светлина и спектри
@@ -498,7 +499,7 @@ export function Temperature() {
           <h2 className={h2}>12. Обобщение</h2>
           <div className="bg-gradient-to-r from-emerald-50 to-teal-50 dark:from-gray-800 dark:to-gray-700 p-6 rounded-lg">
             <ul className="space-y-2 text-sm sm:text-base">
-              <li>✓ <Tex>{'T = t + 273{,}15'}</Tex>; <Tex>{'t_F = 1{,}8\\,t + 32'}</Tex>; абсолютната нула е <Tex>{'0\\ \\mathrm{K} = -273{,}15\\ ^{\\circ}\\mathrm{C}'}</Tex></li>
+              <li>✓ <Tex>{'T = t + 273{,}15'}</Tex>; <Tex>{'t_F = 1{,}8\\,t + 32'}</Tex>; <Term id="absolute-zero">абсолютната нула</Term> е <Tex>{'0\\ \\mathrm{K} = -273{,}15\\ ^{\\circ}\\mathrm{C}'}</Tex></li>
               <li>✓ Линейно разширение <Tex>{'\\Delta L = \\alpha L_0 \\Delta t'}</Tex>; водата е най-плътна при около 4 °C</li>
               <li>✓ Топлината е пренесена енергия: <Tex>{'Q = mc\\Delta t'}</Tex>, за водата <Tex>{'c \\approx 4200\\ \\mathrm{J/(kg \\cdot K)}'}</Tex></li>
               <li>✓ Топлинен баланс: <Tex>{'Q_{\\text{отд}} = Q_{\\text{пол}}'}</Tex></li>

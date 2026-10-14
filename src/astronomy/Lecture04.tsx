@@ -5,6 +5,7 @@ import LunarEclipse from './components/LunarEclipse';
 import MoonPhases from './components/MoonPhases';
 import Task, { TaskBoard, TaskLevel } from '~/Task';
 import { Tex } from '~/MathText';
+import Term from '~/Term';
 
 const QUIZ: Question[] = [
   {
@@ -183,7 +184,7 @@ export default function Lecture04() {
             2. Сидеричен и синодичен месец
           </h2>
           <p className="mb-4 text-base sm:text-lg leading-relaxed">
-            Също като при звездното и слънчевото денонощие (Лекция 3): докато
+            Също като при звездното и <Term id="solar-day">слънчевото денонощие</Term> (Лекция 3): докато
             Луната обикаля Земята, Земята се премества по орбитата си и Слънцето
             „избягва“ напред. За да настигне Слънцето, Луната трябва да измине
             още ~2 дни.
@@ -252,7 +253,7 @@ export default function Lecture04() {
               </li>
               <li>
                 <strong>Полусянково</strong> – Луната минава само през
-                полусянката; потъмняването е едва забележимо.
+                <Term id="umbra-penumbra">полусянката</Term>; потъмняването е едва забележимо.
               </li>
             </ul>
           </div>
@@ -270,7 +271,7 @@ export default function Lecture04() {
             <h3 className="font-semibold mb-2">Механизъм:</h3>
             <ul className="list-disc list-inside space-y-2">
               <li>
-                Атмосферата действа като леща и пречупва светлината навътре в
+                Атмосферата действа като <Term id="lens">леща</Term> и пречупва светлината навътре в
                 сянката
               </li>
               <li>
@@ -299,7 +300,7 @@ export default function Lecture04() {
           </h2>
           <p className="mb-4 text-base sm:text-lg leading-relaxed">
             Орбитата на Луната е наклонена на <strong><Tex>{'i \\approx 5{,}1^\\circ'}</Tex></strong> спрямо
-            еклиптиката. Сянката на Земята винаги лежи на еклиптиката, а при
+            <Term id="ecliptic">еклиптиката</Term>. Сянката на Земята винаги лежи на еклиптиката, а при
             повечето пълнолуния Луната минава над или под нея – на <Tex>{'\\beta'}</Tex> до <Tex>{'\\pm 5{,}1^\\circ'}</Tex>,
             докато радиусът на сянката е само ~0,7°.
           </p>
@@ -597,7 +598,7 @@ export default function Lecture04() {
                 лунни диаметъра
               </li>
               <li>
-                ✓ Луната става червена заради пречупването и разсейването на
+                ✓ Луната става червена заради <Term id="refraction">пречупването</Term> и разсейването на
                 светлината в земната атмосфера
               </li>
               <li>
@@ -620,7 +621,7 @@ export default function Lecture04() {
               заплашил местните жители, че ще „отнеме Луната“, ако не му дадат
               храна – и когато Луната почервеняла, те веднага се съгласили. А
               Луната всяка година се отдалечава от Земята с около 3,8 cm – това
-              е измерено с лазери, насочени към огледалата, оставени от мисиите
+              е измерено с <Term id="laser">лазери</Term>, насочени към огледалата, оставени от мисиите
               „Аполо“.
             </p>
           </div>

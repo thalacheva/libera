@@ -11,6 +11,7 @@ import { WordProblems, type WordProblem } from '~/WordProblems';
 import ComplexPlaneLab from './ComplexPlaneLab';
 import ComplexPowersLab from './ComplexPowersLab';
 import RootsOfUnityLab from './RootsOfUnityLab';
+import Term from '~/Term';
 
 const h2 = 'text-xl sm:text-2xl font-semibold mb-3 text-gray-800 dark:text-gray-100';
 const text = 'mb-4 text-sm sm:text-base text-gray-700 dark:text-gray-300 leading-relaxed';
@@ -233,7 +234,7 @@ export function ComplexNumbers() {
         <div className="bg-gradient-to-br from-fuchsia-700 to-slate-900 text-white p-6 rounded-2xl mb-8 shadow-lg">
           <p className="text-lg sm:text-xl leading-relaxed">
             🧩 През 1545 г. Джероламо Кардано публикува формула за корените на кубичните уравнения. Но се случва нещо странно: при
-            уравнението <Tex>{'x^3 = 15x + 4'}</Tex>, което очевидно има корен <Tex>{'x = 4'}</Tex>, формулата изисква квадратен корен от{' '}
+            уравнението <Tex>{'x^3 = 15x + 4'}</Tex>, което очевидно има корен <Tex>{'x = 4'}</Tex>, формулата изисква <Term id="square-root">квадратен корен</Term> от{' '}
             <Tex>{'-121'}</Tex>. Около 1572 г. Рафаел Бомбели се осмелява да смята с такива „невъзможни“ корени като с обикновени числа – и
             накрая те се съкращават и дават точно 4. Декарт по-късно ги нарича подигравателно „въображаеми“ (имагинерни). Днес без тях няма
             квантова механика, електротехника и обработка на звук.
@@ -328,7 +329,7 @@ export function ComplexNumbers() {
         <section className="mb-8">
           <h2 className={h2}>5. Уравнения и корени от единицата</h2>
           <p className={text}>
-            Квадратните уравнения с отрицателна дискриминанта вече имат корени (виж{' '}
+            <Term id="quadratic-equation">Квадратните уравнения</Term> с отрицателна <Term id="discriminant">дискриминанта</Term> вече имат корени (виж{' '}
             <Link to="/algebra/quadratic" className={link}>
               Квадратни уравнения
             </Link>
@@ -358,7 +359,7 @@ export function ComplexNumbers() {
         <section className="mb-8">
           <h2 className={h2}>7. Комплексните числа около нас</h2>
           <p className={text}>
-            Където има въртене или трептене, има комплексни числа: в променливия ток, в звука и музиката (разлагането на сигнал на честоти),
+            Където има въртене или трептене, има комплексни числа: в <Term id="alternating-current">променливия ток</Term>, в звука и музиката (разлагането на сигнал на <Term id="frequency">честоти</Term>),
             в радиото и Wi-Fi, в компютърната графика. Уравнението на Шрьодингер в квантовата механика е записано директно с <Tex>{'i'}</Tex>.
           </p>
           <WordProblems problems={wordProblems} />

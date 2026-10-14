@@ -11,6 +11,7 @@ import Trainer from '~/Trainer';
 import BatteryLab from './BatteryLab';
 import BulbCircuitLab from './BulbCircuitLab';
 import OhmLab from './OhmLab';
+import Term from '~/Term';
 
 const h2 = 'text-xl sm:text-2xl font-semibold mb-3 text-gray-800 dark:text-gray-100';
 const text = 'mb-4 text-sm sm:text-base text-gray-700 dark:text-gray-300 leading-relaxed';
@@ -238,14 +239,14 @@ export function DirectCurrent() {
             цинк и мед (или сребро), разделени с картон, напоен със солена вода. Ако докоснеш двата ѝ края, усещаш лек удар – и той не изчезва
             като искрата от лейденска стъкленица, а продължава. Това е първата <strong>батерия</strong> – първият източник на непрекъснат
             електричен ток. Само за няколко години с нея разлагат водата на водород и кислород и откриват нови химични елементи. А единицата
-            за напрежение носи неговото име – волт.
+            за <Term id="voltage">напрежение</Term> носи неговото име – волт.
           </p>
         </div>
 
         <section className="mb-8">
           <h2 className={h2}>1. Електричен ток</h2>
           <p className={text}>
-            В металите има <strong>свободни електрони</strong>, които се движат хаотично. Когато в проводника има електрично поле (виж{' '}
+            В металите има <strong>свободни електрони</strong>, които се движат хаотично. Когато в <Term id="conductor">проводника</Term> има <Term id="electric-field">електрично поле</Term> (виж{' '}
             <Link to="/physics/electricity/electrostatics" className={link}>
               Електростатика
             </Link>
@@ -270,7 +271,7 @@ export function DirectCurrent() {
         <section className="mb-8">
           <h2 className={h2}>2. Напрежение, съпротивление и закон на Ом</h2>
           <p className={text}>
-            <strong>Напрежението</strong> <Tex>{'U'}</Tex> между две точки показва каква работа извършва полето, за да премести единица заряд:{' '}
+            <strong>Напрежението</strong> <Tex>{'U'}</Tex> между две точки показва каква работа извършва полето, за да премести единица <Term id="electric-charge">заряд</Term>:{' '}
             <Tex>{'U = \\frac{A}{q}'}</Tex>, <Tex>{'1\\ \\mathrm{V} = 1\\ \\mathrm{J/C}'}</Tex>. Батерия от 9 V дава на всеки кулон заряд 9 J
             енергия.
           </p>
@@ -368,7 +369,7 @@ export function DirectCurrent() {
               Температура и топлина
             </Link>
             ), но вредно в кабелите. Твърде голям ток прегрява проводниците – затова във всяко жилище има предпазители, които прекъсват
-            веригата при претоварване или късо съединение. Мощността е същото понятие като в механиката (виж{' '}
+            веригата при претоварване или късо съединение. <Term id="power">Мощността</Term> е същото понятие като в механиката (виж{' '}
             <Link to="/physics/mechanics/energy" className={link}>
               Работа, енергия, мощност
             </Link>
@@ -397,7 +398,7 @@ export function DirectCurrent() {
           />
           <p className={text}>
             Мощността в товара <Tex>{'P = \\frac{\\mathcal{E}^2 R}{(R + r)^2}'}</Tex> е най-голяма при <Tex>{'R = r'}</Tex> и тогава е{' '}
-            <Tex>{'\\frac{\\mathcal{E}^2}{4r}'}</Tex>. Но точно тогава половината енергия се губи в източника – КПД е 50%. Затова в
+            <Tex>{'\\frac{\\mathcal{E}^2}{4r}'}</Tex>. Но точно тогава половината енергия се губи в източника – <Term id="efficiency">КПД</Term> е 50%. Затова в
             електроцентралите се стремят към <Tex>{'R \\gg r'}</Tex>.
           </p>
           <BatteryLab />
@@ -528,7 +529,7 @@ export function DirectCurrent() {
             <p className="text-sm sm:text-base text-gray-700 dark:text-gray-300">
               През 1911 г. в Лайден Хайке Камерлинг Онес охлажда живак с течен хелий и открива, че около 4,2 K съпротивлението му изведнъж
               изчезва – явлението <strong>свръхпроводимост</strong>. В свръхпроводящ пръстен токът може да тече години наред без батерия. Днес
-              свръхпроводящи бобини създават силните магнитни полета в болничните ЯМР апарати и в ускорителите на частици.
+              свръхпроводящи <Term id="solenoid">бобини</Term> създават силните <Term id="magnetic-field">магнитни полета</Term> в болничните ЯМР апарати и в ускорителите на частици.
             </p>
           </div>
         </section>

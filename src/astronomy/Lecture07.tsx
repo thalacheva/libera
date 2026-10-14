@@ -5,6 +5,7 @@ import KeplerOrbitLab from './components/KeplerOrbitLab';
 import KeplerThirdLaw from './components/KeplerThirdLaw';
 import Task, { TaskBoard, TaskLevel } from '~/Task';
 import { Tex } from '~/MathText';
+import Term from '~/Term';
 
 const QUIZ: Question[] = [
   {
@@ -101,7 +102,7 @@ export default function Lecture07() {
           <p className="mb-4 text-base sm:text-lg leading-relaxed">
             Законите на Кеплер са <strong>емпирични</strong> – те описват{' '}
             <em>как</em> се движат планетите. Едва 70 години по-късно Нютон
-            показа, че те следват от закона за всемирното привличане (Лекция 6)
+            показа, че те следват от <Term id="gravitation-law">закона за всемирното привличане</Term> (Лекция 6)
             – и обясни <em>защо</em>.
           </p>
         </section>
@@ -123,8 +124,8 @@ export default function Lecture07() {
             <div className="bg-blue-50 dark:bg-blue-500/10 p-4 rounded-lg">
               <h3 className="font-semibold mb-2">Важни формули</h3>
               <ul className="space-y-1 font-mono text-sm">
-                <li>перихелий: <Tex>{'r_p = a(1 - e)'}</Tex></li>
-                <li>афелий: <Tex>{'r_a = a(1 + e)'}</Tex></li>
+                <li><Term id="perihelion">перихелий</Term>: <Tex>{'r_p = a(1 - e)'}</Tex></li>
+                <li><Term id="aphelion">афелий</Term>: <Tex>{'r_a = a(1 + e)'}</Tex></li>
                 <li><Tex>{'a = \\frac{r_p + r_a}{2}'}</Tex></li>
                 <li><Tex>{'e = \\frac{r_a - r_p}{r_a + r_p}'}</Tex></li>
                 <li><Tex>{'b = a\\cdot \\sqrt{1 - e^2}'}</Tex></li>
@@ -223,7 +224,7 @@ export default function Lecture07() {
             <ul className="list-disc list-inside space-y-2">
               <li>
                 Законите важат за всяко тяло, обикалящо друго: планети, комети,
-                спътници, двойни звезди, звезди около черната дупка в центъра на
+                спътници, <Term id="binary-star">двойни звезди</Term>, звезди около <Term id="black-hole">черната дупка</Term> в центъра на
                 Галактиката.
               </li>
               <li>
@@ -242,7 +243,7 @@ export default function Lecture07() {
               </li>
               <li>
                 По периода и „клатенето“ на звездите се откриват и измерват
-                екзопланети (Лекция 30).
+                <Term id="exoplanet">екзопланети</Term> (Лекция 30).
               </li>
             </ul>
           </div>
@@ -439,7 +440,7 @@ export default function Lecture07() {
                 ✓ <strong>III закон:</strong> <Tex>{'T^2 = a^3'}</Tex> (в години и AU)
               </li>
               <li>✓ Във вида на Нютон: <Tex>{'T^2 = \\frac{4\\pi^2a^3}{G(M + m)}'}</Tex></li>
-              <li>✓ II законът следва от запазването на момента на импулса</li>
+              <li>✓ II законът следва от запазването на <Term id="angular-momentum">момента на импулса</Term></li>
               <li>
                 ✓ По орбитата на спътник се намира масата на централното тяло
               </li>

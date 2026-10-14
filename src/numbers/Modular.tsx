@@ -11,6 +11,7 @@ import { WordProblems, type WordProblem } from '~/WordProblems';
 import BarcodeLab from './BarcodeLab';
 import ClockLab from './ClockLab';
 import PowerTableLab from './PowerTableLab';
+import Term from '~/Term';
 
 const h2 = 'text-xl sm:text-2xl font-semibold mb-3 text-gray-800 dark:text-gray-100';
 const text = 'mb-4 text-sm sm:text-base text-gray-700 dark:text-gray-300 leading-relaxed';
@@ -259,7 +260,7 @@ export function Modular() {
             ]}
           />
           <p className={text}>
-            Така се обясняват и признаците за делимост от урока{' '}
+            Така се обясняват и признаците за <Term id="divisibility">делимост</Term> от урока{' '}
             <Link to="/numbers/divisibility" className={link}>
               Делимост и прости числа
             </Link>
@@ -309,7 +310,7 @@ export function Modular() {
             description="Ако модулите $m_1, m_2, \ldots, m_k$ са два по два взаимно прости, системата $x \equiv r_i \pmod{m_i}$ има единствено решение по модул $m_1 m_2 \cdots m_k$."
           />
           <p className={text}>
-            Обратното число по модул се намира и с разширения алгоритъм на Евклид (виж{' '}
+            Обратното число по модул се намира и с разширения <Term id="euclidean-algorithm">алгоритъм на Евклид</Term> (виж{' '}
             <Link to="/numbers/gcd" className={link}>
               НОД и НОК
             </Link>
@@ -421,7 +422,7 @@ export function Modular() {
           <div className="bg-gradient-to-r from-teal-50 to-emerald-50 dark:from-gray-800 dark:to-gray-700 p-6 rounded-lg">
             <ul className="space-y-2 text-sm sm:text-base">
               <li>✓ <Tex>{'a \\equiv b \\pmod{m} \\iff m \\mid a - b'}</Tex> – еднакви остатъци</li>
-              <li>✓ Сравненията се събират, изваждат, умножават и степенуват; делим само на числа, взаимно прости с модула</li>
+              <li>✓ Сравненията се събират, изваждат, умножават и степенуват; делим само на числа, <Term id="coprime">взаимно прости</Term> с модула</li>
               <li>✓ Степените по модул се повтарят периодично – така намираме последни цифри и остатъци на огромни степени</li>
               <li>✓ Ферма: <Tex>{'a^{p-1} \\equiv 1 \\pmod p'}</Tex> за просто <Tex>{'p \\nmid a'}</Tex></li>
               <li>✓ <Tex>{'ax \\equiv b \\pmod m'}</Tex> при <Tex>{'\\text{НОД}(a,\\ m) = 1'}</Tex>: умножаваме по обратното число</li>
@@ -435,7 +436,7 @@ export function Modular() {
             <p className="font-semibold mb-2">💡 Интересен факт</p>
             <p className="text-sm sm:text-base text-gray-700 dark:text-gray-300">
               Шифърът RSA (1977 г., Ривест, Шамир и Ейдълман) се основава на обобщението на теоремата на Ферма от Ойлер: съобщението се
-              повдига на огромна степен по модул произведение на две големи прости числа. Да шифроваш е лесно, а да дешифрираш без ключа
+              повдига на огромна степен по модул произведение на две големи <Term id="prime-number">прости числа</Term>. Да шифроваш е лесно, а да дешифрираш без ключа
               изисква разлагане на модула – задача, за която не е известен бърз начин. По-късно се разбира, че британският криптограф
               Клифърд Кокс открива същата идея още през 1973 г., но работата му остава секретна до 1997 г.
             </p>

@@ -11,6 +11,7 @@ import Trainer from '~/Trainer';
 import AtwoodLab from './AtwoodLab';
 import ElevatorLab from './ElevatorLab';
 import InclineLab from './InclineLab';
+import Term from '~/Term';
 
 const h2 = 'text-xl sm:text-2xl font-semibold mb-3 text-gray-800 dark:text-gray-100';
 const text = 'mb-4 text-sm sm:text-base text-gray-700 dark:text-gray-300 leading-relaxed';
@@ -238,7 +239,7 @@ export function Newton() {
             спиращ автобус пътниците „падат“ напред – никой не ги бута, просто тялото им продължава да се движи, докато автобусът спира под тях.
           </p>
           <p className={text}>
-            Законът не важи във всяка отправна система. В спиращия автобус пътникът се ускорява напред без видима причина. Системите, в които
+            Законът не важи във всяка <Term id="reference-frame">отправна система</Term>. В спиращия автобус пътникът се ускорява напред без видима причина. Системите, в които
             законът важи, се наричат <strong>инерциални</strong>. За повечето задачи Земята е достатъчно добра инерциална система – както и всяко
             тяло, което се движи спрямо нея равномерно праволинейно.
           </p>
@@ -267,7 +268,7 @@ export function Newton() {
             <Link to="/physics/mechanics/linear-motion" className={link}>
               Праволинейно движение
             </Link>
-            : намираме ускорението от силите, а после от него – скоростта и положението.
+            : намираме <Term id="acceleration">ускорението</Term> от силите, а после от него – скоростта и положението.
           </p>
         </section>
 
@@ -496,7 +497,7 @@ export function Newton() {
               <li>✓ III закон: силите на взаимодействие са равни и противоположни и действат на различни тела</li>
               <li>✓ Тежест <Tex>{'mg'}</Tex>, закон на Хук <Tex>{'F = kx'}</Tex>, триене при плъзгане <Tex>{'\\mu N'}</Tex>, при покой – до <Tex>{'\\mu_s N'}</Tex></li>
               <li>✓ Наклон: <Tex>{'N = mg\\cos\\alpha'}</Tex>; плъзга се при <Tex>{'\\tg\\alpha > \\mu'}</Tex>; машина на Атууд <Tex>{'a = \\frac{(m_1 - m_2)g}{m_1 + m_2}'}</Tex></li>
-              <li>✓ Тегло при ускорение <Tex>{'N = m(g + a)'}</Tex>; при свободно падане – безтегловност</li>
+              <li>✓ Тегло при ускорение <Tex>{'N = m(g + a)'}</Tex>; при <Term id="free-fall">свободно падане</Term> – безтегловност</li>
             </ul>
           </div>
         </section>

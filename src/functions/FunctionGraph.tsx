@@ -8,6 +8,7 @@ import { StretchLab } from './StretchLab';
 import { BasicFunctions, TransformExplorer } from './Transformations';
 import { VerticalLineLab } from './VerticalLineLab';
 import { MathText, Tex } from '~/MathText';
+import Term from '~/Term';
 
 const h2 = 'text-xl sm:text-2xl font-semibold mb-3 text-gray-800 dark:text-gray-100';
 const text = 'text-sm sm:text-base text-gray-700 dark:text-gray-300 leading-relaxed';
@@ -265,7 +266,7 @@ export function FunctionGraph() {
           <div className="bg-gradient-to-r from-emerald-50 to-teal-50 dark:from-gray-800 dark:to-gray-700 p-6 rounded-lg">
             <ul className="space-y-2 text-sm sm:text-base">
               <li>✓ Графиката е множеството от точки (x; f(x)); вертикалата я пресича най-много в една точка</li>
-              <li>✓ Дефиниционна област: под корен <Tex>{'\\ge 0'}</Tex>, знаменател <Tex>{'\\ne 0'}</Tex></li>
+              <li>✓ <Term id="domain">Дефиниционна област</Term>: под корен <Tex>{'\\ge 0'}</Tex>, <Term id="denominator">знаменател</Term> <Tex>{'\\ne 0'}</Tex></li>
               <li>✓ От графиката четем нули, знак, растене/намаляване, най-голяма и най-малка стойност</li>
               <li>✓ <Tex>{'f(x - h) + k'}</Tex> – преместване; <Tex>{'-f(x),\\ f(-x)'}</Tex> – отразяване; <Tex>{'a\\cdot f(x),\\ f(bx)'}</Tex> – разтягане и свиване</li>
               <li>✓ Четна: <Tex>{'f(-x) = f(x)'}</Tex>, симетрия спрямо Oy; нечетна: <Tex>{'f(-x) = -f(x)'}</Tex>, симетрия спрямо началото</li>

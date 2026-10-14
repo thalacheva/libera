@@ -121,6 +121,15 @@ export const physicsTopics = [
       { name: 'Вълнова оптика', path: '/wave-optics' },
     ],
   },
+  {
+    name: 'Съвременна физика',
+    path: '/physics/modern',
+    subtopics: [
+      { name: 'Фотони и фотоефект', path: '/photons' },
+      { name: 'Атомът', path: '/atom' },
+      { name: 'Ядро и радиоактивност', path: '/nucleus' },
+    ],
+  },
 ];
 
 export const astronomyTopics = [

@@ -10,6 +10,7 @@ import { PickLab } from './PickLab';
 import { PolygonAngleLab } from './PolygonAngleLab';
 import { TilingLab } from './TilingLab';
 import { MathText, Tex } from '~/MathText';
+import Term from '~/Term';
 
 const h2 = 'text-xl sm:text-2xl font-semibold mb-3 text-gray-800 dark:text-gray-100';
 const text = 'mb-4 text-sm sm:text-base text-gray-700 dark:text-gray-300 leading-relaxed';
@@ -266,7 +267,7 @@ export function Polygons() {
           />
           <PolygonAngleLab />
           <p className={text}>
-            Ако обиколиш многоъгълник, при всеки връх завиваш с външния ъгъл, а накрая си се завъртял точно веднъж – на 360°. Това е най-краткото
+            Ако обиколиш многоъгълник, при всеки връх завиваш с <Term id="exterior-angle">външния ъгъл</Term>, а накрая си се завъртял точно веднъж – на 360°. Това е най-краткото
             доказателство на втората формула.
           </p>
         </section>
@@ -282,7 +283,7 @@ export function Polygons() {
             steps={['Разрязваме на 6 равностранни триъгълника със страна 4', 'Лице на един: $\\sqrt{3} \\cdot \\frac{16}{4} = 4\\sqrt{3}$', '$S = 6 \\cdot 4\\sqrt{3} = 24\\sqrt{3} \\approx 41{,}57\\ \\mathrm{cm}^2$', 'Апотемата е височината на триъгълника: $r = 4 \\cdot \\frac{\\sqrt{3}}{2} = 2\\sqrt{3} \\approx 3{,}46\\ \\mathrm{cm}$']}
           />
           <p className={text}>
-            За лицата на триъгълника, успоредника и трапеца виж уроците{' '}
+            За лицата на триъгълника, успоредника и <Term id="trapezoid">трапеца</Term> виж уроците{' '}
             <Link to="/geometry/triangle" className={link}>
               Триъгълник
             </Link>{' '}

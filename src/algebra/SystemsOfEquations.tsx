@@ -11,6 +11,7 @@ import LineCurveLab from './LineCurveLab';
 import SystemGraphLab from './SystemGraphLab';
 import { dets, fmtEq, type Eq } from './systemMath';
 import { MathText, Tex } from '~/MathText';
+import Term from '~/Term';
 
 // ---------- Тренажор ----------
 
@@ -478,7 +479,7 @@ export function SystemsOfEquations() {
           <h2 className={h2}>6. Нелинейни системи</h2>
           <p className={text}>
             Ако едното уравнение е линейно, а другото – квадратно (например <Tex>{'x^2 + y^2 = 25'}</Tex> или <Tex>{'xy = 6'}</Tex>), пак работи заместването: изразяваме
-            неизвестно от линейното уравнение и получаваме квадратно уравнение. Затова решенията може да са две, едно или нито едно.
+            неизвестно от <Term id="linear-equation">линейното уравнение</Term> и получаваме <Term id="quadratic-equation">квадратно уравнение</Term>. Затова решенията може да са две, едно или нито едно.
           </p>
           <Example
             description="Да решим системата $x^2 + y^2 = 25,\ x - y = 1$"

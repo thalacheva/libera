@@ -6,6 +6,7 @@ import SeasonsExplorer from './components/SeasonsExplorer';
 import SiderealSolarDay from './components/SiderealSolarDay';
 import Task, { TaskBoard, TaskLevel } from '~/Task';
 import { MathText, Tex } from '~/MathText';
+import Term from '~/Term';
 
 const QUIZ: Question[] = [
   {
@@ -178,7 +179,7 @@ export default function Lecture03() {
             <div className="bg-sky-50 dark:bg-sky-900/20 p-4 rounded-lg">
               <h3 className="font-semibold mb-1">🕰️ Махалото на Фуко</h3>
               <p className="text-sm">
-                През 1851 г. Леон Фуко окачва 67-метрово махало в Пантеона в
+                През 1851 г. Леон Фуко окачва 67-метрово <Term id="simple-pendulum">махало</Term> в Пантеона в
                 Париж. Равнината на люлеене бавно се завърта – всъщност се върти
                 подът под нея. На полюса оборотът е за <Tex>{'23^{\\mathrm{h}}\\,56^{\\mathrm{m}}'}</Tex>, а на екватора
                 въртене няма.
@@ -226,7 +227,7 @@ export default function Lecture03() {
             4. Обикаляне около Слънцето
           </h2>
           <p className="mb-4 text-base sm:text-lg leading-relaxed">
-            Земята обикаля около Слънцето по почти кръгова елипса, в същата
+            Земята обикаля около Слънцето по почти кръгова <Term id="ellipse">елипса</Term>, в същата
             посока, в която се върти около оста си – обратно на часовниковата
             стрелка, гледано от север.
           </p>
@@ -243,7 +244,7 @@ export default function Lecture03() {
               </li>
               <li>
                 <strong>Средно разстояние:</strong> 149,6 млн. km = 1
-                астрономическа единица (AU)
+                <Term id="astronomical-unit">астрономическа единица</Term> (AU)
               </li>
               <li>
                 <strong>Перихелий:</strong> 147,1 млн. km (<Tex>{'\\approx 3'}</Tex> януари), скорост
@@ -274,8 +275,8 @@ export default function Lecture03() {
                 точки на орбитата.
               </li>
               <li>
-                <strong>Доплеров ефект:</strong> спектралните линии на звездите
-                близо до еклиптиката се изместват периодично с година период.
+                <strong>Доплеров ефект:</strong> <Term id="spectral-line">спектралните линии</Term> на звездите
+                близо до <Term id="ecliptic">еклиптиката</Term> се изместват периодично с година период.
               </li>
             </ul>
           </div>
@@ -354,7 +355,7 @@ export default function Lecture03() {
             <div className="bg-orange-50 dark:bg-orange-900/20 p-4 rounded-lg">
               <h3 className="font-semibold mb-1">🌴 Тропици (<Tex>{'\\varphi = \\pm 23{,}4^\\circ'}</Tex>)</h3>
               <p className="text-sm">
-                Най-далечните ширини, на които Слънцето може да е в зенита по
+                Най-далечните ширини, на които Слънцето може да е в <Term id="zenith">зенита</Term> по
                 пладне. На Тропика на Рака това става на 21 юни.
               </p>
             </div>
@@ -394,12 +395,12 @@ export default function Lecture03() {
             <h3 className="font-semibold mb-2">Следствия от прецесията:</h3>
             <ul className="list-disc list-inside space-y-2">
               <li>
-                Полюсът на света описва кръг с радиус 23,4° сред звездите. Около
+                <Term id="celestial-pole">Полюсът на света</Term> описва кръг с радиус 23,4° сред звездите. Около
                 2800 г. пр.н.е. полярна е била Тубан (α Дракон), а след около 12
                 000 години полюсът ще е близо до Вега.
               </li>
               <li>
-                Пролетната точка ♈ се измества по еклиптиката на запад с около
+                <Term id="vernal-equinox">Пролетната точка</Term> ♈ се измества по еклиптиката на запад с около
                 50″ годишно – затова каталозите посочват епоха (J2000.0).
               </li>
               <li>
@@ -705,7 +706,7 @@ export default function Lecture03() {
               <span>Интересен факт</span>
             </h3>
             <p>
-              Земята бавно забавя въртенето си заради приливното триене с Луната
+              Земята бавно забавя въртенето си заради приливното <Term id="friction">триене</Term> с Луната
               – денонощието се удължава с около 2 милисекунди на век. Преди 400
               милиона години денонощието е траело около 22 часа, а годината е
               имала ~400 дни. Знаем го от годишните и дневните пръстени на

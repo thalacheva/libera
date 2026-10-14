@@ -11,6 +11,7 @@ import Trainer from '~/Trainer';
 import RollerCoasterLab from './RollerCoasterLab';
 import SpringLauncherLab from './SpringLauncherLab';
 import StairsPowerLab from './StairsPowerLab';
+import Term from '~/Term';
 
 const h2 = 'text-xl sm:text-2xl font-semibold mb-3 text-gray-800 dark:text-gray-100';
 const text = 'mb-4 text-sm sm:text-base text-gray-700 dark:text-gray-300 leading-relaxed';
@@ -255,7 +256,7 @@ export function Energy() {
             description="Тяло с маса $m$ и скорост $v$ има кинетична енергия $E_k = \frac{mv^2}{2}$. Работата на всички сили, действащи на тялото, е равна на промяната на кинетичната му енергия: $W = E_{k2} - E_{k1}$."
           />
           <p className={text}>
-            Теоремата следва от втория закон на Нютон (виж{' '}
+            Теоремата следва от <Term id="newton-second-law">втория закон на Нютон</Term> (виж{' '}
             <Link to="/physics/mechanics/newton" className={link}>
               Закони на Нютон
             </Link>
@@ -263,7 +264,7 @@ export function Energy() {
             <Link to="/physics/mechanics/linear-motion" className={link}>
               праволинейното движение
             </Link>{' '}
-            знаем, че <Tex>{'as = \\frac{v_2^2 - v_1^2}{2}'}</Tex>. Затова спирачният път расте с квадрата на скоростта – колата трябва да
+            знаем, че <Tex>{'as = \\frac{v_2^2 - v_1^2}{2}'}</Tex>. Затова <Term id="braking-distance">спирачният път</Term> расте с квадрата на скоростта – колата трябва да
             „изхаби“ четири пъти повече енергия.
           </p>
           <Example
@@ -323,7 +324,7 @@ export function Energy() {
             description="Мощността показва колко бързо се извършва работа: $P = \frac{W}{t}$, единица ват ($1\ \mathrm{W} = 1\ \mathrm{J/s}$). При движение с постоянна скорост $v$ под действие на сила $F$: $P = Fv$. Метричната конска сила е $1\ \text{к.с.} \approx 735{,}5\ \mathrm{W}$."
           />
           <p className={text}>
-            Сметката за ток се плаща в <strong>киловатчасове</strong>: <Tex>{'1\\ \\mathrm{kWh} = 1000\\ \\mathrm{W} \\cdot 3600\\ \\mathrm{s} = 3{,}6\\ \\mathrm{MJ}'}</Tex>.
+            Сметката за <Term id="electric-current">ток</Term> се плаща в <strong>киловатчасове</strong>: <Tex>{'1\\ \\mathrm{kWh} = 1000\\ \\mathrm{W} \\cdot 3600\\ \\mathrm{s} = 3{,}6\\ \\mathrm{MJ}'}</Tex>.
             Конската сила е въведена от Джеймс Уат в края на XVIII век, за да сравнява парните си машини с конете, които те заменят;
             неговата стойност (около 746 W) е малко по-голяма от метричната.
           </p>
@@ -445,7 +446,7 @@ export function Energy() {
               <li>✓ Работа: <Tex>{'W = Fs\\cos\\alpha'}</Tex>; при променлива сила – лицето под <Tex>{'F(s)'}</Tex></li>
               <li>✓ <Tex>{'E_k = \\frac{mv^2}{2}'}</Tex>; работата на всички сили е промяната на кинетичната енергия</li>
               <li>✓ <Tex>{'E_p = mgh'}</Tex> (тежест) и <Tex>{'E_p = \\frac{kx^2}{2}'}</Tex> (пружина)</li>
-              <li>✓ Без триене <Tex>{'E_k + E_p = \\text{const}'}</Tex>; с триене част от енергията става топлина <Tex>{'Q = F_{\\text{тр}}s'}</Tex></li>
+              <li>✓ Без <Term id="friction">триене</Term> <Tex>{'E_k + E_p = \\text{const}'}</Tex>; с триене част от енергията става топлина <Tex>{'Q = F_{\\text{тр}}s'}</Tex></li>
               <li>✓ Мощност <Tex>{'P = \\frac{W}{t} = Fv'}</Tex>; <Tex>{'1\\ \\mathrm{kWh} = 3{,}6\\ \\mathrm{MJ}'}</Tex>; <Tex>{'1\\ \\text{к.с.} \\approx 735{,}5\\ \\mathrm{W}'}</Tex></li>
               <li>✓ КПД <Tex>{'\\eta = \\frac{P_{\\text{пол}}}{P_{\\text{изр}}} < 1'}</Tex></li>
             </ul>

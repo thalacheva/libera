@@ -11,6 +11,7 @@ import Trainer from '~/Trainer';
 import MonkeyHunterLab from './MonkeyHunterLab';
 import ProjectileLab from './ProjectileLab';
 import RiverCrossingLab from './RiverCrossingLab';
+import Term from '~/Term';
 
 const h2 = 'text-xl sm:text-2xl font-semibold mb-3 text-gray-800 dark:text-gray-100';
 const text = 'mb-4 text-sm sm:text-base text-gray-700 dark:text-gray-300 leading-relaxed';
@@ -233,7 +234,7 @@ export function PlaneMotion() {
             <Link to="/geometry/vectors" className={link}>
               Вектори
             </Link>
-            ). Всеки вектор можем да разложим на две перпендикулярни компоненти и да работим с тях поотделно.
+            ). Всеки вектор можем да разложим на две перпендикулярни <Term id="vector-components">компоненти</Term> и да работим с тях поотделно.
           </p>
           <Theorem
             title="Компоненти на скоростта"
@@ -248,7 +249,7 @@ export function PlaneMotion() {
             ]}
           />
           <p className={text}>
-            Стойностите на синуса и косинуса на 30°, 45° и 60° са в урока{' '}
+            Стойностите на <Term id="sine">синуса</Term> и <Term id="cosine">косинуса</Term> на 30°, 45° и 60° са в урока{' '}
             <Link to="/geometry/trigonometry" className={link}>
               Тригонометрия
             </Link>
@@ -454,10 +455,10 @@ export function PlaneMotion() {
           <div className="bg-gradient-to-r from-emerald-50 to-teal-50 dark:from-gray-800 dark:to-gray-700 p-6 rounded-lg">
             <ul className="space-y-2 text-sm sm:text-base">
               <li>✓ Скоростта е вектор: <Tex>{'v_x = v\\cos\\alpha'}</Tex>, <Tex>{'v_y = v\\sin\\alpha'}</Tex></li>
-              <li>✓ Хоризонталното и вертикалното движение са независими: по хоризонтала – равномерно, по вертикала – свободно падане</li>
+              <li>✓ Хоризонталното и вертикалното движение са независими: по хоризонтала – равномерно, по вертикала – <Term id="free-fall">свободно падане</Term></li>
               <li>✓ Хоризонтално хвърляне: <Tex>{'t = \\sqrt{2h/g}'}</Tex>, <Tex>{'L = v_0 t'}</Tex></li>
               <li>✓ Под ъгъл: <Tex>{'T = \\frac{2v_0\\sin\\alpha}{g}'}</Tex>, <Tex>{'H = \\frac{v_0^2\\sin^2\\alpha}{2g}'}</Tex>, <Tex>{'R = \\frac{v_0^2\\sin 2\\alpha}{g}'}</Tex>; най-далеч при 45°</li>
-              <li>✓ Траекторията без въздух е парабола; ъглите <Tex>{'\\alpha'}</Tex> и <Tex>{'90^\\circ - \\alpha'}</Tex> дават еднакъв обхват</li>
+              <li>✓ Траекторията без въздух е <Term id="parabola">парабола</Term>; ъглите <Tex>{'\\alpha'}</Tex> и <Tex>{'90^\\circ - \\alpha'}</Tex> дават еднакъв обхват</li>
               <li>✓ Относителна скорост: <Tex>{'\\vec{v} = \\vec{u} + \\vec{w}'}</Tex>; реката се пресича най-бързо перпендикулярно на брега</li>
             </ul>
           </div>

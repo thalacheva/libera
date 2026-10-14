@@ -11,6 +11,7 @@ import { DecomposeLab } from './DecomposeLab';
 import { DotProductLab } from './DotProductLab';
 import { VectorAddLab } from './VectorAddLab';
 import { MathText, Tex } from '~/MathText';
+import Term from '~/Term';
 
 const h2 = 'text-xl sm:text-2xl font-semibold mb-3 text-gray-800 dark:text-gray-100';
 const text = 'mb-4 text-sm sm:text-base text-gray-700 dark:text-gray-300 leading-relaxed';
@@ -327,7 +328,7 @@ export function Vectors() {
           />
           <p className={text}>
             Това дава удобен запис на познати факти. Ако <Tex>{'M'}</Tex> е средата на <Tex>{'AB'}</Tex>, то за всяка точка <Tex>{'O'}</Tex>: <Tex>{'OM = \\frac{OA + OB}{2}'}</Tex>.
-            Средната отсечка <Tex>{'MN'}</Tex> в триъгълник <Tex>{'ABC'}</Tex> удовлетворява <Tex>{'MN = \\tfrac{1}{2} BC'}</Tex> – едновременно казва, че е успоредна и
+            <Term id="midsegment">Средната отсечка</Term> <Tex>{'MN'}</Tex> в триъгълник <Tex>{'ABC'}</Tex> удовлетворява <Tex>{'MN = \\tfrac{1}{2} BC'}</Tex> – едновременно казва, че е успоредна и
             два пъти по-къса. Нещо повече: всеки вектор в равнината се изразява по единствен начин чрез два неколинеарни вектора.
           </p>
           <Theorem
@@ -340,7 +341,7 @@ export function Vectors() {
             <Link to="/algebra/systems" className={link}>
               система уравнения
             </Link>
-            , а условието <Tex>{'a'}</Tex> и <Tex>{'b'}</Tex> да не са колинеарни е условието детерминантата ѝ да не е 0.
+            , а условието <Tex>{'a'}</Tex> и <Tex>{'b'}</Tex> да не са колинеарни е условието <Term id="determinant">детерминантата</Term> ѝ да не е 0.
           </p>
         </section>
 
@@ -377,7 +378,7 @@ export function Vectors() {
             <Link to="/geometry/trigonometry" className={link}>
               тригонометрията
             </Link>
-            . Например от <Tex>{'|a - b|^2 = |a|^2 + |b|^2 - 2 a \\cdot b'}</Tex> веднага следва косинусовата теорема.
+            . Например от <Tex>{'|a - b|^2 = |a|^2 + |b|^2 - 2 a \\cdot b'}</Tex> веднага следва <Term id="law-of-cosines">косинусовата теорема</Term>.
           </p>
         </section>
 
@@ -391,7 +392,7 @@ export function Vectors() {
 
         <section className="mb-8">
           <h2 className={h2}>7. Задачи от живота</h2>
-          <p className={text}>Във физиката почти всичко е вектор: скорост, сила, преместване, ускорение. Те се събират по правилото на успоредника.</p>
+          <p className={text}>Във физиката почти всичко е вектор: скорост, сила, преместване, <Term id="acceleration">ускорение</Term>. Те се събират по правилото на успоредника.</p>
           <WordProblems problems={wordProblems} />
         </section>
 
@@ -492,7 +493,7 @@ export function Vectors() {
               <li>✓ <Tex>{'k \\cdot a'}</Tex> е колинеарен на <Tex>{'a'}</Tex>; всеки вектор се разлага по два неколинеарни: <Tex>{'c = xa + yb'}</Tex></li>
               <li>✓ <Tex>{'AB = (x_2 - x_1;\\ y_2 - y_1)'}</Tex>; <Tex>{'|a| = \\sqrt{a_1^2 + a_2^2}'}</Tex>; средата на <Tex>{'AB'}</Tex>: <Tex>{'OM = \\frac{OA + OB}{2}'}</Tex></li>
               <li>✓ <Tex>{'a \\cdot b = |a||b| \\cos \\varphi = a_1b_1 + a_2b_2'}</Tex>; <Tex>{'a \\perp b \\iff a \\cdot b = 0'}</Tex></li>
-              <li>✓ Медицентър: <Tex>{'GA + GB + GC = 0'}</Tex></li>
+              <li>✓ <Term id="centroid">Медицентър</Term>: <Tex>{'GA + GB + GC = 0'}</Tex></li>
             </ul>
           </div>
         </section>

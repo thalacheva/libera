@@ -11,6 +11,7 @@ import Trainer from '~/Trainer';
 import AirbagLab from './AirbagLab';
 import CollisionLab from './CollisionLab';
 import RocketLab from './RocketLab';
+import Term from '~/Term';
 
 const h2 = 'text-xl sm:text-2xl font-semibold mb-3 text-gray-800 dark:text-gray-100';
 const text = 'mb-4 text-sm sm:text-base text-gray-700 dark:text-gray-300 leading-relaxed';
@@ -245,7 +246,7 @@ export function Momentum() {
         <section className="mb-8">
           <h2 className={h2}>2. Импулс на силата</h2>
           <p className={text}>
-            Вторият закон на Нютон (виж{' '}
+            <Term id="newton-second-law">Вторият закон на Нютон</Term> (виж{' '}
             <Link to="/physics/mechanics/newton" className={link}>
               Закони на Нютон
             </Link>
@@ -276,7 +277,7 @@ export function Momentum() {
           <h2 className={h2}>3. Закон за запазване на импулса</h2>
           <p className={text}>
             Система от тела е <strong>затворена</strong>, ако външните сили върху нея се уравновесяват (или са пренебрежимо малки за
-            краткото време на удара). Вътрешните сили идват по двойки – по третия закон на Нютон те са равни и противоположни, затова
+            краткото време на удара). Вътрешните сили идват по двойки – по <Term id="newton-third-law">третия закон на Нютон</Term> те са равни и противоположни, затова
             импулсите, които предават, се унищожават.
           </p>
           <Theorem
@@ -296,7 +297,7 @@ export function Momentum() {
         <section className="mb-8">
           <h2 className={h2}>4. Удари</h2>
           <p className={text}>
-            При всеки удар импулсът се запазва. Кинетичната енергия обаче може да се превърне частично в топлина, звук и деформация (виж{' '}
+            При всеки удар импулсът се запазва. <Term id="kinetic-energy">Кинетичната енергия</Term> обаче може да се превърне частично в топлина, звук и деформация (виж{' '}
             <Link to="/physics/mechanics/energy" className={link}>
               Работа, енергия, мощност
             </Link>
@@ -319,7 +320,7 @@ export function Momentum() {
           <p className={text}>
             При удари в равнина импулсът се запазва като вектор – поотделно по двете оси. Красиво следствие има в билярда: ако топка удари
             еластично (и нецентрално) неподвижна топка със същата маса, двете се разлитат <strong>под прав ъгъл</strong>. Причината е, че от{' '}
-            <Tex>{'\\vec{v} = \\vec{v}_1\' + \\vec{v}_2\''}</Tex> и <Tex>{"v^2 = v_1'^2 + v_2'^2"}</Tex> следва теоремата на Питагор за
+            <Tex>{'\\vec{v} = \\vec{v}_1\' + \\vec{v}_2\''}</Tex> и <Tex>{"v^2 = v_1'^2 + v_2'^2"}</Tex> следва <Term id="pythagorean-theorem">теоремата на Питагор</Term> за
             триъгълника на скоростите (виж{' '}
             <Link to="/geometry/vectors" className={link}>
               Вектори
@@ -338,7 +339,7 @@ export function Momentum() {
             <Link to="/analysis/integrals" className={link}>
               Интеграли
             </Link>
-            ), получаваме логаритъм (виж{' '}
+            ), получаваме <Term id="logarithm">логаритъм</Term> (виж{' '}
             <Link to="/algebra/logarithms" className={link}>
               Логаритми
             </Link>
@@ -464,7 +465,7 @@ export function Momentum() {
             <ul className="space-y-2 text-sm sm:text-base">
               <li>✓ Импулс <Tex>{'\\vec{p} = m\\vec{v}'}</Tex> – вектор, единица <Tex>{'\\mathrm{kg \\cdot m/s}'}</Tex></li>
               <li>✓ <Tex>{'\\vec{F}\\Delta t = \\Delta\\vec{p}'}</Tex>; при едно и също <Tex>{'\\Delta p'}</Tex> по-дългото време означава по-малка сила</li>
-              <li>✓ В затворена система импулсът се запазва; центърът на масата се движи равномерно</li>
+              <li>✓ В затворена система импулсът се запазва; <Term id="center-of-mass">центърът на масата</Term> се <Term id="uniform-motion">движи равномерно</Term></li>
               <li>✓ При еластичен удар се запазва и кинетичната енергия; при нееластичен част от нея става топлина и деформация</li>
               <li>✓ Нееластичен удар: <Tex>{'v = \\frac{m_1 v_1 + m_2 v_2}{m_1 + m_2}'}</Tex>; еластичен с равни маси – размяна на скоростите</li>
               <li>✓ Ракета: <Tex>{'\\Delta v = u \\ln \\frac{m_0}{m_1}'}</Tex> – затова ракетите са многостепенни</li>
@@ -479,7 +480,7 @@ export function Momentum() {
               Сложи тенис топка върху баскетболна и ги пусни заедно. Баскетболната топка отскача от пода и веднага удря тенис топката, която
               все още пада. Ако ударите бяха напълно еластични, а тенис топката – много по-лека, тя би отскочила с 3 пъти по-голяма скорост и
               би се издигнала до 9 пъти по-високо! В действителност ударите губят енергия и височината е по-малка, но пак е изненадващо голяма.
-              По подобен начин – чрез „гравитационна прашка“ – космическите сонди печелят скорост, когато прелитат покрай движеща се планета.
+              По подобен начин – чрез „<Term id="gravity-assist">гравитационна прашка</Term>“ – космическите сонди печелят скорост, когато прелитат покрай движеща се планета.
             </p>
           </div>
         </section>

@@ -11,6 +11,7 @@ import GaussSumLab from './GaussSumLab';
 import GeometricSeriesLab from './GeometricSeriesLab';
 import SequenceLab from './SequenceLab';
 import { MathText, Tex } from '~/MathText';
+import Term from '~/Term';
 
 const h2 = 'text-xl sm:text-2xl font-semibold mb-3 text-gray-800 dark:text-gray-100';
 const text = 'mb-4 text-sm sm:text-base text-gray-700 dark:text-gray-300 leading-relaxed';
@@ -334,11 +335,11 @@ export function Sequences() {
             steps={['Умножаваме по $q$: $qS = a_1q + a_1q^2 + \\ldots + a_1q^n$', 'Изваждаме: $qS - S = a_1q^n - a_1$ (всички други членове се унищожават)', '$S(q - 1) = a_1(q^n - 1) \\Rightarrow S = \\frac{a_1(q^n - 1)}{q - 1}$']}
           />
           <p className={text}>
-            Сложната лихва от урока{' '}
+            <Term id="compound-interest">Сложната лихва</Term> от урока{' '}
             <Link to="/algebra/fractions" className={link}>
               Дроби и проценти
             </Link>{' '}
-            е геометрична прогресия с <Tex>{'q = 1 + \\frac{r}{100}'}</Tex>, а удвояването на бактериите и разпадът на радиоактивни вещества – също.
+            е геометрична прогресия с <Tex>{'q = 1 + \\frac{r}{100}'}</Tex>, а удвояването на бактериите и разпадът на <Term id="radioactivity">радиоактивни</Term> вещества – също.
           </p>
         </section>
 
@@ -462,7 +463,7 @@ export function Sequences() {
             <ul className="space-y-2 text-sm sm:text-base">
               <li>✓ Аритметична: <Tex>{'a_n = a_1 + (n - 1)d'}</Tex>; <Tex>{'S_n = \\frac{n(a_1 + a_n)}{2}'}</Tex></li>
               <li>✓ Геометрична: <Tex>{'a_n = a_1q^{n-1}'}</Tex>; <Tex>{'S_n = \\frac{a_1(q^n - 1)}{q - 1}'}</Tex></li>
-              <li>✓ Средно аритметично / геометрично на съседите</li>
+              <li>✓ <Term id="arithmetic-mean">Средно аритметично</Term> / геометрично на съседите</li>
               <li>✓ Безкрайна при <Tex>{'|q| < 1'}</Tex>: <Tex>{'S = \\frac{a_1}{1 - q}'}</Tex></li>
               <li>✓ Сложна лихва, удвояване и разпад са геометрични прогресии</li>
               <li>✓ Периодичните дроби са сборове на безкрайни геометрични прогресии</li>

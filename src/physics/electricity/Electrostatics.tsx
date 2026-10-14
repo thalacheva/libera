@@ -11,6 +11,7 @@ import Trainer from '~/Trainer';
 import ChargingLab from './ChargingLab';
 import CoulombLab from './CoulombLab';
 import FieldLinesLab from './FieldLinesLab';
+import Term from '~/Term';
 
 const h2 = 'text-xl sm:text-2xl font-semibold mb-3 text-gray-800 dark:text-gray-100';
 const text = 'mb-4 text-sm sm:text-base text-gray-700 dark:text-gray-300 leading-relaxed';
@@ -257,7 +258,7 @@ export function Electrostatics() {
               Гравитация
             </Link>
             ), но електричните сили могат и да отблъскват и са несравнимо по-силни. Двете сили, с които си действат зарядите, са равни и
-            противоположни – трети закон на Нютон (виж{' '}
+            противоположни – <Term id="newton-third-law">трети закон на Нютон</Term> (виж{' '}
             <Link to="/physics/mechanics/newton" className={link}>
               Закони на Нютон
             </Link>

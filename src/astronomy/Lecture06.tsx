@@ -7,6 +7,7 @@ import Task, { TaskBoard, TaskLevel } from '~/Task';
 import TidesExplorer from './components/TidesExplorer';
 import WeightOnWorlds from './components/WeightOnWorlds';
 import { Tex } from '~/MathText';
+import Term from '~/Term';
 
 const QUIZ: Question[] = [
   {
@@ -111,7 +112,7 @@ export default function Lecture06() {
               🤔 Защо тогава ябълката пада към Земята, а не обратното?
             </p>
             <p>
-              Силите са равни, но ускорението е <Tex>{'a = F / m'}</Tex>. Масата на Земята е
+              Силите са равни, но <Term id="acceleration">ускорението</Term> е <Tex>{'a = F / m'}</Tex>. Масата на Земята е
               {' '}<Tex>{'10^{24}'}</Tex> пъти по-голяма, затова тя се премества незабележимо малко, а
               ябълката – с <Tex>{'9{,}8\\ \\mathrm{m/s}^2'}</Tex>.
             </p>
@@ -254,7 +255,7 @@ export default function Lecture06() {
                 последна четвърт: двете действия частично се компенсират.
               </li>
               <li>
-                Приливното триене забавя въртенето на Земята и отдалечава Луната
+                Приливното <Term id="friction">триене</Term> забавя въртенето на Земята и отдалечава Луната
                 (Лекции 3 и 4). Същите сили са „заключили“ Луната да гледа
                 Земята с една страна.
               </li>
@@ -485,7 +486,7 @@ export default function Lecture06() {
               <li>✓ Силите между две тела са равни и противоположни</li>
               <li>✓ <Tex>{'g = GM / R^2'}</Tex>; на височина <Tex>{'h'}</Tex>: <Tex>{'g_0\\cdot \\left(\\frac{R}{R + h}\\right)^2'}</Tex></li>
               <li>✓ Масата е постоянна, теглото <Tex>{'P = mg'}</Tex> зависи от мястото</li>
-              <li>✓ Орбитата е непрекъснато свободно падане</li>
+              <li>✓ Орбитата е непрекъснато <Term id="free-fall">свободно падане</Term></li>
               <li>✓ Маса от орбита: <Tex>{'M = \\frac{4\\pi^2a^3}{GT^2}'}</Tex></li>
               <li>
                 ✓ Приливната сила <Tex>{'\\propto M / d^3'}</Tex>; Луната създава 2,2 пъти по-силни

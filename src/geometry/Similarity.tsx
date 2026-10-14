@@ -8,6 +8,7 @@ import { HomothetyLab } from './HomothetyLab';
 import { RightTriangleLab } from './RightTriangleLab';
 import { ThalesLab } from './ThalesLab';
 import { MathText, Tex } from '~/MathText';
+import Term from '~/Term';
 
 const h2 = 'text-xl sm:text-2xl font-semibold mb-3 text-gray-800 dark:text-gray-100';
 const text = 'mb-4 text-sm sm:text-base text-gray-700 dark:text-gray-300 leading-relaxed';
@@ -135,7 +136,7 @@ export function Similarity() {
 
         <div className="bg-gradient-to-br from-amber-700 to-slate-900 text-white p-6 rounded-2xl mb-8 shadow-lg">
           <p className="text-lg sm:text-xl leading-relaxed">
-            🔺 Според античните автори Талес от Милет (VI век пр.н.е.) измерил височината на Великата пирамида, без да се качва на нея. Забил
+            🔺 Според античните автори Талес от Милет (VI век пр.н.е.) измерил височината на Великата <Term id="pyramid">пирамида</Term>, без да се качва на нея. Забил
             пръчка в пясъка и изчакал момента, в който сянката на пръчката е толкова дълга, колкото самата пръчка. Тогава и сянката на
             пирамидата (мерена от центъра на основата) е равна на височината ѝ. Хитрината работи по всяко време на деня – стига да знаеш, че
             триъгълниците „предмет – сянка“ са <strong>подобни</strong>. Днес със същата идея измерваме дървета, сгради, разстояния до кораби и
@@ -169,7 +170,7 @@ export function Similarity() {
             description="Ако успоредни прави пресичат двете рамена на ъгъл, те отсичат върху тях пропорционални отсечки. В триъгълник: ако $M \in AB$, $N \in AC$ и $MN \parallel BC$, то $\frac{AM}{MB} = \frac{AN}{NC}$ и $\frac{AM}{AB} = \frac{AN}{AC} = \frac{MN}{BC}$. Вярно е и обратното: ако $\frac{AM}{MB} = \frac{AN}{NC}$, то $MN \parallel BC$."
           />
           <p className={text}>
-            Частен случай е средната отсечка (<Tex>{'M'}</Tex> и <Tex>{'N'}</Tex> са среди на страните): тя е успоредна на <Tex>{'BC'}</Tex> и е равна на половината от нея. За нея вече
+            Частен случай е <Term id="midsegment">средната отсечка</Term> (<Tex>{'M'}</Tex> и <Tex>{'N'}</Tex> са среди на страните): тя е успоредна на <Tex>{'BC'}</Tex> и е равна на половината от нея. За нея вече
             стана дума в урока{' '}
             <Link to="/geometry/triangle" className={link}>
               Триъгълник
@@ -241,7 +242,7 @@ export function Similarity() {
         <section className="mb-8">
           <h2 className={h2}>6. Подобие в правоъгълния триъгълник</h2>
           <p className={text}>
-            Нека <Tex>{'CH'}</Tex> е височината към хипотенузата <Tex>{'AB'}</Tex> на правоъгълния триъгълник <Tex>{'ABC'}</Tex>, а <Tex>{'p = AH'}</Tex> и <Tex>{'q = HB'}</Tex> са проекциите на катетите <Tex>{'b = AC'}</Tex> и <Tex>{'a = BC'}</Tex> върху хипотенузата. Височината разделя триъгълника на два малки, които са подобни на целия (имат общ остър ъгъл и прав ъгъл).
+            Нека <Tex>{'CH'}</Tex> е височината към <Term id="hypotenuse">хипотенузата</Term> <Tex>{'AB'}</Tex> на правоъгълния триъгълник <Tex>{'ABC'}</Tex>, а <Tex>{'p = AH'}</Tex> и <Tex>{'q = HB'}</Tex> са проекциите на <Term id="leg">катетите</Term> <Tex>{'b = AC'}</Tex> и <Tex>{'a = BC'}</Tex> върху хипотенузата. Височината разделя триъгълника на два малки, които са подобни на целия (имат общ остър ъгъл и прав ъгъл).
           </p>
           <Theorem
             title="Метрични зависимости (теореми на Евклид)"
@@ -359,7 +360,7 @@ export function Similarity() {
               <li>✓ Талес: успоредни прави отсичат пропорционални отсечки; <Tex>{'MN \\parallel BC \\Rightarrow \\frac{AM}{AB} = \\frac{AN}{AC} = \\frac{MN}{BC}'}</Tex></li>
               <li>✓ Подобни триъгълници: равни ъгли и пропорционални страни с коефициент <Tex>{'k'}</Tex></li>
               <li>✓ Признаци: ЪЪ, СЪС, ССС (ССЪ не е признак)</li>
-              <li>✓ Периметри, височини, медиани – отношение <Tex>{'k'}</Tex>; лица – <Tex>{'k^2'}</Tex>; обеми – <Tex>{'k^3'}</Tex></li>
+              <li>✓ Периметри, височини, <Term id="median-triangle">медиани</Term> – отношение <Tex>{'k'}</Tex>; лица – <Tex>{'k^2'}</Tex>; обеми – <Tex>{'k^3'}</Tex></li>
               <li>✓ Правоъгълен триъгълник: <Tex>{'h^2 = pq,\\ a^2 = cq,\\ b^2 = cp,\\ ab = ch'}</Tex></li>
               <li>✓ Измерване на недостъпни разстояния: търсим два подобни триъгълника</li>
             </ul>

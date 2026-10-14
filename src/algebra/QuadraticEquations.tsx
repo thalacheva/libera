@@ -9,6 +9,7 @@ import BiquadraticLab from './BiquadraticLab';
 import RootsParameterLab from './RootsParameterLab';
 import VietaLab from './VietaLab';
 import { MathText, Tex } from '~/MathText';
+import Term from '~/Term';
 
 // ---------- Помощни функции ----------
 
@@ -176,7 +177,7 @@ function ParabolaExplorer() {
         ))}
       </div>
       <p className="text-xs sm:text-sm text-center text-gray-600 dark:text-gray-400 mt-3">
-        Опитай: какво става с параболата, когато a е отрицателно? А когато увеличаваш c?
+        Опитай: какво става с <Term id="parabola">параболата</Term>, когато a е отрицателно? А когато увеличаваш c?
       </p>
     </div>
   );
@@ -643,7 +644,7 @@ export function QuadraticEquations() {
           <p className={text}>Промени коефициентите и наблюдавай как знакът на <Tex>{'D'}</Tex> решава съдбата на параболата:</p>
           <ParabolaExplorer />
           <p className={text}>
-            Числото <Tex>{'-\\frac{b}{2a}'}</Tex> (без ±) е абсцисата на върха на параболата – корените са симетрично разположени около него.
+            Числото <Tex>{'-\\frac{b}{2a}'}</Tex> (без ±) е абсцисата на <Term id="parabola-vertex">върха на параболата</Term> – корените са симетрично разположени около него.
           </p>
           <Example
             description="Да решим уравнението $x^2 - 5x + 6 = 0$"

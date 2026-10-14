@@ -44,6 +44,9 @@ const AcEmWaves = lazy(() => import('./physics/electricity/AcEmWaves').then(m =>
 const ReflectionRefraction = lazy(() => import('./physics/optics/ReflectionRefraction').then(m => ({default: m.ReflectionRefraction})));
 const Lenses = lazy(() => import('./physics/optics/Lenses').then(m => ({default: m.Lenses})));
 const WaveOptics = lazy(() => import('./physics/optics/WaveOptics').then(m => ({default: m.WaveOptics})));
+const Photons = lazy(() => import('./physics/modern/Photons').then(m => ({default: m.Photons})));
+const Atom = lazy(() => import('./physics/modern/Atom').then(m => ({default: m.Atom})));
+const Nucleus = lazy(() => import('./physics/modern/Nucleus').then(m => ({default: m.Nucleus})));
 const LinearMotion = lazy(() => import('./physics/mechanics/LinearMotion').then(m => ({default: m.LinearMotion})));
 const Units = lazy(() => import('./physics/mechanics/Units').then(m => ({default: m.Units})));
 const Modular = lazy(() => import('./numbers/Modular').then(m => ({default: m.Modular})));
@@ -59,6 +62,7 @@ const Vectors = lazy(() => import('./geometry/Vectors').then(m => ({default: m.V
 const Combinatorics = lazy(() => import('./probability/Combinatorics').then(m => ({default: m.Combinatorics})));
 const Probability = lazy(() => import('./probability/Probability').then(m => ({default: m.Probability})));
 const Formulas = lazy(() => import('./reference/Formulas').then(m => ({default: m.Formulas})));
+const Glossary = lazy(() => import('./reference/Glossary').then(m => ({default: m.Glossary})));
 const Tonight = lazy(() => import('./tonight/Tonight').then(m => ({default: m.Tonight})));
 const Lecture01 = lazy(() => import('./astronomy/Lecture01'));
 const Lecture02 = lazy(() => import('./astronomy/Lecture02'));
@@ -184,6 +188,11 @@ function App() {
                 <Route path="lenses" element={<Lenses />} />
                 <Route path="wave-optics" element={<WaveOptics />} />
               </Route>
+              <Route path="modern">
+                <Route path="photons" element={<Photons />} />
+                <Route path="atom" element={<Atom />} />
+                <Route path="nucleus" element={<Nucleus />} />
+              </Route>
             </Route>
             <Route path="geometry">
               <Route path="triangle" element={<Triangle />} />
@@ -201,6 +210,7 @@ function App() {
             </Route>
             <Route path="reference">
               <Route path="formulas" element={<Formulas />} />
+              <Route path="glossary" element={<Glossary />} />
             </Route>
             <Route path="astronomy">
               <Route path="tonight" element={<Tonight />} />

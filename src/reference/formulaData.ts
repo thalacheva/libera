@@ -1809,6 +1809,142 @@ export const PHYSICS: Section = {
         },
       ],
     },
+    {
+      id: 'photons',
+      title: 'Фотони и фотоефект',
+      formulas: [
+        {
+          name: 'Енергия на фотона',
+          formula: 'E = hf = \\frac{hc}{\\lambda} \\qquad E\\,[\\mathrm{eV}] \\approx \\frac{1240}{\\lambda\\,[\\mathrm{nm}]}',
+          note: '1 eV = 1,6 · 10⁻¹⁹ J',
+          lesson: '/physics/modern/photons',
+        },
+        {
+          name: 'Уравнение на Айнщайн за фотоефекта',
+          formula: 'hf = A + E_{k,\\max}',
+          lesson: '/physics/modern/photons',
+        },
+        {
+          name: 'Червена граница',
+          formula: 'f_0 = \\frac{A}{h} \\qquad \\lambda_0 = \\frac{hc}{A}',
+          note: 'фотоефект има при f > f₀, т.е. λ < λ₀',
+          lesson: '/physics/modern/photons',
+        },
+        {
+          name: 'Спиращо напрежение',
+          formula: 'eU_s = E_{k,\\max} = hf - A \\qquad U_s = \\frac{h}{e}f - \\frac{A}{e}',
+          lesson: '/physics/modern/photons',
+        },
+        {
+          name: 'Импулс на фотона и светлинно налягане',
+          formula: 'p = \\frac{E}{c} = \\frac{h}{\\lambda} \\qquad F = \\frac{P}{c}\\ \\text{(поглъщане)}, \\quad F = \\frac{2P}{c}\\ \\text{(отражение)}',
+          lesson: '/physics/modern/photons',
+        },
+        {
+          name: 'Ефект на Комптън',
+          formula: '\\Delta\\lambda = \\frac{h}{mc}(1 - \\cos\\theta) \\qquad \\frac{h}{mc} \\approx 2{,}43\\ \\mathrm{pm}',
+          lesson: '/physics/modern/photons',
+        },
+        {
+          name: 'Дължина на вълната на дьо Бройл',
+          formula: '\\lambda = \\frac{h}{p} = \\frac{h}{mv} \\qquad \\lambda = \\frac{h}{\\sqrt{2meU}}',
+          note: 'последното – за електрон, ускорен от покой с напрежение U',
+          lesson: '/physics/modern/photons',
+        },
+      ],
+    },
+    {
+      id: 'atom',
+      title: 'Атомът',
+      formulas: [
+        {
+          name: 'Най-малко разстояние при челен удар (Ръдърфорд)',
+          formula: 'd = \\frac{2Zke^2}{E_k} \\qquad ke^2 \\approx 1{,}44\\ \\mathrm{MeV \\cdot fm}',
+          note: 'α-частица със заряд 2e към ядро със заряд Ze',
+          lesson: '/physics/modern/atom',
+        },
+        {
+          name: 'Ъгъл на разсейване',
+          formula: '\\operatorname{tg}\\frac{\\theta}{2} = \\frac{d}{2b}',
+          note: 'b – прицелен параметър',
+          lesson: '/physics/modern/atom',
+        },
+        {
+          name: 'Правило на Бор за орбитите',
+          formula: 'mvr = n\\hbar \\qquad \\hbar = \\frac{h}{2\\pi}',
+          lesson: '/physics/modern/atom',
+        },
+        {
+          name: 'Радиуси на орбитите',
+          formula: 'r_n = \\frac{n^2 a_0}{Z} \\qquad a_0 \\approx 0{,}053\\ \\mathrm{nm}',
+          note: 'Z = 1 за водорода',
+          lesson: '/physics/modern/atom',
+        },
+        {
+          name: 'Енергетични нива',
+          formula: 'E_n = -\\frac{13{,}6\\ \\mathrm{eV} \\cdot Z^2}{n^2}',
+          note: 'атом или йон с един електрон',
+          lesson: '/physics/modern/atom',
+        },
+        {
+          name: 'Фотон при преход',
+          formula: 'hf = E_m - E_n \\qquad \\lambda[\\mathrm{nm}] \\approx \\frac{1240}{\\Delta E[\\mathrm{eV}]}',
+          lesson: '/physics/modern/atom',
+        },
+        {
+          name: 'Брой спектрални линии',
+          formula: 'N = \\frac{n(n - 1)}{2}',
+          note: 'при връщане от ниво n в основно състояние',
+          lesson: '/physics/modern/atom',
+        },
+      ],
+    },
+    {
+      id: 'nucleus',
+      title: 'Ядро и радиоактивност',
+      formulas: [
+        {
+          name: 'Състав на ядрото',
+          formula: '{}^{A}_{Z}\\mathrm{X} \\qquad N = A - Z \\qquad r \\approx 1{,}2\\ \\mathrm{fm} \\cdot A^{1/3}',
+          note: 'Z – протони, N – неутрони, A – нуклони',
+          lesson: '/physics/modern/nucleus',
+        },
+        {
+          name: 'Дефект на масата и енергия на връзката',
+          formula: '\\Delta m = Zm_p + Nm_n - m_{\\text{я}} \\qquad E_{\\text{св}} = \\Delta m\\,c^2',
+          note: '1 u ↔ 931,5 MeV; с масите на атомите вместо m_p се взема масата на водородния атом',
+          lesson: '/physics/modern/nucleus',
+        },
+        {
+          name: 'α-разпадане',
+          formula: '{}^{A}_{Z}\\mathrm{X} \\to {}^{A-4}_{Z-2}\\mathrm{Y} + {}^{4}_{2}\\mathrm{He}',
+          lesson: '/physics/modern/nucleus',
+        },
+        {
+          name: 'β⁻-разпадане',
+          formula: '{}^{A}_{Z}\\mathrm{X} \\to {}^{A}_{Z+1}\\mathrm{Y} + e^- + \\bar{\\nu}_e',
+          note: 'в ядрото неутрон става протон; при γ-лъчение A и Z не се менят',
+          lesson: '/physics/modern/nucleus',
+        },
+        {
+          name: 'Закон за радиоактивното разпадане',
+          formula: 'N = N_0 \\cdot 2^{-t/T} = N_0 e^{-\\lambda t} \\qquad \\lambda = \\frac{\\ln 2}{T}',
+          note: 'T – период на полуразпадане',
+          lesson: '/physics/modern/nucleus',
+        },
+        {
+          name: 'Активност',
+          formula: 'A = \\lambda N \\qquad 1\\ \\mathrm{Bq} = 1\\ \\mathrm{s^{-1}}',
+          lesson: '/physics/modern/nucleus',
+        },
+        {
+          name: 'Енергия на ядрена реакция',
+          formula: 'Q = \\left(\\sum m_{\\text{преди}} - \\sum m_{\\text{след}}\\right)c^2',
+          note: 'делене на ²³⁵U ≈ 200 MeV; ²H + ³H → ⁴He + n: 17,6 MeV',
+          lesson: '/physics/modern/nucleus',
+        },
+      ],
+    },
   ],
 };
 

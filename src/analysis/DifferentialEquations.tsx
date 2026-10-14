@@ -11,6 +11,7 @@ import { type Drill, nonZero, paren, pick, polyTex, randInt } from '~/drill';
 import EulerLab from './EulerLab';
 import SlopeFieldLab from './SlopeFieldLab';
 import Trainer from '~/Trainer';
+import Term from '~/Term';
 
 const h2 = 'text-xl sm:text-2xl font-semibold mb-3 text-gray-800 dark:text-gray-100';
 const text = 'mb-4 text-sm sm:text-base text-gray-700 dark:text-gray-300 leading-relaxed';
@@ -218,7 +219,7 @@ export function DifferentialEquations() {
           <h2 className={h2}>1. Какво е диференциално уравнение?</h2>
           <div className="bg-amber-50 dark:bg-amber-900/20 border-l-4 border-amber-500 p-4 rounded mb-4">
             <p className="text-sm sm:text-base text-gray-700 dark:text-gray-300">
-              🤔 <strong>Загадка:</strong> Коя функция е равна на собствената си производна? Константата 0 – да. А друга? Отговорът е{' '}
+              🤔 <strong>Загадка:</strong> Коя функция е равна на собствената си <Term id="derivative">производна</Term>? Константата 0 – да. А друга? Отговорът е{' '}
               <Tex>{'e^x'}</Tex>, и всъщност всяка функция <Tex>{'Ce^x'}</Tex>. Току-що решихме първото си диференциално уравнение:{' '}
               <Tex>{"y' = y"}</Tex>.
             </p>
@@ -273,7 +274,7 @@ export function DifferentialEquations() {
           />
           <p className={text}>
             Така се размножават бактериите, така расте влог при непрекъсната лихва и така се разпадат радиоактивните ядра – и на това
-            се основава радиовъглеродното датиране. Друг класически пример е <strong>законът на Нютон за изстиването</strong>: скоростта,
+            се основава <Term id="radiocarbon-dating">радиовъглеродното датиране</Term>. Друг класически пример е <strong>законът на Нютон за изстиването</strong>: скоростта,
             с която тялото изстива, е пропорционална на разликата между неговата температура и тази на околната среда.
           </p>
           <Theorem
@@ -291,9 +292,9 @@ export function DifferentialEquations() {
         <section className="mb-8">
           <h2 className={h2}>4. Трептения: уравнение от втори ред</h2>
           <p className={text}>
-            По закона на Хук пружината дърпа тежестта обратно със сила, пропорционална на отклонението: <Tex>{'F = -cx'}</Tex>. От втория
-            закон на Нютон <Tex>{"F = mx''"}</Tex> получаваме <Tex>{"x'' = -\\frac{c}{m}x"}</Tex> – уравнение, в което участва втората производна
-            (ускорението).
+            По <Term id="hookes-law">закона на Хук</Term> пружината дърпа тежестта обратно със сила, пропорционална на отклонението: <Tex>{'F = -cx'}</Tex>. От <Term id="newton-second-law">втория
+            закон на Нютон</Term> <Tex>{"F = mx''"}</Tex> получаваме <Tex>{"x'' = -\\frac{c}{m}x"}</Tex> – уравнение, в което участва втората производна
+            (<Term id="acceleration">ускорението</Term>).
           </p>
           <Theorem
             title="Хармонично трептене"
@@ -334,7 +335,7 @@ export function DifferentialEquations() {
             <Link to="/astronomy/lecture07" className={link}>
               Закони на Кеплер
             </Link>
-            ), разпространението на топлина, токът в електрическа верига. С тях се моделират и епидемии, популации, лекарства в кръвта и
+            ), разпространението на топлина, <Term id="electric-current">токът</Term> в електрическа верига. С тях се моделират и епидемии, популации, лекарства в кръвта и
             цените на финансовите пазари.
           </p>
           <WordProblems problems={wordProblems} />

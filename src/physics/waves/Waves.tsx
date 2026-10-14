@@ -11,6 +11,7 @@ import Trainer from '~/Trainer';
 import DopplerLab from './DopplerLab';
 import StandingWaveLab from './StandingWaveLab';
 import WaveMachineLab from './WaveMachineLab';
+import Term from '~/Term';
 
 const h2 = 'text-xl sm:text-2xl font-semibold mb-3 text-gray-800 dark:text-gray-100';
 const text = 'mb-4 text-sm sm:text-base text-gray-700 dark:text-gray-300 leading-relaxed';
@@ -206,7 +207,7 @@ export function Waves() {
 
         <div className="bg-gradient-to-br from-emerald-700 to-slate-900 text-white p-6 rounded-2xl mb-8 shadow-lg">
           <p className="text-lg sm:text-xl leading-relaxed">
-            🎺 През 1842 г. австриецът Кристиан Доплер предсказва, че честотата на вълна зависи от това дали източникът се движи към нас или
+            🎺 През 1842 г. австриецът Кристиан Доплер предсказва, че <Term id="frequency">честотата</Term> на вълна зависи от това дали източникът се движи към нас или
             от нас. Три години по-късно холандецът Кристоф Бюйс Бало решава да го провери – според описанията с открита платформа на влак
             между Утрехт и Марсен, на която свирят тромпетисти, и с музиканти с абсолютен слух край линията. Когато влакът се приближава,
             музикантите чуват тона по-висок, а когато се отдалечава – по-нисък. Днес същият ефект измерва скоростта на колите, кръвта във
@@ -276,7 +277,7 @@ export function Waves() {
             steps={['$\\lambda = \\frac{340}{680} = 0{,}5\\ \\mathrm{m}$', '$\\Delta = 3{,}75 - 3{,}00 = 0{,}75\\ \\mathrm{m} = 1{,}5\\lambda$', 'Половин дължина на вълната в повече – вълните се гасят и тонът е много по-тих.']}
           />
           <p className={text}>
-            Вълните заобикалят препятствия и се разливат зад отвори – това е <strong>дифракция</strong>. Тя е силна, когато отворът е от порядъка
+            Вълните заобикалят препятствия и се разливат зад отвори – това е <strong>дифракция</strong>. Тя е силна, когато отворът е от <Term id="order-of-magnitude">порядъка</Term>
             на дължината на вълната. Звукът (дължина около метър) минава през вратата и зад ъгъла, а светлината (под микрометър) хвърля остра
             сянка. Затова чуваме, но не виждаме човека в съседната стая.
           </p>
@@ -298,7 +299,7 @@ export function Waves() {
             steps={['$v = \\sqrt{\\frac{F}{\\mu}} = \\sqrt{\\frac{80}{0{,}0005}} = 400\\ \\mathrm{m/s}$', '$f_1 = \\frac{v}{2L} = \\frac{400}{1{,}3} \\approx 308\\ \\mathrm{Hz}$', 'Като натиснем струната на прага, я скъсяваме и тонът се повишава.']}
           />
           <p className={text}>
-            Как хармониците правят звука на цигулката различен от този на флейтата, разказваме в урока{' '}
+            Как <Term id="harmonics">хармониците</Term> правят звука на цигулката различен от този на флейтата, разказваме в урока{' '}
             <Link to="/physics/waves/sound" className={link}>
               Звук
             </Link>

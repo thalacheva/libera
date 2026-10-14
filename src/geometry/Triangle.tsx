@@ -8,6 +8,7 @@ import { CongruenceLab } from './CongruenceLab';
 import { InteractiveTriangle } from './InteractiveTriangle';
 import { PythagorasLab } from './PythagorasLab';
 import { MathText, Tex } from '~/MathText';
+import Term from '~/Term';
 
 const h2 = 'text-xl sm:text-2xl font-semibold mb-3 text-gray-800 dark:text-gray-100';
 const text = 'text-sm sm:text-base text-gray-700 dark:text-gray-300 leading-relaxed';
@@ -142,7 +143,7 @@ export function Triangle() {
           <h2 className={h2}>1. Триъгълник и видове триъгълници</h2>
           <div className="bg-amber-50 dark:bg-amber-900/20 border-l-4 border-amber-500 p-4 rounded mb-4">
             <p className={text}>
-              🤔 <strong>Загадка:</strong> Защо мостовете, кулите и покривите са пълни с триъгълници? Сглоби четириъгълник от четири пръчки –
+              🤔 <strong>Загадка:</strong> Защо мостовете, кулите и покривите са пълни с триъгълници? Сглоби <Term id="quadrilateral">четириъгълник</Term> от четири пръчки –
               той лесно се „сгъва“. Триъгълникът от три пръчки обаче не може да промени формата си: щом дължините на страните са избрани,
               формата е напълно определена. Затова триъгълникът е най-здравата фигура в строителството.
             </p>
