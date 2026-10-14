@@ -33,7 +33,7 @@ for (const line of app.split('\n')) {
   else if (/<\/Route>/.test(line)) stack.pop();
 }
 
-const lessons = [...fileLesson].filter(([f, p]) => !p.startsWith('/reference') && !p.startsWith('/progress') && p !== '/astronomy/tonight');
+const lessons = [...fileLesson].filter(([f, p]) => !p.startsWith('/reference') && !p.startsWith('/progress') && p !== '/astronomy/tonight' && p !== '/math');
 const files = only.length ? lessons.filter(([f]) => only.includes(f)) : lessons;
 
 // Споменавания в друг смисъл („съпротивление на въздуха“, „напрежение на Хъбъл“…) – не ги отбелязваме

@@ -9,6 +9,8 @@ export interface PageMeta {
   path: string;
   title: string;
   description: string;
+  /** Кратко описание на урока – за началните страници на разделите. */
+  about?: string;
 }
 
 export const homePage: PageMeta = {
@@ -22,48 +24,56 @@ const algebra = (path: string, topic: string, about: string): PageMeta => ({
   path: `/algebra/${path}`,
   title: `${topic} — урок по алгебра`,
   description: `${topic}: ${about} Интерактивни лаборатории, бърз тест и задачи за олимпиади.`,
+  about,
 });
 
 const numbers = (path: string, topic: string, about: string): PageMeta => ({
   path: `/numbers/${path}`,
   title: `${topic} — урок по теория на числата`,
   description: `${topic}: ${about} Интерактивни лаборатории, бърз тест и задачи за олимпиади.`,
+  about,
 });
 
 const functions = (path: string, topic: string, about: string): PageMeta => ({
   path: `/functions/${path}`,
   title: `${topic} — урок по математика`,
   description: `${topic}: ${about} Интерактивни графики, бърз тест и задачи за олимпиади.`,
+  about,
 });
 
 const analysis = (path: string, topic: string, about: string): PageMeta => ({
   path: `/analysis/${path}`,
   title: `${topic} — урок по математически анализ`,
   description: `${topic}: ${about} Интерактивни графики, бърз тест и задачи за олимпиади.`,
+  about,
 });
 
 const geometry = (path: string, topic: string, about: string): PageMeta => ({
   path: `/geometry/${path}`,
   title: `${topic} — урок по геометрия`,
   description: `${topic}: ${about} Интерактивни чертежи, бърз тест и задачи за олимпиади.`,
+  about,
 });
 
 const probability = (path: string, topic: string, about: string): PageMeta => ({
   path: `/probability/${path}`,
   title: `${topic} — урок по математика`,
   description: `${topic}: ${about} Интерактивни лаборатории, бърз тест и задачи за олимпиади.`,
+  about,
 });
 
 const physics = (path: string, topic: string, about: string): PageMeta => ({
   path: `/physics/${path}`,
   title: `${topic} — урок по физика`,
   description: `${topic}: ${about} Интерактивни симулации, бърз тест и задачи за олимпиади.`,
+  about,
 });
 
 const astronomy = (n: number, topic: string, about: string): PageMeta => ({
   path: `/astronomy/lecture${String(n).padStart(2, '0')}`,
   title: `${topic} — лекция по астрономия`,
   description: `${topic}: ${about} Интерактивни симулации, бърз тест и олимпиадни задачи.`,
+  about,
 });
 
 export const lessonPages: PageMeta[] = [
@@ -531,7 +541,29 @@ export const lessonPages: PageMeta[] = [
   ),
 ];
 
-export const allPages: PageMeta[] = [homePage, ...lessonPages];
+// Началните страници на трите раздела (SectionHome.tsx)
+export const sectionPages: PageMeta[] = [
+  {
+    path: '/math',
+    title: 'Математика — интерактивни уроци',
+    description:
+      'Всички уроци по математика на едно място: алгебра, теория на числата, функции, анализ, геометрия и вероятности – с интерактивни лаборатории, бързи тестове и олимпиадни задачи.',
+  },
+  {
+    path: '/physics',
+    title: 'Физика — интерактивни уроци',
+    description:
+      'Всички уроци по физика на едно място: механика, трептения и вълни, топлина, електричество и магнетизъм, оптика и съвременна физика – със симулации, бързи тестове и олимпиадни задачи.',
+  },
+  {
+    path: '/astronomy',
+    title: 'Астрономия — интерактивни лекции',
+    description:
+      'Курс по астрономия от Слънчевата система до космологията – интерактивни симулации, бързи тестове, олимпиадни задачи и какво да наблюдаваш тази вечер.',
+  },
+];
+
+export const allPages: PageMeta[] = [homePage, ...sectionPages, ...lessonPages];
 
 export function fullTitle(page: PageMeta): string {
   return page === homePage ? page.title : `${page.title} | ${SITE_NAME}`;

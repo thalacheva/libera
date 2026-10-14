@@ -87,8 +87,11 @@ export default function SidebarMenu({
             <SectionHeader
               icon={<Sigma size={16} />}
               label="Математика"
+              to="/math"
               expanded={expandedSections.math}
+              active={location.pathname === '/math'}
               onToggle={() => toggleSection('math')}
+              onClose={onClose}
             />
             {expandedSections.math && (
               <TopicList topics={mathTopics} accent="blue" pathname={location.pathname} onClose={onClose} />
@@ -100,8 +103,11 @@ export default function SidebarMenu({
             <SectionHeader
               icon={<Atom size={16} />}
               label="Физика"
+              to="/physics"
               expanded={expandedSections.physics}
+              active={location.pathname === '/physics'}
               onToggle={() => toggleSection('physics')}
+              onClose={onClose}
             />
             {expandedSections.physics && (
               <TopicList topics={physicsTopics} accent="emerald" pathname={location.pathname} onClose={onClose} />
@@ -113,8 +119,11 @@ export default function SidebarMenu({
             <SectionHeader
               icon={<Telescope size={16} />}
               label="Астрономия"
+              to="/astronomy"
               expanded={expandedSections.astronomy}
+              active={location.pathname === '/astronomy'}
               onToggle={() => toggleSection('astronomy')}
+              onClose={onClose}
             />
             {expandedSections.astronomy && (
               <ul className="mt-2 space-y-0.5">
@@ -172,26 +181,44 @@ export default function SidebarMenu({
 }
 
 function SectionHeader({
+  to,
   icon,
   label,
   expanded,
+  active,
   onToggle,
+  onClose,
 }: {
+  to: string;
   icon: React.ReactNode;
   label: string;
   expanded: boolean;
+  active: boolean;
   onToggle: () => void;
+  onClose?: () => void;
 }) {
   return (
-    <button
-      onClick={onToggle}
-      aria-expanded={expanded}
-      className="flex items-center gap-2 w-full px-3 py-1 text-xs font-semibold uppercase tracking-wider text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white transition-colors"
-    >
-      {icon}
-      <span className="flex-1 text-left">{label}</span>
-      {expanded ? <ChevronDown size={16} /> : <ChevronRight size={16} />}
-    </button>
+    <div className="flex items-center">
+      <Link
+        to={to}
+        onClick={onClose}
+        aria-current={active ? 'page' : undefined}
+        className={`flex flex-1 items-center gap-2 px-3 py-1 rounded-lg text-xs font-semibold uppercase tracking-wider transition-colors ${
+          active ? 'text-gray-900 dark:text-white' : 'text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white'
+        }`}
+      >
+        {icon}
+        {label}
+      </Link>
+      <button
+        onClick={onToggle}
+        aria-expanded={expanded}
+        aria-label={expanded ? `Скрий ${label}` : `Покажи ${label}`}
+        className="p-1 mr-2 rounded text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white transition-colors"
+      >
+        {expanded ? <ChevronDown size={16} /> : <ChevronRight size={16} />}
+      </button>
+    </div>
   );
 }
 

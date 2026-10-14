@@ -43,19 +43,19 @@ export function Home() {
           </p>
           <div className="flex flex-wrap gap-3">
             <Link
-              to={mathTopics[0].path + mathTopics[0].subtopics[0].path}
+              to="/math"
               className="inline-flex items-center gap-2 rounded-xl bg-white px-4 py-2.5 font-semibold text-indigo-700 shadow-sm hover:bg-blue-50 transition-colors"
             >
               <Sigma size={18} /> Математика
             </Link>
             <Link
-              to={physicsTopics[0].path + physicsTopics[0].subtopics[0].path}
+              to="/physics"
               className="inline-flex items-center gap-2 rounded-xl bg-white/15 px-4 py-2.5 font-semibold text-white ring-1 ring-white/40 hover:bg-white/25 transition-colors"
             >
               <Atom size={18} /> Физика
             </Link>
             <Link
-              to={lectures[0].path}
+              to="/astronomy"
               className="inline-flex items-center gap-2 rounded-xl bg-white/15 px-4 py-2.5 font-semibold text-white ring-1 ring-white/40 hover:bg-white/25 transition-colors"
             >
               <Telescope size={18} /> Астрономия
@@ -109,9 +109,12 @@ export function Home() {
         </section>
 
         <section className="mb-10">
-          <h2 className="text-xl sm:text-2xl font-semibold mb-4 flex items-center gap-2">
+          <h2 className="text-xl sm:text-2xl font-semibold mb-4 flex flex-wrap items-center gap-x-2">
             <Sigma size={22} className="text-blue-600 dark:text-blue-400" />
             Математика – {mathCount} урока
+            <Link to="/math" className="ml-auto inline-flex items-center text-sm font-medium text-blue-700 hover:underline dark:text-blue-300">
+              Към раздела <ChevronRight size={16} />
+            </Link>
           </h2>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3">
             {mathTopics.map(topic => (
@@ -138,9 +141,12 @@ export function Home() {
         </section>
 
         <section className="mb-10">
-          <h2 className="text-xl sm:text-2xl font-semibold mb-4 flex items-center gap-2">
+          <h2 className="text-xl sm:text-2xl font-semibold mb-4 flex flex-wrap items-center gap-x-2">
             <Atom size={22} className="text-emerald-600 dark:text-emerald-400" />
             Физика – {physicsCount} {physicsCount === 1 ? 'урок' : 'урока'}
+            <Link to="/physics" className="ml-auto inline-flex items-center text-sm font-medium text-emerald-700 hover:underline dark:text-emerald-300">
+              Към раздела <ChevronRight size={16} />
+            </Link>
           </h2>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3">
             {physicsTopics.map(topic => (
@@ -167,9 +173,12 @@ export function Home() {
         </section>
 
         <section>
-          <h2 className="text-xl sm:text-2xl font-semibold mb-4 flex items-center gap-2">
+          <h2 className="text-xl sm:text-2xl font-semibold mb-4 flex flex-wrap items-center gap-x-2">
             <Telescope size={22} className="text-purple-600 dark:text-purple-400" />
             Астрономия – {lectures.length} лекции
+            <Link to="/astronomy" className="ml-auto inline-flex items-center text-sm font-medium text-purple-700 hover:underline dark:text-purple-300">
+              Към раздела <ChevronRight size={16} />
+            </Link>
           </h2>
           <ol className="grid sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-1 rounded-xl border border-gray-200 bg-white p-4 text-sm dark:border-gray-800 dark:bg-gray-900">
             {lectures.map((l, i) => (

@@ -7,6 +7,7 @@ import SidebarMenu from '~/SidebarMenu';
 
 // Всеки урок се зарежда отделно, едва когато се отвори.
 const Home = lazy(() => import('./Home').then(m => ({default: m.Home})));
+const SectionHome = lazy(() => import('./SectionHome').then(m => ({default: m.SectionHome})));
 const Fractions = lazy(() => import('./algebra/Fractions').then(m => ({default: m.Fractions})));
 const Inequalities = lazy(() => import('./algebra/Inequalities').then(m => ({default: m.Inequalities})));
 const LinearEquations = lazy(() => import('./algebra/LinearEquations').then(m => ({default: m.LinearEquations})));
@@ -130,6 +131,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="progress" element={<MyProgress />} />
+            <Route path="math" element={<SectionHome area="math" />} />
             <Route path="algebra">
               <Route path="fractions" element={<Fractions />} />
               <Route path="powers" element={<Powers />} />
@@ -157,6 +159,7 @@ function App() {
               <Route path="differential-equations" element={<DifferentialEquations />} />
             </Route>
             <Route path="physics">
+              <Route index element={<SectionHome area="physics" />} />
               <Route path="mechanics">
                 <Route path="units" element={<Units />} />
                 <Route path="linear-motion" element={<LinearMotion />} />
@@ -215,6 +218,7 @@ function App() {
               <Route path="glossary" element={<Glossary />} />
             </Route>
             <Route path="astronomy">
+              <Route index element={<SectionHome area="astronomy" />} />
               <Route path="tonight" element={<Tonight />} />
               <Route path="lecture01" element={<Lecture01 />} />
               <Route path="lecture02" element={<Lecture02 />} />

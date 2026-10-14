@@ -55,6 +55,7 @@ npx tsc --noEmit -p .   # проверка на типовете
 ```
 src/
   App.tsx, SidebarMenu.tsx   маршрути и странично меню
+  Home.tsx, SectionHome.tsx  начална страница и началните страници на разделите (/math, /physics, /astronomy)
   Theorem.tsx, Example.tsx   общи блокове за теореми и решени примери
   Quiz.tsx                   бърз тест (общ за всички уроци)
   WordProblems.tsx           „задачи от живота“ с проверка на отговора
