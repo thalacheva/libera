@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { fmt } from './terrestrialData';
+import LabSvg from '~/LabSvg';
 
 const W = 640;
 const H = 330;
@@ -63,7 +64,7 @@ export default function LadderLab() {
         върху стъпало и вижте на какво се крепи.
       </p>
 
-      <svg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-950 select-none">
+      <LabSvg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-950 select-none">
         {[-5, -2, 0, 3, 6, 9].map(p => (
           <g key={p}>
             <line x1={lx(10 ** p)} x2={lx(10 ** p)} y1={Y0 - 8} y2={Y0 + RUNGS.length * ROW} stroke="white" strokeOpacity="0.07" />
@@ -100,7 +101,7 @@ export default function LadderLab() {
         <text x={X0} y={H - 12} fontSize="10" fill="white" fillOpacity="0.7">
           веригата: {chain.join(' → ')}
         </text>
-      </svg>
+      </LabSvg>
 
       <div className="mt-3 p-3 rounded-lg bg-indigo-50 dark:bg-indigo-500/10 text-sm sm:text-base">
         <p>

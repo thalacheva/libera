@@ -3,6 +3,7 @@ import { CLASSES, M_BOL_SUN, STARS, T_SUN, classOf, radiusOf } from './starData'
 import { LOG_L_MAX, LOG_L_MIN, giantDot, hrAxes, lumOf, msDot, msLuminosity, msTemperature, rnd, supergiantDot, wdDot, type Dot } from './hrData';
 import { temperatureToRGB } from './light';
 import { fmt, sci } from './terrestrialData';
+import LabSvg from '~/LabSvg';
 
 const W = 640;
 const H = 440;
@@ -103,7 +104,7 @@ export default function HRDiagram() {
         диаграмата, за да разберете каква би била звезда на това място.
       </p>
 
-      <svg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-950 select-none">
+      <LabSvg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-950 select-none">
         <defs>
           <clipPath id="hr-plot">
             <rect x={X0} y={Y0} width={X1 - X0} height={Y1 - Y0} />
@@ -254,7 +255,7 @@ export default function HRDiagram() {
             );
           });
         })()}
-      </svg>
+      </LabSvg>
 
       <div className="flex flex-wrap justify-center items-center gap-1 mt-3">
         {SAMPLES.map(s => (

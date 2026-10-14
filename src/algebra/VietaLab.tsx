@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import LabSvg from '~/LabSvg';
 
 const W = 400;
 const H = 240;
@@ -67,7 +68,7 @@ export default function VietaLab() {
         </div>
       </div>
 
-      <svg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto max-w-lg mx-auto text-gray-700 dark:text-gray-300">
+      <LabSvg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto max-w-lg mx-auto text-gray-700 dark:text-gray-300">
         <defs>
           <clipPath id="vieta-clip">
             <rect x={0} y={0} width={W} height={H} />
@@ -98,7 +99,7 @@ export default function VietaLab() {
             </text>
           </g>
         ))}
-      </svg>
+      </LabSvg>
 
       <div className="grid sm:grid-cols-3 gap-4 mt-2">
         {slider('x₁', x1, setX1, -6, 6)}

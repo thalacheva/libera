@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { temperatureToRGB } from './light';
 import { STARS, T_SUN, classOf } from './starData';
 import { fmt, sci } from './terrestrialData';
+import LabSvg from '~/LabSvg';
 
 const W = 640;
 const H = 300;
@@ -51,7 +52,7 @@ export default function StarSizeLab() {
         по-голяма. Изберете звезда или задайте L и T сами.
       </p>
 
-      <svg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-900 select-none">
+      <LabSvg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-900 select-none">
         <defs>
           <clipPath id="ss-left">
             <rect x={0} y={0} width={400} height={H} />
@@ -143,7 +144,7 @@ export default function StarSizeLab() {
             L = {L >= 1000 ? sci(L, 1) : fmt(L, L < 1 ? 4 : 1)} L☉, T = {fmt(T, 0)} K (клас {classOf(T).letter})
           </text>
         </g>
-      </svg>
+      </LabSvg>
 
       <div className="grid sm:grid-cols-2 gap-x-4">
         <div>

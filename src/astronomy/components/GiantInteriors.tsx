@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { fmt } from './terrestrialData';
 import { GIANTS, type GiantId } from './giantData';
+import LabSvg from '~/LabSvg';
 
 const W = 640;
 const H = 320;
@@ -79,7 +80,7 @@ export default function GiantInteriors() {
         получава от Слънцето.
       </p>
 
-      <svg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-900 select-none">
+      <LabSvg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-900 select-none">
         <defs>
           <clipPath id="gi-left">
             <rect x={0} y={0} width={CX} height={H} />
@@ -166,7 +167,7 @@ export default function GiantInteriors() {
             );
           })}
         </g>
-      </svg>
+      </LabSvg>
 
       <div className="flex flex-wrap justify-center gap-1 mt-3">
         {GIANTS.map(p => (

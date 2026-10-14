@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { temperatureToRGB } from './light';
 import { STARS, apparent } from './starData';
 import { fmt, sci } from './terrestrialData';
+import LabSvg from '~/LabSvg';
 
 const W = 640;
 const H = 230;
@@ -53,7 +54,7 @@ export default function DistanceLab() {
         расте с 5 при всяко десетократно отдалечаване.
       </p>
 
-      <svg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-900 select-none">
+      <LabSvg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-900 select-none">
         {/* Наблюдател и ос на разстоянията */}
         <text x={X0 - 24} y={AXIS_Y + 4} fontSize="16">
           👁️
@@ -105,7 +106,7 @@ export default function DistanceLab() {
             поток: F = L / (4πd²) ≈ {sci(flux, 1)} W/m²
           </text>
         </g>
-      </svg>
+      </LabSvg>
 
       <label className="block text-sm font-semibold mt-4 mb-1">Разстояние: {formatDistance(d)}</label>
       <input type="range" min={LOG_MIN} max={LOG_MAX} step="0.01" value={logD} onChange={e => setLogD(Number(e.target.value))} className="w-full" />

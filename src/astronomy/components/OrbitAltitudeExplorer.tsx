@@ -2,6 +2,7 @@ import { Pause, Play } from 'lucide-react';
 import { useState } from 'react';
 import { formatDuration } from './earthMath';
 import { useAnimationFrame } from './useAnimationFrame';
+import LabSvg from '~/LabSvg';
 
 const GM = 398_600; // km³/s²
 const R = 6371; // km
@@ -49,7 +50,7 @@ export default function OrbitAltitudeExplorer() {
       </p>
 
       <div className="grid md:grid-cols-[1fr_240px] gap-4 items-center">
-        <svg
+        <LabSvg
           viewBox="0 0 420 420"
           className="w-full h-auto max-w-[420px] mx-auto rounded-lg bg-slate-900"
         >
@@ -96,7 +97,7 @@ export default function OrbitAltitudeExplorer() {
             Логаритмичен мащаб на разстоянията · {formatDuration(hours)}{' '}
             изминали
           </text>
-        </svg>
+        </LabSvg>
 
         <div className="space-y-2 text-sm">
           {[

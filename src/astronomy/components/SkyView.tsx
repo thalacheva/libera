@@ -10,6 +10,7 @@ import {
   starKind,
 } from './skyMath';
 import { useAnimationFrame } from './useAnimationFrame';
+import LabSvg from '~/LabSvg';
 
 const WIDTH = 720;
 const HEIGHT = 380;
@@ -229,7 +230,7 @@ export default function SkyView() {
         ))}
       </div>
 
-      <svg
+      <LabSvg
         viewBox={`0 0 ${WIDTH} ${HEIGHT}`}
         className="w-full h-auto rounded-lg"
       >
@@ -416,7 +417,7 @@ export default function SkyView() {
         >
           Звездно време {formatHours(sidereal)}
         </text>
-      </svg>
+      </LabSvg>
 
       <div className="grid sm:grid-cols-2 gap-4 mt-4">
         <div>

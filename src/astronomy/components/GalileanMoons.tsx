@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { fmt } from './terrestrialData';
 import { useAnimationFrame } from './useAnimationFrame';
+import LabSvg from '~/LabSvg';
 
 const W = 640;
 const H = 340;
@@ -127,7 +128,7 @@ export default function GalileanMoons() {
         Щракнете върху спътник.
       </p>
 
-      <svg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-900 select-none">
+      <LabSvg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-900 select-none">
         {/* Орбити */}
         {MOONS.map(m => (
           <circle key={m.id} cx={JX} cy={JY} r={(m.a / R_J) * PX_PER_RJ} fill="none" stroke="white" strokeOpacity={m.id === moonId ? 0.4 : 0.12} />
@@ -215,7 +216,7 @@ export default function GalileanMoons() {
         <text x={DIAL.x} y={DIAL.y + DIAL.r + 28} fontSize="9" textAnchor="middle" fill="white" fillOpacity="0.6">
           в една линия от една и съща страна
         </text>
-      </svg>
+      </LabSvg>
 
       <div className="flex flex-wrap justify-center items-center gap-2 mt-3">
         <button onClick={() => setPlaying(p => !p)} className="px-4 py-1 rounded bg-yellow-600 text-white text-sm hover:bg-yellow-700">

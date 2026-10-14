@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { fmt } from './terrestrialData';
 import { useAnimationFrame } from './useAnimationFrame';
+import LabSvg from '~/LabSvg';
 
 const W = 640;
 const H = 320;
@@ -67,7 +68,7 @@ export default function WindingLab() {
         бяха изградени все от едни и същи звезди, те бързо биха се навили като часовникова пружина.
       </p>
 
-      <svg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-950 select-none">
+      <LabSvg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-950 select-none">
         {PANELS.map((p, pi) => (
           <g key={pi}>
             <circle cx={p.cx} cy={CY} r={R_MAX * R_PX + 4} fill="#0f172a" />
@@ -107,7 +108,7 @@ export default function WindingLab() {
         <text x={12} y={H - 10} fontSize="11" fill="white">
           t = {fmt(t / 1000, 2)} млрд. години · Слънцето е направило {fmt(turns, 1)} обиколки
         </text>
-      </svg>
+      </LabSvg>
 
       <div className="flex flex-wrap justify-center items-center gap-2 mt-3">
         <button onClick={() => setPlaying(v => !v)} className="px-4 py-1 rounded bg-sky-600 text-white text-sm hover:bg-sky-700">

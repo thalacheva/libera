@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { formatDuration } from './earthMath';
 import { DEG } from './skyMath';
 import { useAnimationFrame } from './useAnimationFrame';
+import LabSvg from '~/LabSvg';
 
 // Всички ъгли са в дъгови минути
 const SUN_PARALLAX = 0.15;
@@ -105,7 +106,7 @@ export default function LunarEclipse() {
       </p>
 
       {/* Геометрия на сянката */}
-      <svg viewBox="0 0 600 200" className="w-full h-auto mb-2">
+      <LabSvg viewBox="0 0 600 200" className="w-full h-auto mb-2">
         <path
           d="M 260,86 L 400,100 L 260,114 Z"
           fill="rgb(15, 23, 42)"
@@ -181,10 +182,10 @@ export default function LunarEclipse() {
           Схема, не в мащаб: сянката се стеснява, защото Слънцето е по-голямо от
           Земята
         </text>
-      </svg>
+      </LabSvg>
 
       {/* Изглед към сянката */}
-      <svg
+      <LabSvg
         viewBox={`0 0 ${W} ${H}`}
         className="w-full h-auto rounded-lg bg-slate-900"
       >
@@ -299,7 +300,7 @@ export default function LunarEclipse() {
         <text x="8" y={H - 10} fontSize="11" fill="white" opacity="0.6">
           ← изток · Луната се движи на изток · запад →
         </text>
-      </svg>
+      </LabSvg>
 
       <p className="text-center mt-2 font-semibold">{stage}</p>
 

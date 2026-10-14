@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { fmt } from './terrestrialData';
+import LabSvg from '~/LabSvg';
 
 const K_B = 1.381e-23; // J/K
 const AMU = 1.661e-27; // kg
@@ -58,7 +59,7 @@ export default function AtmosphereEscapeLab() {
         години. Леките и горещите молекули са най-бързи.
       </p>
 
-      <svg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-900 select-none">
+      <LabSvg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-900 select-none">
         {/* Скала */}
         {[1, 2, 5, 10, 20, 50].map(v => (
           <g key={v}>
@@ -98,7 +99,7 @@ export default function AtmosphereEscapeLab() {
         <text x={X1 - 4} y={vy(body.escape) - 6} fontSize="11" textAnchor="end" fill="#fbbf24">
           v₂ = {fmt(body.escape, 1)} km/s ({body.name})
         </text>
-      </svg>
+      </LabSvg>
 
       <div className="flex flex-wrap justify-center gap-1 mt-3">
         {BODIES.map((b, i) => (

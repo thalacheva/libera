@@ -1,6 +1,7 @@
 import { Pause, Play } from 'lucide-react';
 import { useState } from 'react';
 import { useAnimationFrame } from './useAnimationFrame';
+import LabSvg from '~/LabSvg';
 
 const CX = 300;
 const CY = 200;
@@ -83,7 +84,7 @@ export default function KeplerOrbitLab() {
         описва за 1/12 от периода.
       </p>
 
-      <svg viewBox="0 0 600 400" className="w-full h-auto">
+      <LabSvg viewBox="0 0 600 400" className="w-full h-auto">
         <defs>
           <marker
             id="kepler-velocity"
@@ -219,7 +220,7 @@ export default function KeplerOrbitLab() {
           stroke="white"
           strokeWidth="2"
         />
-      </svg>
+      </LabSvg>
 
       <div className="grid sm:grid-cols-2 gap-4 mt-3">
         <div>

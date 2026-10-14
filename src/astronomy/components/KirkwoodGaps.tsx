@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { fmt } from './terrestrialData';
+import LabSvg from '~/LabSvg';
 
 const W = 640;
 const H = 300;
@@ -78,7 +79,7 @@ export default function KirkwoodGaps() {
         срещите с него стават все на едни и същи места и тласъците се натрупват.
       </p>
 
-      <svg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-900 select-none">
+      <LabSvg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-900 select-none">
         {/* Хистограма */}
         {BINS.map(b => (
           <rect
@@ -143,7 +144,7 @@ export default function KirkwoodGaps() {
             {near ? `резонанс ${near.name}` : 'не е в резонанс – срещите се разпръскват равномерно'}
           </text>
         </g>
-      </svg>
+      </LabSvg>
 
       <label className="block text-sm font-semibold mt-4 mb-1">Голяма полуос: {fmt(a, 3)} AU</label>
       <input type="range" min="1.9" max="4.1" step="0.001" value={a} onChange={e => setA(Number(e.target.value))} className="w-full" />

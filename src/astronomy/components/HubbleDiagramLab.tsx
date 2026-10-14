@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { fmt } from './terrestrialData';
+import LabSvg from '~/LabSvg';
 
 const W = 640;
 const H = 290;
@@ -52,7 +53,7 @@ export default function HubbleDiagramLab() {
         Всяка точка е галактика: разстояние и скорост на отдалечаване. Нагласете наклона на правата v = H₀ · d така, че да пасне най-добре.
       </p>
 
-      <svg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-950 select-none">
+      <LabSvg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-950 select-none">
         <rect x={X0} y={Y0} width={X1 - X0} height={Y1 - Y0} fill="#0b1120" stroke="white" strokeOpacity="0.2" />
         <defs>
           <clipPath id="hd-clip">
@@ -103,7 +104,7 @@ export default function HubbleDiagramLab() {
             {age < 4.6 ? 'по-малко от възрастта на Земята!' : '≈ възрастта на Вселената'}
           </text>
         </g>
-      </svg>
+      </LabSvg>
 
       <label className="block text-sm font-semibold mt-4 mb-1">H₀ = {fmt(h0, 0)} km/s/Mpc</label>
       <input type="range" min="20" max="700" step="1" value={h0} onChange={e => setH0(Number(e.target.value))} className="w-full" />

@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import LabSvg from '~/LabSvg';
 
 const W = 640;
 const H = 230;
@@ -101,7 +102,7 @@ export default function RootsParameterLab() {
         ))}
       </div>
 
-      <svg viewBox={`0 0 ${W} ${H + 20}`} className="w-full h-auto text-gray-700 dark:text-gray-300">
+      <LabSvg viewBox={`0 0 ${W} ${H + 20}`} className="w-full h-auto text-gray-700 dark:text-gray-300">
         <defs>
           <clipPath id="rp-l">
             <rect x={L.x0} y={Y0} width={L.x1 - L.x0} height={Y1 - Y0} />
@@ -153,7 +154,7 @@ export default function RootsParameterLab() {
         <text x={R.x0} y={Y1 + 14} fontSize="10" fill="currentColor" opacity="0.7">
           {linear ? 'при това m уравнението е линейно' : `y = ${poly(A, B, C)}`}
         </text>
-      </svg>
+      </LabSvg>
 
       <label className="block text-sm font-semibold mt-2">
         Параметър m = {num(m)}

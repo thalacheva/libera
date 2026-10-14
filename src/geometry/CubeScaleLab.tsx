@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { num } from '~/functions/functionMath';
 import { Slider, Sliders } from '~/functions/plot';
 import { Note, Readout } from './diagram';
+import LabSvg from '~/LabSvg';
 
 const W = 320;
 const H = 280;
@@ -32,11 +33,11 @@ export function CubeScaleLab() {
 
   return (
     <div className="bg-white dark:bg-gray-800 p-3 sm:p-4 rounded-lg">
-      <svg viewBox={`0 0 ${W} ${H}`} className="w-full max-w-xs mx-auto h-auto block">
+      <LabSvg viewBox={`0 0 ${W} ${H}`} className="w-full max-w-xs mx-auto h-auto block">
         {faces.map((f, i) => (
           <polygon key={i} points={f.pts} className={`${f.cls} stroke-white dark:stroke-gray-900`} strokeWidth="1.2" strokeLinejoin="round" />
         ))}
-      </svg>
+      </LabSvg>
       <Sliders>
         <Slider label="n" value={n} onChange={setN} min={1} max={6} step={1} tone="amber" />
       </Sliders>

@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { fmt } from './terrestrialData';
+import LabSvg from '~/LabSvg';
 
 const W = 640;
 const H = 300;
@@ -58,7 +59,7 @@ export default function LensingLab() {
         точно зад лещата, образът ѝ се превръща в пръстен на Айнщайн.
       </p>
 
-      <svg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-950 select-none">
+      <LabSvg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-950 select-none">
         <rect x={VX} y={VY} width={VW} height={VH} fill="#020617" rx="6" />
         {cells.map((c, i) => (
           <rect key={i} x={c.x} y={c.y} width={cellW + 0.4} height={cellH + 0.4} fill={c.c} />
@@ -105,7 +106,7 @@ export default function LensingLab() {
             тъмната ѝ материя.
           </text>
         </g>
-      </svg>
+      </LabSvg>
 
       <div className="grid sm:grid-cols-3 gap-x-4">
         <div>

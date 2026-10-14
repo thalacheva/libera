@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { formatDuration, SIDEREAL_DAY_HOURS } from './earthMath';
 import { DEG } from './skyMath';
 import { useAnimationFrame } from './useAnimationFrame';
+import LabSvg from '~/LabSvg';
 
 const C = 130;
 const FLOOR_R = 110;
@@ -56,7 +57,7 @@ export default function FoucaultPendulum() {
       </p>
 
       <div className="grid sm:grid-cols-[260px_1fr] gap-4 items-center">
-        <svg
+        <LabSvg
           viewBox="0 0 260 260"
           className="w-full h-auto max-w-[260px] mx-auto"
         >
@@ -127,7 +128,7 @@ export default function FoucaultPendulum() {
           >
             С
           </text>
-        </svg>
+        </LabSvg>
 
         <div className="space-y-3">
           <div>

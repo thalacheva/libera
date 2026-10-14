@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { fmt } from './terrestrialData';
+import LabSvg from '~/LabSvg';
 
 const W = 640;
 const H = 320;
@@ -54,7 +55,7 @@ export default function TwinParadoxLab() {
         Светлината се движи по линии под 45°.
       </p>
 
-      <svg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-950 select-none">
+      <LabSvg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-950 select-none">
         <defs>
           <clipPath id="tw-clip">
             <rect x={OX - 10} y={OY - MAXH - 5} width={MAXW + 20} height={MAXH + 10} />
@@ -129,7 +130,7 @@ export default function TwinParadoxLab() {
             обръщането – затова ситуацията не е симетрична.
           </text>
         </g>
-      </svg>
+      </LabSvg>
 
       <div className="grid sm:grid-cols-2 gap-x-4">
         <div>

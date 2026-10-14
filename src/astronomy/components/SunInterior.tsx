@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import LabSvg from '~/LabSvg';
 
 const W = 640;
 const H = 340;
@@ -146,7 +147,7 @@ export default function SunInterior() {
         в логаритмичен мащаб.
       </p>
 
-      <svg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-900 select-none">
+      <LabSvg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-900 select-none">
         <defs>
           <radialGradient id="sun-corona">
             <stop offset="0.8" stopColor="#c4b5fd" stopOpacity="0.35" />
@@ -222,7 +223,7 @@ export default function SunInterior() {
           плътност (10⁻⁷ – 10³ g/cm³)
         </text>
         <line x1={gx(markerR)} x2={gx(markerR)} y1={GY0} y2={GY1} stroke="white" strokeDasharray="3 3" strokeOpacity="0.6" />
-      </svg>
+      </LabSvg>
 
       <div className="flex flex-wrap gap-1 mt-3">
         {LAYERS.map(l => (

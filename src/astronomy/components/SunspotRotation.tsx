@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { project, synodicRate, toRad } from './sunMath';
 import { useAnimationFrame } from './useAnimationFrame';
+import LabSvg from '~/LabSvg';
 
 const W = 640;
 const H = 320;
@@ -58,7 +59,7 @@ export default function SunspotRotation() {
         меридиан: Слънцето не е твърдо тяло и екваторът му изпреварва полюсите.
       </p>
 
-      <svg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-900 select-none">
+      <LabSvg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-900 select-none">
         <defs>
           {/* Потъмняване към ръба */}
           <radialGradient id="spot-sun">
@@ -136,7 +137,7 @@ export default function SunspotRotation() {
             фотосфера ~5800 K
           </text>
         </g>
-      </svg>
+      </LabSvg>
 
       <div className="flex items-center gap-2 mt-3">
         <button

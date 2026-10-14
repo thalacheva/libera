@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { fmt } from './terrestrialData';
+import LabSvg from '~/LabSvg';
 
 const W = 640;
 const H = 300;
@@ -99,7 +100,7 @@ export default function LeavittLab() {
       </p>
 
       {mode === 'smc' ? (
-        <svg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-950 select-none">
+        <LabSvg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-950 select-none">
           <rect x={X0} y={Y0} width={X1 - X0} height={Y1 - Y0} fill="#0b1120" stroke="white" strokeOpacity="0.2" />
           <defs>
             <clipPath id="lv-clip">
@@ -145,9 +146,9 @@ export default function LeavittLab() {
               Истински: ~62 kpc.
             </text>
           </g>
-        </svg>
+        </LabSvg>
       ) : (
-        <svg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-950 select-none">
+        <LabSvg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-950 select-none">
           <rect x={X0} y={Y0} width={X1 - X0} height={Y1 - Y0} fill="#0b1120" stroke="white" strokeOpacity="0.2" />
           <line x1={fx(1)} x2={fx(1)} y1={Y0} y2={Y1} stroke="white" strokeOpacity="0.1" />
           {folded.flatMap((o, i) => [
@@ -199,7 +200,7 @@ export default function LeavittLab() {
               Днес: ~765 kpc
             </text>
           </g>
-        </svg>
+        </LabSvg>
       )}
 
       {mode === 'smc' ? (

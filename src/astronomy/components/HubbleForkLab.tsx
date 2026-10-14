@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { GalaxyDrawing, type GalaxyType } from './GalaxyDrawing';
+import LabSvg from '~/LabSvg';
 
 const W = 640;
 const H = 390;
@@ -46,7 +47,7 @@ export default function HubbleForkLab() {
         розово – области, в които се раждат звезди.
       </p>
 
-      <svg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-950 select-none">
+      <LabSvg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-950 select-none">
         {/* Линиите на камертона */}
         <path d={`M 40 85 H 235 L 320 35 H 490 M 235 85 L 320 140 H 490`} fill="none" stroke="white" strokeOpacity="0.15" strokeWidth="2" />
         {NODES.map(n => (
@@ -94,7 +95,7 @@ export default function HubbleForkLab() {
             Но сливанията на спирални дават елиптични.
           </text>
         </g>
-      </svg>
+      </LabSvg>
 
       {spiral && (
         <>

@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import LabSvg from '~/LabSvg';
 
 const W = 640;
 const X0 = 70; // входът на тръбата
@@ -202,13 +203,13 @@ export default function TelescopeOptics() {
         )}
       </div>
 
-      <svg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-900 select-none">
+      <LabSvg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-900 select-none">
         <text x={10} y={20} fontSize="11" fill="white" fillOpacity="0.6">
           светлина от звезда →
         </text>
         {rays}
         {parts}
-      </svg>
+      </LabSvg>
 
       <p className="mt-3 text-sm text-gray-700 dark:text-gray-300">{info.text}</p>
 

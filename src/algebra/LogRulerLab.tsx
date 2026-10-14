@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { num } from '~/functions/functionMath';
 import { Slider, Sliders } from '~/functions/plot';
 import { Buttons, DiagramButton, Formula, Note } from '~/geometry/diagram';
+import LabSvg from '~/LabSvg';
 
 const BASES = [2, 3, 10];
 const K_MIN = -2;
@@ -40,7 +41,7 @@ export default function LogRulerLab() {
         ))}
       </Buttons>
 
-      <svg viewBox={`0 0 ${W} 120`} className="w-full h-auto mt-3 text-gray-700 dark:text-gray-300">
+      <LabSvg viewBox={`0 0 ${W} 120`} className="w-full h-auto mt-3 text-gray-700 dark:text-gray-300">
         <line x1={PAD} x2={W - PAD} y1={60} y2={60} stroke="currentColor" strokeOpacity="0.5" strokeWidth="2" />
         {Array.from({ length: K_MAX - K_MIN + 1 }, (_, i) => K_MIN + i).map(p => (
           <g key={p}>
@@ -61,7 +62,7 @@ export default function LogRulerLab() {
         ))}
         <line x1={X(0)} x2={X(t)} y1={60} y2={60} className="stroke-teal-500" strokeWidth="6" strokeLinecap="round" />
         <circle cx={X(t)} cy={60} r={8} className="fill-rose-500 stroke-white dark:stroke-gray-800" strokeWidth="2" />
-      </svg>
+      </LabSvg>
 
       <Sliders>
         <Slider label="t" value={t} onChange={setT} min={K_MIN} max={K_MAX} step={0.05} tone="rose" />

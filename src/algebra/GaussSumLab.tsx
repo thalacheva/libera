@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Slider, Sliders } from '~/functions/plot';
 import { Formula, Note } from '~/geometry/diagram';
+import LabSvg from '~/LabSvg';
 
 const W = 600;
 const H = 300;
@@ -27,7 +28,7 @@ export default function GaussSumLab() {
         Всеки член е стълб от квадратчета. Обърни второ копие на „стълбичката“ отгоре – двете заедно образуват правоъгълник n × (a₁ + aₙ).
       </p>
 
-      <svg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto">
+      <LabSvg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto">
         {terms.map((t, i) => {
           const x = x0 + i * cell;
           const flipped = terms[n - 1 - i];
@@ -46,7 +47,7 @@ export default function GaussSumLab() {
         {twin && (
           <rect x={x0} y={yBase - height * cell} width={n * cell} height={height * cell} className="fill-none stroke-gray-700 dark:stroke-gray-200" strokeWidth="2" strokeDasharray="6 4" />
         )}
-      </svg>
+      </LabSvg>
 
       <label className="flex justify-center items-center gap-2 mt-2 text-sm text-gray-700 dark:text-gray-300">
         <input type="checkbox" checked={twin} onChange={e => setTwin(e.target.checked)} className="accent-amber-500" />

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { fmt } from './terrestrialData';
 import { useAnimationFrame } from './useAnimationFrame';
+import LabSvg from '~/LabSvg';
 
 const W = 640;
 const H = 300;
@@ -59,7 +60,7 @@ export default function LightClockLab() {
         фотона да изминава по-дълъг, диагонален път. А скоростта на светлината е една и съща…
       </p>
 
-      <svg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-950 select-none">
+      <LabSvg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-950 select-none">
         <text x={RX} y={34} fontSize="11" textAnchor="middle" fill="white" fontWeight="700">
           на Земята
         </text>
@@ -85,7 +86,7 @@ export default function LightClockLab() {
         <text x={(MX0 + MX1) / 2} y={BOT + 50} fontSize="10" textAnchor="middle" fill="white" fillOpacity="0.65">
           γ = 1 / √(1 − v²/c²) = {fmt(gamma, 3)} · един тик в ракетата трае {fmt(gamma, 2)} тика на Земята
         </text>
-      </svg>
+      </LabSvg>
 
       <label className="block text-sm font-semibold mt-4 mb-1">
         Скорост: v = {fmt(beta, 2)}c ({fmt(beta * 299792, 0)} km/s) · γ = {fmt(gamma, 3)}

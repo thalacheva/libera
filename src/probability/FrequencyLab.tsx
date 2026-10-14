@@ -2,6 +2,7 @@ import { RotateCcw } from 'lucide-react';
 import { useState } from 'react';
 import { num } from '~/functions/functionMath';
 import { Buttons, DiagramButton, Formula, Note } from '~/geometry/diagram';
+import LabSvg from '~/LabSvg';
 
 type Event = { name: string; p: number; sides: number; hit: (r: number) => boolean };
 
@@ -69,7 +70,7 @@ export default function FrequencyLab() {
         ))}
       </Buttons>
 
-      <svg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto mt-3 text-gray-700 dark:text-gray-300">
+      <LabSvg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto mt-3 text-gray-700 dark:text-gray-300">
         {[0, 0.25, 0.5, 0.75, 1].map(f => (
           <g key={f}>
             <line x1={PAD} x2={W - 10} y1={Y(f)} y2={Y(f)} stroke="currentColor" strokeOpacity="0.1" />
@@ -89,7 +90,7 @@ export default function FrequencyLab() {
         <text x={W - 10} y={H - 6} fontSize="11" textAnchor="end" fill="currentColor" opacity="0.6">
           {n > 0 ? `${n.toLocaleString('bg-BG')} опита` : 'брой опити'}
         </text>
-      </svg>
+      </LabSvg>
 
       <div className="flex flex-wrap justify-center gap-2 mt-2">
         {[1, 10, 100, 1000].map(k => (

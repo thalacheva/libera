@@ -1,5 +1,6 @@
 import { useId, useMemo, useState } from 'react';
 import { formatScientific } from './physics';
+import LabSvg from '~/LabSvg';
 
 const PW = 300; // ширина на всеки панел
 const PH = 220;
@@ -105,7 +106,7 @@ export default function ApertureLab() {
         телескопът да я раздели на две?
       </p>
 
-      <svg viewBox={`0 0 ${2 * PW + 20} ${PH + 26}`} className="w-full h-auto select-none">
+      <LabSvg viewBox={`0 0 ${2 * PW + 20} ${PH + 26}`} className="w-full h-auto select-none">
         <defs>
           <radialGradient id={`${id}-psf`}>
             <stop offset="0" stopColor="#fff7d6" stopOpacity="1" />
@@ -148,7 +149,7 @@ export default function ApertureLab() {
             {resolved ? '✓ две звезди' : '✗ сливат се в една'}
           </text>
         </g>
-      </svg>
+      </LabSvg>
 
       <div className="grid sm:grid-cols-2 gap-3 mt-3 text-sm">
         <label className="block">

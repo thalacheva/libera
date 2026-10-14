@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { fmt, sci } from './terrestrialData';
+import LabSvg from '~/LabSvg';
 
 const W = 640;
 const H = 300;
@@ -51,7 +52,7 @@ export default function SuperluminalLab() {
         си светлина – затова на небето изглежда, че се движи по-бързо от c.
       </p>
 
-      <svg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-950 select-none">
+      <LabSvg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-950 select-none">
         <defs>
           <marker id="sl-arrow" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto">
             <polygon points="0 0, 8 3, 0 6" fill="#fde68a" />
@@ -109,7 +110,7 @@ export default function SuperluminalLab() {
             максимум βγ = {fmt(beta * gamma, 1)}c при θ = {fmt(thOpt, 1)}° · δ = {fmt(delta, 1)}
           </text>
         </g>
-      </svg>
+      </LabSvg>
 
       <div className="grid sm:grid-cols-2 gap-x-4">
         <div>

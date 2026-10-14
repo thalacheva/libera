@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { fmt, sci } from './terrestrialData';
+import LabSvg from '~/LabSvg';
 
 const W = 640;
 const H = 260;
@@ -82,7 +83,7 @@ export default function ImpactLab() {
         Енергията и последиците от удара на тяло с даден размер – и колко често се случва. Оценките са ориентировъчни.
       </p>
 
-      <svg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-900 select-none">
+      <LabSvg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-900 select-none">
         {/* Зони на разрушения */}
         <circle cx={MX} cy={MY} r={glass * pxPerKm} fill="#facc15" fillOpacity="0.08" stroke="#facc15" strokeOpacity="0.5" strokeDasharray="4 3" />
         <circle cx={MX} cy={MY} r={severe * pxPerKm} fill="#ef4444" fillOpacity="0.25" stroke="#ef4444" />
@@ -129,7 +130,7 @@ export default function ImpactLab() {
             такъв удар: средно веднъж на {formatYears(interval(d / 1000))}
           </text>
         </g>
-      </svg>
+      </LabSvg>
 
       <label className="block text-sm font-semibold mt-4 mb-1">Диаметър: {d < 1000 ? `${fmt(d, 0)} m` : `${fmt(d / 1000, 1)} km`}</label>
       <input type="range" min="0" max="4.2" step="0.01" value={logD} onChange={e => setLogD(Number(e.target.value))} className="w-full" />

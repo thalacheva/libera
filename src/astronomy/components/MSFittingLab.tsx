@@ -3,6 +3,7 @@ import { rnd } from './hrData';
 import { temperatureToRGB } from './light';
 import { temperatureFromBV } from './starData';
 import { fmt } from './terrestrialData';
+import LabSvg from '~/LabSvg';
 
 const W = 640;
 const H = 330;
@@ -85,7 +86,7 @@ export default function MSFittingLab() {
         абсолютни величини M. Плъзнете я надолу, докато легне върху звездите – отместването е модулът на разстоянието m − M.
       </p>
 
-      <svg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-950 select-none">
+      <LabSvg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-950 select-none">
         <rect x={X0} y={Y0} width={X1 - X0} height={Y1 - Y0} fill="#0b1120" stroke="white" strokeOpacity="0.25" />
         {[0, 5, 10, 15, 20].map(m => (
           <g key={m}>
@@ -145,7 +146,7 @@ export default function MSFittingLab() {
             са до 0,75 величини по-ярки.
           </text>
         </g>
-      </svg>
+      </LabSvg>
 
       <label className="block text-sm font-semibold mt-4 mb-1">Модул на разстоянието m − M = {fmt(mu, 2)}</label>
       <input type="range" min="0" max="12" step="0.01" value={mu} onChange={e => setMu(Number(e.target.value))} className="w-full" />

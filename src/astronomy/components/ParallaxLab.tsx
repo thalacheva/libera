@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { fmt } from './terrestrialData';
 import { useAnimationFrame } from './useAnimationFrame';
+import LabSvg from '~/LabSvg';
 
 const W = 640;
 const H = 300;
@@ -78,7 +79,7 @@ export default function ParallaxLab() {
         полуос p – паралакса. Ако звездата се движи и сама, елипсата се „разтегля“ във вълнообразна линия.
       </p>
 
-      <svg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-950 select-none">
+      <LabSvg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-950 select-none">
         {/* Изглед отгоре */}
         <ellipse cx={SUN.x} cy={SUN.y} rx={ORBIT} ry={ORBIT * 0.45} fill="none" stroke="#3b82f6" strokeOpacity="0.5" />
         <circle cx={SUN.x} cy={SUN.y} r="8" fill="#fbbf24" />
@@ -124,7 +125,7 @@ export default function ParallaxLab() {
         <text x={SKY.x + SKY.half} y={SKY.y - SKY.half + 6} fontSize="10" textAnchor="end" fill="white" fillOpacity="0.55">
           {fmt(t, 2)} г.
         </text>
-      </svg>
+      </LabSvg>
 
       <div className="grid sm:grid-cols-3 gap-x-4">
         <div>

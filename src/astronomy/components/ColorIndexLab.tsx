@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { WIEN, planck, temperatureToRGB, wavelengthToRGB } from './light';
 import { STARS, bvFromTemperature, classOf, temperatureFromBV } from './starData';
 import { fmt } from './terrestrialData';
+import LabSvg from '~/LabSvg';
 
 const W = 640;
 const H = 270;
@@ -45,7 +46,7 @@ export default function ColorIndexLab() {
         кривата на Планк – а оттам и температурата. Не ни трябва разстоянието!
       </p>
 
-      <svg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-900 select-none">
+      <LabSvg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-900 select-none">
         {/* Видимата област */}
         {Array.from({ length: 34 }, (_, i) => 380 + i * 10).map(nm => (
           <rect key={nm} x={gx(nm)} y={GY1} width={gx(nm + 10) - gx(nm) + 0.5} height={8} fill={wavelengthToRGB(nm)} />
@@ -99,7 +100,7 @@ export default function ColorIndexLab() {
             {bv < 0 ? 'по-ярка в синьо – гореща' : bv > 1 ? 'много по-ярка в жълто – студена' : 'малко по-ярка в жълто'}
           </text>
         </g>
-      </svg>
+      </LabSvg>
 
       <label className="block text-sm font-semibold mt-4 mb-1">Температура: {fmt(T, 0)} K</label>
       <input type="range" min={Math.log10(2500)} max={Math.log10(40000)} step="0.001" value={logT} onChange={e => setLogT(Number(e.target.value))} className="w-full" />

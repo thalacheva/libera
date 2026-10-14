@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { temperatureToRGB } from './light';
 import { fmt } from './terrestrialData';
 import { useAnimationFrame } from './useAnimationFrame';
+import LabSvg from '~/LabSvg';
 
 const W = 640;
 const H = 330;
@@ -97,7 +98,7 @@ export default function EclipsingLab() {
         Дълбочината, формата и продължителността на минимумите издават размерите и температурите на звездите.
       </p>
 
-      <svg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-950 select-none">
+      <LabSvg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-950 select-none">
         <defs>
           <radialGradient id="ecl-limb" cx="0.5" cy="0.5" r="0.5">
             <stop offset="0.5" stopColor="black" stopOpacity="0" />
@@ -137,7 +138,7 @@ export default function EclipsingLab() {
         <text x={W - 12} y={54} fontSize="10" textAnchor="end" fill="white" fillOpacity="0.7">
           вторичен: −{fmt(secondary * 100, secondary < 0.01 ? 2 : 1)}%
         </text>
-      </svg>
+      </LabSvg>
 
       <div className="flex flex-wrap justify-center items-center gap-1 mt-3">
         <button onClick={() => setPlaying(v => !v)} className="px-4 py-1 rounded bg-amber-600 text-white text-sm hover:bg-amber-700">

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { temperatureToRGB } from './light';
 import { fmt, sci } from './terrestrialData';
+import LabSvg from '~/LabSvg';
 
 const W = 640;
 const H = 300;
@@ -90,7 +91,7 @@ export default function CosmicTimelineLab() {
         плътна е Вселената.
       </p>
 
-      <svg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-950 select-none">
+      <LabSvg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-950 select-none">
         {/* „Прозорец“ към Вселената в този момент */}
         <rect x={20} y={20} width={260} height={190} rx="10" fill={glow} fillOpacity={opaque ? 0.85 : 0.35} />
         {opaque &&
@@ -152,7 +153,7 @@ export default function CosmicTimelineLab() {
           </g>
         ))}
         <path d={`M ${tx(logT)} 256 l -6 10 l 12 0 z`} fill="white" />
-      </svg>
+      </LabSvg>
 
       <input type="range" min={LOG_MIN} max={LOG_MAX} step="0.01" value={logT} onChange={e => setLogT(Number(e.target.value))} className="w-full mt-3" />
       <div className="flex flex-wrap justify-center gap-1 mt-2">

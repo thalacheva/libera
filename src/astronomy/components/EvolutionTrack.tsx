@@ -5,6 +5,7 @@ import { temperatureToRGB } from './light';
 import { T_SUN } from './starData';
 import { fmt, sci } from './terrestrialData';
 import { useAnimationFrame } from './useAnimationFrame';
+import LabSvg from '~/LabSvg';
 
 const W = 640;
 const H = 330;
@@ -58,7 +59,7 @@ export default function EvolutionTrack() {
         последователност, а всичко останало е кратък финал.
       </p>
 
-      <svg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-950 select-none">
+      <LabSvg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-950 select-none">
         <rect x={X0} y={Y0} width={X1 - X0} height={Y1 - Y0} fill="#0b1120" stroke="white" strokeOpacity="0.25" />
         <defs>
           <clipPath id="et-plot">
@@ -133,7 +134,7 @@ export default function EvolutionTrack() {
             пунктирът е Слънцето днес
           </text>
         </g>
-      </svg>
+      </LabSvg>
 
       {/* Времева лента */}
       <div className="flex h-5 rounded overflow-hidden mt-3 text-[10px] leading-5 text-center">

@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { fmt, sci } from './terrestrialData';
+import LabSvg from '~/LabSvg';
 
 const W = 640;
 const H = 280;
@@ -103,7 +104,7 @@ export default function CosmicBudgetLab() {
         не се разрежда изобщо. Затова във всяка епоха „управлява“ друга съставка.
       </p>
 
-      <svg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-950 select-none">
+      <LabSvg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-950 select-none">
         {slices.map(s => (s.f > 0.0005 ? <path key={s.k} d={s.path} fill={s.color} fillOpacity="0.9" stroke="#0f172a" strokeWidth="1" /> : null))}
         <text x={140} y={232} fontSize="11" textAnchor="middle" fill="white" fontWeight="700">
           {formatAge(age)} след Големия взрив
@@ -148,7 +149,7 @@ export default function CosmicBudgetLab() {
             </text>
           </g>
         ))}
-      </svg>
+      </LabSvg>
 
       <label className="block text-sm font-semibold mt-4 mb-1">Мащабен фактор a = {a < 0.01 ? sci(a, 1) : fmt(a, 3)}</label>
       <input type="range" min={LOG_A_MIN} max={LOG_A_MAX} step="0.01" value={lgA} onChange={e => setLgA(Number(e.target.value))} className="w-full" />

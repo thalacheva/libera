@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { fmt, sci } from './terrestrialData';
+import LabSvg from '~/LabSvg';
 
 const W = 640;
 const H = 280;
@@ -63,7 +64,7 @@ export default function BBNLab() {
         синтезът, толкова по-малко хелий. Вдясно: колкото повече обикновено вещество има, толкова по-пълно деутерият „изгаря“ в хелий.
       </p>
 
-      <svg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-950 select-none">
+      <LabSvg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-950 select-none">
         {/* Панел A */}
         <rect x={AX0} y={AY0} width={AX1 - AX0} height={AY1 - AY0} fill="#0b1120" stroke="white" strokeOpacity="0.2" />
         <polyline points={npCurve} fill="none" stroke="#fbbf24" strokeWidth="2" />
@@ -122,7 +123,7 @@ export default function BBNLab() {
         <text x={BX0} y={H - 4} fontSize="9" fill="white" fillOpacity="0.7">
           ⇒ обикновено вещество: {fmt(omegaB * 100, 1)}% от критичната плътност
         </text>
-      </svg>
+      </LabSvg>
 
       <div className="grid sm:grid-cols-2 gap-x-4">
         <div>

@@ -1,6 +1,7 @@
 import { Pause, Play, RotateCcw } from 'lucide-react';
 import { useState } from 'react';
 import { useAnimationFrame } from './useAnimationFrame';
+import LabSvg from '~/LabSvg';
 
 const EARTH_SPEED = 29.78; // km/s
 const C = 200;
@@ -113,7 +114,7 @@ export default function HohmannTransfer() {
       </div>
 
       <div className="grid md:grid-cols-[1fr_240px] gap-4 items-center">
-        <svg
+        <LabSvg
           viewBox="0 0 400 400"
           className="w-full h-auto max-w-[400px] mx-auto rounded-lg bg-slate-900"
         >
@@ -152,7 +153,7 @@ export default function HohmannTransfer() {
               🎯 Пристигане! Корабът и {target.name} се срещат.
             </text>
           )}
-        </svg>
+        </LabSvg>
 
         <div className="space-y-2 text-sm">
           {[

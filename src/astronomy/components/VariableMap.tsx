@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { hrAxes, msLuminosity, msTemperature } from './hrData';
 import { fmt } from './terrestrialData';
+import LabSvg from '~/LabSvg';
 
 const W = 640;
 const H = 330;
@@ -93,7 +94,7 @@ export default function VariableMap() {
         за да видите типичната му крива на блясъка.
       </p>
 
-      <svg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-950 select-none">
+      <LabSvg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-950 select-none">
         <rect x={X0} y={Y0} width={X1 - X0} height={Y1 - Y0} fill="#0b1120" stroke="white" strokeOpacity="0.25" />
         <defs>
           <clipPath id="vm-plot">
@@ -164,7 +165,7 @@ export default function VariableMap() {
         <text x={CX0} y={CY1 + 34} fontSize="10" fill="white" fillOpacity="0.7">
           пример: {cls.example}
         </text>
-      </svg>
+      </LabSvg>
 
       <div className="flex flex-wrap justify-center gap-1 mt-3">
         {CLASSES.map(c => (

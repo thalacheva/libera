@@ -2,6 +2,7 @@ import { Minus, Plus } from 'lucide-react';
 import { useRef, useState } from 'react';
 import { num } from '~/functions/functionMath';
 import { Buttons, DiagramButton, Note, Readout } from '~/geometry/diagram';
+import LabSvg from '~/LabSvg';
 
 type Data = { name: string; unit: string; min: number; max: number; values: number[] };
 
@@ -83,7 +84,7 @@ export default function StatsLab() {
         ))}
       </Buttons>
 
-      <svg
+      <LabSvg
         ref={svgRef}
         viewBox={`0 0 ${W} ${H}`}
         className="w-full h-auto mt-3 touch-none select-none text-gray-700 dark:text-gray-300"
@@ -128,7 +129,7 @@ export default function StatsLab() {
             }}
           />
         ))}
-      </svg>
+      </LabSvg>
 
       <div className="flex justify-center gap-2 mt-1">
         <button

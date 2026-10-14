@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Slider, Sliders } from '~/functions/plot';
 import { fracText } from '~/algebra/fractionMath';
 import { Buttons, DiagramButton, Formula, Note } from '~/geometry/diagram';
+import LabSvg from '~/LabSvg';
 
 type Kind = 'sum' | 'atLeast' | 'double' | 'six';
 const FACES = ['⚀', '⚁', '⚂', '⚃', '⚄', '⚅'];
@@ -69,7 +70,7 @@ export default function TwoDiceLab() {
           ))}
         </div>
 
-        <svg viewBox="0 0 330 190" className="w-full h-auto text-gray-700 dark:text-gray-300">
+        <LabSvg viewBox="0 0 330 190" className="w-full h-auto text-gray-700 dark:text-gray-300">
           {counts.map((c, i) => {
             const sum = i + 2;
             const hit = kind === 'sum' ? sum === s : kind === 'atLeast' ? sum >= s : false;
@@ -87,7 +88,7 @@ export default function TwoDiceLab() {
               </g>
             );
           })}
-        </svg>
+        </LabSvg>
       </div>
 
       <Formula>

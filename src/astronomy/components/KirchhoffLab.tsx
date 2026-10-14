@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { element, ELEMENTS } from './light';
 import { SpectrumStrip } from './SpectrumStrip';
+import LabSvg from '~/LabSvg';
 
 const W = 640;
 const H = 410;
@@ -63,7 +64,7 @@ export default function KirchhoffLab() {
         Изберете наблюдател (1, 2 или 3) и газ в облака. Един и същ газ дава ярки или тъмни линии – зависи откъде гледаме.
       </p>
 
-      <svg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-900 select-none">
+      <LabSvg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-900 select-none">
         <defs>
           <radialGradient id="kh-source">
             <stop offset="0.3" stopColor="#fff7d6" />
@@ -122,7 +123,7 @@ export default function KirchhoffLab() {
           Наблюдател {OBSERVERS.indexOf(observer) + 1} вижда: {observer.title.toLowerCase()}
         </text>
         <SpectrumStrip x={20} y={344} width={W - 40} height={38} kind={view} lines={view === 'continuous' ? [] : gas.lines} ticks />
-      </svg>
+      </LabSvg>
 
       <div className="flex flex-wrap gap-2 mt-3">
         {OBSERVERS.map((o, i) => (

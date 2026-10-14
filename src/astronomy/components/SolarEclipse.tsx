@@ -1,6 +1,7 @@
 import { Pause, Play } from 'lucide-react';
 import { useState } from 'react';
 import { useAnimationFrame } from './useAnimationFrame';
+import LabSvg from '~/LabSvg';
 
 const SUN_RADIUS_KM = 696_000;
 const MOON_RADIUS_KM = 1737.4;
@@ -107,7 +108,7 @@ export default function SolarEclipse() {
       </p>
 
       {/* Странична схема */}
-      <svg viewBox="0 0 640 170" className="w-full h-auto mb-2">
+      <LabSvg viewBox="0 0 640 170" className="w-full h-auto mb-2">
         <text
           x="6"
           y="16"
@@ -171,14 +172,14 @@ export default function SolarEclipse() {
             ? 'Върхът на сянката е под повърхността → пълно затъмнение'
             : 'Сянката свършва преди Земята → пръстеновидно затъмнение'}
         </text>
-      </svg>
+      </LabSvg>
       <p className="text-xs text-center text-gray-500 dark:text-gray-400 mb-3">
         Хоризонталният мащаб е верен; вертикалният е разтегнат, за да се вижда
         конусът.
       </p>
 
       {/* Изглед от Земята */}
-      <svg
+      <LabSvg
         viewBox="0 0 600 340"
         className="w-full h-auto rounded-lg"
         style={{ background: skyColor }}
@@ -251,7 +252,7 @@ export default function SolarEclipse() {
         <text x="10" y="20" fontSize="12" fill="white" opacity="0.8">
           Слънце: {(2 * sunR).toFixed(1)}′ · Луна: {(2 * moonR).toFixed(1)}′
         </text>
-      </svg>
+      </LabSvg>
 
       {/* Контроли */}
       <div className="grid sm:grid-cols-2 gap-4 mt-4">

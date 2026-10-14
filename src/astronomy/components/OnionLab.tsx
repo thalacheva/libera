@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { BINDING, BURNING } from './evolutionData';
 import { fmt } from './terrestrialData';
 import { useAnimationFrame } from './useAnimationFrame';
+import LabSvg from '~/LabSvg';
 
 const W = 640;
 const H = 320;
@@ -63,7 +64,7 @@ export default function OnionLab() {
         Щракнете върху слой. Вдясно: колко здраво е свързан всеки нуклон в ядрото.
       </p>
 
-      <svg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-950 select-none">
+      <LabSvg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-950 select-none">
         {LAYERS.map(l => (
           <circle
             key={l.id}
@@ -136,7 +137,7 @@ export default function OnionLab() {
         <text x={gx(58)} y={GY1 - 6} fontSize="9" textAnchor="middle" fill="#cbd5e1">
           желязо
         </text>
-      </svg>
+      </LabSvg>
 
       <div className="flex flex-wrap justify-center items-center gap-1 mt-3">
         {LAYERS.map(l => (

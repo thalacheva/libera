@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { num } from '~/functions/functionMath';
 import { Slider, Sliders } from '~/functions/plot';
 import { Buttons, DiagramButton, Formula, Note } from '~/geometry/diagram';
+import LabSvg from '~/LabSvg';
 
 type Mode = 'chain' | 'interest';
 const W = 600;
@@ -64,7 +65,7 @@ function Chain({
 
   return (
     <>
-      <svg viewBox={`0 0 ${W} 220`} className="w-full h-auto mt-3 text-gray-700 dark:text-gray-300">
+      <LabSvg viewBox={`0 0 ${W} 220`} className="w-full h-auto mt-3 text-gray-700 dark:text-gray-300">
         <line x1={40} x2={W - 40} y1={180} y2={180} stroke="currentColor" strokeOpacity="0.4" />
         <line x1={40} x2={W - 40} y1={180 - (price / max) * 150} y2={180 - (price / max) * 150} stroke="currentColor" strokeOpacity="0.35" strokeDasharray="5 5" />
         {bars.map((b, i) => {
@@ -82,7 +83,7 @@ function Chain({
             </g>
           );
         })}
-      </svg>
+      </LabSvg>
       <Sliders>
         <Slider label="цена" value={price} onChange={setPrice} min={50} max={500} step={10} tone="gray" />
         <Slider label="p, %" value={p} onChange={setP} min={-50} max={100} step={5} tone="blue" />
@@ -111,7 +112,7 @@ function Interest({ rate, setRate, years, setYears }: { rate: number; setRate: (
 
   return (
     <>
-      <svg viewBox={`0 0 ${W} 230`} className="w-full h-auto mt-3 text-gray-700 dark:text-gray-300">
+      <LabSvg viewBox={`0 0 ${W} 230`} className="w-full h-auto mt-3 text-gray-700 dark:text-gray-300">
         <line x1={40} x2={W - 30} y1={190} y2={190} stroke="currentColor" strokeOpacity="0.4" />
         {Array.from({ length: years + 1 }, (_, n) => {
           const x = 50 + n * step;
@@ -138,7 +139,7 @@ function Interest({ rate, setRate, years, setYears }: { rate: number; setRate: (
         <text x={50} y={36} fontSize="13" className="fill-blue-600 dark:fill-blue-400" fontWeight="700">
           ― проста лихва
         </text>
-      </svg>
+      </LabSvg>
       <Sliders>
         <Slider label="лихва %" value={rate} onChange={setRate} min={1} max={12} step={0.5} tone="amber" />
         <Slider label="години" value={years} onChange={setYears} min={1} max={30} step={1} tone="gray" />

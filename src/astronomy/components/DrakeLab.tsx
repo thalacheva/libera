@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { fmt, sci } from './terrestrialData';
+import LabSvg from '~/LabSvg';
 
 const W = 640;
 const H = 280;
@@ -68,7 +69,7 @@ export default function DrakeLab() {
         множителя вече знаем; останалите са чисти предположения.
       </p>
 
-      <svg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-950 select-none">
+      <LabSvg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-950 select-none">
         <defs>
           <radialGradient id="dr-gal">
             <stop offset="0%" stopColor="#fde68a" stopOpacity="0.45" />
@@ -130,7 +131,7 @@ export default function DrakeLab() {
             под 0,1% от размера на Галактиката.
           </text>
         </g>
-      </svg>
+      </LabSvg>
 
       <div className="grid sm:grid-cols-2 gap-x-4 mt-1">
         {FACTORS.map(f => (

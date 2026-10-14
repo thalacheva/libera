@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { fmt } from './terrestrialData';
 import { SHOWERS } from './showerData';
 import { useAnimationFrame } from './useAnimationFrame';
+import LabSvg from '~/LabSvg';
 
 const W = 640;
 const H = 300;
@@ -82,7 +83,7 @@ export default function RadiantSky() {
         радианта. Включете продълженията назад, за да я откриете. Сивите метеори са спорадични – не са от потока.
       </p>
 
-      <svg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-950 select-none">
+      <LabSvg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-950 select-none">
         <defs>
           <linearGradient id="rs-sky" x1="0" x2="0" y1="0" y2="1">
             <stop offset="0" stopColor="#020617" />
@@ -129,7 +130,7 @@ export default function RadiantSky() {
             {fmt(hr, 0)} в час
           </tspan>
         </text>
-      </svg>
+      </LabSvg>
 
       <div className="flex flex-wrap justify-center items-center gap-2 mt-3">
         <button onClick={() => setPlaying(p => !p)} className="px-4 py-1 rounded bg-purple-600 text-white text-sm hover:bg-purple-700">

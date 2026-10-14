@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { equilibriumT, fmt, terrestrial, type PlanetId } from './terrestrialData';
+import LabSvg from '~/LabSvg';
 
 const W = 640;
 const H = 300;
@@ -43,7 +44,7 @@ export default function GreenhouseLab() {
         пара. Всеки непрозрачен за него слой връща половината обратно надолу. Добавете слоеве и намерете реалната температура.
       </p>
 
-      <svg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-900 select-none">
+      <LabSvg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-900 select-none">
         <defs>
           <linearGradient id="gh-sky" x1="0" y1="1" x2="0" y2="0">
             <stop offset="0" stopColor={planetId === 'venus' ? '#fbbf24' : planetId === 'mars' ? '#fb923c' : '#60a5fa'} stopOpacity={0.15 + 0.35 * s} />
@@ -134,7 +135,7 @@ export default function GreenhouseLab() {
             K
           </text>
         </g>
-      </svg>
+      </LabSvg>
 
       <div className="flex flex-wrap justify-center gap-1 mt-3">
         {CHOICES.map(id => (

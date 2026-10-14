@@ -10,6 +10,7 @@ import MeetingLab from './MeetingLab';
 import ParameterLab from './ParameterLab';
 import { MathText, Tex } from '~/MathText';
 import Term from '~/Term';
+import LabSvg from '~/LabSvg';
 
 // ---------- Помощни функции за форматиране ----------
 
@@ -131,7 +132,7 @@ function BalanceScale() {
         {equations[step]}
       </p>
 
-      <svg viewBox="0 0 500 250" className="w-full h-auto max-w-xl mx-auto text-gray-700 dark:text-gray-300">
+      <LabSvg viewBox="0 0 500 250" className="w-full h-auto max-w-xl mx-auto text-gray-700 dark:text-gray-300">
         {/* Стойка */}
         <polygon points="250,52 230,235 270,235" fill="rgb(100, 116, 139)" />
         <rect x="190" y="232" width="120" height="10" rx="3" fill="rgb(71, 85, 105)" />
@@ -141,7 +142,7 @@ function BalanceScale() {
 
         <Pan cx={130} content={left} />
         <Pan cx={370} content={right} />
-      </svg>
+      </LabSvg>
 
       <p className="text-sm sm:text-base text-gray-700 dark:text-gray-300 text-center min-h-[3rem] mt-2">
         {explanations[step]}
@@ -187,7 +188,7 @@ function GraphExplorer() {
         {fmtLin(a, b)} = 0
       </p>
 
-      <svg viewBox="0 0 400 280" className="w-full h-auto max-w-lg mx-auto text-gray-700 dark:text-gray-300">
+      <LabSvg viewBox="0 0 400 280" className="w-full h-auto max-w-lg mx-auto text-gray-700 dark:text-gray-300">
         <defs>
           <clipPath id="graphArea">
             <rect x="0" y="0" width="400" height="280" />
@@ -236,7 +237,7 @@ function GraphExplorer() {
             </text>
           </g>
         )}
-      </svg>
+      </LabSvg>
 
       <div className="grid sm:grid-cols-2 gap-4 mt-4">
         <label className="text-sm font-semibold">

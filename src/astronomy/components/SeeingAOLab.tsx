@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { fmt } from './terrestrialData';
 import { useAnimationFrame } from './useAnimationFrame';
+import LabSvg from '~/LabSvg';
 
 const W = 640;
 const H = 300;
@@ -103,7 +104,7 @@ export default function SeeingAOLab() {
         секунда. Деформируемо огледало може да ги изправи.
       </p>
 
-      <svg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-950 select-none">
+      <LabSvg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-950 select-none">
         <rect x={IX} y={IY} width={N * PIX} height={N * PIX} fill="black" />
         {img.map((v, k) => {
           const b = Math.sqrt(v / max);
@@ -148,7 +149,7 @@ export default function SeeingAOLab() {
             Strehl = {fmt(strehl * 100, 0)}%{mode === 'ao' ? ` · пикът е ${fmt(peakGain, 0)}× по-ярък` : ''}
           </text>
         </g>
-      </svg>
+      </LabSvg>
 
       <label className="block text-sm font-semibold mt-4 mb-1">Качество на атмосферата (seeing при 0,5 µm): {fmt(seeing500, 2)}″</label>
       <input type="range" min="0.4" max="2.5" step="0.01" value={seeing500} onChange={e => setSeeing500(Number(e.target.value))} className="w-full" />

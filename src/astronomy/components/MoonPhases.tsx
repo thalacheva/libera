@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { litPath } from './earthMath';
 import { DEG, formatHours } from './skyMath';
 import { useAnimationFrame } from './useAnimationFrame';
+import LabSvg from '~/LabSvg';
 
 export const SYNODIC_MONTH = 29.53;
 
@@ -74,7 +75,7 @@ export default function MoonPhases() {
       </p>
 
       <div className="grid md:grid-cols-[1fr_220px] gap-4 items-center">
-        <svg viewBox="0 0 440 400" className="w-full h-auto">
+        <LabSvg viewBox="0 0 440 400" className="w-full h-auto">
           {[-80, -40, 0, 40, 80].map(o => (
             <line
               key={o}
@@ -182,7 +183,7 @@ export default function MoonPhases() {
             fill="none"
             stroke="rgb(148, 163, 184)"
           />
-        </svg>
+        </LabSvg>
 
         <div className="text-center">
           <div className="mx-auto w-44 h-44 rounded-full bg-slate-900 flex items-center justify-center shadow-inner">

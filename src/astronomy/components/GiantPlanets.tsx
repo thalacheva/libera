@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { fmt } from './terrestrialData';
 import { GIANTS, rotationText, type GiantId } from './giantData';
+import LabSvg from '~/LabSvg';
 
 const W = 760;
 const H = 250;
@@ -64,7 +65,7 @@ export default function GiantPlanets() {
         Щракнете върху планета. Малката синя точка до Юпитер е Земята.
       </p>
 
-      <svg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-900 select-none">
+      <LabSvg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-900 select-none">
         <defs>
           <radialGradient id="gp-shade" cx="0.35" cy="0.35" r="0.75">
             <stop offset="0" stopColor="white" stopOpacity="0.2" />
@@ -175,7 +176,7 @@ export default function GiantPlanets() {
         <text x={X.earth} y={CY + 123} fontSize="10" textAnchor="middle" fill="white" fillOpacity="0.5">
           12 756 km
         </text>
-      </svg>
+      </LabSvg>
 
       <div className="flex flex-wrap justify-center gap-1 mt-3">
         {GIANTS.map(p => (

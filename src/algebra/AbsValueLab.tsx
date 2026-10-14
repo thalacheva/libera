@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import LabSvg from '~/LabSvg';
 
 const W = 600;
 const H = 150;
@@ -58,7 +59,7 @@ export default function AbsValueLab() {
 
       <p className="text-center font-mono text-lg sm:text-xl my-2 text-sky-700 dark:text-sky-300">{eq}</p>
 
-      <svg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto text-gray-700 dark:text-gray-300">
+      <LabSvg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto text-gray-700 dark:text-gray-300">
         <line x1={X0 - 10} x2={X1 + 10} y1={AY} y2={AY} stroke="currentColor" strokeWidth="1.5" />
         {Array.from({ length: MAX - MIN + 1 }, (_, i) => MIN + i).map(v => (
           <g key={v}>
@@ -103,7 +104,7 @@ export default function AbsValueLab() {
             </text>
           </g>
         ))}
-      </svg>
+      </LabSvg>
 
       <div className="grid gap-4 mt-2 sm:grid-cols-2">
         <label className="text-sm font-semibold">

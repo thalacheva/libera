@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import LabSvg from '~/LabSvg';
 
 const W = 640;
 const H = 240;
@@ -49,7 +50,7 @@ export default function BiquadraticLab() {
         {sgn(c, '')} = 0
       </p>
 
-      <svg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto text-gray-700 dark:text-gray-300">
+      <LabSvg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto text-gray-700 dark:text-gray-300">
         <defs>
           <clipPath id="bq-l">
             <rect x={L.x0} y={Y0} width={L.x1 - L.x0} height={Y1 - Y0} />
@@ -101,7 +102,7 @@ export default function BiquadraticLab() {
           y = x⁴{sgn(b, 'x²')}
           {sgn(c, '')}
         </text>
-      </svg>
+      </LabSvg>
 
       <div className="grid sm:grid-cols-2 gap-4 mt-3">
         <label className="text-sm font-semibold">

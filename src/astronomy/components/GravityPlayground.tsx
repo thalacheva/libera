@@ -1,6 +1,7 @@
 import { RotateCcw } from 'lucide-react';
 import { useState } from 'react';
 import { G, formatScientific } from './physics';
+import LabSvg from '~/LabSvg';
 
 const PRESETS = [
   {
@@ -114,7 +115,7 @@ export default function GravityPlayground() {
         ))}
       </div>
 
-      <svg viewBox="0 0 600 170" className="w-full h-auto">
+      <LabSvg viewBox="0 0 600 170" className="w-full h-auto">
         <defs>
           <marker
             id="force-arrow"
@@ -222,7 +223,7 @@ export default function GravityPlayground() {
         >
           {preset.b.name} {k2 !== 1 && `× ${k2}`}
         </text>
-      </svg>
+      </LabSvg>
 
       <div className="grid sm:grid-cols-3 gap-3 mt-2 text-sm">
         {[
@@ -301,7 +302,7 @@ export default function GravityPlayground() {
             <RotateCcw size={12} /> Начало
           </button>
         </div>
-        <svg viewBox={`0 0 ${GW} ${GH}`} className="w-full h-auto">
+        <LabSvg viewBox={`0 0 ${GW} ${GH}`} className="w-full h-auto">
           <line
             x1="30"
             y1={GH - 20}
@@ -355,7 +356,7 @@ export default function GravityPlayground() {
           <text x={gx(2.6)} y="30" fontSize="11" className="fill-blue-500">
             F ∝ 1/r²
           </text>
-        </svg>
+        </LabSvg>
       </div>
     </div>
   );

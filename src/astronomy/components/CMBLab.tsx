@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { fmt } from './terrestrialData';
+import LabSvg from '~/LabSvg';
 
 const W = 640;
 const H = 280;
@@ -108,7 +109,7 @@ export default function CMBLab() {
         небе стъпка по стъпка, както я „разлистват“ космолозите.
       </p>
 
-      <svg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-950 select-none">
+      <LabSvg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-950 select-none">
         {/* Спектър */}
         <rect x={SX0} y={SY0} width={SX1 - SX0} height={SY1 - SY0} fill="#0b1120" stroke="white" strokeOpacity="0.2" />
         <defs>
@@ -154,7 +155,7 @@ export default function CMBLab() {
             {stage === 0 ? 'цялото небе: 2,725 K навсякъде' : `скала: ±${st.unit === 'mK' ? `${fmt(st.range * 1000, 1)} mK` : `${fmt(st.range * 1e6, 0)} µK`}`}
           </text>
         </g>
-      </svg>
+      </LabSvg>
 
       <div className="grid sm:grid-cols-2 gap-x-4">
         <div>

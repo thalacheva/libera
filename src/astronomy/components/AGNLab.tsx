@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { fmt } from './terrestrialData';
+import LabSvg from '~/LabSvg';
 
 const W = 640;
 const H = 300;
@@ -47,7 +48,7 @@ export default function AGNLab() {
         джетове. Различното е от кой ъгъл гледаме. Завъртете наблюдателя.
       </p>
 
-      <svg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-950 select-none">
+      <LabSvg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-950 select-none">
         {/* Тесни линии – далечни облаци в конусите */}
         <path d={`M ${CX} ${CY} L ${CX - 70} ${CY - 110} L ${CX + 70} ${CY - 110} Z`} fill="#a78bfa" fillOpacity="0.12" />
         <path d={`M ${CX} ${CY} L ${CX - 70} ${CY + 110} L ${CX + 70} ${CY + 110} Z`} fill="#a78bfa" fillOpacity="0.12" />
@@ -116,7 +117,7 @@ export default function AGNLab() {
         <text x={SX0} y={SY1 + 28} fontSize="9" fill="white" fillOpacity="0.5">
           спектър около Hα
         </text>
-      </svg>
+      </LabSvg>
 
       <label className="block text-sm font-semibold mt-4 mb-1">Ъгъл между зрителния лъч и джета: {theta}°</label>
       <input type="range" min="0" max="90" value={theta} onChange={e => setTheta(Number(e.target.value))} className="w-full" />

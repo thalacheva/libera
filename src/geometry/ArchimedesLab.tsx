@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { num } from '~/functions/functionMath';
 import { Slider, Sliders } from '~/functions/plot';
 import { Buttons, DiagramButton, Formula, Note } from './diagram';
+import LabSvg from '~/LabSvg';
 
 type Mode = 'cone' | 'sphere';
 const W = 600;
@@ -41,7 +42,7 @@ export function ArchimedesLab() {
         </DiagramButton>
       </Buttons>
 
-      <svg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto mt-3 text-gray-700 dark:text-gray-300">
+      <LabSvg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto mt-3 text-gray-700 dark:text-gray-300">
         {/* Цилиндър */}
         <rect x={cx - r * k} y={top} width={2 * r * k} height={height * k} className="fill-sky-500/15 stroke-sky-500" strokeWidth="2" />
         <ellipse cx={cx} cy={top} rx={r * k} ry={r * k * 0.25} className="fill-sky-500/10 stroke-sky-500" strokeWidth="1.5" />
@@ -66,7 +67,7 @@ export function ArchimedesLab() {
             </g>
           );
         })}
-      </svg>
+      </LabSvg>
 
       <Sliders>
         <Slider label="r" value={r} onChange={setR} min={1} max={5} step={0.5} tone="rose" />

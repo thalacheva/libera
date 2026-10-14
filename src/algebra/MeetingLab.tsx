@@ -1,6 +1,7 @@
 import { Pause, Play, RotateCcw } from 'lucide-react';
 import { useState } from 'react';
 import { useAnimationFrame } from '~/astronomy/components/useAnimationFrame';
+import LabSvg from '~/LabSvg';
 
 const W = 600;
 const X0 = 50;
@@ -97,7 +98,7 @@ export default function MeetingLab() {
         ))}
       </div>
 
-      <svg viewBox={`0 0 ${W} 190`} className="w-full h-auto text-gray-700 dark:text-gray-300">
+      <LabSvg viewBox={`0 0 ${W} 190`} className="w-full h-auto text-gray-700 dark:text-gray-300">
         <rect x={X0 - 10} y={ROAD_Y - 14} width={X1 - X0 + 20} height={28} rx={6} fill="currentColor" opacity="0.08" />
         <line x1={X0} x2={X1} y1={ROAD_Y} y2={ROAD_Y} stroke="currentColor" strokeOpacity="0.3" strokeDasharray="10 8" />
         {/* Градовете */}
@@ -147,7 +148,7 @@ export default function MeetingLab() {
             Срещнаха се! 🎉
           </text>
         )}
-      </svg>
+      </LabSvg>
 
       <div className="grid sm:grid-cols-3 gap-4 mt-2">
         {slider('AB', d, setD, 10, 120, 5, 'km')}

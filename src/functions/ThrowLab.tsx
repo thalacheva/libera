@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useAnimationFrame } from '~/astronomy/components/useAnimationFrame';
+import LabSvg from '~/LabSvg';
 
 const W = 600;
 const H = 320;
@@ -58,7 +59,7 @@ export function ThrowLab() {
         Топката лети по парабола. Избери скорост и ъгъл така, че параболата да мине през коша – отгоре надолу.
       </p>
 
-      <svg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto text-gray-700 dark:text-gray-300">
+      <LabSvg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto text-gray-700 dark:text-gray-300">
         {/* Мрежа на всеки метър */}
         {Array.from({ length: 10 }, (_, i) => i).map(m => (
           <g key={m}>
@@ -106,7 +107,7 @@ export function ThrowLab() {
             Кош! 🎉
           </text>
         )}
-      </svg>
+      </LabSvg>
 
       <div className="grid sm:grid-cols-2 gap-4 mt-2">
         <label className="text-sm font-semibold">

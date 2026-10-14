@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { fmt } from './terrestrialData';
 import { useAnimationFrame } from './useAnimationFrame';
+import LabSvg from '~/LabSvg';
 
 const W = 640;
 const H = 320;
@@ -111,7 +112,7 @@ export default function JupiterBands() {
         Щракнете върху ивица.
       </p>
 
-      <svg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-900 select-none">
+      <LabSvg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-900 select-none">
         <defs>
           <clipPath id="jb-disc">
             <ellipse cx={CX} cy={CY} rx={R} ry={R * 0.935} />
@@ -226,7 +227,7 @@ export default function JupiterBands() {
             {l > 0 ? `${l}° с` : l < 0 ? `${-l}° ю` : '0°'}
           </text>
         ))}
-      </svg>
+      </LabSvg>
 
       <div className="flex flex-wrap justify-center items-center gap-2 mt-3">
         <button

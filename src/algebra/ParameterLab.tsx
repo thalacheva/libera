@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import LabSvg from '~/LabSvg';
 
 const W = 400;
 const H = 260;
@@ -80,7 +81,7 @@ export default function ParameterLab() {
         a = {num(a)}: &nbsp; {num(p)} · x = {num(q)}
       </p>
 
-      <svg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto max-w-lg mx-auto text-gray-700 dark:text-gray-300">
+      <LabSvg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto max-w-lg mx-auto text-gray-700 dark:text-gray-300">
         <defs>
           <clipPath id="par-clip">
             <rect x={0} y={0} width={W} height={H} />
@@ -107,7 +108,7 @@ export default function ParameterLab() {
         <text x={8} y={32} fontSize="12" fill="#d97706" fontWeight="700">
           y = {num(q)} (дясната страна)
         </text>
-      </svg>
+      </LabSvg>
 
       <label className="block text-sm font-semibold mt-3">
         Параметър a = {num(a)}
@@ -115,7 +116,7 @@ export default function ParameterLab() {
       </label>
 
       {/* Карта на параметъра */}
-      <svg viewBox="0 0 600 50" className="w-full h-auto text-gray-700 dark:text-gray-300">
+      <LabSvg viewBox="0 0 600 50" className="w-full h-auto text-gray-700 dark:text-gray-300">
         <line x1={AX0} x2={AX1} y1={22} y2={22} stroke="#86efac" strokeWidth="6" strokeLinecap="round" />
         {f.special.map(s => {
           const all = Math.abs(f.q(s)) < 1e-9;
@@ -135,7 +136,7 @@ export default function ParameterLab() {
         <text x={AX1} y={44} fontSize="10" textAnchor="end" fill="currentColor" opacity="0.5">
           5
         </text>
-      </svg>
+      </LabSvg>
       <div className="flex flex-wrap justify-center gap-4 text-xs text-gray-600 dark:text-gray-400">
         <span>🟢 едно решение</span>
         <span>🔴 няма решение</span>

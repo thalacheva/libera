@@ -25,6 +25,7 @@ import {
   type Vec3,
 } from './skyMath';
 import { useAnimationFrame } from './useAnimationFrame';
+import LabSvg from '~/LabSvg';
 
 const KEY_DAYS = [
   { label: '🌸 20 март', day: 78.5 },
@@ -192,7 +193,7 @@ export default function SeasonsExplorer() {
           <p className="text-xs text-center text-gray-500 dark:text-gray-400 mb-1">
             Орбитата, погледната отгоре и отстрани
           </p>
-          <svg viewBox="0 0 420 300" className="w-full h-auto">
+          <LabSvg viewBox="0 0 420 300" className="w-full h-auto">
             <path
               d={orbitPath}
               fill="none"
@@ -255,7 +256,7 @@ export default function SeasonsExplorer() {
             >
               Оста сочи винаги в една посока (към Полярната звезда)
             </text>
-          </svg>
+          </LabSvg>
         </div>
 
         {/* Земята отблизо */}
@@ -263,7 +264,7 @@ export default function SeasonsExplorer() {
           <p className="text-xs text-center text-gray-500 dark:text-gray-400 mb-1">
             Земята отблизо: Слънцето е вляво
           </p>
-          <svg viewBox="0 0 320 320" className="w-full h-auto max-h-[320px]">
+          <LabSvg viewBox="0 0 320 320" className="w-full h-auto max-h-[320px]">
             <defs>
               <clipPath id="seasons-earth">
                 <circle cx={CX} cy={CY} r={R} />
@@ -366,7 +367,7 @@ export default function SeasonsExplorer() {
               strokeWidth="2"
               opacity={observer.front ? 1 : 0.4}
             />
-          </svg>
+          </LabSvg>
         </div>
       </div>
 

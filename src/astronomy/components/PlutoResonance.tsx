@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { fmt } from './terrestrialData';
 import { useAnimationFrame } from './useAnimationFrame';
+import LabSvg from '~/LabSvg';
 
 const W = 640;
 const H = 320;
@@ -93,7 +94,7 @@ export default function PlutoResonance() {
         въртящата се система, в която Нептун стои на едно място.
       </p>
 
-      <svg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-900 select-none">
+      <LabSvg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-900 select-none">
         {/* Орбита на Нептун */}
         <circle cx={SUN.x} cy={SUN.y} r={NEPTUNE.a * SCALE} fill="none" stroke="#4f7fe0" strokeOpacity="0.5" />
         {!rotating && <polyline points={orbit} fill="none" stroke="#d6b48a" strokeOpacity="0.35" strokeDasharray="3 3" />}
@@ -148,7 +149,7 @@ export default function PlutoResonance() {
             е пренебрегнат.
           </text>
         </g>
-      </svg>
+      </LabSvg>
 
       <div className="flex flex-wrap justify-center items-center gap-2 mt-3">
         <button onClick={() => setPlaying(v => !v)} className="px-4 py-1 rounded bg-sky-600 text-white text-sm hover:bg-sky-700">

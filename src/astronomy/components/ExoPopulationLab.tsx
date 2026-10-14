@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import LabSvg from '~/LabSvg';
 
 const W = 640;
 const H = 320;
@@ -76,7 +77,7 @@ export default function ExoPopulationLab() {
         Слънчевата система?
       </p>
 
-      <svg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-950 select-none">
+      <LabSvg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-950 select-none">
         <defs>
           <clipPath id="pop-clip">
             <rect x={GX0} y={GY0} width={GX1 - GX0} height={GY1 - GY0} />
@@ -143,7 +144,7 @@ export default function ExoPopulationLab() {
             K = 1 m/s
           </text>
         )}
-      </svg>
+      </LabSvg>
 
       <div className="flex flex-wrap justify-center items-center gap-1 mt-3">
         {METHODS.map(m => (

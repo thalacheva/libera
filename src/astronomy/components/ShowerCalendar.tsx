@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { fmt } from './terrestrialData';
 import { SHOWERS, type Shower } from './showerData';
 import { useAnimationFrame } from './useAnimationFrame';
+import LabSvg from '~/LabSvg';
 
 const W = 640;
 const H = 300;
@@ -66,7 +67,7 @@ export default function ShowerCalendar() {
         година. Пуснете годината (1 s = 8 дни) или щракнете върху поток.
       </p>
 
-      <svg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-900 select-none">
+      <LabSvg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-900 select-none">
         {/* Орбитата на Земята с месеците */}
         <circle cx={SUN.x} cy={SUN.y} r={R_EARTH} fill="none" stroke="white" strokeOpacity="0.25" />
         {MONTHS.map((m, i) => {
@@ -148,7 +149,7 @@ export default function ShowerCalendar() {
         <text x={GX1} y={H - 12} fontSize="9" textAnchor="end" fill="white" fillOpacity="0.55">
           {active.length ? `сега: ${active.map(s => s.name).join(', ')}` : `само спорадични метеори (~${SPORADIC}/час)`}
         </text>
-      </svg>
+      </LabSvg>
 
       <div className="flex flex-wrap justify-center items-center gap-2 mt-3">
         <button onClick={() => setPlaying(p => !p)} className="px-4 py-1 rounded bg-purple-600 text-white text-sm hover:bg-purple-700">

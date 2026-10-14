@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { fmt } from './terrestrialData';
+import LabSvg from '~/LabSvg';
 
 const W = 640;
 const H = 300;
@@ -84,7 +85,7 @@ export default function RVDetectionLab() {
         измерване има грешка – виждате ли сигнала в шума?
       </p>
 
-      <svg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-950 select-none">
+      <LabSvg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-950 select-none">
         <defs>
           <clipPath id="rv-clip">
             <rect x={GX0} y={GY0} width={GX1 - GX0} height={GY1 - GY0} />
@@ -139,7 +140,7 @@ export default function RVDetectionLab() {
             {verdict}
           </text>
         </g>
-      </svg>
+      </LabSvg>
 
       <div className="grid sm:grid-cols-2 gap-x-4">
         <div>

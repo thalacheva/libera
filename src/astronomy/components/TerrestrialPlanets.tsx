@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { fmt, TERRESTRIAL, type PlanetId } from './terrestrialData';
+import LabSvg from '~/LabSvg';
 
 const W = 640;
 const H = 220;
@@ -60,7 +61,7 @@ export default function TerrestrialPlanets() {
         Щракнете върху планета. Луната е добавена за сравнение.
       </p>
 
-      <svg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-900 select-none">
+      <LabSvg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-900 select-none">
         <defs>
           <radialGradient id="tp-shade" cx="0.35" cy="0.35" r="0.75">
             <stop offset="0" stopColor="white" stopOpacity="0.25" />
@@ -147,7 +148,7 @@ export default function TerrestrialPlanets() {
         <text x={X.moon} y={CY + 110} fontSize="10" textAnchor="middle" fill="white" fillOpacity="0.5">
           3 474 km
         </text>
-      </svg>
+      </LabSvg>
 
       <div className="flex flex-wrap justify-center gap-1 mt-3">
         {TERRESTRIAL.map(p => (

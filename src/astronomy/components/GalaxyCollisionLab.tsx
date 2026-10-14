@@ -1,6 +1,7 @@
 import { useRef, useState } from 'react';
 import { fmt } from './terrestrialData';
 import { useAnimationFrame } from './useAnimationFrame';
+import LabSvg from '~/LabSvg';
 
 const W = 640;
 const H = 360;
@@ -134,7 +135,7 @@ export default function GalaxyCollisionLab() {
         се удрят – разстоянията между тях са огромни, – но гравитацията пренарежда цели галактики.
       </p>
 
-      <svg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-950 select-none">
+      <LabSvg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-950 select-none">
         {sim.stars.map((s, i) => {
           const x = toX(s.x);
           const y = toY(s.y);
@@ -150,7 +151,7 @@ export default function GalaxyCollisionLab() {
         <text x={W - 12} y={20} fontSize="10" textAnchor="end" fill="white" fillOpacity="0.55">
           10 kpc = {SCALE} px
         </text>
-      </svg>
+      </LabSvg>
 
       <div className="flex flex-wrap justify-center items-center gap-1 mt-3">
         <button

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { fmt } from './terrestrialData';
 import { useAnimationFrame } from './useAnimationFrame';
+import LabSvg from '~/LabSvg';
 
 const W = 640;
 const H = 300;
@@ -55,7 +56,7 @@ export default function ExpansionGridLab() {
         галактика всички останали се отдалечават – и толкова по-бързо, колкото са по-далеч.
       </p>
 
-      <svg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-950 select-none">
+      <LabSvg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-950 select-none">
         <defs>
           <clipPath id="eg-view">
             <rect x={10} y={10} width={400} height={280} rx="8" />
@@ -97,7 +98,7 @@ export default function ExpansionGridLab() {
         <text x={GX0} y={GY1 + 34} fontSize="10" fill="#4ade80">
           v ∝ d от всяка галактика
         </text>
-      </svg>
+      </LabSvg>
 
       <div className="flex flex-wrap justify-center items-center gap-2 mt-3">
         <button onClick={() => setPlaying(v => !v)} className="px-4 py-1 rounded bg-orange-600 text-white text-sm hover:bg-orange-700">

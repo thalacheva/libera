@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { fmt } from './terrestrialData';
 import { useAnimationFrame } from './useAnimationFrame';
+import LabSvg from '~/LabSvg';
 
 const W = 640;
 const H = 320;
@@ -102,7 +103,7 @@ export default function SolarDayLab() {
         звездите и колко пъти – спрямо Слънцето.
       </p>
 
-      <svg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-900 select-none">
+      <LabSvg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-900 select-none">
         <defs>
           <radialGradient id="sd-sun">
             <stop offset="0" stopColor="#fff7d6" />
@@ -169,7 +170,7 @@ export default function SolarDayLab() {
             {fmt(solarDays, 2)}
           </text>
         </g>
-      </svg>
+      </LabSvg>
 
       <div className="flex flex-wrap justify-center gap-1 mt-3">
         {MODES.map((m, i) => (

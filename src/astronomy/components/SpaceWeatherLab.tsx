@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import LabSvg from '~/LabSvg';
 
 const AU_KM = 1.496e8;
 const W = 640;
@@ -98,7 +99,7 @@ export default function SpaceWeatherLab() {
         ))}
       </div>
 
-      <svg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-900 select-none">
+      <LabSvg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-900 select-none">
         <defs>
           <radialGradient id="sw-sun">
             <stop offset="0.4" stopColor="#fde68a" />
@@ -156,7 +157,7 @@ export default function SpaceWeatherLab() {
         <text x={tx(hours)} y={196} fontSize="10" textAnchor="middle" fill="white">
           {fmtH(hours)}
         </text>
-      </svg>
+      </LabSvg>
 
       <label className="block mt-3">
         <span className="block text-xs font-semibold mb-1">Време след изригването: {fmtH(hours)}</span>
@@ -208,7 +209,7 @@ export default function SpaceWeatherLab() {
           </div>
         </div>
 
-        <svg viewBox={`0 0 ${MAP} ${MAP}`} className="w-full h-auto max-w-xs mx-auto rounded-lg bg-slate-900 select-none">
+        <LabSvg viewBox={`0 0 ${MAP} ${MAP}`} className="w-full h-auto max-w-xs mx-auto rounded-lg bg-slate-900 select-none">
           {[40, 50, 60, 70, 80].map(lat => (
             <g key={lat}>
               <circle cx={MC} cy={MC} r={mr(lat)} fill="none" stroke="white" strokeOpacity="0.12" />
@@ -246,7 +247,7 @@ export default function SpaceWeatherLab() {
           <text x={MC} y={MAP - 6} fontSize="9" textAnchor="middle" fill="white" fillOpacity="0.6">
             геомагнитни ширини (приблизително)
           </text>
-        </svg>
+        </LabSvg>
       </div>
       <p className="mt-2 text-xs text-gray-500 dark:text-gray-400">
         Зелената ивица е авроралният овал; пунктирът показва докъде сиянието се вижда ниско над хоризонта. Червеното сияние на ~300 km

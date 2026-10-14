@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { fmt, sci } from './terrestrialData';
+import LabSvg from '~/LabSvg';
 
 const W = 640;
 const H = 250;
@@ -71,7 +72,7 @@ export default function AsteroidSizeLab() {
         изглеждат еднакво. Трите тела по-долу имат едно и също H.
       </p>
 
-      <svg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-900 select-none">
+      <LabSvg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-900 select-none">
         {discs.map(c => (
           <g key={c.label}>
             <circle cx={c.x} cy={CY} r={(c.d / 2) * pxPerKm * 2} fill={c.color} stroke="white" strokeOpacity="0.3" />
@@ -89,7 +90,7 @@ export default function AsteroidSizeLab() {
         <text x={12} y={22} fontSize="11" fill="white" fillOpacity="0.8">
           H = {fmt(h, 1)}
         </text>
-      </svg>
+      </LabSvg>
 
       <label className="block text-sm font-semibold mt-4 mb-1">Абсолютна звездна величина: H = {fmt(h, 1)}</label>
       <input

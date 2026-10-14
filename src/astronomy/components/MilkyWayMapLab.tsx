@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { fmt } from './terrestrialData';
+import LabSvg from '~/LabSvg';
 
 const W = 640;
 const H = 330;
@@ -84,7 +85,7 @@ export default function MilkyWayMapLab() {
         търсили нашето място в нея.
       </p>
 
-      <svg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-950 select-none">
+      <LabSvg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-950 select-none">
         {/* Изглед отгоре */}
         <circle cx={TX} cy={TY} r={15 * TPX} fill="#1e293b" fillOpacity="0.5" />
         {ARMS.map((a, i) => (
@@ -151,7 +152,7 @@ export default function MilkyWayMapLab() {
         <text x={SX} y={H - 8} fontSize="9" textAnchor="middle" fill="white" fillOpacity="0.55">
           30 kpc ≈ 100 000 светлинни години
         </text>
-      </svg>
+      </LabSvg>
 
       <div className="flex flex-wrap justify-center gap-1 mt-3">
         {PARTS.map(p => (

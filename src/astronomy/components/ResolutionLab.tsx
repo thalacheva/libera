@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import LabSvg from '~/LabSvg';
 
 const W = 640;
 const H = 320;
@@ -93,7 +94,7 @@ export default function ResolutionLab() {
         хиляди километри една от друга.
       </p>
 
-      <svg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-900 select-none">
+      <LabSvg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-900 select-none">
         <text x={X0} y={24} fontSize="11" fill="white" fillOpacity="0.6">
           ← по-размито
         </text>
@@ -130,7 +131,7 @@ export default function ResolutionLab() {
             </g>
           );
         })}
-      </svg>
+      </LabSvg>
 
       <div className="flex flex-wrap gap-1 mt-3">
         {INSTRUMENTS.map((ins, i) => (

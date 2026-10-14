@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { fmt } from './terrestrialData';
 import { useAnimationFrame } from './useAnimationFrame';
+import LabSvg from '~/LabSvg';
 
 const W = 640;
 const H = 280;
@@ -102,7 +103,7 @@ export default function PulsarLab() {
         лъч помете Земята. Въртенето е забавено; звукът е с истинската честота.
       </p>
 
-      <svg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-950 select-none">
+      <LabSvg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-950 select-none">
         {/* Ос на въртене */}
         <line x1={CX} x2={CX} y1={CY - 125} y2={CY + 125} stroke="white" strokeOpacity="0.3" strokeDasharray="4 4" />
         <text x={CX + 4} y={CY - 115} fontSize="9" fill="white" fillOpacity="0.5">
@@ -155,7 +156,7 @@ export default function PulsarLab() {
               : 'лъчът помита Земята – виждаме пулсар'
             : 'лъчът никога не ни уцелва – не знаем за него'}
         </text>
-      </svg>
+      </LabSvg>
 
       <div className="flex flex-wrap justify-center items-center gap-2 mt-3">
         <button onClick={() => setPlaying(p => !p)} className="px-4 py-1 rounded bg-violet-600 text-white text-sm hover:bg-violet-700">

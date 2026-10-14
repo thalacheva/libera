@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { dec, planck, T_SUN, temperatureToRGB, WIEN, wavelengthToRGB } from './light';
+import LabSvg from '~/LabSvg';
 
 const W = 640;
 const H = 320;
@@ -52,7 +53,7 @@ export default function BlackbodyLab() {
         Стефан–Болцман).
       </p>
 
-      <svg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-900 select-none">
+      <LabSvg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-900 select-none">
         <defs>
           <linearGradient id="bb-visible" x1="0" x2="1">
             {[380, 430, 480, 530, 580, 630, 680, 750].map((w, i) => (
@@ -141,7 +142,7 @@ export default function BlackbodyLab() {
             - - - Слънцето (5772 K)
           </text>
         )}
-      </svg>
+      </LabSvg>
 
       <div className="mt-4">
         <label className="block text-sm font-semibold mb-1">Температура: T = {dec(T, 0)} K</label>

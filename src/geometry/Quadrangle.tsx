@@ -12,6 +12,7 @@ import { ShapeDetectiveLab } from './ShapeDetectiveLab';
 import { VarignonLab } from './VarignonLab';
 import { MathText, Tex } from '~/MathText';
 import Term from '~/Term';
+import LabSvg from '~/LabSvg';
 
 const h2 = 'text-xl sm:text-2xl font-semibold mb-3 text-gray-800 dark:text-gray-100';
 const text = 'text-sm sm:text-base text-gray-700 dark:text-gray-300 leading-relaxed';
@@ -296,7 +297,7 @@ function FamilyTree() {
   const h = 36;
   return (
     <div className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-sm mb-4 overflow-x-auto">
-      <svg viewBox="0 0 680 320" className="w-full min-w-[520px] h-auto text-gray-700 dark:text-gray-300">
+      <LabSvg viewBox="0 0 680 320" className="w-full min-w-[520px] h-auto text-gray-700 dark:text-gray-300">
         {treeEdges.map(([from, to, label]) => {
           const a = treeNodes[from];
           const b = treeNodes[to];
@@ -336,7 +337,7 @@ function FamilyTree() {
             </text>
           </g>
         ))}
-      </svg>
+      </LabSvg>
     </div>
   );
 }

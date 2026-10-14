@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { fmt } from './terrestrialData';
 import { useAnimationFrame } from './useAnimationFrame';
+import LabSvg from '~/LabSvg';
 
 const W = 640;
 const H = 340;
@@ -98,7 +99,7 @@ export default function CometOrbit() {
         жълтата прахова се извива назад по орбитата.
       </p>
 
-      <svg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-900 select-none">
+      <LabSvg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-900 select-none">
         {/* Планетни орбити за ориентир */}
         {[
           { r: 1, name: 'Земя', color: '#3b82f6' },
@@ -161,7 +162,7 @@ export default function CometOrbit() {
             по-близо от 3 AU: {fmt(activeFrac * 100, activeFrac < 0.1 ? 1 : 0)}% от времето
           </text>
         </g>
-      </svg>
+      </LabSvg>
 
       <div className="flex flex-wrap justify-center gap-1 mt-3">
         {COMETS.map(c => (

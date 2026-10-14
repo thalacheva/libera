@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { num } from '~/functions/functionMath';
 import { Slider, Sliders } from '~/functions/plot';
 import { Formula, Note } from '~/geometry/diagram';
+import LabSvg from '~/LabSvg';
 
 const W = 600;
 const COLORS = ['fill-sky-500', 'fill-sky-300', 'fill-violet-500', 'fill-violet-300'];
@@ -45,7 +46,7 @@ export default function GeometricSeriesLab() {
         1 + q + q² + q³ + … При |q| &lt; 1 всеки следващ член е все по-малък и сборът никога не надминава 1/(1 − q).
       </p>
 
-      <svg viewBox={`0 0 ${W} 80`} className="w-full h-auto text-gray-700 dark:text-gray-300">
+      <LabSvg viewBox={`0 0 ${W} 80`} className="w-full h-auto text-gray-700 dark:text-gray-300">
         <rect x={20} y={20} width={L} height={30} rx={4} className="fill-gray-100 dark:fill-gray-700 stroke-gray-400" strokeDasharray="5 4" />
         {terms.map((t, i) => {
           const start = terms.slice(0, i).reduce((s, v) => s + v, 0);
@@ -58,7 +59,7 @@ export default function GeometricSeriesLab() {
         <text x={W - 20} y={12} fontSize="12" textAnchor="end" fill="currentColor" opacity="0.7">
           граница {num(limit, 3)}
         </text>
-      </svg>
+      </LabSvg>
 
       {square && (
         <svg viewBox="-2 -2 204 204" className="w-40 h-40 mx-auto block mt-2">

@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { fmt } from './terrestrialData';
+import LabSvg from '~/LabSvg';
 
 const W = 640;
 const H = 280;
@@ -94,7 +95,7 @@ export default function RoundnessLab() {
         става кръгло.
       </p>
 
-      <svg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-900 select-none">
+      <LabSvg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-900 select-none">
         <defs>
           <radialGradient id="rn-shade" cx="0.35" cy="0.35" r="0.8">
             <stop offset="0" stopColor="white" stopOpacity="0.25" />
@@ -143,7 +144,7 @@ export default function RoundnessLab() {
             (за плътност {fmt(density, 2)} g/cm³)
           </text>
         </g>
-      </svg>
+      </LabSvg>
 
       <label className="block text-sm font-semibold mt-4 mb-1">Радиус: {fmt(radius, 0)} km</label>
       <input

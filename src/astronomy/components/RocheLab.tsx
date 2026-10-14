@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { fmt } from './terrestrialData';
 import { useAnimationFrame } from './useAnimationFrame';
+import LabSvg from '~/LabSvg';
 
 const W = 640;
 const H = 320;
@@ -86,7 +87,7 @@ export default function RocheLab() {
         по-близките обикалят по-бързо.
       </p>
 
-      <svg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-900 select-none">
+      <LabSvg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-900 select-none">
         {/* Реалните пръстени на Сатурн за сравнение */}
         {planet.rings && (
           <g>
@@ -182,7 +183,7 @@ export default function RocheLab() {
         <text x={510} y={272} fontSize="10" textAnchor="middle" fill="#94a3b8">
           за твърдо тяло: {fmt(rigid, 2)} R
         </text>
-      </svg>
+      </LabSvg>
 
       <div className="flex flex-wrap justify-center gap-1 mt-3">
         {PLANETS.map((p, i) => (

@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { temperatureToRGB } from './light';
 import { fmt } from './terrestrialData';
 import { useAnimationFrame } from './useAnimationFrame';
+import LabSvg from '~/LabSvg';
 
 const W = 640;
 const H = 300;
@@ -84,7 +85,7 @@ export default function TransitLab() {
         по-дълбок е спадът в блясъка.
       </p>
 
-      <svg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-950 select-none">
+      <LabSvg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-950 select-none">
         <defs>
           <radialGradient id="tr-limb">
             <stop offset="0%" stopColor={starColor} />
@@ -128,7 +129,7 @@ export default function TransitLab() {
             {durH > 0 ? `продължителност ≈ ${fmt(durH, 1)} ч · вероятност за транзит ≈ ${fmt(prob, prob < 1 ? 2 : 1)}%` : 'планетата не минава пред звездата'}
           </text>
         </g>
-      </svg>
+      </LabSvg>
 
       <div className="grid sm:grid-cols-2 gap-x-4">
         <div>

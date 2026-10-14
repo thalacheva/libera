@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import LabSvg from '~/LabSvg';
 
 const W = 640;
 const H = 270;
@@ -98,7 +99,7 @@ export default function ProtonProtonChain() {
         Проследете стъпка по стъпка как четири ядра на водорода стават едно ядро на хелия.
       </p>
 
-      <svg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-900 select-none">
+      <LabSvg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-900 select-none">
         {COLS.map((x, i) => (
           <text key={i} x={x} y={22} fontSize="12" fontWeight="600" textAnchor="middle" fill="white" opacity={i <= step ? 1 : 0.25}>
             {STEPS[i].title}
@@ -193,7 +194,7 @@ export default function ProtonProtonChain() {
             гама фотон
           </text>
         </g>
-      </svg>
+      </LabSvg>
 
       <div className="flex flex-wrap gap-2 mt-3">
         <button

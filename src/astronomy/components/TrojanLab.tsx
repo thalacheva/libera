@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { fmt } from './terrestrialData';
 import { useAnimationFrame } from './useAnimationFrame';
+import LabSvg from '~/LabSvg';
 
 const W = 640;
 const H = 330;
@@ -97,7 +98,7 @@ export default function TrojanLab() {
         астероидите.
       </p>
 
-      <svg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-900 select-none">
+      <LabSvg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-900 select-none">
         <circle cx={SUN.x} cy={SUN.y} r={A_J * SCALE} fill="none" stroke="#d6a46c" strokeOpacity="0.3" />
         <circle cx={SUN.x} cy={SUN.y} r={1.524 * SCALE} fill="none" stroke="#ef4444" strokeOpacity="0.3" />
         <circle cx={SUN.x} cy={SUN.y} r={1 * SCALE} fill="none" stroke="#3b82f6" strokeOpacity="0.3" />
@@ -154,7 +155,7 @@ export default function TrojanLab() {
             Синьо – Земя, червено – Марс
           </text>
         </g>
-      </svg>
+      </LabSvg>
 
       <div className="flex flex-wrap justify-center items-center gap-2 mt-3">
         <button onClick={() => setPlaying(p => !p)} className="px-4 py-1 rounded bg-yellow-600 text-white text-sm hover:bg-yellow-700">

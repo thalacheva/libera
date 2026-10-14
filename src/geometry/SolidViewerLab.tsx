@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { useAnimationFrame } from '~/astronomy/components/useAnimationFrame';
 import { Slider, Sliders } from '~/functions/plot';
 import { Buttons, DiagramButton, Formula, Note, Readout } from './diagram';
+import LabSvg from '~/LabSvg';
 
 type V3 = [number, number, number];
 const PHI = (1 + Math.sqrt(5)) / 2;
@@ -105,7 +106,7 @@ export function SolidViewerLab() {
           </DiagramButton>
         ))}
       </Buttons>
-      <svg viewBox="0 0 320 300" className="w-full max-w-sm mx-auto h-auto block mt-2">
+      <LabSvg viewBox="0 0 320 300" className="w-full max-w-sm mx-auto h-auto block mt-2">
         {sorted.map(([a, b]) => {
           // По-далечните ръбове са по-бледи и пунктирани
           const d = (proj[a].depth + proj[b].depth) / 2 / maxD;
@@ -128,7 +129,7 @@ export function SolidViewerLab() {
         {proj.map((p, i) => (
           <circle key={i} cx={p.x} cy={p.y} r={3.5} className="fill-rose-500" opacity={p.depth / maxD > 0.15 ? 0.4 : 1} />
         ))}
-      </svg>
+      </LabSvg>
       <div className="flex justify-center mt-1">
         <button
           onClick={() => setSpin(s => !s)}

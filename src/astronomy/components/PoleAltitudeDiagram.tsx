@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { DEG } from './skyMath';
+import LabSvg from '~/LabSvg';
 
 const OX = 170;
 const OY = 190;
@@ -39,7 +40,7 @@ export default function PoleAltitudeDiagram() {
 
   return (
     <div>
-      <svg viewBox="0 0 440 320" className="w-full h-auto max-h-80">
+      <LabSvg viewBox="0 0 440 320" className="w-full h-auto max-h-80">
         <defs>
           <marker
             id="pole-arrow"
@@ -238,7 +239,7 @@ export default function PoleAltitudeDiagram() {
           stroke="white"
           strokeWidth="1.5"
         />
-      </svg>
+      </LabSvg>
 
       <label className="block text-sm font-semibold mt-2">
         Географска ширина на наблюдателя: φ = {latitude}° → височина на полюса h

@@ -10,6 +10,7 @@ import TwinParadoxLab from './components/TwinParadoxLab';
 import { fmt } from './components/terrestrialData';
 import { Tex } from '~/MathText';
 import Term from '~/Term';
+import LabSvg from '~/LabSvg';
 
 const QUIZ: Question[] = [
   {
@@ -132,7 +133,7 @@ export default function Lecture33() {
           />
           <div className="bg-white dark:bg-gray-800 p-4 rounded-lg border-2 border-purple-300 dark:border-purple-600 mb-6">
             <h3 className="font-semibold mb-3 text-center">Как расте γ със скоростта</h3>
-            <svg viewBox="0 0 640 290" className="w-full h-auto rounded-lg bg-slate-950 select-none">
+            <LabSvg viewBox="0 0 640 290" className="w-full h-auto rounded-lg bg-slate-950 select-none">
               <line x1={gx(0)} y1={gy(1)} x2={gx(1)} y2={gy(1)} stroke="white" strokeOpacity="0.4" />
               <line x1={gx(0)} y1={gy(1)} x2={gx(0)} y2={gy(8)} stroke="white" strokeOpacity="0.4" />
               {[0, 0.2, 0.4, 0.6, 0.8, 1].map(b => (
@@ -168,7 +169,7 @@ export default function Lecture33() {
               <text x={beta < 0.3 ? gx(beta) + 10 : gx(beta) - 10} y={gy(gamma) - 10} fontSize="11" fontWeight="bold" fill="#fca5a5" textAnchor={beta < 0.3 ? 'start' : 'end'}>
                 γ = {fmt(gamma, 2)}
               </text>
-            </svg>
+            </LabSvg>
             <label className="block text-sm font-semibold mt-4 mb-1">
               Скорост: v = {fmt(beta, 2)}c ({fmt(beta * 299792, 0)} km/s)
             </label>
@@ -217,7 +218,7 @@ export default function Lecture33() {
           />
           <div className="bg-white dark:bg-gray-800 p-4 rounded-lg border-2 border-green-300 dark:border-green-600 mb-6">
             <h3 className="font-semibold mb-3 text-center">Ракета в покой и в движение (v = {fmt(beta, 2)}c)</h3>
-            <svg viewBox="0 0 640 220" className="w-full h-auto rounded-lg bg-slate-950 select-none">
+            <LabSvg viewBox="0 0 640 220" className="w-full h-auto rounded-lg bg-slate-950 select-none">
               <rect x={120} y={40} width={restLength - 40} height={36} rx="8" fill="#94a3b8" />
               <polygon points={`${120 + restLength - 40},40 ${120 + restLength},58 ${120 + restLength - 40},76`} fill="#94a3b8" />
               <text x={110} y={63} fontSize="11" textAnchor="end" fill="white" fillOpacity="0.8">
@@ -241,7 +242,7 @@ export default function Lecture33() {
                 L = {fmt(1 / gamma, 2)} L₀
               </text>
               <line x1={120 + restLength} y1={95} x2={120 + restLength} y2={185} stroke="white" strokeOpacity="0.35" strokeDasharray="4,4" />
-            </svg>
+            </LabSvg>
             <p className="mt-3 text-sm sm:text-base text-gray-700 dark:text-gray-300">
               Свиването е само по посока на движението – височината на ракетата не се променя. От гледна точка на мюона не времето му се
               забавя, а разстоянието до Земята се свива от 15 km до около 1,5 km. Двете описания дават един и същ резултат.

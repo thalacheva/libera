@@ -3,6 +3,7 @@ import { temperatureToRGB } from './light';
 import { SpectrumStrip } from './SpectrumStrip';
 import { CLASSES, classOf } from './starData';
 import { fmt } from './terrestrialData';
+import LabSvg from '~/LabSvg';
 
 const W = 640;
 const H = 325;
@@ -55,7 +56,7 @@ export default function SpectralClassLab() {
         решава кои атоми са в подходящото състояние, за да поглъщат видима светлина.
       </p>
 
-      <svg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-900 select-none">
+      <LabSvg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-900 select-none">
         <circle cx={GX0 + 18} cy={48} r={18} fill={temperatureToRGB(T)} />
         <text x={GX0 + 46} y={44} fontSize="13" fill="white" fontWeight="700">
           {fmt(T, 0)} K – клас {cls.letter}
@@ -108,7 +109,7 @@ export default function SpectralClassLab() {
         <text x={(GX0 + GX1) / 2} y={GY1 + 32} fontSize="9" textAnchor="middle" fill="white" fillOpacity="0.5">
           сила на линиите
         </text>
-      </svg>
+      </LabSvg>
 
       <label className="block text-sm font-semibold mt-4 mb-1">Температура на повърхността: {fmt(T, 0)} K</label>
       <input

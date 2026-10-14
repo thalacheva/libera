@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { litPath } from './earthMath';
 import { DEG } from './skyMath';
 import { useAnimationFrame } from './useAnimationFrame';
+import LabSvg from '~/LabSvg';
 
 const CX = 300;
 const CY = 175;
@@ -70,7 +71,7 @@ export default function SiderealSolarDay() {
         Слънцето.
       </p>
 
-      <svg viewBox="0 0 600 350" className="w-full h-auto">
+      <LabSvg viewBox="0 0 600 350" className="w-full h-auto">
         <circle
           cx={CX}
           cy={CY}
@@ -176,7 +177,7 @@ export default function SiderealSolarDay() {
               : '★ Звездата е отново в меридиана – едно звездно денонощие'}
           </text>
         )}
-      </svg>
+      </LabSvg>
 
       <div className="flex flex-wrap gap-2 justify-center mt-2">
         <button

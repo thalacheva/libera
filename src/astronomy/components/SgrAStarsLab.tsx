@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { fmt, sci } from './terrestrialData';
 import { useAnimationFrame } from './useAnimationFrame';
+import LabSvg from '~/LabSvg';
 
 const W = 640;
 const H = 340;
@@ -63,7 +64,7 @@ export default function SgrAStarsLab() {
         инфрачервено – през праха. Пуснете годините.
       </p>
 
-      <svg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-950 select-none">
+      <LabSvg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-950 select-none">
         <rect x={CX - 160} y={CY - 160} width={320} height={320} fill="#020617" stroke="white" strokeOpacity="0.15" rx="6" />
         <defs>
           <clipPath id="sgr-clip">
@@ -140,7 +141,7 @@ export default function SgrAStarsLab() {
             значи обикалят около едно и също тяло.
           </text>
         </g>
-      </svg>
+      </LabSvg>
 
       <div className="flex flex-wrap justify-center items-center gap-1 mt-3">
         <button onClick={() => setPlaying(v2 => !v2)} className="px-4 py-1 rounded bg-slate-600 text-white text-sm hover:bg-slate-700">

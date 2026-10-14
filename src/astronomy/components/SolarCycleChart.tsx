@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react';
+import LabSvg from '~/LabSvg';
 
 const W = 640;
 const H = 350;
@@ -111,7 +112,7 @@ export default function SolarCycleChart() {
         последните цикли.
       </p>
 
-      <svg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-900 select-none">
+      <LabSvg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-900 select-none">
         {/* Минимуми на Маундер и Далтън */}
         <rect x={sx(1645)} y={TOP} width={sx(1715) - sx(1645)} height={BOTTOM - TOP} fill="#38bdf8" fillOpacity="0.12" />
         <text x={(sx(1645) + sx(1715)) / 2} y={TOP + 40} fontSize="11" textAnchor="middle" fill="#7dd3fc">
@@ -182,7 +183,7 @@ export default function SolarCycleChart() {
             {y}
           </text>
         ))}
-      </svg>
+      </LabSvg>
 
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mt-4 text-center text-sm">
         {[

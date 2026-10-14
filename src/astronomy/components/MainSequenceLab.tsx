@@ -3,6 +3,7 @@ import { hrAxes, msLifetime, msLuminosity, msRadius, msTemperature } from './hrD
 import { temperatureToRGB } from './light';
 import { T_SUN, classOf } from './starData';
 import { fmt, sci } from './terrestrialData';
+import LabSvg from '~/LabSvg';
 
 const W = 640;
 const H = 300;
@@ -56,7 +57,7 @@ export default function MainSequenceLab() {
         следва за светимостта, размера, цвета и живота на звездата.
       </p>
 
-      <svg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-900 select-none">
+      <LabSvg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-900 select-none">
         {/* Звездата и Слънцето в общ мащаб */}
         <circle cx={110} cy={100} r={Math.max(1.5, R * scale)} fill={temperatureToRGB(T)} />
         <circle cx={110} cy={100} r={scale} fill="none" stroke={temperatureToRGB(T_SUN)} strokeDasharray="4 3" strokeOpacity="0.8" />
@@ -126,7 +127,7 @@ export default function MainSequenceLab() {
           </tspan>
           {life > 13.8e9 ? ' – по-дълго от възрастта на Вселената!' : ''}
         </text>
-      </svg>
+      </LabSvg>
 
       <label className="block text-sm font-semibold mt-4 mb-1">Маса: {fmt(M, M < 1 ? 2 : 1)} M☉</label>
       <input type="range" min={Math.log10(0.08)} max={Math.log10(60)} step="0.005" value={logM} onChange={e => setLogM(Number(e.target.value))} className="w-full" />

@@ -1,6 +1,7 @@
 import { useRef, useState } from 'react';
 import { formatScientific } from './physics';
 import { useAnimationFrame } from './useAnimationFrame';
+import LabSvg from '~/LabSvg';
 
 const SIZE = 300;
 const C = SIZE / 2;
@@ -78,7 +79,7 @@ export default function PhotonRandomWalk() {
 
       <div className="grid sm:grid-cols-2 gap-4 items-start">
         <div>
-          <svg viewBox={`0 0 ${SIZE} ${SIZE}`} className="w-full h-auto max-w-sm mx-auto rounded-lg bg-slate-900 select-none">
+          <LabSvg viewBox={`0 0 ${SIZE} ${SIZE}`} className="w-full h-auto max-w-sm mx-auto rounded-lg bg-slate-900 select-none">
             <defs>
               <radialGradient id="walk-sun">
                 <stop offset="0" stopColor="#fde68a" stopOpacity="0.35" />
@@ -94,7 +95,7 @@ export default function PhotonRandomWalk() {
                 Излезе след {fmt(steps)} стъпки!
               </text>
             )}
-          </svg>
+          </LabSvg>
           <div className="flex flex-wrap gap-1 mt-2 justify-center">
             <button
               onClick={() => (escaped ? reset() : setRunning(!running))}

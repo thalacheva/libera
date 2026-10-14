@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { element } from './light';
 import { STRIP_MAX, STRIP_MIN, SpectrumStrip } from './SpectrumStrip';
+import LabSvg from '~/LabSvg';
 
 const CANDIDATES = ['H', 'He', 'Na', 'Ca', 'Mg', 'Fe'];
 
@@ -40,7 +41,7 @@ export default function SpectrumDetective() {
         съвпадат с тъмните линии на звездата. Пунктирът показва къде трябва да са линиите на избраните елементи.
       </p>
 
-      <svg viewBox={`0 0 ${W} ${height}`} className="w-full h-auto rounded-lg bg-slate-900 select-none">
+      <LabSvg viewBox={`0 0 ${W} ${height}`} className="w-full h-auto rounded-lg bg-slate-900 select-none">
         <text x={X - 10} y={40} fontSize="12" fontWeight="600" textAnchor="end" fill="white">
           Звездата
         </text>
@@ -76,7 +77,7 @@ export default function SpectrumDetective() {
             </g>
           );
         })}
-      </svg>
+      </LabSvg>
 
       <div className="flex flex-wrap gap-1 mt-3">
         {CANDIDATES.map(id => (

@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { fmt } from './terrestrialData';
+import LabSvg from '~/LabSvg';
 
 const W = 640;
 const H = 250;
@@ -111,7 +112,7 @@ export default function StandardCandleLab() {
         разстоянието следва от m − M = 5 lg(d / 10 pc) + A.
       </p>
 
-      <svg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-950 select-none">
+      <LabSvg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-950 select-none">
         {/* Резултат */}
         <g fontSize="11" fill="white" transform="translate(20, 34)">
           <text x={0} y={0} fontSize="13" fontWeight="700" fill="#6ee7b7">
@@ -172,7 +173,7 @@ export default function StandardCandleLab() {
           </g>
         ))}
         {d >= 1 && d <= 1e10 && <path d={`M ${ax(d)} ${AY - 14} l -6 -10 l 12 0 z`} fill="#fde68a" />}
-      </svg>
+      </LabSvg>
 
       <div className="flex flex-wrap justify-center gap-1 mt-3">
         {CANDLES.map(c => (

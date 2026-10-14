@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { temperatureToRGB } from './light';
 import { equilibriumT, fmt } from './terrestrialData';
+import LabSvg from '~/LabSvg';
 
 const W = 640;
 const H = 280;
@@ -108,7 +109,7 @@ export default function HabitableZoneLab() {
         като √L. Изберете звезда и преместете своята планета.
       </p>
 
-      <svg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-950 select-none">
+      <LabSvg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-950 select-none">
         <defs>
           <linearGradient id="hz-star" x1="0" x2="1">
             <stop offset="0%" stopColor={temperatureToRGB(s.T)} stopOpacity="0.9" />
@@ -172,7 +173,7 @@ export default function HabitableZoneLab() {
             d = {fmt(d, d < 0.1 ? 4 : 2)} AU · поток {fmt(S, S < 0.1 ? 3 : 2)} × земния · T_равн ≈ {fmt(T, 0)} K ({fmt(T - 273, 0)} °C)
           </text>
         </g>
-      </svg>
+      </LabSvg>
 
       <div className="grid sm:grid-cols-2 gap-x-4">
         <div>

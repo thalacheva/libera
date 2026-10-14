@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { fmt, sci } from './terrestrialData';
+import LabSvg from '~/LabSvg';
 
 const W = 640;
 const H = 262;
@@ -45,7 +46,7 @@ export default function DeflectionLab() {
         промяна в периода се натрупва с всяка обиколка.
       </p>
 
-      <svg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-900 select-none">
+      <LabSvg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-900 select-none">
         <circle cx={EX} cy={EY} r={ER * SAFE} fill="#22c55e" fillOpacity="0.05" stroke="#22c55e" strokeOpacity="0.4" strokeDasharray="4 4" />
         <text x={EX} y={EY - ER * SAFE - 4} fontSize="9" textAnchor="middle" fill="#86efac">
           безопасно разстояние ({SAFE} R⊕)
@@ -84,7 +85,7 @@ export default function DeflectionLab() {
             {miss ? 'Дори само един удар отклонява астероида покрай Земята.' : 'Един удар не стига – астероидът пак уцелва Земята.'}
           </text>
         </g>
-      </svg>
+      </LabSvg>
 
       <div className="grid sm:grid-cols-2 gap-x-4">
         <div>

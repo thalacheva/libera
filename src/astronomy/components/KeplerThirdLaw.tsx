@@ -1,6 +1,7 @@
 import { Pause, Play } from 'lucide-react';
 import { useState } from 'react';
 import { useAnimationFrame } from './useAnimationFrame';
+import LabSvg from '~/LabSvg';
 
 const AU_KM = 1.496e8;
 const YEAR_DAYS = 365.25;
@@ -71,7 +72,7 @@ export default function KeplerThirdLaw() {
       </p>
 
       <div className="grid md:grid-cols-2 gap-4 items-center">
-        <svg
+        <LabSvg
           viewBox="0 0 320 320"
           className="w-full h-auto max-w-[320px] mx-auto rounded-lg bg-slate-900"
         >
@@ -119,9 +120,9 @@ export default function KeplerThirdLaw() {
           <text x="8" y="310" fontSize="10" fill="white" opacity="0.6">
             Меркурий, Венера, Земя, Марс и вашата планета (зелена)
           </text>
-        </svg>
+        </LabSvg>
 
-        <svg viewBox={`0 0 ${GW} ${GH}`} className="w-full h-auto">
+        <LabSvg viewBox={`0 0 ${GW} ${GH}`} className="w-full h-auto">
           <line
             x1="40"
             y1={GH - 30}
@@ -239,7 +240,7 @@ export default function KeplerThirdLaw() {
             stroke="white"
             strokeWidth="2"
           />
-        </svg>
+        </LabSvg>
       </div>
 
       <div className="mt-4">

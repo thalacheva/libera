@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { num } from '~/functions/functionMath';
 import { Slider, Sliders } from '~/functions/plot';
 import { Formula, Note } from '~/geometry/diagram';
+import LabSvg from '~/LabSvg';
 
 const W = 600;
 const L = 440; // дължина на скалата от 1 до 10
@@ -52,7 +53,7 @@ export default function SlideRuleLab() {
         умножават. Така инженерите са смятали до 70-те години на XX век.
       </p>
 
-      <svg viewBox={`0 0 ${W} 150`} className="w-full h-auto text-gray-700 dark:text-gray-300 overflow-hidden">
+      <LabSvg viewBox={`0 0 ${W} 150`} className="w-full h-auto text-gray-700 dark:text-gray-300 overflow-hidden">
         <rect x={0} y={20} width={W} height={50} className="fill-amber-50 dark:fill-amber-900/20" />
         <rect x={0} y={78} width={W} height={50} className="fill-gray-50 dark:fill-gray-900/40" />
         <Scale offset={shift} y={70} up tone="stroke-amber-600" />
@@ -61,7 +62,7 @@ export default function SlideRuleLab() {
         <line x1={X0} x2={X0 + Math.log10(x) * L} y1={140} y2={140} className="stroke-blue-500" strokeWidth="5" />
         <line x1={X0 + shift} x2={yPos} y1={12} y2={12} className="stroke-rose-500" strokeWidth="5" />
         <line x1={yPos} x2={yPos} y1={8} y2={135} className="stroke-emerald-500" strokeWidth="2" strokeDasharray="4 3" />
-      </svg>
+      </LabSvg>
 
       <Sliders>
         <Slider label="x" value={x} onChange={setX} min={1} max={9} step={0.5} tone="blue" />

@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { num } from '~/functions/functionMath';
 import { Slider, Sliders } from '~/functions/plot';
 import { Buttons, DiagramButton, Formula, Note } from '~/geometry/diagram';
+import LabSvg from '~/LabSvg';
 
 type Kind = 'arith' | 'geom';
 const W = 600;
@@ -41,7 +42,7 @@ export default function SequenceLab() {
         </DiagramButton>
       </Buttons>
 
-      <svg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto mt-3 text-gray-700 dark:text-gray-300">
+      <LabSvg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto mt-3 text-gray-700 dark:text-gray-300">
         <line x1={20} x2={W - 20} y1={base} y2={base} stroke="currentColor" strokeOpacity="0.4" />
         {terms.map((t, i) => {
           const x = 20 + i * step + (step - bw) / 2;
@@ -59,7 +60,7 @@ export default function SequenceLab() {
             </g>
           );
         })}
-      </svg>
+      </LabSvg>
 
       <Sliders>
         <Slider label="a₁" value={a1} onChange={setA1} min={-5} max={5} step={1} tone="violet" />

@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { fmt, sci } from './terrestrialData';
+import LabSvg from '~/LabSvg';
 
 const W = 640;
 const H = 260;
@@ -45,7 +46,7 @@ export default function RemnantCompare() {
         Бялото джудже се сравнява със Земята, а неутронната звезда и черната дупка – с град. Щракнете върху обект.
       </p>
 
-      <svg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-950 select-none">
+      <LabSvg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-950 select-none">
         {view === 'earth' ? (
           <g>
             <circle cx={170} cy={130} r={6371 * kmPx} fill="#3b82f6" />
@@ -93,7 +94,7 @@ export default function RemnantCompare() {
             </text>
           </g>
         )}
-      </svg>
+      </LabSvg>
 
       <div className="flex flex-wrap justify-center gap-1 mt-3">
         <button

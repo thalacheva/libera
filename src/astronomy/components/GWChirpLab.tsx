@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { fmt, sci } from './terrestrialData';
+import LabSvg from '~/LabSvg';
 
 const W = 640;
 const H = 300;
@@ -109,7 +110,7 @@ export default function GWChirpLab() {
         растат до сливането – „чирп“, като чуруликане на птица. Формата му издава масите.
       </p>
 
-      <svg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-950 select-none">
+      <LabSvg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-950 select-none">
         <rect x={GX0} y={GY0} width={GX1 - GX0} height={GY1 - GY0} fill="#0b1120" stroke="white" strokeOpacity="0.2" />
         <line x1={GX0} x2={GX1} y1={(GY0 + GY1) / 2} y2={(GY0 + GY1) / 2} stroke="white" strokeOpacity="0.12" />
         <polyline points={pts.join(' ')} fill="none" stroke="#f0abfc" strokeWidth="1.3" />
@@ -141,7 +142,7 @@ export default function GWChirpLab() {
             Това е ~{fmt((1.7e-15 / (hPeak * ARM)), 0)} пъти по-малко от размера на протона.
           </text>
         </g>
-      </svg>
+      </LabSvg>
 
       <div className="grid sm:grid-cols-3 gap-x-4">
         <div>

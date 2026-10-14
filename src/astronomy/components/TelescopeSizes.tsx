@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import LabSvg from '~/LabSvg';
 
 const W = 640;
 const H = 300;
@@ -67,7 +68,7 @@ export default function TelescopeSizes() {
         Главните огледала и лещи в един и същ мащаб, редом с човек. Щракнете върху телескоп, за да научите повече.
       </p>
 
-      <svg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-900 select-none">
+      <LabSvg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-900 select-none">
         <line x1={10} x2={W - 10} y1={GROUND} y2={GROUND} stroke="white" strokeOpacity="0.3" />
         {/* Човек за мащаб */}
         <g transform={`translate(${x} ${GROUND})`}>
@@ -115,7 +116,7 @@ export default function TelescopeSizes() {
             </tspan>
           )}
         </text>
-      </svg>
+      </LabSvg>
 
       <div className="flex flex-wrap items-center gap-2 mt-3">
         <label className="flex items-center gap-1 text-sm">

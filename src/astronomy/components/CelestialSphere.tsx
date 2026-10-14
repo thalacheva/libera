@@ -21,6 +21,7 @@ import {
 } from './skyMath';
 import { useAnimationFrame } from './useAnimationFrame';
 import { circlePoints, useSphereView } from './useSphereView';
+import LabSvg from '~/LabSvg';
 
 const WIDTH = 600;
 const HEIGHT = 520;
@@ -330,7 +331,7 @@ export default function CelestialSphere() {
       </div>
 
       <div className="relative">
-        <svg
+        <LabSvg
           viewBox={`0 0 ${WIDTH} ${HEIGHT}`}
           className="w-full h-auto cursor-grab active:cursor-grabbing"
           style={{ maxHeight: '520px', touchAction: 'pan-y' }}
@@ -442,7 +443,7 @@ export default function CelestialSphere() {
               strokeWidth="2"
             />
           </g>
-        </svg>
+        </LabSvg>
         <button
           onClick={resetView}
           className="absolute top-0 right-0 flex items-center gap-1 text-xs px-2 py-1 rounded border border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700"

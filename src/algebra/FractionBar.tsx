@@ -1,3 +1,5 @@
+import LabSvg from '~/LabSvg';
+
 // Лента за дроби: всяко цяло е правоъгълник, разделен на d равни части.
 
 const W = 600;
@@ -22,7 +24,7 @@ export function FractionBar({ d, runs, label }: { d: number; runs: Run[]; label?
   return (
     <div className="mb-2">
       {label && <p className="text-center font-mono text-sm mb-1 text-gray-700 dark:text-gray-300">{label}</p>}
-      <svg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto">
+      <LabSvg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto">
         {Array.from({ length: wholes }, (_, w) => (
           <g key={w} transform={`translate(1 ${1 + w * (ROW + GAP)})`}>
             {Array.from({ length: d }, (_, i) => (
@@ -39,7 +41,7 @@ export function FractionBar({ d, runs, label }: { d: number; runs: Run[]; label?
             <rect x={0} y={0} width={d * pw} height={ROW} className="fill-none stroke-gray-700 dark:stroke-gray-300" strokeWidth={2} />
           </g>
         ))}
-      </svg>
+      </LabSvg>
     </div>
   );
 }

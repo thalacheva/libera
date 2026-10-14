@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { fmt, sci } from './terrestrialData';
+import LabSvg from '~/LabSvg';
 
 const W = 640;
 const H = 300;
@@ -54,7 +55,7 @@ export default function BlackHoleLab() {
         картината е еднаква за всяка маса – но приливните сили съвсем не са.
       </p>
 
-      <svg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-950 select-none">
+      <LabSvg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-950 select-none">
         <circle cx={CX} cy={CY} r={3 * PX_PER_RS} fill="none" stroke="#38bdf8" strokeOpacity="0.5" strokeDasharray="5 4" />
         <circle cx={CX} cy={CY} r={1.5 * PX_PER_RS} fill="none" stroke="#fbbf24" strokeOpacity="0.7" strokeDasharray="3 3" />
         <circle cx={CX} cy={CY} r={PX_PER_RS} fill="black" stroke="#f87171" strokeWidth="1.5" />
@@ -115,7 +116,7 @@ export default function BlackHoleLab() {
             по-дълга вълна (гравитационно червено отместване)
           </text>
         </g>
-      </svg>
+      </LabSvg>
 
       <label className="block text-sm font-semibold mt-4 mb-1">Маса: {M < 0.01 ? sci(M, 1) : M < 1e4 ? fmt(M, 1) : sci(M, 1)} M☉</label>
       <input type="range" min={Math.log10(3e-6)} max="10" step="0.01" value={logM} onChange={e => setLogM(Number(e.target.value))} className="w-full" />

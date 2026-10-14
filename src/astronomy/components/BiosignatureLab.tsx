@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { planck } from './light';
+import LabSvg from '~/LabSvg';
 
 const W = 640;
 const H = 290;
@@ -131,7 +132,7 @@ export default function BiosignatureLab() {
         „построете“ своя атмосфера.
       </p>
 
-      <svg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-950 select-none">
+      <LabSvg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-950 select-none">
         <rect x={AX0} y={Y0} width={AX1 - AX0} height={Y1 - Y0} fill="#0b1120" stroke="white" strokeOpacity="0.2" />
         <rect x={BX0} y={Y0} width={BX1 - BX0} height={Y1 - Y0} fill="#0b1120" stroke="white" strokeOpacity="0.2" />
         <text x={AX0} y={Y0 - 10} fontSize="10" fill="white" fillOpacity="0.75">
@@ -178,7 +179,7 @@ export default function BiosignatureLab() {
         <text x={30} y={H - 20} fontSize="9" fill="white" fillOpacity="0.6">
           Дълбоките „ями“ са ивици на поглъщане: газът поглъща светлината и излъчва от по-високи и по-студени слоеве.
         </text>
-      </svg>
+      </LabSvg>
 
       <div className="flex flex-wrap justify-center gap-1 mt-3">
         {PLANETS.map((q, i) => (

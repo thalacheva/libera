@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { num } from '~/functions/functionMath';
 import { Slider, Sliders } from '~/functions/plot';
 import { Formula, Note } from '~/geometry/diagram';
+import LabSvg from '~/LabSvg';
 
 const S = 300; // страна на чертежа в px
 const MAX = 13; // единици по страната
@@ -29,7 +30,7 @@ export default function SqrtLab() {
         √A е страната на квадрат с лице A. Между кои два „точни“ квадрата е той – и колко точно е страната му?
       </p>
 
-      <svg viewBox={`-20 -10 ${S + 40} ${S + 30}`} className="w-full max-w-sm mx-auto h-auto block text-gray-700 dark:text-gray-300">
+      <LabSvg viewBox={`-20 -10 ${S + 40} ${S + 30}`} className="w-full max-w-sm mx-auto h-auto block text-gray-700 dark:text-gray-300">
         {Array.from({ length: MAX + 1 }, (_, i) => (
           <g key={i}>
             <line x1={i * u} x2={i * u} y1={0} y2={S} stroke="currentColor" strokeOpacity="0.08" />
@@ -46,7 +47,7 @@ export default function SqrtLab() {
         <text x={(side * u) / 2} y={S - (side * u) / 2} fontSize="16" textAnchor="middle" dominantBaseline="central" fill="currentColor" fontWeight="700">
           S = {A}
         </text>
-      </svg>
+      </LabSvg>
 
       <Sliders>
         <Slider label="A" value={A} onChange={setA} min={1} max={160} step={1} tone="violet" />

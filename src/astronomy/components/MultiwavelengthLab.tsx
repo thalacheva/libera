@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import LabSvg from '~/LabSvg';
 
 const W = 640;
 const H = 300;
@@ -190,7 +191,7 @@ export default function MultiwavelengthLab() {
         (схематично).
       </p>
 
-      <svg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-950 select-none">
+      <LabSvg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-950 select-none">
         <defs>
           {grad('mw-radio', '#ef4444')}
           {grad('mw-ir', '#f97316', 0.7)}
@@ -244,7 +245,7 @@ export default function MultiwavelengthLab() {
         <text x={CX} y={H - 10} fontSize="10" textAnchor="middle" fill="white" fillOpacity="0.55">
           {obj === 'crab' ? 'Мъглявината Рак (M1), ~11 св. години' : 'Спирална галактика, ~100 000 св. години'}
         </text>
-      </svg>
+      </LabSvg>
 
       <div className="flex flex-wrap justify-center gap-1 mt-3">
         {BANDS.map(x => (

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { project, siderealRate } from './sunMath';
 import { useAnimationFrame } from './useAnimationFrame';
+import LabSvg from '~/LabSvg';
 
 const W = 640;
 const H = 320;
@@ -62,7 +63,7 @@ export default function SolarDynamo() {
         магнитна (модел на Бабкок).
       </p>
 
-      <svg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-900 select-none">
+      <LabSvg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-900 select-none">
         <defs>
           <radialGradient id="dyn-sun">
             <stop offset="0" stopColor="#fde68a" />
@@ -107,7 +108,7 @@ export default function SolarDynamo() {
             с противоположна полярност
           </text>
         </g>
-      </svg>
+      </LabSvg>
 
       <div className="flex items-center gap-2 mt-3">
         <button

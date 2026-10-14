@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { SYNODIC_MONTH } from './MoonPhases';
 import { DEG } from './skyMath';
 import { useAnimationFrame } from './useAnimationFrame';
+import LabSvg from '~/LabSvg';
 
 // Приливното действие на Слънцето е 0,46 от това на Луната
 const SUN_RATIO = 0.46;
@@ -85,7 +86,7 @@ export default function TidesExplorer() {
         привличането в дадена точка и в центъра на Земята.
       </p>
 
-      <svg viewBox="0 0 460 380" className="w-full h-auto max-h-[380px]">
+      <LabSvg viewBox="0 0 460 380" className="w-full h-auto max-h-[380px]">
         <defs>
           <marker
             id="tide-arrow"
@@ -166,7 +167,7 @@ export default function TidesExplorer() {
         >
           Луна
         </text>
-      </svg>
+      </LabSvg>
 
       <div className="mt-3">
         <label className="block text-sm font-semibold mb-1">

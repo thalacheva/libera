@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import LabSvg from '~/LabSvg';
 
 const W = 640;
 const H = 410;
@@ -82,7 +83,7 @@ export default function CosmicOrigins() {
         легендата.
       </p>
 
-      <svg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-950 select-none">
+      <LabSvg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-950 select-none">
         {SYMBOLS.map((sym, i) => {
           const zz = i + 1;
           const [row, col] = position(zz);
@@ -118,7 +119,7 @@ export default function CosmicOrigins() {
             </g>
           );
         })}
-      </svg>
+      </LabSvg>
 
       <div className="mt-3 p-3 rounded-lg bg-violet-50 dark:bg-violet-500/10 text-sm sm:text-base">
         <p className="font-semibold mb-1">

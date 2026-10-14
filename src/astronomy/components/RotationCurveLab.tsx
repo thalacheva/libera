@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { fmt, sci } from './terrestrialData';
 import { useAnimationFrame } from './useAnimationFrame';
+import LabSvg from '~/LabSvg';
 
 const W = 640;
 const H = 300;
@@ -75,7 +76,7 @@ export default function RotationCurveLab() {
         видимите звезди и газ. Добавете тъмен ореол, докато моделът пасне.
       </p>
 
-      <svg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-950 select-none">
+      <LabSvg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-950 select-none">
         {/* Изглед отгоре – звездите обикалят със скоростта от модела */}
         {k > 0 && <circle cx={DX} cy={DY} r={30 * DPX} fill="#7c3aed" fillOpacity={0.05 + 0.1 * k} />}
         <circle cx={DX} cy={DY} r={14} fill="#fde68a" fillOpacity="0.5" />
@@ -123,7 +124,7 @@ export default function RotationCurveLab() {
         <text x={GX0} y={H - 10} fontSize="10" fill={chi < 1.5 ? '#4ade80' : '#f87171'} fontWeight="700">
           {chi < 1.5 ? '✓ моделът пасва на наблюденията' : 'моделът не пасва – скоростите навън са твърде малки'}
         </text>
-      </svg>
+      </LabSvg>
 
       <div className="grid sm:grid-cols-2 gap-x-4">
         <div>

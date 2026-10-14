@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { fmt, sci } from './terrestrialData';
+import LabSvg from '~/LabSvg';
 
 const W = 640;
 const H = 250;
@@ -46,7 +47,7 @@ export default function MagnitudeLab() {
         звезди и сравнете.
       </p>
 
-      <svg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-900 select-none">
+      <LabSvg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-900 select-none">
         <line x1={X0} x2={X1} y1={AXIS_Y} y2={AXIS_Y} stroke="white" strokeOpacity="0.4" />
         {Array.from({ length: 12 }, (_, i) => -25 + i * 5).map(m => (
           <g key={m}>
@@ -123,7 +124,7 @@ export default function MagnitudeLab() {
             B: ~{ratioText(photons(mB))}
           </text>
         </g>
-      </svg>
+      </LabSvg>
 
       <div className="grid sm:grid-cols-2 gap-x-4">
         <div>

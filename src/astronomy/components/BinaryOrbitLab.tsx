@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { fmt } from './terrestrialData';
 import { useAnimationFrame } from './useAnimationFrame';
+import LabSvg from '~/LabSvg';
 
 const W = 640;
 const H = 300;
@@ -112,7 +113,7 @@ export default function BinaryOrbitLab() {
         спектроскопът: радиалните скорости и линията Hα, която се разцепва на две.
       </p>
 
-      <svg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-950 select-none">
+      <LabSvg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-950 select-none">
         <polyline points={orbitPts(m2 / M, -1)} fill="none" stroke="#fde68a" strokeOpacity="0.4" />
         <polyline points={orbitPts(m1 / M, 1)} fill="none" stroke="#93c5fd" strokeOpacity="0.4" />
         <path d={`M ${CX - 5} ${CY} h 10 M ${CX} ${CY - 5} v 10`} stroke="#f472b6" strokeWidth="1.5" />
@@ -151,7 +152,7 @@ export default function BinaryOrbitLab() {
         <text x={(SX0 + SX1) / 2} y={SY + 36} fontSize="9" textAnchor="middle" fill="white" fillOpacity="0.55">
           Hα в покой (±{fmt(dLambdaMax * 1000, dLambdaMax < 0.01 ? 2 : 0)} pm)
         </text>
-      </svg>
+      </LabSvg>
 
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mt-3 text-center text-sm">
         {[

@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import LabSvg from '~/LabSvg';
 
 const W = 640;
 const H = 260;
@@ -97,7 +98,7 @@ export default function PlanetTest() {
         <div className={`text-xl font-bold text-center px-4 py-2 rounded-lg bg-gray-100/70 dark:bg-gray-700/50 ${v.tone}`}>{v.label}</div>
       </div>
 
-      <svg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-900 select-none">
+      <LabSvg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-900 select-none">
         {/* Пропастта между двете групи */}
         <rect x={mx(1)} y={14} width={mx(1e4) - mx(1)} height={H - 50} fill="#22c55e" fillOpacity="0.06" />
         <text x={(mx(1) + mx(1e4)) / 2} y={30} fontSize="10" textAnchor="middle" fill="#86efac" fillOpacity="0.8">
@@ -128,7 +129,7 @@ export default function PlanetTest() {
             </g>
           );
         })}
-      </svg>
+      </LabSvg>
 
       <p className="mt-3 text-sm sm:text-base text-gray-700 dark:text-gray-300">{body.note}</p>
     </div>

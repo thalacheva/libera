@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { colorName, dec, hydrogenLevel, rydberg, wavelengthToRGB } from './light';
+import LabSvg from '~/LabSvg';
 
 const W = 640;
 const H = 340;
@@ -67,7 +68,7 @@ export default function HydrogenAtom() {
         точно на разликата между нивата; при скок нагоре – поглъща такъв.
       </p>
 
-      <svg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-900 select-none">
+      <LabSvg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-900 select-none">
         <defs>
           <marker id="h-arrow" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
             <path d="M0,0 L8,4 L0,8 z" fill={color} />
@@ -154,7 +155,7 @@ export default function HydrogenAtom() {
         <text x={W / 2} y={H - 12} fontSize="13" fontWeight="600" textAnchor="middle" fill={color}>
           {lineName}: n = {upper} {emission ? '→' : '←'} {lower}, λ = {dec(nm, 1)} nm
         </text>
-      </svg>
+      </LabSvg>
 
       <div className="grid sm:grid-cols-2 gap-3 mt-3 text-sm">
         <div>

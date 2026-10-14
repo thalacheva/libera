@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import LabSvg from '~/LabSvg';
 
 const W = 640;
 const H = 280;
@@ -42,7 +43,7 @@ export default function SolarConstantLab() {
         квадратен метър получава 4 пъти по-малко.
       </p>
 
-      <svg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-900 select-none">
+      <LabSvg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-900 select-none">
         <defs>
           <radialGradient id="sc-sun">
             <stop offset="0" stopColor="#fff7d6" />
@@ -99,7 +100,7 @@ export default function SolarConstantLab() {
         <text x={515} y={40} fontSize="11" textAnchor="middle" fill="white" fillOpacity="0.7">
           ъглов диаметър {fmt(angular, 1)}′
         </text>
-      </svg>
+      </LabSvg>
 
       <div className="flex flex-wrap gap-1 mt-3">
         {PLANETS.map((p, i) => (

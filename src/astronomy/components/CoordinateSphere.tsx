@@ -19,6 +19,7 @@ import {
 } from './skyMath';
 import { useAnimationFrame } from './useAnimationFrame';
 import { circlePoints, useSphereView } from './useSphereView';
+import LabSvg from '~/LabSvg';
 
 const WIDTH = 600;
 const HEIGHT = 500;
@@ -261,8 +262,8 @@ export default function CoordinateSphere({
       </div>
 
       <div className="grid lg:grid-cols-[1fr_260px] gap-4">
-        <div className="relative">
-          <svg
+        <div className="relative min-w-0">
+          <LabSvg
             viewBox={`0 0 ${WIDTH} ${HEIGHT}`}
             className="w-full h-auto cursor-grab active:cursor-grabbing"
             style={{ maxHeight: '500px', touchAction: 'pan-y' }}
@@ -379,7 +380,7 @@ export default function CoordinateSphere({
                 ★
               </text>
             </g>
-          </svg>
+          </LabSvg>
           <button
             onClick={resetView}
             className="absolute top-0 right-0 flex items-center gap-1 text-xs px-2 py-1 rounded border border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700"

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { fmt } from './terrestrialData';
 import { lightTime } from './dwarfData';
+import LabSvg from '~/LabSvg';
 
 const W = 700;
 const H = 250;
@@ -130,7 +131,7 @@ export default function SmallBodyMap() {
         Разстояние от Слънцето в логаритмична скала: всяко деление е 10 пъти по-далеч от предишното. Щракнете върху област.
       </p>
 
-      <svg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-900 select-none">
+      <LabSvg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-900 select-none">
         {/* Областите */}
         {REGIONS.map(r => {
           const x = ax(r.from);
@@ -199,7 +200,7 @@ export default function SmallBodyMap() {
         <text x={X1} y={AXIS_Y - 6} fontSize="9" textAnchor="end" fill="white" fillOpacity="0.6">
           Проксима →
         </text>
-      </svg>
+      </LabSvg>
 
       <div className="flex flex-wrap justify-center gap-1 mt-3">
         {REGIONS.map(r => (

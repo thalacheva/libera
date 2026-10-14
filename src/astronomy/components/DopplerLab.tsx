@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { dec, element } from './light';
 import { SpectrumStrip } from './SpectrumStrip';
 import { useAnimationFrame } from './useAnimationFrame';
+import LabSvg from '~/LabSvg';
 
 const W = 640;
 const H = 370;
@@ -63,7 +64,7 @@ export default function DopplerLab() {
         вляво.
       </p>
 
-      <svg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-900 select-none">
+      <LabSvg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-900 select-none">
         <defs>
           <clipPath id="dop-scene">
             <rect x={0} y={0} width={W} height={210} />
@@ -124,7 +125,7 @@ export default function DopplerLab() {
           if (to > MAX || l.nm < MIN) return null;
           return <line key={l.nm} x1={sx(l.nm)} y1={262} x2={sx(to)} y2={300} stroke="white" strokeOpacity="0.4" strokeDasharray="2 3" />;
         })}
-      </svg>
+      </LabSvg>
 
       <div className="mt-4">
         <label className="block text-sm font-semibold mb-1">

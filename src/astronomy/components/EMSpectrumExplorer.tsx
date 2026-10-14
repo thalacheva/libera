@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { C, colorName, EV, formatEnergy, formatFrequency, formatLength, H_PLANCK, wavelengthToRGB } from './light';
+import LabSvg from '~/LabSvg';
 
 const W = 640;
 const H = 330;
@@ -155,7 +156,7 @@ export default function EMSpectrumExplorer() {
         Плъзнете маркера от гама лъчите до радиовълните. Скалата е логаритмична – всяко деление е 10 пъти по-дълга вълна.
       </p>
 
-      <svg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-900 select-none">
+      <LabSvg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-900 select-none">
         <defs>
           <linearGradient id="em-visible" x1="0" x2="1">
             {[380, 420, 460, 500, 540, 580, 620, 660, 700, 750].map((w, i) => (
@@ -223,7 +224,7 @@ export default function EMSpectrumExplorer() {
           {band.name}
           {visible && ` – ${colorName(nm)}`}
         </text>
-      </svg>
+      </LabSvg>
 
       <input
         type="range"

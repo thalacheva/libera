@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { hrAxes, lumOf, msDot, msLifetime, msLuminosity, msTemperature, rnd, turnoffMass, type Dot } from './hrData';
 import { temperatureToRGB } from './light';
 import { fmt } from './terrestrialData';
+import LabSvg from '~/LabSvg';
 
 const W = 640;
 const H = 360;
@@ -97,7 +98,7 @@ export default function ClusterAgeLab() {
         отгоре надолу. Точката на отклонение е часовник.
       </p>
 
-      <svg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-950 select-none">
+      <LabSvg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-950 select-none">
         <rect x={X0} y={Y0} width={X1 - X0} height={Y1 - Y0} fill="#0b1120" stroke="white" strokeOpacity="0.25" />
         <polyline points={ZAMS} fill="none" stroke="white" strokeOpacity="0.15" strokeWidth="8" strokeLinecap="round" />
         <defs>
@@ -164,7 +165,7 @@ export default function ClusterAgeLab() {
             или черни дупки (Лекции 20–21).
           </text>
         </g>
-      </svg>
+      </LabSvg>
 
       <label className="block text-sm font-semibold mt-4 mb-1">Възраст на купа: {ageText}</label>
       <input

@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import LabSvg from '~/LabSvg';
 
 const W = 600;
 const H = 400;
@@ -79,7 +80,7 @@ export default function VisVivaLab() {
         вижте коничното сечение, по което ще полети.
       </p>
 
-      <svg
+      <LabSvg
         viewBox={`0 0 ${W} ${H}`}
         className="w-full h-auto rounded-lg bg-slate-900"
       >
@@ -134,7 +135,7 @@ export default function VisVivaLab() {
         <text x="12" y={H - 12} fontSize="10" fill="white" opacity="0.6">
           Пунктирът е кръговата орбита с радиус r₀
         </text>
-      </svg>
+      </LabSvg>
 
       <div className="mt-4">
         <label className="block text-sm font-semibold mb-1">

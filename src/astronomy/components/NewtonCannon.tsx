@@ -1,6 +1,7 @@
 import { Play, RotateCcw } from 'lucide-react';
 import { useMemo, useState } from 'react';
 import { useAnimationFrame } from './useAnimationFrame';
+import LabSvg from '~/LabSvg';
 
 const GM = 398_600; // km³/s²
 const R = 6371; // km
@@ -119,7 +120,7 @@ export default function NewtonCannon() {
         скорост трябва да изстреля гюлето, за да не падне никога?
       </p>
 
-      <svg
+      <LabSvg
         viewBox="0 0 600 400"
         className="w-full h-auto max-h-[400px] rounded-lg bg-slate-900"
       >
@@ -158,7 +159,7 @@ export default function NewtonCannon() {
         <text x="12" y="388" fontSize="13" fill="white">
           {progress >= 1 ? message : '…'}
         </text>
-      </svg>
+      </LabSvg>
 
       <div className="mt-4">
         <label className="block text-sm font-semibold mb-1">

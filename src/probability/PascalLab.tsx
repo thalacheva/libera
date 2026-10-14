@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Slider, Sliders } from '~/functions/plot';
 import { Buttons, DiagramButton, Formula, Note } from '~/geometry/diagram';
+import LabSvg from '~/LabSvg';
 
 const W = 600;
 
@@ -41,7 +42,7 @@ export default function PascalLab() {
         </DiagramButton>
       </Buttons>
 
-      <svg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto mt-3 text-gray-700 dark:text-gray-300">
+      <LabSvg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto mt-3 text-gray-700 dark:text-gray-300">
         {t.map((row, r) =>
           row.map((v, c) => {
             const p = pos(r, c);
@@ -77,7 +78,7 @@ export default function PascalLab() {
             );
           }),
         )}
-      </svg>
+      </LabSvg>
 
       <Sliders>
         <Slider label="редове" value={rows} onChange={setRows} min={4} max={16} step={1} tone="violet" />

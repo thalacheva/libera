@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { fmt, sci } from './terrestrialData';
+import LabSvg from '~/LabSvg';
 
 const W = 640;
 const H = 270;
@@ -48,7 +49,7 @@ export default function WhiteDwarfLab() {
         звездата се свива. При 1,44 M☉ налягането вече не може да я удържи.
       </p>
 
-      <svg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-950 select-none">
+      <LabSvg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-950 select-none">
         {/* Земята и бялото джудже */}
         <circle cx={90} cy={125} r={6371 * kmPx} fill="#3b82f6" fillOpacity="0.85" />
         <text x={90} y={225} fontSize="10" textAnchor="middle" fill="white" fillOpacity="0.7">
@@ -102,7 +103,7 @@ export default function WhiteDwarfLab() {
         <text x={(GX0 + GX1) / 2} y={H - 8} fontSize="9" textAnchor="middle" fill="white" fillOpacity="0.55">
           маса
         </text>
-      </svg>
+      </LabSvg>
 
       <label className="block text-sm font-semibold mt-4 mb-1">Маса: {fmt(m, 2)} M☉</label>
       <input type="range" min="0.2" max="1.46" step="0.01" value={m} onChange={e => setM(Number(e.target.value))} className="w-full" />

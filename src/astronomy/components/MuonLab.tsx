@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { fmt, sci } from './terrestrialData';
 import { useAnimationFrame } from './useAnimationFrame';
+import LabSvg from '~/LabSvg';
 
 const W = 640;
 const H = 300;
@@ -48,7 +49,7 @@ export default function MuonLab() {
         стигат до земята?
       </p>
 
-      <svg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-950 select-none">
+      <LabSvg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-950 select-none">
         <defs>
           <linearGradient id="mu-sky" x1="0" x2="0" y1="0" y2="1">
             <stop offset="0%" stopColor="#020617" />
@@ -119,7 +120,7 @@ export default function MuonLab() {
             (свиване на дължините) – същият резултат: {fmt(fracSR * 100, 1)}%.
           </text>
         </g>
-      </svg>
+      </LabSvg>
 
       <label className="block text-sm font-semibold mt-4 mb-1">Скорост на мюоните: v = {fmt(beta, 5)}c</label>
       <input type="range" min="-5" max="-1" step="0.01" value={lg} onChange={e => setLg(Number(e.target.value))} className="w-full" />

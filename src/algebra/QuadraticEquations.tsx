@@ -10,6 +10,7 @@ import RootsParameterLab from './RootsParameterLab';
 import VietaLab from './VietaLab';
 import { MathText, Tex } from '~/MathText';
 import Term from '~/Term';
+import LabSvg from '~/LabSvg';
 
 // ---------- Помощни функции ----------
 
@@ -89,7 +90,7 @@ function ParabolaExplorer() {
           : 'a = 0 – уравнението вече не е квадратно, а линейно!'}
       </p>
 
-      <svg viewBox="0 0 400 300" className="w-full h-auto max-w-lg mx-auto text-gray-700 dark:text-gray-300">
+      <LabSvg viewBox="0 0 400 300" className="w-full h-auto max-w-lg mx-auto text-gray-700 dark:text-gray-300">
         <defs>
           <clipPath id="parabolaArea">
             <rect x="0" y="0" width="400" height="300" />
@@ -148,7 +149,7 @@ function ParabolaExplorer() {
             </text>
           </g>
         ))}
-      </svg>
+      </LabSvg>
 
       <div className="grid sm:grid-cols-3 gap-4 mt-4">
         <label className="text-sm font-semibold">
@@ -215,7 +216,7 @@ function CompletingTheSquare() {
         {equations[step]}
       </p>
 
-      <svg viewBox="0 0 320 300" className="w-full h-auto max-w-sm mx-auto text-gray-700 dark:text-gray-300">
+      <LabSvg viewBox="0 0 320 300" className="w-full h-auto max-w-sm mx-auto text-gray-700 dark:text-gray-300">
         {/* x² */}
         <rect x={ox} y={oy} width={xs} height={xs} fill="rgb(59, 130, 246)" opacity="0.8" />
         <text x={ox + xs / 2} y={oy + xs / 2 + 6} fontSize="18" fontWeight="bold" textAnchor="middle" fill="white">x²</text>
@@ -256,7 +257,7 @@ function CompletingTheSquare() {
             </text>
           </>
         )}
-      </svg>
+      </LabSvg>
 
       <p className="text-sm sm:text-base text-gray-700 dark:text-gray-300 text-center min-h-[3rem] mt-2">
         {explanations[step]}

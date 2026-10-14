@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Slider, Sliders } from '~/functions/plot';
 import { Formula, Note } from '~/geometry/diagram';
+import LabSvg from '~/LabSvg';
 
 const W = 600;
 const H = 260;
@@ -37,7 +38,7 @@ export default function TreeLab() {
         Обличаме се: тениска, после панталон, после обувки. Всеки клон на дървото е един възможен тоалет. Колко са листата?
       </p>
 
-      <svg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto text-gray-700 dark:text-gray-300">
+      <LabSvg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto text-gray-700 dark:text-gray-300">
         {levels.slice(1).map((row, l) =>
           row.map((node, i) => (
             <line
@@ -64,7 +65,7 @@ export default function TreeLab() {
             {STAGES[s].name}: {c}
           </text>
         ))}
-      </svg>
+      </LabSvg>
 
       <Sliders>
         {STAGES.map((st, s) => (

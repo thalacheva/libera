@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { fmt } from './terrestrialData';
+import LabSvg from '~/LabSvg';
 
 const W = 640;
 const H = 300;
@@ -102,7 +103,7 @@ export default function LifeClockLab() {
         Нека 4,54 млрд. години от образуването на Земята до днес са 24 часа. В колко часа се появява животът? А хората?
       </p>
 
-      <svg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-950 select-none">
+      <LabSvg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-950 select-none">
         {EONS.map(e => (
           <path key={e.name} d={arc(e.from, e.to, R - 16, R)} fill={e.color} fillOpacity="0.85" />
         ))}
@@ -174,7 +175,7 @@ export default function LifeClockLab() {
         <text x={GX1} y={GY1 + 26} fontSize="8" textAnchor="end" fill="white" fillOpacity="0.5">
           % от днешното количество, лог. скала
         </text>
-      </svg>
+      </LabSvg>
 
       <label className="block text-sm font-semibold mt-4 mb-1">Преди: {formatAgo(t)}</label>
       <input

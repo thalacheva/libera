@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { fmt, sci } from './terrestrialData';
 import { useAnimationFrame } from './useAnimationFrame';
+import LabSvg from '~/LabSvg';
 
 const W = 640;
 const H = 300;
@@ -67,7 +68,7 @@ export default function JeansLab() {
         масата на Джинс, гравитацията печели и облакът се разпада на сгъстявания, които стават звезди.
       </p>
 
-      <svg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-950 select-none">
+      <LabSvg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-950 select-none">
         <defs>
           <radialGradient id="jl-cloud" cx="0.5" cy="0.5" r="0.5">
             <stop offset="0" stopColor="#7c3aed" stopOpacity={0.35 + 0.4 * (1 - shrink)} />
@@ -120,7 +121,7 @@ export default function JeansLab() {
             (колкото добър лабораторен вакуум)
           </text>
         </g>
-      </svg>
+      </LabSvg>
 
       <div className="grid sm:grid-cols-3 gap-x-4">
         <div>

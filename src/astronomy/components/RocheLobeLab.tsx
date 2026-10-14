@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { fmt } from './terrestrialData';
+import LabSvg from '~/LabSvg';
 
 const W = 640;
 const H = 300;
@@ -103,7 +104,7 @@ export default function RocheLobeLab() {
         допират в точката L1. Ако звезда набъбне и запълни полето си, газът ѝ започва да прелива към другата.
       </p>
 
-      <svg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-950 select-none">
+      <LabSvg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-950 select-none">
         <path d={outer} stroke="white" strokeOpacity="0.15" strokeWidth="1" fill="none" />
         {full1 && <path d={filledCells(1)} fill="#fbbf24" fillOpacity="0.85" />}
         {full2 && <path d={filledCells(2)} fill="#60a5fa" fillOpacity="0.85" />}
@@ -166,7 +167,7 @@ export default function RocheLobeLab() {
             L1 на {fmt(s.xL1 - s.x1, 3)} a от M₁
           </text>
         </g>
-      </svg>
+      </LabSvg>
 
       <div className="grid sm:grid-cols-3 gap-x-4">
         <div>

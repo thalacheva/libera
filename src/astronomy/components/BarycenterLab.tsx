@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { fmt } from './terrestrialData';
 import { useAnimationFrame } from './useAnimationFrame';
+import LabSvg from '~/LabSvg';
 
 const W = 640;
 const H = 340;
@@ -91,7 +92,7 @@ export default function BarycenterLab() {
         Двете тела обикалят около общия център на масите (+). Вдясно главното тяло е увеличено: вътре ли е центърът, или навън?
       </p>
 
-      <svg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-900 select-none">
+      <LabSvg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-900 select-none">
         {/* Лявата картина в мащаб */}
         <circle cx={LEFT.x} cy={LEFT.y} r={d2} fill="none" stroke="white" strokeOpacity="0.15" />
         {d1 > 1 && <circle cx={LEFT.x} cy={LEFT.y} r={d1} fill="none" stroke="white" strokeOpacity="0.25" strokeDasharray="2 2" />}
@@ -130,7 +131,7 @@ export default function BarycenterLab() {
         <text x={ZOOM.x} y={H - 10} fontSize="11" textAnchor="middle" fill="white" fillOpacity="0.75">
           {inside ? 'вътре в тялото' : 'извън тялото!'}
         </text>
-      </svg>
+      </LabSvg>
 
       <div className="flex flex-wrap justify-center items-center gap-1 mt-3">
         {SYSTEMS.map(x => (

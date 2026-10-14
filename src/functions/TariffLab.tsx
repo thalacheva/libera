@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import LabSvg from '~/LabSvg';
 
 const W = 600;
 const H = 300;
@@ -56,7 +57,7 @@ export function TariffLab() {
         струват еднакво.
       </p>
 
-      <svg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto text-gray-700 dark:text-gray-300">
+      <LabSvg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto text-gray-700 dark:text-gray-300">
         <defs>
           <clipPath id="tariff-clip">
             <rect x={X0} y={Y0} width={X1 - X0} height={Y1 - Y0} />
@@ -104,7 +105,7 @@ export function TariffLab() {
         {plans.map((p, i) => (
           <circle key={p.name} cx={px(minutes)} cy={py(costs[i])} r={5} fill={p.color} stroke="white" strokeWidth="2" />
         ))}
-      </svg>
+      </LabSvg>
 
       <label className="block text-sm font-semibold mt-1">
         Говоря по {minutes} минути на месец

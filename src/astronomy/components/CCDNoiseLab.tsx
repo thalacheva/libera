@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { fmt } from './terrestrialData';
+import LabSvg from '~/LabSvg';
 
 const W = 640;
 const H = 300;
@@ -93,7 +94,7 @@ export default function CCDNoiseLab() {
         дълго трябва да снимаме, за да изплуват слабите звезди?
       </p>
 
-      <svg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-950 select-none">
+      <LabSvg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-950 select-none">
         {cells.map(c => (
           <rect key={c.k} x={IX + (c.k % NX) * PX} y={IY + Math.floor(c.k / NX) * PX} width={PX + 0.2} height={PX + 0.2} fill={c.c} />
         ))}
@@ -137,7 +138,7 @@ export default function CCDNoiseLab() {
             гранична величина (S/N = 5): V ≈ {fmt(mLim, 1)}
           </text>
         </g>
-      </svg>
+      </LabSvg>
 
       <label className="block text-sm font-semibold mt-4 mb-1">Експозиция: {formatTime(t)}</label>
       <input type="range" min="-1" max="4.3" step="0.025" value={logT} onChange={e => setLogT(Number(e.target.value))} className="w-full" />

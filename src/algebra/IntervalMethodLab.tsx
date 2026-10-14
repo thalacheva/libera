@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { num } from '~/functions/functionMath';
 import { Buttons, DiagramButton, Note } from '~/geometry/diagram';
 import { fmtPieces, RELS, strict, type Piece, type Rel } from './intervals';
+import LabSvg from '~/LabSvg';
 
 // Множител (x − r)^k – в числителя или в знаменателя
 type Factor = { r: number; k: number; den?: boolean };
@@ -102,7 +103,7 @@ export default function IntervalMethodLab() {
         {text} {rel} 0
       </p>
 
-      <svg viewBox={`0 0 ${W} 140`} className="w-full h-auto text-gray-700 dark:text-gray-300">
+      <LabSvg viewBox={`0 0 ${W} 140`} className="w-full h-auto text-gray-700 dark:text-gray-300">
         {pieces.map((p, i) => (
           <line
             key={i}
@@ -161,7 +162,7 @@ export default function IntervalMethodLab() {
             </g>
           );
         })}
-      </svg>
+      </LabSvg>
 
       <div className="mt-2 bg-violet-50 dark:bg-violet-900/20 rounded-xl p-3 text-sm sm:text-base text-gray-800 dark:text-gray-100 space-y-1">
         <p>

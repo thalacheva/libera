@@ -2,6 +2,7 @@ import { Shuffle } from 'lucide-react';
 import { useState } from 'react';
 import { Slider, Sliders } from '~/functions/plot';
 import { Formula, Note } from '~/geometry/diagram';
+import LabSvg from '~/LabSvg';
 
 const W = 420;
 const C = (n: number, k: number) => {
@@ -50,7 +51,7 @@ export default function LatticePathLab() {
         Тръгваме от долния ляв ъгъл и вървим само надясно (→) или нагоре (↑). По колко различни пътя стигаме до горния десен ъгъл?
       </p>
 
-      <svg viewBox={`0 0 ${W} ${H}`} className="w-full max-w-md mx-auto h-auto block text-gray-700 dark:text-gray-300">
+      <LabSvg viewBox={`0 0 ${W} ${H}`} className="w-full max-w-md mx-auto h-auto block text-gray-700 dark:text-gray-300">
         {Array.from({ length: m + 1 }, (_, i) => (
           <line key={`v${i}`} x1={X(i)} x2={X(i)} y1={Y(0)} y2={Y(n)} stroke="currentColor" strokeOpacity="0.25" />
         ))}
@@ -75,7 +76,7 @@ export default function LatticePathLab() {
         <text x={X(m)} y={Y(n) - 16} fontSize="12" textAnchor="middle" fill="currentColor">
           B
         </text>
-      </svg>
+      </LabSvg>
 
       <div className="flex flex-wrap justify-center items-center gap-3 mt-2">
         <button onClick={() => setPath(randomPath(m, n))} className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-sky-600 hover:bg-sky-700 text-white text-sm font-semibold">

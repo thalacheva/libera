@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { temperatureToRGB } from './light';
 import { fmt } from './terrestrialData';
 import { useAnimationFrame } from './useAnimationFrame';
+import LabSvg from '~/LabSvg';
 
 const W = 640;
 const H = 300;
@@ -78,7 +79,7 @@ export default function PulsatingStarLab() {
         пропуска, когато е разширен (механизъм на Едингтън). Промяната на радиуса е преувеличена 3 пъти.
       </p>
 
-      <svg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-950 select-none">
+      <LabSvg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-950 select-none">
         <circle cx={SX} cy={SY} r={BASE_PX} fill="none" stroke="white" strokeOpacity="0.2" strokeDasharray="3 3" />
         <circle cx={SX} cy={SY} r={starPx} fill={temperatureToRGB(temp)} />
         <circle cx={SX} cy={SY} r={starPx * 0.82} fill="none" stroke="#7c2d12" strokeWidth={10} strokeOpacity={0.15 + 0.6 * opaque} />
@@ -126,7 +127,7 @@ export default function PulsatingStarLab() {
         <text x={PX1} y={H - 10} fontSize="9" textAnchor="end" fill="white" fillOpacity="0.5">
           два периода · P = {fmt(st.P, st.P < 1 ? 3 : 2)} {st.unit}
         </text>
-      </svg>
+      </LabSvg>
 
       <div className="flex flex-wrap justify-center items-center gap-1 mt-3">
         <button onClick={() => setPlaying(v => !v)} className="px-4 py-1 rounded bg-yellow-600 text-white text-sm hover:bg-yellow-700">

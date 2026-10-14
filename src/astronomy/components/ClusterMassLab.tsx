@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { fmt, sci } from './terrestrialData';
 import { useAnimationFrame } from './useAnimationFrame';
+import LabSvg from '~/LabSvg';
 
 const W = 640;
 const H = 300;
@@ -57,7 +58,7 @@ export default function ClusterMassLab() {
         ги задържи заедно. Изключете тъмната материя и вижте какво става.
       </p>
 
-      <svg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-950 select-none">
+      <LabSvg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto rounded-lg bg-slate-950 select-none">
         <circle cx={CX} cy={CY} r={R_PX} fill={dark ? '#7c3aed' : '#0f172a'} fillOpacity={dark ? 0.12 : 0} stroke="white" strokeOpacity="0.15" strokeDasharray="4 4" />
         <circle cx={CX} cy={CY} r={R_PX * 0.6} fill="#f472b6" fillOpacity="0.06" />
         {GAL.map((g, i) => {
@@ -107,7 +108,7 @@ export default function ClusterMassLab() {
           <rect x={290 * fStars} y={0} width={290 * 0.13} height={14} fill="#f472b6" />
           <rect x={290 * (fStars + 0.13)} y={0} width={290 * (1 - fStars - 0.13)} height={14} fill="#7c3aed" />
         </g>
-      </svg>
+      </LabSvg>
 
       <div className="flex flex-wrap justify-center items-center gap-1 mt-3">
         <button onClick={() => setPlaying(v => !v)} className="px-4 py-1 rounded bg-violet-600 text-white text-sm hover:bg-violet-700">

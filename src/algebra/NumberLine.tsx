@@ -1,5 +1,6 @@
 import { num } from '~/functions/functionMath';
 import { type Piece } from './intervals';
+import LabSvg from '~/LabSvg';
 
 // Числова ос с отбелязани интервали – решенията на неравенства.
 
@@ -36,7 +37,7 @@ export function NumberLine({
   const every = hi - lo > 12 ? 2 : 1;
 
   return (
-    <svg viewBox={`0 0 ${W} 80`} className="w-full h-auto text-gray-700 dark:text-gray-300">
+    <LabSvg viewBox={`0 0 ${W} 80`} className="w-full h-auto text-gray-700 dark:text-gray-300">
       {children?.(X)}
       <line x1={PAD - 12} x2={W - PAD + 6} y1={AXIS_Y} y2={AXIS_Y} className="stroke-gray-400 dark:stroke-gray-500" strokeWidth="1.5" />
       <path d={`M ${W - PAD + 14} ${AXIS_Y} l -9 -4.5 v 9 z`} className="fill-gray-400 dark:fill-gray-500" />
@@ -77,7 +78,7 @@ export function NumberLine({
           className={probe.ok ? 'fill-emerald-600 dark:fill-emerald-400' : 'fill-red-500'}
         />
       )}
-    </svg>
+    </LabSvg>
   );
 }
 
