@@ -1,7 +1,9 @@
+import { Sparkles } from 'lucide-react';
 import Example from '~/Example';
 import Quiz, { type Question } from '~/Quiz';
 import Task, { TaskBoard, TaskLevel } from '~/Task';
 import Theorem from '~/Theorem';
+import Trainer from '~/Trainer';
 import { InteractiveFunctionGrapher } from './InteractiveFunctionGrapher';
 import { ReadGraphLab } from './ReadGraphLab';
 import { StretchLab } from './StretchLab';
@@ -9,9 +11,104 @@ import { BasicFunctions, TransformExplorer } from './Transformations';
 import { VerticalLineLab } from './VerticalLineLab';
 import { MathText, Tex } from '~/MathText';
 import Term from '~/Term';
+import { type Drill, fracTex, nonZero, paren, pick, polyTex, randInt } from '~/drill';
 
 const h2 = 'text-xl sm:text-2xl font-semibold mb-3 text-gray-800 dark:text-gray-100';
 const text = 'text-sm sm:text-base text-gray-700 dark:text-gray-300 leading-relaxed';
+
+// ---------- Тренажор ----------
+
+/** Свободният член със знак: 3 → „ + 3“, −3 → „ - 3“, 0 → „“. */
+const tail = (b: number) => (b < 0 ? ` - ${-b}` : b > 0 ? ` + ${b}` : '');
+/** Аргументът след преместване с h: x - 2, x + 3 или x. */
+const shifted = (h: number) => (h === 0 ? 'x' : h > 0 ? `x - ${h}` : `x + ${-h}`);
+/** Множител пред функцията: 1 → „“, −1 → „-“. */
+const coef = (a: number) => (a === 1 ? '' : a === -1 ? '-' : String(a));
+/** Частно като дроб: първо както е, после съкратено (ако се различава). */
+const divTex = (p: number, q: number) => {
+  const raw = `\\frac{${p}}{${q}}`;
+  const r = fracTex(p, q);
+  return r === raw ? raw : `${raw} = ${r}`;
+};
+
+const newDrill = (): Drill => {
+  const kind = randInt(0, 4);
+  if (kind === 0) {
+    const square = randInt(0, 1) === 1;
+    let [h, k] = [0, 0];
+    while (h === 0 && k === 0) [h, k] = [randInt(-5, 5), randInt(-5, 5)];
+    const base = square ? (h === 0 ? 'x^2' : `(${shifted(h)})^2`) : `|${shifted(h)}|`;
+    const askY = randInt(0, 1) === 1;
+    const moves = [
+      h !== 0 && `„$${shifted(h)}$“ я мести ${h > 0 ? 'надясно' : 'наляво'} с ${Math.abs(h)}`,
+      k !== 0 && `„$${tail(k).trim()}$“ – ${k > 0 ? 'нагоре' : 'надолу'} с ${Math.abs(k)}`,
+    ].filter(Boolean);
+    return {
+      tex: `y = ${base}${tail(k)}`,
+      ask: `Върхът на графиката е $(x_0;\\ y_0)$. $${askY ? 'y_0' : 'x_0'} = ?$`,
+      num: askY ? k : h,
+      den: 1,
+      steps: [`Върхът на $y = ${square ? 'x^2' : '|x|'}$ е $(0;\\ 0)$.`, `${moves.join(', ')}.`, `Върхът е $(${h};\\ ${k})$.`],
+    };
+  }
+  if (kind === 1) {
+    const square = randInt(0, 1) === 1;
+    const [a, h, k, x0] = [pick([1, -1, 2, -2, 3]), randInt(-3, 3), randInt(-5, 5), randInt(-4, 4)];
+    const u = x0 - h;
+    const fu = square ? u * u : Math.abs(u);
+    const v = a * fu + k;
+    return {
+      tex: `f(x) = ${square ? 'x^2' : '|x|'}, \\qquad g(x) = ${coef(a)}f(${shifted(h)})${tail(k)}`,
+      ask: `g(${x0}) = ?`,
+      num: v,
+      den: 1,
+      steps: [`$${x0} - ${paren(h)} = ${u}$, $f(${u}) = ${square ? `${paren(u)}^2` : `|${u}|`} = ${fu}$`, `$g(${x0}) = ${a === 1 ? '' : a === -1 ? '-' : `${a} \\cdot `}${fu}${tail(k)} = ${v}$`],
+    };
+  }
+  if (kind === 2) {
+    const even = randInt(0, 1) === 1;
+    const [p, val] = [randInt(1, 6), nonZero(-9, 9)];
+    const ans = even ? val : -val;
+    return {
+      tex: `f(${p}) = ${val}`,
+      ask: `Функцията $f$ е ${even ? 'четна' : 'нечетна'}. $f(-${p}) = ?$`,
+      num: ans,
+      den: 1,
+      steps: [even ? 'Четна функция: $f(-x) = f(x)$ – графиката е симетрична спрямо оста Oy.' : 'Нечетна функция: $f(-x) = -f(x)$ – графиката е симетрична спрямо началото.', `$f(-${p}) = ${ans}$`],
+    };
+  }
+  if (kind === 3) {
+    const r1 = randInt(-4, 3);
+    const r2 = r1 + randInt(1, 5);
+    const [p, q] = [r1 + r2, -r1 * r2];
+    return {
+      tex: `x^2 = ${polyTex([[p, 1], [q, 0]])}`,
+      ask: `Графиките на $y = x^2$ и $y = ${polyTex([[p, 1], [q, 0]])}$ се пресичат в две точки. Абсцисата на дясната: $x = ?$`,
+      num: r2,
+      den: 1,
+      steps: [`Решаваме уравнението: $${polyTex([[1, 2], [-p, 1], [-q, 0]])} = 0$`, `$x_1 = ${r1}$, $x_2 = ${r2}$ – дясната пресечна точка е при $x = ${r2}$`],
+    };
+  }
+  const [a, b] = [nonZero(-6, 6), nonZero(-6, 6)];
+  if (randInt(0, 1) === 1) {
+    const c = pick([2, 3, 4, -2, -3]);
+    return {
+      tex: `f(${a}) = ${b}`,
+      ask: `Графиката на $y = f(${c}x)$ минава през точката $(x;\\ ${b})$. $x = ?$`,
+      num: a,
+      den: c,
+      steps: [`$f(${c}x) = ${b}$, когато $${c}x = ${a}$`, `$x = ${divTex(a, c)}$ – графиката е свита ${Math.abs(c)} пъти по хоризонтала${c < 0 ? ' и отразена спрямо оста Oy' : ''}`],
+    };
+  }
+  const c = pick([2, 3, -1, -2, -3]);
+  return {
+    tex: `f(${a}) = ${b}`,
+    ask: `Графиката на $y = ${coef(c)}f(x)$ минава през точката $(${a};\\ y)$. $y = ?$`,
+    num: c * b,
+    den: 1,
+    steps: [`$y = ${coef(c)}f(${a}) = ${c} \\cdot ${paren(b)} = ${c * b}$`, c === -1 ? 'Графиката е отразена спрямо оста Ox.' : `Графиката е разтегната ${Math.abs(c)} пъти по вертикала${c < 0 ? ' и отразена спрямо оста Ox' : ''}.`],
+  };
+};
 const card = 'bg-white dark:bg-gray-800 p-3 sm:p-4 rounded-lg shadow-sm';
 
 const rules = [
@@ -180,7 +277,15 @@ export function FunctionGraph() {
         </section>
 
         <section className="mb-8">
-          <h2 className={h2}>7. ⚠️ Чести грешки</h2>
+          <h2 className={`${h2} flex items-center gap-2`}>
+            <Sparkles size={22} className="text-sky-500" /> 7. Тренажор
+          </h2>
+          <p className={text}>Премествания, разтягания, четни и нечетни функции и пресечни точки на графики. Дробните отговори въвеждай като 3/2.</p>
+          <Trainer newDrill={newDrill} hint="Не съвсем. Помисли какво прави всяка промяна във формулата с графиката и замести." />
+        </section>
+
+        <section className="mb-8">
+          <h2 className={h2}>8. ⚠️ Чести грешки</h2>
           <div className="grid sm:grid-cols-2 gap-3 text-sm sm:text-base text-gray-700 dark:text-gray-300">
             {[
               ['Посоката при $f(x - h)$', '$y = (x + 3)^2$ е преместена надясно с 3', 'наляво с 3: $x + 3 = x - (-3)$'],
@@ -198,12 +303,12 @@ export function FunctionGraph() {
         </section>
 
         <section className="mb-8">
-          <h2 className={h2}>8. 🎯 Бърз тест</h2>
+          <h2 className={h2}>9. 🎯 Бърз тест</h2>
           <Quiz questions={questions} />
         </section>
 
         <section className="mb-8">
-          <h2 className={h2}>9. 📝 Задачи за упражнение</h2>
+          <h2 className={h2}>10. 📝 Задачи за упражнение</h2>
           <TaskBoard>
             <div className="mb-6">
               <TaskLevel level="A" />
@@ -262,7 +367,7 @@ export function FunctionGraph() {
         </section>
 
         <section className="mb-8">
-          <h2 className={h2}>10. Обобщение</h2>
+          <h2 className={h2}>11. Обобщение</h2>
           <div className="bg-gradient-to-r from-emerald-50 to-teal-50 dark:from-gray-800 dark:to-gray-700 p-6 rounded-lg">
             <ul className="space-y-2 text-sm sm:text-base">
               <li>✓ Графиката е множеството от точки (x; f(x)); вертикалата я пресича най-много в една точка</li>

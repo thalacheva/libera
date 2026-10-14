@@ -1,7 +1,9 @@
+import { Sparkles } from 'lucide-react';
 import Example from '~/Example';
 import Quiz, { type Question } from '~/Quiz';
 import Task, { TaskBoard, TaskLevel } from '~/Task';
 import Theorem from '~/Theorem';
+import Trainer from '~/Trainer';
 import { WordProblems, type WordProblem } from '~/WordProblems';
 import { InteractiveLinearGrapher, TwoLines } from './InteractiveLinearGrapher';
 import { InverseLab } from './InverseLab';
@@ -10,9 +12,94 @@ import { ModelFitLab } from './ModelFitLab';
 import { TariffLab } from './TariffLab';
 import { MathText, Tex } from '~/MathText';
 import Term from '~/Term';
+import { type Drill, fracTex, nonZero, paren, pick, polyTex, randInt } from '~/drill';
 
 const h2 = 'text-xl sm:text-2xl font-semibold mb-3 text-gray-800 dark:text-gray-100';
 const text = 'text-sm sm:text-base text-gray-700 dark:text-gray-300 leading-relaxed';
+
+// ---------- Тренажор ----------
+
+/** Свободният член със знак: 3 → „ + 3“, −3 → „ - 3“, 0 → „“. */
+const tail = (b: number) => (b < 0 ? ` - ${-b}` : b > 0 ? ` + ${b}` : '');
+/** Частно като дроб: първо както е, после съкратено (ако се различава). */
+const divTex = (p: number, q: number) => {
+  const raw = `\\frac{${p}}{${q}}`;
+  const r = fracTex(p, q);
+  return r === raw ? raw : `${raw} = ${r}`;
+};
+
+const newDrill = (): Drill => {
+  const kind = randInt(0, 4);
+  if (kind === 0) {
+    const [a, b, x0] = [nonZero(-5, 5), randInt(-9, 9), nonZero(-5, 5)];
+    const v = a * x0 + b;
+    return {
+      tex: `f(x) = ${polyTex([[a, 1], [b, 0]])}`,
+      ask: `f(${x0}) = ?`,
+      num: v,
+      den: 1,
+      steps: [`Заместваме $x = ${x0}$: $f(${x0}) = ${a === 1 ? '' : a === -1 ? '-' : `${a} \\cdot `}${paren(x0)}${tail(b)} = ${v}$`],
+    };
+  }
+  if (kind === 1) {
+    const x1 = randInt(-6, 5);
+    const dx = nonZero(-5, 5);
+    const x2 = x1 + dx;
+    const y1 = randInt(-6, 6);
+    const dy = nonZero(-8, 8);
+    const y2 = y1 + dy;
+    return {
+      tex: `A(${x1};\\ ${y1}), \\quad B(${x2};\\ ${y2})`,
+      ask: 'Наклонът на правата $AB$: $a = ?$',
+      num: dy,
+      den: dx,
+      steps: [
+        '$a = \\frac{y_B - y_A}{x_B - x_A}$ – промяната на $y$ върху промяната на $x$',
+        `$a = \\frac{${y2} - ${paren(y1)}}{${x2} - ${paren(x1)}} = ${divTex(dy, dx)}$`,
+      ],
+    };
+  }
+  if (kind === 2) {
+    const [a, b] = [nonZero(-5, 5), nonZero(-9, 9)];
+    return {
+      tex: `f(x) = ${polyTex([[a, 1], [b, 0]])}`,
+      ask: 'Нулата на функцията: $x = ?$',
+      num: -b,
+      den: a,
+      steps: [`$f(x) = 0 \\Rightarrow ${polyTex([[a, 1], [b, 0]])} = 0 \\Rightarrow ${polyTex([[a, 1]])} = ${-b}$`, `$x = ${divTex(-b, a)}$`],
+    };
+  }
+  if (kind === 3) {
+    const x0 = randInt(-4, 4);
+    const a1 = nonZero(-4, 4);
+    let a2 = a1;
+    while (a2 === a1) a2 = nonZero(-4, 4);
+    const b1 = randInt(-6, 6);
+    const y0 = a1 * x0 + b1;
+    const b2 = y0 - a2 * x0;
+    const askY = randInt(0, 1) === 1;
+    const [l1, l2] = [polyTex([[a1, 1], [b1, 0]]), polyTex([[a2, 1], [b2, 0]])];
+    return {
+      tex: `y = ${l1}, \\qquad y = ${l2}`,
+      ask: `Пресечната точка на двете прави: $${askY ? 'y' : 'x'} = ?$`,
+      num: askY ? y0 : x0,
+      den: 1,
+      steps: [
+        `$${l1} = ${l2} \\Rightarrow ${polyTex([[a1 - a2, 1]])} = ${b2 - b1} \\Rightarrow x = ${x0}$`,
+        `$y = ${a1} \\cdot ${paren(x0)}${tail(b1)} = ${y0}$`,
+      ],
+    };
+  }
+  const [p, q, b] = [nonZero(-4, 4), pick([1, 1, 2, 3]), randInt(-5, 5)];
+  const a = fracTex(p, q);
+  return {
+    tex: `y = ${a === '1' ? '' : a === '-1' ? '-' : a}x${tail(b)}`,
+    ask: 'Наклонът на права, перпендикулярна на нея: $a_2 = ?$',
+    num: -q,
+    den: p,
+    steps: ['Перпендикулярни прави: $a_1 \\cdot a_2 = -1$, т.е. $a_2 = -\\frac{1}{a_1}$', `$a_1 = ${a} \\Rightarrow a_2 = ${fracTex(-q, p)}$`],
+  };
+};
 const card = 'bg-white dark:bg-gray-800 p-3 sm:p-4 rounded-lg shadow-sm';
 
 const slopeCases = [
@@ -269,7 +356,15 @@ export function LinearFunctions() {
         </section>
 
         <section className="mb-8">
-          <h2 className={h2}>7. ⚠️ Чести грешки</h2>
+          <h2 className={`${h2} flex items-center gap-2`}>
+            <Sparkles size={22} className="text-sky-500" /> 7. Тренажор
+          </h2>
+          <p className={text}>Пресметни стойност, наклон, нула или пресечна точка на прави. Дробните отговори въвеждай като 3/2.</p>
+          <Trainer newDrill={newDrill} hint="Не съвсем. Запиши формулата (наклон, нула или равенство на двете функции) и замести внимателно." />
+        </section>
+
+        <section className="mb-8">
+          <h2 className={h2}>8. ⚠️ Чести грешки</h2>
           <div className="grid sm:grid-cols-2 gap-3 text-sm sm:text-base text-gray-700 dark:text-gray-300">
             {[
               ['Наклон „наобратно“', '$a = \\Delta x / \\Delta y$', '$a = \\Delta y / \\Delta x$ – промяната на $y$ върху промяната на $x$'],
@@ -289,17 +384,17 @@ export function LinearFunctions() {
         </section>
 
         <section className="mb-8">
-          <h2 className={h2}>8. Задачи от живота</h2>
+          <h2 className={h2}>9. Задачи от живота</h2>
           <WordProblems problems={wordProblems} />
         </section>
 
         <section className="mb-8">
-          <h2 className={h2}>9. 🎯 Бърз тест</h2>
+          <h2 className={h2}>10. 🎯 Бърз тест</h2>
           <Quiz questions={questions} />
         </section>
 
         <section className="mb-8">
-          <h2 className={h2}>10. 📝 Задачи за упражнение</h2>
+          <h2 className={h2}>11. 📝 Задачи за упражнение</h2>
           <TaskBoard>
             <div className="mb-6">
               <TaskLevel level="A" />
@@ -363,7 +458,7 @@ export function LinearFunctions() {
         </section>
 
         <section className="mb-8">
-          <h2 className={h2}>11. Обобщение</h2>
+          <h2 className={h2}>12. Обобщение</h2>
           <div className="bg-gradient-to-r from-sky-50 to-blue-50 dark:from-gray-800 dark:to-gray-700 p-6 rounded-lg">
             <ul className="space-y-2 text-sm sm:text-base">
               <li>✓ Функция: на всяко <Tex>{'x'}</Tex> – точно едно <Tex>{'y'}</Tex>; линейна: <Tex>{'y = ax + b'}</Tex>, графиката е права</li>

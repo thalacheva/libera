@@ -1,7 +1,10 @@
+import { Sparkles } from 'lucide-react';
 import Example from '~/Example';
 import Quiz, { type Question } from '~/Quiz';
 import Task, { TaskBoard, TaskLevel } from '~/Task';
 import Theorem from '~/Theorem';
+import Trainer from '~/Trainer';
+import { type Drill, fracTex, pick, randInt } from '~/drill';
 import { WordProblems, type WordProblem } from '~/WordProblems';
 import { CyclicQuadLab } from './CyclicQuadLab';
 import { InscribedAngle } from './InscribedAngle';
@@ -14,6 +17,159 @@ import Term from '~/Term';
 const h2 = 'text-xl sm:text-2xl font-semibold mb-3 text-gray-800 dark:text-gray-100';
 const text = 'text-sm sm:text-base text-gray-700 dark:text-gray-300 leading-relaxed';
 const card = 'bg-white dark:bg-gray-800 p-3 sm:p-4 rounded-lg shadow-sm';
+
+// ---------- Тренажор ----------
+
+/** Питагорови тройки (катет, катет, хипотенуза) за хордите и допирателните. */
+const TRIPLES: [number, number, number][] = [[3, 4, 5], [4, 3, 5], [5, 12, 13], [12, 5, 13], [8, 15, 17], [15, 8, 17]];
+
+const newDrill = (): Drill => {
+  const kind = randInt(0, 4);
+  if (kind === 0) {
+    const variant = randInt(0, 3);
+    if (variant === 0) {
+      const c = randInt(10, 85) * 2;
+      return {
+        tex: `\\angle AOB = ${c}^\\circ`,
+        ask: 'Вписаният ъгъл $\\angle ACB$ се опира на същата дъга $AB$. Колко градуса е той?',
+        num: c / 2,
+        den: 1,
+        steps: ['Вписаният ъгъл е половината от централния ъгъл върху същата дъга.', `$\\angle ACB = ${c}^\\circ : 2 = ${c / 2}^\\circ$`],
+      };
+    }
+    if (variant === 1) {
+      const i = randInt(10, 80);
+      return {
+        tex: `\\angle ACB = ${i}^\\circ`,
+        ask: 'Вписаният ъгъл $\\angle ACB$ се опира на дъгата $AB$. Колко градуса е централният ъгъл $\\angle AOB$?',
+        num: 2 * i,
+        den: 1,
+        steps: ['Централният ъгъл е два пъти по-голям от вписания върху същата дъга.', `$\\angle AOB = 2 \\cdot ${i}^\\circ = ${2 * i}^\\circ$`],
+      };
+    }
+    if (variant === 2) {
+      const a = randInt(15, 75);
+      return {
+        tex: `AB \\text{ – диаметър}, \\ \\angle BAC = ${a}^\\circ`,
+        ask: 'Точката $C$ лежи на окръжността. Колко градуса е $\\angle ABC$?',
+        num: 90 - a,
+        den: 1,
+        steps: [
+          'Ъгъл, вписан в полуокръжност, е прав: $\\angle ACB = 90^\\circ$.',
+          `$\\angle ABC = 180^\\circ - 90^\\circ - ${a}^\\circ = ${90 - a}^\\circ$`,
+        ],
+      };
+    }
+    const a = randInt(8, 32) * 5;
+    return {
+      tex: `\\angle A = ${a}^\\circ`,
+      ask: 'Четириъгълникът $ABCD$ е вписан в окръжност. Колко градуса е $\\angle C$?',
+      num: 180 - a,
+      den: 1,
+      steps: ['Във вписан четириъгълник сборът на срещуположните ъгли е $180^\\circ$.', `$\\angle C = 180^\\circ - ${a}^\\circ = ${180 - a}^\\circ$`],
+    };
+  }
+  if (kind === 1) {
+    const [p, q, c] = pick(TRIPLES);
+    const k = randInt(1, 3);
+    const [half, d, r] = [p * k, q * k, c * k];
+    if (randInt(0, 1) === 0) {
+      return {
+        tex: `r = ${r}, \\ d = ${d}`,
+        ask: 'Хорда е на разстояние $d$ от центъра на окръжност с радиус $r$. Колко е дължината на хордата?',
+        num: 2 * half,
+        den: 1,
+        steps: [
+          'Перпендикулярът от центъра разполовява хордата; $r$, $d$ и половината хорда образуват правоъгълен триъгълник.',
+          `Половината хорда: $\\sqrt{${r}^2 - ${d}^2} = \\sqrt{${half * half}} = ${half}$`,
+          `Хордата: $2 \\cdot ${half} = ${2 * half}$`,
+        ],
+      };
+    }
+    return {
+      tex: `AB = ${2 * half}, \\ d = ${d}`,
+      ask: 'Хордата $AB$ е на разстояние $d$ от центъра. Колко е радиусът на окръжността?',
+      num: r,
+      den: 1,
+      steps: [`Перпендикулярът от центъра разполовява хордата: половината е $${half}$.`, `$r = \\sqrt{${half}^2 + ${d}^2} = \\sqrt{${r * r}} = ${r}$`],
+    };
+  }
+  if (kind === 2) {
+    const [p, q, c] = pick(TRIPLES);
+    const k = randInt(1, 3);
+    const [r, t, op] = [p * k, q * k, c * k];
+    if (randInt(0, 1) === 0) {
+      return {
+        tex: `r = ${r}, \\ OP = ${op}`,
+        ask: 'От точката $P$ е прекарана допирателна $PT$ към окръжност с център $O$ и радиус $r$. Колко е $PT$?',
+        num: t,
+        den: 1,
+        steps: ['Допирателната е перпендикулярна на радиуса: триъгълникът $OTP$ е правоъгълен с хипотенуза $OP$.', `$PT = \\sqrt{${op}^2 - ${r}^2} = \\sqrt{${t * t}} = ${t}$`],
+      };
+    }
+    return {
+      tex: `r = ${r}, \\ PT = ${t}`,
+      ask: 'От точката $P$ е прекарана допирателна $PT$ към окръжност с център $O$ и радиус $r$. Колко е $OP$?',
+      num: op,
+      den: 1,
+      steps: ['Допирателната е перпендикулярна на радиуса: триъгълникът $OTP$ е правоъгълен с хипотенуза $OP$.', `$OP = \\sqrt{${r}^2 + ${t}^2} = \\sqrt{${op * op}} = ${op}$`],
+    };
+  }
+  if (kind === 3) {
+    const variant = randInt(0, 2);
+    const r = randInt(2, 12);
+    if (variant === 0) {
+      return {
+        tex: `r = ${r}`,
+        ask: 'Дължината на окръжността е $C = ? \\cdot \\pi$',
+        num: 2 * r,
+        den: 1,
+        steps: [`$C = 2\\pi r = 2\\pi \\cdot ${r} = ${2 * r}\\pi$`],
+      };
+    }
+    if (variant === 1) {
+      const d = 2 * r;
+      return {
+        tex: `d = ${d}`,
+        ask: 'Лицето на кръга е $S = ? \\cdot \\pi$',
+        num: r * r,
+        den: 1,
+        steps: [`$r = \\frac{d}{2} = ${r}$`, `$S = \\pi r^2 = \\pi \\cdot ${r}^2 = ${r * r}\\pi$`],
+      };
+    }
+    return {
+      tex: `C = ${2 * r}\\pi`,
+      ask: 'Лицето на кръга е $S = ? \\cdot \\pi$',
+      num: r * r,
+      den: 1,
+      steps: [`$C = 2\\pi r \\Rightarrow r = \\frac{${2 * r}\\pi}{2\\pi} = ${r}$`, `$S = \\pi r^2 = ${r * r}\\pi$`],
+    };
+  }
+  const a = pick([30, 40, 45, 60, 72, 90, 120, 135, 150, 180, 240, 270]);
+  const r = randInt(2, 12);
+  if (randInt(0, 1) === 0) {
+    return {
+      tex: `r = ${r}, \\ \\alpha = ${a}^\\circ`,
+      ask: 'Дъгата с централен ъгъл $\\alpha$ има дължина $l = ? \\cdot \\pi$',
+      num: r * a,
+      den: 180,
+      steps: [`Дъгата е $\\frac{${a}^\\circ}{360^\\circ} = ${fracTex(a, 360)}$ от окръжността.`, `$l = 2\\pi \\cdot ${r} \\cdot ${fracTex(a, 360)} = ${piTex(r * a, 180)}$`],
+    };
+  }
+  return {
+    tex: `r = ${r}, \\ \\alpha = ${a}^\\circ`,
+    ask: 'Секторът с централен ъгъл $\\alpha$ има лице $S = ? \\cdot \\pi$',
+    num: r * r * a,
+    den: 360,
+    steps: [`Секторът е $\\frac{${a}^\\circ}{360^\\circ} = ${fracTex(a, 360)}$ от кръга.`, `$S = \\pi \\cdot ${r}^2 \\cdot ${fracTex(a, 360)} = ${piTex(r * r * a, 360)}$`],
+  };
+};
+
+/** Кратно на π в LaTeX: 3/2 → \frac{3}{2}\pi, 1 → \pi. */
+function piTex(p: number, q: number) {
+  const t = fracTex(p, q);
+  return t === '1' ? '\\pi' : `${t}\\pi`;
+}
 
 const elements = [
   ['Хорда', 'отсечка, която свързва две точки от окръжността'],
@@ -295,7 +451,17 @@ export function Circle() {
         </section>
 
         <section className="mb-8">
-          <h2 className={h2}>8. ⚠️ Чести грешки</h2>
+          <h2 className={`${h2} flex items-center gap-2`}>
+            <Sparkles size={22} className="text-sky-500" /> 8. Тренажор
+          </h2>
+          <p className={text}>
+            Ъгли, хорди, допирателни, дъги и сектори. Когато отговорът съдържа <Tex>{'\\pi'}</Tex>, въведи само числото пред него: за <Tex>{'\\frac{3}{2}\\pi'}</Tex> пиши 3/2.
+          </p>
+          <Trainer newDrill={newDrill} hint="Не съвсем. Помисли коя теорема свързва дадените величини – виж решението стъпка по стъпка." />
+        </section>
+
+        <section className="mb-8">
+          <h2 className={h2}>9. ⚠️ Чести грешки</h2>
           <div className="grid sm:grid-cols-2 gap-3 text-sm sm:text-base text-gray-700 dark:text-gray-300">
             {[
               ['Диаметър вместо радиус', '$d = 10 \\to S = \\pi \\cdot 10^2 = 100\\pi$', '$r = 5 \\to S = \\pi \\cdot 5^2 = 25\\pi$'],
@@ -315,17 +481,17 @@ export function Circle() {
         </section>
 
         <section className="mb-8">
-          <h2 className={h2}>9. Задачи от живота</h2>
+          <h2 className={h2}>10. Задачи от живота</h2>
           <WordProblems problems={wordProblems} />
         </section>
 
         <section className="mb-8">
-          <h2 className={h2}>10. 🎯 Бърз тест</h2>
+          <h2 className={h2}>11. 🎯 Бърз тест</h2>
           <Quiz questions={circleQuiz} />
         </section>
 
         <section className="mb-8">
-          <h2 className={h2}>11. 📝 Задачи за упражнение</h2>
+          <h2 className={h2}>12. 📝 Задачи за упражнение</h2>
           <TaskBoard>
             <div className="mb-6">
               <TaskLevel level="A" />
@@ -385,7 +551,7 @@ export function Circle() {
         </section>
 
         <section className="mb-8">
-          <h2 className={h2}>12. Обобщение</h2>
+          <h2 className={h2}>13. Обобщение</h2>
           <div className="bg-gradient-to-r from-blue-50 to-sky-50 dark:from-gray-800 dark:to-gray-700 p-6 rounded-lg">
             <ul className="space-y-2 text-sm sm:text-base">
               <li>✓ Окръжността е линия (дължина <Tex>{'C = 2\\pi r'}</Tex>), кръгът – част от равнината (лице <Tex>{'S = \\pi r^2'}</Tex>)</li>

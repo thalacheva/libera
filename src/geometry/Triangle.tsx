@@ -1,3 +1,4 @@
+import { Sparkles } from 'lucide-react';
 import Example from '~/Example';
 import Quiz, { type Question } from '~/Quiz';
 import Task, { TaskBoard, TaskLevel } from '~/Task';
@@ -9,6 +10,8 @@ import { InteractiveTriangle } from './InteractiveTriangle';
 import { PythagorasLab } from './PythagorasLab';
 import { MathText, Tex } from '~/MathText';
 import Term from '~/Term';
+import Trainer from '~/Trainer';
+import { type Drill, pick, randInt } from '~/drill';
 
 const h2 = 'text-xl sm:text-2xl font-semibold mb-3 text-gray-800 dark:text-gray-100';
 const text = 'text-sm sm:text-base text-gray-700 dark:text-gray-300 leading-relaxed';
@@ -37,6 +40,158 @@ const segments = [
   ['Ъглополовяща', 'дели ъгъла при върха на два равни ъгъла', 'център на вписаната окръжност'],
   ['Симетрала', 'перпендикуляр през средата на страна', 'център на описаната окръжност'],
 ];
+
+// ---------- Тренажор ----------
+
+/** Число с десетична запетая за LaTeX: 22.5 → 22{,}5. */
+const dec = (v: number) => String(+v.toFixed(6)).replace('.', '{,}');
+
+const TRIPLES = [
+  [3, 4, 5],
+  [5, 12, 13],
+  [8, 15, 17],
+  [7, 24, 25],
+  [20, 21, 29],
+];
+
+// Триъгълници с цели страни и цяло лице (за формулата на Херон)
+const HERON = [
+  [13, 14, 15],
+  [5, 5, 6],
+  [5, 5, 8],
+  [10, 13, 13],
+  [9, 10, 17],
+  [7, 15, 20],
+  [11, 13, 20],
+  [13, 13, 24],
+];
+
+const newDrill = (): Drill => {
+  const kind = randInt(0, 4);
+  if (kind === 0) {
+    const a = randInt(20, 100);
+    const b = randInt(15, 170 - a);
+    if (randInt(0, 1) === 0) {
+      const c = 180 - a - b;
+      return {
+        tex: `\\alpha = ${a}^\\circ,\\ \\beta = ${b}^\\circ`,
+        ask: 'Намери $\\gamma$ в градуси.',
+        num: c,
+        den: 1,
+        steps: ['$\\alpha + \\beta + \\gamma = 180^\\circ$', `$\\gamma = 180^\\circ - ${a}^\\circ - ${b}^\\circ = ${c}^\\circ$`],
+      };
+    }
+    const ext = a + b;
+    return {
+      tex: `\\alpha = ${a}^\\circ,\\ \\gamma_1 = ${ext}^\\circ\\ (\\text{външен ъгъл при } C)`,
+      ask: 'Намери $\\beta$ в градуси.',
+      num: b,
+      den: 1,
+      steps: ['Външният ъгъл е равен на сбора от двата несъседни вътрешни ъгъла: $\\gamma_1 = \\alpha + \\beta$', `$\\beta = ${ext}^\\circ - ${a}^\\circ = ${b}^\\circ$`],
+    };
+  }
+  if (kind === 1) {
+    if (randInt(0, 1) === 0) {
+      const top = 2 * randInt(10, 80);
+      const base = (180 - top) / 2;
+      return {
+        tex: `\\triangle ABC,\\ AC = BC,\\ \\angle C = ${top}^\\circ`,
+        ask: 'Намери $\\angle A$ в градуси.',
+        num: base,
+        den: 1,
+        steps: ['Ъглите при основата са равни: $\\angle A = \\angle B$', `$2\\angle A = 180^\\circ - ${top}^\\circ = ${180 - top}^\\circ \\Rightarrow \\angle A = ${base}^\\circ$`],
+      };
+    }
+    const base = randInt(10, 85);
+    const top = 180 - 2 * base;
+    return {
+      tex: `\\triangle ABC,\\ AC = BC,\\ \\angle A = ${base}^\\circ`,
+      ask: 'Намери $\\angle C$ в градуси.',
+      num: top,
+      den: 1,
+      steps: [`Ъглите при основата са равни: $\\angle B = \\angle A = ${base}^\\circ$`, `$\\angle C = 180^\\circ - 2 \\cdot ${base}^\\circ = ${top}^\\circ$`],
+    };
+  }
+  if (kind === 2) {
+    const t = pick(TRIPLES);
+    const k = t[2] <= 13 ? randInt(1, 4) : 1;
+    const [p, q] = randInt(0, 1) === 0 ? [t[0], t[1]] : [t[1], t[0]];
+    const [a, b, c] = [p * k, q * k, t[2] * k];
+    if (randInt(0, 1) === 0) {
+      return {
+        tex: `\\angle C = 90^\\circ,\\ a = ${a},\\ b = ${b}`,
+        ask: 'c = ?',
+        num: c,
+        den: 1,
+        steps: [`$c^2 = a^2 + b^2 = ${a * a} + ${b * b} = ${c * c}$`, `$c = \\sqrt{${c * c}} = ${c}$`],
+      };
+    }
+    return {
+      tex: `\\angle C = 90^\\circ,\\ a = ${a},\\ c = ${c}`,
+      ask: 'b = ?',
+      num: b,
+      den: 1,
+      steps: [`$b^2 = c^2 - a^2 = ${c * c} - ${a * a} = ${b * b}$`, `$b = \\sqrt{${b * b}} = ${b}$`],
+    };
+  }
+  if (kind === 3) {
+    if (randInt(0, 1) === 0) {
+      const [a, h] = [randInt(3, 20), randInt(2, 15)];
+      return {
+        tex: `a = ${a},\\ h_a = ${h}`,
+        ask: 'Намери лицето $S$.',
+        num: a * h,
+        den: 2,
+        steps: ['$S = \\frac{a \\cdot h_a}{2}$', `$S = \\frac{${a} \\cdot ${h}}{2} = \\frac{${a * h}}{2} = ${dec((a * h) / 2)}$`],
+      };
+    }
+    const k = randInt(1, 2);
+    const [a, b, c] = pick(HERON).map(x => x * k);
+    const p = (a + b + c) / 2;
+    const prod = p * (p - a) * (p - b) * (p - c);
+    const s = Math.round(Math.sqrt(prod));
+    return {
+      tex: `a = ${a},\\ b = ${b},\\ c = ${c}`,
+      ask: 'Намери лицето $S$ по формулата на Херон.',
+      num: s,
+      den: 1,
+      steps: [
+        `$p = \\frac{${a} + ${b} + ${c}}{2} = ${p}$`,
+        `$p - a = ${p - a},\\ p - b = ${p - b},\\ p - c = ${p - c}$`,
+        `$S = \\sqrt{${p} \\cdot ${p - a} \\cdot ${p - b} \\cdot ${p - c}} = \\sqrt{${prod}} = ${s}$`,
+      ],
+    };
+  }
+  // Медицентърът дели медианата в отношение 2 : 1 от върха
+  const m = randInt(4, 30);
+  const sub = randInt(0, 2);
+  if (sub === 0) {
+    const am = 3 * randInt(2, 10);
+    return {
+      tex: `G\\ \\text{– медицентър},\\ AM = ${am}\\ (\\text{медиана})`,
+      ask: 'AG = ?',
+      num: 2 * am,
+      den: 3,
+      steps: ['$AG : GM = 2 : 1$, т.е. $AG = \\frac{2}{3} AM$', `$AG = \\frac{2 \\cdot ${am}}{3} = ${(2 * am) / 3}$`],
+    };
+  }
+  if (sub === 1) {
+    return {
+      tex: `G\\ \\text{– медицентър},\\ GM = ${m}\\ (\\text{M – среда на } BC)`,
+      ask: 'AM = ?',
+      num: 3 * m,
+      den: 1,
+      steps: ['$AG = 2 \\cdot GM$, затова $AM = 3 \\cdot GM$', `$AM = 3 \\cdot ${m} = ${3 * m}$`],
+    };
+  }
+  return {
+    tex: `G\\ \\text{– медицентър},\\ AG = ${m}\\ (\\text{M – среда на } BC)`,
+    ask: 'GM = ?',
+    num: m,
+    den: 2,
+    steps: ['$AG : GM = 2 : 1$', `$GM = \\frac{AG}{2} = \\frac{${m}}{2} = ${dec(m / 2)}$`],
+  };
+};
 
 const wordProblems: WordProblem[] = [
   {
@@ -293,7 +448,15 @@ export function Triangle() {
         </section>
 
         <section className="mb-8">
-          <h2 className={h2}>8. ⚠️ Чести грешки</h2>
+          <h2 className={`${h2} flex items-center gap-2`}>
+            <Sparkles size={22} className="text-sky-500" /> 8. Тренажор
+          </h2>
+          <p className={`${text} mb-4`}>Ъгли, Питагорова теорема, лице и медицентър – въведи отговора като число (дробите като 3/2 или 22,5).</p>
+          <Trainer newDrill={newDrill} hint="Не съвсем. Запиши първо коя теорема или формула важи, после замести." />
+        </section>
+
+        <section className="mb-8">
+          <h2 className={h2}>9. ⚠️ Чести грешки</h2>
           <div className="grid sm:grid-cols-2 gap-3 text-sm sm:text-base text-gray-700 dark:text-gray-300">
             {[
               ['Питагорова теорема за всеки триъгълник', '$c^2 = a^2 + b^2$ за всеки триъгълник', 'само за правоъгълен, като $c$ е хипотенузата'],
@@ -313,17 +476,17 @@ export function Triangle() {
         </section>
 
         <section className="mb-8">
-          <h2 className={h2}>9. Задачи от живота</h2>
+          <h2 className={h2}>10. Задачи от живота</h2>
           <WordProblems problems={wordProblems} />
         </section>
 
         <section className="mb-8">
-          <h2 className={h2}>10. 🎯 Бърз тест</h2>
+          <h2 className={h2}>11. 🎯 Бърз тест</h2>
           <Quiz questions={triangleQuiz} />
         </section>
 
         <section className="mb-8">
-          <h2 className={h2}>11. 📝 Задачи за упражнение</h2>
+          <h2 className={h2}>12. 📝 Задачи за упражнение</h2>
           <TaskBoard>
             <div className="mb-6">
               <TaskLevel level="A" />
@@ -384,7 +547,7 @@ export function Triangle() {
         </section>
 
         <section className="mb-8">
-          <h2 className={h2}>12. Обобщение</h2>
+          <h2 className={h2}>13. Обобщение</h2>
           <div className="bg-gradient-to-r from-violet-50 to-blue-50 dark:from-gray-800 dark:to-gray-700 p-6 rounded-lg">
             <ul className="space-y-2 text-sm sm:text-base">
               <li>✓ <Tex>{'\\alpha + \\beta + \\gamma = 180^\\circ'}</Tex>; външният ъгъл е равен на сбора на двата несъседни вътрешни</li>

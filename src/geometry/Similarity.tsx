@@ -1,3 +1,4 @@
+import { Sparkles } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import Example from '~/Example';
 import Quiz, { type Question } from '~/Quiz';
@@ -9,10 +10,125 @@ import { RightTriangleLab } from './RightTriangleLab';
 import { ThalesLab } from './ThalesLab';
 import { MathText, Tex } from '~/MathText';
 import Term from '~/Term';
+import Trainer from '~/Trainer';
+import { type Drill, fracTex, gcd, pick, randInt } from '~/drill';
 
 const h2 = 'text-xl sm:text-2xl font-semibold mb-3 text-gray-800 dark:text-gray-100';
 const text = 'mb-4 text-sm sm:text-base text-gray-700 dark:text-gray-300 leading-relaxed';
 const link = 'text-blue-600 dark:text-blue-400 hover:underline';
+
+// ---------- Тренажор ----------
+
+/** Число с десетична запетая за LaTeX: 7.5 → 7{,}5. */
+const dec = (v: number) => String(+v.toFixed(6)).replace('.', '{,}');
+/** Знаменател на p/q след съкращаване. */
+const denOf = (p: number, q: number) => q / gcd(p, q);
+
+const newDrill = (): Drill => {
+  const kind = randInt(0, 4);
+  if (kind === 0) {
+    // Талес: AM/MB = AN/NC
+    let am = 0, mb = 0, an = 0;
+    do [am, mb, an] = [randInt(2, 8), randInt(2, 9), randInt(2, 12)];
+    while (am === mb || denOf(an * mb, am) > 2);
+    return {
+      tex: `MN \\parallel BC,\\ AM = ${am},\\ MB = ${mb},\\ AN = ${an}`,
+      ask: 'NC = ?',
+      num: an * mb,
+      den: am,
+      steps: ['По теоремата на Талес: $\\frac{AM}{MB} = \\frac{AN}{NC}$', `$\\frac{${am}}{${mb}} = \\frac{${an}}{NC} \\Rightarrow NC = \\frac{${an} \\cdot ${mb}}{${am}} = ${dec((an * mb) / am)}$`],
+    };
+  }
+  if (kind === 1) {
+    // MN ∥ BC: MN / BC = AM / AB
+    let am = 0, mb = 0, bc = 0;
+    do [am, mb, bc] = [randInt(1, 8), randInt(1, 8), randInt(4, 24)];
+    while (denOf(am * bc, am + mb) > 2);
+    const ab = am + mb;
+    return {
+      tex: `MN \\parallel BC,\\ AM = ${am},\\ MB = ${mb},\\ BC = ${bc}`,
+      ask: 'MN = ?',
+      num: am * bc,
+      den: ab,
+      steps: [`$AB = ${am} + ${mb} = ${ab}$`, '$\\triangle AMN \\sim \\triangle ABC$, затова $\\frac{MN}{BC} = \\frac{AM}{AB}$', `$MN = \\frac{${am} \\cdot ${bc}}{${ab}} = ${dec((am * bc) / ab)}$`],
+    };
+  }
+  if (kind === 2) {
+    // Съответни страни на подобни триъгълници
+    const [kn, kd] = pick([[2, 1], [3, 1], [1, 2], [3, 2], [5, 2], [2, 3], [4, 3]]);
+    let ab = 0, bc = 0;
+    do [ab, bc] = [randInt(2, 15), randInt(2, 15)];
+    while (ab === bc || denOf(ab * kn, kd) > 2 || denOf(bc * kn, kd) > 2);
+    const a1b1 = (ab * kn) / kd;
+    return {
+      tex: `\\triangle ABC \\sim \\triangle A_1B_1C_1,\\ AB = ${ab},\\ BC = ${bc},\\ A_1B_1 = ${dec(a1b1)}`,
+      ask: 'B_1C_1 = ?',
+      num: bc * kn,
+      den: kd,
+      steps: [`$k = \\frac{A_1B_1}{AB} = \\frac{${dec(a1b1)}}{${ab}} = ${fracTex(kn, kd)}$`, `$B_1C_1 = k \\cdot BC = ${fracTex(kn, kd)} \\cdot ${bc} = ${dec((bc * kn) / kd)}$`],
+    };
+  }
+  if (kind === 3) {
+    // Периметри – отношение k, лица – k²
+    let p = 0, q = 0;
+    do [p, q] = [randInt(2, 6), randInt(2, 9)];
+    while (p === q);
+    const m = randInt(1, 6);
+    if (randInt(0, 1) === 0) {
+      const s = p * p * m;
+      return {
+        tex: `\\triangle ABC \\sim \\triangle A_1B_1C_1,\\ AB = ${p},\\ A_1B_1 = ${q},\\ S_{ABC} = ${s}`,
+        ask: 'S_{A_1B_1C_1} = ?',
+        num: q * q * m,
+        den: 1,
+        steps: [`$k = \\frac{${q}}{${p}}$`, 'Лицата се отнасят като $k^2$', `$S_{A_1B_1C_1} = ${s} \\cdot \\frac{${q * q}}{${p * p}} = ${q * q * m}$`],
+      };
+    }
+    const per = p * m * 3;
+    return {
+      tex: `\\triangle ABC \\sim \\triangle A_1B_1C_1,\\ AB = ${p},\\ A_1B_1 = ${q},\\ P_{ABC} = ${per}`,
+      ask: 'P_{A_1B_1C_1} = ?',
+      num: per * q,
+      den: p,
+      steps: [`$k = \\frac{${q}}{${p}}$`, 'Периметрите се отнасят като $k$', `$P_{A_1B_1C_1} = ${per} \\cdot \\frac{${q}}{${p}} = ${dec((per * q) / p)}$`],
+    };
+  }
+  // Правоъгълен триъгълник: височина към хипотенузата и проекции
+  const sub = randInt(0, 2);
+  if (sub === 0) {
+    let m = 0, n = 0;
+    do [m, n] = [randInt(1, 4), randInt(1, 4)];
+    while (m === n);
+    const t = randInt(1, 3);
+    const [p, q] = [m * m * t, n * n * t];
+    return {
+      tex: `\\angle C = 90^\\circ,\\ CH \\perp AB,\\ AH = ${p},\\ HB = ${q}`,
+      ask: 'CH = ?',
+      num: m * n * t,
+      den: 1,
+      steps: ['$CH^2 = AH \\cdot HB$', `$CH^2 = ${p} \\cdot ${q} = ${p * q} \\Rightarrow CH = ${m * n * t}$`],
+    };
+  }
+  const [x, y, z] = pick([[3, 4, 5], [7, 24, 25]]);
+  const k = z === 5 ? randInt(1, 4) : 1;
+  const [a, b, c] = randInt(0, 1) === 0 ? [x * k, y * k, z * k] : [y * k, x * k, z * k];
+  if (sub === 1) {
+    return {
+      tex: `\\angle C = 90^\\circ,\\ CH \\perp AB,\\ c = AB = ${c},\\ a = BC = ${a}`,
+      ask: 'Намери проекцията $q = HB$ на катета $a$.',
+      num: a * a,
+      den: c,
+      steps: ['$a^2 = c \\cdot q$', `$q = \\frac{${a}^2}{${c}} = \\frac{${a * a}}{${c}} = ${dec((a * a) / c)}$`],
+    };
+  }
+  return {
+    tex: `\\angle C = 90^\\circ,\\ a = ${a},\\ b = ${b}`,
+    ask: 'Височината към хипотенузата $h = ?$',
+    num: a * b,
+    den: c,
+    steps: [`$c = \\sqrt{${a * a} + ${b * b}} = ${c}$`, '$a \\cdot b = c \\cdot h$', `$h = \\frac{${a} \\cdot ${b}}{${c}} = ${dec((a * b) / c)}$`],
+  };
+};
 
 // ---------- Задачи от живота ----------
 
@@ -265,7 +381,15 @@ export function Similarity() {
         </section>
 
         <section className="mb-8">
-          <h2 className={h2}>8. ⚠️ Чести грешки</h2>
+          <h2 className={`${h2} flex items-center gap-2`}>
+            <Sparkles size={22} className="text-sky-500" /> 8. Тренажор
+          </h2>
+          <p className={text}>Талес, подобни триъгълници, периметри и лица, правоъгълен триъгълник – въведи отговора като число (напр. 7,5 или 15/2).</p>
+          <Trainer newDrill={newDrill} hint="Не съвсем. Намери първо коефициента на подобие или запиши коя пропорция важи." />
+        </section>
+
+        <section className="mb-8">
+          <h2 className={h2}>9. ⚠️ Чести грешки</h2>
           <div className="grid sm:grid-cols-2 gap-3 text-sm sm:text-base text-gray-700 dark:text-gray-300">
             {[
               ['Сбъркано съответствие на върховете', '$\\Delta ABC \\sim \\Delta MNP \\Rightarrow \\frac{AB}{NP} = \\frac{BC}{MN}$', '$\\frac{AB}{MN} = \\frac{BC}{NP} = \\frac{CA}{PM}$'],
@@ -285,12 +409,12 @@ export function Similarity() {
         </section>
 
         <section className="mb-8">
-          <h2 className={h2}>9. 🎯 Бърз тест</h2>
+          <h2 className={h2}>10. 🎯 Бърз тест</h2>
           <Quiz questions={similarityQuiz} />
         </section>
 
         <section className="mb-8">
-          <h2 className={h2}>10. 📝 Задачи за упражнение</h2>
+          <h2 className={h2}>11. 📝 Задачи за упражнение</h2>
           <TaskBoard>
             <div className="mb-6">
               <TaskLevel level="A" />
@@ -354,7 +478,7 @@ export function Similarity() {
         </section>
 
         <section className="mb-8">
-          <h2 className={h2}>11. Обобщение</h2>
+          <h2 className={h2}>12. Обобщение</h2>
           <div className="bg-gradient-to-r from-amber-50 to-orange-50 dark:from-gray-800 dark:to-gray-700 p-6 rounded-lg">
             <ul className="space-y-2 text-sm sm:text-base">
               <li>✓ Талес: успоредни прави отсичат пропорционални отсечки; <Tex>{'MN \\parallel BC \\Rightarrow \\frac{AM}{AB} = \\frac{AN}{AC} = \\frac{MN}{BC}'}</Tex></li>

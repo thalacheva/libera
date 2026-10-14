@@ -1,7 +1,9 @@
+import { Sparkles } from 'lucide-react';
 import Example from '~/Example';
 import Quiz, { type Question } from '~/Quiz';
 import Task, { TaskBoard, TaskLevel } from '~/Task';
 import Theorem from '~/Theorem';
+import Trainer from '~/Trainer';
 import { WordProblems, type WordProblem } from '~/WordProblems';
 import { FocusLab } from './FocusLab';
 import { DiscriminantCases, InteractiveQuadraticGrapher, PointByPoint } from './InteractiveQuadraticGrapher';
@@ -9,9 +11,86 @@ import { SignLab } from './SignLab';
 import { ThrowLab } from './ThrowLab';
 import { MathText, Tex } from '~/MathText';
 import Term from '~/Term';
+import { type Drill, fracTex, nonZero, paren, pick, polyTex, randInt } from '~/drill';
 
 const h2 = 'text-xl sm:text-2xl font-semibold mb-3 text-gray-800 dark:text-gray-100';
 const text = 'text-sm sm:text-base text-gray-700 dark:text-gray-300 leading-relaxed';
+
+// ---------- Тренажор ----------
+
+/** Свободният член със знак: 3 → „ + 3“, −3 → „ - 3“, 0 → „“. */
+const tail = (b: number) => (b < 0 ? ` - ${-b}` : b > 0 ? ` + ${b}` : '');
+
+const newDrill = (): Drill => {
+  const kind = randInt(0, 4);
+  if (kind === 0) {
+    const [a, b, c] = [nonZero(-3, 3), nonZero(-8, 8), randInt(-6, 6)];
+    const r = fracTex(-b, 2 * a);
+    return {
+      tex: `f(x) = ${polyTex([[a, 2], [b, 1], [c, 0]])}`,
+      ask: 'Абсцисата на върха: $x_0 = ?$',
+      num: -b,
+      den: 2 * a,
+      steps: [`$x_0 = -\\frac{b}{2a} = -\\frac{${b}}{2 \\cdot ${paren(a)}} = ${r}$`],
+    };
+  }
+  if (kind === 1) {
+    const [a, x0, y0] = [nonZero(-2, 2), nonZero(-4, 4), randInt(-6, 6)];
+    const b = -2 * a * x0;
+    const c = a * x0 * x0 + y0;
+    return {
+      tex: `f(x) = ${polyTex([[a, 2], [b, 1], [c, 0]])}`,
+      ask: a > 0 ? 'Най-малката стойност на функцията: $f_{\\min} = ?$' : 'Най-голямата стойност на функцията: $f_{\\max} = ?$',
+      num: y0,
+      den: 1,
+      steps: [
+        `$a = ${a} ${a > 0 ? '> 0' : '< 0'}$ – ${a > 0 ? 'клоните на параболата са нагоре и върхът е най-ниската ѝ точка' : 'клоните на параболата са надолу и върхът е най-високата ѝ точка'}`,
+        `$x_0 = -\\frac{${b}}{2 \\cdot ${paren(a)}} = ${x0}$`,
+        `$f(${x0}) = ${a} \\cdot ${paren(x0)}^2${tail(b)} \\cdot ${paren(x0)}${tail(c)} = ${y0}$`,
+      ],
+    };
+  }
+  if (kind === 2) {
+    const [a, b, c] = [nonZero(-3, 3), randInt(-7, 7), nonZero(-6, 6)];
+    const D = b * b - 4 * a * c;
+    return {
+      tex: `f(x) = ${polyTex([[a, 2], [b, 1], [c, 0]])}`,
+      ask: 'Дискриминантата: $D = ?$',
+      num: D,
+      den: 1,
+      steps: [
+        `$D = b^2 - 4ac = ${paren(b)}^2 - 4 \\cdot ${paren(a)} \\cdot ${paren(c)} = ${D}$`,
+        D > 0 ? '$D > 0$ – функцията има две нули' : D === 0 ? '$D = 0$ – една нула (върхът е на оста Ox)' : '$D < 0$ – функцията няма нули',
+      ],
+    };
+  }
+  if (kind === 3) {
+    const a = pick([1, 1, -1, 2]);
+    const r1 = randInt(-5, 4);
+    const r2 = r1 + randInt(1, 6);
+    const [b, c] = [-a * (r1 + r2), a * r1 * r2];
+    const D = b * b - 4 * a * c;
+    return {
+      tex: `f(x) = ${polyTex([[a, 2], [b, 1], [c, 0]])}`,
+      ask: 'По-голямата нула на функцията: $x = ?$',
+      num: r2,
+      den: 1,
+      steps: [
+        `$D = ${paren(b)}^2 - 4 \\cdot ${paren(a)} \\cdot ${paren(c)} = ${D}$, $\\sqrt{D} = ${Math.sqrt(D)}$`,
+        `$x_{1,2} = \\frac{${-b} \\pm ${Math.sqrt(D)}}{${2 * a}}$, нулите са $${r1}$ и $${r2}$`,
+      ],
+    };
+  }
+  const [a, b, c, x0] = [nonZero(-3, 3), randInt(-6, 6), randInt(-6, 6), nonZero(-3, 3)];
+  const v = a * x0 * x0 + b * x0 + c;
+  return {
+    tex: `f(x) = ${polyTex([[a, 2], [b, 1], [c, 0]])}`,
+    ask: `f(${x0}) = ?`,
+    num: v,
+    den: 1,
+    steps: [`$f(${x0}) = ${a} \\cdot ${paren(x0)}^2${b === 0 ? '' : `${tail(b)} \\cdot ${paren(x0)}`}${tail(c)} = ${v}$`],
+  };
+};
 const card = 'bg-white dark:bg-gray-800 p-3 sm:p-4 rounded-lg shadow-sm';
 
 const coefficients = [
@@ -253,7 +332,15 @@ export function QuadraticFunctions() {
         </section>
 
         <section className="mb-8">
-          <h2 className={h2}>8. ⚠️ Чести грешки</h2>
+          <h2 className={`${h2} flex items-center gap-2`}>
+            <Sparkles size={22} className="text-sky-500" /> 8. Тренажор
+          </h2>
+          <p className={text}>Връх, най-малка или най-голяма стойност, дискриминанта и нули на квадратната функция. Дробните отговори въвеждай като 3/2.</p>
+          <Trainer newDrill={newDrill} hint="Не съвсем. Спомни си: x₀ = −b/(2a), D = b² − 4ac, а стойността намираш, като заместиш." />
+        </section>
+
+        <section className="mb-8">
+          <h2 className={h2}>9. ⚠️ Чести грешки</h2>
           <div className="grid sm:grid-cols-2 gap-3 text-sm sm:text-base text-gray-700 dark:text-gray-300">
             {[
               ['Знакът във връхната форма', '$y = (x + 3)^2$ има връх в $(3;\\ 0)$', '$x + 3 = x - (-3)$, върхът е $(-3;\\ 0)$'],
@@ -273,18 +360,18 @@ export function QuadraticFunctions() {
         </section>
 
         <section className="mb-8">
-          <h2 className={h2}>9. Задачи от живота</h2>
+          <h2 className={h2}>10. Задачи от живота</h2>
           <p className={`${text} mb-4`}>Върхът дава „най-много“ и „най-малко“, а нулите – „кога“ и „къде“.</p>
           <WordProblems problems={wordProblems} />
         </section>
 
         <section className="mb-8">
-          <h2 className={h2}>10. 🎯 Бърз тест</h2>
+          <h2 className={h2}>11. 🎯 Бърз тест</h2>
           <Quiz questions={questions} />
         </section>
 
         <section className="mb-8">
-          <h2 className={h2}>11. 📝 Задачи за упражнение</h2>
+          <h2 className={h2}>12. 📝 Задачи за упражнение</h2>
           <TaskBoard>
             <div className="mb-6">
               <TaskLevel level="A" />
@@ -345,7 +432,7 @@ export function QuadraticFunctions() {
         </section>
 
         <section className="mb-8">
-          <h2 className={h2}>12. Обобщение</h2>
+          <h2 className={h2}>13. Обобщение</h2>
           <div className="bg-gradient-to-r from-orange-50 to-amber-50 dark:from-gray-800 dark:to-gray-700 p-6 rounded-lg">
             <ul className="space-y-2 text-sm sm:text-base">
               <li>✓ <Tex>{'y = ax^2 + bx + c,\\ a \\ne 0'}</Tex> – графиката е парабола; <Tex>{'a > 0'}</Tex> – „чаша“, <Tex>{'a < 0'}</Tex> – „шапка“</li>

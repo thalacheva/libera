@@ -1,7 +1,10 @@
+import { Sparkles } from 'lucide-react';
 import Example from '~/Example';
 import Quiz, { type Question } from '~/Quiz';
 import Task, { TaskBoard, TaskLevel } from '~/Task';
 import Theorem from '~/Theorem';
+import Trainer from '~/Trainer';
+import { type Drill, fracTex, pick, randInt } from '~/drill';
 import { WordProblems, type WordProblem } from '~/WordProblems';
 import { AreaProofLab } from './AreaProofLab';
 import { InteractiveQuadrangle } from './InteractiveQuadrangle';
@@ -13,6 +16,102 @@ import Term from '~/Term';
 const h2 = 'text-xl sm:text-2xl font-semibold mb-3 text-gray-800 dark:text-gray-100';
 const text = 'text-sm sm:text-base text-gray-700 dark:text-gray-300 leading-relaxed';
 const card = 'bg-white dark:bg-gray-800 p-3 sm:p-4 rounded-lg shadow-sm';
+
+// ---------- Тренажор ----------
+
+/** Питагорови тройки за ромба: половините на диагоналите и страната. */
+const TRIPLES: [number, number, number][] = [[3, 4, 5], [5, 12, 13], [8, 15, 17], [7, 24, 25]];
+
+const newDrill = (): Drill => {
+  const kind = randInt(0, 4);
+  if (kind === 0) {
+    const a = pick([randInt(4, 17) * 5, randInt(19, 34) * 5]);
+    const [v, ans] = pick<[string, number]>([['B', 180 - a], ['C', a], ['D', 180 - a]]);
+    return {
+      tex: `\\angle A = ${a}^\\circ`,
+      ask: `Успоредник $ABCD$: $\\angle ${v} = ?$ (в градуси)`,
+      num: ans,
+      den: 1,
+      steps:
+        v === 'C'
+          ? ['Срещуположните ъгли на успоредника са равни.', `$\\angle C = \\angle A = ${a}^\\circ$`]
+          : ['Съседните ъгли на успоредника са със сбор $180^\\circ$.', `$\\angle ${v} = 180^\\circ - ${a}^\\circ = ${180 - a}^\\circ$`],
+    };
+  }
+  if (kind === 1) {
+    const [p, q, c] = pick(TRIPLES);
+    const k = randInt(1, 3);
+    const [d1, d2] = [2 * p * k, 2 * q * k];
+    const side = randInt(0, 1) === 0;
+    return {
+      tex: `d_1 = ${d1}, \\ d_2 = ${d2}`,
+      ask: side ? 'Ромб с диагонали $d_1$ и $d_2$: страната $a = ?$' : 'Ромб с диагонали $d_1$ и $d_2$: лицето $S = ?$',
+      num: side ? c * k : (d1 * d2) / 2,
+      den: 1,
+      steps: side
+        ? [
+            `Диагоналите се разполовяват под прав ъгъл: катети $${p * k}$ и $${q * k}$.`,
+            `$a = \\sqrt{${p * k}^2 + ${q * k}^2} = \\sqrt{${(c * k) ** 2}} = ${c * k}$`,
+          ]
+        : [`$S = \\frac{d_1 \\cdot d_2}{2} = \\frac{${d1} \\cdot ${d2}}{2} = ${(d1 * d2) / 2}$`],
+    };
+  }
+  if (kind === 2) {
+    const b = randInt(2, 12);
+    const a = b + randInt(1, 10);
+    const h = randInt(2, 9);
+    const mid = randInt(0, 1) === 0;
+    return {
+      tex: `a = ${a}, \\ b = ${b}, \\ h = ${h}`,
+      ask: mid ? 'Трапец с основи $a$, $b$ и височина $h$: средната основа $m = ?$' : 'Трапец с основи $a$, $b$ и височина $h$: лицето $S = ?$',
+      num: mid ? a + b : (a + b) * h,
+      den: 2,
+      steps: mid
+        ? [`$m = \\frac{a + b}{2} = \\frac{${a} + ${b}}{2} = ${fracTex(a + b, 2)}$`]
+        : [`$m = \\frac{${a} + ${b}}{2} = ${fracTex(a + b, 2)}$`, `$S = m \\cdot h = ${fracTex(a + b, 2)} \\cdot ${h} = ${fracTex((a + b) * h, 2)}$`],
+    };
+  }
+  if (kind === 3) {
+    const a = randInt(7, 17) * 5;
+    const [v, ans] = pick<[string, number]>([['B', a], ['C', 180 - a], ['D', 180 - a]]);
+    return {
+      tex: `AB \\parallel CD, \\ \\angle A = ${a}^\\circ`,
+      ask: `Равнобедрен трапец $ABCD$: $\\angle ${v} = ?$ (в градуси)`,
+      num: ans,
+      den: 1,
+      steps:
+        v === 'B'
+          ? ['Ъглите при основата на равнобедрения трапец са равни.', `$\\angle B = \\angle A = ${a}^\\circ$`]
+          : [
+              'Ъглите, прилежащи на едно бедро, са със сбор $180^\\circ$ (кръстни ъгли при успоредни прави).',
+              `$\\angle ${v} = 180^\\circ - ${a}^\\circ = ${180 - a}^\\circ$`,
+            ],
+    };
+  }
+  if (randInt(0, 1) === 0) {
+    const [a, b, c] = [randInt(6, 15) * 5, randInt(10, 25) * 5, randInt(10, 25) * 5];
+    const d = 360 - a - b - c;
+    if (d <= 0 || d >= 180) return newDrill();
+    return {
+      tex: `\\angle A = ${a}^\\circ, \\ \\angle B = ${b}^\\circ, \\ \\angle C = ${c}^\\circ`,
+      ask: 'Колко градуса е $\\angle D$ на изпъкналия четириъгълник $ABCD$?',
+      num: d,
+      den: 1,
+      steps: ['Сборът на ъглите на четириъгълника е $360^\\circ$.', `$\\angle D = 360^\\circ - ${a}^\\circ - ${b}^\\circ - ${c}^\\circ = ${d}^\\circ$`],
+    };
+  }
+  const n = pick([5, 6, 8, 9, 10, 12, 15, 18, 20]);
+  return {
+    tex: `n = ${n}`,
+    ask: 'Правилен многоъгълник с $n$ страни: колко градуса е всеки вътрешен ъгъл?',
+    num: 180 - 360 / n,
+    den: 1,
+    steps: [
+      `Сбор на ъглите: $(${n} - 2) \\cdot 180^\\circ = ${(n - 2) * 180}^\\circ$`,
+      `Всички ъгли са равни: $${(n - 2) * 180}^\\circ : ${n} = ${180 - 360 / n}^\\circ$`,
+    ],
+  };
+};
 
 type ShapeType = 'parallelogram' | 'rectangle' | 'rhombus' | 'square' | 'trapezoid';
 
@@ -395,7 +494,15 @@ export function Quadrangle() {
         </section>
 
         <section className="mb-8">
-          <h2 className={h2}>7. ⚠️ Чести грешки</h2>
+          <h2 className={`${h2} flex items-center gap-2`}>
+            <Sparkles size={22} className="text-sky-500" /> 7. Тренажор
+          </h2>
+          <p className={text}>Ъгли, страни и лица на четириъгълници – пресметни и провери. Дробните отговори въвеждай като 3/2 или 7,5.</p>
+          <Trainer newDrill={newDrill} hint="Не съвсем. Спомни си свойствата на фигурата и формулата за лице – виж решението стъпка по стъпка." />
+        </section>
+
+        <section className="mb-8">
+          <h2 className={h2}>8. ⚠️ Чести грешки</h2>
           <div className="grid sm:grid-cols-2 gap-3 text-sm sm:text-base text-gray-700 dark:text-gray-300">
             {[
               ['Лице на успоредник със страните', '$S = a \\cdot b$', '$S = a \\cdot h_a$ – трябва височината, а не другата страна'],
@@ -415,17 +522,17 @@ export function Quadrangle() {
         </section>
 
         <section className="mb-8">
-          <h2 className={h2}>8. Задачи от живота</h2>
+          <h2 className={h2}>9. Задачи от живота</h2>
           <WordProblems problems={wordProblems} />
         </section>
 
         <section className="mb-8">
-          <h2 className={h2}>9. 🎯 Бърз тест</h2>
+          <h2 className={h2}>10. 🎯 Бърз тест</h2>
           <Quiz questions={quadrangleQuiz} />
         </section>
 
         <section className="mb-8">
-          <h2 className={h2}>10. 📝 Задачи за упражнение</h2>
+          <h2 className={h2}>11. 📝 Задачи за упражнение</h2>
           <TaskBoard>
             <div className="mb-6">
               <TaskLevel level="A" />
@@ -482,7 +589,7 @@ export function Quadrangle() {
         </section>
 
         <section className="mb-8">
-          <h2 className={h2}>11. Обобщение</h2>
+          <h2 className={h2}>12. Обобщение</h2>
           <div className="bg-gradient-to-r from-teal-50 to-blue-50 dark:from-gray-800 dark:to-gray-700 p-6 rounded-lg">
             <ul className="space-y-2 text-sm sm:text-base">
               <li>✓ Сбор на ъглите: четириъгълник 360°, <Tex>{'n'}</Tex>-ъгълник <Tex>{'(n - 2) \\cdot 180^\\circ'}</Tex>; <Term id="exterior-angle">външните ъгли</Term> – 360°</li>
