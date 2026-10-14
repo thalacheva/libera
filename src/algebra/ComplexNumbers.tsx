@@ -360,7 +360,7 @@ export function ComplexNumbers() {
           <h2 className={h2}>7. Комплексните числа около нас</h2>
           <p className={text}>
             Където има въртене или трептене, има комплексни числа: в <Term id="alternating-current">променливия ток</Term>, в звука и музиката (разлагането на сигнал на <Term id="frequency">честоти</Term>),
-            в радиото и Wi-Fi, в компютърната графика. Уравнението на Шрьодингер в квантовата механика е записано директно с <Tex>{'i'}</Tex>.
+            в радиото и Wi-Fi, в компютърната графика. <Term id="schrodinger-equation">Уравнението на Шрьодингер</Term> в квантовата механика е записано директно с <Tex>{'i'}</Tex>.
           </p>
           <WordProblems problems={wordProblems} />
         </section>

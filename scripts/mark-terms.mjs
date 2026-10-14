@@ -46,6 +46,11 @@ const SKIP = {
   'src/physics/optics/WaveOptics.tsx': ['refraction'],
   'src/geometry/Vectors.tsx': ['combination'],
   'src/probability/Probability.tsx': ['frequency', 'median-triangle'],
+  // „момент на импулса“, неравенството на Бел, квантовите суперпозиция и амплитуди
+  'src/physics/modern/Uncertainty.tsx': ['amplitude'],
+  // тунелният микроскоп, не оптичният
+  'src/physics/modern/ParticleInBox.tsx': ['microscope'],
+  'src/physics/modern/QuantumAtom.tsx': ['momentum', 'superposition', 'inequality', 'amplitude'],
   'src/astronomy/Lecture05.tsx': ['activity'],
   'src/astronomy/Lecture08.tsx': ['momentum'],
   'src/astronomy/Lecture10.tsx': ['magnification'],
@@ -74,6 +79,25 @@ const patterns = TERMS.filter(t => t.auto !== false).flatMap(t =>
 );
 
 const tagName = n => (ts.isJsxElement(n) ? n.openingElement.tagName.getText() : null);
+
+// JSX маха интервал, който е в края на ред преди елемент или в началото на ред след него:
+// „от\n<Term>фотосферата</Term>“ се показва като „отфотосферата“. Там слагаме {' '}.
+function lostSpaces(src, file) {
+  const sf = ts.createSourceFile(file, src, ts.ScriptTarget.Latest, true, ts.ScriptKind.TSX);
+  const at = [];
+  const visit = n => {
+    if (tagName(n) === 'Term') {
+      const kids = n.parent.children ?? [];
+      const i = kids.indexOf(n);
+      const [prev, next] = [kids[i - 1], kids[i + 1]];
+      if (prev && ts.isJsxText(prev) && /\S[ \t]*\n\s*$/.test(prev.text)) at.push(prev.end - /[ \t]*\n\s*$/.exec(prev.text)[0].length);
+      if (next && ts.isJsxText(next) && /^\s*\n\s*\S/.test(next.text)) at.push(n.end);
+    }
+    ts.forEachChild(n, visit);
+  };
+  visit(sf);
+  return at;
+}
 
 let total = 0;
 for (const [file, lesson] of files) {
@@ -116,16 +140,16 @@ for (const [file, lesson] of files) {
     .sort((a, b) => a.at - b.at || b.end - a.end);
   const chosen = [];
   for (const p of picks) if (!chosen.length || p.at >= chosen.at(-1).end) chosen.push(p);
-  if (!chosen.length) continue;
-
   total += chosen.length;
-  console.log(`\n${file} (${lesson}) – ${chosen.length}`);
-  for (const c of chosen) {
-    const line = src.slice(0, c.at).split('\n').length;
-    const ctx = `${src.slice(Math.max(0, c.at - 35), c.at)}[${c.text}]${src.slice(c.end, c.end + 25)}`.replace(/\s+/g, ' ');
-    console.log(`  ${String(line).padStart(4)}  ${c.t.id.padEnd(26)} ${ctx}`);
+  if (chosen.length) {
+    console.log(`\n${file} (${lesson}) – ${chosen.length}`);
+    for (const c of chosen) {
+      const line = src.slice(0, c.at).split('\n').length;
+      const ctx = `${src.slice(Math.max(0, c.at - 35), c.at)}[${c.text}]${src.slice(c.end, c.end + 25)}`.replace(/\s+/g, ' ');
+      console.log(`  ${String(line).padStart(4)}  ${c.t.id.padEnd(26)} ${ctx}`);
+    }
   }
-  if (write) {
+  if (write && chosen.length) {
     for (const c of [...chosen].reverse()) {
       src = `${src.slice(0, c.at)}<Term id="${c.t.id}">${src.slice(c.at, c.end)}</Term>${src.slice(c.end)}`;
     }
@@ -135,7 +159,13 @@ for (const [file, lesson] of files) {
       const pos = last.index + last[0].length;
       src = `${src.slice(0, pos)}\nimport Term from '~/Term';${src.slice(pos)}`;
     }
-    fs.writeFileSync(file, src);
   }
+  const spaces = lostSpaces(src, file);
+  if (spaces.length) {
+    console.log(`\n${file}: ${spaces.length} изгубени интервала около <Term>${write ? ' – оправени' : ''}`);
+    for (const a of spaces) console.log(`  ${String(src.slice(0, a).split('\n').length).padStart(4)}  …${src.slice(Math.max(0, a - 30), a + 30).replace(/\s+/g, ' ')}…`);
+    if (write) for (const a of [...spaces].sort((x, y) => y - x)) src = `${src.slice(0, a)}{' '}${src.slice(a)}`;
+  }
+  if (write && (chosen.length || spaces.length)) fs.writeFileSync(file, src);
 }
 console.log(`\n${total} споменавания в ${files.length} урока${write ? ' – записани' : ''}`);

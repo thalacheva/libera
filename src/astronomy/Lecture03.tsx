@@ -243,7 +243,7 @@ export default function Lecture03() {
                 равноденствия): 365,2422 денонощия – по нея се прави календарът
               </li>
               <li>
-                <strong>Средно разстояние:</strong> 149,6 млн. km = 1
+                <strong>Средно разстояние:</strong> 149,6 млн. km = 1{' '}
                 <Term id="astronomical-unit">астрономическа единица</Term> (AU)
               </li>
               <li>

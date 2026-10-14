@@ -252,7 +252,7 @@ export default function Lecture04() {
                 сянката; тъмният „отхапан“ край е дъга от земната сянка.
               </li>
               <li>
-                <strong>Полусянково</strong> – Луната минава само през
+                <strong>Полусянково</strong> – Луната минава само през{' '}
                 <Term id="umbra-penumbra">полусянката</Term>; потъмняването е едва забележимо.
               </li>
             </ul>
@@ -299,7 +299,7 @@ export default function Lecture04() {
             5. Защо затъмненията не се случват всеки месец?
           </h2>
           <p className="mb-4 text-base sm:text-lg leading-relaxed">
-            Орбитата на Луната е наклонена на <strong><Tex>{'i \\approx 5{,}1^\\circ'}</Tex></strong> спрямо
+            Орбитата на Луната е наклонена на <strong><Tex>{'i \\approx 5{,}1^\\circ'}</Tex></strong> спрямо{' '}
             <Term id="ecliptic">еклиптиката</Term>. Сянката на Земята винаги лежи на еклиптиката, а при
             повечето пълнолуния Луната минава над или под нея – на <Tex>{'\\beta'}</Tex> до <Tex>{'\\pm 5{,}1^\\circ'}</Tex>,
             докато радиусът на сянката е само ~0,7°.

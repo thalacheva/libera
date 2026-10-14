@@ -1945,6 +1945,139 @@ export const PHYSICS: Section = {
         },
       ],
     },
+    {
+      id: 'uncertainty',
+      title: 'Вълнова функция и неопределеност',
+      formulas: [
+        {
+          name: 'Правило на Борн',
+          formula: 'P = |\\psi(x)|^2\\,\\Delta x',
+          note: 'вероятност частицата да бъде открита в малък интервал Δx около x',
+          lesson: '/physics/modern/uncertainty',
+        },
+        {
+          name: 'Суперпозиция',
+          formula: 'P = |\\psi_1 + \\psi_2|^2',
+          note: 'събират се амплитудите, не вероятностите',
+          lesson: '/physics/modern/uncertainty',
+        },
+        {
+          name: 'Принцип на неопределеността',
+          formula: '\\Delta x \\cdot \\Delta p_x \\ge \\frac{\\hbar}{2} \\qquad \\hbar = \\frac{h}{2\\pi} \\approx 1{,}05 \\cdot 10^{-34}\\ \\mathrm{J \\cdot s}',
+          lesson: '/physics/modern/uncertainty',
+        },
+        {
+          name: 'Време на живот и ширина на нивото',
+          formula: '\\Delta E \\approx \\frac{\\hbar}{\\tau} \\qquad \\Delta f \\approx \\frac{1}{2\\pi\\tau}',
+          lesson: '/physics/modern/uncertainty',
+        },
+        {
+          name: 'Енергия на затворена частица (оценка)',
+          formula: 'E_k \\approx \\frac{\\hbar^2}{2mr^2}',
+          note: 'p ≈ ħ/r за частица в област с размер r',
+          lesson: '/physics/modern/uncertainty',
+        },
+        {
+          name: 'Радиус на Бор и енергия на водорода от оценката',
+          formula: 'a_0 = \\frac{\\hbar^2}{mke^2} \\approx 0{,}0529\\ \\mathrm{nm} \\qquad E = -\\frac{ke^2}{2a_0} \\approx -13{,}6\\ \\mathrm{eV}',
+          note: 'минимумът на E(r) = ħ²/(2mr²) − ke²/r; за йон със заряд Ze: a₀/Z и −13,6·Z² eV',
+          lesson: '/physics/modern/uncertainty',
+        },
+        {
+          name: 'Гаусов вълнов пакет',
+          formula: '\\Delta x \\cdot \\Delta k = \\frac{1}{2} \\qquad p = \\hbar k',
+          lesson: '/physics/modern/uncertainty',
+        },
+      ],
+    },
+    {
+      id: 'particle-in-box',
+      title: 'Частица в кутия и тунелен ефект',
+      formulas: [
+        {
+          name: 'Стоящи вълни в кутия',
+          formula: '\\lambda_n = \\frac{2L}{n} \\qquad p_n = \\frac{nh}{2L}',
+          note: 'n = 1, 2, 3, …',
+          lesson: '/physics/modern/particle-in-box',
+        },
+        {
+          name: 'Енергия на частица в кутия',
+          formula: 'E_n = \\frac{n^2h^2}{8mL^2} = n^2E_1',
+          note: 'за електрон h²/(8mₑ) ≈ 0,376 eV·nm²',
+          lesson: '/physics/modern/particle-in-box',
+        },
+        {
+          name: 'Вълнови функции в кутия',
+          formula: '\\psi_n(x) = \\sqrt{\\frac{2}{L}}\\sin\\frac{n\\pi x}{L}',
+          note: 'n − 1 възела вътре в кутията',
+          lesson: '/physics/modern/particle-in-box',
+        },
+        {
+          name: 'Преход между нивата',
+          formula: 'hf = E_n - E_m = (n^2 - m^2)\\frac{h^2}{8mL^2}',
+          lesson: '/physics/modern/particle-in-box',
+        },
+        {
+          name: 'Затихване в забранената област',
+          formula: '\\psi \\propto e^{-\\kappa x} \\qquad \\kappa = \\frac{\\sqrt{2m(U - E)}}{\\hbar}',
+          note: 'за електрон κ [nm⁻¹] ≈ 5,12·√(U − E [eV]); дълбочина на проникване ≈ 1/κ',
+          lesson: '/physics/modern/particle-in-box',
+        },
+        {
+          name: 'Прозрачност на бариера (тунелен ефект)',
+          formula: 'T \\approx e^{-2\\kappa d}',
+          note: 'при κd ≫ 1; d – ширина на бариерата',
+          lesson: '/physics/modern/particle-in-box',
+        },
+      ],
+    },
+    {
+      id: 'quantum-atom',
+      title: 'Квантовият атом',
+      formulas: [
+        {
+          name: 'Квантови числа',
+          formula: 'n = 1, 2, \\ldots \\qquad l = 0, \\ldots, n - 1 \\qquad m_l = -l, \\ldots, l \\qquad m_s = \\pm\\frac{1}{2}',
+          note: 'l = 0, 1, 2, 3 → подслоеве s, p, d, f',
+          lesson: '/physics/modern/quantum-atom',
+        },
+        {
+          name: 'Брой орбитали и електрони',
+          formula: '\\text{подслой: } 2l + 1 \\text{ орбитали, } 2(2l + 1)\\ e^- \\qquad \\text{слой: } n^2 \\text{ орбитали, } 2n^2\\ e^-',
+          note: 'по принципа на Паули – до 2 електрона в орбитала',
+          lesson: '/physics/modern/quantum-atom',
+        },
+        {
+          name: 'Момент на импулса в атома',
+          formula: 'L = \\hbar\\sqrt{l(l + 1)} \\qquad L_z = m_l\\hbar \\qquad S_z = \\pm\\frac{\\hbar}{2}',
+          lesson: '/physics/modern/quantum-atom',
+        },
+        {
+          name: 'Радиална вероятност',
+          formula: 'P(r)\\,dr = r^2 R^2(r)\\,dr \\qquad r_{\\text{най-вер.}} = n^2 a_0 \\ (l = n - 1)',
+          note: 'за 1s: P(r) = 4r²/a₀³ · e^(−2r/a₀), максимум при r = a₀',
+          lesson: '/physics/modern/quantum-atom',
+        },
+        {
+          name: 'Магнетон на Бор и сила в нееднородно поле',
+          formula: '\\mu_B = \\frac{e\\hbar}{2m_e} \\approx 9{,}27 \\cdot 10^{-24}\\ \\mathrm{J/T} \\qquad F_z = \\mu_z \\frac{\\partial B}{\\partial z}',
+          note: 'μ_B ≈ 5,79·10⁻⁵ eV/T; опитът на Щерн и Герлах',
+          lesson: '/physics/modern/quantum-atom',
+        },
+        {
+          name: 'Ефект на Зееман (нормален)',
+          formula: '\\Delta E = m_l \\mu_B B \\qquad \\frac{\\Delta\\lambda}{\\lambda} = \\frac{\\Delta E}{E}',
+          note: 'нивото с орбитално число l се разцепва на 2l + 1 поднива',
+          lesson: '/physics/modern/quantum-atom',
+        },
+        {
+          name: 'Последователни измервания на спина',
+          formula: 'P(\\text{нагоре по нова ос}) = \\cos^2\\frac{\\theta}{2}',
+          note: 'θ – ъгълът между старата и новата ос',
+          lesson: '/physics/modern/quantum-atom',
+        },
+      ],
+    },
   ],
 };
 

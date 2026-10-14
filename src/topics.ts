@@ -128,6 +128,9 @@ export const physicsTopics = [
       { name: 'Фотони и фотоефект', path: '/photons' },
       { name: 'Атомът', path: '/atom' },
       { name: 'Ядро и радиоактивност', path: '/nucleus' },
+      { name: 'Вълнова функция и неопределеност', path: '/uncertainty' },
+      { name: 'Частица в кутия и тунелен ефект', path: '/particle-in-box' },
+      { name: 'Квантовият атом', path: '/quantum-atom' },
     ],
   },
 ];

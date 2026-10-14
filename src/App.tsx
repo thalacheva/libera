@@ -49,6 +49,9 @@ const WaveOptics = lazy(() => import('./physics/optics/WaveOptics').then(m => ({
 const Photons = lazy(() => import('./physics/modern/Photons').then(m => ({default: m.Photons})));
 const Atom = lazy(() => import('./physics/modern/Atom').then(m => ({default: m.Atom})));
 const Nucleus = lazy(() => import('./physics/modern/Nucleus').then(m => ({default: m.Nucleus})));
+const Uncertainty = lazy(() => import('./physics/modern/Uncertainty').then(m => ({default: m.Uncertainty})));
+const ParticleInBox = lazy(() => import('./physics/modern/ParticleInBox').then(m => ({default: m.ParticleInBox})));
+const QuantumAtom = lazy(() => import('./physics/modern/QuantumAtom').then(m => ({default: m.QuantumAtom})));
 const LinearMotion = lazy(() => import('./physics/mechanics/LinearMotion').then(m => ({default: m.LinearMotion})));
 const Units = lazy(() => import('./physics/mechanics/Units').then(m => ({default: m.Units})));
 const Modular = lazy(() => import('./numbers/Modular').then(m => ({default: m.Modular})));
@@ -197,6 +200,9 @@ function App() {
                 <Route path="photons" element={<Photons />} />
                 <Route path="atom" element={<Atom />} />
                 <Route path="nucleus" element={<Nucleus />} />
+                <Route path="uncertainty" element={<Uncertainty />} />
+                <Route path="particle-in-box" element={<ParticleInBox />} />
+                <Route path="quantum-atom" element={<QuantumAtom />} />
               </Route>
             </Route>
             <Route path="geometry">

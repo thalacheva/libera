@@ -84,7 +84,7 @@ export default function Lecture08() {
           <p className="mb-4 text-base sm:text-lg leading-relaxed">
             Спътникът по орбита непрекъснато пада към Земята, но се движи
             хоризонтално толкова бързо, че повърхността „бяга“ под него (топът
-            на Нютон, Лекция 6). При кръгова орбита гравитацията играе ролята на
+            на Нютон, Лекция 6). При кръгова орбита гравитацията играе ролята на{' '}
             <Term id="centripetal-force">центростремителна сила</Term>.
           </p>
           <Theorem
@@ -120,7 +120,7 @@ export default function Lecture08() {
           </h2>
           <p className="mb-4 text-base sm:text-lg leading-relaxed">
             Каква скорост е нужна, за да напуснем Земята завинаги? Тялото трябва
-            да има достатъчно <Term id="kinetic-energy">кинетична енергия</Term>, за да преодолее гравитационната
+            да има достатъчно <Term id="kinetic-energy">кинетична енергия</Term>, за да преодолее гравитационната{' '}
             <Term id="potential-energy">потенциална енергия</Term> <Tex>{'-\\frac{GMm}{r}'}</Tex>.
           </p>
           <Theorem
@@ -478,7 +478,7 @@ export default function Lecture08() {
               <li>✓ Vis-viva: <Tex>{'v^2 = GM(\\frac{2}{r} - \\frac{1}{a})'}</Tex></li>
               <li>✓ Земя: <Tex>{'v_1 = 7{,}9\\ \\mathrm{km/s},\\ v_2 = 11{,}2\\ \\mathrm{km/s},\\ v_3 = 16{,}6\\ \\mathrm{km/s}'}</Tex></li>
               <li>
-                ✓ Окръжност (<Tex>{'e = 0'}</Tex>), елипса (<Tex>{'0 < e < 1'}</Tex>), <Term id="parabola">парабола</Term> (<Tex>{'e = 1'}</Tex>),
+                ✓ Окръжност (<Tex>{'e = 0'}</Tex>), елипса (<Tex>{'0 < e < 1'}</Tex>), <Term id="parabola">парабола</Term> (<Tex>{'e = 1'}</Tex>),{' '}
                 <Term id="hyperbola">хипербола</Term> (<Tex>{'e > 1'}</Tex>)
               </li>
               <li>

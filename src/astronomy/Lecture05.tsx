@@ -201,7 +201,7 @@ export default function Lecture05() {
           </h2>
           <p className="mb-4 text-base sm:text-lg leading-relaxed">
             Само по време на пълната фаза виждаме с просто око короната –
-            външната атмосфера на Слънцето. Тя е милион пъти по-слаба от
+            външната атмосфера на Слънцето. Тя е милион пъти по-слаба от{' '}
             <Term id="photosphere">фотосферата</Term> и обикновено се губи в нейния блясък.
           </p>
           <div className="bg-purple-50 dark:bg-purple-900/20 p-4 rounded-lg mb-4">

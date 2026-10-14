@@ -209,7 +209,7 @@ export default function Lecture02() {
             <p className="font-semibold mb-1">⏰ Защо в часове?</p>
             <p>
               Часовият ъгъл е като стрелка на часовник: расте равномерно с <Tex>{'1^{\\mathrm{h}}'}</Tex> за
-              всеки час (звездно време). <Tex>{'t = 0^{\\mathrm{h}}'}</Tex> означава, че звездата <Term id="culmination">кулминира</Term>
+              всеки час (звездно време). <Tex>{'t = 0^{\\mathrm{h}}'}</Tex> означава, че звездата <Term id="culmination">кулминира</Term>{' '}
               (на <Term id="celestial-meridian">меридиана</Term>, най-високо), <Tex>{'t = 12^{\\mathrm{h}}'}</Tex> – че е в долна кулминация, а <Tex>{'t = 3^{\\mathrm{h}}'}</Tex> – че е кулминирала преди 3 часа.
             </p>
           </div>
@@ -340,7 +340,7 @@ export default function Lecture02() {
           <p className="mb-4 text-base sm:text-lg leading-relaxed">
             <Term id="zenith">Зенитът</Term> <Tex>{'Z'}</Tex>, полюсът <Tex>{'P'}</Tex> и звездата образуват сферичен триъгълник –
             т.нар. <strong>паралактичен триъгълник</strong>. Страните му са <Tex>{'90^\\circ - \\varphi'}</Tex> (от <Tex>{'P'}</Tex> до <Tex>{'Z'}</Tex>), <Tex>{'90^\\circ - \\delta'}</Tex> (от <Tex>{'P'}</Tex> до звездата) и <Tex>{'z'}</Tex> (от <Tex>{'Z'}</Tex> до звездата),
-            а ъгълът при <Tex>{'P'}</Tex> е часовият ъгъл <Tex>{'t'}</Tex>. От сферичната <Term id="law-of-cosines">косинусова теорема</Term>
+            а ъгълът при <Tex>{'P'}</Tex> е часовият ъгъл <Tex>{'t'}</Tex>. От сферичната <Term id="law-of-cosines">косинусова теорема</Term>{' '}
             следва:
           </p>
           <div className="bg-purple-50 dark:bg-purple-900/20 p-4 rounded-lg mb-4 text-center">
