@@ -57,7 +57,7 @@ export function structuredData(page: PageMeta): object {
           '@type': 'WebSite',
           '@id': SITE_ID,
           name: SITE_NAME,
-          alternateName: page.title,
+          alternateName: 'Libera – учи свободно',
           description: page.description,
           url: `${SITE_URL}/`,
           inLanguage: 'bg',
