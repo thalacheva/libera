@@ -4,12 +4,13 @@ import fs from 'fs'
 import path from 'path'
 import { createServer, defineConfig } from 'vite'
 import { allPages, fullTitle, SITE_URL } from './src/pages'
+import { structuredDataJson } from './src/structuredData'
 
 const escapeHtml = s =>
   s.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
 
 // След build записва dist/<път>.html за всяка страница – с правилните заглавие и описание
-// и с готовия HTML на урока (src/entry-server.tsx), за да ги виждат търсачките без JavaScript –
+// и структурираните данни (src/structuredData.ts), с готовия HTML на урока (src/entry-server.tsx), за да ги виждат търсачките без JavaScript –
 // и sitemap.xml.
 function seoPages() {
   let outDir
@@ -40,6 +41,7 @@ function seoPages() {
           .replace(/(<meta property="og:title" content=")[^"]*/, `$1${title}`)
           .replace(/(<meta property="og:description" content=")[^"]*/, `$1${description}`)
           .replace(/(<meta property="og:url" content=")[^"]*/, `$1${url}`)
+          .replace('</head>', () => `  <script type="application/ld+json" id="structured-data">${structuredDataJson(page)}</script>\n  </head>`)
           .replace('<div id="root"></div>', () => `<div id="root">${body}</div>`)
         const file = path.join(outDir, page.path === '/' ? 'index.html' : `${page.path}.html`)
         fs.mkdirSync(path.dirname(file), { recursive: true })

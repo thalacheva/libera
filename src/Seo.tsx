@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { findPage, fullTitle, SITE_URL } from '~/pages';
+import { structuredDataJson } from '~/structuredData';
 
 function setMeta(selector: string, attr: string, value: string) {
   document.head.querySelector(selector)?.setAttribute(attr, value);
@@ -22,6 +23,13 @@ export default function Seo() {
     setMeta('meta[property="og:title"]', 'content', title);
     setMeta('meta[property="og:description"]', 'content', page.description);
     setMeta('meta[property="og:url"]', 'content', url);
+
+    let ld = document.getElementById('structured-data');
+    if (!ld) {
+      ld = Object.assign(document.createElement('script'), { type: 'application/ld+json', id: 'structured-data' });
+      document.head.appendChild(ld);
+    }
+    ld.textContent = structuredDataJson(page);
   }, [pathname]);
 
   return null;
