@@ -39,6 +39,8 @@ const files = only.length ? lessons.filter(([f]) => only.includes(f)) : lessons;
 // Споменавания в друг смисъл („съпротивление на въздуха“, „напрежение на Хъбъл“…) – не ги отбелязваме
 const SKIP = {
   'src/analysis/Derivatives.tsx': ['average-speed'],
+  // заместване на x в израза и „увеличение“ на графиката, не методът за системи и оптичното увеличение
+  'src/analysis/Limits.tsx': ['substitution-method', 'magnification'],
   'src/physics/mechanics/PlaneMotion.tsx': ['resistance'],
   'src/physics/mechanics/StaticsFluids.tsx': ['solar-corona'],
   'src/physics/waves/Oscillations.tsx': ['resistance'],
@@ -60,6 +62,9 @@ const SKIP = {
   'src/astronomy/Lecture14.tsx': ['resonance'],
   'src/astronomy/Lecture15.tsx': ['resonance'],
   'src/astronomy/Lecture17.tsx': ['resonance'],
+  // желязната „матрица“ на метеорита, ПЗС матриците на камерите
+  'src/astronomy/Lecture16.tsx': ['matrix'],
+  'src/astronomy/Lecture32.tsx': ['matrix'],
   'src/astronomy/Lecture24.tsx': ['voltage'],
   'src/astronomy/Lecture28.tsx': ['voltage'],
   'src/astronomy/Lecture29.tsx': ['coma'],

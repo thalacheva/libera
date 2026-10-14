@@ -11,7 +11,9 @@ export const mathTopics = [
       { name: 'Линейни уравнения', path: '/linear' },
       { name: 'Квадратни уравнения', path: '/quadratic' },
       { name: 'Системи уравнения', path: '/systems' },
+      { name: 'Матрици', path: '/matrices' },
       { name: 'Неравенства', path: '/inequalities' },
+      { name: 'Олимпиадни неравенства', path: '/olympiad-inequalities' },
       { name: 'Прогресии', path: '/sequences' },
       { name: 'Комплексни числа', path: '/complex' },
     ],
@@ -38,6 +40,7 @@ export const mathTopics = [
     name: 'Анализ',
     path: '/analysis',
     subtopics: [
+      { name: 'Граници и непрекъснатост', path: '/limits' },
       { name: 'Производни', path: '/derivatives' },
       { name: 'Интеграли', path: '/integrals' },
       { name: 'Диференциални уравнения', path: '/differential-equations' },

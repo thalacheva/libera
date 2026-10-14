@@ -206,6 +206,107 @@ export const MATH: Section = {
       ],
     },
     {
+      id: 'matrices',
+      title: 'Матрици',
+      formulas: [
+        {
+          name: 'Умножение на матрици',
+          formula: 'c_{ij} = a_{i1}b_{1j} + a_{i2}b_{2j} + \\ldots + a_{in}b_{nj}',
+          note: 'ред i на A по стълб j на B; (m × n)(n × p) = m × p; в общия случай AB ≠ BA',
+          lesson: '/algebra/matrices',
+        },
+        {
+          name: 'Матрица по вектор',
+          formula: '\\begin{pmatrix} a & b \\\\ c & d \\end{pmatrix}\\begin{pmatrix} x \\\\ y \\end{pmatrix} = \\begin{pmatrix} ax + by \\\\ cx + dy \\end{pmatrix}',
+          note: 'стълбовете са образите на e₁ = (1; 0) и e₂ = (0; 1)',
+          lesson: '/algebra/matrices',
+        },
+        {
+          name: 'Матрица на завъртане',
+          formula: 'R_\\varphi = \\begin{pmatrix} \\cos\\varphi & -\\sin\\varphi \\\\ \\sin\\varphi & \\cos\\varphi \\end{pmatrix}',
+          note: 'завъртане на ъгъл φ обратно на часовниковата стрелка около началото',
+          lesson: '/algebra/matrices',
+        },
+        {
+          name: 'Детерминанта 2 × 2',
+          formula: '\\begin{vmatrix} a & b \\\\ c & d \\end{vmatrix} = ad - bc \\qquad \\det(AB) = \\det A \\cdot \\det B',
+          note: '|det A| – колко пъти се умножават лицата; знакът показва ориентацията',
+          lesson: '/algebra/matrices',
+        },
+        {
+          name: 'Детерминанта 3 × 3 (правило на Сарус)',
+          formula: 'a_{11}a_{22}a_{33} + a_{12}a_{23}a_{31} + a_{13}a_{21}a_{32} - a_{13}a_{22}a_{31} - a_{11}a_{23}a_{32} - a_{12}a_{21}a_{33}',
+          lesson: '/algebra/matrices',
+        },
+        {
+          name: 'Обратна матрица 2 × 2',
+          formula: '\\begin{pmatrix} a & b \\\\ c & d \\end{pmatrix}^{-1} = \\frac{1}{ad - bc}\\begin{pmatrix} d & -b \\\\ -c & a \\end{pmatrix} \\qquad (AB)^{-1} = B^{-1}A^{-1}',
+          note: 'съществува точно когато ad − bc ≠ 0',
+          lesson: '/algebra/matrices',
+        },
+        {
+          name: 'Система в матричен вид',
+          formula: 'AX = B \\quad\\Rightarrow\\quad X = A^{-1}B',
+          note: 'при det A ≠ 0; разписано, това е правилото на Крамер',
+          lesson: '/algebra/matrices',
+        },
+      ],
+    },
+    {
+      id: 'olympiad-inequalities',
+      title: 'Олимпиадни неравенства',
+      formulas: [
+        {
+          name: 'Неравенство между средните',
+          formula: '\\sqrt{\\frac{a^2 + b^2}{2}} \\ge \\frac{a + b}{2} \\ge \\sqrt{ab} \\ge \\frac{2ab}{a + b}',
+          note: 'a, b > 0; навсякъде равенство само при a = b',
+          lesson: '/algebra/olympiad-inequalities',
+        },
+        {
+          name: 'Средно аритметично и средно геометрично на n числа',
+          formula: '\\frac{a_1 + a_2 + \\ldots + a_n}{n} \\ge \\sqrt[n]{a_1 a_2 \\cdots a_n}',
+          note: 'aᵢ ≥ 0; равенство при a₁ = a₂ = … = aₙ',
+          lesson: '/algebra/olympiad-inequalities',
+        },
+        {
+          name: 'Неравенство на Коши–Буняковски',
+          formula: '(a_1b_1 + \\ldots + a_nb_n)^2 \\le (a_1^2 + \\ldots + a_n^2)(b_1^2 + \\ldots + b_n^2)',
+          note: 'равенство при пропорционални числа; за вектори |u · v| ≤ |u| · |v|',
+          lesson: '/algebra/olympiad-inequalities',
+        },
+        {
+          name: 'Форма на Енгел (лема на Титу)',
+          formula: '\\frac{a_1^2}{x_1} + \\ldots + \\frac{a_n^2}{x_n} \\ge \\frac{(a_1 + \\ldots + a_n)^2}{x_1 + \\ldots + x_n}',
+          note: 'xᵢ > 0; равенство при a₁/x₁ = … = aₙ/xₙ',
+          lesson: '/algebra/olympiad-inequalities',
+        },
+        {
+          name: 'Неравенство за пренареждането',
+          formula: 'a_1b_1 + \\ldots + a_nb_n \\ge a_1c_1 + \\ldots + a_nc_n \\ge a_1b_n + \\ldots + a_nb_1',
+          note: 'a и b са подредени еднакво, c е пренареждане на b',
+          lesson: '/algebra/olympiad-inequalities',
+        },
+        {
+          name: 'Неравенство на Чебишов',
+          formula: 'n(a_1b_1 + \\ldots + a_nb_n) \\ge (a_1 + \\ldots + a_n)(b_1 + \\ldots + b_n)',
+          note: 'при еднакво подредени редици',
+          lesson: '/algebra/olympiad-inequalities',
+        },
+        {
+          name: 'Неравенство на Йенсен',
+          formula: 'f(w_1x_1 + \\ldots + w_nx_n) \\le w_1f(x_1) + \\ldots + w_nf(x_n)',
+          note: 'f изпъкнала, wᵢ ≥ 0, w₁ + … + wₙ = 1; за вдлъбната f – обратно',
+          lesson: '/algebra/olympiad-inequalities',
+        },
+        {
+          name: 'Неравенство на Несбит',
+          formula: '\\frac{a}{b + c} + \\frac{b}{c + a} + \\frac{c}{a + b} \\ge \\frac{3}{2}',
+          note: 'a, b, c > 0; равенство при a = b = c',
+          lesson: '/algebra/olympiad-inequalities',
+        },
+      ],
+    },
+    {
       id: 'complex',
       title: 'Комплексни числа',
       formulas: [
@@ -383,6 +484,51 @@ export const MATH: Section = {
       id: 'analysis',
       title: 'Анализ',
       formulas: [
+        {
+          name: 'Граница на редица',
+          formula: '\\lim_{n \\to \\infty} a_n = L \\iff \\forall \\varepsilon > 0\\ \\exists N:\\ |a_n - L| < \\varepsilon \\text{ при } n \\ge N',
+          lesson: '/analysis/limits',
+        },
+        {
+          name: 'Аритметика на границите',
+          formula: '\\lim_{x \\to a} (f \\pm g) = A \\pm B \\qquad \\lim_{x \\to a} (f \\cdot g) = A \\cdot B \\qquad \\lim_{x \\to a} \\frac{f}{g} = \\frac{A}{B}\\ (B \\ne 0)',
+          note: 'ако lim f = A и lim g = B са крайни числа',
+          lesson: '/analysis/limits',
+        },
+        {
+          name: 'Рационална функция при x → ∞',
+          formula: '\\lim_{x \\to \\infty} \\frac{a_k x^k + \\ldots}{b_k x^k + \\ldots} = \\frac{a_k}{b_k}',
+          note: 'при равни степени; ако степента на знаменателя е по-голяма – границата е 0',
+          lesson: '/analysis/limits',
+        },
+        {
+          name: 'Първа забележителна граница',
+          formula: '\\lim_{x \\to 0} \\frac{\\sin x}{x} = 1',
+          note: 'x в радиани',
+          lesson: '/analysis/limits',
+        },
+        {
+          name: 'Втора забележителна граница',
+          formula: '\\lim_{n \\to \\infty} \\left(1 + \\frac{1}{n}\\right)^n = e \\approx 2{,}71828 \\qquad \\lim_{n \\to \\infty} \\left(1 + \\frac{k}{n}\\right)^n = e^k',
+          lesson: '/analysis/limits',
+        },
+        {
+          name: 'Наклонена асимптота',
+          formula: 'y = kx + n:\\quad k = \\lim_{x \\to \\infty} \\frac{f(x)}{x},\\quad n = \\lim_{x \\to \\infty} \\left(f(x) - kx\\right)',
+          note: 'за рационална функция – цялата част при деление на многочлените',
+          lesson: '/analysis/limits',
+        },
+        {
+          name: 'Непрекъснатост в точка',
+          formula: '\\lim_{x \\to a} f(x) = f(a)',
+          lesson: '/analysis/limits',
+        },
+        {
+          name: 'Теорема на Болцано',
+          formula: 'f(a) \\cdot f(b) < 0 \\Rightarrow \\exists c \\in (a;\\ b):\\ f(c) = 0',
+          note: 'f непрекъсната в [a; b]; разполовяване: след n стъпки интервалът е (b − a)/2ⁿ',
+          lesson: '/analysis/limits',
+        },
         {
           name: 'Производна',
           formula: "f'(x_0) = \\lim_{h \\to 0} \\frac{f(x_0 + h) - f(x_0)}{h}",

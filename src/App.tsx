@@ -19,6 +19,9 @@ const SystemsOfEquations = lazy(() => import('./algebra/SystemsOfEquations').the
 const FunctionGraph = lazy(() => import('./functions/FunctionGraph').then(m => ({default: m.FunctionGraph})));
 const LinearFunctions = lazy(() => import('./functions/LinearFunctions').then(m => ({default: m.LinearFunctions})));
 const QuadraticFunctions = lazy(() => import('./functions/QuadraticFunctions').then(m => ({default: m.QuadraticFunctions})));
+const Limits = lazy(() => import('./analysis/Limits').then(m => ({default: m.Limits})));
+const Matrices = lazy(() => import('./algebra/Matrices').then(m => ({default: m.Matrices})));
+const OlympiadInequalities = lazy(() => import('./algebra/OlympiadInequalities').then(m => ({default: m.OlympiadInequalities})));
 const Derivatives = lazy(() => import('./analysis/Derivatives').then(m => ({default: m.Derivatives})));
 const Integrals = lazy(() => import('./analysis/Integrals').then(m => ({default: m.Integrals})));
 const DifferentialEquations = lazy(() => import('./analysis/DifferentialEquations').then(m => ({default: m.DifferentialEquations})));
@@ -142,7 +145,9 @@ function App() {
               <Route path="linear" element={<LinearEquations />} />
               <Route path="quadratic" element={<QuadraticEquations />} />
               <Route path="systems" element={<SystemsOfEquations />} />
+              <Route path="matrices" element={<Matrices />} />
               <Route path="inequalities" element={<Inequalities />} />
+              <Route path="olympiad-inequalities" element={<OlympiadInequalities />} />
               <Route path="sequences" element={<Sequences />} />
               <Route path="complex" element={<ComplexNumbers />} />
             </Route>
@@ -157,6 +162,7 @@ function App() {
               <Route path="grapher" element={<FunctionGraph />} />
             </Route>
             <Route path="analysis">
+              <Route path="limits" element={<Limits />} />
               <Route path="derivatives" element={<Derivatives />} />
               <Route path="integrals" element={<Integrals />} />
               <Route path="differential-equations" element={<DifferentialEquations />} />
