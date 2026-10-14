@@ -174,6 +174,18 @@ export default function SidebarMenu({
             <Mail size={16} />
             ninelibera@gmail.com
           </a>
+          <p className="mt-3 text-xs leading-relaxed text-gray-500 dark:text-gray-400">
+            © 2026 Libera · съдържание:{' '}
+            <a
+              href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.bg"
+              target="_blank"
+              rel="license noopener noreferrer"
+              className="whitespace-nowrap underline underline-offset-2 hover:text-gray-900 dark:hover:text-gray-200"
+            >
+              CC BY-NC-SA 4.0
+            </a>
+            , код: MIT
+          </p>
         </div>
       </aside>
     </>

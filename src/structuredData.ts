@@ -16,6 +16,9 @@ const pageAt = (path: string) => allPages.find(p => p.path === path);
 /** Заглавието без „— урок по …“. */
 const shortTitle = (page: PageMeta) => page.title.split(' — ')[0];
 
+/** Лицензът на учебното съдържание (кодът е под MIT). */
+const CONTENT_LICENSE = 'https://creativecommons.org/licenses/by-nc-sa/4.0/';
+
 const ORG_ID = `${SITE_URL}/#organization`;
 const SITE_ID = `${SITE_URL}/#website`;
 const courseId = (sectionPath: string) => `${SITE_URL}${sectionPath}#course`;
@@ -104,6 +107,7 @@ export function structuredData(page: PageMeta): object {
           educationalLevel: 'средно образование',
           about: lessonSection.name,
           isAccessibleForFree: true,
+          license: CONTENT_LICENSE,
           author: { '@id': ORG_ID },
           publisher: { '@id': ORG_ID },
           isPartOf: [{ '@id': SITE_ID }, { '@type': 'Course', '@id': courseId(lessonSection.path), name: lessonSection.name }],

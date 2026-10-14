@@ -81,7 +81,7 @@ export function Home() {
           </div>
         </section>
 
-        <section className="mb-10 grid sm:grid-cols-2 lg:grid-cols-4 gap-3">
+        <section className="mb-10 grid sm:grid-cols-2 gap-3">
           <ShortcutCard
             to="/astronomy/tonight"
             icon={<span className="text-2xl">🔭</span>}

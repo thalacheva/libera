@@ -1,6 +1,7 @@
 {
   "name": "libera",
   "private": true,
+  "license": "MIT AND CC-BY-NC-SA-4.0",
   "version": "0.0.0",
   "type": "module",
   "scripts": {
