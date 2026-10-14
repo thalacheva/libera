@@ -2,6 +2,7 @@ import {Menu, X} from 'lucide-react';
 import {lazy, Suspense, useEffect, useState} from 'react';
 import {Route, Routes} from 'react-router-dom';
 import Seo from '~/Seo';
+import DevBanner from './DevBanner';
 import SidebarMenu from '~/SidebarMenu';
 
 // Всеки урок се зарежда отделно, едва когато се отвори.
@@ -119,6 +120,7 @@ function App() {
         {sidebarOpen ? <X size={24} /> : <Menu size={24} />}
       </button>
       <Seo />
+      <DevBanner />
       <div className="flex flex-1 overflow-hidden">
         <SidebarMenu
           isOpen={sidebarOpen}
