@@ -2232,6 +2232,34 @@ export const ASTRONOMY: Section = {
   title: 'Астрономия',
   groups: [
     {
+      id: 'intro',
+      title: 'Въведение',
+      formulas: [
+        {
+          name: 'Време за светлината',
+          formula: 't = \\frac{d}{c}, \\qquad c \\approx 3 \\cdot 10^8\\ \\mathrm{m/s}',
+          note: 'Слънце – 8,3 min, Луна – 1,3 s; виждаме обекта такъв, какъвто е бил преди t',
+          lesson: '/astronomy/intro',
+        },
+        {
+          name: 'Ъгъл при малки размери',
+          formula: "\\alpha = \\frac{D}{d}\\ (\\mathrm{rad}) \\approx 57{,}3^\\circ \\cdot \\frac{D}{d} \\approx 206\\,265'' \\cdot \\frac{D}{d}",
+          note: 'при d много по-голямо от D; Слънцето и Луната – около 0,5°',
+          lesson: '/astronomy/intro',
+        },
+        {
+          name: 'Единици за разстояние',
+          formula: '1\\ \\mathrm{AU} \\approx 1{,}496 \\cdot 10^{8}\\ \\mathrm{km} \\qquad 1\\ \\mathrm{ly} \\approx 9{,}46 \\cdot 10^{12}\\ \\mathrm{km} \\qquad 1\\ \\mathrm{pc} \\approx 3{,}26\\ \\mathrm{ly} \\approx 206\\,265\\ \\mathrm{AU}',
+          lesson: '/astronomy/intro',
+        },
+        {
+          name: 'Ъглови единици',
+          formula: "1^\\circ = 60' = 3600'' \\qquad 1\\ \\mathrm{rad} \\approx 57{,}3^\\circ \\approx 206\\,265''",
+          lesson: '/astronomy/intro',
+        },
+      ],
+    },
+    {
       id: 'sphere',
       title: 'Небесна сфера и време',
       formulas: [

@@ -138,6 +138,9 @@ export const physicsTopics = [
   },
 ];
 
+/** Въведението е преди лекция 1 и е без номер – номерата на лекциите (и адресите им) не се променят. */
+export const astronomyIntro = { name: 'Въведение: какво изучава астрономията', path: '/astronomy/intro' };
+
 export const astronomyTopics = [
   {
     name: 'Астрономия',

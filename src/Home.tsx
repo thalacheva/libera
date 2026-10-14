@@ -1,6 +1,6 @@
 import {Atom, BookA, BookMarked, ChevronRight, FlaskConical, PencilLine, Sigma, Target, Telescope, TrendingUp, Trophy} from 'lucide-react';
 import {Link} from 'react-router-dom';
-import {astronomyTopics, mathTopics, physicsTopics} from '~/topics';
+import {astronomyIntro, astronomyTopics, mathTopics, physicsTopics} from '~/topics';
 
 const mathCount = mathTopics.reduce((n, t) => n + t.subtopics.length, 0);
 const physicsCount = physicsTopics.reduce((n, t) => n + t.subtopics.length, 0);
@@ -181,6 +181,15 @@ export function Home() {
             </Link>
           </h2>
           <ol className="grid sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-1 rounded-xl border border-gray-200 bg-white p-4 text-sm dark:border-gray-800 dark:bg-gray-900">
+            <li className="flex">
+              <span className="w-7 flex-shrink-0 text-gray-400 dark:text-gray-500">·</span>
+              <Link
+                to={astronomyIntro.path}
+                className="text-gray-700 hover:text-purple-700 hover:underline dark:text-gray-300 dark:hover:text-purple-300"
+              >
+                Въведение
+              </Link>
+            </li>
             {lectures.map((l, i) => (
               <li key={l.path} className="flex">
                 <span className="w-7 flex-shrink-0 tabular-nums text-gray-400 dark:text-gray-500">{i + 1}</span>

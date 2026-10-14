@@ -3,7 +3,7 @@ import {useEffect, useState} from 'react';
 import {Link} from 'react-router-dom';
 import {lessonPages} from '~/pages';
 import {hasActivity, lessonProgress} from '~/progress';
-import {astronomyTopics, mathTopics, physicsTopics} from '~/topics';
+import {astronomyIntro, astronomyTopics, mathTopics, physicsTopics} from '~/topics';
 
 type Area = 'math' | 'physics' | 'astronomy';
 type Lesson = {path: string; name: string; number?: number};
@@ -52,7 +52,8 @@ const SECTIONS: Record<
     icon: Telescope,
     intro:
       'Лекции от небесната сфера и Слънчевата система до звездите, галактиките и космологията. Във всяка има интерактивни симулации, решени примери, бърз тест и задачи от олимпиадите по астрономия.',
-    groups: groupsOf(astronomyTopics, true),
+    // въведението е първо и без номер
+    groups: groupsOf(astronomyTopics, true).map(g => ({...g, lessons: [{path: astronomyIntro.path, name: 'Въведение: какво изучава астрономията'}, ...g.lessons]})),
     hero: 'from-purple-600 to-indigo-900',
     accent: 'text-purple-700 dark:text-purple-300',
     hover: 'hover:border-purple-300 dark:hover:border-purple-500/50',

@@ -53,30 +53,12 @@ const QUIZ: Question[] = [
   },
 ];
 
-const FACTS = [
-  {
-    icon: '⏳',
-    title: 'Гледаме в миналото',
-    text: 'Светлината от Слънцето пътува 8 минути, а от Полярната звезда – около 430 години. Виждаме я такава, каквато е била преди Колумб да открие Америка.',
-  },
-  {
-    icon: '🌌',
-    title: 'Най-далечното, което виждаш с просто око',
-    text: 'Галактиката Андромеда се вижда като бледо петно в есенното небе. Светлината ѝ е тръгнала преди 2,5 милиона години.',
-  },
-  {
-    icon: '🧭',
-    title: 'Небето като GPS',
-    text: 'Векове наред моряците са определяли географската си ширина само като измерват колко високо е Полярната звезда. До края на лекцията ще разберете защо това работи.',
-  },
-];
-
 export default function Lecture01() {
   return (
     <main className="flex-1 overflow-y-auto px-4 pt-16 pb-12 sm:px-6 lg:px-10 lg:pt-10">
       <div className="max-w-4xl mx-auto">
         <h1 className="text-2xl sm:text-3xl font-bold tracking-tight mb-6 text-gray-900 dark:text-white">
-          Лекция 1: Какво изучава астрономията. Небесната сфера
+          Лекция 1: Небесната сфера
         </h1>
 
         <div className="bg-gradient-to-br from-indigo-900 to-slate-900 text-white p-6 rounded-2xl mb-8 shadow-lg">
@@ -90,81 +72,7 @@ export default function Lecture01() {
 
         <section className="mb-8">
           <h2 className="text-xl sm:text-2xl font-semibold mb-4">
-            1. Цели на лекцията
-          </h2>
-          <ul className="list-disc list-inside space-y-2 text-base sm:text-lg">
-            <li>Да разберем какво представлява астрономията като наука</li>
-            <li>
-              Да въведем основните понятия, използвани при наблюдение на небето
-            </li>
-            <li>Да усвоим модела на небесната сфера и елементите ѝ</li>
-            <li>
-              Да докажем, че височината на полюса е равна на географската ширина
-            </li>
-            <li>
-              Да се подготвим за по-нататъшно изучаване на координатните системи
-            </li>
-          </ul>
-        </section>
-
-        <section className="mb-8">
-          <h2 className="text-xl sm:text-2xl font-semibold mb-4">
-            2. Какво е астрономия?
-          </h2>
-          <p className="mb-4 text-base sm:text-lg leading-relaxed">
-            Астрономията е наука за небесните тела (звезди, планети, Луна,
-            Слънце, галактики и др.) и законите, които управляват тяхното
-            движение, строеж и еволюция. Тя е една от най-старите науки –
-            древните египтяни са предсказвали разливите на Нил по изгрева на
-            Сириус, а календарът, който ползваме днес, е астрономическо
-            изобретение.
-          </p>
-          <div className="bg-blue-50 dark:bg-blue-500/10 p-4 rounded-lg mb-4">
-            <h3 className="font-semibold mb-2">Основни направления:</h3>
-            <ul className="list-disc list-inside space-y-2">
-              <li>
-                <strong>Класическа астрономия</strong> – движения на небесните
-                тела, календари, затъмнения
-              </li>
-              <li>
-                <strong>Астрофизика</strong> – физични процеси в звездите,
-                излъчване, <Term id="spectrum">спектри</Term>
-              </li>
-              <li>
-                <strong>Космология</strong> – строеж и еволюция на Вселената
-                като цяло
-              </li>
-              <li>
-                <strong>Планетология</strong> – планети и техните спътници
-              </li>
-            </ul>
-          </div>
-          <div className="grid sm:grid-cols-3 gap-3 mb-4">
-            {FACTS.map(fact => (
-              <div
-                key={fact.title}
-                className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 p-4 rounded-xl shadow-sm"
-              >
-                <div className="text-3xl mb-2">{fact.icon}</div>
-                <h3 className="font-semibold mb-1">{fact.title}</h3>
-                <p className="text-sm text-gray-700 dark:text-gray-300">
-                  {fact.text}
-                </p>
-              </div>
-            ))}
-          </div>
-          <div className="bg-yellow-50 dark:bg-yellow-900/20 border-l-4 border-yellow-500 p-4 rounded mb-4">
-            <p className="font-semibold">💡 Важна идея:</p>
-            <p>
-              Астрономията е наблюдателна наука – не можем да експериментираме
-              със звездите, затова разчитаме на модели и измервания.
-            </p>
-          </div>
-        </section>
-
-        <section className="mb-8">
-          <h2 className="text-xl sm:text-2xl font-semibold mb-4">
-            3. Защо ни трябват модели?
+            1. Защо ни трябват модели?
           </h2>
           <p className="mb-4 text-base sm:text-lg leading-relaxed">
             Реалното пространство е триизмерно и изключително мащабно. Луната е
@@ -186,7 +94,7 @@ export default function Lecture01() {
 
         <section className="mb-8">
           <h2 className="text-xl sm:text-2xl font-semibold mb-4">
-            4. Небесната сфера
+            2. Небесната сфера
           </h2>
           <Theorem
             type="definition"
@@ -213,7 +121,7 @@ export default function Lecture01() {
 
         <section className="mb-8">
           <h2 className="text-xl sm:text-2xl font-semibold mb-4">
-            5. Интерактивен модел на небесната сфера
+            3. Интерактивен модел на небесната сфера
           </h2>
           <p className="mb-4 text-base sm:text-lg leading-relaxed">
             Променете географската ширина, завъртете небето и разгледайте
@@ -247,11 +155,11 @@ export default function Lecture01() {
 
         <section className="mb-8">
           <h2 className="text-xl sm:text-2xl font-semibold mb-4">
-            6. Основни елементи на небесната сфера
+            4. Основни елементи на небесната сфера
           </h2>
 
           <h3 className="text-lg sm:text-xl font-semibold mb-3 mt-6">
-            6.1. Основни точки
+            4.1. Основни точки
           </h3>
           <div className="bg-blue-50 dark:bg-blue-500/10 p-4 rounded-lg mb-4">
             <ul className="space-y-3">
@@ -290,7 +198,7 @@ export default function Lecture01() {
           </div>
 
           <h3 className="text-lg sm:text-xl font-semibold mb-3 mt-6">
-            6.2. Основни кръгове
+            4.2. Основни кръгове
           </h3>
           <div className="bg-green-50 dark:bg-green-900/20 p-4 rounded-lg mb-4">
             <ul className="space-y-3">
@@ -325,7 +233,7 @@ export default function Lecture01() {
           </div>
 
           <h3 className="text-lg sm:text-xl font-semibold mb-3 mt-6">
-            6.3. Еклиптика и наклон на земната ос
+            4.3. Еклиптика и наклон на земната ос
           </h3>
           <div className="bg-yellow-50 dark:bg-yellow-900/20 p-4 rounded-lg mb-4">
             <p className="mb-3">
@@ -382,7 +290,7 @@ export default function Lecture01() {
 
         <section className="mb-8">
           <h2 className="text-xl sm:text-2xl font-semibold mb-4">
-            7. Височината на полюса е равна на географската ширина
+            5. Височината на полюса е равна на географската ширина
           </h2>
           <Theorem
             title="Теорема за височината на полюса"
@@ -402,7 +310,7 @@ export default function Lecture01() {
 
         <section className="mb-8">
           <h2 className="text-xl sm:text-2xl font-semibold mb-4">
-            8. Как се изменя небето според географската ширина
+            6. Как се изменя небето според географската ширина
           </h2>
 
           <div className="space-y-4">
@@ -443,7 +351,7 @@ export default function Lecture01() {
 
         <section className="mb-8">
           <h2 className="text-xl sm:text-2xl font-semibold mb-4">
-            9. Видимо денонощно движение на небето
+            7. Видимо денонощно движение на небето
           </h2>
           <p className="mb-4 text-base sm:text-lg leading-relaxed">
             Поради въртенето на Земята около оста ѝ, имаме впечатление, че:
@@ -491,14 +399,14 @@ export default function Lecture01() {
 
         <section className="mb-8">
           <h2 className="text-xl sm:text-2xl font-semibold mb-4">
-            10. 🎯 Бърз тест
+            8. 🎯 Бърз тест
           </h2>
           <Quiz questions={QUIZ} />
         </section>
 
         <section className="mb-8">
           <h2 className="text-xl sm:text-2xl font-semibold mb-4">
-            11. 📝 Задачи за упражнение
+            9. 📝 Задачи за упражнение
           </h2>
           <TaskBoard>
           <div className="mb-6">
@@ -738,11 +646,10 @@ export default function Lecture01() {
 
         <section className="mb-8">
           <h2 className="text-xl sm:text-2xl font-semibold mb-4">
-            12. Обобщение на лекцията
+            10. Обобщение на лекцията
           </h2>
           <div className="bg-gradient-to-r from-blue-50 to-purple-50 dark:from-gray-800 dark:to-gray-700 p-6 rounded-lg">
             <ul className="space-y-2">
-              <li>✓ Астрономията работи с модели</li>
               <li>
                 ✓ Небесната сфера е основният геометричен модел за описание на
                 небето – важни са посоките, не разстоянията

@@ -113,7 +113,7 @@ export default function Lecture05() {
             <ul className="list-disc list-inside space-y-2">
               <li>
                 <strong>Слънце:</strong> диаметър 1,39 млн. km, разстояние 150
-                млн. km → ъглов диаметър <Tex>{'\\approx 0{,}53^\\circ'}</Tex> (<Tex>{"31{,}6'\\text{–}32{,}7'"}</Tex>)
+                млн. km → <Term id="angular-diameter">ъглов диаметър</Term> <Tex>{'\\approx 0{,}53^\\circ'}</Tex> (<Tex>{"31{,}6'\\text{–}32{,}7'"}</Tex>)
               </li>
               <li>
                 <strong>Луна:</strong> диаметър 3474 km, разстояние 356 500–406

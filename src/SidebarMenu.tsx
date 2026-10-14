@@ -1,7 +1,7 @@
 import {Atom, BookA, BookMarked, BookOpen, ChevronDown, ChevronRight, Mail, Sigma, Telescope, TrendingUp} from 'lucide-react';
 import {useEffect, useRef, useState} from 'react';
 import {Link, useLocation} from 'react-router-dom';
-import {astronomyTopics, mathTopics, physicsTopics} from '~/topics';
+import {astronomyIntro, astronomyTopics, mathTopics, physicsTopics} from '~/topics';
 
 interface SidebarMenuProps {
   isOpen?: boolean;
@@ -136,6 +136,17 @@ export default function SidebarMenu({
                   >
                     <span className="w-6 flex-shrink-0">🔭</span>
                     <span className="font-medium">Тази вечер</span>
+                  </NavItem>
+                </li>
+                <li>
+                  <NavItem
+                    to={astronomyIntro.path}
+                    active={location.pathname === astronomyIntro.path}
+                    accent="purple"
+                    onClick={onClose}
+                  >
+                    <span className="w-6 flex-shrink-0 text-xs text-gray-400 dark:text-gray-500">·</span>
+                    <span>Въведение</span>
                   </NavItem>
                 </li>
                 {astronomyTopics.flatMap(topic =>
