@@ -26,6 +26,7 @@ const Derivatives = lazy(() => import('./analysis/Derivatives').then(m => ({defa
 const Integrals = lazy(() => import('./analysis/Integrals').then(m => ({default: m.Integrals})));
 const DifferentialEquations = lazy(() => import('./analysis/DifferentialEquations').then(m => ({default: m.DifferentialEquations})));
 const ComplexNumbers = lazy(() => import('./algebra/ComplexNumbers').then(m => ({default: m.ComplexNumbers})));
+const NumberSets = lazy(() => import('./numbers/NumberSets').then(m => ({default: m.NumberSets})));
 const Divisibility = lazy(() => import('./numbers/Divisibility').then(m => ({default: m.Divisibility})));
 const Gcd = lazy(() => import('./numbers/Gcd').then(m => ({default: m.Gcd})));
 const PlaneMotion = lazy(() => import('./physics/mechanics/PlaneMotion').then(m => ({default: m.PlaneMotion})));
@@ -153,6 +154,7 @@ function App() {
               <Route path="complex" element={<ComplexNumbers />} />
             </Route>
             <Route path="numbers">
+              <Route path="number-sets" element={<NumberSets />} />
               <Route path="divisibility" element={<Divisibility />} />
               <Route path="gcd" element={<Gcd />} />
               <Route path="modular" element={<Modular />} />

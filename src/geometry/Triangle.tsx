@@ -415,7 +415,7 @@ export function Triangle() {
           />
           <PythagorasLab />
           <p className={`${text} mb-4`}>
-            Тройки цели числа, за които <Tex>{'c^2 = a^2 + b^2'}</Tex>, се наричат <strong>питагорови тройки</strong>. Най-известните са:
+            Тройки <Term id="integer">цели числа</Term>, за които <Tex>{'c^2 = a^2 + b^2'}</Tex>, се наричат <strong>питагорови тройки</strong>. Най-известните са:
           </p>
           <div className="flex flex-wrap gap-2 mb-4">
             {['3, 4, 5', '5, 12, 13', '8, 15, 17', '7, 24, 25', '6, 8, 10'].map(triple => (

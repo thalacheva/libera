@@ -476,7 +476,7 @@ export function Inequalities() {
         <section className="mb-8">
           <h2 className={h2}>8. Задачи от живота</h2>
           <p className={text}>
-            Внимавай с отговора: ако неизвестното е брой хора или билети, то е цяло число – и „<Tex>{'x > 68{,}57'}</Tex>“ означава „поне 69“.
+            Внимавай с отговора: ако неизвестното е брой хора или билети, то е <Term id="integer">цяло число</Term> – и „<Tex>{'x > 68{,}57'}</Tex>“ означава „поне 69“.
           </p>
           <WordProblems problems={wordProblems} />
         </section>

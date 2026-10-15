@@ -245,7 +245,7 @@ export function ComplexNumbers() {
           <h2 className={h2}>1. Имагинерната единица</h2>
           <div className="bg-amber-50 dark:bg-amber-900/20 border-l-4 border-amber-500 p-4 rounded mb-4">
             <p className="text-sm sm:text-base text-gray-700 dark:text-gray-300">
-              🤔 <strong>Загадка:</strong> Уравнението <Tex>{'x^2 = -1'}</Tex> няма реален корен – квадратът на всяко реално число е
+              🤔 <strong>Загадка:</strong> Уравнението <Tex>{'x^2 = -1'}</Tex> няма реален корен – квадратът на всяко <Term id="real-number">реално число</Term> е
               неотрицателен. Какво ще стане, ако просто <em>измислим</em> число с <Tex>{'i^2 = -1'}</Tex> и смятаме с него по обичайните правила?
             </p>
           </div>

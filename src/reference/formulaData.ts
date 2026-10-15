@@ -349,6 +349,18 @@ export const MATH: Section = {
       title: 'Теория на числата',
       formulas: [
         {
+          name: 'Числови множества',
+          formula: '\\mathbb{N} \\subset \\mathbb{Z} \\subset \\mathbb{Q} \\subset \\mathbb{R}',
+          note: 'естествени, цели, рационални, реални',
+          lesson: '/numbers/number-sets',
+        },
+        {
+          name: 'Чиста периодична дроб',
+          formula: '0{,}(a_1 a_2 \\ldots a_k) = \\frac{\\overline{a_1 a_2 \\ldots a_k}}{\\underbrace{99\\ldots9}_{k}}',
+          note: 'например 0,(27) = 27/99 = 3/11',
+          lesson: '/numbers/number-sets',
+        },
+        {
           name: 'Деление с остатък',
           formula: 'a = bq + r, \\quad 0 \\le r < b',
           lesson: '/numbers/divisibility',

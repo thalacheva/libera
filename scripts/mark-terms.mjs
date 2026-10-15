@@ -41,6 +41,8 @@ const SKIP = {
   'src/analysis/Derivatives.tsx': ['average-speed'],
   // заместване на x в израза и „увеличение“ на графиката, не методът за системи и оптичното увеличение
   'src/analysis/Limits.tsx': ['substitution-method', 'magnification'],
+  // лупа и увеличение върху числовата ос, не оптичните
+  'src/numbers/NumberSets.tsx': ['magnifier', 'magnification'],
   'src/physics/mechanics/PlaneMotion.tsx': ['resistance'],
   'src/physics/mechanics/StaticsFluids.tsx': ['solar-corona'],
   'src/physics/waves/Oscillations.tsx': ['resistance'],

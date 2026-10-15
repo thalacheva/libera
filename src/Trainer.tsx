@@ -46,7 +46,8 @@ export default function Trainer({ newDrill, hint }: { newDrill: () => Drill; hin
         <Tex>{task.tex}</Tex>
       </div>
       <p className="text-center text-lg mb-4 text-gray-800 dark:text-gray-100">
-        <MathText>{task.ask.includes('$') ? task.ask : `$${task.ask}$`}</MathText>
+        {/* Въпрос без $…$: формула (= ?) – като math, текст на кирилица – както е. */}
+        <MathText>{task.ask.includes('$') || /[а-яА-Я]/.test(task.ask) ? task.ask : `$${task.ask}$`}</MathText>
       </p>
 
       <div className="flex flex-wrap justify-center items-center gap-2">
