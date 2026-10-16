@@ -44,6 +44,8 @@ const SKIP = {
   // + кристалната решетка, не дифракционната
   'src/chemistry/structure/Bonding.tsx': ['binding-energy', 'resonance', 'diffraction-grating'],
   'src/chemistry/structure/AtomsTable.tsx': ['electric-charge'],
+  // „количеството вещество“ в смисъл на маса, не на мол
+  'src/astronomy/Lecture06.tsx': ['amount-of-substance'],
   'src/chemistry/structure/Molecules.tsx': ['latent-heat-fusion', 'latent-heat-vaporization', 'diffraction-grating'],
   'src/analysis/Derivatives.tsx': ['average-speed'],
   // заместване на x в израза и „увеличение“ на графиката, не методът за системи и оптичното увеличение

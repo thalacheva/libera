@@ -2395,6 +2395,163 @@ export const CHEMISTRY: Section = {
         },
       ],
     },
+    {
+      id: 'mole',
+      title: 'Мол и моларна маса',
+      formulas: [
+        {
+          name: 'Количество вещество',
+          formula: 'n = \\frac{m}{M} = \\frac{N}{N_A}',
+          lesson: '/chemistry/quantities/mole',
+        },
+        {
+          name: 'Константа на Авогадро',
+          formula: 'N_A = 6{,}022\\,140\\,76 \\cdot 10^{23}\\ \\mathrm{mol^{-1}}',
+          note: 'Точна стойност от 2019 г.',
+          lesson: '/chemistry/quantities/mole',
+        },
+        {
+          name: 'Маса на една частица',
+          formula: 'm_0 = \\frac{M}{N_A}',
+          lesson: '/chemistry/quantities/mole',
+        },
+        {
+          name: 'Относителна молекулна маса',
+          formula: 'M_r = \\sum a_i A_r(\\mathrm{X}_i), \\qquad M = M_r\\ \\mathrm{g/mol}',
+          lesson: '/chemistry/quantities/mole',
+        },
+        {
+          name: 'Масова част на елемент в съединение',
+          formula: 'w(\\mathrm{X}) = \\frac{a \\cdot A_r(\\mathrm{X})}{M_r}',
+          lesson: '/chemistry/quantities/mole',
+        },
+        {
+          name: 'Молекулна формула от най-простата',
+          formula: 'k = \\frac{M}{M_{\\text{най-проста}}}',
+          note: 'Индексите в най-простата формула се умножават по k.',
+          lesson: '/chemistry/quantities/mole',
+        },
+      ],
+    },
+    {
+      id: 'stoichiometry',
+      title: 'Химични уравнения и стехиометрия',
+      formulas: [
+        {
+          name: 'Закон за запазване на масата',
+          formula: '\\sum m_{\\text{реагенти}} = \\sum m_{\\text{продукти}}',
+          lesson: '/chemistry/quantities/stoichiometry',
+        },
+        {
+          name: 'Стехиометрично отношение',
+          formula: '\\frac{n(\\mathrm{A})}{\\nu_A} = \\frac{n(\\mathrm{B})}{\\nu_B}',
+          note: '$\\nu$ – коефициентите в изравненото уравнение.',
+          lesson: '/chemistry/quantities/stoichiometry',
+        },
+        {
+          name: 'Маса по уравнение',
+          formula: 'm(\\mathrm{B}) = \\frac{m(\\mathrm{A})}{M(\\mathrm{A})} \\cdot \\frac{\\nu_B}{\\nu_A} \\cdot M(\\mathrm{B})',
+          lesson: '/chemistry/quantities/stoichiometry',
+        },
+        {
+          name: 'Вещество в недостиг',
+          formula: '\\text{в недостиг е реагентът с най-малко } \\frac{n}{\\nu}',
+          lesson: '/chemistry/quantities/stoichiometry',
+        },
+        {
+          name: 'Добив на реакцията',
+          formula: '\\eta = \\frac{m_{\\text{практ}}}{m_{\\text{теор}}} \\cdot 100\\%',
+          lesson: '/chemistry/quantities/stoichiometry',
+        },
+        {
+          name: 'Чисто вещество в проба',
+          formula: 'm_{\\text{чисто}} = w \\cdot m_{\\text{проба}}',
+          lesson: '/chemistry/quantities/stoichiometry',
+        },
+      ],
+    },
+    {
+      id: 'solutions',
+      title: 'Разтвори и концентрации',
+      formulas: [
+        {
+          name: 'Моларна концентрация',
+          formula: 'c = \\frac{n}{V}, \\qquad [c] = \\mathrm{mol/L} = \\mathrm{mol \\cdot dm^{-3}} = \\mathrm{M}',
+          lesson: '/chemistry/quantities/solutions',
+        },
+        {
+          name: 'Маса за приготвяне на разтвор',
+          formula: 'm = c \\cdot V \\cdot M',
+          lesson: '/chemistry/quantities/solutions',
+        },
+        {
+          name: 'Масова част и моларна концентрация',
+          formula: 'c = \\frac{1000 \\cdot \\rho \\cdot w}{M}',
+          note: 'ρ в g/mL, M в g/mol, c в mol/L.',
+          lesson: '/chemistry/quantities/solutions',
+        },
+        {
+          name: 'Разреждане',
+          formula: 'c_1 V_1 = c_2 V_2',
+          note: 'Количеството разтворено вещество не се променя.',
+          lesson: '/chemistry/quantities/solutions',
+        },
+        {
+          name: 'Смесване на разтвори (обемите се събират)',
+          formula: 'c = \\frac{c_1 V_1 + c_2 V_2}{V_1 + V_2}',
+          lesson: '/chemistry/quantities/solutions',
+        },
+        {
+          name: 'Масова част на наситен разтвор',
+          formula: 'w = \\frac{S}{100 + S}',
+          note: 'S – разтворимост в грамове на 100 g вода.',
+          lesson: '/chemistry/quantities/solutions',
+        },
+        {
+          name: 'ppm и ppb',
+          formula: '1\\ \\mathrm{ppm} = 1\\ \\mathrm{mg/kg} \\approx 1\\ \\mathrm{mg/L}, \\qquad 1\\ \\mathrm{ppb} = 1\\ \\mathrm{\\mu g/kg}',
+          note: 'Приближението с литър е за разредени водни разтвори.',
+          lesson: '/chemistry/quantities/solutions',
+        },
+      ],
+    },
+    {
+      id: 'gases-chem',
+      title: 'Газове в химията',
+      formulas: [
+        {
+          name: 'Моларен обем',
+          formula: 'V_m = \\frac{V}{n}, \\qquad V_m = 22{,}4\\ \\mathrm{L/mol}\\ \\text{(0 °C, 101,3 kPa)}',
+          note: 'При 25 °C и 101,3 kPa – около 24,5 L/mol.',
+          lesson: '/chemistry/quantities/gases',
+        },
+        {
+          name: 'Закон на Авогадро',
+          formula: '\\frac{V_1}{V_2} = \\frac{n_1}{n_2} \\quad (p, T = \\text{const})',
+          lesson: '/chemistry/quantities/gases',
+        },
+        {
+          name: 'Плътност на газ (н.у.)',
+          formula: '\\rho = \\frac{M}{V_m}',
+          lesson: '/chemistry/quantities/gases',
+        },
+        {
+          name: 'Относителна плътност',
+          formula: 'D_{\\mathrm{Y}}(\\mathrm{X}) = \\frac{M(\\mathrm{X})}{M(\\mathrm{Y})}, \\qquad M = 2D_{\\mathrm{H_2}} = 29D_{\\text{въздух}}',
+          lesson: '/chemistry/quantities/gases',
+        },
+        {
+          name: 'Средна моларна маса на газова смес',
+          formula: '\\bar{M} = \\sum \\varphi_i M_i, \\qquad \\varphi_i = \\frac{V_i}{V} = \\frac{n_i}{n}',
+          lesson: '/chemistry/quantities/gases',
+        },
+        {
+          name: 'Закон на Далтон',
+          formula: 'p = \\sum p_i, \\qquad p_i = \\varphi_i\\, p',
+          lesson: '/chemistry/quantities/gases',
+        },
+      ],
+    },
   ],
 };
 

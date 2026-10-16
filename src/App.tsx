@@ -60,6 +60,10 @@ const LinearMotion = lazy(() => import('./physics/mechanics/LinearMotion').then(
 const AtomsTable = lazy(() => import('./chemistry/structure/AtomsTable').then(m => ({default: m.AtomsTable})));
 const Bonding = lazy(() => import('./chemistry/structure/Bonding').then(m => ({default: m.Bonding})));
 const Molecules = lazy(() => import('./chemistry/structure/Molecules').then(m => ({default: m.Molecules})));
+const Mole = lazy(() => import('./chemistry/quantities/Mole').then(m => ({default: m.Mole})));
+const Stoichiometry = lazy(() => import('./chemistry/quantities/Stoichiometry').then(m => ({default: m.Stoichiometry})));
+const Solutions = lazy(() => import('./chemistry/quantities/Solutions').then(m => ({default: m.Solutions})));
+const Gases = lazy(() => import('./chemistry/quantities/Gases').then(m => ({default: m.Gases})));
 const Substances = lazy(() => import('./chemistry/structure/Substances').then(m => ({default: m.Substances})));
 const Units = lazy(() => import('./physics/mechanics/Units').then(m => ({default: m.Units})));
 const Modular = lazy(() => import('./numbers/Modular').then(m => ({default: m.Modular})));
@@ -225,6 +229,12 @@ function App() {
                 <Route path="atoms" element={<AtomsTable />} />
                 <Route path="bonding" element={<Bonding />} />
                 <Route path="molecules" element={<Molecules />} />
+              </Route>
+              <Route path="quantities">
+                <Route path="mole" element={<Mole />} />
+                <Route path="stoichiometry" element={<Stoichiometry />} />
+                <Route path="solutions" element={<Solutions />} />
+                <Route path="gases" element={<Gases />} />
               </Route>
             </Route>
             <Route path="geometry">

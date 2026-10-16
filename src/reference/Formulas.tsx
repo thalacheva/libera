@@ -1,7 +1,7 @@
 import { ArrowUpRight, Search, X } from 'lucide-react';
 import { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Tex } from '~/MathText';
+import { MathText, Tex } from '~/MathText';
 import {
   ASTRONOMY,
   CHEMISTRY,
@@ -290,7 +290,7 @@ function FormulaRow({ formula: f }: { formula: Formula }) {
         </div>
         {f.note && (
           <div className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
-            {f.note}
+            <MathText>{f.note}</MathText>
           </div>
         )}
       </div>

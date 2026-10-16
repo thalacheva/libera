@@ -151,6 +151,16 @@ export const chemistryTopics = [
       { name: 'Форма на молекулите и междумолекулни сили', path: '/molecules' },
     ],
   },
+  {
+    name: 'Количествена химия',
+    path: '/chemistry/quantities',
+    subtopics: [
+      { name: 'Мол и моларна маса', path: '/mole' },
+      { name: 'Химични уравнения и стехиометрия', path: '/stoichiometry' },
+      { name: 'Разтвори и концентрации', path: '/solutions' },
+      { name: 'Газове в химията', path: '/gases' },
+    ],
+  },
 ];
 
 /** Въведението е преди лекция 1 и е без номер – номерата на лекциите (и адресите им) не се променят. */
