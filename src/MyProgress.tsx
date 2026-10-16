@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Quiz, { type Question } from '~/Quiz';
 import { clearProgress, hasActivity, lessonProgress, removeMistake, type LessonProgress } from '~/progress';
-import { astronomyIntro, astronomyTopics, mathTopics, physicsTopics } from '~/topics';
+import { astronomyIntro, astronomyTopics, chemistryTopics, mathTopics, physicsTopics } from '~/topics';
 
 type Lesson = { path: string; name: string };
 type Group = { name: string; lessons: Lesson[] };
@@ -14,6 +14,7 @@ const GROUPS: Group[] = [
     name: t.name,
     lessons: [{ path: astronomyIntro.path, name: 'Въведение' }, ...t.subtopics.map((s, i) => ({ path: t.path + s.path, name: `${i + 1}. ${s.name}` }))],
   })),
+  ...chemistryTopics.map(t => ({ name: t.name, lessons: t.subtopics.map(s => ({ path: t.path + s.path, name: s.name })) })),
 ];
 const LESSONS = GROUPS.flatMap(g => g.lessons);
 

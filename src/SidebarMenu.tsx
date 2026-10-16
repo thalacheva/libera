@@ -1,7 +1,7 @@
-import {Atom, BookA, BookMarked, BookOpen, ChevronDown, ChevronRight, Mail, Sigma, Telescope, TrendingUp} from 'lucide-react';
+import {Atom, BookA, BookMarked, BookOpen, ChevronDown, ChevronRight, FlaskConical, Mail, Sigma, Telescope, TrendingUp} from 'lucide-react';
 import {useEffect, useRef, useState} from 'react';
 import {Link, useLocation} from 'react-router-dom';
-import {astronomyIntro, astronomyTopics, mathTopics, physicsTopics} from '~/topics';
+import {astronomyIntro, astronomyTopics, chemistryTopics, mathTopics, physicsTopics} from '~/topics';
 
 interface SidebarMenuProps {
   isOpen?: boolean;
@@ -16,6 +16,7 @@ export default function SidebarMenu({
   const [expandedSections, setExpandedSections] = useState<{[key: string]: boolean}>({
     math: true,
     physics: true,
+    chemistry: true,
     astronomy: true,
   });
 
@@ -172,6 +173,22 @@ export default function SidebarMenu({
               </ul>
             )}
           </div>
+          {/* Химия секция */}
+          <div>
+            <SectionHeader
+              icon={<FlaskConical size={16} />}
+              label="Химия"
+              to="/chemistry"
+              expanded={expandedSections.chemistry}
+              active={location.pathname === '/chemistry'}
+              onToggle={() => toggleSection('chemistry')}
+              onClose={onClose}
+            />
+            {expandedSections.chemistry && (
+              <TopicList topics={chemistryTopics} accent="amber" pathname={location.pathname} onClose={onClose} />
+            )}
+          </div>
+
         </nav>
 
         <div className="px-5 py-4 border-t border-gray-100 dark:border-gray-800">
@@ -248,9 +265,10 @@ function SectionHeader({
 const topicAccent = {
   blue: 'text-blue-700 dark:text-blue-300',
   emerald: 'text-emerald-700 dark:text-emerald-300',
+  amber: 'text-amber-700 dark:text-amber-300',
 };
 
-/** Групи уроци с подтеми – за математиката и физиката. */
+/** Групи уроци с подтеми – за математиката, физиката и химията. */
 function TopicList({
   topics,
   accent,
@@ -314,6 +332,7 @@ const accentClasses = {
   blue: 'bg-blue-50 text-blue-700 dark:bg-blue-500/15 dark:text-blue-300',
   purple: 'bg-purple-50 text-purple-700 dark:bg-purple-500/15 dark:text-purple-300',
   emerald: 'bg-emerald-50 text-emerald-700 dark:bg-emerald-500/15 dark:text-emerald-300',
+  amber: 'bg-amber-50 text-amber-700 dark:bg-amber-500/15 dark:text-amber-300',
 };
 
 function NavItem({

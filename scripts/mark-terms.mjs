@@ -38,6 +38,13 @@ const files = only.length ? lessons.filter(([f]) => only.includes(f)) : lessons;
 
 // Споменавания в друг смисъл („съпротивление на въздуха“, „напрежение на Хъбъл“…) – не ги отбелязваме
 const SKIP = {
+  // топенето и кипенето като явления (не топлината им) и компонентите на смес
+  'src/chemistry/structure/Substances.tsx': ['latent-heat-fusion', 'latent-heat-vaporization', 'vector-components'],
+  // енергия на химичната връзка и резонансни структури, не ядрената енергия на връзката и резонансът
+  // + кристалната решетка, не дифракционната
+  'src/chemistry/structure/Bonding.tsx': ['binding-energy', 'resonance', 'diffraction-grating'],
+  'src/chemistry/structure/AtomsTable.tsx': ['electric-charge'],
+  'src/chemistry/structure/Molecules.tsx': ['latent-heat-fusion', 'latent-heat-vaporization', 'diffraction-grating'],
   'src/analysis/Derivatives.tsx': ['average-speed'],
   // заместване на x в израза и „увеличение“ на графиката, не методът за системи и оптичното увеличение
   'src/analysis/Limits.tsx': ['substitution-method', 'magnification'],

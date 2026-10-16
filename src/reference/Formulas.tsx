@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { Tex } from '~/MathText';
 import {
   ASTRONOMY,
+  CHEMISTRY,
   CONSTANTS,
   type Formula,
   type FormulaGroup,
@@ -11,13 +12,14 @@ import {
   PHYSICS,
 } from './formulaData';
 
-type Filter = 'all' | 'math' | 'physics' | 'astronomy' | 'constants';
+type Filter = 'all' | 'math' | 'physics' | 'astronomy' | 'chemistry' | 'constants';
 
 const FILTERS: { id: Filter; label: string }[] = [
   { id: 'all', label: 'Всичко' },
   { id: 'math', label: 'Математика' },
   { id: 'physics', label: 'Физика' },
   { id: 'astronomy', label: 'Астрономия' },
+  { id: 'chemistry', label: 'Химия' },
   { id: 'constants', label: 'Константи' },
 ];
 
@@ -60,6 +62,13 @@ export function Formulas() {
         : [],
     [filter, query]
   );
+  const chemistry = useMemo(
+    () =>
+      filter === 'all' || filter === 'chemistry'
+        ? filterGroups(CHEMISTRY.groups, query)
+        : [],
+    [filter, query]
+  );
   const astronomy = useMemo(
     () =>
       filter === 'all' || filter === 'astronomy'
@@ -83,7 +92,7 @@ export function Formulas() {
   );
 
   const count =
-    [...math, ...physics, ...astronomy].reduce((s, g) => s + g.formulas.length, 0) +
+    [...math, ...physics, ...astronomy, ...chemistry].reduce((s, g) => s + g.formulas.length, 0) +
     constants.reduce((s, c) => s + c.items.length, 0);
 
   return (
@@ -164,6 +173,9 @@ export function Formulas() {
         {astronomy.length > 0 && (
           <SectionBlock title="Астрономия" accent="purple" groups={astronomy} />
         )}
+        {chemistry.length > 0 && (
+          <SectionBlock title="Химия" accent="amber" groups={chemistry} />
+        )}
 
         {constants.length > 0 && (
           <section className="mb-10">
@@ -218,6 +230,7 @@ const accents = {
   blue: 'text-blue-700 dark:text-blue-300',
   purple: 'text-purple-700 dark:text-purple-300',
   emerald: 'text-emerald-700 dark:text-emerald-300',
+  amber: 'text-amber-700 dark:text-amber-300',
 };
 
 function SectionBlock({

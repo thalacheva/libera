@@ -139,6 +139,20 @@ export const physicsTopics = [
   },
 ];
 
+// Химия: в менюто са само групите, в които вече има уроци (целият план е в README).
+export const chemistryTopics = [
+  {
+    name: 'Строеж на веществото',
+    path: '/chemistry/structure',
+    subtopics: [
+      { name: 'Вещества, смеси и разделяне', path: '/substances' },
+      { name: 'Атоми, изотопи и периодичната система', path: '/atoms' },
+      { name: 'Химична връзка', path: '/bonding' },
+      { name: 'Форма на молекулите и междумолекулни сили', path: '/molecules' },
+    ],
+  },
+];
+
 /** Въведението е преди лекция 1 и е без номер – номерата на лекциите (и адресите им) не се променят. */
 export const astronomyIntro = { name: 'Въведение: какво изучава астрономията', path: '/astronomy/intro' };
 

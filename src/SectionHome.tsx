@@ -1,11 +1,11 @@
-import {ArrowRight, Atom, BookA, BookMarked, CheckCircle2, ChevronRight, Sigma, Telescope} from 'lucide-react';
+import {ArrowRight, Atom, BookA, BookMarked, CheckCircle2, ChevronRight, FlaskConical, Sigma, Telescope} from 'lucide-react';
 import {useEffect, useState} from 'react';
 import {Link} from 'react-router-dom';
 import {lessonPages} from '~/pages';
 import {hasActivity, lessonProgress} from '~/progress';
-import {astronomyIntro, astronomyTopics, mathTopics, physicsTopics} from '~/topics';
+import {astronomyIntro, astronomyTopics, chemistryTopics, mathTopics, physicsTopics} from '~/topics';
 
-type Area = 'math' | 'physics' | 'astronomy';
+type Area = 'math' | 'physics' | 'astronomy' | 'chemistry';
 type Lesson = {path: string; name: string; number?: number};
 type Group = {name: string; lessons: Lesson[]};
 
@@ -47,6 +47,16 @@ const SECTIONS: Record<
     accent: 'text-emerald-700 dark:text-emerald-300',
     hover: 'hover:border-emerald-300 dark:hover:border-emerald-500/50',
   },
+  chemistry: {
+    title: 'Химия',
+    icon: FlaskConical,
+    intro:
+      'Курс по химия от веществата и смесите до реакциите, органичната и ядрената химия. Във всеки урок има лаборатории, в които сам смесваш, разделяш и измерваш, решени примери, бърз тест и олимпиадни задачи.',
+    groups: groupsOf(chemistryTopics),
+    hero: 'from-amber-600 to-orange-800',
+    accent: 'text-amber-700 dark:text-amber-300',
+    hover: 'hover:border-amber-300 dark:hover:border-amber-500/50',
+  },
   astronomy: {
     title: 'Астрономия',
     icon: Telescope,
@@ -67,7 +77,7 @@ export function SectionHome({area}: {area: Area}) {
   const {title, icon: Icon, intro, groups, hero, accent, hover} = SECTIONS[area];
   const lessons = groups.flatMap(g => g.lessons);
   const single = groups.length === 1;
-  const word = area === 'astronomy' ? 'лекции' : 'урока';
+  const word = area === 'astronomy' ? (lessons.length === 1 ? 'лекция' : 'лекции') : lessons.length === 1 ? 'урок' : 'урока';
 
   // Прогресът е в localStorage – чете се след зареждане, за да съвпада с готовия HTML
   const [started, setStarted] = useState<Set<string>>(new Set());

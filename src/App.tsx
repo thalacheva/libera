@@ -57,6 +57,10 @@ const Uncertainty = lazy(() => import('./physics/modern/Uncertainty').then(m => 
 const ParticleInBox = lazy(() => import('./physics/modern/ParticleInBox').then(m => ({default: m.ParticleInBox})));
 const QuantumAtom = lazy(() => import('./physics/modern/QuantumAtom').then(m => ({default: m.QuantumAtom})));
 const LinearMotion = lazy(() => import('./physics/mechanics/LinearMotion').then(m => ({default: m.LinearMotion})));
+const AtomsTable = lazy(() => import('./chemistry/structure/AtomsTable').then(m => ({default: m.AtomsTable})));
+const Bonding = lazy(() => import('./chemistry/structure/Bonding').then(m => ({default: m.Bonding})));
+const Molecules = lazy(() => import('./chemistry/structure/Molecules').then(m => ({default: m.Molecules})));
+const Substances = lazy(() => import('./chemistry/structure/Substances').then(m => ({default: m.Substances})));
 const Units = lazy(() => import('./physics/mechanics/Units').then(m => ({default: m.Units})));
 const Modular = lazy(() => import('./numbers/Modular').then(m => ({default: m.Modular})));
 const MyProgress = lazy(() => import('./MyProgress').then(m => ({default: m.MyProgress})));
@@ -212,6 +216,15 @@ function App() {
                 <Route path="uncertainty" element={<Uncertainty />} />
                 <Route path="particle-in-box" element={<ParticleInBox />} />
                 <Route path="quantum-atom" element={<QuantumAtom />} />
+              </Route>
+            </Route>
+            <Route path="chemistry">
+              <Route index element={<SectionHome area="chemistry" />} />
+              <Route path="structure">
+                <Route path="substances" element={<Substances />} />
+                <Route path="atoms" element={<AtomsTable />} />
+                <Route path="bonding" element={<Bonding />} />
+                <Route path="molecules" element={<Molecules />} />
               </Route>
             </Route>
             <Route path="geometry">

@@ -136,7 +136,7 @@ export default function Lecture16() {
                 орбитата
               </li>
               <li>
-                <strong>Йонна опашка</strong> – синкава (свети йонът <Tex>{'\\mathrm{CO^+}'}</Tex>), права, винаги точно от Слънцето: <Term id="solar-wind">слънчевият вятър</Term> я носи
+                <strong>Йонна опашка</strong> – синкава (свети <Term id="ion">йонът</Term> <Tex>{'\\mathrm{CO^+}'}</Tex>), права, винаги точно от Слънцето: <Term id="solar-wind">слънчевият вятър</Term> я носи
                 със стотици <Tex>{'\\mathrm{km/s}'}</Tex>; дълга до 1 AU
               </li>
             </ul>

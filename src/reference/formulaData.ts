@@ -2239,6 +2239,165 @@ export const PHYSICS: Section = {
   ],
 };
 
+export const CHEMISTRY: Section = {
+  id: 'chemistry',
+  title: 'Химия',
+  groups: [
+    {
+      id: 'mixtures',
+      title: 'Смеси и разделяне',
+      formulas: [
+        {
+          name: 'Масова част',
+          formula: 'w(\\mathrm{X}) = \\frac{m(\\mathrm{X})}{m_{\\text{смес}}}, \\qquad \\sum w_i = 1 = 100\\%',
+          lesson: '/chemistry/structure/substances',
+        },
+        {
+          name: 'Маса на разтвор',
+          formula: 'm_{\\text{р-р}} = m_{\\text{разтворено в-во}} + m_{\\text{разтворител}}',
+          lesson: '/chemistry/structure/substances',
+        },
+        {
+          name: 'Смесване на разтвори',
+          formula: 'w = \\frac{w_1 m_1 + w_2 m_2}{m_1 + m_2}',
+          note: 'Събират се масите на веществото и на разтворите, не масовите части.',
+          lesson: '/chemistry/structure/substances',
+        },
+        {
+          name: 'Изпаряване и разреждане',
+          formula: 'w_1 m_1 = w_2 m_2',
+          note: 'Масата на разтвореното вещество не се променя.',
+          lesson: '/chemistry/structure/substances',
+        },
+        {
+          name: 'Обемна част (газове)',
+          formula: '\\varphi(\\mathrm{X}) = \\frac{V(\\mathrm{X})}{V_{\\text{смес}}}',
+          lesson: '/chemistry/structure/substances',
+        },
+        {
+          name: 'Стойност Rf при хроматография',
+          formula: 'R_f = \\frac{l_{\\text{петно}}}{l_{\\text{фронт}}}, \\qquad 0 \\le R_f \\le 1',
+          lesson: '/chemistry/structure/substances',
+        },
+      ],
+    },
+    {
+      id: 'atoms',
+      title: 'Атоми, изотопи и периодичната система',
+      formulas: [
+        {
+          name: 'Масово число',
+          formula: 'A = Z + N',
+          note: '$Z$ – протони, $N$ – неутрони; нуклид ${}^{A}_{Z}\\mathrm{X}$.',
+          lesson: '/chemistry/structure/atoms',
+        },
+        {
+          name: 'Електрони в йон',
+          formula: 'n_e = Z - q',
+          note: 'За катион $q > 0$, за анион $q < 0$; в неутралния атом $n_e = Z$.',
+          lesson: '/chemistry/structure/atoms',
+        },
+        {
+          name: 'Атомна единица за маса',
+          formula: '1\\ \\mathrm{u} = \\frac{1}{12}\\,m({}^{12}\\mathrm{C}) \\approx 1{,}661 \\cdot 10^{-27}\\ \\mathrm{kg}',
+          lesson: '/chemistry/structure/atoms',
+        },
+        {
+          name: 'Относителна атомна маса',
+          formula: 'A_r = \\sum_i x_i m_i, \\qquad \\sum_i x_i = 1',
+          note: '$x_i$ – дял на изотопа, $m_i$ – масата му в u.',
+          lesson: '/chemistry/structure/atoms',
+        },
+        {
+          name: 'Дял на изотоп (два изотопа)',
+          formula: 'x_1 = \\frac{m_2 - A_r}{m_2 - m_1}',
+          lesson: '/chemistry/structure/atoms',
+        },
+        {
+          name: 'Външни електрони (главни групи)',
+          formula: 'n_{\\text{вън}} = \\text{група} \\ (1, 2), \\qquad n_{\\text{вън}} = \\text{група} - 10 \\ (13\\text{–}18)',
+          note: 'Номерът на периода е равен на броя на електронните слоеве.',
+          lesson: '/chemistry/structure/atoms',
+        },
+      ],
+    },
+    {
+      id: 'bonding',
+      title: 'Химична връзка',
+      formulas: [
+        {
+          name: 'Заряд на йона (главни групи)',
+          formula: 'q = +N_{\\text{гр}}\\ (\\text{групи 1, 2, 13}), \\qquad q = N_{\\text{гр}} - 18\\ (\\text{групи 15–17})',
+          note: 'Металите отдават валентните си електрони, неметалите приемат до октет.',
+          lesson: '/chemistry/structure/bonding',
+        },
+        {
+          name: 'Електронеутралност на йонно съединение',
+          formula: 'n \\cdot q_{+} + m \\cdot q_{-} = 0',
+          note: 'Броят на йоните се намира от НОК на зарядите: $\\mathrm{Al^{3+}}$ и $\\mathrm{O^{2-}}$ → $\\mathrm{Al_2O_3}$.',
+          lesson: '/chemistry/structure/bonding',
+        },
+        {
+          name: 'Разлика в електроотрицателността',
+          formula: '\\Delta\\chi = |\\chi_A - \\chi_B|',
+          note: 'Около 0 – ковалентна неполярна, умерена – ковалентна полярна, над около 1,7 (метал и неметал) – йонна; границите са приблизителни.',
+          lesson: '/chemistry/structure/bonding',
+        },
+        {
+          name: 'Брой електронни двойки във формула на Люис',
+          formula: 'N_{\\text{двойки}} = \\frac{\\sum V_i - q}{2}',
+          note: '$V_i$ – валентните електрони на атомите, $q$ – зарядът на частицата.',
+          lesson: '/chemistry/structure/bonding',
+        },
+        {
+          name: 'Формален заряд',
+          formula: 'Z_{\\text{ф}} = V - N - \\frac{B}{2}',
+          note: '$N$ – електрони в несподелените двойки, $B$ – в общите двойки на атома.',
+          lesson: '/chemistry/structure/bonding',
+        },
+        {
+          name: 'Енергия на реакция от енергиите на връзките',
+          formula: 'Q \\approx \\sum E_{\\text{образувани}} - \\sum E_{\\text{разкъсани}}',
+          note: '$Q > 0$ – енергия се отделя.',
+          lesson: '/chemistry/structure/bonding',
+        },
+      ],
+    },
+    {
+      id: 'molecules',
+      title: 'Форма на молекулите и полярност',
+      formulas: [
+        {
+          name: 'Брой електронни области (VSEPR)',
+          formula: 'n = n_{\\text{свързани атоми}} + n_{\\text{неподелени двойки}}',
+          note: 'Кратната връзка се брои за една област.',
+          lesson: '/chemistry/structure/molecules',
+        },
+        {
+          name: 'Идеални ъгли',
+          formula: '2: 180^\\circ \\qquad 3: 120^\\circ \\qquad 4: 109{,}5^\\circ \\qquad 5: 90^\\circ,\\ 120^\\circ \\qquad 6: 90^\\circ',
+          lesson: '/chemistry/structure/molecules',
+        },
+        {
+          name: 'Ъгъл в тетраедъра',
+          formula: '\\cos\\theta = -\\tfrac{1}{3}, \\qquad \\theta \\approx 109{,}47^\\circ',
+          lesson: '/chemistry/structure/molecules',
+        },
+        {
+          name: 'Диполен момент',
+          formula: '\\mu = q \\cdot d, \\qquad 1\\ \\mathrm{D} \\approx 3{,}336 \\cdot 10^{-30}\\ \\mathrm{C \\cdot m}',
+          lesson: '/chemistry/structure/molecules',
+        },
+        {
+          name: 'Диполен момент на молекулата',
+          formula: '\\vec{\\mu} = \\sum \\vec{\\mu}_i, \\qquad \\text{два равни дипола под ъгъл } \\theta:\\ \\mu = 2\\mu_b \\cos\\frac{\\theta}{2}',
+          lesson: '/chemistry/structure/molecules',
+        },
+      ],
+    },
+  ],
+};
+
 export const ASTRONOMY: Section = {
   id: 'astronomy',
   title: 'Астрономия',
