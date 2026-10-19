@@ -64,6 +64,23 @@ const Mole = lazy(() => import('./chemistry/quantities/Mole').then(m => ({defaul
 const Stoichiometry = lazy(() => import('./chemistry/quantities/Stoichiometry').then(m => ({default: m.Stoichiometry})));
 const Solutions = lazy(() => import('./chemistry/quantities/Solutions').then(m => ({default: m.Solutions})));
 const Gases = lazy(() => import('./chemistry/quantities/Gases').then(m => ({default: m.Gases})));
+const ReactionEnergy = lazy(() => import('./chemistry/reactions/ReactionEnergy').then(m => ({default: m.ReactionEnergy})));
+const Kinetics = lazy(() => import('./chemistry/reactions/Kinetics').then(m => ({default: m.Kinetics})));
+const Equilibrium = lazy(() => import('./chemistry/reactions/Equilibrium').then(m => ({default: m.Equilibrium})));
+const AcidsBases = lazy(() => import('./chemistry/reactions/AcidsBases').then(m => ({default: m.AcidsBases})));
+const Redox = lazy(() => import('./chemistry/reactions/Redox').then(m => ({default: m.Redox})));
+const Metals = lazy(() => import('./chemistry/inorganic/Metals').then(m => ({default: m.Metals})));
+const Nonmetals = lazy(() => import('./chemistry/inorganic/Nonmetals').then(m => ({default: m.Nonmetals})));
+const CompoundClasses = lazy(() => import('./chemistry/inorganic/CompoundClasses').then(m => ({default: m.CompoundClasses})));
+const QualitativeAnalysis = lazy(() => import('./chemistry/inorganic/QualitativeAnalysis').then(m => ({default: m.QualitativeAnalysis})));
+const Hydrocarbons = lazy(() => import('./chemistry/organic/Hydrocarbons').then(m => ({default: m.Hydrocarbons})));
+const FunctionalGroups = lazy(() => import('./chemistry/organic/FunctionalGroups').then(m => ({default: m.FunctionalGroups})));
+const Mechanisms = lazy(() => import('./chemistry/organic/Mechanisms').then(m => ({default: m.Mechanisms})));
+const Polymers = lazy(() => import('./chemistry/organic/Polymers').then(m => ({default: m.Polymers})));
+const Biomolecules = lazy(() => import('./chemistry/organic/Biomolecules').then(m => ({default: m.Biomolecules})));
+const NuclearChemistry = lazy(() => import('./chemistry/world/NuclearChemistry').then(m => ({default: m.NuclearChemistry})));
+const Environment = lazy(() => import('./chemistry/world/Environment').then(m => ({default: m.Environment})));
+const Spectroscopy = lazy(() => import('./chemistry/world/Spectroscopy').then(m => ({default: m.Spectroscopy})));
 const Substances = lazy(() => import('./chemistry/structure/Substances').then(m => ({default: m.Substances})));
 const Units = lazy(() => import('./physics/mechanics/Units').then(m => ({default: m.Units})));
 const Modular = lazy(() => import('./numbers/Modular').then(m => ({default: m.Modular})));
@@ -235,6 +252,31 @@ function App() {
                 <Route path="stoichiometry" element={<Stoichiometry />} />
                 <Route path="solutions" element={<Solutions />} />
                 <Route path="gases" element={<Gases />} />
+              </Route>
+              <Route path="reactions">
+                <Route path="energy" element={<ReactionEnergy />} />
+                <Route path="kinetics" element={<Kinetics />} />
+                <Route path="equilibrium" element={<Equilibrium />} />
+                <Route path="acids-bases" element={<AcidsBases />} />
+                <Route path="redox" element={<Redox />} />
+              </Route>
+              <Route path="inorganic">
+                <Route path="metals" element={<Metals />} />
+                <Route path="nonmetals" element={<Nonmetals />} />
+                <Route path="compound-classes" element={<CompoundClasses />} />
+                <Route path="qualitative-analysis" element={<QualitativeAnalysis />} />
+              </Route>
+              <Route path="organic">
+                <Route path="hydrocarbons" element={<Hydrocarbons />} />
+                <Route path="functional-groups" element={<FunctionalGroups />} />
+                <Route path="mechanisms" element={<Mechanisms />} />
+                <Route path="polymers" element={<Polymers />} />
+                <Route path="biomolecules" element={<Biomolecules />} />
+              </Route>
+              <Route path="world">
+                <Route path="nuclear" element={<NuclearChemistry />} />
+                <Route path="environment" element={<Environment />} />
+                <Route path="spectroscopy" element={<Spectroscopy />} />
               </Route>
             </Route>
             <Route path="geometry">

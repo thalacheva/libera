@@ -161,6 +161,47 @@ export const chemistryTopics = [
       { name: 'Газове в химията', path: '/gases' },
     ],
   },
+  {
+    name: 'Химични реакции',
+    path: '/chemistry/reactions',
+    subtopics: [
+      { name: 'Енергия на реакциите', path: '/energy' },
+      { name: 'Скорост на реакцията', path: '/kinetics' },
+      { name: 'Химично равновесие', path: '/equilibrium' },
+      { name: 'Киселини, основи и pH', path: '/acids-bases' },
+      { name: 'Окисление-редукция и електрохимия', path: '/redox' },
+    ],
+  },
+  {
+    name: 'Неорганична химия',
+    path: '/chemistry/inorganic',
+    subtopics: [
+      { name: 'Метали', path: '/metals' },
+      { name: 'Неметали', path: '/nonmetals' },
+      { name: 'Класове неорганични съединения', path: '/compound-classes' },
+      { name: 'Йонни реакции и качествен анализ', path: '/qualitative-analysis' },
+    ],
+  },
+  {
+    name: 'Органична химия',
+    path: '/chemistry/organic',
+    subtopics: [
+      { name: 'Въглеводороди', path: '/hydrocarbons' },
+      { name: 'Функционални групи', path: '/functional-groups' },
+      { name: 'Механизми на органичните реакции', path: '/mechanisms' },
+      { name: 'Полимери', path: '/polymers' },
+      { name: 'Химия на живота', path: '/biomolecules' },
+    ],
+  },
+  {
+    name: 'Химия и светът',
+    path: '/chemistry/world',
+    subtopics: [
+      { name: 'Ядрена химия', path: '/nuclear' },
+      { name: 'Химия на околната среда', path: '/environment' },
+      { name: 'Спектроскопия и анализ', path: '/spectroscopy' },
+    ],
+  },
 ];
 
 /** Въведението е преди лекция 1 и е без номер – номерата на лекциите (и адресите им) не се променят. */

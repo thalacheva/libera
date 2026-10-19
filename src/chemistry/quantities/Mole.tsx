@@ -409,7 +409,7 @@ export function Mole() {
 
         <section className="mb-8">
           <h2 className={h2}>8. Моловете около нас</h2>
-          <p className={text}>Количеството вещество стои зад всяка рецепта, лекарство и руда.</p>
+          <p className={text}>Количеството вещество стои зад всяка рецепта, лекарство и <Term id="ore">руда</Term>.</p>
           <WordProblems problems={wordProblems} />
         </section>
 

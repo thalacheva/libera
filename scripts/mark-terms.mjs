@@ -48,6 +48,39 @@ const SKIP = {
   'src/astronomy/Lecture06.tsx': ['amount-of-substance'],
   'src/chemistry/structure/Molecules.tsx': ['latent-heat-fusion', 'latent-heat-vaporization', 'diffraction-grating'],
   'src/analysis/Derivatives.tsx': ['average-speed'],
+  // кристалната решетка, не дифракционната
+  'src/chemistry/reactions/ReactionEnergy.tsx': ['diffraction-grating'],
+  // компонентите на буфера, не на вектор; „провежда слабо ток“
+  'src/chemistry/reactions/AcidsBases.tsx': ['vector-components', 'electric-current'],
+  // средната скорост на реакцията и синтезът на амоняк, не на движението и ядреният синтез
+  'src/chemistry/reactions/Kinetics.tsx': ['average-speed', 'nuclear-fusion'],
+  // „от порядъка на“ в разговорен смисъл
+  'src/chemistry/reactions/Equilibrium.tsx': ['order-of-magnitude'],
+  // редът на активност на металите, не радиоактивността
+  'src/chemistry/inorganic/Metals.tsx': ['activity'],
+  // синтезът на амоняк, не ядреният синтез
+  'src/chemistry/inorganic/Nonmetals.tsx': ['nuclear-fusion'],
+  // кипенето като явление, не топлината му
+  'src/chemistry/inorganic/QualitativeAnalysis.tsx': ['latent-heat-vaporization'],
+  // органичен синтез, кипене/топене като явления, „по-силна киселина“, „производни на амоняка“
+  'src/chemistry/organic/FunctionalGroups.tsx': ['nuclear-fusion', 'latent-heat-vaporization', 'strong-acid', 'derivative'],
+  // температура на топене/кипене и „дясната ръка“ като образ за хиралност
+  'src/chemistry/organic/Biomolecules.tsx': ['latent-heat-fusion', 'latent-heat-vaporization', 'right-hand-rule'],
+  // заместване на халоген (не методът), кипене и топене като явления
+  'src/chemistry/organic/Hydrocarbons.tsx': ['substitution-method', 'latent-heat-vaporization', 'latent-heat-fusion'],
+  // „комбинации“ на условия, химично заместване и синтез на лекарства
+  'src/chemistry/organic/Mechanisms.tsx': ['combination', 'substitution-method', 'nuclear-fusion'],
+  // „степен на окисление“, не самото окисление
+  'src/chemistry/inorganic/CompoundClasses.tsx': ['oxidation'],
+  // ядрен магнитен резонанс и ppm на честотата в ЯМР, не механичният резонанс и концентрацията
+  'src/chemistry/world/Spectroscopy.tsx': ['resonance', 'ppm'],
+  // медицинският ЯМР томограф, не спектроскопията
+  'src/physics/electricity/DirectCurrent.tsx': ['nmr-spectroscopy'],
+  'src/physics/electricity/MagneticField.tsx': ['nmr-spectroscopy'],
+  // законът на Фарадей за електролизата, не за индукцията
+  'src/chemistry/reactions/Redox.tsx': ['electromagnetic-induction'],
+  // анод и катод на вакуумна фотоклетка, не на електролизна вана
+  'src/physics/modern/Photons.tsx': ['anode', 'cathode'],
   // заместване на x в израза и „увеличение“ на графиката, не методът за системи и оптичното увеличение
   'src/analysis/Limits.tsx': ['substitution-method', 'magnification'],
   // лупа и увеличение върху числовата ос, не оптичните

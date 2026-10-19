@@ -396,7 +396,7 @@ export function Logarithms() {
         <section className="mb-8">
           <h2 className={h2}>7. Логаритмите около нас</h2>
           <p className={text}>
-            Логаритмичните скали „свиват“ огромни диапазони в удобни числа: киселинността (pH), силата на звука (<Term id="decibel">децибели</Term>), земетресенията
+            Логаритмичните скали „свиват“ огромни диапазони в удобни числа: киселинността (<Term id="ph">pH</Term>), силата на звука (<Term id="decibel">децибели</Term>), земетресенията
             (скалата на Рихтер) и яркостта на звездите (<Term id="apparent-magnitude">звездни величини</Term> – виж{' '}
             <Link to="/astronomy/lecture18" className={link}>
               лекцията за звездите

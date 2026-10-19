@@ -321,7 +321,7 @@ export default function Lecture16() {
             <div className="bg-white dark:bg-gray-800 p-3 rounded-lg shadow-sm">
               <p className="font-semibold mb-1">⚙️ Железни (~5%)</p>
               <p className="text-sm text-gray-600 dark:text-gray-400">
-                Сплав на желязо и никел – парчета от ядрата на разбити зародиши на планети. След разрязване и ецване показват
+                <Term id="alloy">Сплав</Term> на желязо и никел – парчета от ядрата на разбити зародиши на планети. След разрязване и ецване показват
                 шарките на Видманщетен: кристали, израснали при изстиване с ~1 °C на милион години.
               </p>
             </div>

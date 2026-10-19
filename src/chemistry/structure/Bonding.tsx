@@ -371,7 +371,7 @@ export function Bonding() {
           />
           <p className={text}>
             <Term id="electric-charge">Зарядът</Term> на <Term id="ion">йона</Term> следва от номера на групата. Металите от групи 1, 2 и 13 дават <Term id="cation">катиони</Term> <Tex>{'1+'}</Tex>, <Tex>{'2+'}</Tex> и{' '}
-            <Tex>{'3+'}</Tex>: <Tex>{'\\mathrm{Na^+}'}</Tex>, <Tex>{'\\mathrm{Mg^{2+}}'}</Tex>, <Tex>{'\\mathrm{Al^{3+}}'}</Tex>. Неметалите от
+            <Tex>{'3+'}</Tex>: <Tex>{'\\mathrm{Na^+}'}</Tex>, <Tex>{'\\mathrm{Mg^{2+}}'}</Tex>, <Tex>{'\\mathrm{Al^{3+}}'}</Tex>. <Term id="nonmetals">Неметалите</Term> от
             групи 15, 16 и 17 приемат до октет и дават <Term id="anion">аниони</Term> <Tex>{'3-'}</Tex>, <Tex>{'2-'}</Tex> и <Tex>{'1-'}</Tex>:{' '}
             <Tex>{'\\mathrm{N^{3-}}'}</Tex>, <Tex>{'\\mathrm{O^{2-}}'}</Tex>, <Tex>{'\\mathrm{Cl^-}'}</Tex>.
           </p>

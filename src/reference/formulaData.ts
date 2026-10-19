@@ -2552,6 +2552,699 @@ export const CHEMISTRY: Section = {
         },
       ],
     },
+    {
+      id: 'reaction-energy',
+      title: 'Енергия на реакциите',
+      formulas: [
+        {
+          name: 'Знак на енталпията',
+          formula: '\\Delta H < 0\\ \\text{(екзотермична)}, \\qquad \\Delta H > 0\\ \\text{(ендотермична)}',
+          note: 'Обратната реакция има $\\Delta H$ с обратен знак; при умножаване на уравнението по $k$ и $\\Delta H$ се умножава по $k$.',
+          lesson: '/chemistry/reactions/energy',
+        },
+        {
+          name: 'Калориметрия',
+          formula: 'q = m c \\Delta T, \\qquad \\Delta H = -\\frac{q}{n}',
+          note: 'За вода $c = 4{,}18\\ \\mathrm{J/(g \\cdot K)}$.',
+          lesson: '/chemistry/reactions/energy',
+        },
+        {
+          name: 'Закон на Хес',
+          formula: '\\Delta H = \\sum_i k_i\\, \\Delta H_i',
+          note: 'Ако търсеното уравнение е сбор от дадените, умножени по $k_i$.',
+          lesson: '/chemistry/reactions/energy',
+        },
+        {
+          name: 'ΔH от енталпиите на образуване',
+          formula: '\\Delta H = \\sum \\nu\\, \\Delta_f H^\\circ(\\text{продукти}) - \\sum \\nu\\, \\Delta_f H^\\circ(\\text{реагенти})',
+          note: 'За простите вещества в стандартно състояние $\\Delta_f H^\\circ = 0$.',
+          lesson: '/chemistry/reactions/energy',
+        },
+        {
+          name: 'ΔH от енергиите на връзките',
+          formula: '\\Delta H \\approx \\sum E(\\text{скъсани}) - \\sum E(\\text{образувани})',
+          note: 'Приблизително, със средни енергии на връзките; за вещества в газово състояние.',
+          lesson: '/chemistry/reactions/energy',
+        },
+        {
+          name: 'Калоричност на гориво',
+          formula: 'Q_m = \\frac{|\\Delta_c H|}{M}',
+          note: '$\\Delta_c H$ – енталпия на горене на мол; $1\\ \\mathrm{kcal} = 4{,}184\\ \\mathrm{kJ}$.',
+          lesson: '/chemistry/reactions/energy',
+        },
+        {
+          name: 'Енергия на Гибс',
+          formula: '\\Delta G = \\Delta H - T\\Delta S',
+          note: 'Реакцията може да протече самопроизволно при $\\Delta G < 0$; граничната температура е $T = \\Delta H / \\Delta S$.',
+          lesson: '/chemistry/reactions/energy',
+        },
+      ],
+    },
+    {
+      id: 'kinetics',
+      title: 'Скорост на реакцията',
+      formulas: [
+        {
+          name: 'Средна скорост на реакцията',
+          formula: '\\bar{v} = -\\frac{\\Delta c(\\text{реагент})}{\\Delta t} = \\frac{\\Delta c(\\text{продукт})}{\\Delta t}',
+          note: 'При $a\\mathrm{A} \\to \\ldots$ скоростта на реакцията е $-\\frac{1}{a}\\frac{\\Delta c(\\mathrm{A})}{\\Delta t}$.',
+          lesson: '/chemistry/reactions/kinetics',
+        },
+        {
+          name: 'Правило на Вант Хоф',
+          formula: '\\frac{v_2}{v_1} = \\gamma^{\\frac{t_2 - t_1}{10}}, \\qquad \\gamma \\approx 2\\text{–}4',
+          lesson: '/chemistry/reactions/kinetics',
+        },
+        {
+          name: 'Кинетично уравнение',
+          formula: 'v = k \\cdot c(\\mathrm{A})^m \\cdot c(\\mathrm{B})^n',
+          note: 'Редовете $m$ и $n$ се намират от опит; общият ред е $m + n$.',
+          lesson: '/chemistry/reactions/kinetics',
+        },
+        {
+          name: 'Реакция от първи ред',
+          formula: 'c = c_0 e^{-kt}, \\qquad t_{1/2} = \\frac{\\ln 2}{k}',
+          note: 'След $n$ периода остава $c_0/2^n$.',
+          lesson: '/chemistry/reactions/kinetics',
+        },
+        {
+          name: 'Реакции от нулев и втори ред',
+          formula: 'c = c_0 - kt,\\ t_{1/2} = \\frac{c_0}{2k}; \\qquad \\frac{1}{c} = \\frac{1}{c_0} + kt,\\ t_{1/2} = \\frac{1}{k c_0}',
+          lesson: '/chemistry/reactions/kinetics',
+        },
+        {
+          name: 'Уравнение на Арениус',
+          formula: 'k = A e^{-\\frac{E_a}{RT}}, \\qquad \\ln\\frac{k_2}{k_1} = \\frac{E_a}{R}\\left(\\frac{1}{T_1} - \\frac{1}{T_2}\\right)',
+          lesson: '/chemistry/reactions/kinetics',
+        },
+      ],
+    },
+    {
+      id: 'equilibrium',
+      title: 'Химично равновесие',
+      formulas: [
+        {
+          name: 'Условие за равновесие',
+          formula: 'v_{\\to} = v_{\\leftarrow}',
+          lesson: '/chemistry/reactions/equilibrium',
+        },
+        {
+          name: 'Константа на равновесие (закон за действие на масите)',
+          formula: 'a\\mathrm{A} + b\\mathrm{B} \\rightleftharpoons c\\mathrm{C} + d\\mathrm{D}: \\qquad K_c = \\frac{[\\mathrm{C}]^c [\\mathrm{D}]^d}{[\\mathrm{A}]^a [\\mathrm{B}]^b}',
+          note: 'Твърди вещества и чисти течности не влизат в израза; K зависи само от температурата.',
+          lesson: '/chemistry/reactions/equilibrium',
+        },
+        {
+          name: 'Обърнато и умножено уравнение',
+          formula: "K_{\\text{обр}} = \\frac{1}{K}, \\qquad K' = K^n \\ \\text{(уравнението, умножено по } n\\text{)}",
+          lesson: '/chemistry/reactions/equilibrium',
+        },
+        {
+          name: 'Посока на реакцията',
+          formula: 'Q < K \\Rightarrow \\text{надясно}, \\qquad Q > K \\Rightarrow \\text{наляво}, \\qquad Q = K \\Rightarrow \\text{равновесие}',
+          note: '$Q$ се смята по израза за $K$ с текущите концентрации.',
+          lesson: '/chemistry/reactions/equilibrium',
+        },
+        {
+          name: 'Връзка между Kp и Kc',
+          formula: 'K_p = K_c (RT)^{\\Delta n}, \\qquad R = 0{,}08314\\ \\mathrm{L \\cdot bar/(mol \\cdot K)}',
+          note: '$\\Delta n$ – промяната на броя молове газ по уравнението.',
+          lesson: '/chemistry/reactions/equilibrium',
+        },
+        {
+          name: 'Уравнение на Вант Хоф',
+          formula: '\\ln\\frac{K_2}{K_1} = -\\frac{\\Delta H}{R}\\left(\\frac{1}{T_2} - \\frac{1}{T_1}\\right)',
+          lesson: '/chemistry/reactions/equilibrium',
+        },
+        {
+          name: 'Произведение на разтворимостта',
+          formula: '\\mathrm{AgCl(тв) \\rightleftharpoons Ag^+ + Cl^-}: \\qquad K_{sp} = [\\mathrm{Ag^+}][\\mathrm{Cl^-}], \\qquad s = \\sqrt{K_{sp}}',
+          lesson: '/chemistry/reactions/equilibrium',
+        },
+      ],
+    },
+    {
+      id: 'acids-bases',
+      title: 'Киселини, основи и pH',
+      formulas: [
+        {
+          name: 'Йонно произведение на водата',
+          formula: 'K_w = [\\mathrm{H^+}][\\mathrm{OH^-}] = 1{,}0 \\cdot 10^{-14}\\ \\text{(25 °C)}',
+          lesson: '/chemistry/reactions/acids-bases',
+        },
+        {
+          name: 'pH и pOH',
+          formula: '\\mathrm{pH} = -\\lg[\\mathrm{H^+}], \\qquad \\mathrm{pOH} = -\\lg[\\mathrm{OH^-}], \\qquad \\mathrm{pH} + \\mathrm{pOH} = 14',
+          note: 'Сумата 14 важи при 25 °C.',
+          lesson: '/chemistry/reactions/acids-bases',
+        },
+        {
+          name: 'Константа на дисоциация на киселина',
+          formula: 'K_a = \\frac{[\\mathrm{H^+}][\\mathrm{A^-}]}{[\\mathrm{HA}]}, \\qquad \\mathrm{p}K_a = -\\lg K_a',
+          lesson: '/chemistry/reactions/acids-bases',
+        },
+        {
+          name: 'Закон за разреждането на Оствалд',
+          formula: '\\alpha \\approx \\sqrt{\\frac{K_a}{c}}, \\qquad [\\mathrm{H^+}] \\approx \\sqrt{K_a c}',
+          note: 'За слаба киселина, когато $\\alpha$ е под около 5%.',
+          lesson: '/chemistry/reactions/acids-bases',
+        },
+        {
+          name: 'Спрегната двойка',
+          formula: 'K_a \\cdot K_b = K_w, \\qquad \\mathrm{p}K_a + \\mathrm{p}K_b = 14',
+          lesson: '/chemistry/reactions/acids-bases',
+        },
+        {
+          name: 'Еквивалентна точка при титруване',
+          formula: 'c_a V_a = c_b V_b',
+          note: 'За едноосновна киселина и едновалентна основа.',
+          lesson: '/chemistry/reactions/acids-bases',
+        },
+        {
+          name: 'Уравнение на Хендерсън–Хаселбалх',
+          formula: '\\mathrm{pH} = \\mathrm{p}K_a + \\lg\\frac{[\\mathrm{A^-}]}{[\\mathrm{HA}]}',
+          note: 'pH на буферен разтвор; буферът действа в интервала $\\mathrm{p}K_a \\pm 1$.',
+          lesson: '/chemistry/reactions/acids-bases',
+        },
+      ],
+    },
+    {
+      id: 'redox',
+      title: 'Окисление-редукция и електрохимия',
+      formulas: [
+        {
+          name: 'Сбор на степените на окисление',
+          formula: '\\sum_i n_i\\, x_i = q',
+          note: '$q$ е зарядът на частицата (0 за молекула), $n_i$ – броят на атомите със степен $x_i$.',
+          lesson: '/chemistry/reactions/redox',
+        },
+        {
+          name: 'Електронен баланс',
+          formula: 'k_{\\text{ред}}\\, e_{\\text{отд}} = k_{\\text{ок}}\\, e_{\\text{пр}} = \\text{НОК}(e_{\\text{отд}}, e_{\\text{пр}})',
+          note: 'Отдадените електрони са равни на приетите.',
+          lesson: '/chemistry/reactions/redox',
+        },
+        {
+          name: 'Напрежение на галваничен елемент',
+          formula: 'E^\\circ = E^\\circ_{\\text{катод}} - E^\\circ_{\\text{анод}}',
+          note: 'Анодът е металът с по-отрицателен стандартен потенциал; напр. за елемента на Даниел $0{,}34 - (-0{,}76) = 1{,}10\\ \\mathrm{V}$.',
+          lesson: '/chemistry/reactions/redox',
+        },
+        {
+          name: 'Уравнение на Нернст (25 °C)',
+          formula: 'E = E^\\circ - \\frac{0{,}0592}{n}\\lg Q',
+          lesson: '/chemistry/reactions/redox',
+        },
+        {
+          name: 'Енергия на Гибс и напрежение',
+          formula: '\\Delta G^\\circ = -nFE^\\circ',
+          lesson: '/chemistry/reactions/redox',
+        },
+        {
+          name: 'Закон на Фарадей за електролизата',
+          formula: 'm = \\frac{M\\,I\\,t}{z\\,F}, \\qquad Q = It, \\qquad n(e^-) = \\frac{Q}{F}',
+          note: '$z$ – броят на електроните за една частица.',
+          lesson: '/chemistry/reactions/redox',
+        },
+        {
+          name: 'Константа на Фарадей',
+          formula: 'F = N_A\\, e \\approx 96\\,485\\ \\mathrm{C/mol}',
+          lesson: '/chemistry/reactions/redox',
+        },
+      ],
+    },
+    {
+      id: 'metals',
+      title: 'Метали',
+      formulas: [
+        {
+          name: 'Метал с киселина',
+          formula: '\\mathrm{M + nH^+ \\to M^{n+}} + \\tfrac{n}{2}\\mathrm{H_2}, \\qquad n(\\mathrm{H_2}) = \\frac{n}{2}\\, n(\\mathrm{M})',
+          note: 'Само за металите преди водорода в реда на активност; $n$ е степента на окисление на метала в солта.',
+          lesson: '/chemistry/inorganic/metals',
+        },
+        {
+          name: 'Активен метал с вода',
+          formula: '\\mathrm{2M + 2H_2O \\to 2MOH + H_2}, \\qquad \\mathrm{M + 2H_2O \\to M(OH)_2 + H_2}',
+          note: 'Алкалните метали и Ca, Sr, Ba при стайна температура.',
+          lesson: '/chemistry/inorganic/metals',
+        },
+        {
+          name: 'Изместване на метал от сол',
+          formula: '\\mathrm{Fe + CuSO_4 \\to FeSO_4 + Cu}, \\qquad \\Delta m = n\\,(M_{\\text{отложен}} - M_{\\text{разтворен}})',
+          note: 'Промяната на масата на пластинката, ако металите са с еднаква степен на окисление.',
+          lesson: '/chemistry/inorganic/metals',
+        },
+        {
+          name: 'Метал от руда',
+          formula: 'm(\\text{метал}) = m(\\text{руда}) \\cdot w(\\text{минерал}) \\cdot w(\\text{метал в минерала}) \\cdot \\eta',
+          lesson: '/chemistry/inorganic/metals',
+        },
+        {
+          name: 'Доменна пещ',
+          formula: '\\mathrm{C + O_2 \\to CO_2}, \\quad \\mathrm{CO_2 + C \\to 2CO}, \\quad \\mathrm{Fe_2O_3 + 3CO \\to 2Fe + 3CO_2}',
+          lesson: '/chemistry/inorganic/metals',
+        },
+        {
+          name: 'Амфотерност на алуминия',
+          formula: '\\mathrm{2Al + 2NaOH + 6H_2O \\to 2Na[Al(OH)_4] + 3H_2}',
+          lesson: '/chemistry/inorganic/metals',
+        },
+        {
+          name: 'Алуминотермия',
+          formula: '\\mathrm{Fe_2O_3 + 2Al \\to Al_2O_3 + 2Fe}',
+          lesson: '/chemistry/inorganic/metals',
+        },
+      ],
+    },
+    {
+      id: 'nonmetals',
+      title: 'Неметали',
+      formulas: [
+        {
+          name: 'Ред на активност на халогените',
+          formula: '\\mathrm{F_2 > Cl_2 > Br_2 > I_2}, \\qquad \\mathrm{Cl_2 + 2Br^- \\to 2Cl^- + Br_2}',
+          note: 'По-активният халоген измества по-слабия от разтворите на солите му.',
+          lesson: '/chemistry/inorganic/nonmetals',
+        },
+        {
+          name: 'Контактен метод (сярна киселина)',
+          formula: '\\mathrm{S \\xrightarrow{O_2} SO_2 \\xrightarrow{O_2,\\ V_2O_5} SO_3 \\xrightarrow{H_2SO_4,\\ H_2O} H_2SO_4}',
+          note: '$\\mathrm{2SO_2 + O_2 \\rightleftharpoons 2SO_3}$ при около 450 °C; от 32 t сяра теоретично – 98 t киселина.',
+          lesson: '/chemistry/inorganic/nonmetals',
+        },
+        {
+          name: 'Метод на Оствалд (азотна киселина)',
+          formula: '\\mathrm{NH_3 \\xrightarrow{O_2,\\ Pt} NO \\xrightarrow{O_2} NO_2 \\xrightarrow{O_2,\\ H_2O} HNO_3}',
+          note: '$\\mathrm{4NH_3 + 5O_2 \\to 4NO + 6H_2O}$; от мол $\\mathrm{NH_3}$ теоретично – мол $\\mathrm{HNO_3}$.',
+          lesson: '/chemistry/inorganic/nonmetals',
+        },
+        {
+          name: 'Общ добив на многоетапен процес',
+          formula: '\\eta = \\eta_1 \\cdot \\eta_2 \\cdot \\eta_3 \\cdots',
+          lesson: '/chemistry/inorganic/nonmetals',
+        },
+        {
+          name: 'Събиране на газ',
+          formula: 'M > 29\\ \\mathrm{g/mol}:\\ \\text{съд с отвора нагоре}, \\qquad M < 29\\ \\mathrm{g/mol}:\\ \\text{обърнат съд}',
+          note: 'Над вода се събират само слабо разтворимите газове ($\\mathrm{H_2}$, $\\mathrm{O_2}$, $\\mathrm{N_2}$).',
+          lesson: '/chemistry/inorganic/nonmetals',
+        },
+        {
+          name: 'Получаване на озон',
+          formula: '\\mathrm{3O_2 \\to 2O_3}, \\qquad \\Delta V = -\\tfrac{1}{2} V(\\mathrm{O_3})',
+          note: 'При еднакви условия обемът намалява с половината от обема на образувания озон.',
+          lesson: '/chemistry/inorganic/nonmetals',
+        },
+      ],
+    },
+    {
+      id: 'compound-classes',
+      title: 'Класове неорганични съединения',
+      formulas: [
+        {
+          name: 'Неутрализация',
+          formula: '\\text{основа} + \\text{киселина} \\to \\text{сол} + \\mathrm{H_2O}',
+          note: 'Например $\\mathrm{NaOH + HCl \\to NaCl + H_2O}$.',
+          lesson: '/chemistry/inorganic/compound-classes',
+        },
+        {
+          name: 'Оксиди и вода',
+          formula: '\\text{основен оксид} + \\mathrm{H_2O} \\to \\text{основа}, \\qquad \\text{киселинен оксид} + \\mathrm{H_2O} \\to \\text{киселина}',
+          note: 'С вода реагират само оксидите на алкалните и алкалоземните метали; $\\mathrm{SiO_2}$ не реагира с вода.',
+          lesson: '/chemistry/inorganic/compound-classes',
+        },
+        {
+          name: 'Оксиди с киселини и основи',
+          formula: '\\text{основен оксид} + \\text{киселина} \\to \\text{сол} + \\mathrm{H_2O}, \\qquad \\text{киселинен оксид} + \\text{основа} \\to \\text{сол} + \\mathrm{H_2O}',
+          lesson: '/chemistry/inorganic/compound-classes',
+        },
+        {
+          name: 'Формула на сол',
+          formula: '\\mathrm{M}_a\\mathrm{A}_b: \\quad a \\cdot z(\\mathrm{M}) = b \\cdot |z(\\mathrm{A})|',
+          note: 'Сборът от зарядите на катионите и анионите е нула, например $\\mathrm{Fe_2(SO_4)_3}$: $2 \\cdot 3 = 3 \\cdot 2$.',
+          lesson: '/chemistry/inorganic/compound-classes',
+        },
+        {
+          name: 'Генетична връзка',
+          formula: '\\text{метал} \\to \\text{осн. оксид} \\to \\text{основа} \\to \\text{сол} \\leftarrow \\text{киселина} \\leftarrow \\text{кис. оксид} \\leftarrow \\text{неметал}',
+          lesson: '/chemistry/inorganic/compound-classes',
+        },
+      ],
+    },
+    {
+      id: 'qualitative-analysis',
+      title: 'Йонни реакции и качествен анализ',
+      formulas: [
+        {
+          name: 'Концентрация на йон при пълна дисоциация',
+          formula: '\\mathrm{M_aX_b \\to aM^{n+} + bX^{m-}}, \\qquad c(\\mathrm{M^{n+}}) = a\\,c, \\quad c(\\mathrm{X^{m-}}) = b\\,c',
+          note: 'За силни електролити; $c$ е концентрацията на солта. Проверка: $a \\cdot n = b \\cdot m$.',
+          lesson: '/chemistry/inorganic/qualitative-analysis',
+        },
+        {
+          name: 'Маса на утайка',
+          formula: 'n = c \\cdot V, \\qquad m_{\\text{утайка}} = n_{\\text{утайка}} \\cdot M_{\\text{утайка}}',
+          note: 'Количеството утайка се определя от йона в недостиг според съкратеното йонно уравнение.',
+          lesson: '/chemistry/inorganic/qualitative-analysis',
+        },
+        {
+          name: 'Гравиметрично пресмятане',
+          formula: 'm(\\mathrm{X}) = m_{\\text{утайка}} \\cdot \\frac{k \\cdot M(\\mathrm{X})}{M_{\\text{утайка}}}',
+          note: '$k$ – броят атоми (йони) X във формулата на утайката, например $m(\\mathrm{S}) = m(\\mathrm{BaSO_4}) \\cdot \\frac{32}{233}$.',
+          lesson: '/chemistry/inorganic/qualitative-analysis',
+        },
+        {
+          name: 'Йон от два разтвора след смесване',
+          formula: 'c = \\frac{c_1 V_1 + c_2 V_2}{V_1 + V_2}',
+          note: 'Когато йонът не участва в реакция; $c_1, c_2$ са концентрациите на самия йон в двата разтвора.',
+          lesson: '/chemistry/inorganic/qualitative-analysis',
+        },
+        {
+          name: 'Условие за образуване на утайка',
+          formula: '[\\mathrm{M}]^a [\\mathrm{X}]^b > K_{sp}\\ \\ (\\mathrm{M_aX_b})',
+          lesson: '/chemistry/inorganic/qualitative-analysis',
+        },
+      ],
+    },
+    {
+      id: 'hydrocarbons',
+      title: 'Въглеводороди',
+      formulas: [
+        {
+          name: 'Общи формули на хомоложните редове',
+          formula: '\\text{алкани } \\mathrm{C}_n\\mathrm{H}_{2n+2}, \\quad \\text{алкени, циклоалкани } \\mathrm{C}_n\\mathrm{H}_{2n}, \\quad \\text{алкини } \\mathrm{C}_n\\mathrm{H}_{2n-2}',
+          lesson: '/chemistry/organic/hydrocarbons',
+        },
+        {
+          name: 'Моларна маса на алкан',
+          formula: 'M(\\mathrm{C}_n\\mathrm{H}_{2n+2}) = 14n + 2',
+          note: 'Хомоложната разлика $\\mathrm{CH_2}$ е $14\\ \\mathrm{g/mol}$; за алкените $M = 14n$, за алкините $M = 14n - 2$.',
+          lesson: '/chemistry/organic/hydrocarbons',
+        },
+        {
+          name: 'Пълно изгаряне на въглеводород',
+          formula: '\\mathrm{C}_x\\mathrm{H}_y + \\left(x + \\frac{y}{4}\\right)\\mathrm{O_2} \\to x\\,\\mathrm{CO_2} + \\frac{y}{2}\\,\\mathrm{H_2O}',
+          lesson: '/chemistry/organic/hydrocarbons',
+        },
+        {
+          name: 'Степен на ненаситеност',
+          formula: '\\text{пръстени} + \\pi\\text{-връзки} = \\frac{2x + 2 - y}{2} \\quad (\\mathrm{C}_x\\mathrm{H}_y)',
+          lesson: '/chemistry/organic/hydrocarbons',
+        },
+        {
+          name: 'Хибридизация на въглерода',
+          formula: 'sp^3:\\ 109{,}5^\\circ, \\qquad sp^2:\\ 120^\\circ, \\qquad sp:\\ 180^\\circ',
+          note: 'Дължини на връзките C–C: 154 pm, C=C: 134 pm, C≡C: 120 pm, в бензена – 139 pm.',
+          lesson: '/chemistry/organic/hydrocarbons',
+        },
+      ],
+    },
+    {
+      id: 'functional-groups',
+      title: 'Функционални групи',
+      formulas: [
+        {
+          name: 'Наситени едновалентни алкохоли',
+          formula: '\\mathrm{C_nH_{2n+1}OH}, \\qquad M = 14n + 18',
+          lesson: '/chemistry/organic/functional-groups',
+        },
+        {
+          name: 'Наситени алдехиди и кетони',
+          formula: '\\mathrm{C_nH_{2n}O}, \\qquad M = 14n + 16',
+          lesson: '/chemistry/organic/functional-groups',
+        },
+        {
+          name: 'Наситени едноосновни карбоксилни киселини',
+          formula: '\\mathrm{C_nH_{2n+1}COOH} = \\mathrm{C_{n+1}H_{2n+2}O_2}',
+          note: 'Естерите със същия брой въглеродни атоми са техни изомери.',
+          lesson: '/chemistry/organic/functional-groups',
+        },
+        {
+          name: 'Естерификация',
+          formula: '\\mathrm{RCOOH} + \\mathrm{R\'OH} \\rightleftharpoons \\mathrm{RCOOR\'} + \\mathrm{H_2O}, \\qquad K = \\frac{[\\mathrm{RCOOR\'}][\\mathrm{H_2O}]}{[\\mathrm{RCOOH}][\\mathrm{R\'OH}]} \\approx 4',
+          note: 'Стойността $K \\approx 4$ е за етилов етаноат; при 1 mol киселина и 1 mol алкохол в равновесие се получават около 2/3 mol естер.',
+          lesson: '/chemistry/organic/functional-groups',
+        },
+        {
+          name: 'Окисление на алкохолите',
+          formula: '\\mathrm{RCH_2OH} \\to \\mathrm{RCHO} \\to \\mathrm{RCOOH}, \\qquad \\mathrm{R_2CHOH} \\to \\mathrm{R_2CO}',
+          note: 'Първичните алкохоли дават алдехиди и киселини, вторичните – кетони, третичните не се окисляват.',
+          lesson: '/chemistry/organic/functional-groups',
+        },
+        {
+          name: 'Реакция на сребърното огледало (опростено)',
+          formula: '\\mathrm{RCHO} + \\mathrm{Ag_2O} \\to \\mathrm{RCOOH} + 2\\mathrm{Ag}\\downarrow, \\qquad n(\\mathrm{Ag}) = 2n(\\mathrm{RCHO})',
+          note: 'Метаналът дава 4 mol сребро на мол, защото се окислява до $\\mathrm{CO_2}$.',
+          lesson: '/chemistry/organic/functional-groups',
+        },
+        {
+          name: 'Водород от алкохол и натрий',
+          formula: '\\mathrm{2ROH} + \\mathrm{2Na} \\to \\mathrm{2RONa} + \\mathrm{H_2}, \\qquad n(\\mathrm{H_2}) = \\tfrac{1}{2}\\, n(\\mathrm{OH})',
+          lesson: '/chemistry/organic/functional-groups',
+        },
+      ],
+    },
+    {
+      id: 'mechanisms',
+      title: 'Механизми на органичните реакции',
+      formulas: [
+        {
+          name: 'Дял на продукта при радикалово халогениране',
+          formula: 'x_i = \\frac{n_i r_i}{\\sum_j n_j r_j}',
+          note: '$n_i$ – брой еквивалентни H, $r_i$ – относителна реактивност; при хлориране $r_{\\text{перв}} : r_{\\text{втор}} : r_{\\text{трет}} \\approx 1 : 4 : 5$, при бромиране – около $1 : 80 : 1600$.',
+          lesson: '/chemistry/organic/mechanisms',
+        },
+        {
+          name: 'Кинетично уравнение на SN2 и E2',
+          formula: 'v = k[\\mathrm{RX}][\\mathrm{Nu^-}]',
+          note: 'Една стъпка, реакция от втори порядък; при SN2 конфигурацията се обръща.',
+          lesson: '/chemistry/organic/mechanisms',
+        },
+        {
+          name: 'Кинетично уравнение на SN1 и E1',
+          formula: 'v = k[\\mathrm{RX}], \\qquad t_{1/2} = \\frac{\\ln 2}{k}',
+          note: 'Бавната стъпка е йонизацията до карбокатион – нуклеофилът не влиза в уравнението.',
+          lesson: '/chemistry/organic/mechanisms',
+        },
+        {
+          name: 'Стабилност на карбокатионите и радикалите',
+          formula: '\\text{третичен} > \\text{вторичен} > \\text{първичен} > \\text{метилов}',
+          lesson: '/chemistry/organic/mechanisms',
+        },
+        {
+          name: 'Енергия на фотон, разкъсващ връзка',
+          formula: '\\lambda_{\\max} = \\frac{h c N_A}{E_{\\text{връзка}}}',
+          note: 'За Cl–Cl ($242\\ \\mathrm{kJ/mol}$) – около $494\\ \\mathrm{nm}$.',
+          lesson: '/chemistry/organic/mechanisms',
+        },
+      ],
+    },
+    {
+      id: 'polymers',
+      title: 'Полимери',
+      formulas: [
+        {
+          name: 'Степен на полимеризация',
+          formula: 'n = \\frac{M(\\text{полимер})}{M(\\text{звено})}',
+          lesson: '/chemistry/organic/polymers',
+        },
+        {
+          name: 'Присъединителна полимеризация',
+          formula: 'n\\,\\mathrm{CH_2{=}CHX} \\to [\\mathrm{-CH_2{-}CHX-}]_n',
+          note: 'Звеното има състава и моларната маса на мономера.',
+          lesson: '/chemistry/organic/polymers',
+        },
+        {
+          name: 'Поликондензация (два мономера)',
+          formula: 'n\\,\\mathrm{A} + n\\,\\mathrm{B} \\to \\mathrm{H{-}[AB]_n{-}OH} + (2n - 1)\\,\\mathrm{H_2O}',
+          note: 'Звеното е с $2\\,\\mathrm{H_2O}$ по-леко от сбора на двата мономера, напр. PET: $166 + 62 - 36 = 192\\ \\mathrm{g/mol}$.',
+          lesson: '/chemistry/organic/polymers',
+        },
+        {
+          name: 'Среднобройна моларна маса',
+          formula: 'M_n = \\frac{\\sum n_i M_i}{\\sum n_i}',
+          lesson: '/chemistry/organic/polymers',
+        },
+        {
+          name: 'Средномасова моларна маса',
+          formula: 'M_w = \\frac{\\sum n_i M_i^2}{\\sum n_i M_i}',
+          lesson: '/chemistry/organic/polymers',
+        },
+        {
+          name: 'Дисперсност',
+          formula: '\\text{Đ} = \\frac{M_w}{M_n} \\ge 1',
+          note: 'При еднакво дълги вериги $\\text{Đ} = 1$.',
+          lesson: '/chemistry/organic/polymers',
+        },
+      ],
+    },
+    {
+      id: 'biomolecules',
+      title: 'Химия на живота',
+      formulas: [
+        {
+          name: 'Фотосинтеза',
+          formula: '\\mathrm{6CO_2 + 6H_2O \\xrightarrow{h\\nu} C_6H_{12}O_6 + 6O_2}, \\qquad \\Delta H \\approx +2800\\ \\mathrm{kJ/mol}',
+          note: 'Дишането в клетките е обратният процес.',
+          lesson: '/chemistry/organic/biomolecules',
+        },
+        {
+          name: 'Алкохолна ферментация',
+          formula: '\\mathrm{C_6H_{12}O_6 \\to 2C_2H_5OH + 2CO_2}',
+          lesson: '/chemistry/organic/biomolecules',
+        },
+        {
+          name: 'Хидролиза на нишесте',
+          formula: '\\mathrm{(C_6H_{10}O_5)_n + nH_2O \\to nC_6H_{12}O_6}',
+          lesson: '/chemistry/organic/biomolecules',
+        },
+        {
+          name: 'Осапуняване на мазнина',
+          formula: '\\text{мазнина} + 3\\mathrm{NaOH} \\to \\text{глицерол} + 3\\,\\mathrm{RCOONa}',
+          lesson: '/chemistry/organic/biomolecules',
+        },
+        {
+          name: 'Моларна маса на пептид',
+          formula: 'M = \\sum_{i=1}^{n} M_i - (n - 1) \\cdot 18',
+          note: 'При всяка от $n - 1$ пептидни връзки се отделя молекула вода.',
+          lesson: '/chemistry/organic/biomolecules',
+        },
+        {
+          name: 'Правило на Чаргаф',
+          formula: '\\%\\mathrm{A} = \\%\\mathrm{T}, \\qquad \\%\\mathrm{G} = \\%\\mathrm{C}, \\qquad \\%\\mathrm{A} + \\%\\mathrm{G} = 50\\%',
+          note: 'За двойноверижна ДНК; A–T има две, а G–C – три водородни връзки.',
+          lesson: '/chemistry/organic/biomolecules',
+        },
+        {
+          name: 'Енергийна стойност на храна',
+          formula: 'E = 17\\,m_{\\text{въгл}} + 37\\,m_{\\text{мазн}} + 17\\,m_{\\text{белт}}\\ \\ (\\mathrm{kJ},\\ m\\ \\text{в грамове})',
+          note: 'В kcal коефициентите са 4, 9 и 4.',
+          lesson: '/chemistry/organic/biomolecules',
+        },
+      ],
+    },
+    {
+      id: 'nuclear-chem',
+      title: 'Ядрена химия',
+      formulas: [
+        {
+          name: 'Изравняване на ядрено уравнение',
+          formula: '\\sum A_{\\text{вляво}} = \\sum A_{\\text{вдясно}}, \\qquad \\sum Z_{\\text{вляво}} = \\sum Z_{\\text{вдясно}}',
+          note: 'Елементът на неизвестното ядро се познава по $Z$.',
+          lesson: '/chemistry/world/nuclear',
+        },
+        {
+          name: 'β⁺-разпадане и електронно захващане',
+          formula: '{}^{A}_{Z}\\mathrm{X} \\to {}^{A}_{Z-1}\\mathrm{Y} + {}^{\\ \\,0}_{+1}e + \\nu_e, \\qquad {}^{A}_{Z}\\mathrm{X} + {}^{\\ \\,0}_{-1}e \\to {}^{A}_{Z-1}\\mathrm{Y} + \\nu_e',
+          lesson: '/chemistry/world/nuclear',
+        },
+        {
+          name: 'Брой разпадания в радиоактивен ред',
+          formula: 'x_{\\alpha} = \\frac{A_1 - A_2}{4}, \\qquad y_{\\beta^-} = Z_2 - Z_1 + 2x_{\\alpha}',
+          lesson: '/chemistry/world/nuclear',
+        },
+        {
+          name: 'Активност на дадена маса',
+          formula: 'A = \\frac{\\ln 2}{T_{1/2}} \\cdot \\frac{m}{M} \\cdot N_A',
+          note: '$T_{1/2}$ в секунди, $M$ ≈ масовото число в g/mol.',
+          lesson: '/chemistry/world/nuclear',
+        },
+        {
+          name: 'Възраст по разпадането (¹⁴C)',
+          formula: 't = T_{1/2} \\cdot \\log_2 \\frac{N_0}{N}',
+          note: 'За въглерод-14 $T_{1/2} = 5730$ години; методът е приложим до около 50 000 години.',
+          lesson: '/chemistry/world/nuclear',
+        },
+        {
+          name: 'Калий-аргоново датиране',
+          formula: 't = T_{1/2} \\cdot \\log_2\\left(1 + \\frac{{}^{40}\\mathrm{Ar}/{}^{40}\\mathrm{K}}{0{,}107}\\right)',
+          note: '$T_{1/2}({}^{40}\\mathrm{K}) = 1{,}25 \\cdot 10^9$ години; около 10,7% от разпаданията дават ⁴⁰Ar.',
+          lesson: '/chemistry/world/nuclear',
+        },
+      ],
+    },
+    {
+      id: 'environment-chem',
+      title: 'Химия на околната среда',
+      formulas: [
+        {
+          name: 'CO₂ от изгаряне на въглерод и метан',
+          formula: 'm(\\mathrm{CO_2}) = \\frac{44}{12}\\, m(\\mathrm{C}), \\qquad m(\\mathrm{CO_2}) = \\frac{44}{16}\\, m(\\mathrm{CH_4})',
+          lesson: '/chemistry/world/environment',
+        },
+        {
+          name: 'ppm на CO₂ в атмосферата',
+          formula: '1\\ \\mathrm{ppm\\ CO_2} \\approx 2{,}13\\ \\mathrm{Gt\\ C} \\approx 7{,}8\\ \\mathrm{Gt\\ CO_2}',
+          note: 'Около половината от изхвърления $\\mathrm{CO_2}$ се поема от океаните и растенията.',
+          lesson: '/chemistry/world/environment',
+        },
+        {
+          name: 'Каталитично разрушаване на озона',
+          formula: '\\mathrm{Cl + O_3 \\to ClO + O_2}, \\qquad \\mathrm{ClO + O \\to Cl + O_2}',
+          note: 'Сумарно $\\mathrm{O_3 + O \\to 2O_2}$; хлорният атом е катализатор.',
+          lesson: '/chemistry/world/environment',
+        },
+        {
+          name: 'Кисел дъжд',
+          formula: '\\mathrm{2SO_2 + O_2 \\to 2SO_3}, \\qquad \\mathrm{SO_3 + H_2O \\to H_2SO_4}',
+          note: 'Чистият дъжд е с pH около 5,6 заради разтворения $\\mathrm{CO_2}$; кисел дъжд – под 5,6.',
+          lesson: '/chemistry/world/environment',
+        },
+        {
+          name: 'Временна твърдост на водата',
+          formula: '\\mathrm{Ca(HCO_3)_2 \\xrightarrow{t} CaCO_3 \\downarrow + H_2O + CO_2 \\uparrow}',
+          lesson: '/chemistry/world/environment',
+        },
+        {
+          name: 'Атомна икономия',
+          formula: '\\text{АИ} = \\frac{M(\\text{желан продукт}) \\cdot k}{\\sum k_i\\, M(\\text{реагент}_i)} \\cdot 100\\%',
+          note: 'При присъединителните реакции АИ = 100%.',
+          lesson: '/chemistry/world/environment',
+        },
+      ],
+    },
+    {
+      id: 'spectroscopy',
+      title: 'Спектроскопия и анализ',
+      formulas: [
+        {
+          name: 'Пропускане и абсорбция',
+          formula: 'T = \\frac{I}{I_0}, \\qquad A = \\lg \\frac{I_0}{I} = -\\lg T',
+          note: '$A = 1$ – минава 10% от светлината, $A = 2$ – 1%.',
+          lesson: '/chemistry/world/spectroscopy',
+        },
+        {
+          name: 'Закон на Бер–Ламберт',
+          formula: 'A = \\varepsilon l c',
+          note: '$\\varepsilon$ – моларен коефициент на поглъщане, L/(mol·cm); $l$ – дължина на кюветата, cm; $c$ – mol/L. Важи за разредени разтвори.',
+          lesson: '/chemistry/world/spectroscopy',
+        },
+        {
+          name: 'Смес от поглъщащи вещества',
+          formula: 'A = l\\,(\\varepsilon_1 c_1 + \\varepsilon_2 c_2 + \\ldots)',
+          note: 'Абсорбциите на компонентите се събират; при две вещества се мери при две дължини на вълната.',
+          lesson: '/chemistry/world/spectroscopy',
+        },
+        {
+          name: 'Вълново число',
+          formula: '\\tilde{\\nu} = \\frac{1}{\\lambda}, \\qquad \\tilde{\\nu}\\,[\\mathrm{cm^{-1}}] = \\frac{10^4}{\\lambda\\,[\\mathrm{\\mu m}]}',
+          lesson: '/chemistry/world/spectroscopy',
+        },
+        {
+          name: 'Изотопни пикове в масспектъра',
+          formula: '\\text{1 Cl: } M : (M{+}2) \\approx 3 : 1, \\quad \\text{1 Br: } \\approx 1 : 1, \\quad \\text{2 Cl: } 9 : 6 : 1',
+          note: 'Пикът M+1 е около 1,1% от M за всеки въглероден атом (изотопът ¹³C).',
+          lesson: '/chemistry/world/spectroscopy',
+        },
+        {
+          name: 'Правило n + 1 в ¹H ЯМР',
+          formula: '\\text{брой линии} = n + 1',
+          note: '$n$ – брой еквивалентни водородни атоми при съседния въглероден атом; височините на линиите са като в триъгълника на Паскал.',
+          lesson: '/chemistry/world/spectroscopy',
+        },
+      ],
+    },
   ],
 };
 
