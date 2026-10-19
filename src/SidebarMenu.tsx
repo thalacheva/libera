@@ -13,12 +13,14 @@ export default function SidebarMenu({
   onClose,
 }: SidebarMenuProps) {
   const location = useLocation();
-  const [expandedSections, setExpandedSections] = useState<{[key: string]: boolean}>({
-    math: true,
-    physics: true,
-    chemistry: true,
-    astronomy: true,
-  });
+  const current = sectionOf(location.pathname);
+  // В началото е разгънат само разделът на отворената страница
+  const [expandedSections, setExpandedSections] = useState<{[key: string]: boolean}>(() => (current ? {[current]: true} : {}));
+
+  // При преминаване към урок от друг раздел той се разгръща; останалите остават, както ги е оставил ученикът
+  useEffect(() => {
+    if (current) setExpandedSections(prev => (prev[current] ? prev : {...prev, [current]: true}));
+  }, [current]);
 
   const toggleSection = (section: string) => {
     setExpandedSections(prev => ({ ...prev, [section]: !prev[section] }));
@@ -89,7 +91,7 @@ export default function SidebarMenu({
               icon={<Sigma size={16} />}
               label="Математика"
               to="/math"
-              expanded={expandedSections.math}
+              expanded={!!expandedSections.math}
               active={location.pathname === '/math'}
               onToggle={() => toggleSection('math')}
               onClose={onClose}
@@ -105,7 +107,7 @@ export default function SidebarMenu({
               icon={<Atom size={16} />}
               label="Физика"
               to="/physics"
-              expanded={expandedSections.physics}
+              expanded={!!expandedSections.physics}
               active={location.pathname === '/physics'}
               onToggle={() => toggleSection('physics')}
               onClose={onClose}
@@ -121,7 +123,7 @@ export default function SidebarMenu({
               icon={<Telescope size={16} />}
               label="Астрономия"
               to="/astronomy"
-              expanded={expandedSections.astronomy}
+              expanded={!!expandedSections.astronomy}
               active={location.pathname === '/astronomy'}
               onToggle={() => toggleSection('astronomy')}
               onClose={onClose}
@@ -179,7 +181,7 @@ export default function SidebarMenu({
               icon={<FlaskConical size={16} />}
               label="Химия"
               to="/chemistry"
-              expanded={expandedSections.chemistry}
+              expanded={!!expandedSections.chemistry}
               active={location.pathname === '/chemistry'}
               onToggle={() => toggleSection('chemistry')}
               onClose={onClose}
@@ -218,6 +220,16 @@ export default function SidebarMenu({
       </aside>
     </>
   );
+}
+
+/** Разделът, към който принадлежи страницата (или null за началната, справочниците и т.н.). */
+function sectionOf(pathname: string): string | null {
+  const under = (prefix: string) => pathname === prefix || pathname.startsWith(prefix + '/');
+  if (under('/math') || mathTopics.some(t => under(t.path))) return 'math';
+  if (under('/physics')) return 'physics';
+  if (under('/astronomy')) return 'astronomy';
+  if (under('/chemistry')) return 'chemistry';
+  return null;
 }
 
 function SectionHeader({
