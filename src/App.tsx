@@ -82,6 +82,10 @@ const NuclearChemistry = lazy(() => import('./chemistry/world/NuclearChemistry')
 const Environment = lazy(() => import('./chemistry/world/Environment').then(m => ({default: m.Environment})));
 const Spectroscopy = lazy(() => import('./chemistry/world/Spectroscopy').then(m => ({default: m.Spectroscopy})));
 const Substances = lazy(() => import('./chemistry/structure/Substances').then(m => ({default: m.Substances})));
+const Structure = lazy(() => import('./biology/cell/Structure').then(m => ({default: m.Structure})));
+const Membrane = lazy(() => import('./biology/cell/Membrane').then(m => ({default: m.Membrane})));
+const Division = lazy(() => import('./biology/cell/Division').then(m => ({default: m.Division})));
+const Life = lazy(() => import('./biology/cell/Life').then(m => ({default: m.Life})));
 const Units = lazy(() => import('./physics/mechanics/Units').then(m => ({default: m.Units})));
 const Modular = lazy(() => import('./numbers/Modular').then(m => ({default: m.Modular})));
 const MyProgress = lazy(() => import('./MyProgress').then(m => ({default: m.MyProgress})));
@@ -277,6 +281,15 @@ function App() {
                 <Route path="nuclear" element={<NuclearChemistry />} />
                 <Route path="environment" element={<Environment />} />
                 <Route path="spectroscopy" element={<Spectroscopy />} />
+              </Route>
+            </Route>
+            <Route path="biology">
+              <Route index element={<SectionHome area="biology" />} />
+              <Route path="cell">
+                <Route path="life" element={<Life />} />
+                <Route path="structure" element={<Structure />} />
+                <Route path="membrane" element={<Membrane />} />
+                <Route path="division" element={<Division />} />
               </Route>
             </Route>
             <Route path="geometry">

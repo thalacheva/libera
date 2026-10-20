@@ -85,6 +85,12 @@ const SKIP = {
   'src/analysis/Limits.tsx': ['substitution-method', 'magnification'],
   // лупа и увеличение върху числовата ос, не оптичните
   'src/numbers/NumberSets.tsx': ['magnifier', 'magnification'],
+  // хипотезата за пчелната пита е математическа хипотеза (твърдение без доказателство), не научната
+  'src/geometry/Polygons.tsx': ['hypothesis'],
+  // синтез на белтъци, опит „импулс и гонене“, нуклеинови киселини
+  'src/biology/cell/Structure.tsx': ['nuclear-fusion', 'momentum', 'acid', 'atomic-nucleus'],
+  // „неполярни молекули“ – обратното на термина
+  'src/biology/cell/Membrane.tsx': ['polar-molecule'],
   'src/physics/mechanics/PlaneMotion.tsx': ['resistance'],
   'src/physics/mechanics/StaticsFluids.tsx': ['solar-corona'],
   'src/physics/waves/Oscillations.tsx': ['resistance'],

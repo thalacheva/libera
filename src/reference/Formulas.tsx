@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { MathText, Tex } from '~/MathText';
 import {
   ASTRONOMY,
+  BIOLOGY,
   CHEMISTRY,
   CONSTANTS,
   type Formula,
@@ -12,7 +13,7 @@ import {
   PHYSICS,
 } from './formulaData';
 
-type Filter = 'all' | 'math' | 'physics' | 'astronomy' | 'chemistry' | 'constants';
+type Filter = 'all' | 'math' | 'physics' | 'astronomy' | 'chemistry' | 'biology' | 'constants';
 
 const FILTERS: { id: Filter; label: string }[] = [
   { id: 'all', label: 'Всичко' },
@@ -20,6 +21,7 @@ const FILTERS: { id: Filter; label: string }[] = [
   { id: 'physics', label: 'Физика' },
   { id: 'astronomy', label: 'Астрономия' },
   { id: 'chemistry', label: 'Химия' },
+  { id: 'biology', label: 'Биология' },
   { id: 'constants', label: 'Константи' },
 ];
 
@@ -69,6 +71,13 @@ export function Formulas() {
         : [],
     [filter, query]
   );
+  const biology = useMemo(
+    () =>
+      filter === 'all' || filter === 'biology'
+        ? filterGroups(BIOLOGY.groups, query)
+        : [],
+    [filter, query]
+  );
   const astronomy = useMemo(
     () =>
       filter === 'all' || filter === 'astronomy'
@@ -92,7 +101,7 @@ export function Formulas() {
   );
 
   const count =
-    [...math, ...physics, ...astronomy, ...chemistry].reduce((s, g) => s + g.formulas.length, 0) +
+    [...math, ...physics, ...astronomy, ...chemistry, ...biology].reduce((s, g) => s + g.formulas.length, 0) +
     constants.reduce((s, c) => s + c.items.length, 0);
 
   return (
@@ -176,6 +185,9 @@ export function Formulas() {
         {chemistry.length > 0 && (
           <SectionBlock title="Химия" accent="amber" groups={chemistry} />
         )}
+        {biology.length > 0 && (
+          <SectionBlock title="Биология" accent="rose" groups={biology} />
+        )}
 
         {constants.length > 0 && (
           <section className="mb-10">
@@ -231,6 +243,7 @@ const accents = {
   purple: 'text-purple-700 dark:text-purple-300',
   emerald: 'text-emerald-700 dark:text-emerald-300',
   amber: 'text-amber-700 dark:text-amber-300',
+  rose: 'text-rose-700 dark:text-rose-300',
 };
 
 function SectionBlock({

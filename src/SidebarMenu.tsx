@@ -1,7 +1,7 @@
-import {Atom, BookA, BookMarked, BookOpen, ChevronDown, ChevronRight, FlaskConical, Mail, Sigma, Telescope, TrendingUp} from 'lucide-react';
+import {Atom, BookA, BookMarked, BookOpen, ChevronDown, ChevronRight, FlaskConical, Leaf, Mail, Sigma, Telescope, TrendingUp} from 'lucide-react';
 import {useEffect, useRef, useState} from 'react';
 import {Link, useLocation} from 'react-router-dom';
-import {astronomyIntro, astronomyTopics, chemistryTopics, mathTopics, physicsTopics} from '~/topics';
+import {astronomyIntro, astronomyTopics, biologyTopics, chemistryTopics, mathTopics, physicsTopics} from '~/topics';
 
 interface SidebarMenuProps {
   isOpen?: boolean;
@@ -190,6 +190,21 @@ export default function SidebarMenu({
               <TopicList topics={chemistryTopics} accent="amber" pathname={location.pathname} onClose={onClose} />
             )}
           </div>
+          {/* Биология секция */}
+          <div>
+            <SectionHeader
+              icon={<Leaf size={16} />}
+              label="Биология"
+              to="/biology"
+              expanded={!!expandedSections.biology}
+              active={location.pathname === '/biology'}
+              onToggle={() => toggleSection('biology')}
+              onClose={onClose}
+            />
+            {expandedSections.biology && (
+              <TopicList topics={biologyTopics} accent="rose" pathname={location.pathname} onClose={onClose} />
+            )}
+          </div>
 
         </nav>
 
@@ -229,6 +244,7 @@ function sectionOf(pathname: string): string | null {
   if (under('/physics')) return 'physics';
   if (under('/astronomy')) return 'astronomy';
   if (under('/chemistry')) return 'chemistry';
+  if (under('/biology')) return 'biology';
   return null;
 }
 
@@ -278,9 +294,10 @@ const topicAccent = {
   blue: 'text-blue-700 dark:text-blue-300',
   emerald: 'text-emerald-700 dark:text-emerald-300',
   amber: 'text-amber-700 dark:text-amber-300',
+  rose: 'text-rose-700 dark:text-rose-300',
 };
 
-/** Групи уроци с подтеми – за математиката, физиката и химията. */
+/** Групи уроци с подтеми – за математиката, физиката, химията и биологията. */
 function TopicList({
   topics,
   accent,
@@ -345,6 +362,7 @@ const accentClasses = {
   purple: 'bg-purple-50 text-purple-700 dark:bg-purple-500/15 dark:text-purple-300',
   emerald: 'bg-emerald-50 text-emerald-700 dark:bg-emerald-500/15 dark:text-emerald-300',
   amber: 'bg-amber-50 text-amber-700 dark:bg-amber-500/15 dark:text-amber-300',
+  rose: 'bg-rose-50 text-rose-700 dark:bg-rose-500/15 dark:text-rose-300',
 };
 
 function NavItem({

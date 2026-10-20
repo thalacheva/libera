@@ -1,11 +1,11 @@
-import {ArrowRight, Atom, BookA, BookMarked, CheckCircle2, ChevronRight, FlaskConical, Sigma, Telescope} from 'lucide-react';
+import {ArrowRight, Atom, BookA, BookMarked, CheckCircle2, ChevronRight, FlaskConical, Leaf, Sigma, Telescope} from 'lucide-react';
 import {useEffect, useState} from 'react';
 import {Link} from 'react-router-dom';
 import {lessonPages} from '~/pages';
 import {hasActivity, lessonProgress} from '~/progress';
-import {astronomyIntro, astronomyTopics, chemistryTopics, mathTopics, physicsTopics} from '~/topics';
+import {astronomyIntro, astronomyTopics, biologyTopics, chemistryTopics, mathTopics, physicsTopics} from '~/topics';
 
-type Area = 'math' | 'physics' | 'astronomy' | 'chemistry';
+type Area = 'math' | 'physics' | 'astronomy' | 'chemistry' | 'biology';
 type Lesson = {path: string; name: string; number?: number};
 type Group = {name: string; lessons: Lesson[]};
 
@@ -56,6 +56,16 @@ const SECTIONS: Record<
     hero: 'from-amber-600 to-orange-800',
     accent: 'text-amber-700 dark:text-amber-300',
     hover: 'hover:border-amber-300 dark:hover:border-amber-500/50',
+  },
+  biology: {
+    title: 'Биология',
+    icon: Leaf,
+    intro:
+      'Курс по биология от клетката и генетиката до еволюцията, физиологията на човека и екологията. Във всеки урок има лаборатории, в които сам наблюдаваш, кръстосваш и измерваш, решени примери, бърз тест и олимпиадни задачи.',
+    groups: groupsOf(biologyTopics),
+    hero: 'from-rose-600 to-pink-800',
+    accent: 'text-rose-700 dark:text-rose-300',
+    hover: 'hover:border-rose-300 dark:hover:border-rose-500/50',
   },
   astronomy: {
     title: 'Астрономия',

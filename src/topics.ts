@@ -204,6 +204,20 @@ export const chemistryTopics = [
   },
 ];
 
+// Биология: в менюто са само групите, в които вече има уроци (целият план е в README).
+export const biologyTopics = [
+  {
+    name: 'Клетката',
+    path: '/biology/cell',
+    subtopics: [
+      { name: 'Животът и как го изучаваме', path: '/life' },
+      { name: 'Строеж на клетката', path: '/structure' },
+      { name: 'Мембрана и транспорт', path: '/membrane' },
+      { name: 'Клетъчно делене', path: '/division' },
+    ],
+  },
+];
+
 /** Въведението е преди лекция 1 и е без номер – номерата на лекциите (и адресите им) не се променят. */
 export const astronomyIntro = { name: 'Въведение: какво изучава астрономията', path: '/astronomy/intro' };
 

@@ -3248,6 +3248,152 @@ export const CHEMISTRY: Section = {
   ],
 };
 
+export const BIOLOGY: Section = {
+  id: 'biology',
+  title: 'Биология',
+  groups: [
+    {
+      id: 'microscope',
+      title: 'Микроскоп',
+      formulas: [
+        {
+          name: 'Общо увеличение',
+          formula: 'M = M_{\\text{ок}} \\cdot M_{\\text{об}}',
+          note: 'увеличенията на окуляра и обектива се умножават',
+          lesson: '/biology/cell/life',
+        },
+        {
+          name: 'Истински размер',
+          formula: '\\text{размер} = \\frac{\\text{образ}}{M}',
+          note: 'образът – размерът на снимката или рисунката, в същите единици',
+          lesson: '/biology/cell/life',
+        },
+        {
+          name: 'Увеличение по мащабна линийка',
+          formula: 'M = \\frac{\\text{дължина на линийката на снимката}}{\\text{написаната дължина}}',
+          lesson: '/biology/cell/life',
+        },
+        {
+          name: 'Зрително поле',
+          formula: 'D \\approx \\frac{\\text{полево число}}{M_{\\text{об}}}',
+          note: 'полевото число е написано на окуляра, често 18 mm',
+          lesson: '/biology/cell/life',
+        },
+        {
+          name: 'Разделителна способност',
+          formula: 'd \\approx \\frac{\\lambda}{2\\,\\mathrm{NA}}',
+          note: 'NA – числова апертура на обектива; светлинният микроскоп различава до около 0,2 µm',
+          lesson: '/biology/cell/life',
+        },
+        {
+          name: 'Мерни единици',
+          formula: '1\\ \\mathrm{mm} = 1000\\ \\mathrm{\\mu m}, \\qquad 1\\ \\mathrm{\\mu m} = 1000\\ \\mathrm{nm}',
+          lesson: '/biology/cell/life',
+        },
+      ],
+    },
+    {
+      id: 'cell-size',
+      title: 'Размер на клетката',
+      formulas: [
+        {
+          name: 'Повърхност към обем (куб)',
+          formula: 'S = 6a^2, \\quad V = a^3, \\quad \\frac{S}{V} = \\frac{6}{a}',
+          lesson: '/biology/cell/structure',
+        },
+        {
+          name: 'Повърхност към обем (кълбо)',
+          formula: '\\frac{S}{V} = \\frac{\\pi d^2}{\\pi d^3 / 6} = \\frac{6}{d}',
+          lesson: '/biology/cell/structure',
+        },
+        {
+          name: 'Мащабиране',
+          formula: 'd \\to kd: \\quad S \\to k^2 S, \\quad V \\to k^3 V, \\quad \\frac{S}{V} \\to \\frac{1}{k}\\frac{S}{V}',
+          lesson: '/biology/cell/structure',
+        },
+        {
+          name: 'Време за дифузия',
+          formula: 't \\approx \\frac{x^2}{2D}',
+          note: 'D – коефициент на дифузия; за кислород във вода около 2·10⁻⁹ m²/s',
+          lesson: '/biology/cell/structure',
+        },
+      ],
+    },
+    {
+      id: 'membrane-transport',
+      title: 'Мембрана и транспорт',
+      formulas: [
+        {
+          name: 'Закон на Фик',
+          formula: 'J \\sim \\frac{A \\cdot \\Delta c}{d}',
+          note: 'A – площ, Δc – разлика в концентрациите, d – дебелина на мембраната',
+          lesson: '/biology/cell/membrane',
+        },
+        {
+          name: 'Осмоларитет',
+          formula: 'c_{\\text{осм}} = i \\cdot c',
+          note: 'i – на колко частици се разпада веществото: глюкоза 1, NaCl 2, CaCl₂ 3',
+          lesson: '/biology/cell/membrane',
+        },
+        {
+          name: 'Осмотично налягане (Вант Хоф)',
+          formula: '\\pi = icRT',
+          lesson: '/biology/cell/membrane',
+        },
+        {
+          name: 'Воден потенциал',
+          formula: '\\psi = \\psi_s + \\psi_p, \\qquad \\psi_s = -icRT',
+          note: 'водата тече от по-високия към по-ниския воден потенциал',
+          lesson: '/biology/cell/membrane',
+        },
+        {
+          name: 'Промяна на масата',
+          formula: '\\frac{m - m_0}{m_0} \\cdot 100\\%',
+          lesson: '/biology/cell/membrane',
+        },
+        {
+          name: 'Натриево-калиева помпа',
+          formula: '3\\ \\mathrm{Na^+}\\ \\text{навън} + 2\\ \\mathrm{K^+}\\ \\text{навътре}\\ \\text{за}\\ 1\\ \\text{АТФ}',
+          lesson: '/biology/cell/membrane',
+        },
+      ],
+    },
+    {
+      id: 'cell-division',
+      title: 'Клетъчно делене',
+      formulas: [
+        {
+          name: 'Митотичен индекс',
+          formula: '\\frac{\\text{клетки в митоза}}{\\text{всички клетки}} \\cdot 100\\%',
+          lesson: '/biology/cell/division',
+        },
+        {
+          name: 'Продължителност на фаза',
+          formula: 't_{\\text{фаза}} \\approx \\frac{N_{\\text{фаза}}}{N} \\cdot T_{\\text{цикъл}}',
+          note: 'когато клетките се делят несинхронно',
+          lesson: '/biology/cell/division',
+        },
+        {
+          name: 'Брой гамети от независимото разпределение',
+          formula: '2^n',
+          note: 'n – брой двойки хомоложни хромозоми; при човека 2²³ ≈ 8,4 милиона',
+          lesson: '/biology/cell/division',
+        },
+        {
+          name: 'Брой клетки след k деления',
+          formula: 'N = 2^k',
+          lesson: '/biology/cell/division',
+        },
+        {
+          name: 'Хромозоми и ДНК',
+          formula: '\\text{G1: } 2n, 2c;\\quad \\text{G2: } 2n, 4c;\\quad \\text{гамета: } n, c',
+          lesson: '/biology/cell/division',
+        },
+      ],
+    },
+  ],
+};
+
 export const ASTRONOMY: Section = {
   id: 'astronomy',
   title: 'Астрономия',
