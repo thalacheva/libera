@@ -91,6 +91,17 @@ const SKIP = {
   'src/biology/cell/Structure.tsx': ['nuclear-fusion', 'momentum', 'acid', 'atomic-nucleus'],
   // „неполярни молекули“ – обратното на термина
   'src/biology/cell/Membrane.tsx': ['polar-molecule'],
+  // „спектър на действие“ е биологичното понятие; „верига от преносители“ на електрони, не мембранни белтъци
+  'src/biology/energy/Photosynthesis.tsx': ['spectrum', 'carrier-protein'],
+  // „синтез“ на молекули; „ускорение“ на реакцията от ензима; полуразпадане на реакция без ензим
+  'src/biology/energy/Enzymes.tsx': ['nuclear-fusion', 'acceleration', 'half-life'],
+  'src/biology/energy/Respiration.tsx': ['nuclear-fusion'],
+  // „полимеразна верижна реакция“, „устойчивост на антибиотик“, „редица страни“, „честота на местата за рязане“, „логаритмичен мащаб“
+  'src/biology/genetics/Biotech.tsx': ['chain-reaction', 'stable-equilibrium', 'sequence', 'frequency', 'scale'],
+  // матрична верига на ДНК; решетка на Пънет; хромозомна аномалия
+  'src/biology/genetics/Dna.tsx': ['matrix'],
+  'src/biology/genetics/Mendel.tsx': ['diffraction-grating'],
+  'src/biology/genetics/HumanGenetics.tsx': ['water-anomaly'],
   'src/physics/mechanics/PlaneMotion.tsx': ['resistance'],
   'src/physics/mechanics/StaticsFluids.tsx': ['solar-corona'],
   'src/physics/waves/Oscillations.tsx': ['resistance'],

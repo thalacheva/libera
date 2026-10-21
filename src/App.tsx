@@ -86,6 +86,13 @@ const Structure = lazy(() => import('./biology/cell/Structure').then(m => ({defa
 const Membrane = lazy(() => import('./biology/cell/Membrane').then(m => ({default: m.Membrane})));
 const Division = lazy(() => import('./biology/cell/Division').then(m => ({default: m.Division})));
 const Life = lazy(() => import('./biology/cell/Life').then(m => ({default: m.Life})));
+const Enzymes = lazy(() => import('./biology/energy/Enzymes').then(m => ({default: m.Enzymes})));
+const Respiration = lazy(() => import('./biology/energy/Respiration').then(m => ({default: m.Respiration})));
+const Photosynthesis = lazy(() => import('./biology/energy/Photosynthesis').then(m => ({default: m.Photosynthesis})));
+const Dna = lazy(() => import('./biology/genetics/Dna').then(m => ({default: m.Dna})));
+const Mendel = lazy(() => import('./biology/genetics/Mendel').then(m => ({default: m.Mendel})));
+const HumanGenetics = lazy(() => import('./biology/genetics/HumanGenetics').then(m => ({default: m.HumanGenetics})));
+const Biotech = lazy(() => import('./biology/genetics/Biotech').then(m => ({default: m.Biotech})));
 const Units = lazy(() => import('./physics/mechanics/Units').then(m => ({default: m.Units})));
 const Modular = lazy(() => import('./numbers/Modular').then(m => ({default: m.Modular})));
 const MyProgress = lazy(() => import('./MyProgress').then(m => ({default: m.MyProgress})));
@@ -290,6 +297,17 @@ function App() {
                 <Route path="structure" element={<Structure />} />
                 <Route path="membrane" element={<Membrane />} />
                 <Route path="division" element={<Division />} />
+              </Route>
+              <Route path="energy">
+                <Route path="enzymes" element={<Enzymes />} />
+                <Route path="respiration" element={<Respiration />} />
+                <Route path="photosynthesis" element={<Photosynthesis />} />
+              </Route>
+              <Route path="genetics">
+                <Route path="dna" element={<Dna />} />
+                <Route path="mendel" element={<Mendel />} />
+                <Route path="human" element={<HumanGenetics />} />
+                <Route path="biotech" element={<Biotech />} />
               </Route>
             </Route>
             <Route path="geometry">

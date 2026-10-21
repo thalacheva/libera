@@ -216,6 +216,25 @@ export const biologyTopics = [
       { name: 'Клетъчно делене', path: '/division' },
     ],
   },
+  {
+    name: 'Енергия в клетката',
+    path: '/biology/energy',
+    subtopics: [
+      { name: 'Ензими', path: '/enzymes' },
+      { name: 'Клетъчно дишане', path: '/respiration' },
+      { name: 'Фотосинтеза', path: '/photosynthesis' },
+    ],
+  },
+  {
+    name: 'Генетика',
+    path: '/biology/genetics',
+    subtopics: [
+      { name: 'ДНК, гени и синтез на белтък', path: '/dna' },
+      { name: 'Законите на Мендел', path: '/mendel' },
+      { name: 'Наследяване при човека', path: '/human' },
+      { name: 'Генни технологии', path: '/biotech' },
+    ],
+  },
 ];
 
 /** Въведението е преди лекция 1 и е без номер – номерата на лекциите (и адресите им) не се променят. */
