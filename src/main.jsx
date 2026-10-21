@@ -1,8 +1,12 @@
 import { StrictMode } from "react";
 import { createRoot, hydrateRoot } from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
+import { inject } from "@vercel/analytics";
 import App from "./App.js";
 import "./index.css";
+
+// Vercel Web Analytics – посещения без бисквитки; отчита и навигацията в сайта.
+inject();
 
 const container = document.getElementById("root");
 const app = (
