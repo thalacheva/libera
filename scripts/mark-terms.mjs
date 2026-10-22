@@ -38,6 +38,20 @@ const files = only.length ? lessons.filter(([f]) => only.includes(f)) : lessons;
 
 // Споменавания в друг смисъл („съпротивление на въздуха“, „напрежение на Хъбъл“…) – не ги отбелязваме
 const SKIP = {
+  // „семената“ на галактиките, не на растенията
+  'src/astronomy/Lecture27.tsx': ['seed'],
+  // редици от клетки, не числова редица; ендодермата на корена, не зародишният лист
+  'src/biology/plants/PlantTransport.tsx': ['sequence', 'germ-layers'],
+  // колба с „тясно гърло“, не ефектът на тясното гърло
+  'src/chemistry/quantities/Solutions.tsx': ['bottleneck-effect'],
+  // честотите на алелите, не на трептенията
+  'src/biology/evolution/Selection.tsx': ['frequency'],
+  // възлите на дървото, не на стоящата вълна
+  'src/biology/evolution/Phylogeny.tsx': ['standing-wave'],
+  // устойчивост на антибиотици, не на равновесието
+  'src/biology/evolution/Microbes.tsx': ['stable-equilibrium'],
+  // хордата на хордовите, не на окръжността
+  'src/biology/evolution/Classification.tsx': ['chord'],
   // топенето и кипенето като явления (не топлината им) и компонентите на смес
   'src/chemistry/structure/Substances.tsx': ['latent-heat-fusion', 'latent-heat-vaporization', 'vector-components'],
   // енергия на химичната връзка и резонансни структури, не ядрената енергия на връзката и резонансът

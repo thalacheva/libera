@@ -132,7 +132,7 @@ export default function Lecture31() {
           </p>
           <LifeClockLab />
           <p className="mb-4 text-base sm:text-lg leading-relaxed">
-            Екстремофилите показват, че животът понася условия, които допреди 50 години смятахме за невъзможни:
+            <Term id="extremophile">Екстремофилите</Term> показват, че животът понася условия, които допреди 50 години смятахме за невъзможни:
           </p>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3 mb-4">
             {EXTREMOPHILES.map(c => (

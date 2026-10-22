@@ -3740,6 +3740,278 @@ export const BIOLOGY: Section = {
         },
       ],
     },
+    {
+      id: 'selection',
+      title: 'Естествен отбор и популационна генетика',
+      formulas: [
+        {
+          name: 'Честота на алела',
+          formula: 'p = \\frac{2N_{AA} + N_{Aa}}{2N}, \\qquad p + q = 1',
+          note: 'всеки диплоиден индивид носи два алела – в популация от N индивида има 2N копия на гена',
+          lesson: '/biology/evolution/selection',
+        },
+        {
+          name: 'Закон на Харди–Вайнберг',
+          formula: 'AA : Aa : aa = p^2 : 2pq : q^2, \\qquad p^2 + 2pq + q^2 = 1',
+          note: 'голяма популация, случайно кръстосване, без отбор, мутации и миграция; χ² при проверка – 1 степен на свобода',
+          lesson: '/biology/evolution/selection',
+        },
+        {
+          name: 'Промяна на честотата при отбор',
+          formula: "q' = \\frac{q\\,(p\\, w_{Aa} + q\\, w_{aa})}{\\bar{w}}, \\qquad \\bar{w} = p^2 w_{AA} + 2pq\\, w_{Aa} + q^2 w_{aa}",
+          note: 'w – относителна приспособеност на генотипа, коефициент на отбора s = 1 − w',
+          lesson: '/biology/evolution/selection',
+        },
+        {
+          name: 'Рецесивен летален алел',
+          formula: 'q_n = \\frac{q_0}{1 + n q_0}, \\qquad \\frac{1}{q_n} = \\frac{1}{q_0} + n',
+          note: 'n – брой поколения; колкото по-рядък е алелът, толкова по-бавно изчезва',
+          lesson: '/biology/evolution/selection',
+        },
+        {
+          name: 'Хетерозиготно предимство',
+          formula: 'q^* = \\frac{s}{s + t}',
+          note: 'w_AA = 1 − s, w_Aa = 1, w_aa = 1 − t; устойчиво равновесие (сърповидноклетъчна анемия и малария)',
+          lesson: '/biology/evolution/selection',
+        },
+        {
+          name: 'Равновесие мутации – отбор',
+          formula: '\\text{рецесивен: } q \\approx \\sqrt{\\mu / s}, \\qquad \\text{доминантен: } p \\approx \\mu / s',
+          note: 'μ – честота на мутациите на ген на поколение',
+          lesson: '/biology/evolution/selection',
+        },
+        {
+          name: 'Генетичен дрейф',
+          formula: 'H_t = H_0 \\left(1 - \\frac{1}{2N}\\right)^t, \\qquad P_{\\text{фикс}} = p_0',
+          note: 'H – хетерозиготност; неутрален алел се фиксира с вероятност, равна на началната му честота (нова мутация – 1/2N)',
+          lesson: '/biology/evolution/selection',
+        },
+        {
+          name: 'Ефективна численост',
+          formula: 'N_e = \\frac{4 N_m N_f}{N_m + N_f}',
+          note: 'N_m, N_f – брой размножаващи се мъжки и женски',
+          lesson: '/biology/evolution/selection',
+        },
+        {
+          name: 'Уравнение на селекционера',
+          formula: 'R = h^2 S',
+          note: 'S – диференциал на отбора, h² – наследственост, R – отговор на отбора (изместване на средното за едно поколение)',
+          lesson: '/biology/evolution/selection',
+        },
+      ],
+    },
+    {
+      id: 'phylogeny',
+      title: 'Видообразуване и филогения',
+      formulas: [
+        {
+          name: 'Хромозоми на хибрид и алополиплоид',
+          formula: '2n_{\\text{хибрид}} = n_1 + n_2, \\qquad 2n_{\\text{алополиплоид}} = 2(n_1 + n_2)',
+          note: 'n₁, n₂ – хромозомите в гаметите на двата вида; муле: 32 + 31 = 63; хлебна пшеница AABBDD = 42',
+          lesson: '/biology/evolution/phylogeny',
+        },
+        {
+          name: 'Брой двоични дървета',
+          formula: 'N_{\\text{вкоренени}} = (2n - 3)!!, \\qquad N_{\\text{невкоренени}} = (2n - 5)!!',
+          note: 'n – брой видове; за 4 вида – 15 и 3, за 10 вида – 34 459 425 и 2 027 025',
+          lesson: '/biology/evolution/phylogeny',
+        },
+        {
+          name: 'p-разстояние',
+          formula: 'p = \\frac{\\text{брой различни позиции}}{\\text{брой сравнени позиции}}',
+          lesson: '/biology/evolution/phylogeny',
+        },
+        {
+          name: 'Поправка на Джукс–Кантор',
+          formula: 'd = -\\frac{3}{4} \\ln\\left(1 - \\frac{4}{3} p\\right)',
+          note: 'd – замени на позиция с отчетени многократните; p не надхвърля 0,75',
+          lesson: '/biology/evolution/phylogeny',
+        },
+        {
+          name: 'Молекулен часовник',
+          formula: 'd = 2rT, \\qquad T = \\frac{d}{2r}',
+          note: 'r – замени на позиция за единица време по всеки клон; калибрира се по вкаменелости',
+          lesson: '/biology/evolution/phylogeny',
+        },
+        {
+          name: 'Индекс на съгласуваност',
+          formula: 'CI = \\frac{m}{s}',
+          note: 'm – най-малкият възможен брой промени (брой състояния − 1 за всеки белег), s – промените по дървото; CI = 1 – без хомоплазия',
+          lesson: '/biology/evolution/phylogeny',
+        },
+      ],
+    },
+    {
+      id: 'microbes',
+      title: 'Вируси, бактерии, протисти и гъби',
+      formulas: [
+        {
+          name: 'Растеж на бактериите',
+          formula: 'N = N_0 \\cdot 2^{t/g}, \\qquad n = \\frac{t}{g}',
+          note: 'g – време на генерация, n – брой поколения; важи в логаритмичната фаза',
+          lesson: '/biology/evolution/microbes',
+        },
+        {
+          name: 'Време на генерация от два броя',
+          formula: 'g = \\frac{t}{n} = \\frac{t \\lg 2}{\\lg N - \\lg N_0}',
+          lesson: '/biology/evolution/microbes',
+        },
+        {
+          name: 'Скорост на растеж',
+          formula: '\\mu = \\frac{\\ln 2}{g}, \\qquad N = N_0 e^{\\mu t}',
+          lesson: '/biology/evolution/microbes',
+        },
+        {
+          name: 'Брой бактерии от брой колонии',
+          formula: 'N = \\frac{C}{V \\cdot d}\\ \\ \\mathrm{CFU/ml}',
+          note: 'C – колонии (броят се петрита с 30–300), V – посят обем в ml, d – разреждане (напр. 10⁻⁶)',
+          lesson: '/biology/evolution/microbes',
+        },
+        {
+          name: 'Последователно разреждане',
+          formula: 'd = \\left(\\frac{v}{v + V_{\\text{вода}}}\\right)^k',
+          note: '1 ml в 9 ml вода, повторено k пъти: d = 10⁻ᵏ',
+          lesson: '/biology/evolution/microbes',
+        },
+        {
+          name: 'Заразяване с фаги (Поасон)',
+          formula: 'm = \\frac{N_{\\text{фаги}}}{N_{\\text{бактерии}}}, \\qquad P(k) = \\frac{m^k e^{-m}}{k!}, \\qquad P(0) = e^{-m}',
+          note: 'm – множественост на заразяване (MOI); P(0) – дял на незаразените клетки',
+          lesson: '/biology/evolution/microbes',
+        },
+        {
+          name: 'Азотфиксация',
+          formula: '\\mathrm{N_2 + 8H^+ + 8e^- + 16\\,АТФ \\to 2NH_3 + H_2 + 16\\,АДФ + 16\\,P_i}',
+          note: 'ензим нитрогеназа; работи само без кислород',
+          lesson: '/biology/evolution/microbes',
+        },
+      ],
+    },
+    {
+      id: 'classification',
+      title: 'Систематика',
+      formulas: [
+        {
+          name: 'Брой тези в двувходов ключ',
+          formula: 'n - 1',
+          note: 'n – брой видове, всеки в отделен край на ключа; всяка теза разделя една група на две',
+          lesson: '/biology/evolution/classification',
+        },
+        {
+          name: 'Най-краткият най-дълъг път в ключа',
+          formula: 'k = \\lceil \\log_2 n \\rceil',
+          note: 'с k въпроса „да/не“ се различават най-много $2^k$ вида',
+          lesson: '/biology/evolution/classification',
+        },
+        {
+          name: 'Среден брой въпроси в ключа',
+          formula: '\\bar{d} = \\sum p_i d_i',
+          note: 'pᵢ – колко често се среща видът, dᵢ – брой въпроси до него; честите видове трябва да са близо до началото',
+          lesson: '/biology/evolution/classification',
+        },
+        {
+          name: 'Плоидност при редуване на поколенията',
+          formula: '\\text{спора, гаметофит, гамета: } n, \\qquad \\text{зигота, спорофит: } 2n',
+          note: 'мейозата дава спорите, митозата в гаметофита – гаметите; при мейоза от 1 клетка – 4 спори',
+          lesson: '/biology/evolution/classification',
+        },
+        {
+          name: 'Ходилни крака при членестоногите',
+          formula: '\\text{насекоми } 6, \\quad \\text{паякообразни } 8, \\quad \\text{десетоноги раци } 10',
+          lesson: '/biology/evolution/classification',
+        },
+      ],
+    },
+    {
+      id: 'plant-transport',
+      title: 'Строеж и транспорт при растенията',
+      formulas: [
+        {
+          name: 'Воден потенциал',
+          formula: '\\Psi = \\Psi_s + \\Psi_p, \\qquad \\Psi_s = -cRT',
+          note: 'водата тече към по-ниския Ψ; c – осмотична концентрация, при 20 °C RT ≈ 2,44 L·MPa/mol',
+          lesson: '/biology/plants/transport',
+        },
+        {
+          name: 'Воден потенциал на въздуха',
+          formula: '\\Psi = \\frac{RT}{\\bar V_w} \\ln \\varphi',
+          note: 'φ – относителна влажност; при 20 °C RT/V̄ ≈ 135 MPa, при 50 % Ψ ≈ −94 MPa',
+          lesson: '/biology/plants/transport',
+        },
+        {
+          name: 'Потометър',
+          formula: 'V = \\pi r^2 \\cdot \\frac{d}{t}',
+          note: 'r – радиус на капиляра, d – път на мехурчето за време t; дава поетата вода за единица време',
+          lesson: '/biology/plants/transport',
+        },
+        {
+          name: 'Гъстота на устицата',
+          formula: '\\rho = \\frac{N}{\\pi (D/2)^2}',
+          note: 'N – устица в кръгло зрително поле с диаметър D',
+          lesson: '/biology/plants/transport',
+        },
+        {
+          name: 'Опън за воден стълб',
+          formula: '\\Delta \\Psi = \\rho g h \\approx 0{,}01\\ \\mathrm{MPa/m}',
+          note: 'само за да се задържи стълбът; триенето в съдовете добавя още толкова или повече',
+          lesson: '/biology/plants/transport',
+        },
+        {
+          name: 'Закон на Хаген–Поазьой',
+          formula: 'Q = \\frac{\\pi r^4 \\Delta p}{8 \\eta L}',
+          note: 'двойно по-широк съд пропуска 16 пъти повече вода; средната скорост расте като r²',
+          lesson: '/biology/plants/transport',
+        },
+        {
+          name: 'Капилярно издигане',
+          formula: 'h = \\frac{2 \\sigma \\cos\\theta}{\\rho g r}',
+          note: 'в съд с радиус 20 µm – около 0,75 m: твърде малко за дърветата',
+          lesson: '/biology/plants/transport',
+        },
+      ],
+    },
+    {
+      id: 'plant-growth',
+      title: 'Растеж и размножаване при растенията',
+      formulas: [
+        {
+          name: 'Двойно оплождане',
+          formula: '\\text{зигота: } n + n = 2n, \\qquad \\text{ендосперм: } n + n + n = 3n',
+          note: 'едната спермия + яйцеклетката; другата спермия + двете полярни ядра на централната клетка',
+          lesson: '/biology/plants/growth',
+        },
+        {
+          name: 'Хромозоми в ендосперма',
+          formula: 'N_{\\text{ендосперм}} = \\frac{3}{2} \\cdot 2n',
+          note: 'при царевицата 2n = 20 → 30; семенната обвивка и стената на плода са 2n (тъкани на майката)',
+          lesson: '/biology/plants/growth',
+        },
+        {
+          name: 'Генотип на ендосперма',
+          formula: 'm\\,m\\,f',
+          note: 'm – алелът в мегаспората (двете полярни ядра са еднакви), f – алелът на спермията',
+          lesson: '/biology/plants/growth',
+        },
+        {
+          name: 'Опит на Вент',
+          formula: '\\alpha \\sim c_{\\text{ауксин}}',
+          note: 'ъгълът на огъване е пропорционален на ауксина в агаровото блокче (при малки количества)',
+          lesson: '/biology/plants/growth',
+        },
+        {
+          name: 'Прекъсната нощ',
+          formula: 't_{\\text{тъмно}} = \\max(t_1, t_2), \\qquad t_1 + t_2 = 24 - t_{\\text{ден}}',
+          note: 'решава най-дългият непрекъснат тъмен период и последната светкавица (червена – прекъсва, далечна червена – отменя)',
+          lesson: '/biology/plants/growth',
+        },
+        {
+          name: 'Логистичен (сигмоиден) растеж',
+          formula: 'h(t) = \\frac{H}{1 + e^{-r(t - t_0)}}, \\qquad h\'_{\\max} = \\frac{rH}{4}',
+          note: 'H – крайна височина; най-бърз растеж при h = H/2 (t = t₀)',
+          lesson: '/biology/plants/growth',
+        },
+      ],
+    },
   ],
 };
 

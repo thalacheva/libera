@@ -93,6 +93,12 @@ const Dna = lazy(() => import('./biology/genetics/Dna').then(m => ({default: m.D
 const Mendel = lazy(() => import('./biology/genetics/Mendel').then(m => ({default: m.Mendel})));
 const HumanGenetics = lazy(() => import('./biology/genetics/HumanGenetics').then(m => ({default: m.HumanGenetics})));
 const Biotech = lazy(() => import('./biology/genetics/Biotech').then(m => ({default: m.Biotech})));
+const Selection = lazy(() => import('./biology/evolution/Selection').then(m => ({default: m.Selection})));
+const Phylogeny = lazy(() => import('./biology/evolution/Phylogeny').then(m => ({default: m.Phylogeny})));
+const Microbes = lazy(() => import('./biology/evolution/Microbes').then(m => ({default: m.Microbes})));
+const Classification = lazy(() => import('./biology/evolution/Classification').then(m => ({default: m.Classification})));
+const PlantTransport = lazy(() => import('./biology/plants/PlantTransport').then(m => ({default: m.PlantTransport})));
+const PlantGrowth = lazy(() => import('./biology/plants/PlantGrowth').then(m => ({default: m.PlantGrowth})));
 const Units = lazy(() => import('./physics/mechanics/Units').then(m => ({default: m.Units})));
 const Modular = lazy(() => import('./numbers/Modular').then(m => ({default: m.Modular})));
 const MyProgress = lazy(() => import('./MyProgress').then(m => ({default: m.MyProgress})));
@@ -308,6 +314,16 @@ function App() {
                 <Route path="mendel" element={<Mendel />} />
                 <Route path="human" element={<HumanGenetics />} />
                 <Route path="biotech" element={<Biotech />} />
+              </Route>
+              <Route path="evolution">
+                <Route path="selection" element={<Selection />} />
+                <Route path="phylogeny" element={<Phylogeny />} />
+                <Route path="microbes" element={<Microbes />} />
+                <Route path="classification" element={<Classification />} />
+              </Route>
+              <Route path="plants">
+                <Route path="transport" element={<PlantTransport />} />
+                <Route path="growth" element={<PlantGrowth />} />
               </Route>
             </Route>
             <Route path="geometry">

@@ -339,7 +339,7 @@ export function Sequences() {
             <Link to="/algebra/fractions" className={link}>
               Дроби и проценти
             </Link>{' '}
-            е геометрична прогресия с <Tex>{'q = 1 + \\frac{r}{100}'}</Tex>, а удвояването на бактериите и разпадът на <Term id="radioactivity">радиоактивни</Term> вещества – също.
+            е геометрична прогресия с <Tex>{'q = 1 + \\frac{r}{100}'}</Tex>, а удвояването на <Term id="bacterium">бактериите</Term> и разпадът на <Term id="radioactivity">радиоактивни</Term> вещества – също.
           </p>
         </section>
 

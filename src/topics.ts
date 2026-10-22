@@ -235,6 +235,24 @@ export const biologyTopics = [
       { name: 'Генни технологии', path: '/biotech' },
     ],
   },
+  {
+    name: 'Еволюция и многообразие',
+    path: '/biology/evolution',
+    subtopics: [
+      { name: 'Естествен отбор и популационна генетика', path: '/selection' },
+      { name: 'Видообразуване и филогения', path: '/phylogeny' },
+      { name: 'Вируси, бактерии, протисти и гъби', path: '/microbes' },
+      { name: 'Систематика на растенията и животните', path: '/classification' },
+    ],
+  },
+  {
+    name: 'Растенията',
+    path: '/biology/plants',
+    subtopics: [
+      { name: 'Строеж и транспорт', path: '/transport' },
+      { name: 'Растеж, размножаване и хормони', path: '/growth' },
+    ],
+  },
 ];
 
 /** Въведението е преди лекция 1 и е без номер – номерата на лекциите (и адресите им) не се променят. */
