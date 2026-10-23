@@ -38,10 +38,20 @@ const files = only.length ? lessons.filter(([f]) => only.includes(f)) : lessons;
 
 // Споменавания в друг смисъл („съпротивление на въздуха“, „напрежение на Хъбъл“…) – не ги отбелязваме
 const SKIP = {
+  // диафрагмата на микроскопа, не дихателният мускул
+  'src/biology/cell/Life.tsx': ['diaphragm'],
+  // мицели от жлъчни соли, не мицел на гъбите
+  'src/biology/physiology/Digestion.tsx': ['mycelium', 'activity'],
+  // реабсорбция в капилярите и съпротивление на съдовете, не в нефрона и не електрично
+  'src/biology/physiology/Circulation.tsx': ['tubular-reabsorption', 'resistance'],
+  // увеличение на PCO₂, не на микроскопа
+  'src/biology/physiology/Breathing.tsx': ['magnification'],
+  // точка на кипене, синтез на продукт, плазмен ток през бъбрека
+  'src/biology/physiology/Homeostasis.tsx': ['latent-heat-vaporization', 'nuclear-fusion', 'electric-current'],
   // „семената“ на галактиките, не на растенията
   'src/astronomy/Lecture27.tsx': ['seed'],
   // редици от клетки, не числова редица; ендодермата на корена, не зародишният лист
-  'src/biology/plants/PlantTransport.tsx': ['sequence', 'germ-layers'],
+  'src/biology/plants/PlantTransport.tsx': ['sequence', 'germ-layers', 'electric-potential'],
   // колба с „тясно гърло“, не ефектът на тясното гърло
   'src/chemistry/quantities/Solutions.tsx': ['bottleneck-effect'],
   // честотите на алелите, не на трептенията

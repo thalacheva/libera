@@ -503,7 +503,7 @@ export function AcidsBases() {
 
         <section className="mb-8">
           <h2 className={h2}>8. Киселини и основи в живота</h2>
-          <p className={text}>Таблетки за стомах, оцет, езера, лимони и собствената ни кръв – навсякъде pH има значение.</p>
+          <p className={text}>Таблетки за <Term id="stomach">стомах</Term>, оцет, езера, лимони и собствената ни кръв – навсякъде pH има значение.</p>
           <WordProblems problems={wordProblems} />
         </section>
 

@@ -253,6 +253,16 @@ export const biologyTopics = [
       { name: 'Растеж, размножаване и хормони', path: '/growth' },
     ],
   },
+  {
+    name: 'Физиология на човека и животните',
+    path: '/biology/physiology',
+    subtopics: [
+      { name: 'Хранене и храносмилане', path: '/digestion' },
+      { name: 'Кръв и кръвообращение', path: '/circulation' },
+      { name: 'Дишане и газообмен', path: '/breathing' },
+      { name: 'Отделяне и хомеостаза', path: '/homeostasis' },
+    ],
+  },
 ];
 
 /** Въведението е преди лекция 1 и е без номер – номерата на лекциите (и адресите им) не се променят. */

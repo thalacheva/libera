@@ -99,6 +99,10 @@ const Microbes = lazy(() => import('./biology/evolution/Microbes').then(m => ({d
 const Classification = lazy(() => import('./biology/evolution/Classification').then(m => ({default: m.Classification})));
 const PlantTransport = lazy(() => import('./biology/plants/PlantTransport').then(m => ({default: m.PlantTransport})));
 const PlantGrowth = lazy(() => import('./biology/plants/PlantGrowth').then(m => ({default: m.PlantGrowth})));
+const Digestion = lazy(() => import('./biology/physiology/Digestion').then(m => ({default: m.Digestion})));
+const Circulation = lazy(() => import('./biology/physiology/Circulation').then(m => ({default: m.Circulation})));
+const Breathing = lazy(() => import('./biology/physiology/Breathing').then(m => ({default: m.Breathing})));
+const Homeostasis = lazy(() => import('./biology/physiology/Homeostasis').then(m => ({default: m.Homeostasis})));
 const Units = lazy(() => import('./physics/mechanics/Units').then(m => ({default: m.Units})));
 const Modular = lazy(() => import('./numbers/Modular').then(m => ({default: m.Modular})));
 const MyProgress = lazy(() => import('./MyProgress').then(m => ({default: m.MyProgress})));
@@ -324,6 +328,12 @@ function App() {
               <Route path="plants">
                 <Route path="transport" element={<PlantTransport />} />
                 <Route path="growth" element={<PlantGrowth />} />
+              </Route>
+              <Route path="physiology">
+                <Route path="digestion" element={<Digestion />} />
+                <Route path="circulation" element={<Circulation />} />
+                <Route path="breathing" element={<Breathing />} />
+                <Route path="homeostasis" element={<Homeostasis />} />
               </Route>
             </Route>
             <Route path="geometry">
