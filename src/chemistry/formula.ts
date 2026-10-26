@@ -72,12 +72,6 @@ export function atomicMass(symbol: string, exact = false): number {
   return SCHOOL_MASS[symbol] ?? Math.round(e.mass);
 }
 
-/** Масовите части на елементите в съединението (сборът е 1). */
-export function massFractions(formula: string, exact = false): { symbol: string; count: number; fraction: number }[] {
-  const M = molarMass(formula, exact);
-  return [...parseFormula(formula)].map(([symbol, count]) => ({ symbol, count, fraction: (count * atomicMass(symbol, exact)) / M }));
-}
-
 /** Формулата в LaTeX: „Al2(SO4)3“ → \mathrm{Al_{2}(SO_{4})_{3}}; „CuSO4·5H2O“ → \mathrm{CuSO_{4} \cdot 5H_{2}O}. */
 export function formulaTex(formula: string): string {
   const body = formula

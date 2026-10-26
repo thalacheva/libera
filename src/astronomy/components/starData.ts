@@ -1,7 +1,6 @@
 // Данни за известни звезди (закръглени; за променливите и далечните – средни или приблизителни стойности).
 
 export const T_SUN = 5772; // K
-export const M_V_SUN = 4.83;
 export const M_BOL_SUN = 4.74;
 
 export type Star = {

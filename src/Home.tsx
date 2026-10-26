@@ -1,7 +1,7 @@
 import {Atom, BookA, BookMarked, ChevronDown, ChevronRight, FlaskConical, Leaf, PencilLine, Sigma, Target, Telescope, TrendingUp, Trophy} from 'lucide-react';
 import {useState, type ReactNode} from 'react';
 import {Link} from 'react-router-dom';
-import {astronomyIntro, astronomyTopics, biologyTopics, chemistryTopics, lectureNumber, mathTopics, physicsTopics} from '~/topics';
+import {astronomyIntro, astronomyTopics, biologyTopics, chemistryTopics, lectureNumber, lessonCount, mathTopics, physicsTopics} from '~/topics';
 
 const FEATURES = [
   {
@@ -65,9 +65,6 @@ const SUBJECTS = [
   {to: '/chemistry', label: 'Химия', icon: FlaskConical, accent: ACCENTS.amber, topics: chemistryTopics, lectures: false},
   {to: '/biology', label: 'Биология', icon: Leaf, accent: ACCENTS.rose, topics: biologyTopics, lectures: false},
 ];
-
-const lessonsWord = (n: number, lectures = false) =>
-  `${n} ${lectures ? (n === 1 ? 'лекция' : 'лекции') : n === 1 ? 'урок' : 'урока'}`;
 
 export function Home() {
   return (
@@ -152,7 +149,7 @@ export function Home() {
               to={to}
               icon={icon}
               accent={accent}
-              title={`${label} – ${lessonsWord(topics.reduce((n, t) => n + t.subtopics.length, 0), lectures)}`}
+              title={`${label} – ${lessonCount(topics.reduce((n, t) => n + t.subtopics.length, 0), lectures)}`}
             />
             <TopicGrid topics={topics} accent={accent} lectures={lectures} />
           </section>
@@ -194,7 +191,7 @@ function TopicGrid({topics, accent, lectures}: {topics: TopicGroup[]; accent: Ac
         }));
         if (lectures && i === 0) items.unshift({path: astronomyIntro.path, name: 'Въведение', number: '·'});
         return (
-          <Collapsible key={topic.name} title={topic.name} meta={lessonsWord(topic.subtopics.length, lectures)} accent={accent}>
+          <Collapsible key={topic.name} title={topic.name} meta={lessonCount(topic.subtopics.length, lectures)} accent={accent}>
             <ul className="sm:space-y-1 text-sm">
               {items.map(l => (
                 <li key={l.path} className="flex">

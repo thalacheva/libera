@@ -361,5 +361,9 @@ export const astronomyTopics = [
   },
 ];
 
+/** „1 урок“, „5 урока“; за астрономията – „1 лекция“, „5 лекции“. */
+export const lessonCount = (n: number, lectures = false) =>
+  `${n} ${lectures ? (n === 1 ? 'лекция' : 'лекции') : n === 1 ? 'урок' : 'урока'}`;
+
 /** Номерът на лекцията по астрономия от адреса ѝ: '/lecture07' → 7. */
 export const lectureNumber = (path: string) => Number(path.slice(-2));

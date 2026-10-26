@@ -86,12 +86,3 @@ export function wdDot(seed: number): Dot {
   const R = 0.009 + (rnd(seed + 1) - 0.5) * 0.004;
   return { T, L: lumOf(R, T), kind: 'wd' };
 }
-
-/** Маса по начална функция на масите (повечето звезди са малки), m ∈ [0,08; mMax]. */
-export function imfMass(seed: number, mMax = 60) {
-  // Степенен закон dN/dM ∝ M^(−2,35) (Салпитър), обърнат аналитично
-  const a = -1.35;
-  const lo = 0.08 ** a;
-  const hi = mMax ** a;
-  return (lo + rnd(seed) * (hi - lo)) ** (1 / a);
-}

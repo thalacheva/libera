@@ -141,11 +141,8 @@ const DIRECTIONS = [
   'запад',
   'северозапад',
 ];
-const DIRECTIONS_SHORT = ['С', 'СИ', 'И', 'ЮИ', 'Ю', 'ЮЗ', 'З', 'СЗ'];
 
 export const direction = (az: number) => DIRECTIONS[Math.round(az / 45) % 8];
-export const directionShort = (az: number) =>
-  DIRECTIONS_SHORT[Math.round(az / 45) % 8];
 
 // ---------- Видима височина ----------
 

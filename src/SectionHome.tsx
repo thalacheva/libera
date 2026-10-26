@@ -3,7 +3,7 @@ import {useEffect, useState} from 'react';
 import {Link} from 'react-router-dom';
 import {lessonPages} from '~/pages';
 import {hasActivity, lessonProgress} from '~/progress';
-import {astronomyIntro, astronomyTopics, biologyTopics, chemistryTopics, lectureNumber, mathTopics, physicsTopics} from '~/topics';
+import {astronomyIntro, astronomyTopics, biologyTopics, chemistryTopics, lectureNumber, lessonCount, mathTopics, physicsTopics} from '~/topics';
 
 type Area = 'math' | 'physics' | 'astronomy' | 'chemistry' | 'biology';
 type Lesson = {path: string; name: string; number?: number};
@@ -89,7 +89,7 @@ export function SectionHome({area}: {area: Area}) {
   const {title, icon: Icon, intro, groups, hero, accent, hover} = SECTIONS[area];
   const lessons = groups.flatMap(g => g.lessons);
   const single = groups.length === 1;
-  const word = area === 'astronomy' ? (lessons.length === 1 ? 'лекция' : 'лекции') : lessons.length === 1 ? 'урок' : 'урока';
+  const lectures = area === 'astronomy';
 
   // Прогресът е в localStorage – чете се след зареждане, за да съвпада с готовия HTML
   const [started, setStarted] = useState<Set<string>>(new Set());
@@ -110,7 +110,7 @@ export function SectionHome({area}: {area: Area}) {
           </h1>
           <p className="text-lg leading-relaxed text-white/90 max-w-3xl mb-2">{intro}</p>
           <p className="text-sm text-white/75 mb-6">
-            {lessons.length} {word}
+            {lessonCount(lessons.length, lectures)}
             {!single && ` в ${groups.length} теми`}
             {started.size > 0 && ` · започнати: ${started.size}`}
           </p>
@@ -161,7 +161,7 @@ export function SectionHome({area}: {area: Area}) {
               <h2 className={`text-xl sm:text-2xl font-semibold mb-4 ${accent}`}>
                 {group.name}{' '}
                 <span className="text-base font-normal text-gray-500 dark:text-gray-400">
-                  · {group.lessons.length} {area === 'astronomy' ? (group.lessons.length === 1 ? 'лекция' : 'лекции') : group.lessons.length === 1 ? 'урок' : 'урока'}
+                  · {lessonCount(group.lessons.length, lectures)}
                 </span>
               </h2>
             )}

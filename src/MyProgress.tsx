@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Quiz, { type Question } from '~/Quiz';
 import { clearProgress, hasActivity, lessonProgress, removeMistake, type LessonProgress } from '~/progress';
-import { astronomyIntro, astronomyTopics, biologyTopics, chemistryTopics, lectureNumber, mathTopics, physicsTopics } from '~/topics';
+import { astronomyIntro, astronomyTopics, biologyTopics, chemistryTopics, lectureNumber, lessonCount, mathTopics, physicsTopics } from '~/topics';
 
 type Lesson = { path: string; name: string };
 type Group = { name: string; lessons: Lesson[] };
@@ -186,7 +186,7 @@ export function MyProgress() {
                 <div className="rounded-2xl border border-amber-200/80 dark:border-amber-500/30 bg-amber-50/70 dark:bg-amber-500/10 p-4 sm:p-5">
                   <p className="text-sm sm:text-base text-gray-700 dark:text-gray-300 mb-3">
                     Имаш <strong>{mistakes.length}</strong> {mistakes.length === 1 ? 'сгрешен въпрос' : 'сгрешени въпроса'} от последните опити на тестовете в{' '}
-                    {new Set(mistakes.map(m => m.path)).size === 1 ? '1 урок' : `${new Set(mistakes.map(m => m.path)).size} урока`}:{' '}
+                    {lessonCount(new Set(mistakes.map(m => m.path)).size)}:{' '}
                     {[...new Set(mistakes.map(m => m.lesson))].join(', ')}.
                   </p>
                   <button

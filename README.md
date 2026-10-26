@@ -106,7 +106,7 @@ sh scripts/tex/check-all.sh [страница…]           # в браузър�
 src/
   App.tsx, SidebarMenu.tsx   маршрути (всяка страница се зарежда отделно с React.lazy) и странично меню
   topics.ts                  темите и уроците – за менюто и началните страници
-  Home.tsx, SectionHome.tsx  начална страница и началните страници на разделите (/math, /physics, /astronomy, /chemistry)
+  Home.tsx, SectionHome.tsx  начална страница и началните страници на разделите (/math, /physics, /astronomy, /chemistry, /biology)
   pages.ts, Seo.tsx          заглавия и описания на страниците и обновяването им при навигация
   structuredData.ts          структурирани данни (JSON-LD) за търсачките
   entry-server.tsx           рендериране до готов HTML при build
