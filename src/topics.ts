@@ -282,9 +282,10 @@ export const biologyTopics = [
 /** Въведението е преди лекция 1 и е без номер – номерата на лекциите (и адресите им) не се променят. */
 export const astronomyIntro = { name: 'Въведение: какво изучава астрономията', path: '/astronomy/intro' };
 
+/** Разделите не следват строго номерата – номерът на лекцията се взема от адреса ѝ (lectureNumber). */
 export const astronomyTopics = [
   {
-    name: 'Астрономия',
+    name: 'Небето и Земята',
     path: '/astronomy',
     subtopics: [
       { name: 'Небесната сфера', path: '/lecture01' },
@@ -292,11 +293,30 @@ export const astronomyTopics = [
       { name: 'Движение на Земята', path: '/lecture03' },
       { name: 'Фази на Луната', path: '/lecture04' },
       { name: 'Слънчеви затъмнения', path: '/lecture05' },
+    ],
+  },
+  {
+    name: 'Гравитация и орбити',
+    path: '/astronomy',
+    subtopics: [
       { name: 'Гравитация', path: '/lecture06' },
       { name: 'Закони на Кеплер', path: '/lecture07' },
       { name: 'Орбити и скорости', path: '/lecture08' },
+    ],
+  },
+  {
+    name: 'Светлина и наблюдения',
+    path: '/astronomy',
+    subtopics: [
       { name: 'Светлина и спектри', path: '/lecture09' },
       { name: 'Телескопи', path: '/lecture10' },
+      { name: 'Методи за наблюдение', path: '/lecture32' },
+    ],
+  },
+  {
+    name: 'Слънчевата система',
+    path: '/astronomy',
+    subtopics: [
       { name: 'Слънцето', path: '/lecture11' },
       { name: 'Слънчева активност', path: '/lecture12' },
       { name: 'Планети от земен тип', path: '/lecture13' },
@@ -304,22 +324,42 @@ export const astronomyTopics = [
       { name: 'Малки тела', path: '/lecture15' },
       { name: 'Комети и метеори', path: '/lecture16' },
       { name: 'Астероиди', path: '/lecture17' },
+    ],
+  },
+  {
+    name: 'Звездите',
+    path: '/astronomy',
+    subtopics: [
       { name: 'Звезди', path: '/lecture18' },
       { name: 'HR диаграма', path: '/lecture19' },
       { name: 'Еволюция на звездите', path: '/lecture20' },
       { name: 'Бели джуджета и черни дупки', path: '/lecture21' },
       { name: 'Двойни звезди', path: '/lecture22' },
       { name: 'Променливи звезди', path: '/lecture23' },
+    ],
+  },
+  {
+    name: 'Галактики и Вселената',
+    path: '/astronomy',
+    subtopics: [
       { name: 'Разстояния', path: '/lecture24' },
       { name: 'Галактики', path: '/lecture25' },
       { name: 'Млечният път', path: '/lecture26' },
       { name: 'Големият взрив', path: '/lecture27' },
       { name: 'Разширяване на Вселената', path: '/lecture28' },
       { name: 'Тъмна материя', path: '/lecture29' },
-      { name: 'Екзопланети', path: '/lecture30' },
-      { name: 'Астробиология', path: '/lecture31' },
-      { name: 'Методи за наблюдение', path: '/lecture32' },
       { name: 'Специална теория на относителността', path: '/lecture33' },
     ],
   },
+  {
+    name: 'Живот във Вселената',
+    path: '/astronomy',
+    subtopics: [
+      { name: 'Екзопланети', path: '/lecture30' },
+      { name: 'Астробиология', path: '/lecture31' },
+    ],
+  },
 ];
+
+/** Номерът на лекцията по астрономия от адреса ѝ: '/lecture07' → 7. */
+export const lectureNumber = (path: string) => Number(path.slice(-2));

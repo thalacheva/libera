@@ -1,9 +1,7 @@
 import {Atom, BookA, BookMarked, ChevronDown, ChevronRight, FlaskConical, Leaf, PencilLine, Sigma, Target, Telescope, TrendingUp, Trophy} from 'lucide-react';
 import {useState, type ReactNode} from 'react';
 import {Link} from 'react-router-dom';
-import {astronomyIntro, astronomyTopics, biologyTopics, chemistryTopics, mathTopics, physicsTopics} from '~/topics';
-
-const lectures = astronomyTopics.flatMap(t => t.subtopics.map(s => ({name: s.name, path: t.path + s.path})));
+import {astronomyIntro, astronomyTopics, biologyTopics, chemistryTopics, lectureNumber, mathTopics, physicsTopics} from '~/topics';
 
 const FEATURES = [
   {
@@ -61,14 +59,15 @@ type Accent = (typeof ACCENTS)[keyof typeof ACCENTS];
 type TopicGroup = {name: string; path: string; subtopics: {name: string; path: string}[]};
 
 const SUBJECTS = [
-  {to: '/math', label: 'Математика', icon: Sigma, accent: ACCENTS.blue, topics: mathTopics},
-  {to: '/physics', label: 'Физика', icon: Atom, accent: ACCENTS.emerald, topics: physicsTopics},
-  {to: '/astronomy', label: 'Астрономия', icon: Telescope, accent: ACCENTS.purple, topics: null},
-  {to: '/chemistry', label: 'Химия', icon: FlaskConical, accent: ACCENTS.amber, topics: chemistryTopics},
-  {to: '/biology', label: 'Биология', icon: Leaf, accent: ACCENTS.rose, topics: biologyTopics},
+  {to: '/math', label: 'Математика', icon: Sigma, accent: ACCENTS.blue, topics: mathTopics, lectures: false},
+  {to: '/physics', label: 'Физика', icon: Atom, accent: ACCENTS.emerald, topics: physicsTopics, lectures: false},
+  {to: '/astronomy', label: 'Астрономия', icon: Telescope, accent: ACCENTS.purple, topics: astronomyTopics, lectures: true},
+  {to: '/chemistry', label: 'Химия', icon: FlaskConical, accent: ACCENTS.amber, topics: chemistryTopics, lectures: false},
+  {to: '/biology', label: 'Биология', icon: Leaf, accent: ACCENTS.rose, topics: biologyTopics, lectures: false},
 ];
 
-const lessonsWord = (n: number) => `${n} ${n === 1 ? 'урок' : 'урока'}`;
+const lessonsWord = (n: number, lectures = false) =>
+  `${n} ${lectures ? (n === 1 ? 'лекция' : 'лекции') : n === 1 ? 'урок' : 'урока'}`;
 
 export function Home() {
   return (
@@ -147,41 +146,17 @@ export function Home() {
           />
         </section>
 
-        {SUBJECTS.map(({to, label, icon, accent, topics}) =>
-          topics ? (
-            <section key={to} className="mb-8 sm:mb-10">
-              <SubjectHeading
-                to={to}
-                icon={icon}
-                accent={accent}
-                title={`${label} – ${lessonsWord(topics.reduce((n, t) => n + t.subtopics.length, 0))}`}
-              />
-              <TopicGrid topics={topics} accent={accent} />
-            </section>
-          ) : (
-            <section key={to} className="mb-8 sm:mb-10">
-              <SubjectHeading to={to} icon={icon} accent={accent} title={`${label} – ${lectures.length} лекции`} />
-              <Collapsible title="Всички лекции" meta="" accent={accent}>
-                <ol className="grid sm:grid-cols-2 lg:grid-cols-3 gap-x-6 sm:gap-y-1 text-sm">
-                  <li className="flex">
-                    <span className="w-7 py-1.5 flex-shrink-0 text-gray-400 sm:py-0 dark:text-gray-500">·</span>
-                    <Link to={astronomyIntro.path} className={`${LESSON_LINK} ${accent.hover}`}>
-                      Въведение
-                    </Link>
-                  </li>
-                  {lectures.map((l, i) => (
-                    <li key={l.path} className="flex">
-                      <span className="w-7 py-1.5 flex-shrink-0 tabular-nums text-gray-400 sm:py-0 dark:text-gray-500">{i + 1}</span>
-                      <Link to={l.path} className={`${LESSON_LINK} ${accent.hover}`}>
-                        {l.name}
-                      </Link>
-                    </li>
-                  ))}
-                </ol>
-              </Collapsible>
-            </section>
-          ),
-        )}
+        {SUBJECTS.map(({to, label, icon, accent, topics, lectures}) => (
+          <section key={to} className="mb-8 sm:mb-10">
+            <SubjectHeading
+              to={to}
+              icon={icon}
+              accent={accent}
+              title={`${label} – ${lessonsWord(topics.reduce((n, t) => n + t.subtopics.length, 0), lectures)}`}
+            />
+            <TopicGrid topics={topics} accent={accent} lectures={lectures} />
+          </section>
+        ))}
       </div>
     </main>
   );
@@ -207,22 +182,34 @@ function SubjectHeading({to, icon: Icon, accent, title}: {to: string; icon: type
   );
 }
 
-function TopicGrid({topics, accent}: {topics: TopicGroup[]; accent: Accent}) {
+/** При астрономията лекциите са с номерата си, а въведението (без номер) е първо в първия раздел. */
+function TopicGrid({topics, accent, lectures}: {topics: TopicGroup[]; accent: Accent; lectures: boolean}) {
   return (
     <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-3">
-      {topics.map(topic => (
-        <Collapsible key={topic.name} title={topic.name} meta={lessonsWord(topic.subtopics.length)} accent={accent}>
-          <ul className="sm:space-y-1 text-sm">
-            {topic.subtopics.map(s => (
-              <li key={s.path}>
-                <Link to={topic.path + s.path} className={`${LESSON_LINK} ${accent.hover}`}>
-                  {s.name}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </Collapsible>
-      ))}
+      {topics.map((topic, i) => {
+        const items = topic.subtopics.map(s => ({
+          path: topic.path + s.path,
+          name: s.name,
+          number: lectures ? String(lectureNumber(s.path)) : '',
+        }));
+        if (lectures && i === 0) items.unshift({path: astronomyIntro.path, name: 'Въведение', number: '·'});
+        return (
+          <Collapsible key={topic.name} title={topic.name} meta={lessonsWord(topic.subtopics.length, lectures)} accent={accent}>
+            <ul className="sm:space-y-1 text-sm">
+              {items.map(l => (
+                <li key={l.path} className="flex">
+                  {lectures && (
+                    <span className="w-6 py-1.5 flex-shrink-0 tabular-nums text-gray-400 sm:py-0 dark:text-gray-500">{l.number}</span>
+                  )}
+                  <Link to={l.path} className={`${LESSON_LINK} ${accent.hover}`}>
+                    {l.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </Collapsible>
+        );
+      })}
     </div>
   );
 }

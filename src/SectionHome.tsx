@@ -3,7 +3,7 @@ import {useEffect, useState} from 'react';
 import {Link} from 'react-router-dom';
 import {lessonPages} from '~/pages';
 import {hasActivity, lessonProgress} from '~/progress';
-import {astronomyIntro, astronomyTopics, biologyTopics, chemistryTopics, mathTopics, physicsTopics} from '~/topics';
+import {astronomyIntro, astronomyTopics, biologyTopics, chemistryTopics, lectureNumber, mathTopics, physicsTopics} from '~/topics';
 
 type Area = 'math' | 'physics' | 'astronomy' | 'chemistry' | 'biology';
 type Lesson = {path: string; name: string; number?: number};
@@ -12,7 +12,7 @@ type Group = {name: string; lessons: Lesson[]};
 const groupsOf = (topics: typeof mathTopics, numbered = false): Group[] =>
   topics.map(t => ({
     name: t.name,
-    lessons: t.subtopics.map((s, i) => ({path: t.path + s.path, name: s.name, number: numbered ? i + 1 : undefined})),
+    lessons: t.subtopics.map(s => ({path: t.path + s.path, name: s.name, number: numbered ? lectureNumber(s.path) : undefined})),
   }));
 
 const SECTIONS: Record<
@@ -72,8 +72,10 @@ const SECTIONS: Record<
     icon: Telescope,
     intro:
       'Лекции от небесната сфера и Слънчевата система до звездите, галактиките и космологията. Във всяка има интерактивни симулации, решени примери, бърз тест и задачи от олимпиадите по астрономия.',
-    // въведението е първо и без номер
-    groups: groupsOf(astronomyTopics, true).map(g => ({...g, lessons: [{path: astronomyIntro.path, name: 'Въведение: какво изучава астрономията'}, ...g.lessons]})),
+    // въведението е първо в първия раздел и без номер
+    groups: groupsOf(astronomyTopics, true).map((g, i) =>
+      i === 0 ? {...g, lessons: [{path: astronomyIntro.path, name: 'Въведение: какво изучава астрономията'}, ...g.lessons]} : g,
+    ),
     hero: 'from-purple-600 to-indigo-900',
     accent: 'text-purple-700 dark:text-purple-300',
     hover: 'hover:border-purple-300 dark:hover:border-purple-500/50',
@@ -159,7 +161,7 @@ export function SectionHome({area}: {area: Area}) {
               <h2 className={`text-xl sm:text-2xl font-semibold mb-4 ${accent}`}>
                 {group.name}{' '}
                 <span className="text-base font-normal text-gray-500 dark:text-gray-400">
-                  · {group.lessons.length} {group.lessons.length === 1 ? 'урок' : 'урока'}
+                  · {group.lessons.length} {area === 'astronomy' ? (group.lessons.length === 1 ? 'лекция' : 'лекции') : group.lessons.length === 1 ? 'урок' : 'урока'}
                 </span>
               </h2>
             )}
