@@ -2,6 +2,7 @@ import Example from '~/Example';
 import Quiz, { type Question } from '~/Quiz';
 import Theorem from '~/Theorem';
 import KeplerOrbitLab from './components/KeplerOrbitLab';
+import MarsTriangulationLab from './components/MarsTriangulationLab';
 import KeplerThirdLaw from './components/KeplerThirdLaw';
 import Task, { TaskBoard, TaskLevel } from '~/Task';
 import { Tex } from '~/MathText';
@@ -105,6 +106,13 @@ export default function Lecture07() {
             показа, че те следват от <Term id="gravitation-law">закона за всемирното привличане</Term> (виж „Гравитация“)
             – и обясни <em>защо</em>.
           </p>
+          <p className="mb-4 text-base sm:text-lg leading-relaxed">
+            Тихо мери само <em>посоката</em> към Марс, не разстоянието. Кеплер намира хитър начин да получи и разстоянието:
+            сравнява наблюдения, направени през един период на Марс (687 дни). Тогава Марс е на същото място, а Земята – не, и
+            двете посоки се пресичат в Марс.
+          </p>
+
+          <MarsTriangulationLab />
         </section>
 
         <section className="mb-8">

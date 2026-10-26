@@ -1,6 +1,7 @@
 import Example from '~/Example';
 import Quiz, { type Question } from '~/Quiz';
 import Theorem from '~/Theorem';
+import EclipseSeasonsLab from './components/EclipseSeasonsLab';
 import LunarEclipse from './components/LunarEclipse';
 import MoonPhases from './components/MoonPhases';
 import Task, { TaskBoard, TaskLevel } from '~/Task';
@@ -335,6 +336,8 @@ export default function Lecture04() {
               </li>
             </ul>
           </div>
+
+          <EclipseSeasonsLab />
         </section>
 
         <section className="mb-8">

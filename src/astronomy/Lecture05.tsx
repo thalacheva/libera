@@ -1,6 +1,8 @@
 import Example from '~/Example';
 import Quiz, { type Question } from '~/Quiz';
 import Theorem from '~/Theorem';
+import LocalEclipsesLab from './components/LocalEclipsesLab';
+import PinholeLab from './components/PinholeLab';
 import SolarEclipse from './components/SolarEclipse';
 import Task, { TaskBoard, TaskLevel } from '~/Task';
 import { Tex } from '~/MathText';
@@ -275,6 +277,8 @@ export default function Lecture05() {
               </li>
             </ul>
           </div>
+
+          <LocalEclipsesLab />
         </section>
 
         <section className="mb-8">
@@ -318,6 +322,9 @@ export default function Lecture05() {
               </p>
             </div>
           </div>
+
+          <PinholeLab />
+
           <div className="bg-amber-50 dark:bg-amber-900/20 p-4 rounded-lg mb-4">
             <p className="font-semibold mb-1">
               📅 Следващото голямо затъмнение

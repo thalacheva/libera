@@ -2,6 +2,8 @@ import Example from '~/Example';
 import Quiz, { type Question } from '~/Quiz';
 import Theorem from '~/Theorem';
 import CoordinateSphere from './components/CoordinateSphere';
+import RiseSetLab from './components/RiseSetLab';
+import SunEclipticLab from './components/SunEclipticLab';
 import Task, { TaskBoard, TaskLevel } from '~/Task';
 import { MathText, Tex } from '~/MathText';
 import Term from '~/Term';
@@ -296,6 +298,8 @@ export default function Lecture02() {
             има <Tex>{'\\beta = 0^\\circ'}</Tex>, а <Tex>{'\\lambda'}</Tex> нараства с около 1° на ден: на 21 юни <Tex>{'\\lambda_{\\odot} = 90^\\circ'}</Tex>, на
             23 септември – 180°.
           </p>
+
+          <SunEclipticLab />
         </section>
 
         <section className="mb-8">
@@ -363,6 +367,13 @@ export default function Lecture02() {
               кулминира на юг от зенита, а ако <Tex>{'\\delta > \\varphi'}</Tex> – на север от него.
             </p>
           </div>
+          <p className="mb-4 text-base sm:text-lg leading-relaxed">
+            При долна кулминация <Tex>{'t = 12^{\\mathrm{h}}'}</Tex> и по същия начин <Tex>{'h_{\\text{долна}} = |\\varphi + \\delta| - 90^\\circ'}</Tex>.
+            Ако и тя е над хоризонта, звездата е <strong>незалязваща</strong>, а ако дори горната кулминация е под него – звездата
+            от това място <strong>никога не изгрява</strong>.
+          </p>
+
+          <RiseSetLab />
         </section>
 
         <section className="mb-8">
