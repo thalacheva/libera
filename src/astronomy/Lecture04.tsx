@@ -79,7 +79,7 @@ export default function Lecture04() {
     <main className="flex-1 overflow-y-auto px-4 pt-16 pb-12 sm:px-6 lg:px-10 lg:pt-10">
       <div className="max-w-4xl mx-auto">
         <h1 className="text-2xl sm:text-3xl font-bold tracking-tight mb-6 text-gray-900 dark:text-white">
-          Урок 4: Фази на Луната и лунни затъмнения
+          Фази на Луната и лунни затъмнения
         </h1>
 
         <div className="bg-gradient-to-br from-indigo-900 to-slate-900 text-white p-6 rounded-2xl mb-8 shadow-lg">
@@ -184,7 +184,7 @@ export default function Lecture04() {
             2. Сидеричен и синодичен месец
           </h2>
           <p className="mb-4 text-base sm:text-lg leading-relaxed">
-            Също като при звездното и <Term id="solar-day">слънчевото денонощие</Term> (Урок 3): докато
+            Също като при звездното и <Term id="solar-day">слънчевото денонощие</Term> (виж „Движение на Земята“): докато
             Луната обикаля Земята, Земята се премества по орбитата си и Слънцето
             „избягва“ напред. За да настигне Слънцето, Луната трябва да измине
             още ~2 дни.

@@ -3,22 +3,16 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Quiz, { type Question } from '~/Quiz';
 import { clearProgress, hasActivity, lessonProgress, removeMistake, type LessonProgress } from '~/progress';
-import { astronomyIntro, astronomyTopics, biologyTopics, chemistryTopics, lectureNumber, lessonCount, mathTopics, physicsTopics } from '~/topics';
+import { astronomyTopics, biologyTopics, chemistryTopics, lessonCount, mathTopics, physicsTopics } from '~/topics';
 
 type Lesson = { path: string; name: string };
 type Group = { name: string; lessons: Lesson[] };
 
 const GROUPS: Group[] = [
-  ...[...mathTopics, ...physicsTopics].map(t => ({ name: t.name, lessons: t.subtopics.map(s => ({ path: t.path + s.path, name: s.name })) })),
-  ...astronomyTopics.map((t, i) => ({
+  ...[...mathTopics, ...physicsTopics, ...astronomyTopics, ...chemistryTopics, ...biologyTopics].map(t => ({
     name: t.name,
-    lessons: [
-      ...(i === 0 ? [{ path: astronomyIntro.path, name: 'Въведение' }] : []),
-      ...t.subtopics.map(s => ({ path: t.path + s.path, name: `${lectureNumber(s.path)}. ${s.name}` })),
-    ],
+    lessons: t.subtopics.map(s => ({ path: t.path + s.path, name: s.name })),
   })),
-  ...chemistryTopics.map(t => ({ name: t.name, lessons: t.subtopics.map(s => ({ path: t.path + s.path, name: s.name })) })),
-  ...biologyTopics.map(t => ({ name: t.name, lessons: t.subtopics.map(s => ({ path: t.path + s.path, name: s.name })) })),
 ];
 const LESSONS = GROUPS.flatMap(g => g.lessons);
 

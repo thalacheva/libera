@@ -1,7 +1,7 @@
 import {Atom, BookA, BookMarked, BookOpen, ChevronDown, ChevronRight, FlaskConical, Leaf, Mail, Sigma, Telescope, TrendingUp} from 'lucide-react';
 import {useEffect, useRef, useState} from 'react';
 import {Link, useLocation} from 'react-router-dom';
-import {astronomyIntro, astronomyTopics, biologyTopics, chemistryTopics, lectureNumber, mathTopics, physicsTopics} from '~/topics';
+import {astronomyTopics, biologyTopics, chemistryTopics, mathTopics, physicsTopics} from '~/topics';
 
 interface SidebarMenuProps {
   isOpen?: boolean;
@@ -142,39 +142,8 @@ export default function SidebarMenu({
                   </NavItem>
                 </li>
                 <li>
-                  <NavItem
-                    to={astronomyIntro.path}
-                    active={location.pathname === astronomyIntro.path}
-                    accent="purple"
-                    onClick={onClose}
-                  >
-                    <span className="w-6 flex-shrink-0 text-xs text-gray-400 dark:text-gray-500">·</span>
-                    <span>Въведение</span>
-                  </NavItem>
+                  <TopicList topics={astronomyTopics} accent="purple" pathname={location.pathname} onClose={onClose} />
                 </li>
-                {astronomyTopics.flatMap(topic => [
-                  <li key={topic.name} className="px-3 pt-3 pb-1 text-sm font-semibold text-gray-800 dark:text-gray-200">
-                    {topic.name}
-                  </li>,
-                  ...topic.subtopics.map(subtopic => {
-                    const fullPath = topic.path + subtopic.path;
-                    return (
-                      <li key={subtopic.name}>
-                        <NavItem
-                          to={fullPath}
-                          active={location.pathname === fullPath}
-                          accent="purple"
-                          onClick={onClose}
-                        >
-                          <span className="w-6 flex-shrink-0 text-xs tabular-nums text-gray-400 dark:text-gray-500">
-                            {lectureNumber(subtopic.path)}
-                          </span>
-                          <span>{subtopic.name}</span>
-                        </NavItem>
-                      </li>
-                    );
-                  }),
-                ])}
               </ul>
             )}
           </div>
@@ -296,11 +265,12 @@ function SectionHeader({
 const topicAccent = {
   blue: 'text-blue-700 dark:text-blue-300',
   emerald: 'text-emerald-700 dark:text-emerald-300',
+  purple: 'text-purple-700 dark:text-purple-300',
   amber: 'text-amber-700 dark:text-amber-300',
   rose: 'text-rose-700 dark:text-rose-300',
 };
 
-/** Групи уроци с подтеми – за математиката, физиката, химията и биологията. */
+/** Групи уроци с подтеми – за всички раздели. */
 function TopicList({
   topics,
   accent,
@@ -319,7 +289,7 @@ function TopicList({
             ? topic.path + topic.subtopics[0].path
             : topic.path;
 
-          const isTopicActive = pathname.startsWith(topic.path);
+          const isTopicActive = topic.subtopics.some(s => pathname === topic.path + s.path);
 
           return (
             <li key={topic.name}>

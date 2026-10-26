@@ -82,7 +82,7 @@ export default function Lecture09() {
     <main className="flex-1 overflow-y-auto px-4 pt-16 pb-12 sm:px-6 lg:px-10 lg:pt-10">
       <div className="max-w-4xl mx-auto">
         <h1 className="text-2xl sm:text-3xl font-bold tracking-tight mb-6 text-gray-900 dark:text-white">
-          Урок 9: Светлина и спектри
+          Светлина и спектри
         </h1>
 
         <div className="bg-gradient-to-br from-indigo-900 to-slate-900 text-white p-6 rounded-2xl mb-8 shadow-lg">
@@ -279,14 +279,14 @@ export default function Lecture09() {
             <h3 className="font-semibold mb-2">Приложения</h3>
             <ul className="list-disc list-inside space-y-2 text-sm sm:text-base">
               <li>
-                <strong>Двойни звезди</strong> – линиите се люшкат напред-назад с периода на обикаляне (Урок 22).
+                <strong>Двойни звезди</strong> – линиите се люшкат напред-назад с периода на обикаляне (виж „Двойни звезди“).
               </li>
               <li>
-                <strong>Екзопланети</strong> – планетата кара звездата да се поклаща с няколко m/s (Урок 30).
+                <strong>Екзопланети</strong> – планетата кара звездата да се поклаща с няколко m/s (виж „Екзопланети“).
               </li>
               <li>
                 <strong>Разширяване на Вселената</strong> – почти всички галактики имат <Term id="redshift">червено отместване</Term>, толкова по-голямо, колкото
-                по-далеч са (<Term id="hubble-law">закон на Хъбъл</Term>, Урок 28).
+                по-далеч са (<Term id="hubble-law">закон на Хъбъл</Term>, виж „Разширяване на Вселената“).
               </li>
               <li>
                 <strong>Въртене</strong> на звезди, галактики и планети – например въртенето на пръстените на Сатурн.

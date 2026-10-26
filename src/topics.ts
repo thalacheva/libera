@@ -279,15 +279,13 @@ export const biologyTopics = [
   },
 ];
 
-/** Въведението е преди урок 1 и е без номер – номерата на уроците (и адресите им) не се променят. */
-export const astronomyIntro = { name: 'Въведение: какво изучава астрономията', path: '/astronomy/intro' };
-
-/** Разделите не следват строго номерата – номерът на урока се взема от адреса му (lectureNumber). */
+/** Адресите /lectureNN са от първоначалната номерация и не се сменят – вече са в търсачките. */
 export const astronomyTopics = [
   {
     name: 'Небето и Земята',
     path: '/astronomy',
     subtopics: [
+      { name: 'Въведение', path: '/intro' },
       { name: 'Небесната сфера', path: '/lecture01' },
       { name: 'Небесни координати', path: '/lecture02' },
       { name: 'Движение на Земята', path: '/lecture03' },
@@ -363,6 +361,3 @@ export const astronomyTopics = [
 
 /** „1 урок“, „5 урока“. */
 export const lessonCount = (n: number) => `${n} ${n === 1 ? 'урок' : 'урока'}`;
-
-/** Номерът на урока по астрономия от адреса му: '/lecture07' → 7. */
-export const lectureNumber = (path: string) => Number(path.slice(-2));

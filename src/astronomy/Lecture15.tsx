@@ -72,10 +72,10 @@ const QUIZ: Question[] = [
 
 const MISSIONS = [
   { name: 'Dawn', years: '2011–2018', text: 'Обикаля последователно Веста и Церера – първата сонда в орбита около две различни тела.' },
-  { name: 'Rosetta и Philae', years: '2014–2016', text: 'Две години около кометата Чурюмов–Герасименко; първото кацане на ядро на комета (Урок 16).' },
+  { name: 'Rosetta и Philae', years: '2014–2016', text: 'Две години около кометата Чурюмов–Герасименко; първото кацане на ядро на комета (виж „Комети и метеори“).' },
   { name: 'New Horizons', years: '2015, 2019', text: 'Прелита покрай Плутон, а после и покрай Арокот – най-далечното посетено тяло.' },
   { name: 'Hayabusa2 и OSIRIS-REx', years: '2020, 2023', text: 'Донасят проби от астероидите Рюгу и Бену. В тях има аминокиселини и всички пет основи на ДНК и РНК.' },
-  { name: 'DART', years: '2022', text: 'Удря спътника на астероид Диморфос и скъсява орбитата му с 33 минути – първият опит за защита на планетата (Урок 17).' },
+  { name: 'DART', years: '2022', text: 'Удря спътника на астероид Диморфос и скъсява орбитата му с 33 минути – първият опит за защита на планетата (виж „Астероиди“).' },
   { name: 'Lucy и Psyche', years: '2027–2033, 2029', text: 'Lucy ще посети осем троянски астероида на Юпитер, а Psyche – метален астероид, вероятно оголено ядро на зародиш на планета.' },
 ];
 
@@ -84,7 +84,7 @@ export default function Lecture15() {
     <main className="flex-1 overflow-y-auto px-4 pt-16 pb-12 sm:px-6 lg:px-10 lg:pt-10">
       <div className="max-w-4xl mx-auto">
         <h1 className="text-2xl sm:text-3xl font-bold tracking-tight mb-6 text-gray-900 dark:text-white">
-          Урок 15: Малки тела в Слънчевата система
+          Малки тела в Слънчевата система
         </h1>
 
         <div className="bg-gradient-to-br from-indigo-800 to-slate-900 text-white p-6 rounded-2xl mb-8 shadow-lg">
@@ -275,7 +275,7 @@ export default function Lecture15() {
         <section className="mb-8">
           <h2 className="text-xl sm:text-2xl font-semibold mb-4">6. Посещения на малки светове</h2>
           <p className="mb-4 text-base sm:text-lg leading-relaxed">
-            За кометите и <Term id="meteor">метеорите</Term> ще говорим подробно в Урок 16, а за астероидите и поясите – в Урок 17. Ето мисиите, които
+            За кометите и <Term id="meteor">метеорите</Term> ще говорим подробно в урока „Комети и метеори“, а за астероидите и поясите – в урока „Астероиди“. Ето мисиите, които
             промениха представата ни за малките тела:
           </p>
           <div className="grid sm:grid-cols-2 gap-3 mb-4">

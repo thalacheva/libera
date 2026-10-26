@@ -110,7 +110,7 @@ export default function Lecture10() {
     <main className="flex-1 overflow-y-auto px-4 pt-16 pb-12 sm:px-6 lg:px-10 lg:pt-10">
       <div className="max-w-4xl mx-auto">
         <h1 className="text-2xl sm:text-3xl font-bold tracking-tight mb-6 text-gray-900 dark:text-white">
-          Урок 10: Телескопи и инструменти
+          Телескопи и инструменти
         </h1>
 
         <div className="bg-gradient-to-br from-indigo-900 to-slate-900 text-white p-6 rounded-2xl mb-8 shadow-lg">
@@ -233,7 +233,7 @@ export default function Lecture10() {
         <section className="mb-8">
           <h2 className="text-xl sm:text-2xl font-semibold mb-4">5. Космически телескопи</h2>
           <p className="mb-4 text-base sm:text-lg leading-relaxed">
-            Атмосферата поглъща гама, рентгеновите, ултравиолетовите и голяма част от инфрачервените лъчи (Урок 9). Тези „цветове“ на
+            Атмосферата поглъща гама, рентгеновите, ултравиолетовите и голяма част от инфрачервените лъчи (виж „Светлина и спектри“). Тези „цветове“ на
             Вселената можем да видим само от орбита. Инфрачервените телескопи трябва и да са много студени – иначе собствената им
             топлина ги заслепява. Затова „Джеймс Уеб“ е в <Term id="lagrange-points">точката на Лагранж</Term> L2, на 1,5 милиона km от Земята, зад огромен
             слънцезащитен щит.
@@ -294,7 +294,7 @@ export default function Lecture10() {
                 <strong>Фотометър</strong> – измерва точно яркостта; така се откриват <Term id="exoplanet">екзопланети</Term>, които минават пред звездата си.
               </li>
               <li>
-                <strong>Спектрограф</strong> – разлага светлината на <Term id="spectrum">спектър</Term> и разкрива състав, температура и скорост (Урок 9).
+                <strong>Спектрограф</strong> – разлага светлината на <Term id="spectrum">спектър</Term> и разкрива състав, температура и скорост (виж „Светлина и спектри“).
               </li>
               <li>
                 <strong>Филтри</strong> – пропускат само определен цвят; цветните снимки на Хъбъл са съставени от няколко такива кадъра.

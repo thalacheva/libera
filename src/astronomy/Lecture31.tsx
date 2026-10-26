@@ -87,7 +87,7 @@ export default function Lecture31() {
   return (
     <main className="flex-1 overflow-y-auto px-4 pt-16 pb-12 sm:px-6 lg:px-10 lg:pt-10">
       <div className="max-w-4xl mx-auto">
-        <h1 className="text-2xl sm:text-3xl font-bold tracking-tight mb-6 text-gray-900 dark:text-white">Урок 31: Астробиология</h1>
+        <h1 className="text-2xl sm:text-3xl font-bold tracking-tight mb-6 text-gray-900 dark:text-white">Астробиология</h1>
 
         <div className="bg-gradient-to-br from-teal-800 to-slate-900 text-white p-6 rounded-2xl mb-8 shadow-lg">
           <p className="text-lg sm:text-xl leading-relaxed">
@@ -150,7 +150,7 @@ export default function Lecture31() {
           <h2 className="text-xl sm:text-2xl font-semibold mb-4">3. Къде в Слънчевата система?</h2>
           <p className="mb-4 text-base sm:text-lg leading-relaxed">
             Изненадата на последните десетилетия е, че течна вода има не само в <Term id="habitable-zone">обитаемата зона</Term>. Ледените спътници на гигантите се нагряват
-            от приливите (Урок 14) и крият огромни подледни океани.
+            от приливите (виж „Газови гиганти“) и крият огромни подледни океани.
           </p>
           <div className="grid sm:grid-cols-2 gap-3 mb-4">
             {PLACES.map(c => (

@@ -59,7 +59,7 @@ export default function Lecture06() {
     <main className="flex-1 overflow-y-auto px-4 pt-16 pb-12 sm:px-6 lg:px-10 lg:pt-10">
       <div className="max-w-4xl mx-auto">
         <h1 className="text-2xl sm:text-3xl font-bold tracking-tight mb-6 text-gray-900 dark:text-white">
-          Урок 6: Гравитация и закон на Нютон
+          Гравитация и закон на Нютон
         </h1>
 
         <div className="bg-gradient-to-br from-indigo-900 to-slate-900 text-white p-6 rounded-2xl mb-8 shadow-lg">
@@ -179,7 +179,7 @@ export default function Lecture06() {
           />
           <Theorem
             title="Маса от орбита"
-            description="Ако спътник обикаля тяло по орбита с радиус $a$ и период $T$, масата на централното тяло е $M = \frac{4\pi^2a^3}{G\cdot T^2}$. Така се „претеглят“ Слънцето, планетите със спътници, двойните звезди и дори черните дупки. Това е III закон на Кеплер в обобщения вид на Нютон (Урок 7)."
+            description="Ако спътник обикаля тяло по орбита с радиус $a$ и период $T$, масата на централното тяло е $M = \frac{4\pi^2a^3}{G\cdot T^2}$. Така се „претеглят“ Слънцето, планетите със спътници, двойните звезди и дори черните дупки. Това е III закон на Кеплер в обобщения вид на Нютон (виж „Закони на Кеплер“)."
           />
           <Example
             description="Колко е масата на Слънцето?"
@@ -256,7 +256,7 @@ export default function Lecture06() {
               </li>
               <li>
                 Приливното <Term id="friction">триене</Term> забавя въртенето на Земята и отдалечава Луната
-                (Уроци 3 и 4). Същите сили са „заключили“ Луната да гледа
+                (виж „Движение на Земята“ и „Фази на Луната“). Същите сили са „заключили“ Луната да гледа
                 Земята с една страна.
               </li>
             </ul>

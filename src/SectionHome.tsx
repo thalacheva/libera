@@ -3,16 +3,16 @@ import {useEffect, useState} from 'react';
 import {Link} from 'react-router-dom';
 import {lessonPages} from '~/pages';
 import {hasActivity, lessonProgress} from '~/progress';
-import {astronomyIntro, astronomyTopics, biologyTopics, chemistryTopics, lectureNumber, lessonCount, mathTopics, physicsTopics} from '~/topics';
+import {astronomyTopics, biologyTopics, chemistryTopics, lessonCount, mathTopics, physicsTopics} from '~/topics';
 
 type Area = 'math' | 'physics' | 'astronomy' | 'chemistry' | 'biology';
-type Lesson = {path: string; name: string; number?: number};
+type Lesson = {path: string; name: string};
 type Group = {name: string; lessons: Lesson[]};
 
-const groupsOf = (topics: typeof mathTopics, numbered = false): Group[] =>
+const groupsOf = (topics: typeof mathTopics): Group[] =>
   topics.map(t => ({
     name: t.name,
-    lessons: t.subtopics.map(s => ({path: t.path + s.path, name: s.name, number: numbered ? lectureNumber(s.path) : undefined})),
+    lessons: t.subtopics.map(s => ({path: t.path + s.path, name: s.name})),
   }));
 
 const SECTIONS: Record<
@@ -72,10 +72,7 @@ const SECTIONS: Record<
     icon: Telescope,
     intro:
       'Курс по астрономия от небесната сфера и Слънчевата система до звездите, галактиките и космологията. Във всеки урок има симулации, в които сам въртиш небесната сфера, пускаш спътници в орбита и проследяваш живота на звездите, решени примери, бърз тест и олимпиадни задачи.',
-    // въведението е първо в първия раздел и без номер
-    groups: groupsOf(astronomyTopics, true).map((g, i) =>
-      i === 0 ? {...g, lessons: [{path: astronomyIntro.path, name: 'Въведение: какво изучава астрономията'}, ...g.lessons]} : g,
-    ),
+    groups: groupsOf(astronomyTopics),
     hero: 'from-purple-600 to-indigo-900',
     accent: 'text-purple-700 dark:text-purple-300',
     hover: 'hover:border-purple-300 dark:hover:border-purple-500/50',
@@ -172,7 +169,6 @@ export function SectionHome({area}: {area: Area}) {
                     className={`group flex h-full flex-col rounded-xl border border-gray-200 bg-white p-4 hover:shadow-sm transition dark:border-gray-800 dark:bg-gray-900 ${hover}`}
                   >
                     <h3 className="flex items-start gap-2 font-semibold text-gray-900 dark:text-gray-100">
-                      {l.number && <span className="w-6 flex-shrink-0 tabular-nums text-gray-400 dark:text-gray-500">{l.number}</span>}
                       <span className="flex-1">{l.name}</span>
                       {started.has(l.path) && (
                         <CheckCircle2 size={18} className="flex-shrink-0 mt-0.5 text-emerald-500" aria-label="започнат" />

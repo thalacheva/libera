@@ -95,7 +95,7 @@ export default function Lecture33() {
   return (
     <main className="flex-1 overflow-y-auto px-4 pt-16 pb-12 sm:px-6 lg:px-10 lg:pt-10">
       <div className="max-w-4xl mx-auto">
-        <h1 className="text-2xl sm:text-3xl font-bold tracking-tight mb-6 text-gray-900 dark:text-white">Урок 33: Специална теория на относителността</h1>
+        <h1 className="text-2xl sm:text-3xl font-bold tracking-tight mb-6 text-gray-900 dark:text-white">Специална теория на относителността</h1>
 
         <div className="bg-gradient-to-br from-emerald-800 to-slate-900 text-white p-6 rounded-2xl mb-8 shadow-lg">
           <p className="text-lg sm:text-xl leading-relaxed">
@@ -288,7 +288,7 @@ export default function Lecture33() {
           <div className="bg-yellow-50 dark:bg-yellow-900/20 p-4 rounded-lg mb-4">
             <h3 className="font-semibold mb-2">Защо свети Слънцето?</h3>
             <p>
-              В ядрото на Слънцето 4 <Term id="proton">протона</Term> се сливат в едно хелиево ядро (Урок 11). Хелиевото ядро е с около 0,7% по-леко от четирите
+              В ядрото на Слънцето 4 <Term id="proton">протона</Term> се сливат в едно хелиево ядро (виж „Слънцето“). Хелиевото ядро е с около 0,7% по-леко от четирите
               протона – тази „изчезнала“ маса се превръща в енергия по формулата <Tex>{'E = mc^2'}</Tex>. Така Слънцето губи около 4 милиона тона маса всяка
               секунда и въпреки това ще свети още около 5 милиарда години.
             </p>
@@ -299,7 +299,7 @@ export default function Lecture33() {
           <h2 className="text-xl sm:text-2xl font-semibold mb-4">8. СТО в астрономията</h2>
           <Theorem
             title="Релативистки ефект на Доплер"
-            description="За източник, който се отдалечава със скорост $v = \beta c$ по зрителния лъч: $\lambda = \lambda_0 \cdot \sqrt{\frac{1 + \beta}{1 - \beta}}$. При малки скорости това дава познатото $\frac{\Delta\lambda}{\lambda} \approx \frac{v}{c}$. (Червеното отместване на далечните галактики е друго – от разширението на пространството, Урок 28.)"
+            description="За източник, който се отдалечава със скорост $v = \beta c$ по зрителния лъч: $\lambda = \lambda_0 \cdot \sqrt{\frac{1 + \beta}{1 - \beta}}$. При малки скорости това дава познатото $\frac{\Delta\lambda}{\lambda} \approx \frac{v}{c}$. (Червеното отместване на далечните галактики е друго – от разширението на пространството, виж „Разширяване на Вселената“.)"
           />
           <SuperluminalLab />
           <div className="grid sm:grid-cols-2 gap-3 mb-4">
@@ -319,8 +319,8 @@ export default function Lecture33() {
             <h3 className="font-semibold mb-2">Специална или обща теория?</h3>
             <p>
               Специалната теория (1905) разглежда <Term id="uniform-motion">равномерно движение</Term> без гравитация. Общата теория на относителността (1915) обяснява
-              гравитацията като изкривяване на пространство-времето и е нужна за черните дупки, <Term id="gravitational-lens">гравитационните лещи</Term> (Урок 29) и{' '}
-              <Term id="gravitational-wave">гравитационните вълни</Term> (Урок 32).
+              гравитацията като изкривяване на пространство-времето и е нужна за черните дупки, <Term id="gravitational-lens">гравитационните лещи</Term> (виж „Тъмна материя“) и{' '}
+              <Term id="gravitational-wave">гравитационните вълни</Term> (виж „Методи за наблюдение“).
             </p>
           </div>
         </section>

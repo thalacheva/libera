@@ -213,7 +213,7 @@ export default function NewtonCannon() {
         На височина {MOUNTAIN} km кръговата скорост е v₁ = √(GM / r) ≈{' '}
         {circular.toFixed(2).replace('.', ',')} km/s, а скоростта за бягство е
         v₂ = √2 · v₁ ≈ {escape.toFixed(2).replace('.', ',')} km/s. Повече за тях
-        – в Урок 8.
+        – в урока „Орбити и скорости“.
       </p>
     </div>
   );

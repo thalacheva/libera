@@ -54,7 +54,7 @@ const QUIZ: Question[] = [
 
 const OTHER_METHODS = [
   { icon: '📸', name: 'Директно изображение', text: 'Коронограф закрива звездата. Работи за млади, горещи гиганти далеч от звездата: HR 8799 с четири планети (2008), снимани години наред, докато обикалят.' },
-  { icon: '🔭', name: 'Гравитационни микролещи', text: 'Звезда с планета минава пред далечна звезда и я усилва; планетата добавя кратък „пик“ (Урок 29). Открива планети на няколко AU, дори свободни планети без звезда.' },
+  { icon: '🔭', name: 'Гравитационни микролещи', text: 'Звезда с планета минава пред далечна звезда и я усилва; планетата добавя кратък „пик“ (виж „Тъмна материя“). Открива планети на няколко AU, дори свободни планети без звезда.' },
   { icon: '📐', name: 'Астрометрия', text: 'Звездата описва малък кръг на небето. Gaia мери положения с точност до милионни от ъгловата секунда и се очаква да намери хиляди гиганти.' },
   { icon: '⏱️', name: 'Отклонения във времето', text: 'Първите екзопланети изобщо (1992 г., Волшчан и Фрейл) са открити около пулсара PSR B1257+12 – по закъсненията на импулсите му.' },
 ];
@@ -72,7 +72,7 @@ export default function Lecture30() {
   return (
     <main className="flex-1 overflow-y-auto px-4 pt-16 pb-12 sm:px-6 lg:px-10 lg:pt-10">
       <div className="max-w-4xl mx-auto">
-        <h1 className="text-2xl sm:text-3xl font-bold tracking-tight mb-6 text-gray-900 dark:text-white">Урок 30: Екзопланети</h1>
+        <h1 className="text-2xl sm:text-3xl font-bold tracking-tight mb-6 text-gray-900 dark:text-white">Екзопланети</h1>
 
         <div className="bg-gradient-to-br from-amber-800 to-slate-900 text-white p-6 rounded-2xl mb-8 shadow-lg">
           <p className="text-lg sm:text-xl leading-relaxed">
@@ -136,7 +136,7 @@ export default function Lecture30() {
         <section className="mb-8">
           <h2 className="text-xl sm:text-2xl font-semibold mb-4">3. Радиалните скорости</h2>
           <p className="mb-4 text-base sm:text-lg leading-relaxed">
-            Звездата и планетата обикалят общия си <Term id="center-of-mass">център на масите</Term> (Урок 22). Звездата описва малка орбита и периодично се приближава и
+            Звездата и планетата обикалят общия си <Term id="center-of-mass">център на масите</Term> (виж „Двойни звезди“). Звездата описва малка орбита и периодично се приближава и
             отдалечава от нас – линиите в спектъра ѝ се отместват ту към синьото, ту към червеното. Така е открита 51 Пегас b.
           </p>
           <Theorem
