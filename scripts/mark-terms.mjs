@@ -48,8 +48,24 @@ const SKIP = {
   'src/biology/physiology/Breathing.tsx': ['magnification'],
   // точка на кипене, синтез на продукт, плазмен ток през бъбрека
   'src/biology/physiology/Homeostasis.tsx': ['latent-heat-vaporization', 'nuclear-fusion', 'electric-current'],
+  // нервният импулс, не импулсът в механиката; „непропорционални“ области на кората
+  'src/biology/physiology/Nerves.tsx': ['momentum', 'proportion'],
+  // СПИН, не спинът в квантовата физика; лимфните възли, не възлите на стоящата вълна
+  'src/biology/physiology/Immunity.tsx': ['spin', 'standing-wave'],
+  // яйчникът на цвета, не на животното
+  'src/biology/plants/PlantGrowth.tsx': ['ovary-animal'],
   // „семената“ на галактиките, не на растенията
-  'src/astronomy/Lecture27.tsx': ['seed'],
+  // и полуживотът на свободните неутрони, не на хормон
+  // звездни популации; времето за удвояване на масата на черна дупка
+  'src/astronomy/Lecture26.tsx': ['population'],
+  'src/astronomy/Lecture25.tsx': ['doubling-time'],
+  // екологичната пирамида, не геометричната
+  'src/biology/ecology/Ecosystems.tsx': ['pyramid'],
+  // увеличение на числеността, не на микроскопа
+  'src/biology/ecology/Populations.tsx': ['magnification'],
+  // активност на животното и честота на завоите, не химична активност и трептения
+  'src/biology/ecology/Behaviour.tsx': ['activity', 'frequency'],
+  'src/astronomy/Lecture27.tsx': ['seed', 'biological-half-life'],
   // редици от клетки, не числова редица; ендодермата на корена, не зародишният лист
   'src/biology/plants/PlantTransport.tsx': ['sequence', 'germ-layers', 'electric-potential'],
   // колба с „тясно гърло“, не ефектът на тясното гърло

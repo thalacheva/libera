@@ -103,6 +103,14 @@ const Digestion = lazy(() => import('./biology/physiology/Digestion').then(m => 
 const Circulation = lazy(() => import('./biology/physiology/Circulation').then(m => ({default: m.Circulation})));
 const Breathing = lazy(() => import('./biology/physiology/Breathing').then(m => ({default: m.Breathing})));
 const Homeostasis = lazy(() => import('./biology/physiology/Homeostasis').then(m => ({default: m.Homeostasis})));
+const Nerves = lazy(() => import('./biology/physiology/Nerves').then(m => ({default: m.Nerves})));
+const Hormones = lazy(() => import('./biology/physiology/Hormones').then(m => ({default: m.Hormones})));
+const Immunity = lazy(() => import('./biology/physiology/Immunity').then(m => ({default: m.Immunity})));
+const Reproduction = lazy(() => import('./biology/physiology/Reproduction').then(m => ({default: m.Reproduction})));
+const Ecosystems = lazy(() => import('./biology/ecology/Ecosystems').then(m => ({default: m.Ecosystems})));
+const Populations = lazy(() => import('./biology/ecology/Populations').then(m => ({default: m.Populations})));
+const Biodiversity = lazy(() => import('./biology/ecology/Biodiversity').then(m => ({default: m.Biodiversity})));
+const Behaviour = lazy(() => import('./biology/ecology/Behaviour').then(m => ({default: m.Behaviour})));
 const Units = lazy(() => import('./physics/mechanics/Units').then(m => ({default: m.Units})));
 const Modular = lazy(() => import('./numbers/Modular').then(m => ({default: m.Modular})));
 const MyProgress = lazy(() => import('./MyProgress').then(m => ({default: m.MyProgress})));
@@ -334,6 +342,16 @@ function App() {
                 <Route path="circulation" element={<Circulation />} />
                 <Route path="breathing" element={<Breathing />} />
                 <Route path="homeostasis" element={<Homeostasis />} />
+                <Route path="nerves" element={<Nerves />} />
+                <Route path="hormones" element={<Hormones />} />
+                <Route path="immunity" element={<Immunity />} />
+                <Route path="reproduction" element={<Reproduction />} />
+              </Route>
+              <Route path="ecology">
+                <Route path="ecosystems" element={<Ecosystems />} />
+                <Route path="populations" element={<Populations />} />
+                <Route path="biodiversity" element={<Biodiversity />} />
+                <Route path="behaviour" element={<Behaviour />} />
               </Route>
             </Route>
             <Route path="geometry">

@@ -354,7 +354,7 @@ export function Logarithms() {
             Два логаритъма имат специални означения. <strong>Десетичният</strong> <Tex>{'\\lg x = \\log _{10} x'}</Tex> е удобен, защото системата ни е десетична:
             {' '}<Tex>{'\\lg 1000 = 3'}</Tex>, а броят на цифрите на число <Tex>{'N'}</Tex> е цялата част на <Tex>{'\\lg N'}</Tex> плюс 1. <strong>Натуралният</strong> <Tex>{'\\ln x = \\log _e x'}</Tex> има за основа
             числото <Tex>{'e \\approx 2{,}71828'}</Tex> – то се появява навсякъде, където нещо расте „непрекъснато“: в <Term id="compound-interest">сложната лихва</Term>, в разпада на <Term id="radioactivity">радиоактивни</Term>{' '}
-            вещества, в растежа на популации. На калкулатора са бутоните <span className="font-mono">log</span> и{' '}
+            вещества, в растежа на <Term id="population">популации</Term>. На калкулатора са бутоните <span className="font-mono">log</span> и{' '}
             <span className="font-mono">ln</span>; всеки друг логаритъм се пресмята със смяна на основата: <Tex>{'\\log _2 10 = \\lg 10 / \\lg 2 \\approx 3{,}32'}</Tex>.
           </p>
         </section>

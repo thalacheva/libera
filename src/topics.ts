@@ -261,6 +261,20 @@ export const biologyTopics = [
       { name: 'Кръв и кръвообращение', path: '/circulation' },
       { name: 'Дишане и газообмен', path: '/breathing' },
       { name: 'Отделяне и хомеостаза', path: '/homeostasis' },
+      { name: 'Нервна система и сетива', path: '/nerves' },
+      { name: 'Хормони', path: '/hormones' },
+      { name: 'Имунитет', path: '/immunity' },
+      { name: 'Размножаване и развитие', path: '/reproduction' },
+    ],
+  },
+  {
+    name: 'Екология и поведение',
+    path: '/biology/ecology',
+    subtopics: [
+      { name: 'Екосистеми и потоци на енергия', path: '/ecosystems' },
+      { name: 'Популации', path: '/populations' },
+      { name: 'Съобщества и биоразнообразие', path: '/biodiversity' },
+      { name: 'Поведение на животните', path: '/behaviour' },
     ],
   },
 ];

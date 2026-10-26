@@ -335,7 +335,7 @@ export function DifferentialEquations() {
             <Link to="/astronomy/lecture07" className={link}>
               Закони на Кеплер
             </Link>
-            ), разпространението на топлина, <Term id="electric-current">токът</Term> в електрическа верига. С тях се моделират и епидемии, популации, лекарства в кръвта и
+            ), разпространението на топлина, <Term id="electric-current">токът</Term> в електрическа верига. С тях се моделират и епидемии, <Term id="population">популации</Term>, лекарства в кръвта и
             цените на финансовите пазари.
           </p>
           <WordProblems problems={wordProblems} />
@@ -432,7 +432,7 @@ export function DifferentialEquations() {
               <li>✓ Диференциалното уравнение свързва неизвестна функция с нейните производни; решенията образуват семейство</li>
               <li>✓ Началното условие избира едно решение; полето от направления показва как текат решенията</li>
               <li>✓ Разделяне на променливите: <Tex>{'\\int \\frac{dy}{h(y)} = \\int g(x)\\,dx'}</Tex></li>
-              <li>✓ <Tex>{"y' = ky \\Rightarrow y = y_0 e^{kt}"}</Tex>; време за удвояване или полуразпад <Tex>{'\\frac{\\ln 2}{|k|}'}</Tex></li>
+              <li>✓ <Tex>{"y' = ky \\Rightarrow y = y_0 e^{kt}"}</Tex>; <Term id="doubling-time">време за удвояване</Term> или полуразпад <Tex>{'\\frac{\\ln 2}{|k|}'}</Tex></li>
               <li>✓ Изстиване: <Tex>{'T = T_s + (T_0 - T_s)e^{-kt}'}</Tex>; трептене: <Tex>{"x'' = -\\omega^2 x \\Rightarrow x = A\\cos(\\omega t + \\varphi)"}</Tex></li>
               <li>✓ Метод на Ойлер: <Tex>{'y_{n+1} = y_n + h \\cdot f(x_n, y_n)'}</Tex></li>
             </ul>

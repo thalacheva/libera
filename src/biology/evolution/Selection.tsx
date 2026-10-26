@@ -224,7 +224,7 @@ export function Selection() {
         <section className="mb-8">
           <h2 className={h2}>1. Доказателства за еволюцията</h2>
           <p className={text}>
-            <strong>Еволюцията</strong> е промяната на наследствените белези на популациите от поколение на поколение. За нея говорят много
+            <strong>Еволюцията</strong> е промяната на наследствените белези на <Term id="population">популациите</Term> от поколение на поколение. За нея говорят много
             независими източници – и всички разказват една и съща история за общ произход на живите организми.
           </p>
           <div className="overflow-x-auto mb-4">
@@ -288,7 +288,7 @@ export function Selection() {
             <Link to="/biology/genetics/dna" className={link}>
               ДНК, гени и синтез на белтък
             </Link>
-            ), а <Term id="meiosis">мейозата</Term> и оплождането ги разбъркват в нови съчетания – <Term id="crossing-over">кросинговър</Term> и <Term id="independent-assortment">независимо разпределение</Term> на <Term id="chromosome">хромозомите</Term>{' '}
+            ), а <Term id="meiosis">мейозата</Term> и <Term id="fertilization">оплождането</Term> ги разбъркват в нови съчетания – <Term id="crossing-over">кросинговър</Term> и <Term id="independent-assortment">независимо разпределение</Term> на <Term id="chromosome">хромозомите</Term>{' '}
             (виж{' '}
             <Link to="/biology/genetics/mendel" className={link}>
               Законите на Мендел
