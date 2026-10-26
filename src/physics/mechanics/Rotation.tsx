@@ -356,7 +356,7 @@ export function Rotation() {
             ]}
           />
           <p className={text}>
-            Повече за <Term id="neutron-star">неутронните звезди</Term> – в лекцията{' '}
+            Повече за <Term id="neutron-star">неутронните звезди</Term> – в урока{' '}
             <Link to="/astronomy/lecture21" className={link}>
               Бели джуджета и черни дупки
             </Link>

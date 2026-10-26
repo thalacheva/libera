@@ -59,7 +59,7 @@ export default function Lecture07() {
     <main className="flex-1 overflow-y-auto px-4 pt-16 pb-12 sm:px-6 lg:px-10 lg:pt-10">
       <div className="max-w-4xl mx-auto">
         <h1 className="text-2xl sm:text-3xl font-bold tracking-tight mb-6 text-gray-900 dark:text-white">
-          Лекция 7: Закони на Кеплер
+          Урок 7: Закони на Кеплер
         </h1>
 
         <div className="bg-gradient-to-br from-indigo-900 to-slate-900 text-white p-6 rounded-2xl mb-8 shadow-lg">
@@ -102,7 +102,7 @@ export default function Lecture07() {
           <p className="mb-4 text-base sm:text-lg leading-relaxed">
             Законите на Кеплер са <strong>емпирични</strong> – те описват{' '}
             <em>как</em> се движат планетите. Едва 70 години по-късно Нютон
-            показа, че те следват от <Term id="gravitation-law">закона за всемирното привличане</Term> (Лекция 6)
+            показа, че те следват от <Term id="gravitation-law">закона за всемирното привличане</Term> (Урок 6)
             – и обясни <em>защо</em>.
           </p>
         </section>
@@ -185,7 +185,7 @@ export default function Lecture07() {
               '$v_p / v_a = \\frac{1 + e}{1 - e} = 1{,}0167 / 0{,}9833 \\approx 1{,}034$.',
               'За почти кръгова орбита $v_p \\approx v_0\\cdot (1 + e)$ и $v_a \\approx v_0\\cdot (1 - e)$.',
               '$v_p \\approx 29{,}78 \\cdot 1{,}0167 \\approx 30{,}3\\ \\mathrm{km/s}$ (началото на януари), $v_a \\approx 29{,}78 \\cdot 0{,}9833 \\approx 29{,}3\\ \\mathrm{km/s}$ (началото на юли).',
-              'Затова лятното полугодие в северното полукълбо е с ~7 дни по-дълго (Лекция 3).',
+              'Затова лятното полугодие в северното полукълбо е с ~7 дни по-дълго (Урок 3).',
             ]}
           />
         </section>
@@ -228,7 +228,7 @@ export default function Lecture07() {
                 Галактиката.
               </li>
               <li>
-                Чрез тях се изчисляват масите на небесните тела (Лекция 6).
+                Чрез тях се изчисляват масите на небесните тела (Урок 6).
               </li>
               <li>
                 През 1846 г. малки отклонения на Уран от Кеплеровата му орбита
@@ -239,11 +239,11 @@ export default function Lecture07() {
               <li>
                 Всички космически мисии летят по Кеплерови орбити – например
                 прелитането от Земята до Марс е половин елипса с перихелий при
-                Земята и афелий при Марс (Лекция 8).
+                Земята и афелий при Марс (Урок 8).
               </li>
               <li>
                 По периода и „клатенето“ на звездите се откриват и измерват{' '}
-                <Term id="exoplanet">екзопланети</Term> (Лекция 30).
+                <Term id="exoplanet">екзопланети</Term> (Урок 30).
               </li>
             </ul>
           </div>

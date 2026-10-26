@@ -85,7 +85,7 @@ export default function Lecture11() {
     <main className="flex-1 overflow-y-auto px-4 pt-16 pb-12 sm:px-6 lg:px-10 lg:pt-10">
       <div className="max-w-4xl mx-auto">
         <h1 className="text-2xl sm:text-3xl font-bold tracking-tight mb-6 text-gray-900 dark:text-white">
-          Лекция 11: Слънцето – структура и енергия
+          Урок 11: Слънцето – структура и енергия
         </h1>
 
         <div className="bg-gradient-to-br from-orange-700 to-slate-900 text-white p-6 rounded-2xl mb-8 shadow-lg">
@@ -116,7 +116,7 @@ export default function Lecture11() {
         <section className="mb-8">
           <h2 className="text-xl sm:text-2xl font-semibold mb-4">2. Как „претегляме“ и измерваме Слънцето</h2>
           <p className="mb-4 text-base sm:text-lg leading-relaxed">
-            Масата идва от орбитата на Земята (<Term id="kepler-third">третият закон на Кеплер</Term> във формата на Нютон, Лекция 7). Радиусът – от разстоянието и{' '}
+            Масата идва от орбитата на Земята (<Term id="kepler-third">третият закон на Кеплер</Term> във формата на Нютон, Урок 7). Радиусът – от разстоянието и{' '}
             <Term id="angular-diameter">ъгловия диаметър</Term> (~32′). А светимостта – от това колко енергия пада върху Земята.
           </p>
           <Theorem

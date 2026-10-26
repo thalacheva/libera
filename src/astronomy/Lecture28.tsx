@@ -80,7 +80,7 @@ export default function Lecture28() {
   return (
     <main className="flex-1 overflow-y-auto px-4 pt-16 pb-12 sm:px-6 lg:px-10 lg:pt-10">
       <div className="max-w-4xl mx-auto">
-        <h1 className="text-2xl sm:text-3xl font-bold tracking-tight mb-6 text-gray-900 dark:text-white">Лекция 28: Разширяване на Вселената</h1>
+        <h1 className="text-2xl sm:text-3xl font-bold tracking-tight mb-6 text-gray-900 dark:text-white">Урок 28: Разширяване на Вселената</h1>
 
         <div className="bg-gradient-to-br from-orange-700 to-slate-900 text-white p-6 rounded-2xl mb-8 shadow-lg">
           <p className="text-lg sm:text-xl leading-relaxed">
@@ -150,7 +150,7 @@ export default function Lecture28() {
             Гравитацията на цялото вещество във Вселената би трябвало да забавя разширението. През 90-те години два екипа – на Сол
             Пърлмутър и на Брайън Шмит и Адам Рийс – мерят далечни <Term id="supernova">свръхнови</Term> Ia, за да видят колко се е забавило. Резултатът (1998) е
             шокиращ: далечните свръхнови са по-слаби, значи по-далеч, отколкото трябва. Разширението не се забавя, а се ускорява – вече
-            ~5–6 млрд. години. Причината е наречена <strong>тъмна енергия</strong> (Лекция 29). Нобелова награда 2011.
+            ~5–6 млрд. години. Причината е наречена <strong>тъмна енергия</strong> (Урок 29). Нобелова награда 2011.
           </p>
         </section>
 
@@ -176,7 +176,7 @@ export default function Lecture28() {
           <div className="bg-indigo-50 dark:bg-indigo-500/10 p-4 rounded-lg mb-4 text-sm sm:text-base">
             <p>
               <strong>Напрежението на Хъбъл.</strong> Двата най-точни начина за измерване на <Tex>{'H_0'}</Tex> не се съгласяват. <Term id="distance-ladder">Стълбата на разстоянията</Term>{' '}
-              (<Term id="cepheids">цефеиди</Term> и свръхнови, Лекция 24) дава ~<Tex>{'73\\ \\mathrm{km/s/Mpc}'}</Tex> с точност ~1,5%. <Term id="cmb">Реликтовото излъчване</Term> заедно с модела ΛCDM дава
+              (<Term id="cepheids">цефеиди</Term> и свръхнови, Урок 24) дава ~<Tex>{'73\\ \\mathrm{km/s/Mpc}'}</Tex> с точност ~1,5%. <Term id="cmb">Реликтовото излъчване</Term> заедно с модела ΛCDM дава
               {' '}<Tex>{'67{,}4 \\pm 0{,}5'}</Tex>. Разликата е над 5σ. Или някъде има скрита грешка, или моделът ни на Вселената е непълен – например тъмната
               енергия се променя с времето, както подсказват и първите резултати на обзора DESI (2024–2025). Това е една от най-горещите
               загадки на <Term id="cosmology">космологията</Term> днес.

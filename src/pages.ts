@@ -85,7 +85,7 @@ const biology = (path: string, topic: string, about: string): PageMeta => ({
 
 const astronomy = (n: number, topic: string, about: string): PageMeta => ({
   path: `/astronomy/lecture${String(n).padStart(2, '0')}`,
-  title: `${topic} — лекция по астрономия`,
+  title: `${topic} — урок по астрономия`,
   description: `${topic}: ${about} Интерактивни симулации, бърз тест и олимпиадни задачи.`,
   about,
 });
@@ -897,7 +897,7 @@ export const sectionPages: PageMeta[] = [
   },
   {
     path: '/astronomy',
-    title: 'Астрономия — интерактивни лекции',
+    title: 'Астрономия — интерактивни уроци',
     description:
       'Курс по астрономия от Слънчевата система до космологията – интерактивни симулации, бързи тестове, олимпиадни задачи и какво да наблюдаваш тази вечер.',
   },

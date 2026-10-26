@@ -59,11 +59,11 @@ type Accent = (typeof ACCENTS)[keyof typeof ACCENTS];
 type TopicGroup = {name: string; path: string; subtopics: {name: string; path: string}[]};
 
 const SUBJECTS = [
-  {to: '/math', label: 'Математика', icon: Sigma, accent: ACCENTS.blue, topics: mathTopics, lectures: false},
-  {to: '/physics', label: 'Физика', icon: Atom, accent: ACCENTS.emerald, topics: physicsTopics, lectures: false},
-  {to: '/astronomy', label: 'Астрономия', icon: Telescope, accent: ACCENTS.purple, topics: astronomyTopics, lectures: true},
-  {to: '/chemistry', label: 'Химия', icon: FlaskConical, accent: ACCENTS.amber, topics: chemistryTopics, lectures: false},
-  {to: '/biology', label: 'Биология', icon: Leaf, accent: ACCENTS.rose, topics: biologyTopics, lectures: false},
+  {to: '/math', label: 'Математика', icon: Sigma, accent: ACCENTS.blue, topics: mathTopics},
+  {to: '/physics', label: 'Физика', icon: Atom, accent: ACCENTS.emerald, topics: physicsTopics},
+  {to: '/astronomy', label: 'Астрономия', icon: Telescope, accent: ACCENTS.purple, topics: astronomyTopics, numbered: true},
+  {to: '/chemistry', label: 'Химия', icon: FlaskConical, accent: ACCENTS.amber, topics: chemistryTopics},
+  {to: '/biology', label: 'Биология', icon: Leaf, accent: ACCENTS.rose, topics: biologyTopics},
 ];
 
 export function Home() {
@@ -143,15 +143,15 @@ export function Home() {
           />
         </section>
 
-        {SUBJECTS.map(({to, label, icon, accent, topics, lectures}) => (
+        {SUBJECTS.map(({to, label, icon, accent, topics, numbered}) => (
           <section key={to} className="mb-8 sm:mb-10">
             <SubjectHeading
               to={to}
               icon={icon}
               accent={accent}
-              title={`${label} – ${lessonCount(topics.reduce((n, t) => n + t.subtopics.length, 0), lectures)}`}
+              title={`${label} – ${lessonCount(topics.reduce((n, t) => n + t.subtopics.length, 0))}`}
             />
-            <TopicGrid topics={topics} accent={accent} lectures={lectures} />
+            <TopicGrid topics={topics} accent={accent} numbered={!!numbered} />
           </section>
         ))}
       </div>
@@ -179,23 +179,23 @@ function SubjectHeading({to, icon: Icon, accent, title}: {to: string; icon: type
   );
 }
 
-/** При астрономията лекциите са с номерата си, а въведението (без номер) е първо в първия раздел. */
-function TopicGrid({topics, accent, lectures}: {topics: TopicGroup[]; accent: Accent; lectures: boolean}) {
+/** Уроците по астрономия са с номерата си, а въведението (без номер) е първо в първия раздел. */
+function TopicGrid({topics, accent, numbered}: {topics: TopicGroup[]; accent: Accent; numbered: boolean}) {
   return (
     <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-3">
       {topics.map((topic, i) => {
         const items = topic.subtopics.map(s => ({
           path: topic.path + s.path,
           name: s.name,
-          number: lectures ? String(lectureNumber(s.path)) : '',
+          number: numbered ? String(lectureNumber(s.path)) : '',
         }));
-        if (lectures && i === 0) items.unshift({path: astronomyIntro.path, name: 'Въведение', number: '·'});
+        if (numbered && i === 0) items.unshift({path: astronomyIntro.path, name: 'Въведение', number: '·'});
         return (
-          <Collapsible key={topic.name} title={topic.name} meta={lessonCount(topic.subtopics.length, lectures)} accent={accent}>
+          <Collapsible key={topic.name} title={topic.name} meta={lessonCount(topic.subtopics.length)} accent={accent}>
             <ul className="sm:space-y-1 text-sm">
               {items.map(l => (
                 <li key={l.path} className="flex">
-                  {lectures && (
+                  {numbered && (
                     <span className="w-6 py-1.5 flex-shrink-0 tabular-nums text-gray-400 sm:py-0 dark:text-gray-500">{l.number}</span>
                   )}
                   <Link to={l.path} className={`${LESSON_LINK} ${accent.hover}`}>

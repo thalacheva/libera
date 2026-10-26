@@ -71,7 +71,7 @@ const SECTIONS: Record<
     title: 'Астрономия',
     icon: Telescope,
     intro:
-      'Лекции от небесната сфера и Слънчевата система до звездите, галактиките и космологията. Във всяка има интерактивни симулации, решени примери, бърз тест и задачи от олимпиадите по астрономия.',
+      'Курс по астрономия от небесната сфера и Слънчевата система до звездите, галактиките и космологията. Във всеки урок има симулации, в които сам въртиш небесната сфера, пускаш спътници в орбита и проследяваш живота на звездите, решени примери, бърз тест и олимпиадни задачи.',
     // въведението е първо в първия раздел и без номер
     groups: groupsOf(astronomyTopics, true).map((g, i) =>
       i === 0 ? {...g, lessons: [{path: astronomyIntro.path, name: 'Въведение: какво изучава астрономията'}, ...g.lessons]} : g,
@@ -89,7 +89,6 @@ export function SectionHome({area}: {area: Area}) {
   const {title, icon: Icon, intro, groups, hero, accent, hover} = SECTIONS[area];
   const lessons = groups.flatMap(g => g.lessons);
   const single = groups.length === 1;
-  const lectures = area === 'astronomy';
 
   // Прогресът е в localStorage – чете се след зареждане, за да съвпада с готовия HTML
   const [started, setStarted] = useState<Set<string>>(new Set());
@@ -110,7 +109,7 @@ export function SectionHome({area}: {area: Area}) {
           </h1>
           <p className="text-lg leading-relaxed text-white/90 max-w-3xl mb-2">{intro}</p>
           <p className="text-sm text-white/75 mb-6">
-            {lessonCount(lessons.length, lectures)}
+            {lessonCount(lessons.length)}
             {!single && ` в ${groups.length} теми`}
             {started.size > 0 && ` · започнати: ${started.size}`}
           </p>
@@ -161,7 +160,7 @@ export function SectionHome({area}: {area: Area}) {
               <h2 className={`text-xl sm:text-2xl font-semibold mb-4 ${accent}`}>
                 {group.name}{' '}
                 <span className="text-base font-normal text-gray-500 dark:text-gray-400">
-                  · {lessonCount(group.lessons.length, lectures)}
+                  · {lessonCount(group.lessons.length)}
                 </span>
               </h2>
             )}

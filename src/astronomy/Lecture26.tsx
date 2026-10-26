@@ -88,7 +88,7 @@ export default function Lecture26() {
   return (
     <main className="flex-1 overflow-y-auto px-4 pt-16 pb-12 sm:px-6 lg:px-10 lg:pt-10">
       <div className="max-w-4xl mx-auto">
-        <h1 className="text-2xl sm:text-3xl font-bold tracking-tight mb-6 text-gray-900 dark:text-white">Лекция 26: Млечният път</h1>
+        <h1 className="text-2xl sm:text-3xl font-bold tracking-tight mb-6 text-gray-900 dark:text-white">Урок 26: Млечният път</h1>
 
         <div className="bg-gradient-to-br from-slate-700 to-slate-950 text-white p-6 rounded-2xl mb-8 shadow-lg">
           <p className="text-lg sm:text-xl leading-relaxed">
@@ -138,14 +138,14 @@ export default function Lecture26() {
           <p className="mb-4 text-base sm:text-lg leading-relaxed">
             Двете популации разказват историята на Галактиката. Ореолът и кълбовидните купове са се образували първи, когато облакът
             газ още не е бил сплескан. Газът се е утаил в диск, който се върти, и там продължава да ражда нови поколения звезди – всяко
-            по-богато на тежки елементи от предишното (Лекция 20).
+            по-богато на тежки елементи от предишното (Урок 20).
           </p>
         </section>
 
         <section className="mb-8">
           <h2 className="text-xl sm:text-2xl font-semibold mb-4">3. Въртенето на Галактиката</h2>
           <p className="mb-4 text-base sm:text-lg leading-relaxed">
-            Цялата Галактика се върти, но не като твърдо тяло: <Term id="rotation-curve">кривата на въртене</Term> е почти плоска (Лекция 25), затова вътрешните звезди
+            Цялата Галактика се върти, но не като твърдо тяло: <Term id="rotation-curve">кривата на въртене</Term> е почти плоска (Урок 25), затова вътрешните звезди
             правят обиколката много по-бързо от външните. Скоростта на Слънцето се мери спрямо далечни галактики, а разстоянието до
             центъра – по орбитите на звездите около <Term id="black-hole">черната дупка</Term>.
           </p>

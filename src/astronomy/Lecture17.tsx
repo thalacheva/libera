@@ -91,7 +91,7 @@ export default function Lecture17() {
   return (
     <main className="flex-1 overflow-y-auto px-4 pt-16 pb-12 sm:px-6 lg:px-10 lg:pt-10">
       <div className="max-w-4xl mx-auto">
-        <h1 className="text-2xl sm:text-3xl font-bold tracking-tight mb-6 text-gray-900 dark:text-white">Лекция 17: Астероиди и пояси</h1>
+        <h1 className="text-2xl sm:text-3xl font-bold tracking-tight mb-6 text-gray-900 dark:text-white">Урок 17: Астероиди и пояси</h1>
 
         <div className="bg-gradient-to-br from-stone-700 to-slate-900 text-white p-6 rounded-2xl mb-8 shadow-lg">
           <p className="text-lg sm:text-xl leading-relaxed">
@@ -191,7 +191,7 @@ export default function Lecture17() {
               <p className="text-sm text-gray-600 dark:text-gray-400">
                 Повечето астероиди между ~200 m и ~10 km не са монолитни скали, а насипи от камъни, държани само от слабата си
                 гравитация. Доказателство: почти никой от тях не се върти по-бързо от 2,2 часа. При по-бързо въртене центробежната
-                сила би ги разпръснала – границата зависи само от плътността (вж. Лекция 15, задача 8).
+                сила би ги разпръснала – границата зависи само от плътността (вж. Урок 15, задача 8).
               </p>
             </div>
             <div className="bg-white dark:bg-gray-800 p-3 rounded-lg shadow-sm">

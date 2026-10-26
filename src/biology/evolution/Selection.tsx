@@ -250,7 +250,7 @@ export function Selection() {
             <Link to="/biology/evolution/phylogeny" className={link}>
               Видообразуване и филогения
             </Link>
-            . Как изобщо се е появил животът на Земята – в лекцията{' '}
+            . Как изобщо се е появил животът на Земята – в урока{' '}
             <Link to="/astronomy/lecture31" className={link}>
               по астрономия
             </Link>

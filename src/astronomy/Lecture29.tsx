@@ -84,7 +84,7 @@ export default function Lecture29() {
   return (
     <main className="flex-1 overflow-y-auto px-4 pt-16 pb-12 sm:px-6 lg:px-10 lg:pt-10">
       <div className="max-w-4xl mx-auto">
-        <h1 className="text-2xl sm:text-3xl font-bold tracking-tight mb-6 text-gray-900 dark:text-white">Лекция 29: Тъмна материя и тъмна енергия</h1>
+        <h1 className="text-2xl sm:text-3xl font-bold tracking-tight mb-6 text-gray-900 dark:text-white">Урок 29: Тъмна материя и тъмна енергия</h1>
 
         <div className="bg-gradient-to-br from-violet-900 to-slate-950 text-white p-6 rounded-2xl mb-8 shadow-lg">
           <p className="text-lg sm:text-xl leading-relaxed">
@@ -100,7 +100,7 @@ export default function Lecture29() {
         <section className="mb-8">
           <h2 className="text-xl sm:text-2xl font-semibold mb-4">1. Липсващата маса</h2>
           <p className="mb-4 text-base sm:text-lg leading-relaxed">
-            В Лекция 25 видяхме, че кривите на въртене на галактиките остават плоски далеч извън видимия диск. Същото казват и
+            В Урок 25 видяхме, че кривите на въртене на галактиките остават плоски далеч извън видимия диск. Същото казват и
             галактиките в куповете: колкото по-бързо се движат, толкова повече маса трябва, за да ги държи заедно.
           </p>
           <Theorem
@@ -171,7 +171,7 @@ export default function Lecture29() {
         <section className="mb-8">
           <h2 className="text-xl sm:text-2xl font-semibold mb-4">4. Тъмната енергия</h2>
           <p className="mb-4 text-base sm:text-lg leading-relaxed">
-            През 1998 г. далечните <Term id="supernova">свръхнови</Term> Ia показаха, че разширението на Вселената се ускорява (Лекция 28). Нещо действа като
+            През 1998 г. далечните <Term id="supernova">свръхнови</Term> Ia показаха, че разширението на Вселената се ускорява (Урок 28). Нещо действа като
             антигравитация в най-големите мащаби. То е наречено <Term id="dark-energy">тъмна енергия</Term>. <Term id="cmb">Реликтовото излъчване</Term> потвърждава независимо, че
             Вселената е плоска – значи пълната плътност е критичната, а веществото е само ~32% от нея. Останалите ~68% са тъмна енергия.
           </p>

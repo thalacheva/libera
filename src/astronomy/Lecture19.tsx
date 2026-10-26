@@ -79,7 +79,7 @@ export default function Lecture19() {
   return (
     <main className="flex-1 overflow-y-auto px-4 pt-16 pb-12 sm:px-6 lg:px-10 lg:pt-10">
       <div className="max-w-4xl mx-auto">
-        <h1 className="text-2xl sm:text-3xl font-bold tracking-tight mb-6 text-gray-900 dark:text-white">Лекция 19: Диаграма на Херцшпрунг–Ръсел</h1>
+        <h1 className="text-2xl sm:text-3xl font-bold tracking-tight mb-6 text-gray-900 dark:text-white">Урок 19: Диаграма на Херцшпрунг–Ръсел</h1>
 
         <div className="bg-gradient-to-br from-blue-800 to-slate-900 text-white p-6 rounded-2xl mb-8 shadow-lg">
           <p className="text-lg sm:text-xl leading-relaxed">
@@ -112,7 +112,7 @@ export default function Lecture19() {
         <section className="mb-8">
           <h2 className="text-xl sm:text-2xl font-semibold mb-4">2. Скрита в диаграмата: размерът</h2>
           <p className="mb-4 text-base sm:text-lg leading-relaxed">
-            От Лекция 18 знаем, че <Tex>{'L = 4\\pi R^2\\sigma T^4'}</Tex>. Всяка точка от диаграмата отговаря на определен радиус – и можем да го прочетем, без
+            От Урок 18 знаем, че <Tex>{'L = 4\\pi R^2\\sigma T^4'}</Tex>. Всяка точка от диаграмата отговаря на определен радиус – и можем да го прочетем, без
             никога да сме виждали диска на звездата.
           </p>
 
@@ -205,7 +205,7 @@ export default function Lecture19() {
           <p className="mb-4 text-base sm:text-lg leading-relaxed">
             Най-старите <Term id="globular-cluster">кълбовидни купове</Term> се отклоняват при ~<Tex>{'0{,}8\\,M_{\\odot}'}</Tex> – значи са на 12–13 млрд. години. През 90-те години на XX в. те дори изглеждаха
             „по-стари от Вселената“, докато измерванията на разширяването не станаха точни. Днес двете оценки съвпадат. Какво става със
-            звездите, след като напуснат главната последователност, ще видим в Лекция 20.
+            звездите, след като напуснат главната последователност, ще видим в Урок 20.
           </p>
         </section>
 
@@ -315,7 +315,7 @@ export default function Lecture19() {
               <p>За Слънцето: <Tex>{'5772 \\cdot 0{,}316 \\approx 1830\\ \\mathrm{K}'}</Tex> – по-студено от всяка звезда от главната последователност, тъмночервено.</p>
               <p>
                 Точката се мести хоризонтално надясно – по линия на постоянна светимост, пресичайки линиите на еднакъв радиус. Така се
-                движат звездите, които се превръщат в гиганти (Лекция 20).
+                движат звездите, които се превръщат в гиганти (Урок 20).
               </p>
             </Task>
 

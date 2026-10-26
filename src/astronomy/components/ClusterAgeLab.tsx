@@ -162,7 +162,7 @@ export default function ClusterAgeLab() {
             бели джуджета, неутронни звезди
           </text>
           <text x={0} y={164} fontSize="10" fillOpacity="0.55">
-            или черни дупки (Лекции 20–21).
+            или черни дупки (Уроци 20–21).
           </text>
         </g>
       </LabSvg>

@@ -28,7 +28,7 @@ function verdict(score: number, total: number) {
   if (r === 1) return { stars: 3, text: 'Перфектно! Владееш материала отлично.' };
   if (r >= 0.7) return { stars: 2, text: 'Много добре! Прегледай пропуснатото и ще е перфектно.' };
   if (r >= 0.4) return { stars: 1, text: 'Добро начало. Върни се към лабораториите и опитай пак.' };
-  return { stars: 0, text: 'Прочети лекцията още веднъж – после ще се справиш по-добре.' };
+  return { stars: 0, text: 'Прочети урока още веднъж – после ще се справиш по-добре.' };
 }
 
 export default function Quiz({

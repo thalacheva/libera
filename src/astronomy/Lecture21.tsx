@@ -69,7 +69,7 @@ export default function Lecture21() {
     <main className="flex-1 overflow-y-auto px-4 pt-16 pb-12 sm:px-6 lg:px-10 lg:pt-10">
       <div className="max-w-4xl mx-auto">
         <h1 className="text-2xl sm:text-3xl font-bold tracking-tight mb-6 text-gray-900 dark:text-white">
-          Лекция 21: Бели джуджета, неутронни звезди, черни дупки
+          Урок 21: Бели джуджета, неутронни звезди, черни дупки
         </h1>
 
         <div className="bg-gradient-to-br from-violet-800 to-slate-900 text-white p-6 rounded-2xl mb-8 shadow-lg">
@@ -85,7 +85,7 @@ export default function Lecture21() {
         <section className="mb-8">
           <h2 className="text-xl sm:text-2xl font-semibold mb-4">1. Звездните трупове</h2>
           <p className="mb-4 text-base sm:text-lg leading-relaxed">
-            В Лекция 20 видяхме, че звездата умира, когато горивото в ядрото ѝ свърши. Без енергия от <Term id="nuclear-fusion">синтеза</Term> налягането на горещия
+            В Урок 20 видяхме, че звездата умира, когато горивото в ядрото ѝ свърши. Без енергия от <Term id="nuclear-fusion">синтеза</Term> налягането на горещия
             газ вече не може да удържи гравитацията и ядрото колапсира. Докъде? Зависи от масата му – и от това каква сила на
             природата ще успее да го спре.
           </p>
@@ -160,7 +160,7 @@ export default function Lecture21() {
               Докато изстива, въглеродът и кислородът в него кристализират – Gaia забеляза това по „натрупването“ на бели джуджета в
               една ивица на <Term id="hr-diagram">HR диаграмата</Term> (2019). Ако бяло джудже в двойна система трупа вещество от съседа си и се приближи до
               границата на Чандрасекар, то избухва като <strong>свръхнова тип Ia</strong>. Тези експлозии имат почти еднаква <Term id="luminosity">светимост</Term>{' '}
-              и служат като „<Term id="standard-candle">стандартни свещи</Term>“ за измерване на разстояния до далечни галактики (Лекция 28).
+              и служат като „<Term id="standard-candle">стандартни свещи</Term>“ за измерване на разстояния до далечни галактики (Урок 28).
             </p>
           </div>
         </section>
@@ -210,7 +210,7 @@ export default function Lecture21() {
               <p className="font-semibold mb-1">💥 Сливане GW170817</p>
               <p className="text-sm text-gray-600 dark:text-gray-400">
                 През 2017 г. LIGO и Virgo улавят гравитационните вълни от сливането на две неутронни звезди, а 70 телескопа виждат
-                светлината на „килоновата“ – и в нея линии на новосъздадени тежки елементи (Лекция 20).
+                светлината на „килоновата“ – и в нея линии на новосъздадени тежки елементи (Урок 20).
               </p>
             </div>
             <div className="bg-white dark:bg-gray-800 p-3 rounded-lg shadow-sm">

@@ -108,7 +108,7 @@ export function structuredData(page: PageMeta): object {
           ...common(page),
           name: shortTitle(page),
           headline: page.title,
-          learningResourceType: lessonSection.path === '/astronomy' ? 'лекция' : 'урок',
+          learningResourceType: 'урок',
           educationalLevel: 'средно образование',
           about: lessonSection.name,
           isAccessibleForFree: true,

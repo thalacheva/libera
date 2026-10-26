@@ -91,7 +91,7 @@ export default function Lecture20() {
   return (
     <main className="flex-1 overflow-y-auto px-4 pt-16 pb-12 sm:px-6 lg:px-10 lg:pt-10">
       <div className="max-w-4xl mx-auto">
-        <h1 className="text-2xl sm:text-3xl font-bold tracking-tight mb-6 text-gray-900 dark:text-white">Лекция 20: Еволюция на звездите</h1>
+        <h1 className="text-2xl sm:text-3xl font-bold tracking-tight mb-6 text-gray-900 dark:text-white">Урок 20: Еволюция на звездите</h1>
 
         <div className="bg-gradient-to-br from-orange-800 to-slate-900 text-white p-6 rounded-2xl mb-8 shadow-lg">
           <p className="text-lg sm:text-xl leading-relaxed">
@@ -228,7 +228,7 @@ export default function Lecture20() {
           </div>
           <p className="mb-4 text-base sm:text-lg leading-relaxed">
             Границите са приблизителни – зависят от състава, въртенето и от това дали звездата е в двойна система. Какво точно
-            представляват белите джуджета, <Term id="neutron-star">неутронните звезди</Term> и <Term id="black-hole">черните дупки</Term>, ще видим в Лекция 21.
+            представляват белите джуджета, <Term id="neutron-star">неутронните звезди</Term> и <Term id="black-hole">черните дупки</Term>, ще видим в Урок 21.
           </p>
         </section>
 

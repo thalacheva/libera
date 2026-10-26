@@ -64,7 +64,7 @@ export default function Lecture08() {
     <main className="flex-1 overflow-y-auto px-4 pt-16 pb-12 sm:px-6 lg:px-10 lg:pt-10">
       <div className="max-w-4xl mx-auto">
         <h1 className="text-2xl sm:text-3xl font-bold tracking-tight mb-6 text-gray-900 dark:text-white">
-          Лекция 8: Орбити и скорости
+          Урок 8: Орбити и скорости
         </h1>
 
         <div className="bg-gradient-to-br from-indigo-900 to-slate-900 text-white p-6 rounded-2xl mb-8 shadow-lg">
@@ -84,7 +84,7 @@ export default function Lecture08() {
           <p className="mb-4 text-base sm:text-lg leading-relaxed">
             Спътникът по орбита непрекъснато пада към Земята, но се движи
             хоризонтално толкова бързо, че повърхността „бяга“ под него (топът
-            на Нютон, Лекция 6). При кръгова орбита гравитацията играе ролята на{' '}
+            на Нютон, Урок 6). При кръгова орбита гравитацията играе ролята на{' '}
             <Term id="centripetal-force">центростремителна сила</Term>.
           </p>
           <Theorem
@@ -190,7 +190,7 @@ export default function Lecture08() {
             </table>
             <p className="text-sm mt-2">
               Ако <Tex>{'v_2'}</Tex> стане равна на скоростта на светлината <Tex>{'c'}</Tex>, нищо не може да
-              избяга – това е <Term id="black-hole">черна дупка</Term> (Лекция 21). Радиусът ѝ е <Tex>{'R = 2GM / c^2'}</Tex>.
+              избяга – това е <Term id="black-hole">черна дупка</Term> (Урок 21). Радиусът ѝ е <Tex>{'R = 2GM / c^2'}</Tex>.
             </p>
           </div>
         </section>

@@ -81,7 +81,7 @@ export default function Lecture05() {
     <main className="flex-1 overflow-y-auto px-4 pt-16 pb-12 sm:px-6 lg:px-10 lg:pt-10">
       <div className="max-w-4xl mx-auto">
         <h1 className="text-2xl sm:text-3xl font-bold tracking-tight mb-6 text-gray-900 dark:text-white">
-          Лекция 5: Слънчеви затъмнения
+          Урок 5: Слънчеви затъмнения
         </h1>
 
         <div className="bg-gradient-to-br from-slate-900 to-black text-white p-6 rounded-2xl mb-8 shadow-lg">
@@ -248,7 +248,7 @@ export default function Lecture05() {
             4. Защо затъмненията не се случват всеки месец?
           </h2>
           <p className="mb-4 text-base sm:text-lg leading-relaxed">
-            Както при лунните затъмнения (Лекция 4), орбитата на Луната е
+            Както при лунните затъмнения (Урок 4), орбитата на Луната е
             наклонена на ~5,1° спрямо <Term id="ecliptic">еклиптиката</Term>. При повечето новолуния Луната
             минава над или под Слънцето. Затъмнение има само ако новолунието е
             близо до възел.
