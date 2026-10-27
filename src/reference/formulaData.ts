@@ -4704,6 +4704,258 @@ export const BIOLOGY: Section = {
   ],
 };
 
+export const GEOGRAPHY: Section = {
+  id: 'geography',
+  title: 'География',
+  groups: [
+    {
+      id: 'coordinates',
+      title: 'Координати и време',
+      formulas: [
+        {
+          name: 'Градус по меридиана',
+          formula: '1^\\circ \\approx 111\\ \\mathrm{km},\\quad 1\' \\approx 1\\ \\text{морска миля} = 1852\\ \\mathrm{m}',
+          note: 'обиколката на Земята по меридиана е около 40 000 km',
+          lesson: '/geography/maps/coordinates',
+        },
+        {
+          name: 'Градус по паралела',
+          formula: '1^\\circ \\approx 111\\ \\mathrm{km} \\cdot \\cos\\varphi',
+          note: 'паралелите се скъсяват към полюсите; $\\varphi$ – географската ширина',
+          lesson: '/geography/maps/coordinates',
+        },
+        {
+          name: 'Ортодромия (най-кратък път)',
+          formula: '\\cos d = \\sin\\varphi_1 \\sin\\varphi_2 + \\cos\\varphi_1 \\cos\\varphi_2 \\cos\\Delta\\lambda,\\quad s = R\\,d',
+          note: '$d$ – централният ъгъл в радиани, $R \\approx 6371$ km',
+          lesson: '/geography/maps/coordinates',
+        },
+        {
+          name: 'Местно време и дължина',
+          formula: '\\Delta t = 4\\ \\text{min} \\cdot \\Delta\\lambda^\\circ,\\quad 15^\\circ = 1\\ \\mathrm{h}',
+          note: 'на изток местното време е напред',
+          lesson: '/geography/maps/coordinates',
+        },
+        {
+          name: 'Поясно време',
+          formula: 'T = \\mathrm{UTC} + n',
+          note: '$n$ – номерът на пояса; България: $n = 2$, през лятото $n = 3$',
+          lesson: '/geography/maps/coordinates',
+        },
+        {
+          name: 'Ширина по пладнешкото Слънце',
+          formula: '\\varphi = 90^\\circ - h + \\delta',
+          note: '$h$ – височина на Слънцето в пладне (на юг), $\\delta$ – деклинацията му; височината на Полярната звезда е $\\approx \\varphi$',
+          lesson: '/geography/maps/coordinates',
+        },
+      ],
+    },
+    {
+      id: 'projections',
+      title: 'Мащаб и проекции',
+      formulas: [
+        {
+          name: 'Мащаб',
+          formula: 'L_{\\text{терен}} = M \\cdot L_{\\text{карта}},\\quad S_{\\text{терен}} = M^2 \\cdot S_{\\text{карта}}',
+          note: 'при мащаб $1 : M$; 1 : 50 000 – „в 1 cm – 500 m“',
+          lesson: '/geography/maps/projections',
+        },
+        {
+          name: 'Изкривяване на лицата',
+          formula: 'p = h \\cdot k',
+          note: '$h$ – мащаб по меридиана, $k$ – по паралела (спрямо главния мащаб)',
+          lesson: '/geography/maps/projections',
+        },
+        {
+          name: 'Проекция на Меркатор',
+          formula: 'x = R\\lambda,\\quad y = R \\ln \\operatorname{tg}\\left(45^\\circ + \\frac{\\varphi}{2}\\right),\\quad h = k = \\frac{1}{\\cos\\varphi}',
+          note: 'равноъгълна; лицата растат $1/\\cos^2\\varphi$ пъти',
+          lesson: '/geography/maps/projections',
+        },
+        {
+          name: 'Равновелика цилиндрична (Гал–Петерс)',
+          formula: 'x = R\\lambda\\cos 45^\\circ,\\quad y = \\frac{R\\sin\\varphi}{\\cos 45^\\circ},\\quad h \\cdot k = 1',
+          lesson: '/geography/maps/projections',
+        },
+      ],
+    },
+    {
+      id: 'topography',
+      title: 'Релеф на картата',
+      formulas: [
+        {
+          name: 'Наклон на склона',
+          formula: 'i = \\frac{\\Delta h}{d} \\cdot 100\\%,\\quad \\operatorname{tg}\\alpha = \\frac{\\Delta h}{d}',
+          note: '$d$ – хоризонталното разстояние; $100\\% = 45^\\circ$',
+          lesson: '/geography/maps/topography',
+        },
+        {
+          name: 'Вертикално преувеличение',
+          formula: 'k = \\frac{M_{\\text{хор}}}{M_{\\text{верт}}}',
+          note: '$M$ – знаменателите на мащабите; при $1 : 25\\,000$ и $1 : 5000$ $k = 5$',
+          lesson: '/geography/maps/topography',
+        },
+        {
+          name: 'Разстояние до хоризонта',
+          formula: 'd \\approx \\sqrt{2Rh} \\approx 3{,}57\\sqrt{h}\\ \\mathrm{km}',
+          note: '$h$ в метри, без пречупването във въздуха',
+          lesson: '/geography/maps/topography',
+        },
+        {
+          name: 'Правило на Нейсмит',
+          formula: 't = \\frac{s}{5\\ \\mathrm{km/h}} + \\frac{\\Delta h_{\\uparrow}}{600\\ \\mathrm{m/h}}',
+          note: 'време за пешеходен маршрут без почивките',
+          lesson: '/geography/maps/topography',
+        },
+      ],
+    },
+    {
+      id: 'gis',
+      title: 'Спътници и GPS',
+      formulas: [
+        {
+          name: 'Вегетационен индекс',
+          formula: '\\mathrm{NDVI} = \\frac{\\text{БИЧ} - \\text{Ч}}{\\text{БИЧ} + \\text{Ч}}',
+          note: 'от −1 до 1; вода < 0, гъста растителност > 0,6',
+          lesson: '/geography/maps/gis',
+        },
+        {
+          name: 'Разстояние по времето на сигнала',
+          formula: 'd = c\\,\\Delta t,\\quad 1\\ \\mu\\mathrm{s} \\leftrightarrow 300\\ \\mathrm{m}',
+          note: 'GPS: поне 4 спътника – три координати и грешката в часовника',
+          lesson: '/geography/maps/gis',
+        },
+        {
+          name: 'Пиксел на терена',
+          formula: 'a = \\frac{H\\,p}{f}',
+          note: '$H$ – височина на спътника, $p$ – пиксел на сензора, $f$ – фокусно разстояние',
+          lesson: '/geography/maps/gis',
+        },
+      ],
+    },
+    {
+      id: 'interior',
+      title: 'Строеж на Земята',
+      formulas: [
+        {
+          name: 'Средна плътност на Земята',
+          formula: '\\bar\\rho = \\frac{M}{\\frac43 \\pi R^3} \\approx 5{,}51\\ \\mathrm{g/cm^3}',
+          note: 'два пъти повече от скалите на кората (≈ 2,7) – навътре има плътно ядро',
+          lesson: '/geography/lithosphere/interior',
+        },
+        {
+          name: 'Изостазия по Ейри',
+          formula: 'r = h \\cdot \\frac{\\rho_{\\text{к}}}{\\rho_{\\text{м}} - \\rho_{\\text{к}}}',
+          note: '$r$ – корен на планина с височина $h$; при 2,7 и 3,3 g/cm³ $r \\approx 4{,}5\\,h$',
+          lesson: '/geography/lithosphere/interior',
+        },
+        {
+          name: 'Потъване под ледена шапка',
+          formula: 'd = t \\cdot \\frac{\\rho_{\\text{л}}}{\\rho_{\\text{м}}}',
+          note: '$t$ – дебелина на леда; при 0,917 и 3,3 g/cm³ $d \\approx 0{,}28\\,t$',
+          lesson: '/geography/lithosphere/interior',
+        },
+        {
+          name: 'Двуслоен модел на Земята',
+          formula: '\\bar\\rho = \\rho_{\\text{м}} + (\\rho_{\\text{я}} - \\rho_{\\text{м}})\\,x^3,\\quad \\frac{I}{MR^2} = \\frac{0{,}4\\,[\\rho_{\\text{м}} + (\\rho_{\\text{я}} - \\rho_{\\text{м}})\\,x^5]}{\\bar\\rho}',
+          note: '$x$ – радиусът на ядрото спрямо радиуса на Земята; за Земята $I/(MR^2) = 0{,}331$',
+          lesson: '/geography/lithosphere/interior',
+        },
+        {
+          name: 'Пречупване на сеизмична вълна',
+          formula: '\\frac{\\sin\\alpha}{v_1} = \\frac{\\sin\\beta}{v_2}',
+          note: 'в сферична Земя $\\frac{r \\sin i}{v}$ е едно и също по целия лъч',
+          lesson: '/geography/lithosphere/interior',
+        },
+      ],
+    },
+    {
+      id: 'plates',
+      title: 'Тектоника на плочите',
+      formulas: [
+        {
+          name: 'Път на плочата',
+          formula: 's = v\\,t,\\quad 1\\ \\mathrm{cm/год} \\cdot 1\\ \\text{млн. г.} = 10\\ \\mathrm{km}',
+          note: 'скоростите на плочите са от около 1 до над 10 cm/год',
+          lesson: '/geography/lithosphere/plates',
+        },
+        {
+          name: 'Скорост на спрединга',
+          formula: 'v_{1/2} = \\frac{x}{t},\\quad v = 2v_{1/2}',
+          note: '$x$ – разстояние от оста на хребета до ивица с възраст $t$',
+          lesson: '/geography/lithosphere/plates',
+        },
+        {
+          name: 'Дълбочина на океана и възраст на дъното',
+          formula: 'd \\approx 2500 + 350\\sqrt{t}',
+          note: '$d$ в метри, $t$ в милиони години (до около 70 млн. години)',
+          lesson: '/geography/lithosphere/plates',
+        },
+      ],
+    },
+    {
+      id: 'hazards',
+      title: 'Земетресения и вулкани',
+      formulas: [
+        {
+          name: 'Разстояние до огнището',
+          formula: 'd = \\frac{v_P v_S}{v_P - v_S}(t_S - t_P) \\approx 8\\ \\mathrm{km/s} \\cdot (t_S - t_P)',
+          note: 'при $v_P \\approx 6$ km/s и $v_S \\approx 3{,}5$ km/s в земната кора',
+          lesson: '/geography/lithosphere/hazards',
+        },
+        {
+          name: 'Магнитуд и енергия',
+          formula: '\\lg E \\approx 1{,}5\\,M + 4{,}8,\\quad \\frac{E_2}{E_1} = 10^{1{,}5(M_2 - M_1)}',
+          note: '$E$ в джаули; +1 магнитуд – амплитуда ×10, енергия ×≈32',
+          lesson: '/geography/lithosphere/hazards',
+        },
+        {
+          name: 'Моментен магнитуд',
+          formula: 'M_w = \\frac{2}{3}(\\lg M_0 - 9{,}1),\\quad M_0 = \\mu S D',
+          note: '$M_0$ в N·m; $\\mu$ – твърдост на скалите, $S$ – площ на разлома, $D$ – приплъзване',
+          lesson: '/geography/lithosphere/hazards',
+        },
+        {
+          name: 'Скорост на цунами',
+          formula: 'v = \\sqrt{g h},\\quad H \\sim h^{-1/4}',
+          note: '$h$ – дълбочина; в плитчините вълната се забавя и расте (закон на Грийн)',
+          lesson: '/geography/lithosphere/hazards',
+        },
+      ],
+    },
+    {
+      id: 'landforms',
+      title: 'Външни сили и релеф',
+      formulas: [
+        {
+          name: 'Коефициент на извитост',
+          formula: 'k = \\frac{L_{\\text{корито}}}{L_{\\text{долина}}}',
+          note: '$k \\geq 1{,}5$ – меандрираща река',
+          lesson: '/geography/lithosphere/landforms',
+        },
+        {
+          name: 'Разтваряне на варовика',
+          formula: '\\mathrm{CaCO_3 + H_2O + CO_2 \\rightleftharpoons Ca^{2+} + 2HCO_3^-}',
+          note: 'повече $\\mathrm{CO_2}$ и по-студена вода – повече разтворен варовик; отделянето на $\\mathrm{CO_2}$ в пещерата утаява сталактити',
+          lesson: '/geography/lithosphere/landforms',
+        },
+        {
+          name: 'Карстова денудация',
+          formula: 'h = \\frac{R \\cdot c}{\\rho}',
+          note: '$R$ – отток (m за година), $c$ – разтворен $\\mathrm{CaCO_3}$ (g/m³), $\\rho \\approx 2{,}7 \\cdot 10^6$ g/m³; $h$ – снижаване за година',
+          lesson: '/geography/lithosphere/landforms',
+        },
+        {
+          name: 'Утаяване (закон на Стокс)',
+          formula: 'v = \\frac{(\\rho_{\\text{з}} - \\rho)\\,g\\,d^2}{18\\,\\eta}',
+          note: 'скорост на падане на малко зърно в покойна вода; 10 пъти по-дребно зърно пада 100 пъти по-бавно',
+          lesson: '/geography/lithosphere/landforms',
+        },
+      ],
+    },
+  ],
+};
+
 export const ASTRONOMY: Section = {
   id: 'astronomy',
   title: 'Астрономия',

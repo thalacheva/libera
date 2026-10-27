@@ -38,6 +38,22 @@ const files = only.length ? lessons.filter(([f]) => only.includes(f)) : lessons;
 
 // Споменавания в друг смисъл („съпротивление на въздуха“, „напрежение на Хъбъл“…) – не ги отбелязваме
 const SKIP = {
+  // географски меридиан, не небесният
+  'src/geography/maps/Coordinates.tsx': ['celestial-meridian'],
+  // меридианът на картата; увеличение на лицата; напречна проекция, не вълна
+  'src/geography/maps/Projections.tsx': ['celestial-meridian', 'magnification', 'transverse-wave'],
+  // изпъкнал склон, не многоъгълник
+  'src/geography/maps/Topography.tsx': ['convex-polygon'],
+  // разделителна способност на снимка, не на телескоп; буферна зона, не буферен разтвор; фотосинтезата е с връзка до урока
+  'src/geography/maps/Gis.tsx': ['angular-resolution', 'buffer-solution', 'photosynthesis'],
+  // пречупване на сеизмични вълни, не на светлина
+  'src/geography/lithosphere/Interior.tsx': ['refraction'],
+  // Средноатлантическият хребет е средноокеански хребет
+  'src/geography/lithosphere/Plates.tsx': ['landform-ridge'],
+  // напрежение в скалите; Каменните гъби; изригвания на вулкани, не на Слънцето
+  'src/geography/lithosphere/Hazards.tsx': ['voltage', 'fungus', 'solar-flare'],
+  // земни пирамиди, не геометричното тяло
+  'src/geography/lithosphere/Landforms.tsx': ['pyramid'],
   // диафрагмата на микроскопа, не дихателният мускул
   'src/biology/cell/Life.tsx': ['diaphragm'],
   // мицели от жлъчни соли, не мицел на гъбите

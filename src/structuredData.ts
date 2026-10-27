@@ -2,7 +2,7 @@
 // Записват се в готовия HTML при build (vite.config.js) и се обновяват при навигация (Seo.tsx).
 
 import { allPages, homePage, type PageMeta, SITE_NAME, SITE_URL } from './pages';
-import { astronomyTopics, biologyTopics, chemistryTopics, mathTopics, physicsTopics } from './topics';
+import { astronomyTopics, biologyTopics, chemistryTopics, geographyTopics, mathTopics, physicsTopics } from './topics';
 
 const SECTIONS = [
   { path: '/math', name: 'Математика', topics: mathTopics },
@@ -10,6 +10,7 @@ const SECTIONS = [
   { path: '/astronomy', name: 'Астрономия', topics: astronomyTopics },
   { path: '/chemistry', name: 'Химия', topics: chemistryTopics },
   { path: '/biology', name: 'Биология', topics: biologyTopics },
+  { path: '/geography', name: 'География', topics: geographyTopics },
 ];
 
 const lessonsOf = (topics: typeof mathTopics) => topics.flatMap(t => t.subtopics.map(s => t.path + s.path));

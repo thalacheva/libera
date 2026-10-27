@@ -3,13 +3,13 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Quiz, { type Question } from '~/Quiz';
 import { clearProgress, hasActivity, lessonProgress, removeMistake, type LessonProgress } from '~/progress';
-import { astronomyTopics, biologyTopics, chemistryTopics, lessonCount, mathTopics, physicsTopics } from '~/topics';
+import { astronomyTopics, biologyTopics, chemistryTopics, geographyTopics, lessonCount, mathTopics, physicsTopics } from '~/topics';
 
 type Lesson = { path: string; name: string };
 type Group = { name: string; lessons: Lesson[] };
 
 const GROUPS: Group[] = [
-  ...[...mathTopics, ...physicsTopics, ...astronomyTopics, ...chemistryTopics, ...biologyTopics].map(t => ({
+  ...[...mathTopics, ...physicsTopics, ...astronomyTopics, ...chemistryTopics, ...biologyTopics, ...geographyTopics].map(t => ({
     name: t.name,
     lessons: t.subtopics.map(s => ({ path: t.path + s.path, name: s.name })),
   })),

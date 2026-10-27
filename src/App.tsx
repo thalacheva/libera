@@ -111,6 +111,14 @@ const Ecosystems = lazy(() => import('./biology/ecology/Ecosystems').then(m => (
 const Populations = lazy(() => import('./biology/ecology/Populations').then(m => ({default: m.Populations})));
 const Biodiversity = lazy(() => import('./biology/ecology/Biodiversity').then(m => ({default: m.Biodiversity})));
 const Behaviour = lazy(() => import('./biology/ecology/Behaviour').then(m => ({default: m.Behaviour})));
+const Coordinates = lazy(() => import('./geography/maps/Coordinates').then(m => ({default: m.Coordinates})));
+const Projections = lazy(() => import('./geography/maps/Projections').then(m => ({default: m.Projections})));
+const Topography = lazy(() => import('./geography/maps/Topography').then(m => ({default: m.Topography})));
+const Gis = lazy(() => import('./geography/maps/Gis').then(m => ({default: m.Gis})));
+const Interior = lazy(() => import('./geography/lithosphere/Interior').then(m => ({default: m.Interior})));
+const Plates = lazy(() => import('./geography/lithosphere/Plates').then(m => ({default: m.Plates})));
+const Hazards = lazy(() => import('./geography/lithosphere/Hazards').then(m => ({default: m.Hazards})));
+const Landforms = lazy(() => import('./geography/lithosphere/Landforms').then(m => ({default: m.Landforms})));
 const Units = lazy(() => import('./physics/mechanics/Units').then(m => ({default: m.Units})));
 const Modular = lazy(() => import('./numbers/Modular').then(m => ({default: m.Modular})));
 const MyProgress = lazy(() => import('./MyProgress').then(m => ({default: m.MyProgress})));
@@ -352,6 +360,21 @@ function App() {
                 <Route path="populations" element={<Populations />} />
                 <Route path="biodiversity" element={<Biodiversity />} />
                 <Route path="behaviour" element={<Behaviour />} />
+              </Route>
+            </Route>
+            <Route path="geography">
+              <Route index element={<SectionHome area="geography" />} />
+              <Route path="maps">
+                <Route path="coordinates" element={<Coordinates />} />
+                <Route path="projections" element={<Projections />} />
+                <Route path="topography" element={<Topography />} />
+                <Route path="gis" element={<Gis />} />
+              </Route>
+              <Route path="lithosphere">
+                <Route path="interior" element={<Interior />} />
+                <Route path="plates" element={<Plates />} />
+                <Route path="hazards" element={<Hazards />} />
+                <Route path="landforms" element={<Landforms />} />
               </Route>
             </Route>
             <Route path="geometry">

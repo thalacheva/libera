@@ -1,11 +1,11 @@
-import {ArrowRight, Atom, BookA, BookMarked, CheckCircle2, ChevronRight, FlaskConical, Leaf, Sigma, Telescope} from 'lucide-react';
+import {ArrowRight, Atom, BookA, BookMarked, CheckCircle2, ChevronRight, FlaskConical, Globe, Leaf, Sigma, Telescope} from 'lucide-react';
 import {useEffect, useState} from 'react';
 import {Link} from 'react-router-dom';
 import {lessonPages} from '~/pages';
 import {hasActivity, lessonProgress} from '~/progress';
-import {astronomyTopics, biologyTopics, chemistryTopics, lessonCount, mathTopics, physicsTopics} from '~/topics';
+import {astronomyTopics, biologyTopics, chemistryTopics, geographyTopics, lessonCount, mathTopics, physicsTopics} from '~/topics';
 
-type Area = 'math' | 'physics' | 'astronomy' | 'chemistry' | 'biology';
+type Area = 'math' | 'physics' | 'astronomy' | 'chemistry' | 'biology' | 'geography';
 type Lesson = {path: string; name: string};
 type Group = {name: string; lessons: Lesson[]};
 
@@ -66,6 +66,16 @@ const SECTIONS: Record<
     hero: 'from-rose-600 to-pink-800',
     accent: 'text-rose-700 dark:text-rose-300',
     hover: 'hover:border-rose-300 dark:hover:border-rose-500/50',
+  },
+  geography: {
+    title: 'География',
+    icon: Globe,
+    intro:
+      'Курс по география от картите и координатите през релефа, климата и водите до населението и стопанството. Във всеки урок има лаборатории, в които сам въртиш глобуса, чертаеш маршрути и местиш линията ден–нощ, решени примери, бърз тест и олимпиадни задачи.',
+    groups: groupsOf(geographyTopics),
+    hero: 'from-sky-600 to-cyan-800',
+    accent: 'text-sky-700 dark:text-sky-300',
+    hover: 'hover:border-sky-300 dark:hover:border-sky-500/50',
   },
   astronomy: {
     title: 'Астрономия',

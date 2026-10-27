@@ -1,7 +1,7 @@
-import {Atom, BookA, BookMarked, BookOpen, ChevronDown, ChevronRight, FlaskConical, Leaf, Mail, Sigma, Telescope, TrendingUp} from 'lucide-react';
+import {Atom, BookA, BookMarked, BookOpen, ChevronDown, ChevronRight, FlaskConical, Globe, Leaf, Mail, Sigma, Telescope, TrendingUp} from 'lucide-react';
 import {useEffect, useRef, useState} from 'react';
 import {Link, useLocation} from 'react-router-dom';
-import {astronomyTopics, biologyTopics, chemistryTopics, mathTopics, physicsTopics} from '~/topics';
+import {astronomyTopics, biologyTopics, chemistryTopics, geographyTopics, mathTopics, physicsTopics} from '~/topics';
 
 interface SidebarMenuProps {
   isOpen?: boolean;
@@ -177,6 +177,21 @@ export default function SidebarMenu({
               <TopicList topics={biologyTopics} accent="rose" pathname={location.pathname} onClose={onClose} />
             )}
           </div>
+          {/* География секция */}
+          <div>
+            <SectionHeader
+              icon={<Globe size={16} />}
+              label="География"
+              to="/geography"
+              expanded={!!expandedSections.geography}
+              active={location.pathname === '/geography'}
+              onToggle={() => toggleSection('geography')}
+              onClose={onClose}
+            />
+            {expandedSections.geography && (
+              <TopicList topics={geographyTopics} accent="sky" pathname={location.pathname} onClose={onClose} />
+            )}
+          </div>
 
         </nav>
 
@@ -217,6 +232,7 @@ function sectionOf(pathname: string): string | null {
   if (under('/astronomy')) return 'astronomy';
   if (under('/chemistry')) return 'chemistry';
   if (under('/biology')) return 'biology';
+  if (under('/geography')) return 'geography';
   return null;
 }
 
@@ -268,6 +284,7 @@ const topicAccent = {
   purple: 'text-purple-700 dark:text-purple-300',
   amber: 'text-amber-700 dark:text-amber-300',
   rose: 'text-rose-700 dark:text-rose-300',
+  sky: 'text-sky-700 dark:text-sky-300',
 };
 
 /** Групи уроци с подтеми – за всички раздели. */
@@ -336,6 +353,7 @@ const accentClasses = {
   emerald: 'bg-emerald-50 text-emerald-700 dark:bg-emerald-500/15 dark:text-emerald-300',
   amber: 'bg-amber-50 text-amber-700 dark:bg-amber-500/15 dark:text-amber-300',
   rose: 'bg-rose-50 text-rose-700 dark:bg-rose-500/15 dark:text-rose-300',
+  sky: 'bg-sky-50 text-sky-700 dark:bg-sky-500/15 dark:text-sky-300',
 };
 
 function NavItem({

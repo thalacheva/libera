@@ -7,13 +7,14 @@ import {
   BIOLOGY,
   CHEMISTRY,
   CONSTANTS,
+  GEOGRAPHY,
   type Formula,
   type FormulaGroup,
   MATH,
   PHYSICS,
 } from './formulaData';
 
-type Filter = 'all' | 'math' | 'physics' | 'astronomy' | 'chemistry' | 'biology' | 'constants';
+type Filter = 'all' | 'math' | 'physics' | 'astronomy' | 'chemistry' | 'biology' | 'geography' | 'constants';
 
 const FILTERS: { id: Filter; label: string }[] = [
   { id: 'all', label: 'Всичко' },
@@ -22,6 +23,7 @@ const FILTERS: { id: Filter; label: string }[] = [
   { id: 'astronomy', label: 'Астрономия' },
   { id: 'chemistry', label: 'Химия' },
   { id: 'biology', label: 'Биология' },
+  { id: 'geography', label: 'География' },
   { id: 'constants', label: 'Константи' },
 ];
 
@@ -78,6 +80,13 @@ export function Formulas() {
         : [],
     [filter, query]
   );
+  const geography = useMemo(
+    () =>
+      filter === 'all' || filter === 'geography'
+        ? filterGroups(GEOGRAPHY.groups, query)
+        : [],
+    [filter, query]
+  );
   const astronomy = useMemo(
     () =>
       filter === 'all' || filter === 'astronomy'
@@ -101,7 +110,7 @@ export function Formulas() {
   );
 
   const count =
-    [...math, ...physics, ...astronomy, ...chemistry, ...biology].reduce((s, g) => s + g.formulas.length, 0) +
+    [...math, ...physics, ...astronomy, ...chemistry, ...biology, ...geography].reduce((s, g) => s + g.formulas.length, 0) +
     constants.reduce((s, c) => s + c.items.length, 0);
 
   return (
@@ -188,6 +197,9 @@ export function Formulas() {
         {biology.length > 0 && (
           <SectionBlock title="Биология" accent="rose" groups={biology} />
         )}
+        {geography.length > 0 && (
+          <SectionBlock title="География" accent="sky" groups={geography} />
+        )}
 
         {constants.length > 0 && (
           <section className="mb-10">
@@ -244,6 +256,7 @@ const accents = {
   emerald: 'text-emerald-700 dark:text-emerald-300',
   amber: 'text-amber-700 dark:text-amber-300',
   rose: 'text-rose-700 dark:text-rose-300',
+  sky: 'text-sky-700 dark:text-sky-300',
 };
 
 function SectionBlock({

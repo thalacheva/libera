@@ -279,6 +279,30 @@ export const biologyTopics = [
   },
 ];
 
+// География: в менюто са само групите, в които вече има уроци (целият план е в README).
+export const geographyTopics = [
+  {
+    name: 'Карти и Земята',
+    path: '/geography/maps',
+    subtopics: [
+      { name: 'Географски координати и време', path: '/coordinates' },
+      { name: 'Мащаб и картографски проекции', path: '/projections' },
+      { name: 'Релефът на картата', path: '/topography' },
+      { name: 'Сателити, GPS и ГИС', path: '/gis' },
+    ],
+  },
+  {
+    name: 'Литосфера',
+    path: '/geography/lithosphere',
+    subtopics: [
+      { name: 'Строежът на Земята', path: '/interior' },
+      { name: 'Тектоника на плочите', path: '/plates' },
+      { name: 'Земетресения и вулкани', path: '/hazards' },
+      { name: 'Външни сили и релеф', path: '/landforms' },
+    ],
+  },
+];
+
 /** Адресите /lectureNN са от първоначалната номерация и не се сменят – вече са в търсачките. */
 export const astronomyTopics = [
   {

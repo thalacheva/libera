@@ -1,7 +1,7 @@
-import {Atom, BookA, BookMarked, ChevronDown, ChevronRight, FlaskConical, Leaf, PencilLine, Sigma, Target, Telescope, TrendingUp, Trophy} from 'lucide-react';
+import {Atom, BookA, BookMarked, ChevronDown, ChevronRight, FlaskConical, Globe, Leaf, PencilLine, Sigma, Target, Telescope, TrendingUp, Trophy} from 'lucide-react';
 import {useState, type ReactNode} from 'react';
 import {Link} from 'react-router-dom';
-import {astronomyTopics, biologyTopics, chemistryTopics, lessonCount, mathTopics, physicsTopics} from '~/topics';
+import {astronomyTopics, biologyTopics, chemistryTopics, geographyTopics, lessonCount, mathTopics, physicsTopics} from '~/topics';
 
 const FEATURES = [
   {
@@ -53,6 +53,11 @@ const ACCENTS = {
     title: 'text-rose-700 dark:text-rose-300',
     hover: 'hover:text-rose-700 dark:hover:text-rose-300',
   },
+  sky: {
+    icon: 'text-sky-600 dark:text-sky-400',
+    title: 'text-sky-700 dark:text-sky-300',
+    hover: 'hover:text-sky-700 dark:hover:text-sky-300',
+  },
 };
 type Accent = (typeof ACCENTS)[keyof typeof ACCENTS];
 
@@ -64,6 +69,7 @@ const SUBJECTS = [
   {to: '/astronomy', label: 'Астрономия', icon: Telescope, accent: ACCENTS.purple, topics: astronomyTopics},
   {to: '/chemistry', label: 'Химия', icon: FlaskConical, accent: ACCENTS.amber, topics: chemistryTopics},
   {to: '/biology', label: 'Биология', icon: Leaf, accent: ACCENTS.rose, topics: biologyTopics},
+  {to: '/geography', label: 'География', icon: Globe, accent: ACCENTS.sky, topics: geographyTopics},
 ];
 
 export function Home() {
@@ -72,7 +78,7 @@ export function Home() {
       <div className="max-w-5xl mx-auto">
         <div className="bg-gradient-to-br from-blue-600 to-indigo-800 text-white p-5 sm:p-10 rounded-2xl mb-8 shadow-lg">
           <h1 className="text-2xl sm:text-4xl font-bold tracking-tight mb-3 sm:mb-4 text-balance">
-            Интерактивни уроци по математика, физика, астрономия, химия и биология
+            Интерактивни уроци по математика, физика, астрономия, химия, биология и география
           </h1>
           <p className="text-base sm:text-xl leading-relaxed text-blue-50 max-w-3xl mb-5 sm:mb-6">
             Libera е безплатен сайт на български за ученици, които искат да разберат материала, а не само да го
@@ -86,7 +92,7 @@ export function Home() {
                 className={
                   'inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2.5 font-semibold transition-colors sm:justify-start ' +
                   (i === 0
-                    ? 'col-span-2 bg-white text-indigo-700 shadow-sm hover:bg-blue-50'
+                    ? `${SUBJECTS.length % 2 ? 'col-span-2 ' : ''}bg-white text-indigo-700 shadow-sm hover:bg-blue-50`
                     : 'bg-white/15 text-white ring-1 ring-white/40 hover:bg-white/25')
                 }
               >
