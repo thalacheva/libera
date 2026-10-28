@@ -119,6 +119,16 @@ const Interior = lazy(() => import('./geography/lithosphere/Interior').then(m =>
 const Plates = lazy(() => import('./geography/lithosphere/Plates').then(m => ({default: m.Plates})));
 const Hazards = lazy(() => import('./geography/lithosphere/Hazards').then(m => ({default: m.Hazards})));
 const Landforms = lazy(() => import('./geography/lithosphere/Landforms').then(m => ({default: m.Landforms})));
+const HeatBalance = lazy(() => import('./geography/atmosphere/HeatBalance').then(m => ({default: m.HeatBalance})));
+const Moisture = lazy(() => import('./geography/atmosphere/Moisture').then(m => ({default: m.Moisture})));
+const AirCirculation = lazy(() => import('./geography/atmosphere/AirCirculation').then(m => ({default: m.AirCirculation})));
+const Weather = lazy(() => import('./geography/atmosphere/Weather').then(m => ({default: m.Weather})));
+const Climate = lazy(() => import('./geography/atmosphere/Climate').then(m => ({default: m.Climate})));
+const ClimateChange = lazy(() => import('./geography/atmosphere/ClimateChange').then(m => ({default: m.ClimateChange})));
+const Ocean = lazy(() => import('./geography/hydrosphere/Ocean').then(m => ({default: m.Ocean})));
+const Rivers = lazy(() => import('./geography/hydrosphere/Rivers').then(m => ({default: m.Rivers})));
+const Groundwater = lazy(() => import('./geography/hydrosphere/Groundwater').then(m => ({default: m.Groundwater})));
+const Biomes = lazy(() => import('./geography/hydrosphere/Biomes').then(m => ({default: m.Biomes})));
 const Units = lazy(() => import('./physics/mechanics/Units').then(m => ({default: m.Units})));
 const Modular = lazy(() => import('./numbers/Modular').then(m => ({default: m.Modular})));
 const MyProgress = lazy(() => import('./MyProgress').then(m => ({default: m.MyProgress})));
@@ -375,6 +385,20 @@ function App() {
                 <Route path="plates" element={<Plates />} />
                 <Route path="hazards" element={<Hazards />} />
                 <Route path="landforms" element={<Landforms />} />
+              </Route>
+              <Route path="atmosphere">
+                <Route path="energy" element={<HeatBalance />} />
+                <Route path="moisture" element={<Moisture />} />
+                <Route path="circulation" element={<AirCirculation />} />
+                <Route path="weather" element={<Weather />} />
+                <Route path="climate" element={<Climate />} />
+                <Route path="climate-change" element={<ClimateChange />} />
+              </Route>
+              <Route path="hydrosphere">
+                <Route path="ocean" element={<Ocean />} />
+                <Route path="rivers" element={<Rivers />} />
+                <Route path="groundwater" element={<Groundwater />} />
+                <Route path="biomes" element={<Biomes />} />
               </Route>
             </Route>
             <Route path="geometry">

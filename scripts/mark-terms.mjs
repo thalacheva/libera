@@ -54,6 +54,21 @@ const SKIP = {
   'src/geography/lithosphere/Hazards.tsx': ['voltage', 'fungus', 'solar-flare'],
   // земни пирамиди, не геометричното тяло
   'src/geography/lithosphere/Landforms.tsx': ['pyramid'],
+  // височина на Слънцето, не на триъгълник; температурната амплитуда е друг термин; радиационният, не калориметричният топлинен баланс
+  'src/geography/atmosphere/HeatBalance.tsx': ['triangle-altitude', 'amplitude', 'heat-balance'],
+  // устойчивост на въздуха, не на равновесие
+  'src/geography/atmosphere/Moisture.tsx': ['stable-equilibrium'],
+  // адаптация към климата, не биологична; оттокът на реките; топенето на ледниците
+  'src/geography/atmosphere/ClimateChange.tsx': ['adaptation', 'edema', 'latent-heat-fusion'],
+  // затихване на циклона, не на трептенията
+  'src/geography/atmosphere/Weather.tsx': ['damping'],
+  // мащабът на континент, не на картата; „котловини“ на налягането
+  'src/geography/atmosphere/AirCirculation.tsx': ['scale', 'landform-basin'],
+  // изпарение и топене в природата, не латентна топлина; снежната линия на ледника; „лещата“ сладка вода; „от порядъка на“
+  'src/geography/hydrosphere/Rivers.tsx': ['latent-heat-vaporization', 'latent-heat-fusion'],
+  'src/geography/hydrosphere/Groundwater.tsx': ['snow-line', 'lens', 'latent-heat-fusion', 'order-of-magnitude'],
+  // морски утайки, не химична утайка; океанските хребети са средноокеански
+  'src/geography/hydrosphere/Ocean.tsx': ['precipitate', 'landform-ridge'],
   // диафрагмата на микроскопа, не дихателният мускул
   'src/biology/cell/Life.tsx': ['diaphragm'],
   // мицели от жлъчни соли, не мицел на гъбите

@@ -301,6 +301,28 @@ export const geographyTopics = [
       { name: 'Външни сили и релеф', path: '/landforms' },
     ],
   },
+  {
+    name: 'Атмосфера и климат',
+    path: '/geography/atmosphere',
+    subtopics: [
+      { name: 'Атмосферата и топлинният баланс', path: '/energy' },
+      { name: 'Водата във въздуха', path: '/moisture' },
+      { name: 'Налягане, ветрове и циркулация', path: '/circulation' },
+      { name: 'Времето и прогнозата', path: '/weather' },
+      { name: 'Климатите на Земята', path: '/climate' },
+      { name: 'Изменението на климата', path: '/climate-change' },
+    ],
+  },
+  {
+    name: 'Води, почви и природни зони',
+    path: '/geography/hydrosphere',
+    subtopics: [
+      { name: 'Световният океан', path: '/ocean' },
+      { name: 'Реки и езера', path: '/rivers' },
+      { name: 'Подземни води и ледници', path: '/groundwater' },
+      { name: 'Почви и природни зони', path: '/biomes' },
+    ],
+  },
 ];
 
 /** Адресите /lectureNN са от първоначалната номерация и не се сменят – вече са в търсачките. */

@@ -34,11 +34,18 @@ export function Tex({children, block = false, className}: {children: string; blo
 }
 
 /**
- * Текст с формули: $…$ – формула в реда, $$…$$ – на отделен ред.
- * Текст без $ се показва непроменен. displayStyle – дробите в реда са в пълен размер (за малки карти).
+ * Текст с формули: $…$ – формула в реда, $$…$$ – на отделен ред; **…** – удебелен текст.
+ * Текст без $ и ** се показва непроменен. displayStyle – дробите в реда са в пълен размер (за малки карти).
  */
+function boldText(text: string) {
+  if (!text.includes('**')) return text;
+  return text.split(/(\*\*[^*]+\*\*)/g).map((t, i) =>
+    t.startsWith('**') && t.endsWith('**') && t.length > 4 ? <strong key={i}>{t.slice(2, -2)}</strong> : t
+  );
+}
+
 export function MathText({children, displayStyle = false}: {children: string; displayStyle?: boolean}) {
-  if (!children.includes('$')) return <>{children}</>;
+  if (!children.includes('$') && !children.includes('**')) return <>{children}</>;
   const parts = children.split(/(\$\$[^$]+\$\$|\$[^$]+\$)/g);
   return (
     <>
@@ -55,7 +62,7 @@ export function MathText({children, displayStyle = false}: {children: string; di
             <Tex key={i}>{tex}</Tex>
           );
         }
-        return <Fragment key={i}>{part}</Fragment>;
+        return <Fragment key={i}>{boldText(part)}</Fragment>;
       })}
     </>
   );
