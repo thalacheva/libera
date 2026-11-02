@@ -129,6 +129,17 @@ const Ocean = lazy(() => import('./geography/hydrosphere/Ocean').then(m => ({def
 const Rivers = lazy(() => import('./geography/hydrosphere/Rivers').then(m => ({default: m.Rivers})));
 const Groundwater = lazy(() => import('./geography/hydrosphere/Groundwater').then(m => ({default: m.Groundwater})));
 const Biomes = lazy(() => import('./geography/hydrosphere/Biomes').then(m => ({default: m.Biomes})));
+const Demography = lazy(() => import('./geography/population/Demography').then(m => ({default: m.Demography})));
+const Migration = lazy(() => import('./geography/population/Migration').then(m => ({default: m.Migration})));
+const Cities = lazy(() => import('./geography/population/Cities').then(m => ({default: m.Cities})));
+const Resources = lazy(() => import('./geography/economy/Resources').then(m => ({default: m.Resources})));
+const Agriculture = lazy(() => import('./geography/economy/Agriculture').then(m => ({default: m.Agriculture})));
+const Industry = lazy(() => import('./geography/economy/Industry').then(m => ({default: m.Industry})));
+const Globalization = lazy(() => import('./geography/economy/Globalization').then(m => ({default: m.Globalization})));
+const PoliticalMap = lazy(() => import('./geography/regions/PoliticalMap').then(m => ({default: m.PoliticalMap})));
+const Europe = lazy(() => import('./geography/regions/Europe').then(m => ({default: m.Europe})));
+const BulgariaNature = lazy(() => import('./geography/regions/BulgariaNature').then(m => ({default: m.BulgariaNature})));
+const BulgariaSociety = lazy(() => import('./geography/regions/BulgariaSociety').then(m => ({default: m.BulgariaSociety})));
 const Units = lazy(() => import('./physics/mechanics/Units').then(m => ({default: m.Units})));
 const Modular = lazy(() => import('./numbers/Modular').then(m => ({default: m.Modular})));
 const MyProgress = lazy(() => import('./MyProgress').then(m => ({default: m.MyProgress})));
@@ -399,6 +410,23 @@ function App() {
                 <Route path="rivers" element={<Rivers />} />
                 <Route path="groundwater" element={<Groundwater />} />
                 <Route path="biomes" element={<Biomes />} />
+              </Route>
+              <Route path="population">
+                <Route path="demography" element={<Demography />} />
+                <Route path="migration" element={<Migration />} />
+                <Route path="cities" element={<Cities />} />
+              </Route>
+              <Route path="economy">
+                <Route path="resources" element={<Resources />} />
+                <Route path="agriculture" element={<Agriculture />} />
+                <Route path="industry" element={<Industry />} />
+                <Route path="globalization" element={<Globalization />} />
+              </Route>
+              <Route path="regions">
+                <Route path="world" element={<PoliticalMap />} />
+                <Route path="europe" element={<Europe />} />
+                <Route path="bulgaria-nature" element={<BulgariaNature />} />
+                <Route path="bulgaria-society" element={<BulgariaSociety />} />
               </Route>
             </Route>
             <Route path="geometry">

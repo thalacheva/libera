@@ -69,6 +69,24 @@ const SKIP = {
   'src/geography/hydrosphere/Groundwater.tsx': ['snow-line', 'lens', 'latent-heat-fusion', 'order-of-magnitude'],
   // морски утайки, не химична утайка; океанските хребети са средноокеански
   'src/geography/hydrosphere/Ocean.tsx': ['precipitate', 'landform-ridge'],
+  // плодовитост на хората, не на почвата; демографска инерция; „пирамида“ е възрастовата
+  'src/geography/population/Demography.tsx': ['fecundity', 'substitution-method', 'inertia', 'pyramid'],
+  // държавна граница; затихването с разстоянието е отделен термин
+  'src/geography/population/Migration.tsx': ['limit', 'damping'],
+  // обхват на централното място; топлинният остров не е физичната топлина; „махала“ – селище, не махало; ускорен етап на урбанизацията; йерархия на градовете
+  'src/geography/population/Cities.tsx': ['range', 'heat', 'simple-pendulum', 'acceleration', 'dominance-hierarchy', 'latent-heat-vaporization'],
+  // мощност на централата е отделно понятие от физичната формула
+  'src/geography/economy/Resources.tsx': ['power'],
+  // социално неравенство, не математическо
+  'src/geography/economy/Agriculture.tsx': ['inequality'],
+  // икономически сектор, не кръгов сектор; топене на руда; социално неравенство
+  'src/geography/economy/Industry.tsx': ['sector', 'latent-heat-fusion', 'inequality'],
+  // възли на мрежата; пазарна конкуренция
+  'src/geography/economy/Globalization.tsx': ['standing-wave', 'interspecific-competition'],
+  // „речна артерия“, не кръвоносен съд
+  'src/geography/regions/Europe.tsx': ['artery'],
+  // икономическо неравенство между областите
+  'src/geography/regions/BulgariaSociety.tsx': ['inequality'],
   // диафрагмата на микроскопа, не дихателният мускул
   'src/biology/cell/Life.tsx': ['diaphragm'],
   // мицели от жлъчни соли, не мицел на гъбите

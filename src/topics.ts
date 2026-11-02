@@ -323,6 +323,35 @@ export const geographyTopics = [
       { name: 'Почви и природни зони', path: '/biomes' },
     ],
   },
+  {
+    name: 'Население и селища',
+    path: '/geography/population',
+    subtopics: [
+      { name: 'Населението на света', path: '/demography' },
+      { name: 'Миграции', path: '/migration' },
+      { name: 'Градове и урбанизация', path: '/cities' },
+    ],
+  },
+  {
+    name: 'Стопанство',
+    path: '/geography/economy',
+    subtopics: [
+      { name: 'Природни ресурси и енергетика', path: '/resources' },
+      { name: 'Селско стопанство', path: '/agriculture' },
+      { name: 'Промишленост и услуги', path: '/industry' },
+      { name: 'Транспорт, търговия и глобализация', path: '/globalization' },
+    ],
+  },
+  {
+    name: 'Региони',
+    path: '/geography/regions',
+    subtopics: [
+      { name: 'Политическата карта на света', path: '/world' },
+      { name: 'Европа и Европейският съюз', path: '/europe' },
+      { name: 'Природата на България', path: '/bulgaria-nature' },
+      { name: 'Населението и стопанството на България', path: '/bulgaria-society' },
+    ],
+  },
 ];
 
 /** Адресите /lectureNN са от първоначалната номерация и не се сменят – вече са в търсачките. */
