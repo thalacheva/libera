@@ -54,7 +54,7 @@ const newDrill = (): Drill => {
     const E = pick([150, 300, 500, 900]);
     const P1 = P0 + B - D + I - E;
     return {
-      tex: `P_0 = ${big(P0)},\\ Р = ${B},\\ У = ${D},\\ И = ${I},\\ Е = ${E}`,
+      tex: `\\begin{gathered}P_0 = ${big(P0)},\\ Р = ${B},\\ У = ${D} \\\\ И = ${I},\\ Е = ${E}\\end{gathered}`,
       ask: 'Колко е населението в края на годината?',
       num: P1,
       den: 1,
@@ -93,7 +93,7 @@ const newDrill = (): Drill => {
   const G = pick([20, 30, 40, 60, 80, 120]);
   const share = r1((R / G) * 100);
   return {
-    tex: `\\text{преводи } ${R}\\ \\text{млрд. \\$},\\ \\text{БВП } ${G}\\ \\text{млрд. \\$}`,
+    tex: `\\begin{gathered}\\text{преводи } ${R}\\ \\text{млрд. долара} \\\\ \\text{БВП } ${G}\\ \\text{млрд. долара}\\end{gathered}`,
     ask: 'Колко процента от БВП са паричните преводи?',
     num: Math.round(share * 10),
     den: 10,
