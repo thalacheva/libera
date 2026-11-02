@@ -61,7 +61,8 @@ export const MATH: Section = {
         {
           name: 'Действия със степени',
           formula:
-            'a^m \\cdot a^n = a^{m+n} \\qquad a^m : a^n = a^{m-n} \\qquad (a^m)^n = a^{mn} \\qquad (ab)^n = a^n b^n',
+            '\\begin{aligned} a^m \\cdot a^n &= a^{m+n} \\\\ a^m : a^n &= a^{m-n} \\\\ (a^m)^n &= a^{mn} \\\\ (ab)^n &= a^n b^n \\\\ \\left(\\frac{a}{b}\\right)^n &= \\frac{a^n}{b^n} \\end{aligned}',
+          note: 'при делене a ≠ 0, b ≠ 0',
           lesson: '/algebra/powers',
         },
         {
@@ -72,8 +73,8 @@ export const MATH: Section = {
         },
         {
           name: 'Свойства на корените',
-          formula: '\\sqrt{ab} = \\sqrt{a}\\cdot\\sqrt{b} \\qquad \\sqrt{\\frac{a}{b}} = \\frac{\\sqrt{a}}{\\sqrt{b}} \\qquad \\sqrt{x^2} = |x|',
-          note: '√(a + b) ≠ √a + √b',
+          formula: '\\begin{aligned} \\sqrt{ab} &= \\sqrt{a} \\cdot \\sqrt{b} \\\\ \\sqrt{\\frac{a}{b}} &= \\frac{\\sqrt{a}}{\\sqrt{b}} \\\\ \\sqrt{x^2} &= |x| \\end{aligned}',
+          note: 'a ≥ 0, b > 0; √(a + b) ≠ √a + √b',
           lesson: '/algebra/powers',
         },
         {
@@ -116,7 +117,8 @@ export const MATH: Section = {
         {
           name: 'Логаритъм от произведение и частно',
           formula:
-            '\\log_a (xy) = \\log_a x + \\log_a y \\qquad \\log_a \\frac{x}{y} = \\log_a x - \\log_a y',
+            '\\begin{aligned} \\log_a (xy) &= \\log_a x + \\log_a y \\\\ \\log_a \\frac{x}{y} &= \\log_a x - \\log_a y \\end{aligned}',
+          note: 'x > 0, y > 0',
           lesson: '/algebra/logarithms',
         },
         {

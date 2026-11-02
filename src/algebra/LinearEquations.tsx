@@ -109,9 +109,9 @@ function BalanceScale() {
     `${a}x : ${a} = ${c - b} : ${a}   →   x = ${x}`,
   ];
   const explanations = [
-    'Синьото кутийче е неизвестното x, а жълтите монети тежат по 1. Везната е в равновесие – двете страни са равни.',
+    'Синята кутийка е неизвестното x, а жълтите монети тежат по 1. Везната е в равновесие – двете страни са равни.',
     `Махаме по ${b} монети от двете блюда. Везната остава в равновесие!`,
-    `На лявото блюдо има ${a} еднакви кутийчета, затова разделяме двете страни на ${a} равни части. Едно кутийче тежи колкото ${x} монети.`,
+    `На лявото блюдо има ${a} еднакви кутийки, затова разделяме двете страни на ${a} равни части. Една кутийка тежи колкото ${x} монети.`,
   ];
 
   const next = () => {
@@ -206,6 +206,7 @@ function GraphExplorer() {
         <line x1={X(0)} y1={0} x2={X(0)} y2={280} stroke="currentColor" strokeWidth="1.5" />
         <text x={392} y={Y(0) - 6} fontSize="12" fill="currentColor" textAnchor="end">x</text>
         <text x={X(0) + 6} y={12} fontSize="12" fill="currentColor">y</text>
+        <text x={X(0) - 4} y={Y(0) + 14} fontSize="12" fill="currentColor" textAnchor="end">O</text>
         {[-10, -5, 5, 10].map(t => (
           <text key={t} x={X(t)} y={Y(0) + 14} fontSize="9" textAnchor="middle" fill="currentColor" opacity="0.6">{t}</text>
         ))}

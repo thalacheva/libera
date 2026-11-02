@@ -49,7 +49,7 @@ export default function SlideRuleLab() {
     <div className="bg-white dark:bg-gray-800 border-2 border-amber-200 dark:border-amber-800 p-4 sm:p-6 rounded-2xl shadow-lg mb-6">
       <h3 className="text-base sm:text-lg font-bold mb-1 text-center text-gray-800 dark:text-gray-100">📐 Логаритмична линийка</h3>
       <p className="text-sm text-center mb-3 text-gray-600 dark:text-gray-400">
-        Разстоянието от 1 до числото е пропорционално на логаритъма му. Като долепим две дължини, логаритмите се събират – а числата се
+        Числото n е написано на разстояние lg n от началото на скалата. Като долепим две дължини, логаритмите се събират – а числата се
         умножават. Така инженерите са смятали до 70-те години на XX век.
       </p>
 
@@ -60,7 +60,14 @@ export default function SlideRuleLab() {
         <Scale offset={0} y={78} up={false} tone="stroke-gray-500" />
         {/* Отсечките lg x и lg y */}
         <line x1={X0} x2={X0 + Math.log10(x) * L} y1={140} y2={140} className="stroke-blue-500" strokeWidth="5" />
-        <line x1={X0 + shift} x2={yPos} y1={12} y2={12} className="stroke-rose-500" strokeWidth="5" />
+        {/* При „прегъване“ началото на горната скала е извън картинката */}
+        {!fold && <line x1={X0 + shift} x2={yPos} y1={12} y2={12} className="stroke-rose-500" strokeWidth="5" />}
+        <text x={W - 6} y={34} fontSize="11" textAnchor="end" fill="currentColor" opacity="0.7">
+          горна (подвижна)
+        </text>
+        <text x={W - 6} y={124} fontSize="11" textAnchor="end" fill="currentColor" opacity="0.7">
+          долна (неподвижна)
+        </text>
         <line x1={yPos} x2={yPos} y1={8} y2={135} className="stroke-emerald-500" strokeWidth="2" strokeDasharray="4 3" />
       </LabSvg>
 
@@ -69,13 +76,46 @@ export default function SlideRuleLab() {
         <Slider label="y" value={y} onChange={setY} min={1} max={9} step={0.5} tone="rose" />
       </Sliders>
 
+      <ol className="mt-3 space-y-1 text-sm text-gray-700 dark:text-gray-300 list-decimal list-inside">
+        <li>
+          {fold ? (
+            <>
+              Плъзгаме горната скала, докато краят ѝ <strong>10</strong> застане над <strong>x = {num(x)}</strong> на долната.
+            </>
+          ) : (
+            <>
+              Плъзгаме горната скала, докато началото ѝ <strong>1</strong> застане над <strong>x = {num(x)}</strong> на долната. Така отмерваме отсечка с дължина lg {num(x)}{' '}
+              <span className="text-blue-600 dark:text-blue-400">(в синьо)</span>.
+            </>
+          )}
+        </li>
+        <li>
+          Намираме <strong>y = {num(y)}</strong> на горната скала.
+          {!fold && (
+            <>
+              {' '}
+              Към първата отсечка се долепя втора с дължина lg {num(y)}{' '}
+              <span className="text-rose-600 dark:text-rose-400">(в розово)</span>.
+            </>
+          )}
+        </li>
+        <li>
+          Точно под y на долната скала четем <strong>{num(read)}</strong>{' '}
+          <span className="text-emerald-600 dark:text-emerald-400">(зелената пунктирна линия)</span>.
+        </li>
+      </ol>
       <Formula>
         lg {num(x)} + lg {num(y)} = {num(Math.log10(x), 3)} + {num(Math.log10(y), 3)} = {num(Math.log10(p), 3)} = lg {num(p)}
       </Formula>
       <Note tone="emerald">
         Отчитаме {num(read)} на долната скала{fold ? ` и умножаваме по 10 наум: ${num(x)} · ${num(y)} = ${num(p)}` : `: ${num(x)} · ${num(y)} = ${num(p)}`}
       </Note>
-      {fold && <Note tone="gray">Произведението е над 10, затова подравняваме края „10“ на горната скала с x – все едно делим на 10.</Note>}
+      {fold && (
+        <Note tone="gray">
+          Произведението е над 10, а скалата свършва при 10. Затова подравняваме края „10“ на горната скала с x: така отстъпваме назад с
+          lg 10 = 1, т.е. делим на 10, и накрая умножаваме по 10 наум.
+        </Note>
+      )}
     </div>
   );
 }

@@ -292,7 +292,7 @@ export function Powers() {
           <h2 className={h2}>2. Свойства на степените</h2>
           <Theorem
             title="Действия със степени"
-            description="$a^m \cdot a^n = a^{m+n}$; $a^m : a^n = a^{m-n}$ ($a \ne 0$); $(a^m)^n = a^{mn}$; $(ab)^n = a^nb^n$; $\left(\frac{a}{b}\right)^n = \frac{a^n}{b^n}$. За да важат правилата и при $m = n$, и при $m < n$, дефинираме $a^0 = 1$ и $a^{-n} = \frac{1}{a^n}$ ($a \ne 0$)."
+            description="$$\begin{aligned} a^m \cdot a^n &= a^{m+n} \\ a^m : a^n &= a^{m-n} \quad (a \ne 0) \\ (a^m)^n &= a^{mn} \\ (ab)^n &= a^n b^n \\ \left(\frac{a}{b}\right)^n &= \frac{a^n}{b^n} \end{aligned}$$ За да важат правилата и при $m = n$, и при $m < n$, дефинираме $a^0 = 1$ и $a^{-n} = \frac{1}{a^n}$ ($a \ne 0$)."
           />
           <PowerRulesLab />
           <Example
@@ -301,7 +301,7 @@ export function Powers() {
           />
           <p className={text}>
             Много големите и много малките числа записваме в <strong>стандартен вид</strong> <Tex>{'a \\cdot 10^n'}</Tex>, където <Tex>{'1 \\le a < 10'}</Tex>: скоростта на
-            светлината е <Tex>{'3 \\cdot 10^8\\ \\mathrm{m/s}'}</Tex>, а диаметърът на атом – около <Tex>{'10^{-10}\\ \\mathrm{m}'}</Tex>. Умножаването тогава е лесно: множим числата и събираме
+            светлината е <Tex>{'3 \\cdot 10^8\\ \\mathrm{m/s}'}</Tex>, а диаметърът на атом – около <Tex>{'10^{-10}\\ \\mathrm{m}'}</Tex>. Умножаването тогава е лесно: умножаваме числата и събираме
             показателите.
           </p>
         </section>
@@ -316,7 +316,7 @@ export function Powers() {
           <SqrtLab />
           <Theorem
             title="Свойства на корените"
-            description="$\sqrt{ab} = \sqrt{a} \cdot \sqrt{b}$ и $\sqrt{\frac{a}{b}} = \frac{\sqrt{a}}{\sqrt{b}}$ ($a \ge 0$, $b > 0$). Изнасяне пред корена: $\sqrt{50} = \sqrt{25 \cdot 2} = 5\sqrt{2}$. Внасяне под корена: $3\sqrt{2} = \sqrt{18}$. Рационализиране на знаменателя: $\frac{1}{\sqrt{2}} = \frac{\sqrt{2}}{2}$; $\frac{1}{\sqrt{a} - \sqrt{b}} = \frac{\sqrt{a} + \sqrt{b}}{a - b}$. Внимание: $\sqrt{a + b} \ne \sqrt{a} + \sqrt{b}$."
+            description="За $a \ge 0$, $b > 0$: $$\begin{aligned} \sqrt{ab} &= \sqrt{a} \cdot \sqrt{b} \\ \sqrt{\frac{a}{b}} &= \frac{\sqrt{a}}{\sqrt{b}} \end{aligned}$$ **Изнасяне пред корена и внасяне под корена:** $$\begin{gathered} \sqrt{50} = \sqrt{25 \cdot 2} = 5\sqrt{2} \\ 3\sqrt{2} = \sqrt{9 \cdot 2} = \sqrt{18} \end{gathered}$$ **Рационализиране на знаменателя:** $$\begin{gathered} \frac{1}{\sqrt{2}} = \frac{\sqrt{2}}{2} \\ \frac{1}{\sqrt{a} - \sqrt{b}} = \frac{\sqrt{a} + \sqrt{b}}{a - b} \end{gathered}$$ **Внимание:** $\sqrt{a + b} \ne \sqrt{a} + \sqrt{b}$."
           />
           <Example
             description="Да опростим $\sqrt{12} + \sqrt{27} - \sqrt{48}$."
@@ -329,7 +329,7 @@ export function Powers() {
           <Theorem
             type="definition"
             title="Корен n-ти и степен с дробен показател"
-            description="$\sqrt[n]{a}$ е числото, чиято $n$-та степен е $a$ (при четно $n$ искаме $a \ge 0$ и $\sqrt[n]{a} \ge 0$): $\sqrt[3]{8} = 2$, $\sqrt[3]{-27} = -3$, $\sqrt[4]{81} = 3$. За $a > 0$ дефинираме $a^{m/n} = \sqrt[n]{a^m} = (\sqrt[n]{a})^m$. Например $8^{2/3} = (\sqrt[3]{8})^2 = 4$, а $a^{1/2} = \sqrt{a}$. Всички правила за степени остават в сила."
+            description="**Корен n-ти:** $\sqrt[n]{a}$ е числото, чиято $n$-та степен е $a$: $$\left(\sqrt[n]{a}\right)^n = a$$ При четно $n$ искаме $a \ge 0$ и $\sqrt[n]{a} \ge 0$. Например: $$\sqrt[3]{8} = 2, \quad \sqrt[3]{-27} = -3, \quad \sqrt[4]{81} = 3$$ **Степен с дробен показател:** за $a > 0$ дефинираме $$a^{\frac{m}{n}} = \sqrt[n]{a^m} = \left(\sqrt[n]{a}\right)^m$$ Например: $$\begin{gathered} 8^{\frac{2}{3}} = \left(\sqrt[3]{8}\right)^2 = 2^2 = 4 \\ a^{\frac{1}{2}} = \sqrt{a} \end{gathered}$$ Всички правила за степени остават в сила."
           />
           <ExpGraphLab />
         </section>
