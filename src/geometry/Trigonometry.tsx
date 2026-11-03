@@ -2,6 +2,7 @@ import { CheckCircle, Sparkles, XCircle } from 'lucide-react';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Example from '~/Example';
+import Proof from '~/Proof';
 import Quiz, { type Question } from '~/Quiz';
 import Task, { TaskBoard, TaskLevel } from '~/Task';
 import Theorem from '~/Theorem';
@@ -259,6 +260,13 @@ export function Trigonometry() {
             title="Тригонометрични функции на остър ъгъл"
             description="В правоъгълен триъгълник с остър ъгъл $\alpha$, хипотенуза $c$, противолежащ катет $a$ и прилежащ катет $b$: $\sin \alpha = \frac{a}{c},\ \cos \alpha = \frac{b}{c},\ \tg \alpha = \frac{a}{b},\ \cotg \alpha = \frac{b}{a}$. Те зависят само от ъгъла $\alpha$, не от размера на триъгълника."
           />
+          <Proof
+            title="Защо зависят само от ъгъла?"
+            steps={[
+              'Нека два правоъгълни триъгълника имат еднакъв остър ъгъл $\\alpha$. Имат и по един прав ъгъл, следователно са подобни (признак ЪЪ) с някакъв коефициент $k$.',
+              'Всички страни на втория са $k$ пъти по-големи: $a_1 = ka$, $b_1 = kb$, $c_1 = kc$. Тогава $\\frac{a_1}{c_1} = \\frac{ka}{kc} = \\frac{a}{c}$ – коефициентът се съкращава. Същото е за всички останали отношения.',
+            ]}
+          />
           <RightTrigLab />
         </section>
 
@@ -311,6 +319,14 @@ export function Trigonometry() {
             title="Връзки между функциите на един ъгъл"
             description="$\sin^2 \alpha + \cos^2 \alpha = 1$ (Питагоровата теорема, разделена на $c^2$); $\tg \alpha = \sin \alpha / \cos \alpha$; $\cotg \alpha = \cos \alpha / \sin \alpha$; $\tg \alpha \cdot \cotg \alpha = 1$. За допълнителни ъгли: $\sin (90^\circ - \alpha) = \cos \alpha$ и $\cos (90^\circ - \alpha) = \sin \alpha$ – двата остри ъгъла в правоъгълен триъгълник си разменят катетите."
           />
+          <Proof
+            title="Доказателство на тъждествата"
+            steps={[
+              '$$\\sin^2 \\alpha + \\cos^2 \\alpha = \\frac{a^2}{c^2} + \\frac{b^2}{c^2} = \\frac{a^2 + b^2}{c^2} = 1,$$ защото по Питагоровата теорема $a^2 + b^2 = c^2$.',
+              '$\\frac{\\sin \\alpha}{\\cos \\alpha} = \\frac{a}{c} : \\frac{b}{c} = \\frac{a}{b} = \\tg \\alpha$; аналогично $\\frac{\\cos \\alpha}{\\sin \\alpha} = \\frac{b}{a} = \\cotg \\alpha$, а $\\tg \\alpha \\cdot \\cotg \\alpha = \\frac{a}{b} \\cdot \\frac{b}{a} = 1$.',
+              'Другият остър ъгъл е $\\beta = 90^\\circ - \\alpha$. За него противолежащ катет е $b$, а прилежащ – $a$. Затова $\\sin \\beta = \\frac{b}{c} = \\cos \\alpha$ и $\\cos \\beta = \\frac{a}{c} = \\sin \\alpha$.',
+            ]}
+          />
           <Example
             description="Ъгълът $\alpha$ е остър и $\cos \alpha = \frac{5}{13}$. Да намерим $\sin \alpha$ и $\tg \alpha$."
             steps={['$\\sin^2 \\alpha = 1 - \\cos^2 \\alpha = 1 - \\frac{25}{169} = \\frac{144}{169}$', '$\\alpha$ е остър $\\Rightarrow \\sin \\alpha > 0 \\Rightarrow \\sin \\alpha = \\frac{12}{13}$', '$\\tg \\alpha = \\sin \\alpha / \\cos \\alpha = \\frac{12}{13} : \\frac{5}{13} = \\frac{12}{5}$']}
@@ -343,6 +359,14 @@ export function Trigonometry() {
             title="Формули за $180^\circ - \alpha$"
             description="$\sin (180^\circ - \alpha) = \sin \alpha$; $\cos (180^\circ - \alpha) = -\cos \alpha$; $\tg (180^\circ - \alpha) = -\tg \alpha$. Следствие: за тъпите ъгли синусът е положителен, а косинусът и тангенсът – отрицателни. Например $\sin 150^\circ = \sin 30^\circ = \frac{1}{2},\ \cos 120^\circ = -\cos 60^\circ = -\frac{1}{2}$."
           />
+          <Proof
+            title="Доказателство на формулите за $180^\circ - \alpha$"
+            steps={[
+              'Ъгълът $\\alpha$ определя точката $P(\\cos \\alpha;\\ \\sin \\alpha)$ от единичната окръжност. Отразяваме $P$ спрямо оста $Oy$ и получаваме точката $P_1(-\\cos \\alpha;\\ \\sin \\alpha)$ – тя също е на окръжността.',
+              'Отразяването запазва ъглите: $OP_1$ сключва ъгъл $\\alpha$ с отрицателната част на оста $Ox$, т.е. ъгъл $180^\\circ - \\alpha$ с положителната. Значи $P_1$ е точката на ъгъла $180^\\circ - \\alpha$.',
+              'Сравняваме координатите: $\\cos(180^\\circ - \\alpha) = -\\cos \\alpha$ и $\\sin(180^\\circ - \\alpha) = \\sin \\alpha$. Тангенсът е частното им: $\\tg(180^\\circ - \\alpha) = \\frac{\\sin \\alpha}{-\\cos \\alpha} = -\\tg \\alpha$.',
+            ]}
+          />
           <UnitCircleLab />
         </section>
 
@@ -360,6 +384,31 @@ export function Trigonometry() {
           <Theorem
             title="Лице чрез синус"
             description="$S = \tfrac{1}{2} \cdot a \cdot b \cdot \sin \gamma$ – половината от произведението на две страни и синуса на ъгъла между тях. Като заместим $\sin \gamma = \frac{c}{2R}$, получаваме и $S = \frac{abc}{4R}$."
+          />
+          <Proof
+            title="Доказателство на синусовата теорема"
+            steps={[
+              'Нека $R$ е радиусът на описаната окръжност. Ще докажем, че $a = 2R\\sin \\alpha$; за другите страни е същото.',
+              'Прекарваме диаметъра $BD$ (през $B$ и центъра). Ъгълът $BCD$ е прав – вписан ъгъл, опрян на диаметър. В правоъгълния триъгълник $BCD$ имаме $BC = BD \\cdot \\sin \\angle BDC$, т.е. $a = 2R \\cdot \\sin \\angle BDC$.',
+              'Ако $\\alpha$ е остър, $D$ и $A$ са от една страна на $BC$ и $\\angle BDC = \\alpha$ (вписани ъгли върху една дъга). Ако $\\alpha$ е тъп, те са от различни страни, $ABDC$ е вписан четириъгълник и $\\angle BDC = 180^\\circ - \\alpha$ – синусът е същият. Ако $\\alpha = 90^\\circ$, $a$ е самият диаметър: $a = 2R = 2R\\sin 90^\\circ$.',
+              'Във всички случаи $a = 2R\\sin \\alpha$, т.е. $\\frac{a}{\\sin \\alpha} = 2R$.',
+            ]}
+          />
+          <Proof
+            title="Доказателство на косинусовата теорема"
+            steps={[
+              'Поставяме триъгълника в координатна система: $C$ е в началото, $B(a;\\ 0)$ е на оста $Ox$, а $A$ е на разстояние $b$ от $C$ под ъгъл $\\gamma$. По дефиницията с единичната окръжност $A(b\\cos \\gamma;\\ b\\sin \\gamma)$ – и при тъп ъгъл $\\gamma$.',
+              'По Питагоровата теорема (разстояние между две точки): $$c^2 = AB^2 = (b\\cos \\gamma - a)^2 + (b\\sin \\gamma)^2$$',
+              'Разкриваме скобите: $$c^2 = b^2\\cos^2 \\gamma - 2ab\\cos \\gamma + a^2 + b^2\\sin^2 \\gamma$$ $$= a^2 + b^2(\\cos^2 \\gamma + \\sin^2 \\gamma) - 2ab\\cos \\gamma$$ $$= a^2 + b^2 - 2ab\\cos \\gamma$$',
+            ]}
+          />
+          <Proof
+            title="Доказателство на формулите за лице"
+            steps={[
+              'В същата координатна система височината от $A$ към $BC$ е ординатата на $A$: $h_a = b\\sin \\gamma$ (тя е положителна, защото $0^\\circ < \\gamma < 180^\\circ$).',
+              'Тогава $S = \\frac{1}{2} \\cdot a \\cdot h_a = \\frac{1}{2} \\cdot a \\cdot b \\cdot \\sin \\gamma$.',
+              'От синусовата теорема $\\sin \\gamma = \\frac{c}{2R}$, следователно $S = \\frac{1}{2} \\cdot ab \\cdot \\frac{c}{2R} = \\frac{abc}{4R}$.',
+            ]}
           />
           <TriangleLawsLab />
           <Example
@@ -485,6 +534,7 @@ export function Trigonometry() {
               <li>✓ Синусова теорема: <Tex>{'\\frac{a}{\\sin \\alpha} = \\frac{b}{\\sin \\beta} = \\frac{c}{\\sin \\gamma} = 2R'}</Tex></li>
               <li>✓ Косинусова теорема: <Tex>{'c^2 = a^2 + b^2 - 2ab \\cdot \\cos \\gamma'}</Tex></li>
               <li>✓ Лице: <Tex>{'S = \\tfrac{1}{2}ab \\cdot \\sin \\gamma = \\frac{abc}{4R}'}</Tex></li>
+              <li>✓ Тъждествата следват от Питагор; синусовата теорема – от описаната окръжност; косинусовата – от координатите на върха <Tex>{'A(b\\cos \\gamma;\\ b\\sin \\gamma)'}</Tex></li>
             </ul>
           </div>
         </section>

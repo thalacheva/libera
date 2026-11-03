@@ -1,6 +1,7 @@
 import { CheckCircle, Sparkles, XCircle } from 'lucide-react';
 import { useState } from 'react';
 import Example from '~/Example';
+import Proof from '~/Proof';
 import Quiz, { type Question } from '~/Quiz';
 import Task, { TaskBoard, TaskLevel } from '~/Task';
 import Theorem from '~/Theorem';
@@ -294,6 +295,16 @@ export function Powers() {
             title="Действия със степени"
             description="$$\begin{aligned} a^m \cdot a^n &= a^{m+n} \\ a^m : a^n &= a^{m-n} \quad (a \ne 0) \\ (a^m)^n &= a^{mn} \\ (ab)^n &= a^n b^n \\ \left(\frac{a}{b}\right)^n &= \frac{a^n}{b^n} \end{aligned}$$ За да важат правилата и при $m = n$, и при $m < n$, дефинираме $a^0 = 1$ и $a^{-n} = \frac{1}{a^n}$ ($a \ne 0$)."
           />
+          <Proof
+            title="Доказателство на правилата (за естествени $m$ и $n$)"
+            steps={[
+              '$a^m \\cdot a^n$: първо идват $m$ множителя $a$, после още $n$ – общо $m + n$ множителя, т.е. $a^{m+n}$.',
+              '$a^m : a^n$ при $m > n$ и $a \\ne 0$: в дробта $\\frac{a \\cdot \\ldots \\cdot a}{a \\cdot \\ldots \\cdot a}$ съкращаваме $n$ множителя отгоре и отдолу и остават $m - n$, т.е. $a^{m-n}$.',
+              '$(a^m)^n$: имаме $n$ групи по $m$ множителя $a$ – общо $mn$ множителя, т.е. $a^{mn}$.',
+              '$(ab)^n = (ab) \\cdot (ab) \\cdot \\ldots \\cdot (ab)$. Множителите могат да се разместват, затова събираме всички $a$ отпред и всички $b$ отзад: $a^n b^n$. Аналогично $\\left(\\frac{a}{b}\\right)^n = \\frac{a^n}{b^n}$ – умножаваме $n$ дроби, числителите помежду си и знаменателите помежду си.',
+              'Защо $a^0 = 1$: ако искаме правилото за деление да важи и при $m = n$, трябва $a^0 = a^n : a^n = 1$. Защо $a^{-n} = \\frac{1}{a^n}$: при $m = 0$ правилото дава $a^{-n} = a^0 : a^n = \\frac{1}{a^n}$. Това не са нови закони, а единственият начин правилата да останат в сила.',
+            ]}
+          />
           <PowerRulesLab />
           <Example
             description="Да опростим $(2^5 \cdot 2^3) : 2^6$."
@@ -318,6 +329,16 @@ export function Powers() {
             title="Свойства на корените"
             description="За $a \ge 0$, $b > 0$: $$\begin{aligned} \sqrt{ab} &= \sqrt{a} \cdot \sqrt{b} \\ \sqrt{\frac{a}{b}} &= \frac{\sqrt{a}}{\sqrt{b}} \end{aligned}$$ **Изнасяне пред корена и внасяне под корена:** $$\begin{gathered} \sqrt{50} = \sqrt{25 \cdot 2} = 5\sqrt{2} \\ 3\sqrt{2} = \sqrt{9 \cdot 2} = \sqrt{18} \end{gathered}$$ **Рационализиране на знаменателя:** $$\begin{gathered} \frac{1}{\sqrt{2}} = \frac{\sqrt{2}}{2} \\ \frac{1}{\sqrt{a} - \sqrt{b}} = \frac{\sqrt{a} + \sqrt{b}}{a - b} \end{gathered}$$ **Внимание:** $\sqrt{a + b} \ne \sqrt{a} + \sqrt{b}$."
           />
+          <Proof
+            title="Доказателство на свойствата на корените"
+            steps={[
+              '$\\sqrt{ab} = \\sqrt{a} \\cdot \\sqrt{b}$: числото $\\sqrt{a} \\cdot \\sqrt{b}$ е неотрицателно и квадратът му е $(\\sqrt{a})^2 \\cdot (\\sqrt{b})^2 = ab$. По дефиниция $\\sqrt{ab}$ е единственото неотрицателно число с квадрат $ab$ – значи двете са равни.',
+              '$\\sqrt{\\frac{a}{b}} = \\frac{\\sqrt{a}}{\\sqrt{b}}$ – по същия начин: $\\frac{\\sqrt{a}}{\\sqrt{b}} \\ge 0$ и $\\left(\\frac{\\sqrt{a}}{\\sqrt{b}}\\right)^2 = \\frac{a}{b}$.',
+              '$\\sqrt{x^2} = |x|$: $|x| \\ge 0$ и $|x|^2 = x^2$. (Затова $\\sqrt{(-5)^2} = 5$, а не $-5$.)',
+              'Рационализиране – по формулата $(p - q)(p + q) = p^2 - q^2$ умножаваме числителя и знаменателя по $\\sqrt{a} + \\sqrt{b}$: $$\\frac{1}{\\sqrt{a} - \\sqrt{b}} = \\frac{\\sqrt{a} + \\sqrt{b}}{(\\sqrt{a} - \\sqrt{b})(\\sqrt{a} + \\sqrt{b})}$$ $$= \\frac{\\sqrt{a} + \\sqrt{b}}{a - b}$$',
+              'Защо $\\sqrt{a + b} \\ne \\sqrt{a} + \\sqrt{b}$ – достатъчен е един контрапример: $\\sqrt{9 + 16} = \\sqrt{25} = 5$, а $\\sqrt{9} + \\sqrt{16} = 7$. Изобщо $(\\sqrt{a} + \\sqrt{b})^2 = a + b + 2\\sqrt{ab}$, което е по-голямо от $a + b$ при $a, b > 0$.',
+            ]}
+          />
           <Example
             description="Да опростим $\sqrt{12} + \sqrt{27} - \sqrt{48}$."
             steps={['$\\sqrt{12} = \\sqrt{4 \\cdot 3} = 2\\sqrt{3}$', '$\\sqrt{27} = \\sqrt{9 \\cdot 3} = 3\\sqrt{3}$', '$\\sqrt{48} = \\sqrt{16 \\cdot 3} = 4\\sqrt{3}$', '$2\\sqrt{3} + 3\\sqrt{3} - 4\\sqrt{3} = \\sqrt{3}$']}
@@ -330,6 +351,15 @@ export function Powers() {
             type="definition"
             title="Корен n-ти и степен с дробен показател"
             description="**Корен n-ти:** $\sqrt[n]{a}$ е числото, чиято $n$-та степен е $a$: $$\left(\sqrt[n]{a}\right)^n = a$$ При четно $n$ искаме $a \ge 0$ и $\sqrt[n]{a} \ge 0$. Например: $$\sqrt[3]{8} = 2, \quad \sqrt[3]{-27} = -3, \quad \sqrt[4]{81} = 3$$ **Степен с дробен показател:** за $a > 0$ дефинираме $$a^{\frac{m}{n}} = \sqrt[n]{a^m} = \left(\sqrt[n]{a}\right)^m$$ Например: $$\begin{gathered} 8^{\frac{2}{3}} = \left(\sqrt[3]{8}\right)^2 = 2^2 = 4 \\ a^{\frac{1}{2}} = \sqrt{a} \end{gathered}$$ Всички правила за степени остават в сила."
+          />
+          <Proof
+            title="Защо $a^{\frac{m}{n}}$ се дефинира точно така?"
+            steps={[
+              'Искаме правилото $(a^p)^q = a^{pq}$ да важи и за дробни показатели. Тогава $\\left(a^{\\frac{1}{n}}\\right)^n = a^{\\frac{1}{n} \\cdot n} = a^1 = a$, т.е. $a^{\\frac{1}{n}}$ е число, чиято $n$-та степен е $a$ – това е $\\sqrt[n]{a}$. Друг избор няма.',
+              'След това $a^{\\frac{m}{n}} = \\left(a^{\\frac{1}{n}}\\right)^m = \\left(\\sqrt[n]{a}\\right)^m$, а също $a^{\\frac{m}{n}} = \\left(a^m\\right)^{\\frac{1}{n}} = \\sqrt[n]{a^m}$. Двата записа дават едно и също число, защото $\\left(\\left(\\sqrt[n]{a}\\right)^m\\right)^n = \\left(\\left(\\sqrt[n]{a}\\right)^n\\right)^m = a^m$.',
+              'Стойността не зависи от това как е записана дробта: например $\\frac{2}{4} = \\frac{1}{2}$ и наистина $\\sqrt[4]{a^2} = \\sqrt{a}$, защото $\\left(\\sqrt{a}\\right)^4 = a^2$. В общия случай $\\sqrt[nk]{a^{mk}} = \\sqrt[n]{a^m}$, защото $\\left(\\sqrt[n]{a^m}\\right)^{nk} = a^{mk}$, а положителният корен е само един.',
+              'Защо искаме $a > 0$: при отрицателна основа правилата се разпадат. Например $(-8)^{\\frac{1}{3}}$ би трябвало да е $\\sqrt[3]{-8} = -2$, но $\\frac{1}{3} = \\frac{2}{6}$, а $\\sqrt[6]{(-8)^2} = \\sqrt[6]{64} = 2$.',
+            ]}
           />
           <ExpGraphLab />
         </section>
@@ -440,6 +470,7 @@ export function Powers() {
               <li>✓ <Tex>{'\\sqrt{a} \\ge 0'}</Tex> и <Tex>{'(\\sqrt{a})^2 = a'}</Tex>; <Tex>{'\\sqrt{x^2} = |x|'}</Tex></li>
               <li>✓ <Tex>{'\\sqrt{ab} = \\sqrt{a} \\cdot \\sqrt{b}'}</Tex>, но <Tex>{'\\sqrt{a + b} \\ne \\sqrt{a} + \\sqrt{b}'}</Tex></li>
               <li>✓ Изнасяне пред корена: <Tex>{'\\sqrt{50} = 5\\sqrt{2}'}</Tex>; рационализиране: <Tex>{'\\frac{1}{\\sqrt{2}} = \\frac{\\sqrt{2}}{2}'}</Tex></li>
+              <li>✓ Правилата за степени следват от броенето на множители; <Tex>{'a^0'}</Tex>, <Tex>{'a^{-n}'}</Tex> и <Tex>{'a^{m/n}'}</Tex> са дефинирани така, че правилата да остават верни</li>
               <li>✓ <Tex>{'a^{m/n} = \\sqrt[n]{a^m}'}</Tex>; <Tex>{'a^{1/2} = \\sqrt{a}'}</Tex></li>
             </ul>
           </div>

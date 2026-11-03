@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { type Drill, fracTex, nonZero, pick, polyTex, randInt } from '~/drill';
 import Example from '~/Example';
 import { MathText, Tex } from '~/MathText';
+import Proof from '~/Proof';
 import Quiz, { type Question } from '~/Quiz';
 import Task, { TaskBoard, TaskLevel } from '~/Task';
 import Theorem from '~/Theorem';
@@ -272,6 +273,15 @@ export function ComplexNumbers() {
             title="Спрегнато число и деление"
             description="Спрегнатото на $z = a + bi$ е $\bar{z} = a - bi$. Тогава $z \cdot \bar{z} = a^2 + b^2$ е реално число. За да разделим, умножаваме числителя и знаменателя по спрегнатото на знаменателя: $\frac{a + bi}{c + di} = \frac{(a + bi)(c - di)}{c^2 + d^2}$."
           />
+          <Proof
+            title="Доказателство"
+            steps={[
+              'Умножение: разкриваме скобите като при многочлени и заместваме $i^2 = -1$: $$(a + bi)(c + di) = ac + adi + bci + bdi^2$$ $$= (ac - bd) + (ad + bc)i$$',
+              'Спрегнато: по формулата $(p + q)(p - q) = p^2 - q^2$ имаме $(a + bi)(a - bi) = a^2 - b^2i^2 = a^2 + b^2$ – реално и при $z \\ne 0$ положително число.',
+              'Деление: умножаваме числителя и знаменателя по $c - di$. Знаменателят става реалното число $c^2 + d^2 \\ne 0$ и можем просто да разделим реалната и имагинерната част на него.',
+              'Степени на $i$: ако $n = 4k + m$, то $i^n = (i^4)^k \\cdot i^m = 1^k \\cdot i^m = i^m$ – остава само остатъкът $m$.',
+            ]}
+          />
           <Example
             description="Да пресметнем $(2 + 3i)(4 - i)$ и $\frac{5 + 5i}{1 + 2i}$."
             steps={[
@@ -298,6 +308,14 @@ export function ComplexNumbers() {
             title="Модул"
             description="Модулът на $z = a + bi$ е $|z| = \sqrt{a^2 + b^2}$ – разстоянието от точката $(a;\ b)$ до началото (по Питагоровата теорема). В сила е $|z|^2 = z\bar{z}$ и $|zw| = |z| \cdot |w|$."
           />
+          <Proof
+            title="Доказателство на свойствата на модула"
+            steps={[
+              '$|z|^2 = a^2 + b^2 = z\\bar{z}$ – видяхме го в т. 2.',
+              'Спрегнатото на произведение е произведение на спрегнатите: по формулата за умножение $\\overline{zw} = (ac - bd) - (ad + bc)i$, а $\\bar{z} \\cdot \\bar{w} = (a - bi)(c - di) = (ac - bd) - (ad + bc)i$ – същото.',
+              'Тогава $$|zw|^2 = zw \\cdot \\overline{zw} = z\\bar{z} \\cdot w\\bar{w} = |z|^2 \\cdot |w|^2$$ и тъй като модулите са неотрицателни, $|zw| = |z| \\cdot |w|$.',
+            ]}
+          />
           <ComplexPlaneLab />
         </section>
 
@@ -315,6 +333,15 @@ export function ComplexNumbers() {
             </Link>
             .
           </p>
+          <Proof
+            title="Доказателство: умножение в тригонометричен вид и формула на Моавър"
+            steps={[
+              'Съществуване: точката $(a;\\ b)$ е на разстояние $r = |z|$ от началото. По дефиницията на косинус и синус чрез окръжност $a = r\\cos \\varphi$ и $b = r\\sin \\varphi$, следователно $z = r(\\cos \\varphi + i\\sin \\varphi)$.',
+              'Умножение: разкриваме скобите в $(\\cos \\varphi_1 + i\\sin \\varphi_1)(\\cos \\varphi_2 + i\\sin \\varphi_2)$: $$(\\cos \\varphi_1 \\cos \\varphi_2 - \\sin \\varphi_1 \\sin \\varphi_2)$$ $$+ i(\\sin \\varphi_1 \\cos \\varphi_2 + \\cos \\varphi_1 \\sin \\varphi_2)$$',
+              'Използваме формулите за косинус и синус от сбор (адиционните формули от тригонометрията): $$\\cos(\\alpha + \\beta) = \\cos \\alpha \\cos \\beta - \\sin \\alpha \\sin \\beta$$ $$\\sin(\\alpha + \\beta) = \\sin \\alpha \\cos \\beta + \\cos \\alpha \\sin \\beta$$ Реалната част отгоре е $\\cos(\\varphi_1 + \\varphi_2)$, а имагинерната – $\\sin(\\varphi_1 + \\varphi_2)$, т.е. произведението е $\\cos(\\varphi_1 + \\varphi_2) + i\\sin(\\varphi_1 + \\varphi_2)$. Като добавим и множителите $r_1 r_2$, получаваме $z_1 z_2 = r_1 r_2\\left(\\cos(\\varphi_1 + \\varphi_2) + i\\sin(\\varphi_1 + \\varphi_2)\\right)$.',
+              'Моавър – по индукция: при $n = 1$ е вярно. Ако $z^n = r^n(\\cos n\\varphi + i\\sin n\\varphi)$, то $z^{n+1} = z^n \\cdot z$, модулите се умножават до $r^{n+1}$, а аргументите се събират до $(n + 1)\\varphi$.',
+            ]}
+          />
           <ComplexPowersLab />
           <Example
             description="Да пресметнем $(1 + i)^8$."
@@ -344,6 +371,15 @@ export function ComplexNumbers() {
           <Theorem
             title="Корени от единицата"
             description="Уравнението $z^n = 1$ има $n$ корена $\varepsilon_k = \cos \frac{360^{\circ} k}{n} + i\sin \frac{360^{\circ} k}{n}$, $k = 0, 1, \ldots, n - 1$. Те са върховете на правилен $n$-ъгълник, вписан в единичната окръжност, и сборът им е 0."
+          />
+          <Proof
+            title="Доказателство"
+            steps={[
+              'Числата $\\varepsilon_k$ са корени: по Моавър $\\varepsilon_k^n = \\cos(360^{\\circ} k) + i\\sin(360^{\\circ} k) = 1$. Ъглите $\\frac{360^{\\circ} k}{n}$ при $k = 0, \\ldots, n - 1$ са различни и между $0^{\\circ}$ и $360^{\\circ}$, затова числата са $n$ различни.',
+              'Други корени няма: ако $z^n = 1$, то $|z|^n = 1$, значи $|z| = 1$ и $z = \\cos \\varphi + i\\sin \\varphi$. Тогава $\\cos n\\varphi + i\\sin n\\varphi = 1$, т.е. $n\\varphi$ е кратно на $360^{\\circ}$ – точно ъглите по-горе.',
+              'Всички са на разстояние 1 от началото, а ъгълът между съседни е $\\frac{360^{\\circ}}{n}$ – върхове на правилен $n$-ъгълник.',
+              'Сбор: при $n \\ge 2$ и $\\varepsilon = \\varepsilon_1 \\ne 1$ по Моавър $\\varepsilon_k = \\varepsilon^k$. По формулата за сбор на геометрична прогресия (тя се извежда по същия начин и за комплексни числа) $$1 + \\varepsilon + \\ldots + \\varepsilon^{n-1} = \\frac{\\varepsilon^n - 1}{\\varepsilon - 1} = \\frac{1 - 1}{\\varepsilon - 1} = 0$$',
+            ]}
           />
           <RootsOfUnityLab />
         </section>
@@ -458,6 +494,7 @@ export function ComplexNumbers() {
               <li>✓ <Tex>{'|z| = \\sqrt{a^2 + b^2}'}</Tex> – разстоянието до 0 в комплексната равнина</li>
               <li>✓ <Tex>{'z = r(\\cos \\varphi + i\\sin \\varphi)'}</Tex>; при умножение модулите се умножават, ъглите се събират</li>
               <li>✓ Моавър: <Tex>{'z^n = r^n(\\cos n\\varphi + i\\sin n\\varphi)'}</Tex>; корените на <Tex>{'z^n = 1'}</Tex> са върхове на правилен <Tex>{'n'}</Tex>-ъгълник</li>
+              <li>✓ Правилото „модулите се умножават, ъглите се събират“ следва от формулите за косинус и синус от сбор</li>
               <li>✓ Всяко уравнение от степен <Tex>{'n'}</Tex> има <Tex>{'n'}</Tex> комплексни корена (основна теорема на алгебрата)</li>
             </ul>
           </div>

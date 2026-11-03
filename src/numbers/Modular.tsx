@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { type Drill, gcd, pick, randInt } from '~/drill';
 import Example from '~/Example';
 import { MathText, Tex } from '~/MathText';
+import Proof from '~/Proof';
 import Quiz, { type Question } from '~/Quiz';
 import Task, { TaskBoard, TaskLevel } from '~/Task';
 import Theorem from '~/Theorem';
@@ -251,6 +252,15 @@ export function Modular() {
             title="Свойства"
             description="Ако $a \equiv b$ и $c \equiv d \pmod{m}$, то $a + c \equiv b + d$, $a - c \equiv b - d$, $ac \equiv bd$ и $a^n \equiv b^n \pmod{m}$. С други думи – можем да заменяме числата с остатъците им във всеки сбор, разлика, произведение и степен. Делението е опасно: може да делим на $k$ само ако $\text{НОД}(k,\ m) = 1$."
           />
+          <Proof
+            title="Доказателство"
+            steps={[
+              'Нека $a = b + mk$ и $c = d + ml$. Тогава $a \\pm c = (b \\pm d) + m(k \\pm l)$, т.е. $a \\pm c \\equiv b \\pm d$.',
+              'Произведение: $$ac = (b + mk)(d + ml)$$ $$= bd + m(bl + dk + mkl) \\equiv bd$$',
+              'Степен: $a^n = a \\cdot a \\cdots a$ – прилагаме правилото за произведение $n - 1$ пъти (по индукция).',
+              'Деление: от $ka \\equiv kb$ следва $m \\mid k(a - b)$. Ако $\\text{НОД}(k,\\ m) = 1$, по лемата на Евклид (чрез Безу) $m \\mid a - b$, т.е. $a \\equiv b$. Без това условие не става: $2 \\cdot 3 \\equiv 2 \\cdot 0 \\pmod 6$, но $3 \\not\\equiv 0 \\pmod 6$.',
+            ]}
+          />
           <Example
             description="Последната цифра на $7^{2026}$ – отговорът на загадката."
             steps={[
@@ -284,6 +294,16 @@ export function Modular() {
             title="Малка теорема на Ферма"
             description="Ако $p$ е просто число и $p \nmid a$, то $a^{p-1} \equiv 1 \pmod{p}$. Следствие: $a^p \equiv a \pmod{p}$ за всяко цяло $a$."
           />
+          <Proof
+            title="Доказателство"
+            steps={[
+              'Разглеждаме числата $a,\\ 2a,\\ 3a,\\ \\ldots,\\ (p - 1)a$. Никое не се дели на $p$ (простото $p$ не дели нито $i < p$, нито $a$).',
+              'Остатъците им са различни: ако $ia \\equiv ja$, то $p \\mid (i - j)a$, значи $p \\mid i - j$, а при $1 \\le i,\\ j \\le p - 1$ това е възможно само при $i = j$.',
+              'Следователно остатъците са точно $1, 2, \\ldots, p - 1$, разбъркани. Например при $p = 7$, $a = 3$: $3, 6, 2, 5, 1, 4$.',
+              'Умножаваме всички: $a \\cdot 2a \\cdots (p - 1)a \\equiv 1 \\cdot 2 \\cdots (p - 1)$, т.е. $(p - 1)! \\cdot a^{p-1} \\equiv (p - 1)! \\pmod p$.',
+              'Числото $(p - 1)!$ е взаимно просто с $p$, затова можем да го съкратим: $a^{p-1} \\equiv 1 \\pmod p$. Следствието $a^p \\equiv a$ получаваме, като умножим по $a$; при $p \\mid a$ двете страни са $\\equiv 0$.',
+            ]}
+          />
           <PowerTableLab />
           <Example
             description="Да намерим остатъка на $2^{100}$ при деление на 7."
@@ -301,6 +321,14 @@ export function Modular() {
             title="Линейно сравнение"
             description="Ако $\text{НОД}(a,\ m) = 1$, сравнението $ax \equiv b \pmod{m}$ има единствено решение по модул $m$. Намираме обратното число $a^{-1}$ (с $a \cdot a^{-1} \equiv 1$) и умножаваме: $x \equiv a^{-1} b$."
           />
+          <Proof
+            title="Доказателство"
+            steps={[
+              'Обратно число съществува: по Безу $\\text{НОД}(a,\\ m) = 1$ означава, че $au + mv = 1$ за някои цели $u,\\ v$, т.е. $au \\equiv 1 \\pmod m$. Полагаме $a^{-1} = u$.',
+              '$x = a^{-1}b$ е решение: $a \\cdot a^{-1}b \\equiv 1 \\cdot b = b$.',
+              'Единственост: ако $ax_1 \\equiv ax_2$, делим на $a$ (може, защото $\\text{НОД}(a,\\ m) = 1$) и получаваме $x_1 \\equiv x_2 \\pmod m$.',
+            ]}
+          />
           <Example
             description="Да решим $3x \equiv 4 \pmod 7$."
             steps={['Обратното на 3 по модул 7 е 5: $3 \\cdot 5 = 15 \\equiv 1$.', '$x \\equiv 5 \\cdot 4 = 20 \\equiv 6 \\pmod 7$', 'Проверка: $3 \\cdot 6 = 18 = 2 \\cdot 7 + 4$ ✓']}
@@ -308,6 +336,16 @@ export function Modular() {
           <Theorem
             title="Китайска теорема за остатъците"
             description="Ако модулите $m_1, m_2, \ldots, m_k$ са два по два взаимно прости, системата $x \equiv r_i \pmod{m_i}$ има единствено решение по модул $m_1 m_2 \cdots m_k$."
+          />
+          <Proof
+            title="Доказателство (за два модула)"
+            steps={[
+              'Нека $\\text{НОД}(m_1,\\ m_2) = 1$. Намираме обратните числа: $u$ с $m_1 u \\equiv 1 \\pmod{m_2}$ и $v$ с $m_2 v \\equiv 1 \\pmod{m_1}$. Полагаме $$x = r_1 m_2 v + r_2 m_1 u$$',
+              'По модул $m_1$ второто събираемо е 0, а $m_2 v \\equiv 1$, следователно $x \\equiv r_1$. По модул $m_2$ – симетрично, $x \\equiv r_2$.',
+              'Единственост: ако $x$ и $x_1$ са решения, $x - x_1$ се дели на $m_1$ и на $m_2$. Щом те са взаимно прости, $x - x_1$ се дели на $m_1 m_2$.',
+              'Пример: $x \\equiv 2 \\pmod 3$, $x \\equiv 3 \\pmod 5$. Имаме $3 \\cdot 2 \\equiv 1 \\pmod 5$ ($u = 2$) и $5 \\cdot 2 \\equiv 1 \\pmod 3$ ($v = 2$), откъдето $x = 2 \\cdot 5 \\cdot 2 + 3 \\cdot 3 \\cdot 2 = 38 \\equiv 8 \\pmod{15}$.',
+              'При повече модули прилагаме същото последователно: първо обединяваме първите две сравнения в едно по модул $m_1 m_2$, който е взаимно прост с $m_3$, и т.н.',
+            ]}
           />
           <p className={text}>
             Обратното число по модул се намира и с разширения <Term id="euclidean-algorithm">алгоритъм на Евклид</Term> (виж{' '}
@@ -422,6 +460,7 @@ export function Modular() {
           <div className="bg-gradient-to-r from-teal-50 to-emerald-50 dark:from-gray-800 dark:to-gray-700 p-6 rounded-lg">
             <ul className="space-y-2 text-sm sm:text-base">
               <li>✓ <Tex>{'a \\equiv b \\pmod{m} \\iff m \\mid a - b'}</Tex> – еднакви остатъци</li>
+              <li>✓ Ферма се доказва, като видим, че <Tex>{'a, 2a, \\ldots, (p - 1)a'}</Tex> са разбъркани остатъците <Tex>{'1, 2, \\ldots, p - 1'}</Tex></li>
               <li>✓ Сравненията се събират, изваждат, умножават и степенуват; делим само на числа, <Term id="coprime">взаимно прости</Term> с модула</li>
               <li>✓ Степените по модул се повтарят периодично – така намираме последни цифри и остатъци на огромни степени</li>
               <li>✓ Ферма: <Tex>{'a^{p-1} \\equiv 1 \\pmod p'}</Tex> за просто <Tex>{'p \\nmid a'}</Tex></li>
