@@ -118,8 +118,7 @@ function Trainer() {
 
       <div className="flex justify-center mb-4">
         <div className="flex items-stretch gap-2 font-mono text-lg sm:text-2xl text-gray-800 dark:text-gray-100">
-          <span className="text-4xl sm:text-5xl font-light leading-none self-center">{'{'}</span>
-          <div className="flex flex-col justify-center gap-1">
+          <div className="flex flex-col justify-center gap-1 border-l-2 border-current pl-3">
             <span>{fmtEq(task.e1)}</span>
             <span>{fmtEq(task.e2)}</span>
           </div>
@@ -243,7 +242,7 @@ const wordProblems: WordProblem[] = [
 
 const systemsQuiz: Question[] = [
   {
-    question: 'Коя двойка е решение на системата $x + y = 7,\\ x - y = 1$?',
+    question: 'Коя двойка е решение на системата $$\\left|\\begin{array}{l} x + y = 7 \\\\ x - y = 1 \\end{array}\\right.?$$',
     answers: ['(3; 4)', '(4; 3)', '(5; 2)', '(6; 1)'],
     correctAnswer: '(4; 3)',
   },
@@ -253,12 +252,12 @@ const systemsQuiz: Question[] = [
     correctAnswer: '(1; 3)',
   },
   {
-    question: 'Колко решения има системата $x + 2y = 3,\\ 2x + 4y = 6$?',
+    question: 'Колко решения има системата $$\\left|\\begin{array}{l} x + 2y = 3 \\\\ 2x + 4y = 6 \\end{array}\\right.?$$',
     answers: ['Едно', 'Две', 'Нито едно', 'Безброй много'],
     correctAnswer: 'Безброй много',
   },
   {
-    question: 'Колко решения има системата $x + 2y = 3,\\ 2x + 4y = 5$?',
+    question: 'Колко решения има системата $$\\left|\\begin{array}{l} x + 2y = 3 \\\\ 2x + 4y = 5 \\end{array}\\right.?$$',
     answers: ['Едно', 'Две', 'Нито едно', 'Безброй много'],
     correctAnswer: 'Нито едно',
   },
@@ -268,17 +267,17 @@ const systemsQuiz: Question[] = [
     correctAnswer: 'Пресечната точка на двете прави',
   },
   {
-    question: 'На колко е равна детерминантата $D$ на системата $3x - 2y = 1,\\ 4x + y = 5$?',
+    question: 'На колко е равна детерминантата $D$ на системата $$\\left|\\begin{array}{l} 3x - 2y = 1 \\\\ 4x + y = 5 \\end{array}\\right.?$$',
     answers: ['$11$', '$-5$', '$5$', '$-11$'],
     correctAnswer: '$11$',
   },
   {
-    question: 'При кое $a$ системата $ax + 2y = 1,\\ 2x + y = 3$ няма решение?',
+    question: 'При кое $a$ системата $$\\left|\\begin{array}{l} ax + 2y = 1 \\\\ 2x + y = 3 \\end{array}\\right.$$ няма решение?',
     answers: ['$a = 1$', '$a = 2$', '$a = 4$', '$a = -4$'],
     correctAnswer: '$a = 4$',
   },
   {
-    question: 'Кои са решенията на системата $x + y = 5,\\ xy = 4$?',
+    question: 'Кои са решенията на системата $$\\left|\\begin{array}{l} x + y = 5 \\\\ xy = 4 \\end{array}\\right.?$$',
     answers: ['(1; 4) и (4; 1)', '(2; 2)', '(−1; −4) и (−4; −1)', 'Няма решение'],
     correctAnswer: '(1; 4) и (4; 1)',
   },
@@ -294,20 +293,9 @@ const systemsQuiz: Question[] = [
 const h2 = 'text-xl sm:text-2xl font-semibold mb-3 text-gray-800 dark:text-gray-100';
 const text = 'mb-4 text-sm sm:text-base text-gray-700 dark:text-gray-300 leading-relaxed';
 
-/** Система, записана с фигурна скоба. */
+/** Система, записана с вертикална черта отляво. */
 function Sys({ rows }: { rows: string[] }) {
-  return (
-    <div className="flex justify-center mb-4">
-      <div className="flex items-stretch gap-2 font-mono text-base sm:text-lg text-gray-800 dark:text-gray-100">
-        <span className="text-4xl font-light leading-none self-center">{'{'}</span>
-        <div className="flex flex-col justify-center">
-          {rows.map(r => (
-            <span key={r}>{r}</span>
-          ))}
-        </div>
-      </div>
-    </div>
-  );
+  return <Tex block className="mb-4">{`\\left|\\begin{array}{l} ${rows.join(' \\\\ ')} \\end{array}\\right.`}</Tex>;
 }
 
 export function SystemsOfEquations() {
@@ -336,7 +324,7 @@ export function SystemsOfEquations() {
           <Theorem
             type="definition"
             title="Система уравнения"
-            description="Няколко уравнения, които трябва да са изпълнени едновременно, образуват система; записваме ги едно под друго с фигурна скоба. Решение на система с две неизвестни е наредена двойка (x; y), която превръща всяко от уравненията във вярно равенство. Да решим системата означава да намерим всички такива двойки (или да покажем, че няма)."
+            description="Няколко уравнения, които трябва да са изпълнени едновременно, образуват система; записваме ги едно под друго и ги обединяваме с вертикална черта отляво. Решение на система с две неизвестни е наредена двойка (x; y), която превръща всяко от уравненията във вярно равенство. Да решим системата означава да намерим всички такива двойки (или да покажем, че няма)."
           />
           <p className={text}>
             Уравнението <Tex>{'x + y = 10'}</Tex> само по себе си има безброй решения: (1; 9), (2; 8), (2,5; 7,5)… Второто условие „отсява“ от тях само
@@ -380,7 +368,7 @@ export function SystemsOfEquations() {
             ))}
           </div>
           <Example
-            description="Да решим системата $x + 2y = 7,\ 3x - y = 7$"
+            description="Да решим системата $$\left|\begin{array}{l} x + 2y = 7 \\ 3x - y = 7 \end{array}\right.$$"
             steps={[
               'В първото уравнение $x$ е с коефициент 1: $x = 7 - 2y$',
               'Заместваме във второто: $3(7 - 2y) - y = 7$',
@@ -402,7 +390,7 @@ export function SystemsOfEquations() {
             description="Ако двойката $(x; y)$ удовлетворява двете уравнения, тя удовлетворява и всяка тяхна комбинация $k_1 \cdot (\text{първото}) + k_2 \cdot (\text{второто})$. Затова, ако заменим едно от уравненията на системата с такава комбинация (при $k_1 \ne 0$, когато заменяме първото), получаваме равносилна система – със същите решения."
           />
           <Example
-            description="Да решим системата $3x + 2y = 12,\ 5x - 3y = 1$"
+            description="Да решим системата $$\left|\begin{array}{l} 3x + 2y = 12 \\ 5x - 3y = 1 \end{array}\right.$$"
             steps={[
               'Искаме пред $y$ да стои 6 и −6: умножаваме първото уравнение по 3, второто – по 2',
               '$9x + 6y = 36$ и $10x - 6y = 2$',
@@ -444,11 +432,11 @@ export function SystemsOfEquations() {
           </p>
           <Theorem
             title="Правило на Крамер"
-            description="За системата $a_1x + b_1y = c_1,\ a_2x + b_2y = c_2$ въвеждаме детерминантите $D = a_1b_2 - a_2b_1$, $D_x = c_1b_2 - c_2b_1$ и $D_y = a_1c_2 - a_2c_1$. Ако $D \ne 0$, системата има единствено решение $x = \frac{D_x}{D},\ y = \frac{D_y}{D}$. Ако $D = 0$, а $D_x \ne 0$ или $D_y \ne 0$ – няма решение. Ако $D = D_x = D_y = 0$ (и във всяко уравнение поне един коефициент пред $x$ или $y$ е различен от 0) – решенията са безброй много."
+            description="За системата $$\left|\begin{array}{l} a_1x + b_1y = c_1 \\ a_2x + b_2y = c_2 \end{array}\right.$$ въвеждаме детерминантите $D = a_1b_2 - a_2b_1$, $D_x = c_1b_2 - c_2b_1$ и $D_y = a_1c_2 - a_2c_1$. Ако $D \ne 0$, системата има единствено решение $x = \frac{D_x}{D},\ y = \frac{D_y}{D}$. Ако $D = 0$, а $D_x \ne 0$ или $D_y \ne 0$ – няма решение. Ако $D = D_x = D_y = 0$ (и във всяко уравнение поне един коефициент пред $x$ или $y$ е различен от 0) – решенията са безброй много."
           />
           <SystemGraphLab />
           <Example
-            description="Да решим системата $3x - 2y = 1,\ 4x + y = 5$ с детерминанти."
+            description="Да решим системата $$\left|\begin{array}{l} 3x - 2y = 1 \\ 4x + y = 5 \end{array}\right.$$ с детерминанти."
             steps={[
               '$D = 3 \\cdot 1 - 4 \\cdot (-2) = 3 + 8 = 11 \\ne 0$ – има единствено решение',
               '$D_x = 1 \\cdot 1 - 5 \\cdot (-2) = 11 \\Rightarrow x = \\frac{11}{11} = 1$',
@@ -465,7 +453,7 @@ export function SystemsOfEquations() {
             правите са успоредни или съвпадат – и ги разглеждаме отделно.
           </p>
           <Example
-            description="Да изследваме системата $ax + y = 1,\ x + ay = 1$ за всяка стойност на $a$."
+            description="Да изследваме системата $$\left|\begin{array}{l} ax + y = 1 \\ x + ay = 1 \end{array}\right.$$ за всяка стойност на $a$."
             steps={[
               '$D = a \\cdot a - 1 \\cdot 1 = a^2 - 1 = (a - 1)(a + 1)$; $D_x = 1 \\cdot a - 1 \\cdot 1 = a - 1$; $D_y = a \\cdot 1 - 1 \\cdot 1 = a - 1$',
               '$a \\ne \\pm 1$: $D \\ne 0 \\Rightarrow x = y = \\frac{a - 1}{(a - 1)(a + 1)} = \\frac{1}{a + 1}$ – единствено решение',
@@ -482,7 +470,7 @@ export function SystemsOfEquations() {
             неизвестно от <Term id="linear-equation">линейното уравнение</Term> и получаваме <Term id="quadratic-equation">квадратно уравнение</Term>. Затова решенията може да са две, едно или нито едно.
           </p>
           <Example
-            description="Да решим системата $x^2 + y^2 = 25,\ x - y = 1$"
+            description="Да решим системата $$\left|\begin{array}{l} x^2 + y^2 = 25 \\ x - y = 1 \end{array}\right.$$"
             steps={[
               'От второто уравнение: $x = y + 1$',
               'Заместваме: $(y + 1)^2 + y^2 = 25 \\Rightarrow 2y^2 + 2y - 24 = 0 \\Rightarrow y^2 + y - 12 = 0$',
@@ -495,7 +483,7 @@ export function SystemsOfEquations() {
             description="Ако $x + y = s$ и $xy = p$, то $x$ и $y$ са корените на квадратното уравнение $t^2 - st + p = 0$. Ако корените са $t_1$ и $t_2$, решенията на системата са $(t_1; t_2)$ и $(t_2; t_1)$. Полезни тъждества: $x^2 + y^2 = s^2 - 2p$ и $x^3 + y^3 = s^3 - 3ps$."
           />
           <Example
-            description="Да решим системата $x + y = 5,\ xy = 6$"
+            description="Да решим системата $$\left|\begin{array}{l} x + y = 5 \\ xy = 6 \end{array}\right.$$"
             steps={['$x$ и $y$ са корените на $t^2 - 5t + 6 = 0$', '$t_1 = 2,\\ t_2 = 3$', 'Отговор: (2; 3) и (3; 2) – не забравяй и двете наредени двойки!']}
           />
           <LineCurveLab />
@@ -549,12 +537,12 @@ export function SystemsOfEquations() {
           <TaskBoard>
             <div className="mb-6">
               <TaskLevel level="A" />
-              <Task id="a1" number={1} color="border-green-500" question="Реши системата $2x + 3y = 13,\ x - y = -1$." check={[2, 3]} ask={['$x$', '$y$']}>
+              <Task id="a1" number={1} color="border-green-500" question="Реши системата $$\left|\begin{array}{l} 2x + 3y = 13 \\ x - y = -1 \end{array}\right..$$" check={[2, 3]} ask={['$x$', '$y$']}>
                 <p>От второто уравнение: <Tex>{'x = y - 1'}</Tex></p>
                 <p>Заместваме: <Tex>{'2(y - 1) + 3y = 13 \\Rightarrow 5y - 2 = 13 \\Rightarrow y = 3'}</Tex></p>
                 <p><Tex>{'x = 3 - 1 = 2'}</Tex>. Отговор: (2; 3)</p>
               </Task>
-              <Task id="a2" number={2} color="border-green-500" question="Реши системата $4x - 3y = 2,\ 6x + 5y = 41$." check={[3.5, 4]} ask={['$x$', '$y$']}>
+              <Task id="a2" number={2} color="border-green-500" question="Реши системата $$\left|\begin{array}{l} 4x - 3y = 2 \\ 6x + 5y = 41 \end{array}\right..$$" check={[3.5, 4]} ask={['$x$', '$y$']}>
                 <p>Изравняваме коефициентите пред <Tex>{'x'}</Tex>: първото по 3, второто по 2.</p>
                 <p><Tex>{'12x - 9y = 6'}</Tex> и <Tex>{'12x + 10y = 82'}</Tex></p>
                 <p>Изваждаме първото от второто: <Tex>{'19y = 76 \\Rightarrow y = 4'}</Tex></p>
@@ -569,18 +557,18 @@ export function SystemsOfEquations() {
 
             <div className="mb-6">
               <TaskLevel level="B" />
-              <Task id="b1" number={4} color="border-yellow-500" question="Реши системата $\frac{x}{3} + \frac{y}{4} = 3,\ \frac{x}{2} - \frac{y}{4} = 2$." check={[6, 4]} ask={['$x$', '$y$']}>
+              <Task id="b1" number={4} color="border-yellow-500" question="Реши системата $$\left|\begin{array}{l} \frac{x}{3} + \frac{y}{4} = 3 \\ \frac{x}{2} - \frac{y}{4} = 2 \end{array}\right..$$" check={[6, 4]} ask={['$x$', '$y$']}>
                 <p>Коефициентите пред <Tex>{'y'}</Tex> вече са противоположни – събираме уравненията:</p>
                 <p><Tex>{'\\frac{x}{3} + \\frac{x}{2} = 5 \\Rightarrow \\frac{5x}{6} = 5 \\Rightarrow x = 6'}</Tex></p>
                 <p><Tex>{'\\frac{6}{3} + \\frac{y}{4} = 3 \\Rightarrow \\frac{y}{4} = 1 \\Rightarrow y = 4'}</Tex>. Отговор: (6; 4)</p>
               </Task>
-              <Task id="b2" number={5} color="border-yellow-500" question="Изследвай системата $x + ay = 2,\ ax + 4y = 4$ в зависимост от параметъра $a$.">
+              <Task id="b2" number={5} color="border-yellow-500" question="Изследвай системата $$\left|\begin{array}{l} x + ay = 2 \\ ax + 4y = 4 \end{array}\right.$$ в зависимост от параметъра $a$.">
                 <p><Tex>{'D = 1 \\cdot 4 - a \\cdot a = 4 - a^2'}</Tex>; <Tex>{'D_x = 2 \\cdot 4 - 4 \\cdot a = 4(2 - a)'}</Tex>; <Tex>{'D_y = 1 \\cdot 4 - a \\cdot 2 = 2(2 - a)'}</Tex></p>
                 <p><Tex>{'a \\ne \\pm 2'}</Tex>: <Tex>{'x = \\frac{4(2 - a)}{(2 - a)(2 + a)} = \\frac{4}{a + 2},\\ y = \\frac{2}{a + 2}'}</Tex> – единствено решение.</p>
                 <p><Tex>{'a = 2'}</Tex>: <Tex>{'x + 2y = 2'}</Tex> и <Tex>{'2x + 4y = 4'}</Tex> – едно и също уравнение, безброй решения (<Tex>{'x = 2 - 2y'}</Tex>, <Tex>{'y'}</Tex> – произволно).</p>
                 <p><Tex>{'a = -2'}</Tex>: <Tex>{'x - 2y = 2'}</Tex> и <Tex>{'-2x + 4y = 4'}</Tex>, т.е. <Tex>{'x - 2y = -2'}</Tex> – успоредни прави, няма решение.</p>
               </Task>
-              <Task id="b3" number={6} color="border-yellow-500" question="Реши системата $x^2 + y^2 = 13,\ x + y = 5$.">
+              <Task id="b3" number={6} color="border-yellow-500" question="Реши системата $$\left|\begin{array}{l} x^2 + y^2 = 13 \\ x + y = 5 \end{array}\right..$$">
                 <p><Tex>{'x^2 + y^2 = (x + y)^2 - 2xy \\Rightarrow 13 = 25 - 2xy \\Rightarrow xy = 6'}</Tex></p>
                 <p><Tex>{'x'}</Tex> и <Tex>{'y'}</Tex> са корените на <Tex>{'t^2 - 5t + 6 = 0 \\Rightarrow t = 2'}</Tex> или <Tex>{'t = 3'}</Tex></p>
                 <p>Отговор: (2; 3) и (3; 2)</p>
@@ -589,19 +577,19 @@ export function SystemsOfEquations() {
 
             <div className="mb-6">
               <TaskLevel level="C" />
-              <Task id="c1" number={7} color="border-red-500" question="Реши системата с три неизвестни: $x + y + z = 6,\ x - y + 2z = 5,\ 2x + y - z = 1$." check={[1, 2, 3]} ask={['$x$', '$y$', '$z$']}>
+              <Task id="c1" number={7} color="border-red-500" question="Реши системата с три неизвестни: $$\left|\begin{array}{l} x + y + z = 6 \\ x - y + 2z = 5 \\ 2x + y - z = 1 \end{array}\right..$$" check={[1, 2, 3]} ask={['$x$', '$y$', '$z$']}>
                 <p>Събираме първото и второто: <Tex>{'2x + 3z = 11'}</Tex>. Събираме второто и третото: <Tex>{'3x + z = 6'}</Tex>.</p>
                 <p>Получихме система с две неизвестни. От второто: <Tex>{'z = 6 - 3x'}</Tex>.</p>
                 <p><Tex>{'2x + 3(6 - 3x) = 11 \\Rightarrow 18 - 7x = 11 \\Rightarrow x = 1,\\ z = 3'}</Tex></p>
                 <p><Tex>{'y = 6 - x - z = 2'}</Tex>. Отговор: (1; 2; 3)</p>
               </Task>
-              <Task id="c2" number={8} color="border-red-500" question="Реши системата $x^3 + y^3 = 35,\ x + y = 5$.">
+              <Task id="c2" number={8} color="border-red-500" question="Реши системата $$\left|\begin{array}{l} x^3 + y^3 = 35 \\ x + y = 5 \end{array}\right..$$">
                 <p>Нека <Tex>{'s = x + y = 5'}</Tex> и <Tex>{'p = xy'}</Tex>. Тогава <Tex>{'x^3 + y^3 = (x + y)^3 - 3xy(x + y) = s^3 - 3ps'}</Tex>.</p>
                 <p><Tex>{'125 - 15p = 35 \\Rightarrow p = 6'}</Tex></p>
                 <p><Tex>{'x'}</Tex> и <Tex>{'y'}</Tex> са корените на <Tex>{'t^2 - 5t + 6 = 0 \\Rightarrow 2'}</Tex> и 3</p>
                 <p>Отговор: (2; 3) и (3; 2)</p>
               </Task>
-              <Task id="c3" number={9} color="border-red-500" question="За кои стойности на $a$ системата $x^2 + y^2 = 1,\ y = x + a$ има единствено решение? Обясни геометрично.">
+              <Task id="c3" number={9} color="border-red-500" question="За кои стойности на $a$ системата $$\left|\begin{array}{l} x^2 + y^2 = 1 \\ y = x + a \end{array}\right.$$ има единствено решение? Обясни геометрично.">
                 <p>Заместваме: <Tex>{'x^2 + (x + a)^2 = 1 \\Rightarrow 2x^2 + 2ax + a^2 - 1 = 0'}</Tex></p>
                 <p>Единствено решение <Tex>{'\\iff \\frac{D}{4} = a^2 - 2(a^2 - 1) = 2 - a^2 = 0 \\iff a = \\pm \\sqrt{2}'}</Tex></p>
                 <p>Тогава <Tex>{'x = -\\frac{a}{2}'}</Tex> и решенията са <Tex>{'\\left(-\\frac{\\sqrt{2}}{2}; \\frac{\\sqrt{2}}{2}\\right)'}</Tex> при <Tex>{'a = \\sqrt{2}'}</Tex> и <Tex>{'\\left(\\frac{\\sqrt{2}}{2}; -\\frac{\\sqrt{2}}{2}\\right)'}</Tex> при <Tex>{'a = -\\sqrt{2}'}</Tex>.</p>

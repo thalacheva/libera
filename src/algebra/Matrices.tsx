@@ -551,7 +551,7 @@ export function Matrices() {
 
             <div className="mb-6">
               <TaskLevel level="B" />
-              <Task id="b1" number={4} color="border-yellow-500" question="Решете системата $2x + 3y = 8,\ x - y = -1$, като я запишете във вида $AX = B$ и намерите $A^{-1}$." check={[1, 2]} ask={['$x$', '$y$']}>
+              <Task id="b1" number={4} color="border-yellow-500" question="Решете системата $$\left|\begin{array}{l} 2x + 3y = 8 \\ x - y = -1 \end{array}\right.$$, като я запишете във вида $AX = B$ и намерите $A^{-1}$." check={[1, 2]} ask={['$x$', '$y$']}>
                 <p><Tex>{'A = \\begin{pmatrix} 2 & 3 \\\\ 1 & -1 \\end{pmatrix}'}</Tex>, <Tex>{'\\det A = -2 - 3 = -5'}</Tex>, <Tex>{'A^{-1} = -\\frac{1}{5}\\begin{pmatrix} -1 & -3 \\\\ -1 & 2 \\end{pmatrix}'}</Tex></p>
                 <p><Tex>{'X = -\\frac{1}{5}\\begin{pmatrix} -8 + 3 \\\\ -8 - 2 \\end{pmatrix} = -\\frac{1}{5}\\begin{pmatrix} -5 \\\\ -10 \\end{pmatrix} = \\begin{pmatrix} 1 \\\\ 2 \\end{pmatrix}'}</Tex></p>
                 <p>Отговор: <Tex>{'x = 1,\\ y = 2'}</Tex>.</p>

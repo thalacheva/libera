@@ -239,12 +239,12 @@ const inequalitiesQuiz: Question[] = [
     correctAnswer: '$(-1;\\ 4]$',
   },
   {
-    question: 'Кое е решението на системата $x > 2,\\ x \\le 5$?',
+    question: 'Кое е решението на системата $$\\left|\\begin{array}{l} x > 2 \\\\ x \\le 5 \\end{array}\\right.?$$',
     answers: ['$(2;\\ 5]$', '$[2;\\ 5)$', '$(-\\infty ;\\ 5]$', '$(2;\\ +\\infty)$'],
     correctAnswer: '$(2;\\ 5]$',
   },
   {
-    question: 'Кое е решението на системата $x > 3,\\ x < 1$?',
+    question: 'Кое е решението на системата $$\\left|\\begin{array}{l} x > 3 \\\\ x < 1 \\end{array}\\right.?$$',
     answers: ['$(1;\\ 3)$', '$x < 1$ или $x > 3$', 'Няма решение', 'Всяко x'],
     correctAnswer: 'Няма решение',
   },
@@ -576,7 +576,7 @@ export function Inequalities() {
                 <p><Tex>{'4x - 2 - 3x - 3 > 6 \\Rightarrow x - 5 > 6'}</Tex></p>
                 <p><Tex>{'x > 11'}</Tex>, т.е. <Tex>{'x \\in (11;\\ +\\infty)'}</Tex></p>
               </Task>
-              <Task id="a3" number={3} color="border-green-500" question="Намери целите решения на системата $2x - 3 > 1,\ 3x + 2 \le 17$." check={[3, 4, 5]} ask={['$x_1$', '$x_2$', '$x_3$']} anyOrder>
+              <Task id="a3" number={3} color="border-green-500" question="Намери целите решения на системата $$\left|\begin{array}{l} 2x - 3 > 1 \\ 3x + 2 \le 17 \end{array}\right..$$" check={[3, 4, 5]} ask={['$x_1$', '$x_2$', '$x_3$']} anyOrder>
                 <p>От първото: <Tex>{'2x > 4 \\Rightarrow x > 2'}</Tex></p>
                 <p>От второто: <Tex>{'3x \\le 15 \\Rightarrow x \\le 5'}</Tex></p>
                 <p>Сечението е (2; 5]; целите числа в него са 3, 4 и 5.</p>

@@ -29,8 +29,9 @@ function render(tex: string, display: boolean) {
 /** Формула в LaTeX: <Tex>{'\\frac{a}{b}'}</Tex>; block – на отделен ред, центрирана. */
 export function Tex({children, block = false, className}: {children: string; block?: boolean; className?: string}) {
   const html = useMemo(() => render(children, block), [children, block]);
-  const Tag = block ? 'div' : 'span';
-  return <Tag className={className} dangerouslySetInnerHTML={{__html: html}} />;
+  // и формулата на отделен ред е <span> (display: block), за да може да стои и вътре в <p>, <h3> или <span>
+  const cls = block ? `block${className ? ' ' + className : ''}` : className;
+  return <span className={cls} dangerouslySetInnerHTML={{__html: html}} />;
 }
 
 /**
