@@ -26,6 +26,11 @@ const Derivatives = lazy(() => import('./analysis/Derivatives').then(m => ({defa
 const Integrals = lazy(() => import('./analysis/Integrals').then(m => ({default: m.Integrals})));
 const DifferentialEquations = lazy(() => import('./analysis/DifferentialEquations').then(m => ({default: m.DifferentialEquations})));
 const ComplexNumbers = lazy(() => import('./algebra/ComplexNumbers').then(m => ({default: m.ComplexNumbers})));
+const Addition = lazy(() => import('./arithmetic/Addition').then(m => ({default: m.Addition})));
+const Subtraction = lazy(() => import('./arithmetic/Subtraction').then(m => ({default: m.Subtraction})));
+const Multiplication = lazy(() => import('./arithmetic/Multiplication').then(m => ({default: m.Multiplication})));
+const ArithmeticDivision = lazy(() => import('./arithmetic/Division').then(m => ({default: m.Division})));
+const Mixed = lazy(() => import('./arithmetic/Mixed').then(m => ({default: m.Mixed})));
 const NumberSets = lazy(() => import('./numbers/NumberSets').then(m => ({default: m.NumberSets})));
 const Divisibility = lazy(() => import('./numbers/Divisibility').then(m => ({default: m.Divisibility})));
 const Gcd = lazy(() => import('./numbers/Gcd').then(m => ({default: m.Gcd})));
@@ -223,6 +228,13 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="progress" element={<MyProgress />} />
             <Route path="math" element={<SectionHome area="math" />} />
+            <Route path="arithmetic">
+              <Route path="addition" element={<Addition />} />
+              <Route path="subtraction" element={<Subtraction />} />
+              <Route path="multiplication" element={<Multiplication />} />
+              <Route path="division" element={<ArithmeticDivision />} />
+              <Route path="mixed" element={<Mixed />} />
+            </Route>
             <Route path="algebra">
               <Route path="fractions" element={<Fractions />} />
               <Route path="powers" element={<Powers />} />

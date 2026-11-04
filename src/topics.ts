@@ -2,6 +2,17 @@
 
 export const mathTopics = [
   {
+    name: 'Аритметика',
+    path: '/arithmetic',
+    subtopics: [
+      { name: 'Събиране', path: '/addition' },
+      { name: 'Изваждане', path: '/subtraction' },
+      { name: 'Умножение', path: '/multiplication' },
+      { name: 'Деление', path: '/division' },
+      { name: 'Смесени задачи', path: '/mixed' },
+    ],
+  },
+  {
     name: 'Алгебра',
     path: '/algebra',
     subtopics: [
