@@ -32,7 +32,7 @@ const organization = {
   name: SITE_NAME,
   url: `${SITE_URL}/`,
   logo: `${SITE_URL}/apple-touch-icon.png`,
-  email: 'ninelibera@gmail.com',
+  email: 'info@libera-edu.bg',
 };
 
 const breadcrumbs = (items: { name: string; path: string }[]) => ({

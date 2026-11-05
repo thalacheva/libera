@@ -200,11 +200,11 @@ export default function SidebarMenu({
             Контакт
           </div>
           <a
-            href="mailto:ninelibera@gmail.com"
+            href="mailto:info@libera-edu.bg"
             className="inline-flex items-center gap-2 text-sm text-gray-600 hover:text-blue-700 dark:text-gray-400 dark:hover:text-blue-300 transition-colors"
           >
             <Mail size={16} />
-            ninelibera@gmail.com
+            info@libera-edu.bg
           </a>
           <p className="mt-3 text-xs leading-relaxed text-gray-500 dark:text-gray-400">
             © 2026 Libera · съдържание:{' '}

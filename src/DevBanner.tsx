@@ -10,8 +10,8 @@ export default function DevBanner() {
       <Construction size={16} className="flex-shrink-0" aria-hidden />
       <p>
         Сайтът все още се разработва и може да има грешки и неточности. Ако забележиш такава, пиши ни на{' '}
-        <a href="mailto:ninelibera@gmail.com" className="font-medium underline underline-offset-2 hover:text-amber-700 dark:hover:text-amber-100">
-          ninelibera@gmail.com
+        <a href="mailto:info@libera-edu.bg" className="font-medium underline underline-offset-2 hover:text-amber-700 dark:hover:text-amber-100">
+          info@libera-edu.bg
         </a>
         .
       </p>
