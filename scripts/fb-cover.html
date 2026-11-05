@@ -1,0 +1,81 @@
+<!doctype html>
+<!-- Facebook page cover, 1640×624. Text stays in the central ~1000px (mobile crops the sides).
+     Render: Chrome --headless=new --hide-scrollbars --force-device-scale-factor=1 --window-size=1640,624 --screenshot=fb-cover.png file://…/fb-cover.html -->
+<html lang="bg"><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800&display=swap&subset=cyrillic" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:1640px;height:624px;overflow:hidden}
+body{font-family:Inter,sans-serif;color:#fff;position:relative;
+ background:
+  radial-gradient(640px 380px at 1240px 30px,#2c2a72 0%,transparent 70%),
+  radial-gradient(560px 340px at 260px 640px,#16295e 0%,transparent 70%),
+  radial-gradient(500px 260px at 820px 330px,#1a1d4a 0%,transparent 75%),
+  #0d1022}
+svg.deco{position:absolute;inset:0}
+.center{position:absolute;left:0;right:0;top:150px;display:flex;flex-direction:column;align-items:center}
+.top{display:flex;align-items:center;gap:32px}
+.logo{width:120px;height:120px;border-radius:27px;background:linear-gradient(135deg,#3b82f6,#4f46e5);display:flex;align-items:center;justify-content:center;box-shadow:0 0 70px rgba(79,70,229,.55)}
+.name{font-size:110px;font-weight:800;letter-spacing:-3px;line-height:1}
+.tag{font-size:32px;font-weight:600;color:#a5b4fc;margin-top:6px}
+.sub{margin-top:44px;font-size:34px;font-weight:600;text-align:center;line-height:1.35;color:#e0e7ff}
+.url{margin-top:26px;font-size:26px;font-weight:700;letter-spacing:.5px;color:#fff;opacity:.9}
+</style></head><body>
+<svg class="deco" width="1640" height="624">
+ <g fill="#fff" opacity=".45">
+  <circle cx="420" cy="40" r="1.6"/><circle cx="760" cy="60" r="1.6"/><circle cx="1180" cy="300" r="1.6"/>
+  <circle cx="1560" cy="290" r="1.6"/><circle cx="300" cy="300" r="1.6"/><circle cx="560" cy="520" r="1.6"/>
+  <circle cx="1100" cy="560" r="1.6"/><circle cx="1400" cy="430" r="1.6"/><circle cx="90" cy="250" r="1.6"/>
+  <circle cx="980" cy="30" r="1.6"/><circle cx="1600" cy="520" r="1.6"/><circle cx="240" cy="470" r="1.6"/>
+  <circle cx="1300" cy="40" r="1.6"/><circle cx="470" cy="390" r="1.6"/>
+ </g>
+ <!-- parabola -->
+ <g stroke="#ffffff" stroke-opacity=".12"><line x1="60" y1="176" x2="270" y2="176"/><line x1="164" y1="52" x2="164" y2="226"/></g>
+ <path d="M94 62 Q164 290 234 62" fill="none" stroke="#34d399" stroke-width="3"/>
+ <circle cx="94" cy="62" r="5" fill="#34d399"/><circle cx="234" cy="62" r="5" fill="#34d399"/>
+ <!-- arithmetic -->
+ <text x="330" y="150" font-family="Inter" font-weight="800" font-size="40" fill="#a78bfa" opacity=".8">7×8</text>
+ <!-- pendulum -->
+ <g opacity=".85"><line x1="300" y1="250" x2="390" y2="236" stroke="#94a3b8" stroke-width="3"/>
+  <line x1="345" y1="243" x2="320" y2="390" stroke="#cbd5e1" stroke-width="2"/>
+  <circle cx="320" cy="390" r="16" fill="#38bdf8"/>
+  <path d="M270 380 Q320 410 370 380" fill="none" stroke="#38bdf8" stroke-opacity=".5" stroke-width="2" stroke-dasharray="5 5"/></g>
+ <!-- benzene -->
+ <g fill="none" stroke="#eab308" stroke-width="3">
+  <polygon points="120,500 158,522 158,566 120,588 82,566 82,522"/><circle cx="120" cy="544" r="19"/><line x1="158" y1="522" x2="200" y2="494"/>
+ </g><circle cx="204" cy="492" r="8" fill="#eab308"/>
+ <!-- wave -->
+ <path d="M30 380 q26 -38 52 0 t52 0 t52 0" fill="none" stroke="#38bdf8" stroke-opacity=".0" stroke-width="3"/>
+ <!-- orbit -->
+ <ellipse cx="1430" cy="140" rx="124" ry="58" transform="rotate(-8 1430 140)" fill="none" stroke="#c7d2fe" stroke-opacity=".7" stroke-width="2" stroke-dasharray="6 6"/>
+ <circle cx="1430" cy="140" r="28" fill="#f5c542" fill-opacity=".25"/><circle cx="1430" cy="140" r="17" fill="#f5c542"/>
+ <circle cx="1545" cy="104" r="10" fill="#6366f1" stroke="#a5b4fc" stroke-width="2"/>
+ <!-- arithmetic -->
+ <text x="1250" y="300" font-family="Inter" font-weight="800" font-size="40" fill="#fb923c" opacity=".8">1+2<tspan fill="#fbbf24">=3</tspan></text>
+ <!-- globe -->
+ <g transform="translate(1310 450)" fill="none" stroke="#2dd4bf" stroke-width="2.5" opacity=".85">
+  <circle r="50"/><ellipse rx="20" ry="50"/><line x1="-50" y1="0" x2="50" y2="0"/>
+  <path d="M-43 -25 Q0 -16 43 -25"/><path d="M-43 25 Q0 34 43 25"/>
+ </g>
+ <!-- dna -->
+ <g transform="translate(1410 560)" stroke-width="3" fill="none">
+  <path d="M0 0 C 22 -30 66 -30 88 0 S 154 30 176 0" stroke="#f472b6"/>
+  <path d="M0 0 C 22 30 66 30 88 0 S 154 -30 176 0" stroke="#fb7185" stroke-opacity=".75"/>
+  <g stroke="#f9a8d4" stroke-opacity=".55" stroke-width="2">
+   <line x1="22" y1="-17" x2="22" y2="17"/><line x1="44" y1="-22" x2="44" y2="22"/><line x1="66" y1="-17" x2="66" y2="17"/>
+   <line x1="110" y1="-17" x2="110" y2="17"/><line x1="132" y1="-22" x2="132" y2="22"/><line x1="154" y1="-17" x2="154" y2="17"/>
+  </g>
+ </g>
+ <!-- sine wave bottom center -->
+ <path d="M640 600 q30 -40 60 0 t60 0 t60 0 t60 0 t60 0 t60 0" fill="none" stroke="#38bdf8" stroke-opacity=".55" stroke-width="3"/>
+</svg>
+
+<div class="center">
+ <div class="top">
+  <div class="logo"><svg width="66" height="66" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M12 7v14"/><path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></svg></div>
+  <div><div class="name">Libera</div><div class="tag">Учи свободно</div></div>
+ </div>
+ <div class="sub">Интерактивни уроци и симулации,<br>които помагат да разбереш света около теб</div>
+ <div class="url">libera-edu.bg</div>
+</div>
+</body></html>
