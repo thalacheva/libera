@@ -2,7 +2,7 @@
 // Използват се от приложението (Seo.tsx) и при build (vite.config.js),
 // който генерира отделен index.html за всяка страница и sitemap.xml.
 
-export const SITE_URL = 'https://libera-nine.vercel.app';
+export const SITE_URL = 'https://www.libera-edu.bg';
 export const SITE_NAME = 'Libera';
 
 export interface PageMeta {

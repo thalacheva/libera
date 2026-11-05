@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://libera-nine.vercel.app/sitemap.xml
+Sitemap: https://www.libera-edu.bg/sitemap.xml

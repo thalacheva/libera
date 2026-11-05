@@ -1,6 +1,14 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "trailingSlash": false,
+  "redirects": [
+    {
+      "source": "/:path*",
+      "has": [{ "type": "host", "value": "libera-nine.vercel.app" }],
+      "destination": "https://www.libera-edu.bg/:path*",
+      "permanent": true
+    }
+  ],
   "rewrites": [
     { "source": "/:page", "destination": "/:page.html" },
     { "source": "/:section/:page", "destination": "/:section/:page.html" },
