@@ -3,10 +3,16 @@
   "trailingSlash": false,
   "redirects": [
     {
-      "source": "/:path*",
+      "source": "/",
       "has": [{ "type": "host", "value": "libera-nine.vercel.app" }],
-      "destination": "https://www.libera-edu.bg/:path*",
-      "permanent": true
+      "destination": "https://www.libera-edu.bg/",
+      "statusCode": 301
+    },
+    {
+      "source": "/:path((?!google0c26b651ebed416f\\.html$).+)",
+      "has": [{ "type": "host", "value": "libera-nine.vercel.app" }],
+      "destination": "https://www.libera-edu.bg/:path",
+      "statusCode": 301
     }
   ],
   "rewrites": [
