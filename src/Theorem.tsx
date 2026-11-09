@@ -3,11 +3,14 @@ import {MathText} from './MathText';
 export default function Theorem({
   title,
   description,
+  items,
   graphic,
   type = 'theorem',
 }: {
   title: string;
-  description: string;
+  description?: string;
+  /** Твърдения, всяко на отделен ред (след description, ако има). */
+  items?: string[];
   graphic?: React.ReactNode;
   type?: 'theorem' | 'definition';
 }) {
@@ -50,7 +53,16 @@ export default function Theorem({
             <MathText>{title}</MathText>
           </h2>
           <div className="text-sm sm:text-base text-gray-700 dark:text-gray-300 leading-relaxed">
-            <MathText>{description}</MathText>
+            {description && <MathText>{description}</MathText>}
+            {items && (
+              <ul className={`${description ? 'mt-2 ' : ''}list-disc pl-5 space-y-1.5`}>
+                {items.map((item, i) => (
+                  <li key={i}>
+                    <MathText>{item}</MathText>
+                  </li>
+                ))}
+              </ul>
+            )}
           </div>
         </div>
       </div>
