@@ -24,7 +24,7 @@ const X = (v: number) => PAD + ((v - LO) / (HI - LO)) * (W - 2 * PAD);
 
 const sign = (factors: Factor[], x: number) => factors.reduce((s, f) => s * Math.sign((x - f.r) ** f.k), 1);
 
-/** Метод на интервалите: знак на произведение/частно и „змийката“. */
+/** Метод на интервалите: знак на произведение/частно и „змийчето“. */
 export default function IntervalMethodLab() {
   const [pi, setPi] = useState(0);
   const [rel, setRel] = useState<Rel>('>');
@@ -63,7 +63,7 @@ export default function IntervalMethodLab() {
   items.forEach(it => (it.ok ? run.push(it) : flush()));
   flush();
 
-  // „Змийката“: дъга над оста, където изразът е положителен, и под нея – където е отрицателен
+  // „Змийчето“: дъга над оста, където изразът е положителен, и под нея – където е отрицателен
   const H = 34;
   let snake = '';
   signs.forEach((s, i) => {
@@ -79,7 +79,7 @@ export default function IntervalMethodLab() {
     <div className="bg-white dark:bg-gray-800 border-2 border-violet-200 dark:border-violet-800 p-4 sm:p-6 rounded-2xl shadow-lg mb-6">
       <h3 className="text-base sm:text-lg font-bold mb-1 text-center text-gray-800 dark:text-gray-100">🐍 Метод на интервалите</h3>
       <p className="text-sm text-center mb-3 text-gray-600 dark:text-gray-400">
-        Нулите на числителя и знаменателя делят оста на интервали. Във всеки интервал знакът е постоянен – „змийката“ минава над оста при
+        Нулите на числителя и знаменателя делят оста на интервали. Във всеки интервал знакът е постоянен – „змийчето“ минава над оста при
         „+“ и под нея при „−“.
       </p>
       <Buttons>

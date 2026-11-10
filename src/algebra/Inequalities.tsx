@@ -9,6 +9,7 @@ import Task, { TaskBoard, TaskLevel } from '~/Task';
 import Theorem from '~/Theorem';
 import { WordProblems, type WordProblem } from '~/WordProblems';
 import AbsIneqLab from './AbsIneqLab';
+import AmGmCircleLab from './AmGmCircleLab';
 import IntervalMethodLab from './IntervalMethodLab';
 import { flip, RELS, type Rel } from './intervals';
 import LinearIneqLab from './LinearIneqLab';
@@ -208,7 +209,7 @@ const wordProblems: WordProblem[] = [
     solution: [
       'Нека едната страна е $x$, тогава другата е $20 - x$.',
       '$x(20 - x) \\ge 96 \\Rightarrow x^2 - 20x + 96 \\le 0$',
-      'Корени: 8 и 12; параболата е под оста между тях',
+      'Корени: 8 и 12, т.е. $(x - 8)(x - 12) \\le 0$. По метода на интервалите изразът е отрицателен между корените',
       '$8 \\le x \\le 12$',
     ],
     answer: 'Между 8 m и 12 m',
@@ -427,11 +428,12 @@ export function Inequalities() {
           <h2 className={h2}>5. Метод на интервалите</h2>
           <p className={text}>
             Как да решим <Tex>{'(x + 2)(x - 1)(x - 3) > 0'}</Tex>? Не бива да „делим на множителите“ – не знаем знака им. Вместо това следим знака на
-            целия израз. Квадратните неравенства вече решавахме с <Term id="parabola">парабола</Term> в урока{' '}
+            целия израз. Методът работи за произведения и частни с произволен брой множители – и в частност за квадратните неравенства. По-късно, в
+            урока{' '}
             <Link to="/functions/quadratic" className={link}>
               Квадратни функции
             </Link>
-            ; методът на интервалите е обобщението за произведения и частни с много множители.
+            , ще видим същите отговори и нагледно – чрез <Term id="parabola">параболата</Term>.
           </p>
           <Theorem
             title="Метод на интервалите"
@@ -509,13 +511,14 @@ export function Inequalities() {
               '$DC$ е полухорда, перпендикулярна на диаметъра, и не може да е по-дълга от радиуса: $\\sqrt{ab} \\le \\frac{a + b}{2}$. Равенство има, когато $DC$ е радиус, т.е. когато $C$ е центърът и $a = b$.',
             ]}
           />
+          <AmGmCircleLab />
           <Example
             description="Да докажем, че $a + \frac{1}{a} \ge 2$ за всяко $a > 0$. Кога има равенство?"
             steps={[
               'Прилагаме неравенството за числата $a$ и $\\frac{1}{a}$: $\\frac{a + \\frac{1}{a}}{2} \\ge \\sqrt{a \\cdot \\frac{1}{a}} = 1$',
               'Умножаваме по 2: $a + \\frac{1}{a} \\ge 2$',
               'Равенство има при $a = \\frac{1}{a}$, т.е. $a = 1$',
-              'Следствие: от всички правоъгълници с лице 1 най-малък периметър има квадратът',
+              'Следствие: ако правоъгълник има лице 1 и едната му страна е $a$, другата е $\\frac{1}{a}$. Периметърът му е $2\\left(a + \\frac{1}{a}\\right) \\ge 2 \\cdot 2 = 4$, като най-малката стойност 4 се достига само при $a = 1$ – т.е. от всички правоъгълници с лице 1 най-малък периметър има квадратът със страна 1.',
             ]}
           />
         </section>
