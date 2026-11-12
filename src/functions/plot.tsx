@@ -1,6 +1,7 @@
 import { createContext, useContext, useId } from 'react';
 import { Handle, Label, ZoomingSvg } from '~/geometry/diagram';
 import { Point, Tone, tones } from '~/geometry/diagramMath';
+import { MathText } from '~/MathText';
 import { num } from './functionMath';
 
 // Координатна система за графики на функции.
@@ -47,6 +48,7 @@ export function Plot({
   x?: Range;
   y?: Range;
   children: React.ReactNode;
+  /** Подсказка под чертежа; $…$ е формула. */
   hint?: string;
   readout?: React.ReactNode;
   /** Малка графика без рамка – за галерии и карти. */
@@ -83,7 +85,7 @@ export function Plot({
     <div className="bg-white dark:bg-gray-800 p-3 sm:p-4 rounded-lg">
       {svg}
       {readout && <div className="mt-3">{readout}</div>}
-      {hint && <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 mt-3">💡 {hint}</p>}
+      {hint && <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 mt-3">💡 <MathText>{hint}</MathText></p>}
     </div>
   );
 }
@@ -291,6 +293,7 @@ export function PlotLabel({
   dy = 0,
   anchor = 'middle',
   size = 14,
+  vec = false,
 }: {
   p: Point;
   children: React.ReactNode;
@@ -300,11 +303,13 @@ export function PlotLabel({
   dy?: number;
   anchor?: 'start' | 'middle' | 'end';
   size?: number;
+  /** Стрелка над етикета – означение на вектор (виж Label). */
+  vec?: boolean | string;
 }) {
   const { toSvg } = useFrame();
   const q = toSvg(p);
   return (
-    <Label p={{ x: q.x + dx, y: q.y + dy }} tone={tone} size={size} anchor={anchor}>
+    <Label p={{ x: q.x + dx, y: q.y + dy }} tone={tone} size={size} anchor={anchor} vec={vec}>
       {children}
     </Label>
   );

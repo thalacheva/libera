@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { num } from '~/functions/functionMath';
 import { Plot, PlotArrow, PlotDot, PlotHandle, PlotLabel, PlotLine } from '~/functions/plot';
+import { Tex } from '~/MathText';
 import { Formula, Note, Readout } from '~/geometry/diagram';
 import { type Point } from '~/geometry/diagramMath';
 
@@ -32,10 +33,10 @@ export function CauchySchwarzLab() {
           <>
             <Readout
               items={[
-                { label: 'u =', value: `(${num(u.x)}; ${num(u.y)})`, tone: 'blue' },
-                { label: 'v =', value: `(${num(v.x)}; ${num(v.y)})`, tone: 'rose' },
-                { label: '(u·v)² =', value: num(dot * dot), tone: 'amber' },
-                { label: '|u|²·|v|² =', value: num(uu * vv), tone: 'violet' },
+                { label: <Tex>{'\\vec{u} ='}</Tex>, value: `(${num(u.x)}; ${num(u.y)})`, tone: 'blue' },
+                { label: <Tex>{'\\vec{v} ='}</Tex>, value: `(${num(v.x)}; ${num(v.y)})`, tone: 'rose' },
+                { label: <Tex>{'(\\vec{u} \\cdot \\vec{v})^2 ='}</Tex>, value: num(dot * dot), tone: 'amber' },
+                { label: <Tex>{'|\\vec{u}|^2 \\cdot |\\vec{v}|^2 ='}</Tex>, value: num(uu * vv), tone: 'violet' },
               ]}
             />
             <Formula>
@@ -70,10 +71,10 @@ export function CauchySchwarzLab() {
           <PlotDot p={P} tone="amber" r={4} />
         </>
       )}
-      <PlotLabel p={u} dx={10} dy={-10} anchor="start" tone="blue" size={15}>
+      <PlotLabel p={u} dx={10} dy={-6} anchor="start" tone="blue" size={15} vec>
         u
       </PlotLabel>
-      <PlotLabel p={v} dx={10} dy={-10} anchor="start" tone="rose" size={15}>
+      <PlotLabel p={v} dx={10} dy={-6} anchor="start" tone="rose" size={15} vec>
         v
       </PlotLabel>
       <PlotHandle p={u} onMove={setU} name="край на u" tone="blue" />

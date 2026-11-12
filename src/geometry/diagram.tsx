@@ -187,6 +187,11 @@ export function Segment({
 }
 
 /** Текст с „ореол“ в цвета на фона, за да се чете върху линиите. */
+/** Приблизителна ширина на знак в единици на размера на шрифта (получер безсерифен). */
+const charWidth = (ch: string) =>
+  ch === ' ' ? 0.28 : ch === '·' || ch === ',' || ch === '.' ? 0.3 : /\d/.test(ch) ? 0.58 : 0.62;
+const textWidth = (s: string) => [...s].reduce((w, ch) => w + charWidth(ch), 0);
+
 export function Label({
   p,
   children,
@@ -194,6 +199,7 @@ export function Label({
   size = 16,
   anchor = 'middle',
   weight = 600,
+  vec = false,
 }: {
   p: Point;
   children: React.ReactNode;
@@ -201,9 +207,11 @@ export function Label({
   size?: number;
   anchor?: 'start' | 'middle' | 'end';
   weight?: number;
+  /** Стрелка над етикета – означение на вектор. true: над целия текст; низ: само над този завършек (напр. „a“ в „2·a“). */
+  vec?: boolean | string;
 }) {
   const zoom = useZoom();
-  return (
+  const text = (
     <text
       x={p.x}
       y={p.y}
@@ -218,6 +226,29 @@ export function Label({
     >
       {children}
     </text>
+  );
+  if (!vec) return text;
+  // Ширината на текста е приблизителна (няма измерване в SVG при prerender); стрелката е дясно подравнена с него.
+  const str = typeof children === 'string' ? children : String(children ?? '');
+  const full = textWidth(str) * size * zoom;
+  const part = (typeof vec === 'string' ? textWidth(vec) : textWidth(str)) * size * zoom;
+  const left = anchor === 'start' ? p.x : anchor === 'end' ? p.x - full : p.x - full / 2;
+  const x2 = left + full;
+  const x1 = x2 - part;
+  const ay = p.y - 0.58 * size * zoom;
+  const head = 0.2 * size * zoom;
+  return (
+    <>
+      {text}
+      <path
+        d={`M ${x1} ${ay} H ${x2} M ${x2 - head} ${ay - head * 0.6} L ${x2} ${ay} L ${x2 - head} ${ay + head * 0.6}`}
+        fill="none"
+        strokeWidth={1.6 * zoom}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        className={tone === 'ink' ? 'stroke-current' : tones[tone].stroke}
+      />
+    </>
   );
 }
 

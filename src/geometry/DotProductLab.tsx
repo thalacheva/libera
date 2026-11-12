@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { num } from '~/functions/functionMath';
 import { Plot, PlotArrow, PlotDot, PlotHandle, PlotLabel, PlotLine, PlotPolyline } from '~/functions/plot';
+import { MathText, Tex } from '~/MathText';
 import { Formula, Note, Readout } from './diagram';
 import { Point } from './diagramMath';
 
@@ -38,25 +39,31 @@ export function DotProductLab() {
     <Plot
       x={[-8, 8]}
       y={[-6, 6]}
-      hint="Скаларното произведение е число, а не вектор. То е |a| по проекцията на b върху a (със знак) – положително при остър ъгъл, нула при прав и отрицателно при тъп."
+      hint="Скаларното произведение е число, а не вектор. То е $|\vec{a}|$ по проекцията на $\vec{b}$ върху $\vec{a}$ (със знак) – положително при остър ъгъл, нула при прав и отрицателно при тъп."
       readout={
         ok ? (
           <>
             <Readout
               items={[
-                { label: 'a =', value: `(${num(a.x)}; ${num(a.y)})`, tone: 'blue' },
-                { label: 'b =', value: `(${num(b.x)}; ${num(b.y)})`, tone: 'rose' },
+                { label: <Tex>{'\\vec{a} ='}</Tex>, value: `(${num(a.x)}; ${num(a.y)})`, tone: 'blue' },
+                { label: <Tex>{'\\vec{b} ='}</Tex>, value: `(${num(b.x)}; ${num(b.y)})`, tone: 'rose' },
                 { label: 'φ ≈', value: `${num(phi, 1)}°`, tone: 'amber' },
               ]}
             />
             <Formula>
-              a · b = {num(a.x)} · {par(b.x)} + {par(a.y)} · {par(b.y)} = <span className="font-bold">{num(dot)}</span>
+              <Tex>{`\\vec{a} \\cdot \\vec{b} = ${num(a.x)} \\cdot ${par(b.x)} + ${par(a.y)} \\cdot ${par(b.y)} =`}</Tex> <span className="font-bold">{num(dot)}</span>
             </Formula>
             <Formula>
-              |a| · |b| · cos φ = {num(la)} · {num(lb)} · {num(cos, 3)} = {num(la * lb * cos)}
+              <Tex>{`|\\vec{a}| \\cdot |\\vec{b}| \\cdot \\cos\\varphi = ${num(la)} \\cdot ${num(lb)} \\cdot ${num(cos, 3)} = ${num(la * lb * cos)}`}</Tex>
             </Formula>
             <Note tone={kind === 'right' ? 'emerald' : kind === 'acute' ? 'blue' : 'rose'}>
-              {kind === 'right' ? 'a · b = 0 ⇒ векторите са перпендикулярни!' : kind === 'acute' ? 'a · b > 0 ⇒ ъгълът е остър' : 'a · b < 0 ⇒ ъгълът е тъп'}
+              <MathText>
+                {kind === 'right'
+                  ? '$\\vec{a} \\cdot \\vec{b} = 0$ ⇒ векторите са перпендикулярни!'
+                  : kind === 'acute'
+                    ? '$\\vec{a} \\cdot \\vec{b} > 0$ ⇒ ъгълът е остър'
+                    : '$\\vec{a} \\cdot \\vec{b} < 0$ ⇒ ъгълът е тъп'}
+              </MathText>
             </Note>
           </>
         ) : (
@@ -80,10 +87,10 @@ export function DotProductLab() {
           <PlotDot p={P} tone="amber" r={4} />
         </>
       )}
-      <PlotLabel p={a} dx={10} dy={-10} anchor="start" tone="blue" size={15}>
+      <PlotLabel p={a} dx={10} dy={-6} anchor="start" tone="blue" size={15} vec>
         a
       </PlotLabel>
-      <PlotLabel p={b} dx={10} dy={-10} anchor="start" tone="rose" size={15}>
+      <PlotLabel p={b} dx={10} dy={-6} anchor="start" tone="rose" size={15} vec>
         b
       </PlotLabel>
       <PlotHandle p={a} onMove={setA} name="край на a" tone="blue" />

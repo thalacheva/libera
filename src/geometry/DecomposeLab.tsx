@@ -2,23 +2,24 @@ import { useState } from 'react';
 import { fmtEq } from '~/algebra/systemMath';
 import { num } from '~/functions/functionMath';
 import { Plot, PlotArrow, PlotHandle, PlotLabel, PlotLine } from '~/functions/plot';
+import { MathText, Tex } from '~/MathText';
 import { Formula, Note } from './diagram';
 import { Point } from './diagramMath';
 
 const O = { x: 0, y: 0 };
-const vec = (v: Point) => `(${num(v.x)}; ${num(v.y)})`;
+const vec = (v: Point) => `(${num(v.x)};\\ ${num(v.y)})`;
 
 /** x·a + y·b без нулеви членове и излишни единици. */
 function combo(x: number, y: number) {
   const r = (k: number) => Math.round(k * 100) / 100;
   let s = '';
-  for (const [k, name] of [[r(x), 'a'], [r(y), 'b']] as const) {
+  for (const [k, name] of [[r(x), '\\vec{a}'], [r(y), '\\vec{b}']] as const) {
     if (k === 0) continue;
     const abs = Math.abs(k);
     const body = `${abs === 1 ? '' : num(abs)}${name}`;
     s += s === '' ? (k < 0 ? `−${body}` : body) : k < 0 ? ` − ${body}` : ` + ${body}`;
   }
-  return s || '0';
+  return s || '\\vec{0}';
 }
 
 /** Разлагане на вектор c по два неколинеарни вектора: c = x·a + y·b. */
@@ -38,20 +39,22 @@ export function DecomposeLab() {
     <Plot
       x={[-8, 8]}
       y={[-6, 6]}
-      hint="Влачи c (зелено), а също a и b. През края на c прекарваме прави, успоредни на a и b – така се получава успоредник, чиито страни са x·a и y·b."
+      hint="Влачи $\vec{c}$ (зелено), а също $\vec{a}$ и $\vec{b}$. През края на $\vec{c}$ прекарваме прави, успоредни на $\vec{a}$ и $\vec{b}$ – така се получава успоредник, чиито страни са $x\vec{a}$ и $y\vec{b}$."
       readout={
         D === 0 ? (
-          <Note tone="rose">a и b са колинеарни – с тях можем да получим само вектори по една права. Раздели ги!</Note>
+          <Note tone="rose">
+            <MathText>{'$\\vec{a}$ и $\\vec{b}$ са колинеарни – с тях можем да получим само вектори по една права. Раздели ги!'}</MathText>
+          </Note>
         ) : (
           <>
             <Formula>
-              {vec(c)} = x · {vec(a)} + y · {vec(b)}
+              <Tex>{`${vec(c)} = x \\cdot ${vec(a)} + y \\cdot ${vec(b)}`}</Tex>
             </Formula>
             <Formula>
               {fmtEq({ a: a.x, b: b.x, c: c.x })}; &nbsp; {fmtEq({ a: a.y, b: b.y, c: c.y })}
             </Formula>
             <Note tone="emerald">
-              x = {num(x)}, y = {num(y)} ⇒ c = {combo(x, y)}
+              <Tex>{`x = ${num(x)},\\ y = ${num(y)} \\Rightarrow \\vec{c} = ${combo(x, y)}`}</Tex>
             </Note>
           </>
         )
@@ -63,10 +66,10 @@ export function DecomposeLab() {
           <PlotLine p={yb} q={c} tone="gray" dashed width={1.5} />
           <PlotArrow p={O} q={xa} tone="blue" width={2} dashed />
           <PlotArrow p={xa} q={c} tone="rose" width={2} dashed />
-          <PlotLabel p={xa} dx={8} dy={16} anchor="start" tone="blue" size={13}>
+          <PlotLabel p={xa} dx={8} dy={18} anchor="start" tone="blue" size={13} vec="a">
             {`${num(x)}·a`}
           </PlotLabel>
-          <PlotLabel p={{ x: (xa.x + c.x) / 2, y: (xa.y + c.y) / 2 }} dx={10} anchor="start" tone="rose" size={13}>
+          <PlotLabel p={{ x: (xa.x + c.x) / 2, y: (xa.y + c.y) / 2 }} dx={10} dy={2} anchor="start" tone="rose" size={13} vec="b">
             {`${num(y)}·b`}
           </PlotLabel>
         </>
@@ -74,13 +77,13 @@ export function DecomposeLab() {
       <PlotArrow p={O} q={a} tone="blue" width={3.5} />
       <PlotArrow p={O} q={b} tone="rose" width={3.5} />
       <PlotArrow p={O} q={c} tone="emerald" width={3.5} />
-      <PlotLabel p={a} dx={10} dy={-10} anchor="start" tone="blue" size={15}>
+      <PlotLabel p={a} dx={10} dy={-6} anchor="start" tone="blue" size={15} vec>
         a
       </PlotLabel>
-      <PlotLabel p={b} dx={-10} dy={-10} anchor="end" tone="rose" size={15}>
+      <PlotLabel p={b} dx={-10} dy={-6} anchor="end" tone="rose" size={15} vec>
         b
       </PlotLabel>
-      <PlotLabel p={c} dx={10} dy={-10} anchor="start" tone="emerald" size={15}>
+      <PlotLabel p={c} dx={10} dy={-6} anchor="start" tone="emerald" size={15} vec>
         c
       </PlotLabel>
       <PlotHandle p={a} onMove={setA} name="край на a" tone="blue" />
