@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
-import { findPage, fullTitle, SITE_URL } from '~/pages';
+import { findPage, fullTitle, notFoundPage, SITE_URL } from '~/pages';
 import { structuredDataJson } from '~/structuredData';
 
 function setMeta(selector: string, attr: string, value: string) {
@@ -24,7 +24,19 @@ export default function Seo() {
     setMeta('meta[property="og:description"]', 'content', page.description);
     setMeta('meta[property="og:url"]', 'content', url);
 
+    // Несъществуващ адрес: без индексиране и без структурирани данни
+    const missing = page === notFoundPage;
+    let robots = document.head.querySelector('meta[name="robots"]');
+    if (missing && !robots) {
+      robots = Object.assign(document.createElement('meta'), { name: 'robots', content: 'noindex' });
+      document.head.appendChild(robots);
+    } else if (!missing) robots?.remove();
+
     let ld = document.getElementById('structured-data');
+    if (missing) {
+      ld?.remove();
+      return;
+    }
     if (!ld) {
       ld = Object.assign(document.createElement('script'), { type: 'application/ld+json', id: 'structured-data' });
       document.head.appendChild(ld);

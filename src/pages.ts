@@ -1095,6 +1095,13 @@ export const sectionPages: PageMeta[] = [
   },
 ];
 
+/** Страница за несъществуващи адреси – не е в sitemap и не се индексира. */
+export const notFoundPage: PageMeta = {
+  path: '/404',
+  title: 'Няма такава страница',
+  description: 'Тази страница не съществува. Избери предмет от Libera – безплатни интерактивни уроци на български.',
+};
+
 export const allPages: PageMeta[] = [homePage, ...sectionPages, ...lessonPages];
 
 export function fullTitle(page: PageMeta): string {
@@ -1104,5 +1111,5 @@ export function fullTitle(page: PageMeta): string {
 export function findPage(pathname: string): PageMeta {
   const normalized =
     pathname.length > 1 ? pathname.replace(/\/+$/, '') : pathname;
-  return allPages.find(p => p.path === normalized) ?? homePage;
+  return allPages.find(p => p.path === normalized) ?? notFoundPage;
 }

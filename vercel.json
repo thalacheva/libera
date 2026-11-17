@@ -18,7 +18,6 @@
   "rewrites": [
     { "source": "/:page", "destination": "/:page.html" },
     { "source": "/:section/:page", "destination": "/:section/:page.html" },
-    { "source": "/:section/:group/:page", "destination": "/:section/:group/:page.html" },
-    { "source": "/(.*)", "destination": "/index.html" }
+    { "source": "/:section/:group/:page", "destination": "/:section/:group/:page.html" }
   ]
 }

@@ -7,6 +7,7 @@ import SidebarMenu from '~/SidebarMenu';
 
 // Всеки урок се зарежда отделно, едва когато се отвори.
 const Home = lazy(() => import('./Home').then(m => ({default: m.Home})));
+const NotFound = lazy(() => import('./NotFound').then(m => ({default: m.NotFound})));
 const SectionHome = lazy(() => import('./SectionHome').then(m => ({default: m.SectionHome})));
 const Fractions = lazy(() => import('./algebra/Fractions').then(m => ({default: m.Fractions})));
 const Inequalities = lazy(() => import('./algebra/Inequalities').then(m => ({default: m.Inequalities})));
@@ -497,6 +498,7 @@ function App() {
               <Route path="lecture32" element={<Lecture32 />} />
               <Route path="lecture33" element={<Lecture33 />} />
             </Route>
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </Suspense>
       </div>
