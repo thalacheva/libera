@@ -37,7 +37,7 @@ const newDrill = (): Drill => {
     const b = randInt(2, 5);
     const d = randInt(2, 4);
     return {
-      tex: `b = ${b},\\quad d = ${d}`,
+      tex: `b = ${b},\\quad\\allowbreak d = ${d}`,
       ask: 'От всяка позиция има b хода, а играта трае d хода. Колко са крайните позиции (листата на дървото)?',
       num: b ** d,
       den: 1,
@@ -48,7 +48,7 @@ const newDrill = (): Drill => {
     const groups = [triple(), triple(), triple()];
     const mins = groups.map(g => Math.min(...g));
     return {
-      tex: groups.map(groupTex).join('\\quad '),
+      tex: groups.map(groupTex).join('\\quad\\allowbreak '),
       ask: 'Ти (MAX) избираш една от трите групи, после противникът (MIN) избира число от нея. Каква е стойността на позицията?',
       num: Math.max(...mins),
       den: 1,
@@ -62,7 +62,7 @@ const newDrill = (): Drill => {
     const groups = [triple(), triple()];
     const maxs = groups.map(g => Math.max(...g));
     return {
-      tex: groups.map(groupTex).join('\\quad '),
+      tex: groups.map(groupTex).join('\\quad\\allowbreak '),
       ask: 'Противникът (MIN) избира една от двете групи, после ти (MAX) избираш число от нея. Каква е стойността на позицията?',
       num: Math.min(...maxs),
       den: 1,
@@ -78,7 +78,7 @@ const newDrill = (): Drill => {
     const levels = Array.from({ length: d + 1 }, (_, i) => b ** i);
     const total = levels.reduce((s, v) => s + v, 0);
     return {
-      tex: `b = ${b},\\quad d = ${d}`,
+      tex: `b = ${b},\\quad\\allowbreak d = ${d}`,
       ask: 'Колко са всички позиции в дървото – от началната до крайните включително?',
       num: total,
       den: 1,
@@ -89,7 +89,7 @@ const newDrill = (): Drill => {
     const m = randInt(3, 8);
     const k = m + randInt(1, 5);
     return {
-      tex: `N = 10^{${k}}\\ \\text{позиции},\\quad v = 10^{${m}}\\ \\text{позиции/s}`,
+      tex: `N = 10^{${k}}\\ \\text{позиции},\\quad\\allowbreak v = 10^{${m}}\\ \\text{позиции/s}`,
       ask: 'За колко секунди компютърът ще прегледа всички позиции?',
       num: 10 ** (k - m),
       den: 1,

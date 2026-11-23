@@ -30,7 +30,7 @@ const newDrill = (): Drill => {
   const x1 = randInt(0, 4);
   const x2 = randInt(0, 4);
   const s = w1 * x1 + w2 * x2 + b;
-  const setup = `w = (${w1},\\ ${w2}),\\quad b = ${b},\\quad x = (${x1},\\ ${x2})`;
+  const setup = `w = (${w1},\\ ${w2}),\\quad\\allowbreak b = ${b},\\quad\\allowbreak x = (${x1},\\ ${x2})`;
   const sumStep = `$s = ${paren(w1)} \\cdot ${x1} + ${paren(w2)} \\cdot ${x2} ${signed(b)} = ${s}$`;
   if (kind === 0) {
     return { tex: setup, ask: 'Колко е претеглената сума s = w₁x₁ + w₂x₂ + b?', num: s, den: 1, steps: [sumStep] };
@@ -56,7 +56,7 @@ const newDrill = (): Drill => {
     const e2 = t2 - y2;
     if (kind === 2) {
       return {
-        tex: `w = (${w1},\\ ${w2}),\\quad b = ${b},\\quad x = (${nx1},\\ ${x2}),\\quad t = ${t2},\\quad \\eta = 1`,
+        tex: `w = (${w1},\\ ${w2}),\\quad\\allowbreak b = ${b},\\quad\\allowbreak x = (${nx1},\\ ${x2}),\\quad\\allowbreak t = ${t2},\\quad\\allowbreak \\eta = 1`,
         ask: 'Перцептронът греши на този пример. Колко е новото тегло w₁ след поправката?',
         num: w1 + e2 * nx1,
         den: 1,
@@ -67,7 +67,7 @@ const newDrill = (): Drill => {
       };
     }
     return {
-      tex: `${setup},\\quad t = ${t},\\quad \\eta = 1`,
+      tex: `${setup},\\quad\\allowbreak t = ${t},\\quad\\allowbreak \\eta = 1`,
       ask: 'Перцептронът греши на този пример. Колко е новият праг b след поправката?',
       num: b + e,
       den: 1,
@@ -78,7 +78,7 @@ const newDrill = (): Drill => {
     const beads = [randInt(1, 6), randInt(1, 6), randInt(1, 6)];
     const total = beads[0] + beads[1] + beads[2];
     return {
-      tex: `\\text{червени: } ${beads[0]},\\quad \\text{сини: } ${beads[1]},\\quad \\text{зелени: } ${beads[2]}`,
+      tex: `\\text{червени: } ${beads[0]},\\quad\\allowbreak \\text{сини: } ${beads[1]},\\quad\\allowbreak \\text{зелени: } ${beads[2]}`,
       ask: 'В кутийката на MENACE има толкова мъниста. Каква е вероятността да изтегли червено? (запиши като дроб)',
       num: beads[0],
       den: total,

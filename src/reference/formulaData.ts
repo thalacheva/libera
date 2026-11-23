@@ -5931,6 +5931,395 @@ export const AI: Section = {
         },
       ],
     },
+    {
+      id: 'deep-learning',
+      title: 'Мрежи, данни и изчисления',
+      formulas: [
+        {
+          name: 'Параметри на един слой',
+          formula: 'P = n \\cdot m + m',
+          note: '$n$ входа, $m$ неврона; $n \\cdot m$ тегла и $m$ прага',
+          lesson: '/ai/history/deep-learning-era',
+        },
+        {
+          name: 'Мрежа със скрит слой за XOR',
+          formula: 'h_1 = [x_1 + x_2 > 0{,}5],\\quad h_2 = [x_1 + x_2 > 1{,}5],\\quad y = [h_1 - h_2 > 0{,}5]',
+          note: '$[\\ldots]$ е 1, ако условието е вярно, иначе 0',
+          lesson: '/ai/history/deep-learning-era',
+        },
+        {
+          name: 'Удвояване на всеки T години',
+          formula: 'k = 2^{t/T}',
+          note: 'нарастване за $t$ години; при закона на Мур $T \\approx 2$ години',
+          lesson: '/ai/history/deep-learning-era',
+        },
+        {
+          name: 'Време за обучение',
+          formula: 't = \\frac{N \\cdot E}{v}',
+          note: '$N$ – брой примери, $E$ – брой епохи, $v$ – примери в секунда',
+          lesson: '/ai/history/deep-learning-era',
+        },
+        {
+          name: 'Оценка от случайни доигравания',
+          formula: '\\hat{p} = \\frac{\\text{победи} + 0{,}5 \\cdot \\text{ремита}}{N},\\quad \\sigma = \\sqrt{\\frac{p(1-p)}{N}} \\le \\frac{0{,}5}{\\sqrt{N}}',
+          note: '$N$ – брой доигравания; за 10 пъти по-малка грешка са нужни 100 пъти повече',
+          lesson: '/ai/history/deep-learning-era',
+        },
+      ],
+    },
+    {
+      id: 'data-features',
+      title: 'Данни и признаци',
+      formulas: [
+        {
+          name: 'Евклидово разстояние',
+          formula: 'd(a, b) = \\sqrt{(a_1 - b_1)^2 + (a_2 - b_2)^2 + \\ldots + (a_n - b_n)^2}',
+          note: 'между векторите от признаци $a$ и $b$',
+          lesson: '/ai/models/data',
+        },
+        {
+          name: 'Манхатънско разстояние',
+          formula: 'd(a, b) = |a_1 - b_1| + |a_2 - b_2| + \\ldots + |a_n - b_n|',
+          note: 'пътят, ако се движим само успоредно на осите',
+          lesson: '/ai/models/data',
+        },
+        {
+          name: 'Нормализиране мин–макс',
+          formula: "x' = \\frac{x - x_{\\min}}{x_{\\max} - x_{\\min}}",
+          note: 'най-малката стойност става 0, най-голямата – 1',
+          lesson: '/ai/models/data',
+        },
+        {
+          name: 'Стандартизиране',
+          formula: 'z = \\frac{x - \\mu}{\\sigma}',
+          note: '$\\mu$ – средното, $\\sigma$ – стандартното отклонение на признака',
+          lesson: '/ai/models/data',
+        },
+        {
+          name: 'Размерност на картинка',
+          formula: 'n = \\text{ширина} \\cdot \\text{височина} \\cdot \\text{канали}',
+          note: '1 канал за черно-бяла картинка, 3 за цветна',
+          lesson: '/ai/models/data',
+        },
+        {
+          name: 'Разстояние между две различни категории',
+          formula: 'd = \\sqrt{2}',
+          note: 'при кодиране „едно от N“ – еднакво за всяка двойка различни стойности',
+          lesson: '/ai/models/data',
+        },
+      ],
+    },
+    {
+      id: 'linear-regression',
+      title: 'Линейна регресия',
+      formulas: [
+        {
+          name: 'Линеен модел',
+          formula: '\\hat{y} = w x + b',
+          note: '$w$ – тегло (наклон), $b$ – отместване, $\\hat{y}$ – предсказанието',
+          lesson: '/ai/models/regression',
+        },
+        {
+          name: 'Остатък',
+          formula: 'e = y - \\hat{y}',
+          note: 'истинската стойност минус предсказанието',
+          lesson: '/ai/models/regression',
+        },
+        {
+          name: 'Средна квадратична грешка',
+          formula: '\\text{MSE} = \\frac{1}{n} \\sum_{i=1}^{n} (y_i - \\hat{y}_i)^2',
+          lesson: '/ai/models/regression',
+        },
+        {
+          name: 'Права на най-малките квадрати',
+          formula: 'w = \\frac{\\sum (x_i - \\bar{x})(y_i - \\bar{y})}{\\sum (x_i - \\bar{x})^2},\\quad b = \\bar{y} - w\\bar{x}',
+          note: 'правата минава през точката на средните $(\\bar{x};\\ \\bar{y})$',
+          lesson: '/ai/models/regression',
+        },
+        {
+          name: 'Коефициент на детерминация',
+          formula: 'R^2 = 1 - \\frac{\\sum (y_i - \\hat{y}_i)^2}{\\sum (y_i - \\bar{y})^2}',
+          note: 'каква част от разсейването на $y$ обяснява моделът; при един признак $R^2 = r^2$',
+          lesson: '/ai/models/regression',
+        },
+        {
+          name: 'Линеен модел с много признаци',
+          formula: '\\hat{y} = w_1 x_1 + w_2 x_2 + \\ldots + w_n x_n + b',
+          lesson: '/ai/models/regression',
+        },
+      ],
+    },
+    {
+      id: 'classification',
+      title: 'Класификация',
+      formulas: [
+        {
+          name: 'Сигмоида',
+          formula: '\\sigma(z) = \\frac{1}{1 + e^{-z}},\\quad \\sigma(0) = 0{,}5,\\quad \\sigma(-z) = 1 - \\sigma(z)',
+          note: 'превръща всяко число във вероятност между 0 и 1',
+          lesson: '/ai/models/classification',
+        },
+        {
+          name: 'Логистична регресия',
+          formula: 'p = \\sigma(w_1 x_1 + \\ldots + w_n x_n + b)',
+          note: '$p$ – вероятност за клас 1; решението е клас 1 при $p > 0{,}5$, т.е. при $z > 0$',
+          lesson: '/ai/models/classification',
+        },
+        {
+          name: 'Граница на решението (два признака)',
+          formula: 'w_1 x_1 + w_2 x_2 + b = 0',
+          note: 'при един признак границата е $x = -\\frac{b}{w}$',
+          lesson: '/ai/models/classification',
+        },
+        {
+          name: 'k най-близки съседи',
+          formula: 'p = \\frac{\\text{съседи от клас 1}}{k}',
+          note: 'новият пример получава класа с повече гласове сред $k$-те най-близки',
+          lesson: '/ai/models/classification',
+        },
+        {
+          name: 'Софтмакс',
+          formula: 'p_i = \\frac{e^{z_i}}{e^{z_1} + e^{z_2} + \\ldots + e^{z_m}}',
+          note: 'вероятности за $m$ класа; сборът им е 1',
+          lesson: '/ai/models/classification',
+        },
+        {
+          name: 'Точност',
+          formula: '\\text{точност} = \\frac{\\text{вярно класифицирани примери}}{\\text{всички примери}}',
+          lesson: '/ai/models/classification',
+        },
+      ],
+    },
+    {
+      id: 'decision-trees',
+      title: 'Дървета на решенията',
+      formulas: [
+        {
+          name: 'Най-много листа',
+          formula: 'N = 2^d',
+          note: 'за дърво с $d$ нива въпроси „да/не“; обратно, за $N$ отговора са нужни поне $\\log_2 N$ въпроса',
+          lesson: '/ai/models/trees',
+        },
+        {
+          name: 'Ентропия на група',
+          formula: 'H = -p \\log_2 p - (1 - p) \\log_2 (1 - p)',
+          note: '$p$ – делът на единия клас; $H = 0$ за чиста група, $H = 1$ бит при $p = 0{,}5$',
+          lesson: '/ai/models/trees',
+        },
+        {
+          name: 'Ентропия след въпрос',
+          formula: 'H_{\\text{след}} = \\frac{n_1 H_1 + n_2 H_2}{n}',
+          note: 'претеглено средно на двете получени групи',
+          lesson: '/ai/models/trees',
+        },
+        {
+          name: 'Печалба на информация',
+          formula: 'H_{\\text{преди}} - H_{\\text{след}}',
+          note: 'избира се въпросът с най-голяма печалба',
+          lesson: '/ai/models/trees',
+        },
+        {
+          name: 'Мнозинство от три независими дървета',
+          formula: 'P = p^3 + 3p^2(1 - p)',
+          note: '$p$ – вероятността едно дърво да е право; при $p = 0{,}7$ се получава $0{,}784$',
+          lesson: '/ai/models/trees',
+        },
+      ],
+    },
+    {
+      id: 'clustering',
+      title: 'Групиране без учител',
+      formulas: [
+        {
+          name: 'Център на група',
+          formula: 'c = \\frac{x_1 + x_2 + \\ldots + x_m}{m}',
+          note: 'средното аритметично на $m$-те точки в групата (по всяка координата поотделно)',
+          lesson: '/ai/models/clustering',
+        },
+        {
+          name: 'Сбор от квадратите на разстоянията',
+          formula: 'W = \\sum_{i} d(x_i, c_{g(i)})^2',
+          note: '$c_{g(i)}$ – центърът на групата на точката $x_i$; k-средни го намалява на всяка стъпка',
+          lesson: '/ai/models/clustering',
+        },
+        {
+          name: 'Намаление при нова група',
+          formula: '\\frac{W_k - W_{k+1}}{W_k}',
+          note: '„лакътят“ е при $k$, след което намалението става малко',
+          lesson: '/ai/models/clustering',
+        },
+        {
+          name: 'Запазено разсейване при проекция',
+          formula: '\\frac{\\text{разсейване по правата}}{\\text{общо разсейване}}',
+          note: 'най-голямо е за първата главна компонента',
+          lesson: '/ai/models/clustering',
+        },
+        {
+          name: 'Проекция на точка върху права през началото',
+          formula: 't = x \\cos\\alpha + y \\sin\\alpha',
+          note: 'мястото на „сянката“ на точката $(x; y)$ върху права под ъгъл $\\alpha$',
+          lesson: '/ai/models/clustering',
+        },
+      ],
+    },
+    {
+      id: 'model-evaluation',
+      title: 'Оценка на модела',
+      formulas: [
+        {
+          name: 'Точност',
+          formula: '\\frac{\\text{ИП} + \\text{ИО}}{\\text{ИП} + \\text{ФП} + \\text{ФО} + \\text{ИО}}',
+          note: 'ИП, ФП, ФО, ИО – истински/фалшиво положителни и фалшиво/истински отрицателни',
+          lesson: '/ai/models/evaluation',
+        },
+        {
+          name: 'Прецизност',
+          formula: '\\frac{\\text{ИП}}{\\text{ИП} + \\text{ФП}}',
+          note: 'каква част от обявените за положителни наистина са такива',
+          lesson: '/ai/models/evaluation',
+        },
+        {
+          name: 'Пълнота',
+          formula: '\\frac{\\text{ИП}}{\\text{ИП} + \\text{ФО}}',
+          note: 'каква част от наистина положителните са открити',
+          lesson: '/ai/models/evaluation',
+        },
+        {
+          name: 'Точност на „винаги по-честия клас“',
+          formula: '1 - p',
+          note: '$p$ – делът на редкия клас; при $p = 1\\%$ е 99%, без да е открит нито един случай',
+          lesson: '/ai/models/evaluation',
+        },
+        {
+          name: 'Параметри на полином',
+          formula: 'd + 1',
+          note: 'полином от степен $d$; през $n$ точки минава точно полином от степен до $n - 1$',
+          lesson: '/ai/models/evaluation',
+        },
+        {
+          name: 'Кръстосана проверка с k части',
+          formula: 'n_{\\text{обуч.}} = \\frac{k - 1}{k}\\,n',
+          note: 'всеки път една част от $\\frac{n}{k}$ примера е оставена за проверка',
+          lesson: '/ai/models/evaluation',
+        },
+      ],
+    },
+    {
+      id: 'loss',
+      title: 'Функция на загубата',
+      formulas: [
+        {
+          name: 'Средна квадратична загуба',
+          formula: '\\frac{e_1^2 + e_2^2 + \\ldots + e_n^2}{n}',
+          note: '$e_i = y_i - \\hat{y}_i$; за едно общо предсказание е най-малка в средното аритметично',
+          lesson: '/ai/learning/loss',
+        },
+        {
+          name: 'Средна абсолютна загуба',
+          formula: '\\frac{|e_1| + |e_2| + \\ldots + |e_n|}{n}',
+          note: 'за едно общо предсказание е най-малка в медианата',
+          lesson: '/ai/learning/loss',
+        },
+        {
+          name: 'Логаритмична загуба (крос-ентропия)',
+          formula: '-\\ln p',
+          note: '$p$ – вероятността, която моделът е дал на верния клас; $-\\ln 0{,}5 \\approx 0{,}693$',
+          lesson: '/ai/learning/loss',
+        },
+        {
+          name: 'Оценка на Брайър',
+          formula: '(p - o)^2',
+          note: '$p$ – прогнозната вероятност; $o = 1$, ако събитието се е случило, иначе 0',
+          lesson: '/ai/learning/loss',
+        },
+        {
+          name: 'Загуба с наказание за сложност',
+          formula: 'L + \\lambda\\,(w_1^2 + \\ldots + w_n^2)',
+          note: '$\\lambda$ определя колко строго се наказват големите тегла',
+          lesson: '/ai/learning/loss',
+        },
+      ],
+    },
+    {
+      id: 'gradient-descent',
+      title: 'Градиентно спускане',
+      formulas: [
+        {
+          name: 'Стъпка с един параметър',
+          formula: 'w \\leftarrow w - \\eta \\, L\'(w)',
+          note: '$\\eta$ – скорост на обучение; стъпката е срещу наклона',
+          lesson: '/ai/learning/gradient-descent',
+        },
+        {
+          name: 'Стъпка с много параметри',
+          formula: 'w_i \\leftarrow w_i - \\eta \\, \\frac{\\partial L}{\\partial w_i}',
+          note: 'всички параметри се местят едновременно срещу градиента',
+          lesson: '/ai/learning/gradient-descent',
+        },
+        {
+          name: 'Градиент за права със средна квадратична загуба',
+          formula: '\\frac{\\partial L}{\\partial w} = \\frac{2}{n} \\sum (\\hat{y}_i - y_i)\\,x_i,\\quad \\frac{\\partial L}{\\partial b} = \\frac{2}{n} \\sum (\\hat{y}_i - y_i)',
+          lesson: '/ai/learning/gradient-descent',
+        },
+        {
+          name: 'Спускане по парабола',
+          formula: 'w_{\\text{ново}} - c = (1 - 2a\\eta)(w - c)',
+          note: 'за $L(w) = a(w - c)^2$; схожда се при $0 < \\eta < \\frac{1}{a}$',
+          lesson: '/ai/learning/gradient-descent',
+        },
+        {
+          name: 'Стъпки в една епоха',
+          formula: '\\frac{\\text{брой примери}}{\\text{размер на пакета}}',
+          lesson: '/ai/learning/gradient-descent',
+        },
+        {
+          name: 'Приближена производна',
+          formula: 'L\'(w) \\approx \\frac{L(w + h) - L(w - h)}{2h}',
+          note: 'за малко $h$; струва две пресмятания на загубата за всеки параметър',
+          lesson: '/ai/learning/gradient-descent',
+        },
+      ],
+    },
+    {
+      id: 'backprop',
+      title: 'Обратно разпространение',
+      formulas: [
+        {
+          name: 'Верижно правило',
+          formula: '\\frac{\\partial L}{\\partial w} = \\frac{\\partial L}{\\partial z} \\cdot \\frac{\\partial z}{\\partial w}',
+          note: 'приносите на различни пътища от $w$ до $L$ се събират',
+          lesson: '/ai/learning/backprop',
+        },
+        {
+          name: 'Местни производни',
+          formula: '\\frac{\\partial (a + b)}{\\partial a} = 1,\\quad \\frac{\\partial (a \\cdot b)}{\\partial a} = b,\\quad \\frac{\\partial (a^2)}{\\partial a} = 2a',
+          lesson: '/ai/learning/backprop',
+        },
+        {
+          name: 'Производна на сигмоидата',
+          formula: '\\sigma\'(z) = \\sigma(z)\\big(1 - \\sigma(z)\\big) \\le \\frac{1}{4}',
+          lesson: '/ai/learning/backprop',
+        },
+        {
+          name: 'Неврон с квадратична загуба',
+          formula: '\\frac{\\partial L}{\\partial w} = 2(\\hat{y} - y)\\,x,\\quad \\frac{\\partial L}{\\partial b} = 2(\\hat{y} - y)',
+          note: 'за $\\hat{y} = wx + b$, $L = (\\hat{y} - y)^2$',
+          lesson: '/ai/learning/backprop',
+        },
+        {
+          name: 'Сигмоида с логаритмична загуба',
+          formula: '\\frac{\\partial L}{\\partial z} = a - t',
+          note: '$a = \\sigma(z)$ – предсказаната вероятност, $t$ – верният отговор (0 или 1)',
+          lesson: '/ai/learning/backprop',
+        },
+        {
+          name: 'Затихване през n слоя със сигмоиди',
+          formula: '\\le \\left(\\frac{1}{4}\\right)^{n}',
+          note: 'толкова най-много остава от сигнала (при тегла, близки до 1)',
+          lesson: '/ai/learning/backprop',
+        },
+      ],
+    },
   ],
 };
 

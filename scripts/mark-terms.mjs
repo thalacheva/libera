@@ -91,6 +91,26 @@ const SKIP = {
   'src/ai/history/ThinkingMachines.tsx': ['sequence'],
   // нулите на XOR, модата по експертните системи, „по подобие на“
   'src/ai/history/RulesVsLearning.tsx': ['zero-of-function', 'mode', 'similar-triangles'],
+  // ускорение на обучението, неврон на мрежата, мащаб на моделите, сметка за ток, модата по дълбокото обучение, бутонът „покажи минимакс“
+  'src/ai/history/DeepLearningEra.tsx': ['acceleration', 'neuron', 'scale', 'electric-current', 'mode', 'minimax'],
+  // размерност на вектор, мащаб на признаците, решетка от точки, „сто пъти“, медиана на данни (отбелязана на ръка), заглавия на колони
+  'src/ai/models/DataFeatures.tsx': ['dimensional-analysis', 'scale', 'diffraction-grating', 'wto', 'median-triangle', 'sepal', 'petal', 'dataset', 'machine-learning'],
+  // „най-простата формула“, изкуствен неврон, меридиан на Земята, изригване на гейзер, име на урок в кавички, встъпителната кутия
+  'src/ai/models/LinearRegression.tsx': ['empirical-formula', 'neuron', 'celestial-meridian', 'solar-flare', 'linear-function', 'national-park'],
+  // име на урок в кавички, изкуствен неврон
+  'src/ai/models/Classifiers.tsx': ['overfitting', 'neuron'],
+  // встъпителната кутия, заглавие на колона, „сто дървета“
+  'src/ai/models/DecisionTrees.tsx': ['myocardial-infarction', 'blood-pressure', 'entropy', 'wto'],
+  // встъпителната кутия, пречупване на кривата, главни компоненти, „червена редица“ от галактики
+  'src/ai/models/Clustering.tsx': ['white-dwarf', 'refraction', 'vector-components', 'sequence'],
+  // „сто различни дълбочини“
+  'src/ai/models/ModelEvaluation.tsx': ['wto'],
+  // ентропията на информацията (отбелязана на ръка), „пропорционално“, средното и медианата в обобщението
+  'src/ai/learning/LossFunction.tsx': ['entropy', 'proportion', 'arithmetic-mean', 'median-triangle'],
+  // встъпителната кутия, заглавие на статия в кавички, обобщението
+  'src/ai/learning/GradientDescent.tsx': ['fog', 'backpropagation', 'loss-landscape'],
+  // встъпителната кутия, изкуствен неврон, обобщението
+  'src/ai/learning/Backpropagation.tsx': ['neural-network', 'hidden-layer', 'neuron', 'chain-rule'],
   // диафрагмата на микроскопа, не дихателният мускул
   'src/biology/cell/Life.tsx': ['diaphragm'],
   // мицели от жлъчни соли, не мицел на гъбите

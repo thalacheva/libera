@@ -148,6 +148,16 @@ const BulgariaNature = lazy(() => import('./geography/regions/BulgariaNature').t
 const BulgariaSociety = lazy(() => import('./geography/regions/BulgariaSociety').then(m => ({default: m.BulgariaSociety})));
 const ThinkingMachines = lazy(() => import('./ai/history/ThinkingMachines').then(m => ({default: m.ThinkingMachines})));
 const RulesVsLearning = lazy(() => import('./ai/history/RulesVsLearning').then(m => ({default: m.RulesVsLearning})));
+const DeepLearningEra = lazy(() => import('./ai/history/DeepLearningEra').then(m => ({default: m.DeepLearningEra})));
+const DataFeatures = lazy(() => import('./ai/models/DataFeatures').then(m => ({default: m.DataFeatures})));
+const LinearRegression = lazy(() => import('./ai/models/LinearRegression').then(m => ({default: m.LinearRegression})));
+const Classifiers = lazy(() => import('./ai/models/Classifiers').then(m => ({default: m.Classifiers})));
+const DecisionTrees = lazy(() => import('./ai/models/DecisionTrees').then(m => ({default: m.DecisionTrees})));
+const Clustering = lazy(() => import('./ai/models/Clustering').then(m => ({default: m.Clustering})));
+const ModelEvaluation = lazy(() => import('./ai/models/ModelEvaluation').then(m => ({default: m.ModelEvaluation})));
+const LossFunction = lazy(() => import('./ai/learning/LossFunction').then(m => ({default: m.LossFunction})));
+const GradientDescent = lazy(() => import('./ai/learning/GradientDescent').then(m => ({default: m.GradientDescent})));
+const Backpropagation = lazy(() => import('./ai/learning/Backpropagation').then(m => ({default: m.Backpropagation})));
 const Units = lazy(() => import('./physics/mechanics/Units').then(m => ({default: m.Units})));
 const Modular = lazy(() => import('./numbers/Modular').then(m => ({default: m.Modular})));
 const MyProgress = lazy(() => import('./MyProgress').then(m => ({default: m.MyProgress})));
@@ -449,6 +459,20 @@ function App() {
               <Route path="history">
                 <Route path="thinking-machines" element={<ThinkingMachines />} />
                 <Route path="rules-vs-learning" element={<RulesVsLearning />} />
+                <Route path="deep-learning-era" element={<DeepLearningEra />} />
+              </Route>
+              <Route path="models">
+                <Route path="data" element={<DataFeatures />} />
+                <Route path="regression" element={<LinearRegression />} />
+                <Route path="classification" element={<Classifiers />} />
+                <Route path="trees" element={<DecisionTrees />} />
+                <Route path="clustering" element={<Clustering />} />
+                <Route path="evaluation" element={<ModelEvaluation />} />
+              </Route>
+              <Route path="learning">
+                <Route path="loss" element={<LossFunction />} />
+                <Route path="gradient-descent" element={<GradientDescent />} />
+                <Route path="backprop" element={<Backpropagation />} />
               </Route>
             </Route>
             <Route path="geometry">

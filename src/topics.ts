@@ -373,6 +373,28 @@ export const aiTopics = [
     subtopics: [
       { name: 'Може ли машина да мисли?', path: '/thinking-machines' },
       { name: 'Правила срещу учене', path: '/rules-vs-learning' },
+      { name: 'Данни, чипове и дълбоко обучение', path: '/deep-learning-era' },
+    ],
+  },
+  {
+    name: 'Данни и модели',
+    path: '/ai/models',
+    subtopics: [
+      { name: 'Данни и признаци', path: '/data' },
+      { name: 'Линейна регресия', path: '/regression' },
+      { name: 'Класификация', path: '/classification' },
+      { name: 'Дървета на решенията', path: '/trees' },
+      { name: 'Групиране без учител', path: '/clustering' },
+      { name: 'Преобучаване и оценка на модела', path: '/evaluation' },
+    ],
+  },
+  {
+    name: 'Как се учи машина',
+    path: '/ai/learning',
+    subtopics: [
+      { name: 'Функция на загубата', path: '/loss' },
+      { name: 'Градиентно спускане', path: '/gradient-descent' },
+      { name: 'Обратно разпространение', path: '/backprop' },
     ],
   },
 ];
