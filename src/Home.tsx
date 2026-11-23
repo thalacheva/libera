@@ -1,6 +1,7 @@
 import {Atom, BookA, BookMarked, Brain, ChevronDown, ChevronRight, FlaskConical, Globe, Leaf, PencilLine, Sigma, Target, Telescope, TrendingUp, Trophy} from 'lucide-react';
 import {useState, type ReactNode} from 'react';
 import {Link} from 'react-router-dom';
+import LessonSearch from '~/LessonSearch';
 import {astronomyTopics, biologyTopics, chemistryTopics, aiTopics, geographyTopics, lessonCount, mathTopics, physicsTopics} from '~/topics';
 
 const FEATURES = [
@@ -107,6 +108,10 @@ export function Home() {
             ))}
           </div>
         </div>
+
+        <section className="mb-8 sm:mb-10">
+          <LessonSearch />
+        </section>
 
         <section className="mb-8 sm:mb-10">
           <h2 className="text-xl sm:text-2xl font-semibold mb-3 sm:mb-4">Какво има във всеки урок</h2>

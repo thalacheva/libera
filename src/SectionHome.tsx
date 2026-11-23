@@ -3,6 +3,8 @@ import {useEffect, useState} from 'react';
 import {Link} from 'react-router-dom';
 import {lessonPages} from '~/pages';
 import {hasActivity, lessonProgress} from '~/progress';
+import {SearchInput} from '~/LessonSearch';
+import {searchLessons} from '~/lessonIndex';
 import {astronomyTopics, biologyTopics, chemistryTopics, aiTopics, geographyTopics, lessonCount, mathTopics, physicsTopics} from '~/topics';
 
 type Area = 'math' | 'physics' | 'astronomy' | 'chemistry' | 'biology' | 'geography' | 'ai';
@@ -103,9 +105,13 @@ const aboutOf = (path: string) => lessonPages.find(p => p.path === path)?.about;
 
 /** Начална страница на раздел: всички уроци по групи, с кратко описание и отметка за започнатите. */
 export function SectionHome({area}: {area: Area}) {
-  const {title, icon: Icon, intro, groups, hero, accent, hover} = SECTIONS[area];
-  const lessons = groups.flatMap(g => g.lessons);
-  const single = groups.length === 1;
+  const {title, icon: Icon, intro, groups: allGroups, hero, accent, hover} = SECTIONS[area];
+  const [query, setQuery] = useState('');
+  // При търсене остават само уроците от този предмет, които отговарят на думите
+  const found = query.trim() ? new Set(searchLessons(query, `/${area}`).map(l => l.path)) : null;
+  const groups = found ? allGroups.map(g => ({...g, lessons: g.lessons.filter(l => found.has(l.path))})).filter(g => g.lessons.length > 0) : allGroups;
+  const lessons = allGroups.flatMap(g => g.lessons);
+  const single = allGroups.length === 1;
 
   // Прогресът е в localStorage – чете се след зареждане, за да съвпада с готовия HTML
   const [started, setStarted] = useState<Set<string>>(new Set());
@@ -153,7 +159,26 @@ export function SectionHome({area}: {area: Area}) {
           </div>
         </div>
 
-        {area === 'astronomy' && (
+        <div className="mb-8">
+          <SearchInput value={query} onChange={setQuery} placeholder={`Търси урок в раздел „${title}“…`} label={`Търсене на урок в раздел ${title}`} />
+          {found && (
+            <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
+              {found.size === 0 ? (
+                <>
+                  Няма урок с „{query.trim()}“ в този раздел. Опитай от{' '}
+                  <Link to="/" className="text-indigo-600 hover:underline dark:text-indigo-300">
+                    началната страница
+                  </Link>{' '}
+                  – там се търси във всички предмети.
+                </>
+              ) : (
+                `Намерени: ${lessonCount(found.size)}`
+              )}
+            </p>
+          )}
+        </div>
+
+        {area === 'astronomy' && !found && (
           <Link
             to="/astronomy/tonight"
             className={`group mb-10 flex items-center gap-4 rounded-xl border border-gray-200 bg-white p-4 hover:shadow-sm transition dark:border-gray-800 dark:bg-gray-900 ${hover}`}

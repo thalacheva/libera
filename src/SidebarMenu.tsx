@@ -1,6 +1,8 @@
 import {Atom, BookA, BookMarked, BookOpen, Brain, ChevronDown, ChevronRight, FlaskConical, Globe, Leaf, Mail, Sigma, Telescope, TrendingUp} from 'lucide-react';
 import {useEffect, useRef, useState} from 'react';
-import {Link, useLocation} from 'react-router-dom';
+import {Link, useLocation, useNavigate} from 'react-router-dom';
+import {SearchInput} from '~/LessonSearch';
+import {searchLessons} from '~/lessonIndex';
 import {aiTopics, astronomyTopics, biologyTopics, chemistryTopics, geographyTopics, mathTopics, physicsTopics} from '~/topics';
 
 interface SidebarMenuProps {
@@ -13,7 +15,16 @@ export default function SidebarMenu({
   onClose,
 }: SidebarMenuProps) {
   const location = useLocation();
+  const navigate = useNavigate();
   const current = sectionOf(location.pathname);
+  // Търсачка: докато в полето има текст, вместо менюто се показват намерените уроци
+  const [query, setQuery] = useState('');
+  const results = query.trim() ? searchLessons(query).slice(0, 12) : [];
+  const open = (path: string) => {
+    setQuery('');
+    onClose?.();
+    navigate(path);
+  };
   // В началото е разгънат само разделът на отворената страница
   const [expandedSections, setExpandedSections] = useState<{[key: string]: boolean}>(() => (current ? {[current]: true} : {}));
 
@@ -55,6 +66,30 @@ export default function SidebarMenu({
           </div>
         </Link>
 
+        <div className="px-3 pt-4">
+          <SearchInput value={query} onChange={setQuery} placeholder="Търси урок…" label="Търсене на урок в менюто" onEnter={() => results[0] && open(results[0].path)} />
+        </div>
+
+        {query.trim() ? (
+          <div className="px-3 py-4">
+            {results.length === 0 ? (
+              <p className="px-3 text-sm text-gray-500 dark:text-gray-400">Няма урок с „{query.trim()}“.</p>
+            ) : (
+              <ul className="space-y-0.5">
+                {results.map(l => (
+                  <li key={l.path}>
+                    <button type="button" onClick={() => open(l.path)} className="block w-full rounded-lg px-3 py-1.5 text-left hover:bg-gray-100 dark:hover:bg-gray-800">
+                      <span className="block text-sm font-medium text-gray-900 dark:text-gray-100">{l.name}</span>
+                      <span className="block text-xs text-gray-500 dark:text-gray-400">
+                        {l.subject} · {l.group}
+                      </span>
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
+        ) : (
         <nav className="px-3 py-4 space-y-6">
           <div className="space-y-0.5">
             <NavItem
@@ -209,6 +244,7 @@ export default function SidebarMenu({
           </div>
 
         </nav>
+        )}
 
         <div className="px-5 py-4 border-t border-gray-100 dark:border-gray-800">
           <div className="text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400 mb-1">

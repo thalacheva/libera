@@ -76,8 +76,8 @@ export function Glossary() {
 
         {/* Търсене и филтър */}
         <div className="lg:sticky lg:-top-10 z-10 -mx-4 px-4 sm:-mx-6 sm:px-6 lg:-mx-10 lg:px-10 py-3 mb-6 bg-gray-50/95 dark:bg-gray-950/95 backdrop-blur border-b border-gray-200 dark:border-gray-800">
-          <div className="max-w-4xl mx-auto flex flex-col sm:flex-row gap-3 sm:items-center">
-            <label className="relative flex-1">
+          <div className="max-w-4xl mx-auto flex flex-col gap-3">
+            <label className="relative block">
               <Search size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
               <input
                 type="text"
