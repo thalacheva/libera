@@ -5855,6 +5855,85 @@ export const GEOGRAPHY: Section = {
   ],
 };
 
+export const AI: Section = {
+  id: 'ai',
+  title: 'Изкуствен интелект',
+  groups: [
+    {
+      id: 'game-search',
+      title: 'Търсене в игри',
+      formulas: [
+        {
+          name: 'Листа на дървото на играта',
+          formula: 'N = b^d',
+          note: '$b$ – ходове от една позиция (коефициент на разклонение), $d$ – дълбочина в полуходове',
+          lesson: '/ai/history/thinking-machines',
+        },
+        {
+          name: 'Всички позиции в дървото',
+          formula: '1 + b + b^2 + \\ldots + b^d = \\frac{b^{d+1} - 1}{b - 1}',
+          note: 'последното ниво е най-голямото – общият брой е малко над $b^d$',
+          lesson: '/ai/history/thinking-machines',
+        },
+        {
+          name: 'Минимакс',
+          formula: 'v(s) = \\max_{a} v(s_a)\\ \\text{(ход на MAX)},\\quad v(s) = \\min_{a} v(s_a)\\ \\text{(ход на MIN)}',
+          note: '$s_a$ – позицията след ход $a$; в крайна позиция $v$ е нейната оценка',
+          lesson: '/ai/history/thinking-machines',
+        },
+        {
+          name: 'Алфа-бета в най-добрия случай',
+          formula: 'N \\approx b^{d/2} = \\sqrt{b^d}',
+          note: 'при идеална подредба на ходовете; за същото време се стига двойно по-дълбоко',
+          lesson: '/ai/history/thinking-machines',
+        },
+        {
+          name: 'Печалба в дълбочина от по-бърз компютър',
+          formula: '\\Delta d = \\frac{\\lg k}{\\lg b}',
+          note: 'компютър, $k$ пъти по-бърз, вижда с $\\Delta d$ полухода по-далеч',
+          lesson: '/ai/history/thinking-machines',
+        },
+      ],
+    },
+    {
+      id: 'perceptron',
+      title: 'Перцептрон',
+      formulas: [
+        {
+          name: 'Изход на перцептрона',
+          formula: 's = w_1 x_1 + \\ldots + w_n x_n + b,\\quad y = \\begin{cases} 1, & s > 0 \\\\ 0, & s \\le 0 \\end{cases}',
+          note: '$w_i$ – тегла, $b$ – праг (отместване)',
+          lesson: '/ai/history/rules-vs-learning',
+        },
+        {
+          name: 'Правило за учене',
+          formula: 'w_i \\leftarrow w_i + \\eta\\,(t - y)\\,x_i,\\quad b \\leftarrow b + \\eta\\,(t - y)',
+          note: '$t$ – верният отговор, $y$ – изходът, $\\eta$ – скорост на обучение; при верен отговор нищо не се променя',
+          lesson: '/ai/history/rules-vs-learning',
+        },
+        {
+          name: 'Граница при два входа',
+          formula: 'w_1 x_1 + w_2 x_2 + b = 0',
+          note: 'права; от едната ѝ страна изходът е 1, от другата – 0',
+          lesson: '/ai/history/rules-vs-learning',
+        },
+        {
+          name: 'Случаи при n признака „да/не“',
+          formula: 'N = 2^n',
+          note: 'толкова комбинации би трябвало да покрият правилата на експертна система',
+          lesson: '/ai/history/rules-vs-learning',
+        },
+        {
+          name: 'Избор на ход в MENACE',
+          formula: 'P(\\text{ход}) = \\frac{\\text{мъниста за хода}}{\\text{всички мъниста в кутийката}}',
+          note: 'след победа +3 мъниста за изиграните ходове, след реми +1, след загуба −1',
+          lesson: '/ai/history/rules-vs-learning',
+        },
+      ],
+    },
+  ],
+};
+
 export const ASTRONOMY: Section = {
   id: 'astronomy',
   title: 'Астрономия',

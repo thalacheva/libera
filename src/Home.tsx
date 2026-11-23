@@ -1,7 +1,7 @@
-import {Atom, BookA, BookMarked, ChevronDown, ChevronRight, FlaskConical, Globe, Leaf, PencilLine, Sigma, Target, Telescope, TrendingUp, Trophy} from 'lucide-react';
+import {Atom, BookA, BookMarked, Brain, ChevronDown, ChevronRight, FlaskConical, Globe, Leaf, PencilLine, Sigma, Target, Telescope, TrendingUp, Trophy} from 'lucide-react';
 import {useState, type ReactNode} from 'react';
 import {Link} from 'react-router-dom';
-import {astronomyTopics, biologyTopics, chemistryTopics, geographyTopics, lessonCount, mathTopics, physicsTopics} from '~/topics';
+import {astronomyTopics, biologyTopics, chemistryTopics, aiTopics, geographyTopics, lessonCount, mathTopics, physicsTopics} from '~/topics';
 
 const FEATURES = [
   {
@@ -58,6 +58,11 @@ const ACCENTS = {
     title: 'text-sky-700 dark:text-sky-300',
     hover: 'hover:text-sky-700 dark:hover:text-sky-300',
   },
+  fuchsia: {
+    icon: 'text-fuchsia-600 dark:text-fuchsia-400',
+    title: 'text-fuchsia-700 dark:text-fuchsia-300',
+    hover: 'hover:text-fuchsia-700 dark:hover:text-fuchsia-300',
+  },
 };
 type Accent = (typeof ACCENTS)[keyof typeof ACCENTS];
 
@@ -70,6 +75,7 @@ const SUBJECTS = [
   {to: '/chemistry', label: 'Химия', icon: FlaskConical, accent: ACCENTS.amber, topics: chemistryTopics},
   {to: '/biology', label: 'Биология', icon: Leaf, accent: ACCENTS.rose, topics: biologyTopics},
   {to: '/geography', label: 'География', icon: Globe, accent: ACCENTS.sky, topics: geographyTopics},
+  {to: '/ai', label: 'Изкуствен интелект', icon: Brain, accent: ACCENTS.fuchsia, topics: aiTopics},
 ];
 
 export function Home() {
@@ -78,7 +84,7 @@ export function Home() {
       <div className="max-w-5xl mx-auto">
         <div className="bg-gradient-to-br from-blue-600 to-indigo-800 text-white p-5 sm:p-10 rounded-2xl mb-8 shadow-lg">
           <h1 className="text-2xl sm:text-4xl font-bold tracking-tight mb-3 sm:mb-4 text-balance">
-            Интерактивни уроци по математика, физика, астрономия, химия, биология и география
+            Интерактивни уроци по математика, физика, астрономия, химия, биология, география и изкуствен интелект
           </h1>
           <p className="text-base sm:text-xl leading-relaxed text-blue-50 max-w-3xl mb-5 sm:mb-6">
             Libera е безплатен сайт на български за ученици, които искат да разберат материала, а не само да го
@@ -96,7 +102,7 @@ export function Home() {
                     : 'bg-white/15 text-white ring-1 ring-white/40 hover:bg-white/25')
                 }
               >
-                <Icon size={18} /> {label}
+                <Icon size={18} className="flex-shrink-0" /> {label}
               </Link>
             ))}
           </div>

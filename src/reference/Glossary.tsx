@@ -15,6 +15,7 @@ const FILTERS: { id: Filter; label: string }[] = [
   { id: 'chemistry', label: 'Химия' },
   { id: 'biology', label: 'Биология' },
   { id: 'geography', label: 'География' },
+  { id: 'ai', label: 'Изкуствен интелект' },
 ];
 
 const AREA: Record<Area, { label: string; className: string }> = {
@@ -23,6 +24,7 @@ const AREA: Record<Area, { label: string; className: string }> = {
   chemistry: { label: 'химия', className: 'bg-amber-50 text-amber-700 dark:bg-amber-500/10 dark:text-amber-300' },
   biology: { label: 'биология', className: 'bg-rose-50 text-rose-700 dark:bg-rose-500/10 dark:text-rose-300' },
   geography: { label: 'география', className: 'bg-sky-50 text-sky-700 dark:bg-sky-500/10 dark:text-sky-300' },
+  ai: { label: 'изкуствен интелект', className: 'bg-fuchsia-50 text-fuchsia-700 dark:bg-fuchsia-500/10 dark:text-fuchsia-300' },
   astronomy: { label: 'астрономия', className: 'bg-purple-50 text-purple-700 dark:bg-purple-500/10 dark:text-purple-300' },
 };
 
@@ -67,7 +69,7 @@ export function Glossary() {
         <h1 className="text-2xl sm:text-3xl font-bold tracking-tight mb-6 text-gray-900 dark:text-white">Речник на термините</h1>
 
         <p className="text-base sm:text-lg leading-relaxed mb-6">
-          Кратко обяснение на основните понятия от уроците по математика, физика, астрономия, химия, биология и география, с връзка към урока, в който са
+          Кратко обяснение на основните понятия от уроците по математика, физика, астрономия, химия, биология, география и изкуствен интелект, с връзка към урока, в който са
           обяснени подробно. В текста на уроците термините са подчертани с точки – посочи ги (или ги докосни), за да видиш
           обяснението.
         </p>

@@ -146,6 +146,8 @@ const PoliticalMap = lazy(() => import('./geography/regions/PoliticalMap').then(
 const Europe = lazy(() => import('./geography/regions/Europe').then(m => ({default: m.Europe})));
 const BulgariaNature = lazy(() => import('./geography/regions/BulgariaNature').then(m => ({default: m.BulgariaNature})));
 const BulgariaSociety = lazy(() => import('./geography/regions/BulgariaSociety').then(m => ({default: m.BulgariaSociety})));
+const ThinkingMachines = lazy(() => import('./ai/history/ThinkingMachines').then(m => ({default: m.ThinkingMachines})));
+const RulesVsLearning = lazy(() => import('./ai/history/RulesVsLearning').then(m => ({default: m.RulesVsLearning})));
 const Units = lazy(() => import('./physics/mechanics/Units').then(m => ({default: m.Units})));
 const Modular = lazy(() => import('./numbers/Modular').then(m => ({default: m.Modular})));
 const MyProgress = lazy(() => import('./MyProgress').then(m => ({default: m.MyProgress})));
@@ -440,6 +442,13 @@ function App() {
                 <Route path="europe" element={<Europe />} />
                 <Route path="bulgaria-nature" element={<BulgariaNature />} />
                 <Route path="bulgaria-society" element={<BulgariaSociety />} />
+              </Route>
+            </Route>
+            <Route path="ai">
+              <Route index element={<SectionHome area="ai" />} />
+              <Route path="history">
+                <Route path="thinking-machines" element={<ThinkingMachines />} />
+                <Route path="rules-vs-learning" element={<RulesVsLearning />} />
               </Route>
             </Route>
             <Route path="geometry">

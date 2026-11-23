@@ -1,4 +1,4 @@
-import {ArrowRight, Atom, BookA, BookMarked, FlaskConical, Globe, Home, Leaf, Sigma, Telescope} from 'lucide-react';
+import {ArrowRight, Atom, BookA, BookMarked, Brain, FlaskConical, Globe, Home, Leaf, Sigma, Telescope} from 'lucide-react';
 import {Link} from 'react-router-dom';
 
 const LINKS = [
@@ -8,6 +8,7 @@ const LINKS = [
   {to: '/chemistry', label: 'Химия', icon: FlaskConical},
   {to: '/biology', label: 'Биология', icon: Leaf},
   {to: '/geography', label: 'География', icon: Globe},
+  {to: '/ai', label: 'Изкуствен интелект', icon: Brain},
   {to: '/reference/formulas', label: 'Формули', icon: BookMarked},
   {to: '/reference/glossary', label: 'Речник', icon: BookA},
 ];

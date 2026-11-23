@@ -1,7 +1,7 @@
-import {Atom, BookA, BookMarked, BookOpen, ChevronDown, ChevronRight, FlaskConical, Globe, Leaf, Mail, Sigma, Telescope, TrendingUp} from 'lucide-react';
+import {Atom, BookA, BookMarked, BookOpen, Brain, ChevronDown, ChevronRight, FlaskConical, Globe, Leaf, Mail, Sigma, Telescope, TrendingUp} from 'lucide-react';
 import {useEffect, useRef, useState} from 'react';
 import {Link, useLocation} from 'react-router-dom';
-import {astronomyTopics, biologyTopics, chemistryTopics, geographyTopics, mathTopics, physicsTopics} from '~/topics';
+import {aiTopics, astronomyTopics, biologyTopics, chemistryTopics, geographyTopics, mathTopics, physicsTopics} from '~/topics';
 
 interface SidebarMenuProps {
   isOpen?: boolean;
@@ -192,6 +192,21 @@ export default function SidebarMenu({
               <TopicList topics={geographyTopics} accent="sky" pathname={location.pathname} onClose={onClose} />
             )}
           </div>
+          {/* Изкуствен интелект секция */}
+          <div>
+            <SectionHeader
+              icon={<Brain size={16} />}
+              label="Изкуствен интелект"
+              to="/ai"
+              expanded={!!expandedSections.ai}
+              active={location.pathname === '/ai'}
+              onToggle={() => toggleSection('ai')}
+              onClose={onClose}
+            />
+            {expandedSections.ai && (
+              <TopicList topics={aiTopics} accent="fuchsia" pathname={location.pathname} onClose={onClose} />
+            )}
+          </div>
 
         </nav>
 
@@ -233,6 +248,7 @@ function sectionOf(pathname: string): string | null {
   if (under('/chemistry')) return 'chemistry';
   if (under('/biology')) return 'biology';
   if (under('/geography')) return 'geography';
+  if (under('/ai')) return 'ai';
   return null;
 }
 
@@ -285,6 +301,7 @@ const topicAccent = {
   amber: 'text-amber-700 dark:text-amber-300',
   rose: 'text-rose-700 dark:text-rose-300',
   sky: 'text-sky-700 dark:text-sky-300',
+  fuchsia: 'text-fuchsia-700 dark:text-fuchsia-300',
 };
 
 /** Групи уроци с подтеми – за всички раздели. */
@@ -354,6 +371,7 @@ const accentClasses = {
   amber: 'bg-amber-50 text-amber-700 dark:bg-amber-500/15 dark:text-amber-300',
   rose: 'bg-rose-50 text-rose-700 dark:bg-rose-500/15 dark:text-rose-300',
   sky: 'bg-sky-50 text-sky-700 dark:bg-sky-500/15 dark:text-sky-300',
+  fuchsia: 'bg-fuchsia-50 text-fuchsia-700 dark:bg-fuchsia-500/15 dark:text-fuchsia-300',
 };
 
 function NavItem({

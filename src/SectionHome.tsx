@@ -1,11 +1,11 @@
-import {ArrowRight, Atom, BookA, BookMarked, CheckCircle2, ChevronRight, FlaskConical, Globe, Leaf, Sigma, Telescope} from 'lucide-react';
+import {ArrowRight, Atom, BookA, BookMarked, Brain, CheckCircle2, ChevronRight, FlaskConical, Globe, Leaf, Sigma, Telescope} from 'lucide-react';
 import {useEffect, useState} from 'react';
 import {Link} from 'react-router-dom';
 import {lessonPages} from '~/pages';
 import {hasActivity, lessonProgress} from '~/progress';
-import {astronomyTopics, biologyTopics, chemistryTopics, geographyTopics, lessonCount, mathTopics, physicsTopics} from '~/topics';
+import {astronomyTopics, biologyTopics, chemistryTopics, aiTopics, geographyTopics, lessonCount, mathTopics, physicsTopics} from '~/topics';
 
-type Area = 'math' | 'physics' | 'astronomy' | 'chemistry' | 'biology' | 'geography';
+type Area = 'math' | 'physics' | 'astronomy' | 'chemistry' | 'biology' | 'geography' | 'ai';
 type Lesson = {path: string; name: string};
 type Group = {name: string; lessons: Lesson[]};
 
@@ -76,6 +76,16 @@ const SECTIONS: Record<
     hero: 'from-sky-600 to-cyan-800',
     accent: 'text-sky-700 dark:text-sky-300',
     hover: 'hover:border-sky-300 dark:hover:border-sky-500/50',
+  },
+  ai: {
+    title: 'Изкуствен интелект',
+    icon: Brain,
+    intro:
+      'Курс по изкуствен интелект – от въпроса на Тюринг и търсенето в игрите до невронните мрежи и езиковите модели. Във всеки урок има лаборатории, в които сам играеш срещу алгоритъма, променяш правилата и гледаш как машината стига до решението, решени примери, бърз тест и задачи на три нива.',
+    groups: groupsOf(aiTopics),
+    hero: 'from-fuchsia-600 to-purple-800',
+    accent: 'text-fuchsia-700 dark:text-fuchsia-300',
+    hover: 'hover:border-fuchsia-300 dark:hover:border-fuchsia-500/50',
   },
   astronomy: {
     title: 'Астрономия',

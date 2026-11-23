@@ -365,6 +365,18 @@ export const geographyTopics = [
   },
 ];
 
+// Изкуствен интелект: в менюто са само групите, в които вече има уроци (целият план е в README).
+export const aiTopics = [
+  {
+    name: 'Как се стигна дотук',
+    path: '/ai/history',
+    subtopics: [
+      { name: 'Може ли машина да мисли?', path: '/thinking-machines' },
+      { name: 'Правила срещу учене', path: '/rules-vs-learning' },
+    ],
+  },
+];
+
 /** Адресите /lectureNN са от първоначалната номерация и не се сменят – вече са в търсачките. */
 export const astronomyTopics = [
   {

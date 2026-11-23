@@ -87,6 +87,10 @@ const SKIP = {
   'src/geography/regions/Europe.tsx': ['artery'],
   // икономическо неравенство между областите
   'src/geography/regions/BulgariaSociety.tsx': ['inequality'],
+  // „три в редица“ в морския шах
+  'src/ai/history/ThinkingMachines.tsx': ['sequence'],
+  // нулите на XOR, модата по експертните системи, „по подобие на“
+  'src/ai/history/RulesVsLearning.tsx': ['zero-of-function', 'mode', 'similar-triangles'],
   // диафрагмата на микроскопа, не дихателният мускул
   'src/biology/cell/Life.tsx': ['diaphragm'],
   // мицели от жлъчни соли, не мицел на гъбите
