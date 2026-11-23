@@ -3,6 +3,7 @@ import {useState, type ReactNode} from 'react';
 import {Link} from 'react-router-dom';
 import LessonSearch from '~/LessonSearch';
 import {astronomyTopics, biologyTopics, chemistryTopics, aiTopics, geographyTopics, lessonCount, mathTopics, physicsTopics} from '~/topics';
+import {AI_PLANNED_LESSONS} from '~/topics';
 
 const FEATURES = [
   {
@@ -167,6 +168,7 @@ export function Home() {
               icon={icon}
               accent={accent}
               title={`${label} – ${lessonCount(topics.reduce((n, t) => n + t.subtopics.length, 0))}`}
+              wip={to === '/ai' && topics.reduce((n, t) => n + t.subtopics.length, 0) < AI_PLANNED_LESSONS}
             />
             <TopicGrid topics={topics} accent={accent} />
           </section>
@@ -179,11 +181,17 @@ export function Home() {
 // По-високи редове на телефон, за да се натискат лесно с пръст.
 const LESSON_LINK = 'block py-1.5 text-gray-700 hover:underline sm:py-0 dark:text-gray-300';
 
-function SubjectHeading({to, icon: Icon, accent, title}: {to: string; icon: typeof Sigma; accent: Accent; title: string}) {
+/** Етикет за раздел, който още се пише. */
+function WipBadge() {
+  return <span className="flex-shrink-0 rounded-full bg-amber-100 px-2 py-0.5 text-xs font-medium text-amber-800 dark:bg-amber-500/20 dark:text-amber-300">в разработка</span>;
+}
+
+function SubjectHeading({to, icon: Icon, accent, title, wip = false}: {to: string; icon: typeof Sigma; accent: Accent; title: string; wip?: boolean}) {
   return (
     <h2 className="text-lg sm:text-2xl font-semibold mb-3 sm:mb-4 flex items-center gap-2">
       <Icon size={22} className={`flex-shrink-0 ${accent.icon}`} />
       <span className="min-w-0">{title}</span>
+      {wip && <WipBadge />}
       <Link
         to={to}
         className={`ml-auto inline-flex flex-shrink-0 items-center whitespace-nowrap text-sm font-medium hover:underline ${accent.title}`}

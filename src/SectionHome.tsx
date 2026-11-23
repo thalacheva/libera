@@ -5,7 +5,7 @@ import {lessonPages} from '~/pages';
 import {hasActivity, lessonProgress} from '~/progress';
 import {SearchInput} from '~/LessonSearch';
 import {searchLessons} from '~/lessonIndex';
-import {astronomyTopics, biologyTopics, chemistryTopics, aiTopics, geographyTopics, lessonCount, mathTopics, physicsTopics} from '~/topics';
+import {AI_PLANNED_LESSONS, astronomyTopics, biologyTopics, chemistryTopics, aiTopics, geographyTopics, lessonCount, mathTopics, physicsTopics} from '~/topics';
 
 type Area = 'math' | 'physics' | 'astronomy' | 'chemistry' | 'biology' | 'geography' | 'ai';
 type Lesson = {path: string; name: string};
@@ -112,6 +112,7 @@ export function SectionHome({area}: {area: Area}) {
   const groups = found ? allGroups.map(g => ({...g, lessons: g.lessons.filter(l => found.has(l.path))})).filter(g => g.lessons.length > 0) : allGroups;
   const lessons = allGroups.flatMap(g => g.lessons);
   const single = allGroups.length === 1;
+  const wip = area === 'ai' && lessons.length < AI_PLANNED_LESSONS;
 
   // Прогресът е в localStorage – чете се след зареждане, за да съвпада с готовия HTML
   const [started, setStarted] = useState<Set<string>>(new Set());
@@ -129,6 +130,7 @@ export function SectionHome({area}: {area: Area}) {
           <h1 className="flex items-center gap-3 text-3xl sm:text-4xl font-bold tracking-tight mb-4">
             <Icon size={34} className="flex-shrink-0" />
             {title}
+            {wip && <span className="rounded-full bg-white/20 px-2.5 py-1 text-xs font-medium ring-1 ring-white/40 sm:text-sm">в разработка</span>}
           </h1>
           <p className="text-lg leading-relaxed text-white/90 max-w-3xl mb-2">{intro}</p>
           <p className="text-sm text-white/75 mb-6">
@@ -136,6 +138,11 @@ export function SectionHome({area}: {area: Area}) {
             {!single && ` в ${groups.length} теми`}
             {started.size > 0 && ` · започнати: ${started.size}`}
           </p>
+          {wip && (
+            <p className="-mt-3 mb-6 text-sm text-white/90">
+              Курсът още се пише: готови са {lessons.length} от планираните {AI_PLANNED_LESSONS} урока. Новите се появяват тук, щом станат готови.
+            </p>
+          )}
           <div className="flex flex-wrap gap-3">
             <Link
               to={(next ?? first).path}

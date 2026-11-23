@@ -1,9 +1,9 @@
-import {Atom, BookA, BookMarked, BookOpen, Brain, ChevronDown, ChevronRight, FlaskConical, Globe, Leaf, Mail, Sigma, Telescope, TrendingUp} from 'lucide-react';
+import {Atom, BookA, BookMarked, BookOpen, Brain, ChevronDown, Construction, ChevronRight, FlaskConical, Globe, Leaf, Mail, Sigma, Telescope, TrendingUp} from 'lucide-react';
 import {useEffect, useRef, useState} from 'react';
 import {Link, useLocation, useNavigate} from 'react-router-dom';
 import {SearchInput} from '~/LessonSearch';
 import {searchLessons} from '~/lessonIndex';
-import {aiTopics, astronomyTopics, biologyTopics, chemistryTopics, geographyTopics, mathTopics, physicsTopics} from '~/topics';
+import {AI_PLANNED_LESSONS, aiTopics, astronomyTopics, biologyTopics, chemistryTopics, geographyTopics, mathTopics, physicsTopics} from '~/topics';
 
 interface SidebarMenuProps {
   isOpen?: boolean;
@@ -232,6 +232,7 @@ export default function SidebarMenu({
             <SectionHeader
               icon={<Brain size={16} />}
               label="Изкуствен интелект"
+              wip={aiTopics.reduce((n, t) => n + t.subtopics.length, 0) < AI_PLANNED_LESSONS}
               to="/ai"
               expanded={!!expandedSections.ai}
               active={location.pathname === '/ai'}
@@ -292,6 +293,7 @@ function SectionHeader({
   to,
   icon,
   label,
+  wip = false,
   expanded,
   active,
   onToggle,
@@ -300,6 +302,8 @@ function SectionHeader({
   to: string;
   icon: React.ReactNode;
   label: string;
+  /** Разделът още се пише – след името се показва малка иконка */
+  wip?: boolean;
   expanded: boolean;
   active: boolean;
   onToggle: () => void;
@@ -317,6 +321,11 @@ function SectionHeader({
       >
         {icon}
         {label}
+        {wip && (
+          <span title="в разработка" className="text-amber-600 dark:text-amber-400">
+            <Construction size={14} aria-label="в разработка" />
+          </span>
+        )}
       </Link>
       <button
         onClick={onToggle}
