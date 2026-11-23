@@ -430,7 +430,7 @@ export function Ocean() {
               Налягане, ветрове и циркулация
             </Link>
             ). Въртенето на Земята отклонява течащата вода надясно в Северното полукълбо и наляво в Южното (<Term id="coriolis-force">силата на Кориолис</Term>, виж урока{' '}
-            <Link to="/astronomy/lecture03" className={link}>
+            <Link to="/astronomy/sky/earth-motion" className={link}>
               Движение на Земята
             </Link>
             ). Така течението и континентите затварят огромни <b>кръговрати</b> в океаните – по часовниковата стрелка в Северното и обратно на нея в Южното
@@ -518,7 +518,7 @@ export function Ocean() {
           </p>
           <p className={text}>
             <b>Приливите и отливите</b> се дължат на <Term id="tidal-force">приливните сили</Term> на Луната и (около два пъти по-слабо) на Слънцето – те са обяснени в урока{' '}
-            <Link to="/astronomy/lecture06" className={link}>
+            <Link to="/astronomy/gravity/gravitation" className={link}>
               Гравитация
             </Link>
             . На повечето места има по два прилива за около 24 h 50 min, т.е. на всеки около 12 h 25 min. Най-големи са при новолуние и пълнолуние, най-малки –

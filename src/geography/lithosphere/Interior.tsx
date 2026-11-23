@@ -265,7 +265,7 @@ export function Interior() {
             сеизмолог, който я открива през 1909 г. Температурата расте навътре: в сондажите – с около 25–30 °C на километър, а в
             центъра на Земята вероятно е около 5000–6000 °C. Същото разделяне на кора, мантия и ядро имат и другите планети от земен
             тип (виж{' '}
-            <Link to="/astronomy/lecture13" className={link}>
+            <Link to="/astronomy/solar-system/terrestrial-planets" className={link}>
               Планети от земен тип
             </Link>
             ).

@@ -362,7 +362,7 @@ export function DifferentialEquations() {
           <h2 className={h2}>7. Диференциалните уравнения около нас</h2>
           <p className={text}>
             Законите на физиката почти винаги са диференциални уравнения: движението на планетите (виж{' '}
-            <Link to="/astronomy/lecture07" className={link}>
+            <Link to="/astronomy/gravity/kepler" className={link}>
               Закони на Кеплер
             </Link>
             ), разпространението на топлина, <Term id="electric-current">токът</Term> в електрическа верига. С тях се моделират и епидемии, <Term id="population">популации</Term>, лекарства в кръвта и

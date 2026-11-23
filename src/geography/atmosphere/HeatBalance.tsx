@@ -290,7 +290,7 @@ export function HeatBalance() {
           />
           <p className={text}>
             Защо <Term id="declination">деклинацията</Term> се мени и така се раждат сезоните, е обяснено в урока{' '}
-            <Link to="/astronomy/lecture03" className={link}>
+            <Link to="/astronomy/sky/earth-motion" className={link}>
               Движение на Земята
             </Link>
             . Тук ни интересува резултатът: колко енергия получава всяка ширина. В лабораторията избери дата, ширина и час.
@@ -338,7 +338,7 @@ export function HeatBalance() {
           <p className={text}>
             Всяко нагрято тяло излъчва – толкова повече, колкото е по-топло: <Tex>{'\\sigma T^4'}</Tex> от квадратен метър (<Term id="stefan-boltzmann-law">закон на
             Стефан–Болцман</Term>, виж урока{' '}
-            <Link to="/astronomy/lecture09" className={link}>
+            <Link to="/astronomy/light/spectra" className={link}>
               Светлина и спектри
             </Link>
             ). Слънцето (около 5800 K) излъчва най-силно във видимата светлина, а Земята (около 288 K) – в далечната инфрачервена област,
@@ -365,7 +365,7 @@ export function HeatBalance() {
             облаците), около 80 поглъща атмосферата и около 160 – повърхността. Повърхността излъчва около 400 W/m², а атмосферата
             връща към нея около 340 W/m². Освен с излъчване повърхността губи топлина и чрез <Term id="latent-heat-vaporization">изпарението</Term> на водата и чрез нагряване
             на въздуха, който се издига. Как се сравнява Земята с Венера и Марс, виж в урока{' '}
-            <Link to="/astronomy/lecture13" className={link}>
+            <Link to="/astronomy/solar-system/terrestrial-planets" className={link}>
               Планети от земен тип
             </Link>
             , а защо парниковият ефект се засилва – в урока{' '}

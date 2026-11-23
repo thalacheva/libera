@@ -295,7 +295,7 @@ export function Environment() {
           <p className={text}>
             Земята получава енергия от Слънцето като видима светлина и я излъчва обратно като инфрачервено лъчение. Част от него се поглъща от
             газове в атмосферата и Земята остава по-топла – това е <Term id="greenhouse-effect">парниковият ефект</Term> (физиката му е в урока{' '}
-            <Link to="/astronomy/lecture13" className={link}>
+            <Link to="/astronomy/solar-system/terrestrial-planets" className={link}>
               Планети от земен тип
             </Link>
             ). Без него средната температура на повърхността би била около −18 °C вместо около +15 °C.

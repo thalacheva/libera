@@ -252,7 +252,7 @@ export function Selection() {
               Видообразуване и филогения
             </Link>
             . Как изобщо се е появил животът на Земята – в урока{' '}
-            <Link to="/astronomy/lecture31" className={link}>
+            <Link to="/astronomy/life/astrobiology" className={link}>
               по астрономия
             </Link>
             .

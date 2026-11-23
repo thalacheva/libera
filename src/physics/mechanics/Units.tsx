@@ -391,7 +391,7 @@ export function Units() {
           <DimensionLab />
           <p className={text}>
             Същият подход дава и скоростта на спътник в кръгова орбита – подробно в урока{' '}
-            <Link to="/astronomy/lecture08" className={link}>
+            <Link to="/astronomy/gravity/orbits" className={link}>
               Орбити и скорости
             </Link>
             .

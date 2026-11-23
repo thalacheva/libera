@@ -504,7 +504,7 @@ export function QuantumAtom() {
           />
           <p className={text}>
             Повече за <Term id="sunspots">слънчевите петна</Term> и магнитното поле на Слънцето – в урока{' '}
-            <Link to="/astronomy/lecture12" className={link}>
+            <Link to="/astronomy/solar-system/solar-activity" className={link}>
               Слънчева активност
             </Link>
             .

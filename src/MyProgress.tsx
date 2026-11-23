@@ -147,7 +147,7 @@ export function MyProgress() {
                 Дроби и проценти
               </Link>{' '}
               или{' '}
-              <Link to="/astronomy/lecture01" className="text-blue-600 dark:text-blue-400 hover:underline">
+              <Link to="/astronomy/sky/celestial-sphere" className="text-blue-600 dark:text-blue-400 hover:underline">
                 Небесната сфера
               </Link>
               .

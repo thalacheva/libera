@@ -365,7 +365,7 @@ export function Life() {
             ), цитологията – клетките, анатомията и физиологията – органите и тяхната работа, <Term id="ecology">екологията</Term> – <Term id="population">популациите</Term>, <Term id="biological-community">съобществата</Term> и{' '}
             <Term id="ecosystem">екосистемите</Term>. Ботаниката, зоологията и микробиологията изучават съответно растенията, животните и микроорганизмите. Въпросът дали
             има живот и извън Земята е разгледан в урока{' '}
-            <Link to="/astronomy/lecture31" className={link}>
+            <Link to="/astronomy/life/astrobiology" className={link}>
               Астробиология
             </Link>
             .

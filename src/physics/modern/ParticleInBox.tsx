@@ -476,7 +476,7 @@ export function ParticleInBox() {
             <li>
               <strong>Слънцето.</strong> За да се слеят, два <Term id="proton">протона</Term> трябва да преодолеят електричното си отблъскване. В центъра на Слънцето
               топлинната им енергия е стотици пъти по-малка от височината на бариерата и <Term id="nuclear-fusion">синтезът</Term> става благодарение на тунелирането (виж{' '}
-              <Link to="/astronomy/lecture11" className={link}>
+              <Link to="/astronomy/solar-system/sun" className={link}>
                 Слънцето
               </Link>
               ).

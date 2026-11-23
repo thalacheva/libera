@@ -282,7 +282,7 @@ export function ClimateChange() {
           <p className={text}>
             Сръбският учен Милутин Миланкович изчислява на ръка през 1920–1941 г. как орбитата на Земята бавно се мени под
             притеглянето на другите планети. Самите движения на Земята са обяснени в урока{' '}
-            <Link to="/astronomy/lecture03" className={link}>
+            <Link to="/astronomy/sky/earth-motion" className={link}>
               Движение на Земята
             </Link>
             .

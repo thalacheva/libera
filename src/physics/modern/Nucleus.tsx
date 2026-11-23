@@ -327,7 +327,7 @@ export function Nucleus() {
           />
           <p className={text}>
             Формулата <Tex>{'E = mc^2'}</Tex> идва от специалната теория на относителността (виж урока{' '}
-            <Link to="/astronomy/lecture33" className={link}>
+            <Link to="/astronomy/universe/relativity" className={link}>
               Специална теория на относителността
             </Link>
             ). В ядрената физика енергиите се мерят в мегаелектронволтове: <Tex>{'1\\ \\mathrm{MeV} = 1{,}6 \\cdot 10^{-13}\\ \\mathrm{J}'}</Tex>.
@@ -467,11 +467,11 @@ export function Nucleus() {
             милиони до стотици милиони градуси – затова реакциите се наричат термоядрени. Най-лесната за земни условия е{' '}
             <Tex>{'{}^{2}\\mathrm{H} + {}^{3}\\mathrm{H} \\to {}^{4}\\mathrm{He} + n + 17{,}6\\ \\mathrm{MeV}'}</Tex>. На нуклон синтезът дава няколко
             пъти повече енергия от деленето. Така свети Слънцето (виж{' '}
-            <Link to="/astronomy/lecture11" className={link}>
+            <Link to="/astronomy/solar-system/sun" className={link}>
               Слънцето
             </Link>
             ), а в по-масивните звезди синтезът стига до желязото – виж{' '}
-            <Link to="/astronomy/lecture20" className={link}>
+            <Link to="/astronomy/stars/evolution" className={link}>
               Еволюция на звездите
             </Link>
             . Управляем синтез в електроцентрала засега не е постигнат – изследователските установки все още се разработват.

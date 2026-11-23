@@ -559,7 +559,7 @@ export function Phylogeny() {
           </p>
           <p className={text}>
             Как е възникнал самият живот, разказваме в урока по астрономия{' '}
-            <Link to="/astronomy/lecture31" className={link}>
+            <Link to="/astronomy/life/astrobiology" className={link}>
               Живот във Вселената
             </Link>
             .

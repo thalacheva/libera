@@ -277,7 +277,7 @@ export function Climate() {
           <p className={text}>
             Климатът на всяко място е резултат от няколко причини, които действат заедно. Най-важната е <Term id="latitude">географската ширина</Term>: от нея
             зависят ъгълът на слънчевите лъчи и продължителността на деня (виж уроците{' '}
-            <Link to="/astronomy/lecture03" className={link}>
+            <Link to="/astronomy/sky/earth-motion" className={link}>
               Движение на Земята
             </Link>{' '}
             и{' '}

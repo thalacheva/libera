@@ -447,7 +447,7 @@ export function Derivatives() {
           <p className={text}>
             Скоростта е производна на пътя, а <Term id="acceleration">ускорението</Term> – на скоростта. Наклонът на пътя, растежът на население, пределната печалба в
             икономиката – всички те са производни. Със същата математика Нютон обяснява движението на планетите (виж{' '}
-            <Link to="/astronomy/lecture06" className={link}>
+            <Link to="/astronomy/gravity/gravitation" className={link}>
               урока за гравитацията
             </Link>
             ).

@@ -325,11 +325,11 @@ export function Waves() {
           />
           <p className={text}>
             За светлината ефектът е същият по смисъл, но формулата е друга – той показва, че галактиките се отдалечават от нас (виж{' '}
-            <Link to="/astronomy/lecture09" className={link}>
+            <Link to="/astronomy/light/spectra" className={link}>
               Светлина и спектри
             </Link>{' '}
             и{' '}
-            <Link to="/astronomy/lecture28" className={link}>
+            <Link to="/astronomy/universe/expansion" className={link}>
               Разширяване на Вселената
             </Link>
             ).

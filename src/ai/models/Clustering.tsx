@@ -232,7 +232,7 @@ export function Clustering() {
             При <Term id="unsupervised-learning">ученето без учител</Term> няма „вярно“ и „грешно“ в обичайния смисъл – няма с
             какво да се сравни резултатът. <Term id="clustering">Групирането</Term> е полезно, ако групите помогнат на човек да
             разбере данните или на друг модел да работи с тях. Диаграмата от встъплението е разгледана в урока{' '}
-            <Link to="/astronomy/lecture19" className={link}>
+            <Link to="/astronomy/stars/hr-diagram" className={link}>
               HR диаграма
             </Link>
             .

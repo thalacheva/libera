@@ -327,7 +327,7 @@ export function LinearMotion() {
           <p className={text}>
             Тяло, хвърлено нагоре, се движи със същото ускорение <Tex>{'g'}</Tex>, насочено надолу, през <strong>цялото</strong> време – и при
             качването, и в най-високата точка, и при спускането. На други планети <Tex>{'g'}</Tex> е различно (виж{' '}
-            <Link to="/astronomy/lecture06" className={link}>
+            <Link to="/astronomy/gravity/gravitation" className={link}>
               Гравитация
             </Link>
             ).

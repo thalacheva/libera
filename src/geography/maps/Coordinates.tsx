@@ -256,11 +256,11 @@ export function Coordinates() {
               Окръжност и кръг
             </Link>{' '}
             и{' '}
-            <Link to="/astronomy/intro" className={link}>
+            <Link to="/astronomy/sky/intro" className={link}>
               Въведение
             </Link>{' '}
             в астрономията. Въртенето на Земята, сезоните и наклонът на оста ѝ са разгледани в урока{' '}
-            <Link to="/astronomy/lecture03" className={link}>
+            <Link to="/astronomy/sky/earth-motion" className={link}>
               Движение на Земята
             </Link>
             .
@@ -338,7 +338,7 @@ export function Coordinates() {
             е приблизително равна на географската ширина. По пладнешката височина <Tex>{'h'}</Tex> на Слънцето, когато е на юг, и
             неговата <Term id="declination">деклинация</Term> <Tex>{'\\delta'}</Tex> (тя е от −23°26′ до +23°26′ през годината):{' '}
             <Tex>{'\\varphi = 90^\\circ - h + \\delta'}</Tex>. Небесните координати и защо това е така, е обяснено в урока{' '}
-            <Link to="/astronomy/lecture02" className={link}>
+            <Link to="/astronomy/sky/coordinates" className={link}>
               Небесни координати
             </Link>
             .

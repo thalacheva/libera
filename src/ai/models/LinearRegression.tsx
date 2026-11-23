@@ -351,7 +351,7 @@ export function LinearRegression() {
           <p className={text}>
             Методът е от началото на XIX век и първата му голяма победа е в астрономията – с него Гаус намира орбитата на
             изгубената Церера, както е разказано в урока{' '}
-            <Link to="/astronomy/lecture17" className={link}>
+            <Link to="/astronomy/solar-system/asteroids" className={link}>
               Астероиди
             </Link>
             .

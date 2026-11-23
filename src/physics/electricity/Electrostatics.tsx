@@ -255,7 +255,7 @@ export function Electrostatics() {
           />
           <p className={text}>
             Законът има същия вид като закона за всеобщото привличане (виж{' '}
-            <Link to="/astronomy/lecture06" className={link}>
+            <Link to="/astronomy/gravity/gravitation" className={link}>
               Гравитация
             </Link>
             ), но електричните сили могат и да отблъскват и са несравнимо по-силни. Двете сили, с които си действат зарядите, са равни и

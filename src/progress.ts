@@ -95,3 +95,61 @@ export function clearProgress() {
     // няма какво да изтрием
   }
 }
+
+/**
+ * Старите адреси на уроците по астрономия (до ноември 2026 г.) и новите им.
+ * Ползват се за пренасочване (App.tsx) и за пренасяне на записания напредък; същите двойки са и във vercel.json.
+ */
+export const OLD_ASTRONOMY_PATHS: Record<string, string> = {
+  '/astronomy/lecture01': '/astronomy/sky/celestial-sphere',
+  '/astronomy/lecture02': '/astronomy/sky/coordinates',
+  '/astronomy/lecture03': '/astronomy/sky/earth-motion',
+  '/astronomy/lecture04': '/astronomy/sky/moon-phases',
+  '/astronomy/lecture05': '/astronomy/sky/eclipses',
+  '/astronomy/lecture06': '/astronomy/gravity/gravitation',
+  '/astronomy/lecture07': '/astronomy/gravity/kepler',
+  '/astronomy/lecture08': '/astronomy/gravity/orbits',
+  '/astronomy/lecture09': '/astronomy/light/spectra',
+  '/astronomy/lecture10': '/astronomy/light/telescopes',
+  '/astronomy/lecture11': '/astronomy/solar-system/sun',
+  '/astronomy/lecture12': '/astronomy/solar-system/solar-activity',
+  '/astronomy/lecture13': '/astronomy/solar-system/terrestrial-planets',
+  '/astronomy/lecture14': '/astronomy/solar-system/gas-giants',
+  '/astronomy/lecture15': '/astronomy/solar-system/small-bodies',
+  '/astronomy/lecture16': '/astronomy/solar-system/comets',
+  '/astronomy/lecture17': '/astronomy/solar-system/asteroids',
+  '/astronomy/lecture18': '/astronomy/stars/stars',
+  '/astronomy/lecture19': '/astronomy/stars/hr-diagram',
+  '/astronomy/lecture20': '/astronomy/stars/evolution',
+  '/astronomy/lecture21': '/astronomy/stars/compact-objects',
+  '/astronomy/lecture22': '/astronomy/stars/binaries',
+  '/astronomy/lecture23': '/astronomy/stars/variables',
+  '/astronomy/lecture24': '/astronomy/universe/distances',
+  '/astronomy/lecture25': '/astronomy/universe/galaxies',
+  '/astronomy/lecture26': '/astronomy/universe/milky-way',
+  '/astronomy/lecture27': '/astronomy/universe/big-bang',
+  '/astronomy/lecture28': '/astronomy/universe/expansion',
+  '/astronomy/lecture29': '/astronomy/universe/dark-matter',
+  '/astronomy/lecture30': '/astronomy/life/exoplanets',
+  '/astronomy/lecture31': '/astronomy/life/astrobiology',
+  '/astronomy/lecture32': '/astronomy/light/observing-methods',
+  '/astronomy/lecture33': '/astronomy/universe/relativity',
+  '/astronomy/intro': '/astronomy/sky/intro',
+};
+
+/** Напредъкът се пази по адрес на урока – еднократно го пренасяме от старите адреси към новите. */
+export function migrateOldPaths() {
+  if (typeof window === 'undefined') return;
+  try {
+    for (const [from, to] of Object.entries(OLD_ASTRONOMY_PATHS)) {
+      for (const prefix of Object.values(PREFIX)) {
+        const value = window.localStorage.getItem(prefix + from);
+        if (value === null) continue;
+        if (window.localStorage.getItem(prefix + to) === null) window.localStorage.setItem(prefix + to, value);
+        window.localStorage.removeItem(prefix + from);
+      }
+    }
+  } catch {
+    // localStorage може да е недостъпен (частен режим) – тогава няма какво да се пренася
+  }
+}

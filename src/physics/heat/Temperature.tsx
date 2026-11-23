@@ -381,7 +381,7 @@ export function Temperature() {
             <strong>Конвекция</strong> – топлият флуид се издига и носи енергията със себе си (радиатор, вятър, течения в морето).{' '}
             <strong>Излъчване</strong> – всяко тяло излъчва <Term id="em-wave">електромагнитни вълни</Term>; така Слънцето ни топли през вакуума (законите на излъчването
             са в урока{' '}
-            <Link to="/astronomy/lecture09" className={link}>
+            <Link to="/astronomy/light/spectra" className={link}>
               Светлина и спектри
             </Link>
             ).

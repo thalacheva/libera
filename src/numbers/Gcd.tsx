@@ -370,7 +370,7 @@ export function Gcd() {
           <p className={text}>
             НОД отговаря на въпроса „на колко еднакви части можем да разделим“, а НОК – „кога нещата отново ще съвпаднат“: разписания,
             зъбни колела, музикални ритми, повтарящи се затъмнения (виж{' '}
-            <Link to="/astronomy/lecture05" className={link}>
+            <Link to="/astronomy/sky/eclipses" className={link}>
               Слънчеви затъмнения
             </Link>
             ).

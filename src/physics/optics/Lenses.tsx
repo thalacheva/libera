@@ -371,7 +371,7 @@ export function Lenses() {
           <MicroscopeLab />
           <p className={text}>
             Телескопите също комбинират обектив и окуляр, но там предметът е безкрайно далеч – подробно в урока{' '}
-            <Link to="/astronomy/lecture10" className={link}>
+            <Link to="/astronomy/light/telescopes" className={link}>
               Телескопи
             </Link>
             . Колкото и да увеличаваме, светлинният микроскоп не различава детайли, по-малки от около половин <Term id="wavelength">дължина на вълната</Term> –

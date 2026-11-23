@@ -4,20 +4,209 @@
   "redirects": [
     {
       "source": "/",
-      "has": [{ "type": "host", "value": "libera-nine.vercel.app" }],
+      "has": [
+        {
+          "type": "host",
+          "value": "libera-nine.vercel.app"
+        }
+      ],
       "destination": "https://www.libera-edu.bg/",
       "statusCode": 301
     },
     {
       "source": "/:path((?!google0c26b651ebed416f\\.html$).+)",
-      "has": [{ "type": "host", "value": "libera-nine.vercel.app" }],
+      "has": [
+        {
+          "type": "host",
+          "value": "libera-nine.vercel.app"
+        }
+      ],
       "destination": "https://www.libera-edu.bg/:path",
+      "statusCode": 301
+    },
+    {
+      "source": "/astronomy/lecture01",
+      "destination": "/astronomy/sky/celestial-sphere",
+      "statusCode": 301
+    },
+    {
+      "source": "/astronomy/lecture02",
+      "destination": "/astronomy/sky/coordinates",
+      "statusCode": 301
+    },
+    {
+      "source": "/astronomy/lecture03",
+      "destination": "/astronomy/sky/earth-motion",
+      "statusCode": 301
+    },
+    {
+      "source": "/astronomy/lecture04",
+      "destination": "/astronomy/sky/moon-phases",
+      "statusCode": 301
+    },
+    {
+      "source": "/astronomy/lecture05",
+      "destination": "/astronomy/sky/eclipses",
+      "statusCode": 301
+    },
+    {
+      "source": "/astronomy/lecture06",
+      "destination": "/astronomy/gravity/gravitation",
+      "statusCode": 301
+    },
+    {
+      "source": "/astronomy/lecture07",
+      "destination": "/astronomy/gravity/kepler",
+      "statusCode": 301
+    },
+    {
+      "source": "/astronomy/lecture08",
+      "destination": "/astronomy/gravity/orbits",
+      "statusCode": 301
+    },
+    {
+      "source": "/astronomy/lecture09",
+      "destination": "/astronomy/light/spectra",
+      "statusCode": 301
+    },
+    {
+      "source": "/astronomy/lecture10",
+      "destination": "/astronomy/light/telescopes",
+      "statusCode": 301
+    },
+    {
+      "source": "/astronomy/lecture11",
+      "destination": "/astronomy/solar-system/sun",
+      "statusCode": 301
+    },
+    {
+      "source": "/astronomy/lecture12",
+      "destination": "/astronomy/solar-system/solar-activity",
+      "statusCode": 301
+    },
+    {
+      "source": "/astronomy/lecture13",
+      "destination": "/astronomy/solar-system/terrestrial-planets",
+      "statusCode": 301
+    },
+    {
+      "source": "/astronomy/lecture14",
+      "destination": "/astronomy/solar-system/gas-giants",
+      "statusCode": 301
+    },
+    {
+      "source": "/astronomy/lecture15",
+      "destination": "/astronomy/solar-system/small-bodies",
+      "statusCode": 301
+    },
+    {
+      "source": "/astronomy/lecture16",
+      "destination": "/astronomy/solar-system/comets",
+      "statusCode": 301
+    },
+    {
+      "source": "/astronomy/lecture17",
+      "destination": "/astronomy/solar-system/asteroids",
+      "statusCode": 301
+    },
+    {
+      "source": "/astronomy/lecture18",
+      "destination": "/astronomy/stars/stars",
+      "statusCode": 301
+    },
+    {
+      "source": "/astronomy/lecture19",
+      "destination": "/astronomy/stars/hr-diagram",
+      "statusCode": 301
+    },
+    {
+      "source": "/astronomy/lecture20",
+      "destination": "/astronomy/stars/evolution",
+      "statusCode": 301
+    },
+    {
+      "source": "/astronomy/lecture21",
+      "destination": "/astronomy/stars/compact-objects",
+      "statusCode": 301
+    },
+    {
+      "source": "/astronomy/lecture22",
+      "destination": "/astronomy/stars/binaries",
+      "statusCode": 301
+    },
+    {
+      "source": "/astronomy/lecture23",
+      "destination": "/astronomy/stars/variables",
+      "statusCode": 301
+    },
+    {
+      "source": "/astronomy/lecture24",
+      "destination": "/astronomy/universe/distances",
+      "statusCode": 301
+    },
+    {
+      "source": "/astronomy/lecture25",
+      "destination": "/astronomy/universe/galaxies",
+      "statusCode": 301
+    },
+    {
+      "source": "/astronomy/lecture26",
+      "destination": "/astronomy/universe/milky-way",
+      "statusCode": 301
+    },
+    {
+      "source": "/astronomy/lecture27",
+      "destination": "/astronomy/universe/big-bang",
+      "statusCode": 301
+    },
+    {
+      "source": "/astronomy/lecture28",
+      "destination": "/astronomy/universe/expansion",
+      "statusCode": 301
+    },
+    {
+      "source": "/astronomy/lecture29",
+      "destination": "/astronomy/universe/dark-matter",
+      "statusCode": 301
+    },
+    {
+      "source": "/astronomy/lecture30",
+      "destination": "/astronomy/life/exoplanets",
+      "statusCode": 301
+    },
+    {
+      "source": "/astronomy/lecture31",
+      "destination": "/astronomy/life/astrobiology",
+      "statusCode": 301
+    },
+    {
+      "source": "/astronomy/lecture32",
+      "destination": "/astronomy/light/observing-methods",
+      "statusCode": 301
+    },
+    {
+      "source": "/astronomy/lecture33",
+      "destination": "/astronomy/universe/relativity",
+      "statusCode": 301
+    },
+    {
+      "source": "/astronomy/intro",
+      "destination": "/astronomy/sky/intro",
       "statusCode": 301
     }
   ],
   "rewrites": [
-    { "source": "/:page", "destination": "/:page.html" },
-    { "source": "/:section/:page", "destination": "/:section/:page.html" },
-    { "source": "/:section/:group/:page", "destination": "/:section/:group/:page.html" }
+    {
+      "source": "/:page",
+      "destination": "/:page.html"
+    },
+    {
+      "source": "/:section/:page",
+      "destination": "/:section/:page.html"
+    },
+    {
+      "source": "/:section/:group/:page",
+      "destination": "/:section/:group/:page.html"
+    }
   ]
 }

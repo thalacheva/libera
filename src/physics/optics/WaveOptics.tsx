@@ -337,7 +337,7 @@ export function WaveOptics() {
           />
           <p className={text}>
             Затова големите телескопи различават по-фини детайли – повече за това в урока{' '}
-            <Link to="/astronomy/lecture10" className={link}>
+            <Link to="/astronomy/light/telescopes" className={link}>
               Телескопи
             </Link>
             .
@@ -367,7 +367,7 @@ export function WaveOptics() {
           <p className={text}>
             Йозеф фон Фраунхофер изработва в началото на XIX век първите прецизни решетки и с тях измерва дължините на вълните на тъмните
             линии в <Term id="spectrum">спектъра</Term> на Слънцето. Днес спектрографите с решетки разкриват състава и скоростта на звездите (виж{' '}
-            <Link to="/astronomy/lecture09" className={link}>
+            <Link to="/astronomy/light/spectra" className={link}>
               Светлина и спектри
             </Link>
             ). А пистите на CD (1,6 µm) и DVD (0,74 µm) действат като решетка – затова дисковете блестят в цветовете на дъгата.

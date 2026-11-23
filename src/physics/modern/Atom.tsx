@@ -306,7 +306,7 @@ export function Atom() {
             </Link>
             ). Той би губил енергия и би паднал по спирала в ядрото – по пресмятане за около <Tex>{'10^{-11}\\ \\mathrm{s}'}</Tex>. Освен това би
             излъчвал непрекъснат <Term id="spectrum">спектър</Term>, а нагретите газове светят само с отделни <strong>спектрални линии</strong> (виж урока{' '}
-            <Link to="/astronomy/lecture09" className={link}>
+            <Link to="/astronomy/light/spectra" className={link}>
               Светлина и спектри
             </Link>
             ). Атомите очевидно са устойчиви – значи нещо в класическата картина е грешно.
@@ -379,7 +379,7 @@ export function Atom() {
             Когато електронът премине от по-високо ниво <Tex>{'m'}</Tex> на по-ниско <Tex>{'n'}</Tex>, атомът излъчва един <Term id="photon">фотон</Term> с енергия{' '}
             <Tex>{'hf = E_m - E_n'}</Tex>. Понеже нивата са определени, определени са и <Term id="frequency">честотите</Term> – затова спектърът е линеен. Подробно сериите
             на водорода (Лайман, Балмер, Пашен) и спектралният анализ на звездите са разгледани в урока{' '}
-            <Link to="/astronomy/lecture09" className={link}>
+            <Link to="/astronomy/light/spectra" className={link}>
               Светлина и спектри
             </Link>
             .

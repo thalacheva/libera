@@ -339,7 +339,7 @@ export function Spectroscopy() {
               Атомът
             </Link>{' '}
             и{' '}
-            <Link to="/astronomy/lecture09" className={link}>
+            <Link to="/astronomy/light/spectra" className={link}>
               Светлина и спектри
             </Link>
             , а <Term id="flame-test">оцветяването на пламъка</Term> – в{' '}

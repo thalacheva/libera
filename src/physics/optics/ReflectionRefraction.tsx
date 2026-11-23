@@ -247,7 +247,7 @@ export function ReflectionRefraction() {
           <p className={text}>
             В еднородна среда светлината върви по прави линии. Тънък сноп светлина наричаме <strong>лъч</strong>. Затова предметите хвърлят
             резки сенки, а при слънчевите и <Term id="lunar-eclipse">лунните затъмнения</Term> сянката на Луната или Земята има точна форма (виж{' '}
-            <Link to="/astronomy/lecture05" className={link}>
+            <Link to="/astronomy/sky/eclipses" className={link}>
               Слънчеви затъмнения
             </Link>
             ). Светлината е <Term id="em-wave">електромагнитна вълна</Term> (виж{' '}
@@ -290,7 +290,7 @@ export function ReflectionRefraction() {
           <p className={text}>
             Вдлъбнатото (вбрано) огледало събира успоредните на оста лъчи в една точка – <strong>фокуса</strong> F. Затова с него се правят
             фарове (лампата е във фокуса и лъчите излизат успоредно), слънчеви печки и огледалата на големите телескопи (виж{' '}
-            <Link to="/astronomy/lecture10" className={link}>
+            <Link to="/astronomy/light/telescopes" className={link}>
               Телескопи
             </Link>
             ). Изпъкналото огледало разсейва лъчите – образът е умален, но се вижда по-широко пространство. Затова такива огледала се слагат на
@@ -398,7 +398,7 @@ export function ReflectionRefraction() {
           <PrismRainbowLab />
           <p className={text}>
             <Term id="spectrum">Спектрите</Term> на звездите, които астрономите разлагат с призми и решетки, разказват от какво са направени звездите – виж{' '}
-            <Link to="/astronomy/lecture09" className={link}>
+            <Link to="/astronomy/light/spectra" className={link}>
               Светлина и спектри
             </Link>
             .

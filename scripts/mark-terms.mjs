@@ -130,15 +130,15 @@ const SKIP = {
   // „семената“ на галактиките, не на растенията
   // и полуживотът на свободните неутрони, не на хормон
   // звездни популации; времето за удвояване на масата на черна дупка
-  'src/astronomy/Lecture26.tsx': ['population'],
-  'src/astronomy/Lecture25.tsx': ['doubling-time'],
+  'src/astronomy/MilkyWay.tsx': ['population'],
+  'src/astronomy/Galaxies.tsx': ['doubling-time'],
   // екологичната пирамида, не геометричната
   'src/biology/ecology/Ecosystems.tsx': ['pyramid'],
   // увеличение на числеността, не на микроскопа
   'src/biology/ecology/Populations.tsx': ['magnification'],
   // активност на животното и честота на завоите, не химична активност и трептения
   'src/biology/ecology/Behaviour.tsx': ['activity', 'frequency'],
-  'src/astronomy/Lecture27.tsx': ['seed', 'biological-half-life'],
+  'src/astronomy/BigBang.tsx': ['seed', 'biological-half-life'],
   // редици от клетки, не числова редица; ендодермата на корена, не зародишният лист
   'src/biology/plants/PlantTransport.tsx': ['sequence', 'germ-layers', 'electric-potential'],
   // колба с „тясно гърло“, не ефектът на тясното гърло
@@ -158,7 +158,7 @@ const SKIP = {
   'src/chemistry/structure/Bonding.tsx': ['binding-energy', 'resonance', 'diffraction-grating'],
   'src/chemistry/structure/AtomsTable.tsx': ['electric-charge'],
   // „количеството вещество“ в смисъл на маса, не на мол
-  'src/astronomy/Lecture06.tsx': ['amount-of-substance'],
+  'src/astronomy/Gravitation.tsx': ['amount-of-substance'],
   'src/chemistry/structure/Molecules.tsx': ['latent-heat-fusion', 'latent-heat-vaporization', 'diffraction-grating'],
   'src/analysis/Derivatives.tsx': ['average-speed'],
   // кристалната решетка, не дифракционната
@@ -227,21 +227,21 @@ const SKIP = {
   // тунелният микроскоп, не оптичният
   'src/physics/modern/ParticleInBox.tsx': ['microscope'],
   'src/physics/modern/QuantumAtom.tsx': ['momentum', 'superposition', 'inequality', 'amplitude'],
-  'src/astronomy/Lecture05.tsx': ['activity'],
-  'src/astronomy/Lecture08.tsx': ['momentum'],
-  'src/astronomy/Lecture10.tsx': ['magnification'],
-  'src/astronomy/Lecture12.tsx': ['activity'],
+  'src/astronomy/SolarEclipses.tsx': ['activity'],
+  'src/astronomy/Orbits.tsx': ['momentum'],
+  'src/astronomy/Telescopes.tsx': ['magnification'],
+  'src/astronomy/SolarActivity.tsx': ['activity'],
   // орбитален резонанс, не резонанс при трептенията
-  'src/astronomy/Lecture13.tsx': ['resonance'],
-  'src/astronomy/Lecture14.tsx': ['resonance'],
-  'src/astronomy/Lecture15.tsx': ['resonance'],
-  'src/astronomy/Lecture17.tsx': ['resonance'],
+  'src/astronomy/RockyPlanets.tsx': ['resonance'],
+  'src/astronomy/GasGiants.tsx': ['resonance'],
+  'src/astronomy/SmallBodies.tsx': ['resonance'],
+  'src/astronomy/Asteroids.tsx': ['resonance'],
   // желязната „матрица“ на метеорита, ПЗС матриците на камерите
-  'src/astronomy/Lecture16.tsx': ['matrix'],
-  'src/astronomy/Lecture32.tsx': ['matrix'],
-  'src/astronomy/Lecture24.tsx': ['voltage'],
-  'src/astronomy/Lecture28.tsx': ['voltage'],
-  'src/astronomy/Lecture29.tsx': ['coma'],
+  'src/astronomy/Comets.tsx': ['matrix'],
+  'src/astronomy/ObservingMethods.tsx': ['matrix'],
+  'src/astronomy/CosmicDistances.tsx': ['voltage'],
+  'src/astronomy/CosmicExpansion.tsx': ['voltage'],
+  'src/astronomy/DarkMatter.tsx': ['coma'],
 };
 
 // ---------- търсене ----------

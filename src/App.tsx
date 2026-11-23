@@ -1,6 +1,7 @@
 import {Menu, X} from 'lucide-react';
 import {lazy, Suspense, useEffect, useState} from 'react';
-import {Route, Routes} from 'react-router-dom';
+import {Navigate, Route, Routes} from 'react-router-dom';
+import {OLD_ASTRONOMY_PATHS} from './progress';
 import Seo from '~/Seo';
 import DevBanner from './DevBanner';
 import SidebarMenu from '~/SidebarMenu';
@@ -175,39 +176,39 @@ const Formulas = lazy(() => import('./reference/Formulas').then(m => ({default: 
 const Glossary = lazy(() => import('./reference/Glossary').then(m => ({default: m.Glossary})));
 const AstronomyIntro = lazy(() => import('./astronomy/Intro').then(m => ({default: m.Intro})));
 const Tonight = lazy(() => import('./tonight/Tonight').then(m => ({default: m.Tonight})));
-const Lecture01 = lazy(() => import('./astronomy/Lecture01'));
-const Lecture02 = lazy(() => import('./astronomy/Lecture02'));
-const Lecture03 = lazy(() => import('./astronomy/Lecture03'));
-const Lecture04 = lazy(() => import('./astronomy/Lecture04'));
-const Lecture05 = lazy(() => import('./astronomy/Lecture05'));
-const Lecture06 = lazy(() => import('./astronomy/Lecture06'));
-const Lecture07 = lazy(() => import('./astronomy/Lecture07'));
-const Lecture08 = lazy(() => import('./astronomy/Lecture08'));
-const Lecture09 = lazy(() => import('./astronomy/Lecture09'));
-const Lecture10 = lazy(() => import('./astronomy/Lecture10'));
-const Lecture11 = lazy(() => import('./astronomy/Lecture11'));
-const Lecture12 = lazy(() => import('./astronomy/Lecture12'));
-const Lecture13 = lazy(() => import('./astronomy/Lecture13'));
-const Lecture14 = lazy(() => import('./astronomy/Lecture14'));
-const Lecture15 = lazy(() => import('./astronomy/Lecture15'));
-const Lecture16 = lazy(() => import('./astronomy/Lecture16'));
-const Lecture17 = lazy(() => import('./astronomy/Lecture17'));
-const Lecture18 = lazy(() => import('./astronomy/Lecture18'));
-const Lecture19 = lazy(() => import('./astronomy/Lecture19'));
-const Lecture20 = lazy(() => import('./astronomy/Lecture20'));
-const Lecture21 = lazy(() => import('./astronomy/Lecture21'));
-const Lecture22 = lazy(() => import('./astronomy/Lecture22'));
-const Lecture23 = lazy(() => import('./astronomy/Lecture23'));
-const Lecture24 = lazy(() => import('./astronomy/Lecture24'));
-const Lecture25 = lazy(() => import('./astronomy/Lecture25'));
-const Lecture26 = lazy(() => import('./astronomy/Lecture26'));
-const Lecture27 = lazy(() => import('./astronomy/Lecture27'));
-const Lecture28 = lazy(() => import('./astronomy/Lecture28'));
-const Lecture29 = lazy(() => import('./astronomy/Lecture29'));
-const Lecture30 = lazy(() => import('./astronomy/Lecture30'));
-const Lecture31 = lazy(() => import('./astronomy/Lecture31'));
-const Lecture32 = lazy(() => import('./astronomy/Lecture32'));
-const Lecture33 = lazy(() => import('./astronomy/Lecture33'));
+const SkySphere = lazy(() => import('./astronomy/SkySphere'));
+const SkyCoordinates = lazy(() => import('./astronomy/SkyCoordinates'));
+const EarthMotion = lazy(() => import('./astronomy/EarthMotion'));
+const LunarPhases = lazy(() => import('./astronomy/LunarPhases'));
+const SolarEclipses = lazy(() => import('./astronomy/SolarEclipses'));
+const Gravitation = lazy(() => import('./astronomy/Gravitation'));
+const KeplerLaws = lazy(() => import('./astronomy/KeplerLaws'));
+const Orbits = lazy(() => import('./astronomy/Orbits'));
+const LightSpectra = lazy(() => import('./astronomy/LightSpectra'));
+const Telescopes = lazy(() => import('./astronomy/Telescopes'));
+const TheSun = lazy(() => import('./astronomy/TheSun'));
+const SolarActivity = lazy(() => import('./astronomy/SolarActivity'));
+const RockyPlanets = lazy(() => import('./astronomy/RockyPlanets'));
+const GasGiants = lazy(() => import('./astronomy/GasGiants'));
+const SmallBodies = lazy(() => import('./astronomy/SmallBodies'));
+const Comets = lazy(() => import('./astronomy/Comets'));
+const Asteroids = lazy(() => import('./astronomy/Asteroids'));
+const Stars = lazy(() => import('./astronomy/Stars'));
+const HertzsprungRussell = lazy(() => import('./astronomy/HertzsprungRussell'));
+const StellarEvolution = lazy(() => import('./astronomy/StellarEvolution'));
+const CompactObjects = lazy(() => import('./astronomy/CompactObjects'));
+const BinaryStars = lazy(() => import('./astronomy/BinaryStars'));
+const VariableStars = lazy(() => import('./astronomy/VariableStars'));
+const CosmicDistances = lazy(() => import('./astronomy/CosmicDistances'));
+const Galaxies = lazy(() => import('./astronomy/Galaxies'));
+const MilkyWay = lazy(() => import('./astronomy/MilkyWay'));
+const BigBang = lazy(() => import('./astronomy/BigBang'));
+const CosmicExpansion = lazy(() => import('./astronomy/CosmicExpansion'));
+const DarkMatter = lazy(() => import('./astronomy/DarkMatter'));
+const Exoplanets = lazy(() => import('./astronomy/Exoplanets'));
+const Astrobiology = lazy(() => import('./astronomy/Astrobiology'));
+const ObservingMethods = lazy(() => import('./astronomy/ObservingMethods'));
+const SpecialRelativity = lazy(() => import('./astronomy/SpecialRelativity'));
 
 function App() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -496,40 +497,58 @@ function App() {
             <Route path="astronomy">
               <Route index element={<SectionHome area="astronomy" />} />
               <Route path="tonight" element={<Tonight />} />
-              <Route path="intro" element={<AstronomyIntro />} />
-              <Route path="lecture01" element={<Lecture01 />} />
-              <Route path="lecture02" element={<Lecture02 />} />
-              <Route path="lecture03" element={<Lecture03 />} />
-              <Route path="lecture04" element={<Lecture04 />} />
-              <Route path="lecture05" element={<Lecture05 />} />
-              <Route path="lecture06" element={<Lecture06 />} />
-              <Route path="lecture07" element={<Lecture07 />} />
-              <Route path="lecture08" element={<Lecture08 />} />
-              <Route path="lecture09" element={<Lecture09 />} />
-              <Route path="lecture10" element={<Lecture10 />} />
-              <Route path="lecture11" element={<Lecture11 />} />
-              <Route path="lecture12" element={<Lecture12 />} />
-              <Route path="lecture13" element={<Lecture13 />} />
-              <Route path="lecture14" element={<Lecture14 />} />
-              <Route path="lecture15" element={<Lecture15 />} />
-              <Route path="lecture16" element={<Lecture16 />} />
-              <Route path="lecture17" element={<Lecture17 />} />
-              <Route path="lecture18" element={<Lecture18 />} />
-              <Route path="lecture19" element={<Lecture19 />} />
-              <Route path="lecture20" element={<Lecture20 />} />
-              <Route path="lecture21" element={<Lecture21 />} />
-              <Route path="lecture22" element={<Lecture22 />} />
-              <Route path="lecture23" element={<Lecture23 />} />
-              <Route path="lecture24" element={<Lecture24 />} />
-              <Route path="lecture25" element={<Lecture25 />} />
-              <Route path="lecture26" element={<Lecture26 />} />
-              <Route path="lecture27" element={<Lecture27 />} />
-              <Route path="lecture28" element={<Lecture28 />} />
-              <Route path="lecture29" element={<Lecture29 />} />
-              <Route path="lecture30" element={<Lecture30 />} />
-              <Route path="lecture31" element={<Lecture31 />} />
-              <Route path="lecture32" element={<Lecture32 />} />
-              <Route path="lecture33" element={<Lecture33 />} />
+              <Route path="sky">
+                <Route path="intro" element={<AstronomyIntro />} />
+                <Route path="celestial-sphere" element={<SkySphere />} />
+                <Route path="coordinates" element={<SkyCoordinates />} />
+                <Route path="earth-motion" element={<EarthMotion />} />
+                <Route path="moon-phases" element={<LunarPhases />} />
+                <Route path="eclipses" element={<SolarEclipses />} />
+              </Route>
+              <Route path="gravity">
+                <Route path="gravitation" element={<Gravitation />} />
+                <Route path="kepler" element={<KeplerLaws />} />
+                <Route path="orbits" element={<Orbits />} />
+              </Route>
+              <Route path="light">
+                <Route path="spectra" element={<LightSpectra />} />
+                <Route path="telescopes" element={<Telescopes />} />
+                <Route path="observing-methods" element={<ObservingMethods />} />
+              </Route>
+              <Route path="solar-system">
+                <Route path="sun" element={<TheSun />} />
+                <Route path="solar-activity" element={<SolarActivity />} />
+                <Route path="terrestrial-planets" element={<RockyPlanets />} />
+                <Route path="gas-giants" element={<GasGiants />} />
+                <Route path="small-bodies" element={<SmallBodies />} />
+                <Route path="comets" element={<Comets />} />
+                <Route path="asteroids" element={<Asteroids />} />
+              </Route>
+              <Route path="stars">
+                <Route path="stars" element={<Stars />} />
+                <Route path="hr-diagram" element={<HertzsprungRussell />} />
+                <Route path="evolution" element={<StellarEvolution />} />
+                <Route path="compact-objects" element={<CompactObjects />} />
+                <Route path="binaries" element={<BinaryStars />} />
+                <Route path="variables" element={<VariableStars />} />
+              </Route>
+              <Route path="universe">
+                <Route path="distances" element={<CosmicDistances />} />
+                <Route path="galaxies" element={<Galaxies />} />
+                <Route path="milky-way" element={<MilkyWay />} />
+                <Route path="big-bang" element={<BigBang />} />
+                <Route path="expansion" element={<CosmicExpansion />} />
+                <Route path="dark-matter" element={<DarkMatter />} />
+                <Route path="relativity" element={<SpecialRelativity />} />
+              </Route>
+              <Route path="life">
+                <Route path="exoplanets" element={<Exoplanets />} />
+                <Route path="astrobiology" element={<Astrobiology />} />
+              </Route>
+              {/* Старите адреси /astronomy/lectureNN и /astronomy/intro – пренасочват към новите (на сървъра това прави vercel.json) */}
+              {Object.entries(OLD_ASTRONOMY_PATHS).map(([from, to]) => (
+                <Route key={from} path={from.replace('/astronomy/', '')} element={<Navigate to={to} replace />} />
+              ))}
             </Route>
             <Route path="*" element={<NotFound />} />
           </Routes>

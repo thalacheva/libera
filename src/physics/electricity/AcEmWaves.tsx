@@ -387,11 +387,11 @@ export function AcEmWaves() {
             рентгеновите и гама лъчите са <strong>йонизиращи</strong>: могат да разкъсват молекули, включително ДНК – затова пазим кожата от
             слънцето, а рентгеновите снимки се правят само при нужда. Как астрономите наблюдават Вселената в различни дължини на вълната и как
             звездите излъчват – виж{' '}
-            <Link to="/astronomy/lecture09" className={link}>
+            <Link to="/astronomy/light/spectra" className={link}>
               Светлина и спектри
             </Link>{' '}
             и{' '}
-            <Link to="/astronomy/lecture32" className={link}>
+            <Link to="/astronomy/light/observing-methods" className={link}>
               Методи за наблюдение
             </Link>
             .

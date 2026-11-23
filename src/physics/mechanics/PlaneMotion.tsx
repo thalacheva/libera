@@ -347,7 +347,7 @@ export function PlaneMotion() {
             Същата идея обяснява защо при шофиране в дъжд капките по страничното стъкло оставят почти хоризонтални следи: спрямо колата те
             имат и голяма хоризонтална скорост назад. А в астрономията движението на планетите изглежда различно от Земята и от Слънцето –
             виж урока{' '}
-            <Link to="/astronomy/lecture03" className={link}>
+            <Link to="/astronomy/sky/earth-motion" className={link}>
               Движение на Земята
             </Link>
             .
@@ -473,7 +473,7 @@ export function PlaneMotion() {
               <Tex>{'g'}</Tex> е около 6 пъти по-малко, а въздух няма, така че при същия удар топката би летяла около 6 пъти по-далеч. Шепърд
               казва, че втората топка лети „мили и мили“, но анализ на снимките, публикуван през 2021 г., оценява, че по-далечната е паднала на
               около 37 m – скафандърът почти не му позволява да замахне. Гравитацията на Луната е в урока{' '}
-              <Link to="/astronomy/lecture06" className="text-blue-600 dark:text-blue-400 hover:underline">
+              <Link to="/astronomy/gravity/gravitation" className="text-blue-600 dark:text-blue-400 hover:underline">
                 Гравитация
               </Link>
               .

@@ -353,7 +353,7 @@ export function Momentum() {
           <RocketLab />
           <p className={text}>
             За кръгова орбита около Земята е нужна скорост около 7,9 km/s (виж{' '}
-            <Link to="/astronomy/lecture08" className={link}>
+            <Link to="/astronomy/gravity/orbits" className={link}>
               Орбити и скорости
             </Link>
             ), а със загубите от гравитацията и въздуха – около 9–10 km/s. Логаритъмът расте бавно: удвояването на горивото добавя само{' '}

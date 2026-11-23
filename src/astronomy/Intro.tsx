@@ -71,10 +71,10 @@ const QUIZ: Question[] = [
 ];
 
 const BRANCHES = [
-  { name: 'Астрометрия и небесна механика', text: 'положенията и движенията на небесните тела, календари, затъмнения, орбити', to: '/astronomy/lecture07', lecture: 'Закони на Кеплер' },
-  { name: 'Астрофизика', text: 'какво представляват звездите и как светят: излъчване, спектри, строеж и еволюция', to: '/astronomy/lecture09', lecture: 'Светлина и спектри' },
-  { name: 'Планетология', text: 'планетите, спътниците, астероидите и кометите – и екзопланетите край други звезди', to: '/astronomy/lecture13', lecture: 'Планети от земен тип' },
-  { name: 'Космология', text: 'Вселената като цяло: откъде е тръгнала, как се разширява и от какво е съставена', to: '/astronomy/lecture27', lecture: 'Големият взрив' },
+  { name: 'Астрометрия и небесна механика', text: 'положенията и движенията на небесните тела, календари, затъмнения, орбити', to: '/astronomy/gravity/kepler', lesson: 'Закони на Кеплер' },
+  { name: 'Астрофизика', text: 'какво представляват звездите и как светят: излъчване, спектри, строеж и еволюция', to: '/astronomy/light/spectra', lesson: 'Светлина и спектри' },
+  { name: 'Планетология', text: 'планетите, спътниците, астероидите и кометите – и екзопланетите край други звезди', to: '/astronomy/solar-system/terrestrial-planets', lesson: 'Планети от земен тип' },
+  { name: 'Космология', text: 'Вселената като цяло: откъде е тръгнала, как се разширява и от какво е съставена', to: '/astronomy/universe/big-bang', lesson: 'Големият взрив' },
 ];
 
 const MESSENGERS = [
@@ -144,7 +144,7 @@ export function Intro() {
                 <p className="text-sm">
                   Например:{' '}
                   <Link to={b.to} className={link}>
-                    {b.lecture}
+                    {b.lesson}
                   </Link>
                 </p>
               </div>
@@ -189,15 +189,15 @@ export function Intro() {
           </div>
           <p className="mb-4 text-base sm:text-lg leading-relaxed">
             Тези истории ще срещнете отново: гравитацията и законите на Кеплер в раздела{' '}
-            <Link to="/astronomy/lecture06" className={link}>
+            <Link to="/astronomy/gravity/gravitation" className={link}>
               „Гравитация и орбити“
             </Link>
             , телескопите в{' '}
-            <Link to="/astronomy/lecture10" className={link}>
+            <Link to="/astronomy/light/telescopes" className={link}>
               урока „Телескопи“
             </Link>
             , разширяването на Вселената в{' '}
-            <Link to="/astronomy/lecture28" className={link}>
+            <Link to="/astronomy/universe/expansion" className={link}>
               урока „Разширяване на Вселената“
             </Link>
             .
@@ -226,11 +226,11 @@ export function Intro() {
               Вместо експерименти астрономията има огромен брой обекти. Не можем да проследим живота на една звезда – той трае милиарди
               години, – но виждаме милиони звезди на различна възраст, както по снимка на тълпа можем да разберем как растат хората.
               Повече за „пратениците“ и уредите – в{' '}
-              <Link to="/astronomy/lecture09" className={link}>
+              <Link to="/astronomy/light/spectra" className={link}>
                 урока „Светлина и спектри“
               </Link>{' '}
               и{' '}
-              <Link to="/astronomy/lecture32" className={link}>
+              <Link to="/astronomy/light/observing-methods" className={link}>
                 урока „Методи за наблюдение“
               </Link>
               .
@@ -292,7 +292,7 @@ export function Intro() {
           />
           <p className="mb-4 text-base sm:text-lg leading-relaxed">
             Как се мерят тези разстояния и откъде идва парсекът – в{' '}
-            <Link to="/astronomy/lecture24" className={link}>
+            <Link to="/astronomy/universe/distances" className={link}>
               урока „Разстояния“
             </Link>
             .
@@ -322,7 +322,7 @@ export function Intro() {
                     <>
                       Векове наред моряците са определяли географската си ширина, като измерват колко високо е Полярната звезда. Защо
                       това работи – в{' '}
-                      <Link to="/astronomy/lecture01" className={link}>
+                      <Link to="/astronomy/sky/celestial-sphere" className={link}>
                         урока „Небесната сфера“
                       </Link>
                       .
@@ -361,7 +361,7 @@ export function Intro() {
           <p className="mb-4 text-base sm:text-lg leading-relaxed">
             Щом за небето има значение само посоката, можем да си го представим като сфера, върху която са „закрепени“ всички тела.
             Това е <strong>небесната сфера</strong> – с нея започва урокът{' '}
-            <Link to="/astronomy/lecture01" className={link}>
+            <Link to="/astronomy/sky/celestial-sphere" className={link}>
               „Небесната сфера“
             </Link>
             . А какво се вижда тази вечер от вашия град – в{' '}

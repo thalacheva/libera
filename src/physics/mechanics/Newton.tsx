@@ -299,7 +299,7 @@ export function Newton() {
           />
           <p className={text}>
             Откъде идва <Tex>{'mg'}</Tex> – от закона за всеобщото привличане, подробно в урока{' '}
-            <Link to="/astronomy/lecture06" className={link}>
+            <Link to="/astronomy/gravity/gravitation" className={link}>
               Гравитация
             </Link>
             . Освен тежестта в механиката срещаме:

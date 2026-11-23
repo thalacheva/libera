@@ -267,7 +267,7 @@ export function Rotation() {
               Закони на Нютон
             </Link>{' '}
             и{' '}
-            <Link to="/astronomy/lecture08" className={link}>
+            <Link to="/astronomy/gravity/orbits" className={link}>
               Орбити и скорости
             </Link>
             ). „Центробежната сила“, която усещаш в завиващия автобус, се появява само в <Term id="reference-frame">отправната система</Term> на автобуса: всъщност тялото ти иска
@@ -358,7 +358,7 @@ export function Rotation() {
           />
           <p className={text}>
             Повече за <Term id="neutron-star">неутронните звезди</Term> – в урока{' '}
-            <Link to="/astronomy/lecture21" className={link}>
+            <Link to="/astronomy/stars/compact-objects" className={link}>
               Бели джуджета и черни дупки
             </Link>
             .
