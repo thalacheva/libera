@@ -399,6 +399,28 @@ export const aiTopics = [
       { name: 'Обратно разпространение', path: '/backprop' },
     ],
   },
+  {
+    name: 'Невронни мрежи',
+    path: '/ai/networks',
+    subtopics: [
+      { name: 'От неврон до мрежа', path: '/neuron' },
+      { name: 'Обучение на дълбоки мрежи', path: '/training' },
+      { name: 'Конволюционни мрежи', path: '/convolution' },
+      { name: 'Компютърно зрение', path: '/vision' },
+    ],
+  },
+  {
+    name: 'Език',
+    path: '/ai/language',
+    subtopics: [
+      { name: 'Текстът като числа', path: '/tokens' },
+      { name: 'Вграждания', path: '/embeddings' },
+      { name: 'Внимание', path: '/attention' },
+      { name: 'Трансформърът', path: '/transformer' },
+      { name: 'Как пише езиков модел', path: '/generation' },
+      { name: 'От модел до асистент', path: '/assistants' },
+    ],
+  },
 ];
 
 export const astronomyTopics = [

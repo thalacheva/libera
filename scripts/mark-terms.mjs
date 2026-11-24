@@ -109,6 +109,12 @@ const SKIP = {
   'src/ai/learning/LossFunction.tsx': ['entropy', 'proportion', 'arithmetic-mean', 'median-triangle'],
   // встъпителната кутия, заглавие на статия в кавички, обобщението
   'src/ai/learning/GradientDescent.tsx': ['fog', 'backpropagation', 'loss-landscape'],
+  // изкуствени неврони, не нервни клетки (в „От неврон до мрежа“ първото споменаване е за истинския); „сто неврона“; дисперсия в статистиката; мащаб, магистрала, затихване и нормализиране в друг смисъл
+  'src/ai/networks/DeepTraining.tsx': ['neuron', 'wto', 'dispersion', 'scale', 'motorway', 'damping', 'normalization-data', 'training-example', 'image-classification'],
+  // изкуствен неврон; „кръстосана корелация“; рецептивното поле на мрежата (собствен термин receptive-field-ai); обобщението; мащаб
+  'src/ai/networks/ConvNets.tsx': ['neuron', 'correlation', 'receptive-field', 'backpropagation', 'scale'],
+  // встъпителната кутия; изкуствен неврон; рецептивното поле на мрежата; „малък мозък“ на гълъба; ансамбъл от модели, не от прогнози
+  'src/ai/networks/ComputerVision.tsx': ['artificial-intelligence', 'neuron', 'receptive-field', 'cerebellum', 'ensemble-forecast'],
   // встъпителната кутия, изкуствен неврон, обобщението
   'src/ai/learning/Backpropagation.tsx': ['neural-network', 'hidden-layer', 'neuron', 'chain-rule'],
   // диафрагмата на микроскопа, не дихателният мускул

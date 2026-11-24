@@ -159,6 +159,16 @@ const ModelEvaluation = lazy(() => import('./ai/models/ModelEvaluation').then(m 
 const LossFunction = lazy(() => import('./ai/learning/LossFunction').then(m => ({default: m.LossFunction})));
 const GradientDescent = lazy(() => import('./ai/learning/GradientDescent').then(m => ({default: m.GradientDescent})));
 const Backpropagation = lazy(() => import('./ai/learning/Backpropagation').then(m => ({default: m.Backpropagation})));
+const NeuronToNetwork = lazy(() => import('./ai/networks/NeuronToNetwork').then(m => ({default: m.NeuronToNetwork})));
+const DeepTraining = lazy(() => import('./ai/networks/DeepTraining').then(m => ({default: m.DeepTraining})));
+const ConvNets = lazy(() => import('./ai/networks/ConvNets').then(m => ({default: m.ConvNets})));
+const ComputerVision = lazy(() => import('./ai/networks/ComputerVision').then(m => ({default: m.ComputerVision})));
+const TextAsNumbers = lazy(() => import('./ai/language/TextAsNumbers').then(m => ({default: m.TextAsNumbers})));
+const Embeddings = lazy(() => import('./ai/language/Embeddings').then(m => ({default: m.Embeddings})));
+const Attention = lazy(() => import('./ai/language/Attention').then(m => ({default: m.Attention})));
+const TransformerLesson = lazy(() => import('./ai/language/TransformerLesson').then(m => ({default: m.TransformerLesson})));
+const TextGeneration = lazy(() => import('./ai/language/TextGeneration').then(m => ({default: m.TextGeneration})));
+const Assistants = lazy(() => import('./ai/language/Assistants').then(m => ({default: m.Assistants})));
 const Units = lazy(() => import('./physics/mechanics/Units').then(m => ({default: m.Units})));
 const Modular = lazy(() => import('./numbers/Modular').then(m => ({default: m.Modular})));
 const MyProgress = lazy(() => import('./MyProgress').then(m => ({default: m.MyProgress})));
@@ -474,6 +484,20 @@ function App() {
                 <Route path="loss" element={<LossFunction />} />
                 <Route path="gradient-descent" element={<GradientDescent />} />
                 <Route path="backprop" element={<Backpropagation />} />
+              </Route>
+              <Route path="networks">
+                <Route path="neuron" element={<NeuronToNetwork />} />
+                <Route path="training" element={<DeepTraining />} />
+                <Route path="convolution" element={<ConvNets />} />
+                <Route path="vision" element={<ComputerVision />} />
+              </Route>
+              <Route path="language">
+                <Route path="tokens" element={<TextAsNumbers />} />
+                <Route path="embeddings" element={<Embeddings />} />
+                <Route path="attention" element={<Attention />} />
+                <Route path="transformer" element={<TransformerLesson />} />
+                <Route path="generation" element={<TextGeneration />} />
+                <Route path="assistants" element={<Assistants />} />
               </Route>
             </Route>
             <Route path="geometry">
