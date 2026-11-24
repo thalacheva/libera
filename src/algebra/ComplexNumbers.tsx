@@ -267,12 +267,12 @@ export function ComplexNumbers() {
           <h2 className={h2}>2. Действия с комплексни числа</h2>
           <Theorem
             title="Събиране, изваждане и умножение"
-            description="Смятаме като с многочлени на $i$ и заместваме $i^2 = -1$: $(a + bi) \pm (c + di) = (a \pm c) + (b \pm d)i$; $(a + bi)(c + di) = (ac - bd) + (ad + bc)i$."
+            description="Смятаме като с многочлени на $i$ и заместваме $i^2 = -1$: $$\begin{aligned} (a + bi) \pm (c + di) &= (a \pm c) + (b \pm d)i \\ (a + bi)(c + di) &= (ac - bd) + (ad + bc)i \end{aligned}$$"
           />
           <Theorem
             type="definition"
             title="Спрегнато число и деление"
-            description="Спрегнатото на $z = a + bi$ е $\bar{z} = a - bi$. Тогава $z \cdot \bar{z} = a^2 + b^2$ е реално число. За да разделим, умножаваме числителя и знаменателя по спрегнатото на знаменателя: $\frac{a + bi}{c + di} = \frac{(a + bi)(c - di)}{c^2 + d^2}$."
+            description="Спрегнатото на $z = a + bi$ е $\bar{z} = a - bi$. Произведението им е реално число: $$z \cdot \bar{z} = a^2 + b^2$$ За да разделим, умножаваме числителя и знаменателя по спрегнатото на знаменателя: $$\frac{a + bi}{c + di} = \frac{(a + bi)(c - di)}{c^2 + d^2}$$"
           />
           <Proof
             title="Доказателство"
@@ -287,8 +287,8 @@ export function ComplexNumbers() {
             description="Да пресметнем $(2 + 3i)(4 - i)$ и $\frac{5 + 5i}{1 + 2i}$."
             steps={[
               '$(2 + 3i)(4 - i) = 8 - 2i + 12i - 3i^2 = 8 + 10i + 3 = 11 + 10i$',
-              '$\\frac{5 + 5i}{1 + 2i} = \\frac{(5 + 5i)(1 - 2i)}{1^2 + 2^2} = \\frac{5 - 10i + 5i - 10i^2}{5}$',
-              '$= \\frac{15 - 5i}{5} = 3 - i$ (проверка: $(3 - i)(1 + 2i) = 3 + 6i - i - 2i^2 = 5 + 5i$ ✓)',
+              '$\\frac{5 + 5i}{1 + 2i} = \\frac{(5 + 5i)(1 - 2i)}{1^2 + 2^2} = \\frac{5 - 10i + 5i - 10i^2}{5} = \\frac{15 - 5i}{5} = 3 - i$',
+              'Проверка: $(3 - i)(1 + 2i) = 3 + 6i - i - 2i^2 = 5 + 5i$ ✓',
             ]}
           />
         </section>
@@ -307,7 +307,7 @@ export function ComplexNumbers() {
           <Theorem
             type="definition"
             title="Модул"
-            description="Модулът на $z = a + bi$ е $|z| = \sqrt{a^2 + b^2}$ – разстоянието от точката $(a;\ b)$ до началото (по Питагоровата теорема). В сила е $|z|^2 = z\bar{z}$ и $|zw| = |z| \cdot |w|$."
+            description="Модулът на $z = a + bi$ е разстоянието от точката $(a;\ b)$ до началото (по Питагоровата теорема): $$|z| = \sqrt{a^2 + b^2}$$ **Свойства:** $$\begin{aligned} |z|^2 &= z\bar{z} \\ |zw| &= |z| \cdot |w| \end{aligned}$$"
           />
           <Proof
             title="Доказателство на свойствата на модула"
