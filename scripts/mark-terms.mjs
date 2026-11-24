@@ -115,6 +115,18 @@ const SKIP = {
   'src/ai/networks/ConvNets.tsx': ['neuron', 'correlation', 'receptive-field', 'backpropagation', 'scale'],
   // встъпителната кутия; изкуствен неврон; рецептивното поле на мрежата; „малък мозък“ на гълъба; ансамбъл от модели, не от прогнози
   'src/ai/networks/ComputerVision.tsx': ['artificial-intelligence', 'neuron', 'receptive-field', 'cerebellum', 'ensemble-forecast'],
+  // „сто и десет години“; изкуствен неврон; таблицата с преброяванията на буквите; несъвместими кодови таблици
+  'src/ai/language/TextAsNumbers.tsx': ['wto', 'neuron', 'census', 'mutually-exclusive-events'],
+  // „активност“ като измерение при Осгуд
+  'src/ai/language/Embeddings.tsx': ['activity'],
+  // затихване на паметта във веригата; размерност на вектора (собствен смисъл)
+  'src/ai/language/Attention.tsx': ['damping', 'dimensional-analysis'],
+  // встъпителната кутия; „логити“ са оценките (собствен термин logits), не логитът от класификацията; нормализиране по слой; мащаб
+  'src/ai/language/TransformerLesson.tsx': ['artificial-intelligence', 'logit', 'normalization-data', 'scale'],
+  // „сто и десет изречения“; семе на случайността и генератор на случайни числа, не семе на растение и електрически генератор
+  'src/ai/language/TextGeneration.tsx': ['wto', 'seed', 'generator'],
+  // пирамидата от кубчетата; фотосинтезата е само тема на примерния разговор; „сто милиона“
+  'src/ai/language/Assistants.tsx': ['pyramid', 'photosynthesis', 'wto'],
   // встъпителната кутия, изкуствен неврон, обобщението
   'src/ai/learning/Backpropagation.tsx': ['neural-network', 'hidden-layer', 'neuron', 'chain-rule'],
   // диафрагмата на микроскопа, не дихателният мускул

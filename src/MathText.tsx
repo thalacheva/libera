@@ -36,8 +36,11 @@ export function Tex({children, block = false, className}: {children: string; blo
 
 /**
  * Текст с формули: $…$ – формула в реда, $$…$$ – на отделен ред; **…** – удебелен текст.
+ * В $$…$$ може да има \\phonebreak: на телефон формулата се пренася там, на по-широк екран остава на един ред.
  * Текст без $ и ** се показва непроменен. displayStyle – дробите в реда са в пълен размер (за малки карти).
  */
+const PHONE_BREAK = '\\phonebreak';
+
 function boldText(text: string) {
   if (!text.includes('**')) return text;
   return text.split(/(\*\*[^*]+\*\*)/g).map((t, i) =>
@@ -52,7 +55,19 @@ export function MathText({children, displayStyle = false}: {children: string; di
     <>
       {parts.map((part, i) => {
         if (part.startsWith('$$') && part.endsWith('$$') && part.length > 4) {
-          return <Tex key={i} block className="my-2 overflow-x-auto overflow-y-hidden">{part.slice(2, -2)}</Tex>;
+          const tex = part.slice(2, -2);
+          // \\phonebreak – на компютър формулата е на един ред, на телефон се пренася на това място
+          if (tex.includes(PHONE_BREAK)) {
+            return (
+              <Fragment key={i}>
+                <Tex block className="hidden sm:block my-2 overflow-x-auto overflow-y-hidden">{tex.split(PHONE_BREAK).join(' ')}</Tex>
+                {tex.split(PHONE_BREAK).map((line, k) => (
+                  <Tex key={k} block className="sm:hidden my-2 overflow-x-auto overflow-y-hidden">{line.trim()}</Tex>
+                ))}
+              </Fragment>
+            );
+          }
+          return <Tex key={i} block className="my-2 overflow-x-auto overflow-y-hidden">{tex}</Tex>;
         }
         if (part.startsWith('$') && part.endsWith('$') && part.length > 2) {
           const tex = part.slice(1, -1);

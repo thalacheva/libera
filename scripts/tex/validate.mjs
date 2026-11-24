@@ -6,7 +6,7 @@ import katex from 'katex';
 
 const require = createRequire(new URL('../../package.json', import.meta.url));
 const ts = require('typescript');
-const macros = { '\\tg': '\\operatorname{tg}', '\\cotg': '\\operatorname{cotg}' };
+const macros = { '\\tg': '\\operatorname{tg}', '\\cotg': '\\operatorname{cotg}', '\\phonebreak': '' }; // \\phonebreak – пренасяне само на телефон (MathText)
 let bad = 0;
 let total = 0;
 
