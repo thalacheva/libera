@@ -169,6 +169,11 @@ const Attention = lazy(() => import('./ai/language/Attention').then(m => ({defau
 const TransformerLesson = lazy(() => import('./ai/language/TransformerLesson').then(m => ({default: m.TransformerLesson})));
 const TextGeneration = lazy(() => import('./ai/language/TextGeneration').then(m => ({default: m.TextGeneration})));
 const Assistants = lazy(() => import('./ai/language/Assistants').then(m => ({default: m.Assistants})));
+const ImageGeneration = lazy(() => import('./ai/beyond/ImageGeneration').then(m => ({default: m.ImageGeneration})));
+const ReinforcementLearning = lazy(() => import('./ai/beyond/ReinforcementLearning').then(m => ({default: m.ReinforcementLearning})));
+const FailureModes = lazy(() => import('./ai/society/FailureModes').then(m => ({default: m.FailureModes})));
+const Interpretability = lazy(() => import('./ai/society/Interpretability').then(m => ({default: m.Interpretability})));
+const SafetyFuture = lazy(() => import('./ai/society/SafetyFuture').then(m => ({default: m.SafetyFuture})));
 const Units = lazy(() => import('./physics/mechanics/Units').then(m => ({default: m.Units})));
 const Modular = lazy(() => import('./numbers/Modular').then(m => ({default: m.Modular})));
 const MyProgress = lazy(() => import('./MyProgress').then(m => ({default: m.MyProgress})));
@@ -498,6 +503,15 @@ function App() {
                 <Route path="transformer" element={<TransformerLesson />} />
                 <Route path="generation" element={<TextGeneration />} />
                 <Route path="assistants" element={<Assistants />} />
+              </Route>
+              <Route path="beyond">
+                <Route path="diffusion" element={<ImageGeneration />} />
+                <Route path="reinforcement" element={<ReinforcementLearning />} />
+              </Route>
+              <Route path="society">
+                <Route path="failures" element={<FailureModes />} />
+                <Route path="interpretability" element={<Interpretability />} />
+                <Route path="safety" element={<SafetyFuture />} />
               </Route>
             </Route>
             <Route path="geometry">

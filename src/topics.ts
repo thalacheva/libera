@@ -421,6 +421,23 @@ export const aiTopics = [
       { name: 'От модел до асистент', path: '/assistants' },
     ],
   },
+  {
+    name: 'Отвъд текста',
+    path: '/ai/beyond',
+    subtopics: [
+      { name: 'Генериране на изображения', path: '/diffusion' },
+      { name: 'Учене с подкрепление', path: '/reinforcement' },
+    ],
+  },
+  {
+    name: 'ИИ и хората',
+    path: '/ai/society',
+    subtopics: [
+      { name: 'Грешки, халюцинации и пристрастия', path: '/failures' },
+      { name: 'Какво става вътре в модела', path: '/interpretability' },
+      { name: 'Безопасност и бъдеще', path: '/safety' },
+    ],
+  },
 ];
 
 export const astronomyTopics = [

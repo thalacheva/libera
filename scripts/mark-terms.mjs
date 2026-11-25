@@ -127,6 +127,16 @@ const SKIP = {
   'src/ai/language/TextGeneration.tsx': ['wto', 'seed', 'generator'],
   // пирамидата от кубчетата; фотосинтезата е само тема на примерния разговор; „сто милиона“
   'src/ai/language/Assistants.tsx': ['pyramid', 'photosynthesis', 'wto'],
+  // зашумяване, не пренос на частици; генераторът в състезателна мрежа; семе на случайността; мащаб на числата; дисперсия и честоти в статистиката; „родословие“ на измислени художници
+  'src/ai/beyond/ImageGeneration.tsx': ['diffusion', 'generator', 'seed', 'scale', 'dispersion', 'frequency', 'pedigree'],
+  // „сто пъти“; лостът в кутията на Скинър; активност на невроните
+  'src/ai/beyond/ReinforcementLearning.tsx': ['wto', 'lever', 'activity'],
+  // „несигурна почва“; температура в софтмакса; калибриране на модел
+  'src/ai/society/FailureModes.tsx': ['soil', 'temperature', 'wto', 'calibration-curve'],
+  // суперпозиция и смущение между признаци, не вълни; изкуствен неврон; аблация на неврон, не на ледник; честота на признак; редици от ходове; „над сто“; „под микроскоп“ и мъгла в преносен смисъл
+  'src/ai/society/Interpretability.tsx': ['superposition', 'interference', 'neuron', 'glacier-mass-balance', 'frequency', 'sequence', 'wto', 'microscope', 'fog'],
+  // „сто“; подражание на глас; „струва ток“; изкуствен неврон
+  'src/ai/society/SafetyFuture.tsx': ['wto', 'observational-learning', 'electric-current', 'neuron'],
   // встъпителната кутия, изкуствен неврон, обобщението
   'src/ai/learning/Backpropagation.tsx': ['neural-network', 'hidden-layer', 'neuron', 'chain-rule'],
   // диафрагмата на микроскопа, не дихателният мускул

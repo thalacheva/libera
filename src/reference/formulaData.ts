@@ -6723,6 +6723,216 @@ export const AI: Section = {
         },
       ],
     },
+    {
+      id: 'diffusion',
+      title: 'Генериране на изображения',
+      formulas: [
+        {
+          name: 'Сбор на независими шумове',
+          formula: '\\sigma^2 = \\sigma_1^2 + \\sigma_2^2',
+          note: 'събират се дисперсиите, не стандартните отклонения; сборът на два Гаусови шума пак е Гаусов шум',
+          lesson: '/ai/beyond/diffusion',
+        },
+        {
+          name: 'Една стъпка на зашумяването',
+          formula: 'x_t = \\sqrt{1 - \\beta_t}\\; x_{t-1} + \\sqrt{\\beta_t}\\; \\varepsilon',
+          note: '$\\beta_t$ – дял на шума на стъпка $t$ (график на шума); $\\varepsilon$ – Гаусов шум със средно 0 и отклонение 1',
+          lesson: '/ai/beyond/diffusion',
+        },
+        {
+          name: 'Зашумяване наведнъж',
+          formula: 'x_t = \\sqrt{\\bar\\alpha_t}\\; x_0 + \\sqrt{1 - \\bar\\alpha_t}\\; \\varepsilon, \\quad \\bar\\alpha_t = \\prod_{s=1}^{t} (1 - \\beta_s)',
+          note: 'при постоянно $\\beta$: $\\bar\\alpha_t = (1 - \\beta)^t$; квадратите на двата множителя дават сбор 1',
+          lesson: '/ai/beyond/diffusion',
+        },
+        {
+          name: 'Загуба на дифузионния модел',
+          formula: 'L = \\frac{1}{n} \\sum_{i=1}^{n} (\\varepsilon_i - \\hat\\varepsilon_i)^2',
+          note: '$\\varepsilon$ – добавеният шум, $\\hat\\varepsilon$ – прогнозата на мрежата по $x_t$ и $t$',
+          lesson: '/ai/beyond/diffusion',
+        },
+        {
+          name: 'Прогноза за чистата картинка',
+          formula: '\\hat x_0 = \\frac{x_t - \\sqrt{1 - \\bar\\alpha_t}\\; \\hat\\varepsilon}{\\sqrt{\\bar\\alpha_t}}',
+          note: 'при много шум $\\sqrt{\\bar\\alpha_t}$ е малко и грешката в $\\hat\\varepsilon$ се увеличава – затова се върви на малки стъпки',
+          lesson: '/ai/beyond/diffusion',
+        },
+        {
+          name: 'Насочване без класификатор',
+          formula: '\\varepsilon = \\varepsilon_{\\text{без}} + w\\,(\\varepsilon_{\\text{с}} - \\varepsilon_{\\text{без}})',
+          note: '$w$ – сила на насочването; $w = 0$ – без заявка, $w = 1$ – обикновен модел със заявка, $w > 1$ – по-вярно, но по-еднообразно',
+          lesson: '/ai/beyond/diffusion',
+        },
+      ],
+    },
+    {
+      id: 'reinforcement',
+      title: 'Учене с подкрепление',
+      formulas: [
+        {
+          name: 'Възвръщаемост с отстъпка',
+          formula: 'G = r_1 + \\gamma r_2 + \\gamma^2 r_3 + \\dots',
+          note: '$\\gamma$ – коефициент на отстъпка, $0 \\le \\gamma \\le 1$; награда на стъпка номер $k$ тежи $\\gamma^{k-1}$',
+          lesson: '/ai/beyond/reinforcement',
+        },
+        {
+          name: 'Постоянна награда без край',
+          formula: 'G = \\frac{r}{1 - \\gamma}',
+          note: 'сбор на безкрайна геометрична прогресия, при $\\gamma < 1$',
+          lesson: '/ai/beyond/reinforcement',
+        },
+        {
+          name: 'Оценка на ръчка (пълзяща средна)',
+          formula: 'Q \\leftarrow Q + \\frac{1}{n}(r - Q)',
+          note: '$n$ – броят дърпания на ръчката заедно с последното; нова оценка = стара + стъпка · (видяно − очаквано)',
+          lesson: '/ai/beyond/reinforcement',
+        },
+        {
+          name: 'ε-алчна стратегия',
+          formula: 'P(\\text{най-високата оценка}) = 1 - \\varepsilon + \\frac{\\varepsilon}{k}',
+          note: '$k$ – брой действия; с вероятност $\\varepsilon$ изборът е случаен',
+          lesson: '/ai/beyond/reinforcement',
+        },
+        {
+          name: 'Уравнение на Белман',
+          formula: "Q(s, a) = r + \\gamma \\max_{a'} Q(s', a')",
+          note: "за най-добрата политика в среда без случайност; $V(s) = \\max_a Q(s, a)$; в крайно състояние $Q(s, a) = r$",
+          lesson: '/ai/beyond/reinforcement',
+        },
+        {
+          name: 'Правило на Q-ученето',
+          formula: "Q(s, a) \\leftarrow Q(s, a) + \\alpha \\left( r + \\gamma \\max_{a'} Q(s', a') - Q(s, a) \\right)",
+          note: '$\\alpha$ – скорост на обучение; изразът в скобите е грешката в предсказанието',
+          lesson: '/ai/beyond/reinforcement',
+        },
+      ],
+    },
+    {
+      id: 'failures',
+      title: 'Грешки, халюцинации и пристрастия',
+      formulas: [
+        {
+          name: 'Дълъг отговор без нито една грешка',
+          formula: 'P = q^{\\,n}',
+          note: '$n$ независими твърдения, всяко вярно с вероятност $q$; очакваният брой грешки е $n(1 - q)$',
+          lesson: '/ai/society/failures',
+        },
+        {
+          name: 'Очаквана грешка на калибриране',
+          formula: 'E = \\sum_{i=1}^{m} \\frac{n_i}{N} \\cdot |t_i - u_i|',
+          note: '$n_i$ – брой отговори в кош $i$, $u_i$ – средната им увереност, $t_i$ – делът на верните; $E = 0$ при калибриран модел',
+          lesson: '/ai/society/failures',
+        },
+        {
+          name: 'Калибриране с температура',
+          formula: 'c = \\sigma\\!\\left(\\frac{z}{T}\\right)',
+          note: '$T > 1$ намалява увереността, без да променя отговорите; $T$ се нагласява върху отделни данни',
+          lesson: '/ai/society/failures',
+        },
+        {
+          name: 'Обща точност при две групи',
+          formula: '\\text{точн} = \\frac{n_A}{n} \\cdot \\text{точн}_A + \\frac{n_B}{n} \\cdot \\text{точн}_B',
+          note: 'претеглена средна – малка група почти не влияе на общото число',
+          lesson: '/ai/society/failures',
+        },
+        {
+          name: 'Дял на лъжливите тревоги и дял на пропуснатите',
+          formula: '\\text{ЛТ} = \\frac{\\text{ЛП}}{\\text{ЛП} + \\text{ИО}}, \\qquad \\text{ПР} = \\frac{\\text{ЛО}}{\\text{ЛО} + \\text{ИП}}',
+          note: 'ЛП, ЛО – лъжливо положителни и отрицателни; ИП, ИО – истински положителни и отрицателни',
+          lesson: '/ai/society/failures',
+        },
+        {
+          name: 'Връзка между мерките за справедливост',
+          formula: '\\text{ЛТ} = \\frac{p}{1 - p} \\cdot \\frac{1 - \\text{П}}{\\text{П}} \\cdot (1 - \\text{ПР})',
+          note: '$p$ – базова честота, П – прецизност; при различно $p$ в две групи трите мерки не могат да са равни едновременно',
+          lesson: '/ai/society/failures',
+        },
+      ],
+    },
+    {
+      id: 'interpretability',
+      title: 'Какво става вътре в модела',
+      formulas: [
+        {
+          name: 'Сила на признак',
+          formula: 's = \\vec{a} \\cdot \\vec{d}',
+          note: '$\\vec{a}$ – векторът на активациите, $\\vec{d}$ – единичната посока на признака',
+          lesson: '/ai/society/interpretability',
+        },
+        {
+          name: 'Активациите като сбор от признаци',
+          formula: '\\vec{a} \\approx s_1 \\vec{d}_1 + s_2 \\vec{d}_2 + \\dots + s_m \\vec{d}_m',
+          note: 'при суперпозиция признаците $m$ са повече от невроните $n$ и посоките са само почти перпендикулярни',
+          lesson: '/ai/society/interpretability',
+        },
+        {
+          name: 'Смущение при суперпозиция',
+          formula: '\\vec{a} \\cdot \\vec{d}_i = s_i + \\sum_{j \\ne i} s_j\\,(\\vec{d}_i \\cdot \\vec{d}_j)',
+          note: 'сборът е смущението от другите включени признаци; малко е, когато те са редки и посоките са почти перпендикулярни',
+          lesson: '/ai/society/interpretability',
+        },
+        {
+          name: 'Линейна сонда',
+          formula: 'P(\\text{свойство}) = \\sigma(\\vec{w} \\cdot \\vec{a} + b)',
+          note: 'логистична регресия върху активациите; оценява се върху нови примери и се сравнява с контрола със случайни етикети',
+          lesson: '/ai/society/interpretability',
+        },
+        {
+          name: 'Загуба на разреден автоенкодер',
+          formula: 'L = |\\vec{a} - \\hat{a}|^2 + \\lambda \\sum_i f_i,\\quad \\hat{a} = \\sum_i f_i \\vec{d}_i',
+          note: '$f_i \\ge 0$ – силите на признаците; $\\lambda$ определя колко се цени разредеността спрямо точния препис',
+          lesson: '/ai/society/interpretability',
+        },
+        {
+          name: 'Насочване чрез активации',
+          formula: "\\vec{a}' = \\vec{a} + \\alpha\\,\\vec{d}",
+          note: 'при единична посока силата на признака нараства точно с $\\alpha$',
+          lesson: '/ai/society/interpretability',
+        },
+      ],
+    },
+    {
+      id: 'safety',
+      title: 'Безопасност и бъдеще',
+      formulas: [
+        {
+          name: 'Играта с копчето за изключване',
+          formula: 'E[\\max(U, 0)] \\ge \\max(\\mu, 0)',
+          note: '$U$ – ползата от действието според машината, $\\mu$ – средната ѝ оценка; да остави човека да реши никога не е по-лошо, а при несигурност е по-добро',
+          lesson: '/ai/society/safety',
+        },
+        {
+          name: 'Очаквана полза при нормално разпределена оценка',
+          formula: 'E[\\max(U, 0)] = \\mu\\,\\Phi\\!\\left(\\frac{\\mu}{\\sigma}\\right) + \\sigma\\,\\varphi\\!\\left(\\frac{\\mu}{\\sigma}\\right)',
+          note: '$\\Phi$ и $\\varphi$ – функцията на разпределение и плътността на стандартното нормално разпределение',
+          lesson: '/ai/society/safety',
+        },
+        {
+          name: 'Човек, който понякога греши',
+          formula: 'E_{\\text{пита}} = (1 - \\varepsilon)\\,E[\\max(U, 0)] + \\varepsilon\\,E[\\min(U, 0)]',
+          note: '$\\varepsilon$ – вероятността човекът да вземе обратното решение',
+          lesson: '/ai/society/safety',
+        },
+        {
+          name: 'Правило на тройката',
+          formula: 'p < \\frac{3}{n}',
+          note: 'при $n$ независими проверки без нито една грешка, с 95% сигурност; от $(1 - p)^n \\approx e^{-pn}$ и $e^{-3} \\approx 0{,}05$',
+          lesson: '/ai/society/safety',
+        },
+        {
+          name: 'Поне един успешен опит от n',
+          formula: 'P = 1 - (1 - q)^n',
+          note: '$q$ – вероятността един отделен опит да премине защитата; опитите са независими',
+          lesson: '/ai/society/safety',
+        },
+        {
+          name: 'S-крива',
+          formula: 'y = \\frac{L}{1 + e^{-k(t - t_0)}}',
+          note: '$L$ – таван, $t_0$ – моментът на най-бърз растеж ($y = \\frac{L}{2}$); далеч преди $t_0$ е почти експонента $L e^{k(t - t_0)}$',
+          lesson: '/ai/society/safety',
+        },
+      ],
+    },
   ],
 };
 
