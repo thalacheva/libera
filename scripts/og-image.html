@@ -1,76 +1,30 @@
-<!doctype html>
-<html lang="bg"><head><meta charset="utf-8">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800&display=swap&subset=cyrillic" rel="stylesheet">
-<style>
-*{margin:0;padding:0;box-sizing:border-box}
-html,body{width:1200px;height:630px;overflow:hidden}
-body{font-family:Inter,sans-serif;color:#fff;position:relative;
- background:
-  radial-gradient(520px 340px at 900px 40px,#2c2a72 0%,transparent 70%),
-  radial-gradient(460px 300px at 120px 640px,#16295e 0%,transparent 70%),
-  #0d1022}
-svg.deco{position:absolute;inset:0}
-.top{position:absolute;top:118px;left:0;right:0;display:flex;justify-content:center;align-items:center;gap:34px}
-.logo{width:116px;height:116px;border-radius:26px;background:linear-gradient(135deg,#3b82f6,#4f46e5);display:flex;align-items:center;justify-content:center;box-shadow:0 0 60px rgba(79,70,229,.55)}
-.name{font-size:104px;font-weight:800;letter-spacing:-3px;line-height:1}
-.tag{font-size:31px;font-weight:600;color:#a5b4fc;margin-top:6px}
-h1{position:absolute;top:300px;left:0;right:0;text-align:center;font-size:39px;font-weight:700;line-height:1.3}
-.chips{position:absolute;top:438px;left:0;right:0;display:flex;justify-content:center;gap:16px}
-.chip{font-size:23px;font-weight:600;padding:13px 24px;border-radius:999px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.18)}
-.url{position:absolute;top:530px;left:0;right:0;text-align:center;font-size:27px;font-weight:600;color:#c7d2fe;letter-spacing:.5px}
-.url b{color:#fff}
-</style></head><body>
-<svg class="deco" width="1200" height="630">
- <g fill="#fff" opacity=".45">
-  <circle cx="555" cy="28" r="1.5"/><circle cx="968" cy="22" r="1.5"/><circle cx="182" cy="242" r="1.5"/>
-  <circle cx="1170" cy="236" r="1.5"/><circle cx="108" cy="410" r="1.5"/><circle cx="715" cy="436" r="1.5"/>
-  <circle cx="1060" cy="440" r="1.5"/><circle cx="380" cy="425" r="1.5"/><circle cx="860" cy="270" r="1.5"/>
-  <circle cx="300" cy="60" r="1.5"/><circle cx="1110" cy="330" r="1.5"/><circle cx="60" cy="300" r="1.5"/>
- </g>
- <!-- parabola -->
- <g stroke="#ffffff" stroke-opacity=".12"><line x1="30" y1="168" x2="220" y2="168"/><line x1="124" y1="52" x2="124" y2="218"/></g>
- <path d="M58 58 Q124 278 190 58" fill="none" stroke="#34d399" stroke-width="3"/>
- <circle cx="58" cy="58" r="5" fill="#34d399"/><circle cx="190" cy="58" r="5" fill="#34d399"/>
- <!-- orbit -->
- <ellipse cx="1068" cy="138" rx="108" ry="52" transform="rotate(-8 1068 138)" fill="none" stroke="#c7d2fe" stroke-opacity=".7" stroke-width="2" stroke-dasharray="6 6"/>
- <circle cx="1068" cy="138" r="25" fill="#f5c542" fill-opacity=".25"/><circle cx="1068" cy="138" r="15" fill="#f5c542"/>
- <circle cx="1169" cy="108" r="9" fill="#6366f1" stroke="#a5b4fc" stroke-width="2"/>
- <!-- benzene -->
- <g fill="none" stroke="#eab308" stroke-width="3">
-  <polygon points="93,540 128,560 128,600 93,620 58,600 58,560"/><circle cx="93" cy="580" r="17"/><line x1="128" y1="560" x2="168" y2="532"/>
- </g><circle cx="172" cy="530" r="8" fill="#eab308"/>
- <!-- wave -->
- <path d="M232 610 q26 -38 52 0 t52 0 t52 0 t52 0" fill="none" stroke="#38bdf8" stroke-width="3"/>
- <!-- globe -->
- <g transform="translate(828 572)" fill="none" stroke="#2dd4bf" stroke-width="2.5" opacity=".85">
-  <circle r="44"/><ellipse rx="18" ry="44"/><line x1="-44" y1="0" x2="44" y2="0"/>
-  <path d="M-38 -22 Q0 -14 38 -22"/><path d="M-38 22 Q0 30 38 22"/>
- </g>
- <!-- dna -->
- <g transform="translate(996 580)" stroke-width="3" fill="none">
-  <path d="M0 0 C 22 -30 66 -30 88 0 S 154 30 176 0" stroke="#f472b6"/>
-  <path d="M0 0 C 22 30 66 30 88 0 S 154 -30 176 0" stroke="#fb7185" stroke-opacity=".75"/>
-  <g stroke="#f9a8d4" stroke-opacity=".55" stroke-width="2">
-   <line x1="22" y1="-17" x2="22" y2="17"/><line x1="44" y1="-22" x2="44" y2="22"/><line x1="66" y1="-17" x2="66" y2="17"/>
-   <line x1="110" y1="-17" x2="110" y2="17"/><line x1="132" y1="-22" x2="132" y2="22"/><line x1="154" y1="-17" x2="154" y2="17"/>
-  </g>
- </g>
- <!-- arithmetic -->
- <g font-family="Inter" font-weight="800" font-size="38" opacity=".8">
-  <text x="1010" y="268" fill="#fb923c">1+2<tspan fill="#fbbf24">=3</tspan></text>
-  <text x="52" y="270" fill="#a78bfa" font-size="34">7×8</text>
- </g>
-</svg>
-
-<div class="top">
- <div class="logo"><svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M12 7v14"/><path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></svg></div>
- <div><div class="name">Libera</div><div class="tag">Учи свободно</div></div>
-</div>
-<h1>Интерактивни уроци по математика, физика,<br>астрономия, химия, биология и география</h1>
-<div class="chips">
- <div class="chip">Безплатно, без регистрация</div>
- <div class="chip">Симулации</div>
- <div class="chip">Разбери света около теб</div>
-</div>
-<div class="url"><b>libera-edu.bg</b></div>
-</body></html>
+<!doctype html><html lang="bg"><head><meta charset="utf-8"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800&display=swap&subset=cyrillic" rel="stylesheet"><style>*{margin:0;padding:0;box-sizing:border-box}html,body{width:1200px;height:630px;overflow:hidden}body{font-family:Inter,sans-serif;position:relative}body{color:#fff;background:linear-gradient(135deg,#1d4ed8 0%,#4338ca 55%,#312e81 100%)}
+.l{position:absolute;left:70px;top:70px;width:540px}
+.brand{display:flex;align-items:center;gap:18px}
+.logo{width:74px;height:74px;border-radius:18px;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.35);display:flex;align-items:center;justify-content:center}
+.name{font-size:66px;font-weight:800;letter-spacing:-2px;line-height:1}
+.tag{font-size:24px;font-weight:600;color:#c7d2fe;margin-left:6px}
+h1{font-size:52px;font-weight:800;line-height:1.14;margin-top:44px;letter-spacing:-1px}
+.sub{font-size:25px;font-weight:600;color:#e0e7ff;margin-top:22px;line-height:1.4}
+.card{position:absolute;left:668px;top:78px;width:464px;background:#fff;border-radius:22px;box-shadow:0 30px 60px rgba(15,23,42,.45);padding:22px;color:#0f172a}
+.card svg{display:block;border-radius:12px}
+.row{display:flex;align-items:center;gap:14px;margin-top:16px;font-size:19px;font-weight:700;color:var(--a)}
+.track{flex:1;height:8px;border-radius:8px;background:linear-gradient(90deg,var(--a) var(--p),#e2e8f0 var(--p));position:relative}
+.knob{position:absolute;left:var(--p);top:-9px;width:26px;height:26px;margin-left:-13px;border-radius:50%;background:#fff;border:4px solid var(--a);box-shadow:0 2px 6px rgba(0,0,0,.25)}
+.chips{display:flex;gap:10px;margin-top:16px}
+.chips div{font-size:17px;font-weight:700;padding:7px 13px;border-radius:9px;background:#eef2ff;color:#3730a3}
+.chips div+div{background:#ecfdf5;color:#047857}
+.strip{position:absolute;left:0;right:0;bottom:0;height:140px;background:rgba(13,16,34,.55);display:flex;justify-content:space-around;align-items:flex-start;padding:26px 40px 0}
+.s{display:flex;flex-direction:column;align-items:center;gap:8px;font-size:17px;font-weight:600;color:#e0e7ff;width:150px;text-align:center;line-height:1.15}</style></head><body><div class="l"><div class="brand"><div class="logo"><svg width="42" height="42" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M12 7v14"/><path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></svg></div><div class="name">Libera</div><div class="tag">Учи свободно</div></div><h1>Интерактивни уроци и симулации</h1><div class="sub">Безплатно, без регистрация<br><b style="color:#fff">libera-edu.bg</b></div></div>
+<div class="card" style="--a:#6366f1;--p:30%"><svg width="420" height="230" viewBox="0 0 420 230"><defs><radialGradient id="sun"><stop offset="0" stop-color="#fde68a"/><stop offset=".35" stop-color="#f5c542"/><stop offset="1" stop-color="#f5c542" stop-opacity="0"/></radialGradient>
+<marker id="ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#34d399"/></marker></defs>
+<rect width="420" height="230" fill="#0d1022"/><circle cx="138" cy="38" r="1.4" fill="#fff" opacity="0.32"/><circle cx="342" cy="26" r="1.4" fill="#fff" opacity="0.33"/><circle cx="213" cy="13" r="1" fill="#fff" opacity="0.51"/><circle cx="104" cy="126" r="0.8" fill="#fff" opacity="0.71"/><circle cx="56" cy="54" r="1.4" fill="#fff" opacity="0.59"/><circle cx="30" cy="134" r="0.8" fill="#fff" opacity="0.79"/><circle cx="24" cy="194" r="1" fill="#fff" opacity="0.51"/><circle cx="227" cy="131" r="1.4" fill="#fff" opacity="0.71"/><circle cx="79" cy="133" r="1.4" fill="#fff" opacity="0.39"/><circle cx="45" cy="162" r="1.4" fill="#fff" opacity="0.33"/><circle cx="89" cy="155" r="1" fill="#fff" opacity="0.69"/><circle cx="196" cy="208" r="1" fill="#fff" opacity="0.45"/><circle cx="331" cy="159" r="0.8" fill="#fff" opacity="0.34"/><circle cx="128" cy="114" r="1" fill="#fff" opacity="0.66"/><circle cx="123" cy="221" r="0.8" fill="#fff" opacity="0.56"/><circle cx="73" cy="80" r="1" fill="#fff" opacity="0.51"/><circle cx="399" cy="22" r="1.4" fill="#fff" opacity="0.59"/><circle cx="364" cy="74" r="1.4" fill="#fff" opacity="0.48"/><circle cx="209" cy="180" r="0.8" fill="#fff" opacity="0.72"/><circle cx="392" cy="109" r="1.4" fill="#fff" opacity="0.33"/><circle cx="305" cy="73" r="1.4" fill="#fff" opacity="0.80"/><circle cx="342" cy="68" r="1" fill="#fff" opacity="0.74"/><circle cx="147" cy="212" r="1" fill="#fff" opacity="0.38"/><circle cx="53" cy="18" r="1" fill="#fff" opacity="0.36"/><circle cx="107" cy="91" r="1" fill="#fff" opacity="0.34"/><circle cx="189" cy="126" r="0.8" fill="#fff" opacity="0.71"/><circle cx="359" cy="66" r="1" fill="#fff" opacity="0.79"/><circle cx="285" cy="89" r="0.8" fill="#fff" opacity="0.38"/><circle cx="77" cy="56" r="0.8" fill="#fff" opacity="0.31"/><circle cx="346" cy="45" r="1" fill="#fff" opacity="0.30"/><circle cx="177" cy="86" r="1.4" fill="#fff" opacity="0.46"/><circle cx="56" cy="194" r="1.4" fill="#fff" opacity="0.63"/><circle cx="308" cy="105" r="1.4" fill="#fff" opacity="0.70"/><circle cx="166" cy="93" r="0.8" fill="#fff" opacity="0.54"/><circle cx="169" cy="47" r="0.8" fill="#fff" opacity="0.52"/><circle cx="50" cy="137" r="0.8" fill="#fff" opacity="0.30"/><circle cx="67" cy="27" r="1" fill="#fff" opacity="0.61"/><circle cx="34" cy="51" r="1" fill="#fff" opacity="0.37"/><circle cx="108" cy="81" r="1" fill="#fff" opacity="0.54"/><circle cx="52" cy="112" r="1" fill="#fff" opacity="0.54"/><circle cx="133" cy="37" r="1.4" fill="#fff" opacity="0.47"/><circle cx="114" cy="187" r="0.8" fill="#fff" opacity="0.56"/><circle cx="89" cy="214" r="1" fill="#fff" opacity="0.37"/><circle cx="228" cy="11" r="1.4" fill="#fff" opacity="0.45"/><circle cx="269" cy="25" r="1" fill="#fff" opacity="0.56"/>
+<path d="M65.3 115 L394.3 106.3 A180 100 0 0 0 352.9 50.7 Z" fill="#818cf8" opacity=".38"/>
+<ellipse cx="215" cy="115" rx="180" ry="100" fill="none" stroke="#c7d2fe" stroke-width="2" stroke-dasharray="5 6" opacity=".8"/>
+<circle cx="65.3" cy="115" r="30" fill="url(#sun)"/><circle cx="65.3" cy="115" r="11" fill="#f5c542"/>
+<line x1="352.9" y1="50.7" x2="306" y2="19.6" stroke="#34d399" stroke-width="3.5" marker-end="url(#ah)"/>
+<circle cx="352.9" cy="50.7" r="9" fill="#a5b4fc" stroke="#fff" stroke-width="2.5"/>
+<text x="410" y="80" text-anchor="end" font-family="Inter" font-weight="700" font-size="15" fill="#e0e7ff">комета</text>
+<text x="238" y="100" font-family="Inter" font-weight="600" font-size="14" fill="#c7d2fe">равни площи</text></svg>
+<div class="row">скорост<div class="track"><div class="knob"></div></div>8 km/s</div><div class="chips"><div>a = 3 AU</div><div>T ≈ 5,2 години</div></div></div>
+<div class="strip"><div class="s"><svg width="46" height="46" viewBox="0 0 48 48" fill="none" stroke="#60a5fa" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="color:#60a5fa"><path d="M4 34h40M24 4v40" opacity=".35" stroke-width="2"/><path d="M8 6 Q24 62 40 6"/></svg><span>Математика</span></div><div class="s"><svg width="46" height="46" viewBox="0 0 48 48" fill="none" stroke="#34d399" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="color:#34d399"><path d="M4 24 q5 -18 10 0 t10 0 t10 0 t10 0"/></svg><span>Физика</span></div><div class="s"><svg width="46" height="46" viewBox="0 0 48 48" fill="none" stroke="#c084fc" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="color:#c084fc"><ellipse cx="24" cy="24" rx="20" ry="10" stroke-dasharray="3 5" stroke-width="2"/><circle cx="24" cy="24" r="5.5" fill="currentColor" stroke="none"/><circle cx="42" cy="19.5" r="3.2" fill="currentColor" stroke="none"/></svg><span>Астрономия</span></div><div class="s"><svg width="46" height="46" viewBox="0 0 48 48" fill="none" stroke="#fbbf24" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="color:#fbbf24"><polygon points="24,6 39.6,15 39.6,33 24,42 8.4,33 8.4,15"/><circle cx="24" cy="24" r="8"/></svg><span>Химия</span></div><div class="s"><svg width="46" height="46" viewBox="0 0 48 48" fill="none" stroke="#fb7185" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="color:#fb7185"><path d="M4 24 C10 8 18 8 24 24 S38 40 44 24"/><path d="M4 24 C10 40 18 40 24 24 S38 8 44 24"/><path d="M10 17v14M17 15v18M31 15v18M38 17v14" opacity=".6" stroke-width="2"/></svg><span>Биология</span></div><div class="s"><svg width="46" height="46" viewBox="0 0 48 48" fill="none" stroke="#38bdf8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="color:#38bdf8"><circle cx="24" cy="24" r="19"/><ellipse cx="24" cy="24" rx="8" ry="19"/><path d="M5 24h38M8 14q16 5 32 0M8 34q16 -5 32 0"/></svg><span>География</span></div><div class="s"><svg width="46" height="46" viewBox="0 0 48 48" fill="none" stroke="#e879f9" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="color:#e879f9"><path d="M8 14 L24 8" stroke-width="1.5" opacity=".55"/><path d="M8 14 L24 24" stroke-width="1.5" opacity=".55"/><path d="M8 14 L24 40" stroke-width="1.5" opacity=".55"/><path d="M8 34 L24 8" stroke-width="1.5" opacity=".55"/><path d="M8 34 L24 24" stroke-width="1.5" opacity=".55"/><path d="M8 34 L24 40" stroke-width="1.5" opacity=".55"/><path d="M24 8 L40 24" stroke-width="1.5" opacity=".55"/><path d="M24 24 L40 24" stroke-width="1.5" opacity=".55"/><path d="M24 40 L40 24" stroke-width="1.5" opacity=".55"/><circle cx="8" cy="14" r="4" fill="currentColor" stroke="none"/><circle cx="8" cy="34" r="4" fill="currentColor" stroke="none"/><circle cx="24" cy="8" r="4" fill="currentColor" stroke="none"/><circle cx="24" cy="24" r="4" fill="currentColor" stroke="none"/><circle cx="24" cy="40" r="4" fill="currentColor" stroke="none"/><circle cx="40" cy="24" r="4" fill="currentColor" stroke="none"/></svg><span>Изкуствен интелект</span></div></div></body></html>
